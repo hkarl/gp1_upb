@@ -1,0 +1,13 @@
+[Unit]
+Description=Jupyterhub
+After=syslog.target network.target
+
+[Service]
+User=jupyterhub
+WorkingDirectory=/home/jupyterhub/
+ExecStart=/usr/local/bin/jupyterhub -f /home/jupyterhub/jupyterhub_config.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

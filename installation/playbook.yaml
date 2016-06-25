@@ -54,10 +54,16 @@
   hosts: gp1hub
   remote_user: root
   tasks:
-    - group: name=jupyterhub state=present 
-    - action: user name=jupyterhub comment="JupyterHub User" state=present shell=/bin/date group=user groups=jupyterhub
-    - action: user name=hkarl groups=jupyterhub append=yes
-      
+  - name: Create group for jupyterhub account 
+    group: name=jupyterhub state=present
+  - name: Create jupyterhub user 
+    action: user name=jupyterhub comment="JupyterHub User" state=present shell=/bin/date group=user groups="jupyterhub,shadow"
+  - name: Add admin user to the jupyterhub group
+    action: user name=hkarl groups=jupyterhub append=yes
+  # TODO: think about whether public-key based login would help
+  # - name: Copy public key to JupyterHub
+  #   copy: src=/Users/hkarl/.ssh/id_rsa.pub dest=/home/jupyterhub/.ssh/authorized_keys owner=jupyterhub mode=0600 
+  tags: user
 
 
 
@@ -100,3 +106,16 @@
   - name: Copy prepared sudoers file
     copy: src=sudoers.jupyterhub dest=/etc/sudoers.d/jupyterhub owner=root group=root mode=0440
   tags: sudo
+
+
+# Configure Jupyterhub and start it as a service
+- name: Config Jupyterhub as a service 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Copy service description file 
+    copy: src=jupyterhub.service dest=/lib/systemd/system/jupyterhub.service owner=root mode=0644
+  - name: Start the service
+    service: name=jupyterhub state=started
+  tags: service
+  
