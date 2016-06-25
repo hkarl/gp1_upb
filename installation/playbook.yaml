@@ -47,6 +47,20 @@
 
 # -------------------- 
 # JupyterHub as such
+
+# create a user and a directory under which to run jupyterhub
+
+- name: Create JupyterHub user and group, add some user 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+    - group: name=jupyterhub state=present 
+    - action: user name=jupyterhub comment="JupyterHub User" state=present shell=/bin/date group=user groups=jupyterhub
+    - action: user name=hkarl groups=jupyterhub append=yes
+      
+
+
+
 # Single-user notebook:
 - name: JupyterNotebook
   hosts: gp1hub
@@ -58,7 +72,7 @@
 
 
 # Compare: https://github.com/jupyterhub/jupyterhub
-- name: NodeJs 
+- name: Install software for jupyterhub 
   hosts: gp1hub
   remote_user: root
   tasks:
@@ -70,6 +84,19 @@
     npm: name=configurable-http-proxy global=yes
   - name: install jupyterhub itself
     pip: name=jupyterhub executable=pip3
+  - name: install sudospawner
+    pip: name=git+https://github.com/jupyter/sudospawner executable=pip3
+    ignore_errors: yes
+    # this needs checking - does it work despite error message? almost looks like it! TODO! 
   tags: jupyter 
 
-  
+
+# Set the sudoers file for the jupyterhub user
+# compare: https://github.com/jupyterhub/jupyterhub/wiki/Using-sudo-to-run-JupyterHub-without-root-privileges
+- name: Manipulate sudoers file
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Copy prepared sudoers file
+    copy: src=sudoers.jupyterhub dest=/etc/sudoers.d/jupyterhub owner=root group=root mode=0440
+  tags: sudo
