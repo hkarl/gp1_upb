@@ -171,7 +171,8 @@
 # c.JupyterHub.pid_file = ''
 
 # The public facing port of the proxy
-# c.JupyterHub.port = 8000
+c.JupyterHub.port = 8000
+# c.JupyterHub.port = 443
 
 # The ip for the proxy API handlers
 # c.JupyterHub.proxy_api_ip = '127.0.0.1'
@@ -182,7 +183,7 @@
 # The Proxy Auth token.
 # 
 # Loaded from the CONFIGPROXY_AUTH_TOKEN env variable by default.
-# c.JupyterHub.proxy_auth_token = ''
+c.JupyterHub.proxy_auth_token = '3487d889ae9e718440a3455222849665eae234fa7d4d6e1f6ef8578323ed27f7'
 
 # Interval (in seconds) at which to check if the proxy is running.
 # c.JupyterHub.proxy_check_interval = 30
@@ -199,16 +200,17 @@
 # 
 # Should be a subclass of Spawner.
 # c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+c.JupyterHub.spawner_class = 'sudospawner.SudoSpawner'
 
 # Path to SSL certificate file for the public facing interface of the proxy
 # 
 # Use with ssl_key
-# c.JupyterHub.ssl_cert = ''
+c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/fullchain.pem'
 
 # Path to SSL key file for the public facing interface of the proxy
 # 
 # Use with ssl_cert
-# c.JupyterHub.ssl_key = ''
+c.JupyterHub.ssl_key = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/privkey.pem'
 
 # Host to send statds metrics to
 # c.JupyterHub.statsd_host = ''

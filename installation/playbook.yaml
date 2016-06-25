@@ -24,6 +24,12 @@
       ufw: rule=limit name=OpenSSH 
     - name: allow Web80
       ufw: rule=allow port=80 proto=tcp
+    # TODO: decide whether we proxy via 443 or over 8000
+    # likely will depend on the decision regarding nginx reverse proxy
+    - name: allow Web443
+      ufw: rule=allow port=443 proto=tcp
+    - name: allow Web8000
+      ufw: rule=allow port=8000 proto=tcp
     - name: turn on ufw
       ufw: state=enabled policy=deny
 
@@ -41,7 +47,14 @@
         - git 
         - python3-dev
         - python3-pip
-        - build-essential 
+        - build-essential
+    - name: Add jessie backports (for certbot)
+      copy: src=jessie-backports.list dest=/etc/apt/sources.list.d/jessie-backports.list owner=root mode=0644
+    # TODO: the installation from backports seems to fail via ansible
+    # it worked on command line ? 
+    # - name: install certbot
+    #   apt: name=certbot state=latest default_release=jessie-backports update_cache=yes
+    # 
   tags: software 
 
 
@@ -66,6 +79,24 @@
   tags: user
 
 
+
+- name: Set up certificates 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+    # TODO: obtain the certificate from letsencrypt, setup cron job for renewal
+    # See: https://galaxy.ansible.com/telusdigital/certbot/ ??
+    #     
+  # Certbot certificate need to be readable to jupyterhub user
+    - name: Add ACL for certificate directory
+      acl: name=/etc/letsencrypt/live entity=jupyterhub etype=user permissions="rx" state=present
+    - name: Add ACL for certificate directory
+      acl: name=/etc/letsencrypt/archive entity=jupyterhub etype=user permissions="rx" state=present
+    - name: Add ACL for certificate file
+      acl: name=/etc/letsencrypt/archive/gp1test.cs.uni-paderborn.de/privkey1.pem entity=jupyterhub etype=user permissions="r" state=present
+    - name: Add ACL for certificate file
+      acl: name=/etc/letsencrypt/archive/gp1test.cs.uni-paderborn.de/fullchain1.pem entity=jupyterhub etype=user permissions="r" state=present
+  tags: certify
 
 # Single-user notebook:
 - name: JupyterNotebook
@@ -108,11 +139,14 @@
   tags: sudo
 
 
+  
 # Configure Jupyterhub and start it as a service
 - name: Config Jupyterhub as a service 
   hosts: gp1hub
   remote_user: root
   tasks:
+  - name: Copy jupyterhub configuration file 
+    copy: src=jupyterhub_config.py dest=/home/jupyterhub owner=jupyterhub group=user mode=0644
   - name: Copy service description file 
     copy: src=jupyterhub.service dest=/lib/systemd/system/jupyterhub.service owner=root mode=0644
   - name: Start the service
