@@ -1,0 +1,75 @@
+---
+# Installing a JupyterHub server for GP1
+# including grading function.
+# Various sources to consider:
+# - https://github.com/minrk/jupyterhub-deploy
+# - newer fork: https://github.com/compmodels/jupyterhub-deploy
+# - https://groups.google.com/forum/#!topic/jupyter/iX40zCPucAo
+# - https://galaxy.ansible.com/jenkstom/jupyterhub/ (not looked at
+# that yet)
+
+# -------------------- 
+# Basic setup 
+- name: Firewall
+  remote_user: root
+  hosts: gp1hub
+  tasks: 
+    - name: Get ufw 
+      apt: name=ufw state=installed 
+    - name: turn loggin on 
+      ufw: logging=on 
+    - name: allow ssh 
+      ufw: rule=limit port=ssh proto=tcp
+    - name: allow OpenSSH 
+      ufw: rule=limit name=OpenSSH 
+    - name: allow Web80
+      ufw: rule=allow port=80 proto=tcp
+    - name: turn on ufw
+      ufw: state=enabled policy=deny
+
+  tags: fw
+
+
+# basic software
+- name: Basic software installation 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+    - name: Basic software via apt 
+      apt: name={{ item }} state=installed
+      with_items:
+        - git 
+        - python3-dev
+        - python3-pip
+        - build-essential 
+  tags: software 
+
+
+# -------------------- 
+# JupyterHub as such
+# Single-user notebook:
+- name: JupyterNotebook
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Install Jupyter standalone notebook
+    pip: name=jupyter executable=pip3 state=latest
+  tags: jupyter 
+
+
+# Compare: https://github.com/jupyterhub/jupyterhub
+- name: NodeJs 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Install npm
+    apt: name=npm state=installed
+  - name: Install nodejs-legacy
+    apt: name=nodejs-legacy state=installed
+  - name: install the proxy
+    npm: name=configurable-http-proxy global=yes
+  - name: install jupyterhub itself
+    pip: name=jupyterhub executable=pip3
+  tags: jupyter 
+
+  

@@ -1,0 +1,394 @@
+#+TITLE: Allgemeine Struktur für eine Vorlesung GP1 
+
+* Organisation 
+
+** Willkommen! 
+
+** Wer sind wir?
+
+** Wer sind Sie? 
+
+- Pingo? 
+
+** Wie funktioniert eine Vorlesung? 
+
+- Was passiert da allgemein? 
+
+** Wie funktioniert GP1? 
+
+- Struktur 
+- Termine 
+
+
+** Präsenzübungen 
+
+- Zweck 
+- Termine
+- Anmeldung 
+
+** Hausübungen 
+
+- Zweck 
+- Noch keine Details zum Abgabemechanismus
+
+** Wo findet sich was? 
+
+- PAUL, Koala, Poolrechner 
+
+** Erwartungsmanagement: Sie an uns 
+
+** Erwartungsmanagement: Wir an Sie
+
+** Hilfen: Unterlagen 
+
+- Buch? Literatur? 
+
+
+** LZI 
+
+** Prüfung 
+
+   
+
+* Zweck von GP1 
+
+** GP1 im Studienverlauf 
+
+- Das Modul I.1.1 !
+- Inhalt
+
+** Ziel der Vorlesung: Modulhandbuch 
+
+Die Studierenden sollen
+- die Programmentwicklung von Grund auf erlernen;
+- lernen, Sprachkonstrukte sinnvoll und mit Verständnis anzuwenden;
+- grundlegende Konzepte der objektorientierten Programmierung verstehen und anzuwenden lernen;
+- lernen, Software aus objektorientierten Bibliotheken wiederzuverwenden.
+
+** Was ist Programmierung? 
+- Denken in Algorithmen und Datenstrukturen 
+- Ausdrücken in einen Formalismus
+- Nutzung von Werkzeugen 
+- Finden und nutzen von Teillösungen 
+- Bodenhaftung 
+
+Puzzle-Bild? 
+
+** Denken in Algorithmen und Datenstrukturen 
+
+- Was ist ein Algorithmus? 
+- Was heißt das? 
+- Was davon passiert hier? 
+- Abgrenzung zur DuA 
+
+
+** Ausdrücken in Formalismus 
+
+- "Coding" 
+- Was meint Formalismus? 
+- Klassen davon
+  - imperativ, funktional, OO, ...
+- Beispiele
+  - Hello-World-Beispiele?
+- Was davon ist geeignet? 
+- Es gibt nicht die einzelne Lösung 
+
+** In GP1: Python 
+
+- Was ist Python, warum, ... 
+
+** Teil von Formalismus: Konventionen 
+
+- Von banal bis relevant 
+- Coding styles
+- Pythonic ...
+- Python tao? (one and only one obvious way...) 
+
+** Nutzen von Werkzeugen 
+
+- Für das Coding selbst
+  - Editoren
+  - Debugger
+  - Profiler
+  - Dokumentation 
+- Für vorherige Phasen (kein GP1) 
+- Für Zusammenarbeit in Teams (evtl. in GP1?)
+  - Version management 
+- Für das Testen 
+
+
+** In GP1: Jupyter 
+
+- Für Vorlesung und Übungen 
+- Siehe erstes Übungsblatt 
+
+** Entwickeln mit Python 
+
+- Nur Jupyter 
+- Editoren - von einfach bis komplex
+  - textedit, notepad
+  - notepad++
+  - atom 
+  - vi, emacs 
+- Komplexe IDEs
+  - IDE vs. Editor ?
+  - BEispiel: pyCharm 
+
+- Empfehlung: Editor
+
+
+** Testen in Python 
+
+** Testen spezifisch mit Jupyter 
+
+- relevanz für Hausübungsblätter !
+- automatische Punktevergabe!
+  - teilweise - nicht alle Punkte
+  - Tutoren schauen auch da nochmal drüber 
+
+
+** Finden und nutzen von Teillösungen 
+
+- No man is an island
+- "batteries included"
+- slashdot and friends 
+- Ein guter Programmierer zeichnet sich dadurch aus, dass er google die richtigen Fragen stellen kann
+
+** Bodenhaftung 
+
+- Was bedeutet "Ausführung"? 
+- Ein Programm läuft auf einem Rechner 
+- Mit bestimmter Architektur
+- Dadurch Eigenschaften
+  - Auswirkungen auf Effizienz, Machbarkeit, ... 
+
+
+** Ausführung von Python 
+
+- Interpreter mit Zwischencode 
+
+
+** Python praktisch 
+
+- Installation 
+
+
+
+ 
+* Ein erstes Program 
+
+** Ein erstes nichttriviales Beispiel 
+
+- Variablen durch Zuweisung 
+- Rechenoperation 
+- Ausgabe 
+
+** Variablen? 
+
+- Ein Schild wird an einen Wert gehängt
+- Alternativvorstellung: In eine Schachtel mit einem Name wird ein Wert hineingelegt 
+- Ähnlich, aber nicht die gleiche Vorstellung 
+- Erstere für Python naheliegender 
+
+** Gute Variablennamen 
+
+- Syntaktisch korrekt 
+- Sprechend 
+
+** Vorstellung: Zustand 
+
+- Kerngedanke imperativer Programmierung 
+- Programme schreiben Zustand fort 
+
+
+** Zustand - Pingo-Beispiel 
+
+- Wehrheim Folie 37 
+
+** Was ist ein Wert? 
+
+- Literale 
+- Vorstellung: Typ eines Wertes andeuten 
+
+
+** Fehler finden , typische Fehler 
+
+
+** Beispiel: WErte tauschen 
+
+- Als gelber Kasten? 
+
+
+** Was gibt es sonst noch? 
+
+(sozusagen hermeneutischer Durchlauf 1) 
+
+- Grundkonstrukte
+  - Sequenz
+  - Alternative
+  - Schleife
+- Funktionen
+- Klassen 
+- Imports 
+
+** Erwartungen an Sprachen 
+
+- least possible surprise 
+- one obvious way to do things 
+
+
+* Algorithmus
+
+** Aufgabe vs. Algorithmus 
+
+** Analogien zu Algorithmen 
+
+** Algorithmus vs. Programm 
+
+Erst denken, dann tippen! 
+
+
+
+** Typ 
+
+- Legt mögliche WErte fest
+  - Impliozit, explizite Aufzählung, ... 
+- Operationen 
+- Beispiel: "+" bedeutet unterschiedliches je nach Typ 
+
+** Typen von Werten vs. Typen von Schildern 
+
+- Werten haben stets Typ 
+- Schilder nicht!
+- Wir haben hier eine sog. nicht-typisierte Sprache
+  - Achtung, irreführende Bezeichnung! 
+
+** Beispiel-Typen 
+
+- Zahlen, bool, char, string 
+- Die ~null~ ? 
+- Jeweils eine Folie mit Operationen?
+  - Z.b. Wahrheitstafel nach Wehrheim, S. 61 ? 
+
+** Boolean 
+
+- Reihenfolge der Auswertung?
+- Assoziativität?
+  - Verweis auf Modellierung
+- lazy evaluation ?
+  - wie würde man das herausfinden? 
+
+** Strings und ihre Fallstricke 
+
+- unicode, ascii, ... 
+
+**  Zahlen und deren Darstellung 
+
+- Kürzer als bei Wehrheim
+- overflow? 
+- hier schon mal auf Fehlerbehandlung, exceptions hinweisen? 
+- FAllstricke wie keine assoziativität? 
+
+** Konvertierung 
+
+- implizit vs. explzit ? wann erlaubt? 
+- typecast ? 
+
+** Ausdrücke 
+
+- operator overloading: was bedeutet + ?
+  - aus kontext, zur Laufzeit klar! 
+- präzedenz? 
+
+
+** Listen, Tuples 
+
+- das Tolle an Python
+- zuweisungen 
+
+#+BEGIN_SRC python 
+x = [1, 2, 3, 4]
+y = x
+y[2] = 17 
+#+END_SRC
+
+koperieren?  was bedeutet das? 
+
+- Vergleich? 
+- Elemente vertauschen ! (W S. 241) 
+
+- Listen von Listen?
+
+  - Unterschiedliche Läange; Pascalsches Dreieck 
+ 
+- Doppelindizerung
+
+  - Matrikelnummern von Studierenden in einer Liste; Klausurergebnisse indiziert nach MAtrieklnummer ? 
+
+
+
+** Hashes 
+
+- noch toller 
+
+
+* Anweisungen 
+
+- Elementare Anweisung
+  - ~pass~
+  - Syntax !!
+  - Nicht über mehrere Zeilen erstrecken 
+- Sequenz von Anweisungen 
+  - Untereinander schreiben! 
+- Alternative 
+  - Einrückungen! Kein Klammer-Chaos 
+  - If-kaskade
+  - Dangling else - Gefahr anderer Sprachen
+    - auf letztes "freies" if 
+- Wiederholung
+  - iterables!
+  - fencepost error
+  - geschachtelte Schleifen
+  - for
+    - for i in [...]
+    - for i in range
+    - for i in iterable 
+  - while
+    - ggt
+    - Collatzfolge
+    - Fibonacci
+  - Utnerschied?
+  - do whlie?
+  - Terminierung!
+  - Weitere Beispiele
+    - Erathostenes
+    - Suchschleife?! 
+
+Was man alles machen muss, wenn man keine vernünftige Sprache zur Hand hat 
+
+
+
+
+
+** Sicherbarkeit
+
+
+
+
+
+* Funktionen 
+
+** Was ist das? 
+
+** Selbst schreiben 
+
+** Anderer Leute Funktionen nutzen : Bibliotheken 
+
+
+
+* Sonstiges 
+
+** Referenzen 
+
+
+
