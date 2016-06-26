@@ -1,5 +1,5 @@
 # comma-separated whitelist of users that can spawn single-user servers
-Runas_Alias JUPYTER_USERS = hkarl
+Runas_Alias JUPYTER_USERS = hkarl, jupyterhub
 
 # the command(s) the Hub can run on behalf of the above users without needing a password
 # the exact path may differ, depending on how sudospawner was installed

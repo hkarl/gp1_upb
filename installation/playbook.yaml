@@ -7,6 +7,7 @@
 # - https://groups.google.com/forum/#!topic/jupyter/iX40zCPucAo
 # - https://galaxy.ansible.com/jenkstom/jupyterhub/ (not looked at
 # that yet)
+# - https://github.com/jupyterhub/jupyterhub-deploy-teaching
 
 # -------------------- 
 # Basic setup 
@@ -146,6 +147,8 @@
   tasks:
   - name: Create notebook directory for admin user at least
     file: path=/home/jupyterhub/assignments/hkarl owner=hkarl group=user mode=0755
+  - name: Create notebook directory for admin user at least
+    file: path=/home/jupyterhub/assignments/jupyterhub owner=hkarl group=user mode=0755
   tags: user
   
 # Configure Jupyterhub and start it as a service
@@ -160,4 +163,36 @@
   - name: Start the service
     service: name=jupyterhub state=started
   tags: service
-  
+
+
+# Nbgrader
+- name: Install nbgrader 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Install nbgrader
+    pip: name=nbgrader executable=pip3 state=present
+  - name: make sure /var/log/nbgrader exists
+    file: path=/var/log/nbgrader/ state={{item}} owner=jupyterhub group=root mode=0755
+    with_items:
+      - directory
+      - touch
+  - name: make sure /srv/nbgrader/exchange exists
+    file: path=/srv/nbgrader/exchange/ state={{item}} owner=jupyterhub group=root mode=0733
+    # TODO: check whether 733 is indeed the right access rights?? 
+    with_items:
+      - directory
+      - touch
+  - name: install the nbgrader extension
+    command: nbgrader extension install
+    become_user: jupyterhub
+    become: true 
+  - name: install the nbgrader activate 
+    command: nbgrader extension activate
+    become_user: jupyterhub
+    become: true 
+  - name: quickstart an gp1test course
+    command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
+    become_user: jupyterhub
+    become: true 
+  tags: nbgrader
