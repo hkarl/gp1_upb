@@ -299,7 +299,7 @@ c.JupyterHub.ssl_key = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/privke
 # 
 # `~` will be expanded to the user's home directory `%U` will be expanded to the
 # user's username
-# c.Spawner.notebook_dir = ''
+c.Spawner.notebook_dir = '/home/jupyterhub/assignments/%U'
 
 # An HTML form for options a user can specify on launching their server. The
 # surrounding `<form>` element and the submit button are already provided.
@@ -358,7 +358,7 @@ c.JupyterHub.ssl_key = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/privke
 # set of usernames of admin users
 # 
 # If unspecified, only the user that launches the server will be admin.
-# c.Authenticator.admin_users = set()
+c.Authenticator.admin_users = set(['hkarl'])
 
 # Dictionary mapping authenticator usernames to JupyterHub users.
 # 

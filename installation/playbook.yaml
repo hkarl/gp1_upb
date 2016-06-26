@@ -139,6 +139,14 @@
   tags: sudo
 
 
+# Deal with users in the configuration file, create directories, ...
+- name: User setup, directories for users, ...
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Create notebook directory for admin user at least
+    file: path=/home/jupyterhub/assignments/hkarl owner=hkarl group=user mode=0755
+  tags: user
   
 # Configure Jupyterhub and start it as a service
 - name: Config Jupyterhub as a service 
