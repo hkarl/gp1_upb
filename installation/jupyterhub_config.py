@@ -358,7 +358,7 @@ c.Spawner.notebook_dir = '/home/jupyterhub/assignments/%U'
 # set of usernames of admin users
 # 
 # If unspecified, only the user that launches the server will be admin.
-c.Authenticator.admin_users = set(['hkarl'])
+c.Authenticator.admin_users = set(['hkarl', 'jupyterhub'])
 
 # Dictionary mapping authenticator usernames to JupyterHub users.
 # 
@@ -376,7 +376,7 @@ c.Authenticator.admin_users = set(['hkarl'])
 # 
 # Use this to restrict which users can login. If empty, allow any user to
 # attempt login.
-# c.Authenticator.whitelist = set()
+c.Authenticator.whitelist = set(['hkarl', 'jupyterhub', 'studa', 'studb', 'studc'])
 
 #------------------------------------------------------------------------------
 # LocalAuthenticator configuration

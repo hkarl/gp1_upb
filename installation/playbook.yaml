@@ -76,9 +76,16 @@
     action: user name=hkarl groups=jupyterhub append=yes
   # TODO: think about whether public-key based login would help
   # - name: Copy public key to JupyterHub
-  #   copy: src=/Users/hkarl/.ssh/id_rsa.pub dest=/home/jupyterhub/.ssh/authorized_keys owner=jupyterhub mode=0600 
+  #   copy: src=/Users/hkarl/.ssh/id_rsa.pub dest=/home/jupyterhub/.ssh/authorized_keys owner=jupyterhub mode=0600
+  # 
+  # create a few test students 
+  - name: Create Student user
+    user: name={{ item }} comment="Test student account" state=present shell=/bin/zsh groups=user append=yes createhome=yes password="$6$DBwZI91KP$gnbsgSBlY/V32O4iPOaSRMPXxvLNRzgfE2/2byNY9Av7o8ryaJjivrygGTjBTgewcD98EEEcn73gDkhS6/E.2." append=yes
+    with_items:
+      - studa
+      - studb
+      - studc
   tags: user
-
 
 
 - name: Set up certificates 
@@ -145,10 +152,16 @@
   hosts: gp1hub
   remote_user: root
   tasks:
-  - name: Create notebook directory for admin user at least
-    file: path=/home/jupyterhub/assignments/hkarl owner=hkarl group=user mode=0755
-  - name: Create notebook directory for admin user at least
-    file: path=/home/jupyterhub/assignments/jupyterhub owner=hkarl group=user mode=0755
+  - name: Create notebook directory for users
+    file: path=/home/jupyterhub/assignments/{{ item }} owner={{ item }} group={{ item }} mode=0755 state=directory
+    with_items:
+      - hkarl
+      - jupyterhub
+      - studa
+      - studb
+      - studc
+  # - name: Create notebook directory for admin user at least
+  #   file: path=/home/jupyterhub/assignments/jupyterhub owner=hkarl group=user mode=0755
   tags: user
   
 # Configure Jupyterhub and start it as a service
@@ -178,8 +191,7 @@
       - directory
       - touch
   - name: make sure /srv/nbgrader/exchange exists
-    file: path=/srv/nbgrader/exchange/ state={{item}} owner=jupyterhub group=root mode=0733
-    # TODO: check whether 733 is indeed the right access rights?? 
+    file: path=/srv/nbgrader/exchange/ state={{item}} owner=jupyterhub group=root mode=0755
     with_items:
       - directory
       - touch
@@ -194,5 +206,5 @@
   - name: quickstart an gp1test course
     command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
     become_user: jupyterhub
-    become: true 
+    become: true
   tags: nbgrader
