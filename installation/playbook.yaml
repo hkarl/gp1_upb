@@ -203,8 +203,46 @@
     command: nbgrader extension activate
     become_user: jupyterhub
     become: true 
+  # todo: figure out how to do that more elegantly, looping and become_user do not seem to mesh well
+  - name: run install for each student user, studa 
+    command: nbgrader extension activate
+    become_user: studa
+    become: true 
+  - name: run install for each student user, studb
+    command: nbgrader extension activate
+    become_user: studb
+    become: true 
+  - name: run install for each student user, studc
+    command: nbgrader extension activate
+    become_user: studc
+    become: true
+  # and a course
   - name: quickstart an gp1test course
     command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
     become_user: jupyterhub
     become: true
-  tags: nbgrader
+  tags: nbgrader 
+
+
+- name: Install formgrader 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  # todo: move this back up to previous step; only here to easy debugging
+  - name: put configuration file gp1test in place
+    copy: src=nbgrader_config.py dest=/home/jupyterhub/gp1test/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
+  - name: obtain token from jupyterhub
+    command: jupyterhub token --db=sqlite:jupyterhub.sqlite -f jupyterhub_config.py jupyterhub  chdir=/home/jupyterhub
+    become_user: jupyterhub
+    become: true
+    register: tokenoutput
+  - debug: msg="{{ tokenoutput.stdout }}"
+  - name: put token into nbgrader config
+    lineinfile:
+      dest=/home/jupyterhub/gp1test/nbgrader_config.py
+      regexp="c.HubAuth.hubapi_token = JPYAPITOKEN"
+      line="c.HubAuth.hubapi_token = {{ tokenoutput.stdout }}"
+      state=present
+  tags: formgrader
+
+
