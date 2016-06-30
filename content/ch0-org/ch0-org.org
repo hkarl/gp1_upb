@@ -1,0 +1,332 @@
+#+TITLE: GP1 Kapitel 0: Organisation 
+#+SUBTITLE: 
+#+OPTIONS: tags:nil
+#+LANGUAGE: de
+#+OPTIONS: toc:1
+#+EMAIL: holger.karl@upb.de
+#+LATEX_HEADER: \usepackage[ngerman]{babel}
+#+DATE: Wintersemester 2016/2017
+
+** Setup						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+* Vorstellung 
+
+** Herzlich Willkommen!
+
+- zur Universität Paderborn 
+- zum Studium der Informatik, des Computer Engineerings, ...
+- zur Vorlesung Grundlagen der Programmierung I 
+
+** Wer sind wir? 
+
+- GP1 Team
+- Dozent: Holger Karl
+- Mitarbeiter:
+  - Donald Parruca
+  - ... ?
+- Tutoren
+  - Jonas Harbig
+  - ... 
+
+** Wer sind wir?  -- Dozent 
+
+- Holger Karl 
+- Arbeitsgruppe Rechnernetze 
+- Büro: Pohlweg, O3.158
+- Email: holger.karl@upb.de
+- Web: http://www.upb.de/cs/cn
+- Sprechstunde: Montag, 13:00 - 14:00 Uhr 
+
+** Wer sind wir? -- Mitarbeiter 
+
+- Donald Parruca
+  - donald.parruca@upb.de , O3.xxx
+- ... ? 
+
+
+** Wo sind wir? -- Gebäude O 
+
+
+#+CAPTION: Lageplan Gebäude O 
+#+ATTR_LATEX: :width 0.3\textwidth 
+#+NAME: lageplan-O
+[[./figures/gebauedeO.png]]
+
+
+** Wer sind Sie? 
+
+*** Fächer? 
+
+- Informatik?
+- Computer Engineering? 
+- ...? 
+
+*** Herkunft?							    :animate:
+ 
+- Paderborn <20 km?
+- 20km < Paderborn < 50km? 
+- 50km < Paderborn? 
+
+# slido: ??? bingo??? 
+
+
+
+* Vorlesungsbetrieb 
+
+** Wie funktioniert eine Vorlesung? 
+
+- Ihre Vorstellung, Erwartung?
+
+- Sinnvoll? 
+
+
+** Bestandteile GP1
+
+- Vorlesung an sich
+- Präsenzübungen 
+- Hausübungen 
+- Klausur 
+
+** Vorlesung GP1 
+- Präsentation: Konzepte, Ansätze, Beispiele 
+- Interaktiv soweit möglich
+- Hoffentlich: Aufzeichnung 
+- Notwendig: Vor- und Nachbereitung durch Sie!
+
+** Vorlesung GP1 -- Termine 
+
+- Di, 14:15 -- 15:45, Hörsaal L1 
+- Mi, 14:15 -- 15:45, Hörsaal L1 
+
+** Hausübungen  -- Zweck 
+
+- Lösen komplexerer Aufgaben
+- In Gruppenarbeit
+- Bonuspunkte für Klausur! 
+
+*** Hausübungsblätter						      :notes:
+
+Hausübungsblätter stellen Aufgaben zusammen, die den Inhalt der
+Vorlesung wiederholen und vertiefen. Zusätzlich entsteht so
+Gelegenheit zur praktischen Übung.  
+
+Der Schwierigkeitsgrad der Aufgaben auf Hausübungsblätter entspricht
+in etwa dem, was Sie in Klausuren erwarten können. Teilweise sind hier
+aber auch komplexere Aufgaben dabei, die vom Zeitaufwand über das
+hinausgehen, was in einer Klausur realistisch ist. Dies ist sinnvoll,
+um Ihnen Gelegenheit zu geben, auch schwierigere Probleme anzugehen
+und sinnvoll zu strukturieren.
+
+** Hausübungen -- Prozess 
+
+- Aufgaben werden ausgegeben
+- Sie lösen, gemeinsam in einer Gruppe 
+- Sie geben Lösung ab
+- Wir korrigieren und verteilen Punkte 
+- Die Aufgaben werden in der *Zentralübung* besprochen
+  - Termin: Dienstag, 13:00 - 14:00 Uhr
+  - s.t. oder c.t.? 
+
+# slido?? 
+
+#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 1000
+#+header: :cache yes
+#+begin_src latex :exports results :results output raw :file figures/hausblattprozess.png :fit t
+  \usetikzlibrary{positioning}
+  \tikzstyle{box}=[draw, minimum size=2em]
+  \begin{tikzpicture}
+  \node (ausgabe) [box] {Ausgabe};
+  \node (loesen) [box,right=of ausgabe] {Lösen}
+  edge [<-] (ausgabe);
+  \node (korrektur) [box,right=of loesen] {Korrektur}
+  edge [<-] (loesen);
+  \node (besprech) [box,right=of korrektur] {Besprechung}
+  edge [<-] (korrektur);
+  \end{tikzpicture}
+#+end_src
+
+#+NAME: hausblattprozess 
+#+CAPTION: Hausblätter -- Der Prozess 
+#+ATTR_LATEX: :width 0.8\textwidth 
+#+RESULTS[412b247d20143ac87b8d8adafec8b3a350e6c0f2]:
+[[file:figures/hausblattprozess.png]]
+
+** Hausübungen -- Termine 
+
+- Ausgabe: ??? 
+- Abgabe: ??? 
+- Besprechung: ??? 
+
+** Hausübungen -- Abgabe 
+
+- Nur web-basierte Abgabe der Lösungen 
+  - Siehe: https://gp1.cs.uni-paderborn.de
+- Eine Abgabe pro Gruppe
+- Details zum System: später
+  - Einführung: Erste Zentralübung  (Date: TODO) 
+
+*** Hausübungen -- Abgabesystem					      :notes:
+
+ Das System zur Abgabe und Korrektur der Übungsblätter basiert auf
+ sog.  [[http://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/index.html][Jupyter Notebooks]] des [[http://jupyter.org][Projektes Jupyter]]. Damit können Sie
+ einfach Text und Programmcode in einem beliebigen Web-Browser
+ editieren und den Programmcode auch ausführen. Dabei ist ein
+ sog. "Notebook" das Dokument, mit dem Sie arbeiten. 
+
+ Wir werden die Aufgaben als ein (oder mehrere) solche Notebooks zur
+ Verfügung stellen. Nach Anmeldung können Sie diese Notebooks
+ ausfüllen. Dabei werden wir sowohl nach Textantworten wie auch nach
+ Programmcode fragen. 
+
+
+
+
+** Hausübungen -- Plagiate 
+
+- Abschreiben: *0 Punkte* auf das gesamte Blatt! 
+- Abschreiben lassen: *0 Punkte* auf das gesamte Blatt! 
+- Durch elektronische Abgabe sehr leicht zu entdecken! 
+
+** Präsenzübungen 
+
+- Zweck:
+  - Unmittelbares Beantworten von Fragen
+  - Üben!
+  - Aktives Programmieren -- in der Gruppe, mit Tutor
+- Präsenzübungen
+  - Ergänzen Hausübungen 
+  - Finden wöchentlich statt 
+  - Werden durch Tutor betreut
+- Durch *Präsenzübungsblätter* strukturiert 
+
+*** Präsenzübungsblätter					      :notes:
+
+Präsenzübungsblätter dienen, ähnlich wie Hausübungsblätter, der
+Wiederholung und Vertiefung des Vorlesungsstoffes. Aufgaben hier haben
+sehr unterschiedlichen Schwierigkeitsgrad, von einfacher Wiederholung
+bis zu kniffligen Knobbelaufgaben. 
+
+Sinnvollerweise bereiten Sie die Aufgaben der Präsenzblätter vor,
+*bevor* Sie die Präsenzübung gehen. Sie müssen die Aufgaben nicht
+vollständig gelöst haben, sollten aber soweit damit vertraut sein,
+dass Sie einer Diskussion des Stoffes folgen können oder gezielt
+Fragen vorbereitet haben. 
+
+Zusätzlich handelt es sich ja um eine Programmiervorlesung -- Sie
+sollen also Programmieren lernen. Das geschieht am besten durch
+Programmieren. Sehen Sie also die Präsenzübungen als Gelegenheit zum
+gemeinsamen Programmieren an, mit Hilfestellung und Unterstützung
+durch den Tutor. 
+
+** Präsenzübungen -- Termine 
+
+
+
+| Uhrzeit | Montag   | Dienstag | Mittwoch | Donnerstag | Freitag |
+|---------+----------+----------+----------+------------+---------|
+|    9-11 |          |          |          | PÜ (3x)    | PÜ (2x) |
+|   11-13 |          | PÜ (2x)  | PÜ (2x)  |            |         |
+|   13-14 |          | ZÜ       |          |            |         |
+|   14-16 | PÜ  (3x) | VL       |          | PÜ (2x)    |         |
+|   16-18 |          | PÜ (3x)  | PÜ (3x)  |            |         |
+
+
+** Präsenzübungen -- Ort
+
+- Poolräume! 
+- Mit Arbeitsplatzrechnern ausgestattet
+- Frei zugänglich außerhalb der Übungszeiten 
+
+
+** Präsenzübungen -- Anmeldung 
+
+*** IMT-Login und PAUL 
+- Anmeldung in PAUL notwendig 
+  - http://paul.uni-paderborn.de 
+  - Dazu IMT-Login: http://benutzerverwaltung.upb.de
+
+*** IRB-Login							    :animate:
+- Nutzung der Poolraum-Rechner freischalten
+- Unter http://benutzerverwaltung.upb.de
+  - *Betreuung*: IRB
+    - Informatik-Rechnerbetrieb (IRB) 
+  - *Dezentrale Dienste*: Rechnerzugang im Institut für Informatik
+  - Nicht-EIM-Studierende: IRB Support ansprechen (E1.129) 
+- Siehe auch: 
+  [[https://cs.uni-paderborn.de/rechnerbetrieb-irb/infos-fuer-erstsemester/][IRB
+  Infos für Erstsemester]]
+
+
+
+** Prüfung: Klausur 
+
+- Schriftliche Prüfung
+- *KEINE* Hilfsmittel!
+- Zwei mögliche Termine
+  - Voraussichtlich: Mitte-Ende Februar; Ende März 
+
+** Klausur -- Bonuspunkte 
+
+- 50% der Punkte aller Hausblätter: 1 Notenschritt 
+- 80% der Punkte aller Hausblätter: 2 Notenschritt 
+- Voraussetzung: Klausur bestanden 
+
+
+** Wo finden Sie was? 
+
+- PAUL: Anmeldung zu Übungen und Klausur
+- [[][Webseite zur Veranstaltung]]
+  - Links zu allem weiteren Material
+  - Links zu Vorlesungsmitschnitten (hoffentlich) 
+- Vorlesungsmaterial
+  - ???
+- Übungen:
+  - https://gp1.uni-paderborn.de 
+
+
+** Zusätzliches Material
+
+- Programmierung allgemein
+  - Reichlich Material im Netz 
+- Python
+  - [[https://docs.python.org/3/][Python Dokumentation]]
+  - Jason Briggs, Python for Kids 
+  - Bernd Klein, Einführung in Python 3: In einer Woche programmieren
+    lernen 
+  - Thomas Theis, Einstieg in Python
+- Java
+  - Unzählige Bücher, z.B.
+    - Reinhard Schiedermeier: Programmieren mit Java, Pearson Studium
+  - [[http://download.oracle.com/javase/tutorial/][Java Tutorial]]
+- Jupyter
+  - [[http://jupyter.org][Jupyter Projekt Webseiten]]
+
+
+(aber kein Buch ist wirklich toll :-( ) 
+
+
+** Lernzentrum Informatik  (LZI)
+
+- Für weitere Unterstützung: LZI
+- ... ? 
+
+** Zusammenfassung 
+
+- Vorlesungen haben Organisationsaufwand :-) 
+
+
+
+ 
+
