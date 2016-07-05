@@ -1,23 +1,5 @@
 #+TITLE: GP1 Kapitel 0: Organisation 
-#+SUBTITLE: 
-#+OPTIONS: tags:nil
-#+LANGUAGE: de
-#+OPTIONS: toc:1
-#+EMAIL: holger.karl@upb.de
-#+LATEX_HEADER: \usepackage[ngerman]{babel}
-#+DATE: Wintersemester 2016/2017
-
-** Setup						  :skipslide:nolatex:
-
-Main point here is to set up warnings properly for presentation and to
-load tutormagic, so that we can later on use pythontutor for code
-animations. 
-   
-#+BEGIN_SRC  Python 
-%load_ext tutormagic
-import warnings
-warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
-#+END_SRC
+#+INCLUDE: "../template/header.org" :minlevel 2
 
 
 
@@ -40,7 +22,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
   - Jonas Harbig
   - ... 
 
-** Wer sind wir?  -- Dozent 
+** Wer sind wir?  -- Dozent					   :subslide:
 
 - Holger Karl 
 - Arbeitsgruppe Rechnernetze 
@@ -49,7 +31,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 - Web: http://www.upb.de/cs/cn
 - Sprechstunde: Montag, 13:00 - 14:00 Uhr 
 
-** Wer sind wir? -- Mitarbeiter 
+** Wer sind wir? -- Mitarbeiter					   :subslide:
 
 - Donald Parruca
   - donald.parruca@upb.de , O3.xxx
@@ -73,7 +55,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 - Computer Engineering? 
 - ...? 
 
-*** Herkunft?							    :animate:
+*** TODO Herkunft?						    :animate:
  
 - Paderborn <20 km?
 - 20km < Paderborn < 50km? 
@@ -99,13 +81,13 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 - Hausübungen 
 - Klausur 
 
-** Vorlesung GP1 
+** Vorlesung GP1						   :subslide:
 - Präsentation: Konzepte, Ansätze, Beispiele 
 - Interaktiv soweit möglich
 - Hoffentlich: Aufzeichnung 
 - Notwendig: Vor- und Nachbereitung durch Sie!
 
-** Vorlesung GP1 -- Termine 
+** Vorlesung GP1 -- Termine					   :subslide:
 
 - Di, 14:15 -- 15:45, Hörsaal L1 
 - Mi, 14:15 -- 15:45, Hörsaal L1 
@@ -129,7 +111,7 @@ hinausgehen, was in einer Klausur realistisch ist. Dies ist sinnvoll,
 um Ihnen Gelegenheit zu geben, auch schwierigere Probleme anzugehen
 und sinnvoll zu strukturieren.
 
-** Hausübungen -- Prozess 
+** Hausübungen -- Prozess					   :subslide:
 
 - Aufgaben werden ausgegeben
 - Sie lösen, gemeinsam in einer Gruppe 
@@ -163,13 +145,15 @@ und sinnvoll zu strukturieren.
 #+RESULTS[412b247d20143ac87b8d8adafec8b3a350e6c0f2]:
 [[file:figures/hausblattprozess.png]]
 
-** Hausübungen -- Termine 
+** TODO Hausübungen -- Termine					   :subslide:
 
 - Ausgabe: ??? 
 - Abgabe: ??? 
-- Besprechung: ??? 
+- Besprechung: ab
+  - Dienstag, 13:00 -- 14:00, L1
+  - (mit 15 oder 30 Minuten Pause?) 
 
-** Hausübungen -- Abgabe 
+** TODO Hausübungen -- Abgabe					   :subslide:
 
 - Nur web-basierte Abgabe der Lösungen 
   - Siehe: https://gp1.cs.uni-paderborn.de
@@ -193,7 +177,7 @@ und sinnvoll zu strukturieren.
 
 
 
-** Hausübungen -- Plagiate 
+** Hausübungen -- Plagiate					   :subslide:
 
 - Abschreiben: *0 Punkte* auf das gesamte Blatt! 
 - Abschreiben lassen: *0 Punkte* auf das gesamte Blatt! 
@@ -230,7 +214,7 @@ Programmieren. Sehen Sie also die Präsenzübungen als Gelegenheit zum
 gemeinsamen Programmieren an, mit Hilfestellung und Unterstützung
 durch den Tutor. 
 
-** Präsenzübungen -- Termine 
+** Präsenzübungen -- Termine					   :subslide:
 
 
 
@@ -243,14 +227,14 @@ durch den Tutor.
 |   16-18 |          | PÜ (3x)  | PÜ (3x)  |            |         |
 
 
-** Präsenzübungen -- Ort
+** Präsenzübungen -- Ort					   :subslide:
 
 - Poolräume! 
 - Mit Arbeitsplatzrechnern ausgestattet
 - Frei zugänglich außerhalb der Übungszeiten 
 
 
-** Präsenzübungen -- Anmeldung 
+** Präsenzübungen -- Anmeldung					   :subslide:
 
 *** IMT-Login und PAUL 
 - Anmeldung in PAUL notwendig 
@@ -284,10 +268,10 @@ durch den Tutor.
 - Voraussetzung: Klausur bestanden 
 
 
-** Wo finden Sie was? 
+** TODO Wo finden Sie was? 
 
 - PAUL: Anmeldung zu Übungen und Klausur
-- [[][Webseite zur Veranstaltung]]
+- [[https://cs.uni-paderborn.de/index.php?id=59215][Webseite zur Veranstaltung]]
   - Links zu allem weiteren Material
   - Links zu Vorlesungsmitschnitten (hoffentlich) 
 - Vorlesungsmaterial
@@ -296,31 +280,26 @@ durch den Tutor.
   - https://gp1.uni-paderborn.de 
 
 
-** Zusätzliches Material
 
-- Programmierung allgemein
-  - Reichlich Material im Netz 
-- Python
-  - [[https://docs.python.org/3/][Python Dokumentation]]
-  - Jason Briggs, Python for Kids 
-  - Bernd Klein, Einführung in Python 3: In einer Woche programmieren
-    lernen 
-  - Thomas Theis, Einstieg in Python
-- Java
-  - Unzählige Bücher, z.B.
-    - Reinhard Schiedermeier: Programmieren mit Java, Pearson Studium
-  - [[http://download.oracle.com/javase/tutorial/][Java Tutorial]]
-- Jupyter
-  - [[http://jupyter.org][Jupyter Projekt Webseiten]]
-
-
-(aber kein Buch ist wirklich toll :-( ) 
-
-
-** Lernzentrum Informatik  (LZI)
+** TODO Lernzentrum Informatik  (LZI)
 
 - Für weitere Unterstützung: LZI
 - ... ? 
+
+
+
+** Erwartungshaltung: Sie an uns 
+
+- ? 
+
+** Erwartungshaltung: Wir an Sie 
+
+- Aktive Beteiligung
+  - In Vorlesung, Übung, ...
+  - Fragen! Niemand ist Telepath!
+- Vor- und Nacharbeit
+- Anwesenheit 
+- Üben! Üben! Üben!
 
 ** Zusammenfassung 
 
