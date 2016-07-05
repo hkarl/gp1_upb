@@ -1,0 +1,2 @@
+#+TITLE: GP1 Kapitel 0: Organisation 
+#+INCLUDE: "../template/header.org"

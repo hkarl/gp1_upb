@@ -1,0 +1,28 @@
+#+SUBTITLE: 
+#+LATEX_CLASS_OPTIONS: [a4paper]
+
+#+OPTIONS: tags:nil
+#+LANGUAGE: de
+#+OPTIONS: toc:1
+#+EMAIL: holger.karl@upb.de
+#+LATEX_HEADER: \usepackage[ngerman]{babel}
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \setlist[itemize]{noitemsep,nolistsep}
+#+DATE: Wintersemester 2016/2017
+
+
+** Setup						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+
