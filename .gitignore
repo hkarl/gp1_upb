@@ -1,0 +1,12 @@
+.nbgrader.log
+.ipynb_checkpoints
+_minted*org
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.tex
+*.toc
+*.pdf
+*.ipynb
