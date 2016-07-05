@@ -36,6 +36,19 @@
 
   tags: fw
 
+# some basic security
+- name: Some more restricted security settings 
+  remote_user: root
+  hosts: gp1hub
+  tasks: 
+  - name: Restrict umask for all users
+    # todo: check, does it have desired effect? 
+    lineinfile:
+      dest=/etc/login.defs
+      regexp="UMASK\s*022"
+      line="UMASK 077"
+      state=present
+  tags: security
 
 # basic software
 - name: Basic software installation 
@@ -153,15 +166,24 @@
   remote_user: root
   tasks:
   - name: Create notebook directory for users
-    file: path=/home/jupyterhub/assignments/{{ item }} owner={{ item }} group={{ item }} mode=0755 state=directory
+    # file: path=/home/jupyterhub/assignments/{{ item }} owner={{ item }} group={{ item }} mode=0755 state=directory 
+    file: path=/home/{{ item }}/notebooks owner={{ item }} group={{ item }} mode=0700 state=directory 
     with_items:
-      - hkarl
+      # - hkarl <- this user needs special treatment as he already exists
       - jupyterhub
       - studa
       - studb
       - studc
   # - name: Create notebook directory for admin user at least
   #   file: path=/home/jupyterhub/assignments/jupyterhub owner=hkarl group=user mode=0755
+  - name: Restrict access rights
+    file: path=/home/{{ item }} mode=0700 state=directory 
+    with_items:
+      # - hkarl <- this user needs special treatment as he already exists
+      - jupyterhub
+      - studa
+      - studb
+      - studc
   tags: user
   
 # Configure Jupyterhub and start it as a service
@@ -191,7 +213,7 @@
       - directory
       - touch
   - name: make sure /srv/nbgrader/exchange exists
-    file: path=/srv/nbgrader/exchange/ state={{item}} owner=jupyterhub group=root mode=0755
+    file: path=/srv/nbgrader/exchange/ state={{item}} owner=jupyterhub group=root mode=0777
     with_items:
       - directory
       - touch
@@ -230,7 +252,14 @@
   tasks:
   # todo: move this back up to previous step; only here to easy debugging
   - name: put configuration file gp1test in place
-    copy: src=nbgrader_config.py dest=/home/jupyterhub/gp1test/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
+    copy: src=nbgrader_config.py dest=/home/jupyterhub/notebooks/gp1test/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
+  - name: put CONFIGPROXY_AUTH_TOKEN into environment
+    lineinfile:
+      dest=/home/jupyterhub/.zshrc
+      insertafter=EOF
+      line="export CONFIGPROXY_AUTH_TOKEN=\"3487d889ae9e718440a3455222849665eae234fa7d4d6e1f6ef8578323ed27f7\" "
+      state=present
+      # note: same value as in c.JupyterHub.proxy_auth_token of jupyterhub_config.py       
   - name: obtain token from jupyterhub
     command: jupyterhub token --db=sqlite:jupyterhub.sqlite -f jupyterhub_config.py jupyterhub  chdir=/home/jupyterhub
     become_user: jupyterhub
@@ -239,9 +268,9 @@
   - debug: msg="{{ tokenoutput.stdout }}"
   - name: put token into nbgrader config
     lineinfile:
-      dest=/home/jupyterhub/gp1test/nbgrader_config.py
+      dest=/home/jupyterhub/notebooks/gp1test/nbgrader_config.py
       regexp="c.HubAuth.hubapi_token = JPYAPITOKEN"
-      line="c.HubAuth.hubapi_token = {{ tokenoutput.stdout }}"
+      line="c.HubAuth.hubapi_token = \"{{ tokenoutput.stdout }}\""
       state=present
   tags: formgrader
 
