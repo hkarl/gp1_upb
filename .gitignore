@@ -10,3 +10,5 @@ _minted*org
 *.toc
 *.pdf
 *.ipynb
+playbook.retry
+content/toc
