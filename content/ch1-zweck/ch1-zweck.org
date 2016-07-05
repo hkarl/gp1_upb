@@ -1,0 +1,652 @@
+#+TITLE: GP1 Kapitel 1: Zweck der Vorlesung GP1 
+#+INCLUDE: "../template/header.org" :minlevel 2
+
+** Dieses Kapitel 
+
+- Übersicht: Was beinhaltet "Programmieren"?
+- Was macht eine gute Programmiererin aus? 
+- Was soll in GP1 erreicht werden? 
+- Warum machen wir das so? 
+
+* GP1 im Studienverlauf 
+  
+** Was ist Programmierung? 
+- Denken in Algorithmen und Datenstrukturen 
+- Entwickeln von Ideen zur Lösung eines Problems
+- Ausdrücken in einen Formalismus
+  - /Codierung/
+- Nutzung von Werkzeugen 
+- Finden und nutzen von Teillösungen 
+
+** Vorlesungsinhalt GP1 
+
+Von allem ein bisschen, insbesondere: 
+
+- Grundlegende Programmierparadigmen
+  - Imperativ
+  - Objektorientiert 
+  - Dynamisch vs. statisch typisiert 
+- Coding
+  - Entwicklung
+  - Wiederbenutzung 
+  - Test
+  - Werkzeuge 
+
+*** Programmierparadigmen					      :notes:
+
+Mit dem Begriff "Programmierparadigmen" klassifiziert man
+Programmiersprachen in Familien. Innerhalb einer Familie kommen
+ähnliche Konzepte und Grundannahmen zur Geltung. Das betrifft zum
+Beispiel Annahmen über das Ausführungsmodell, über die Reihenfolgen
+von Ausführungen, und ähnliches. Andere Aspekte sind die Organisation
+des Codes in kleinere oder größere Einheiten. Stilfragen zählen
+ebenfalls dazu 
+
+
+
+** GP1 im Modulhandbuch 
+
+"Die Studierenden sollen
+- die Programmentwicklung von Grund auf erlernen;
+- lernen, Sprachkonstrukte sinnvoll und mit Verständnis anzuwenden;
+- grundlegende Konzepte der objektorientierten Programmierung
+  verstehen und anzuwenden lernen; 
+- lernen, Software aus objektorientierten Bibliotheken wiederzuverwenden."
+
+** GP1 im Studienverlauf 
+
+#+CAPTION: Das Modul I.1.1 im Studienverlauf
+#+NAME: modul-I11
+[[./figures/studienverlauf.png]]
+
+
+** Modul I.1.1 
+
+- Pflichtmodul im Gebiet „Softwaretechnik und Informationssysteme“
+- Ziel des Moduls „Programmiertechnik“:
+  - Das Modul vermittelt einführende und grundlegende Kenntnisse und Fähigkeiten in der Programmierung
+- Modul I.1.1 besteht aus
+  - Grundlagen der Programmierung 1 (GP1)
+  - Grundlagen der Programmierung 2 (GP2)
+  - Grundlagen der Programmiersprachen (GPS)
+
+** Programmieren? 
+
+- "Irgendwie dem Computer erklären was er machen soll"
+- "Irgendwie zusammen hacken..."
+
+*** ? 								    :animate:
+
+#+CAPTION: One does not simply walk into programming 
+#+NAME: fig:walk-programming
+[[./figures/simply-walk-programming.jpg]]
+
+    
+* Denken in Algorithmen und Datenstrukturen  
+
+** Grobe Vorstellung
+
+- Algorithmus: Was wird wie verarbeitet? 
+- Datenstruktur: Wie werden Daten repräsentiert? 
+
+** Algorithmus
+
+- Handlungsvorschrift zur Lösung eines bestimmten Problems
+- Eindeutig, unmissverständlich
+- Endlich 
+
+Historisch: 
+- Erste Ideen, Abu Dscha'far Muhammad ibn Musa al-Chwarizmi, ca. 825 n.d.Z.
+- Ada Lovelace, 1843, Berechnung von Bernoullizahlen 
+
+
+** Datenstruktur 
+
+- Welche Daten verwendet? 
+- Wie repräsentiert?
+- Wie manipulierbar? 
+
+Formalisiert: 
+- Abstrakter Datentyp 
+- Siehe VL Modellierung 
+
+
+** Alg/Datenstrukt in Isolation? 
+
+Kann man sich das beliebig ausdenken? 
+
+*** Nein!							    :animate:
+
+- Hängt entscheidend von *Maschinenmodell* ab 
+
+Beispiele: 
+- "Normaler" Rechner 
+- Abstrakt: Turing-Maschine 
+  - Siehe VL Modellierung 
+- Quantencomputer 
+
+** Maschinenmodell für GP1? 
+
+Wir gehen von "normalen" Rechnern aus: 
+
+- Speicher 
+- Verarbeitung 
+- Programm 
+
+
+** Speicher							   :subslide:
+
+- Enthält Daten
+  - Unterteilt in kleinere Einheiten, /Speicherstellen/
+  - Einfachster Fall: Speicherstellen durchnummeriert 
+- Inhalte der Speicherstellen zu einem Zeitpunkt: /Zustand/
+  - *Zentraler Begriff*! 
+
+** Verarbeitungseinheit						   :subslide:
+
+- /Central Processing Unit/ (CPU) 
+- Manipuliert Daten im Speicher
+  - Manipuliert /Zustand/ 
+- Hält sich dabei an Anweisungen
+- Es gibt nur endlich viele, wenige Anweisungen
+  - Der /Instruktionssatz/
+
+
+** Programm							   :subslide:
+
+- Eine Folge von Anweisungen, das /Programm/
+- Anweisungen entstammen Instruktionssatz 
+
+
+** Instruktionssatz: Beispiele 
+
+Beispiele für Anweisungen: 
+- Übertrage Daten von beliebiger Stelle des  Speichers in CPU
+- Übertrage Daten von CPU in beliebige Stelle des  Speicher 
+- Addiere zwei Daten
+- Vergleiche zwei Daten 
+
+** Ausführungsmodell 
+
+Mit Speicher, CPU, Instruktionssatz ergibt sich ein
+/Ausführungsmodell/ :
+
+- CPU bearbeitet, zu jedem Zeitpunkt, eine /aktuelle Anweisung/ aus
+  dem Programm
+- Bearbeitung dieser Anweisung führt ggf. zur Veränderung der Daten
+- Dann wird nächste Anweisung ausgeführt 
+
+
+** Ausführung						      :skip:subslide:
+
+- Ausführung beginnt mit einem Zustand 
+- Jede Anweisung überführt einen Zustand in seinen /Folgezustand/
+- Ausführung insgesamt also: /Folge von Zuständen/ 
+
+
+** Ausführungsmodell (2)					   :subslide:
+
+*Immer* die nächste Anweisung? 
+
+- Langweilig...
+
+*** Flexibel?							    :animate:
+- Die nächste auszuführende Anweisung kann von Vergleichen abhängen 
+- Vorstellung eines /Sprungs/ in der Folge der Anweisungen 
+
+** Fertig? 
+
+- Im Prinzip wären wir jetzt mit der Vorlesung fertig:
+  - Instruktionssatz genau beschreiben
+  - Details Ausführungsmodell genau beschreiben 
+- Praktikabel? Nein!
+  - Zu fein-granular
+  - Für Menschen schlecht verständliche Darstellung 
+- Wie programmieren?
+
+** Programmieren 
+
+- "Basteln bis es tut"??
+- Gutes Programmieren
+  - *Systematisches* Nachdenken, Entwurf, Planung, Verständnis
+  - Auch: Ästethik 
+- Systematik? -- Im Laufe der Vorlesung 
+
+** Programmiersprachen 
+
+- Heben des Abstraktionsniveaus
+  - "Mächtigere" Anweisungen
+  - Einfacher für Menschen
+- Also: Definiere neuen Instruktionssatz, neue Vorstellung von
+  Zustand, ... 
+- Eine /Programmiersprache/ 
+
+
+** Programmiersprache - Definition				   :subslide:
+
+- Dient der Formulierung von
+  - Algorithmen und
+  - der in Algorithmen
+    benutzen Datenstrukturen
+- Definiert ggf. Begriff des /Zustandes/ und der Übergänge zwischen
+  Zuständen
+  - /Anweisungen/
+  - Insgesamt: /Semantik/ der Sprache 
+- Vorschriften, wie Anweisungen und Daten aufgeschrieben werden
+  - /Syntax/ der Sprache 
+
+
+*** Zwei Sprachen						      :notes:
+
+Eigentlich besteht (nahezu) jede Programmiersprache aus zwei Teilsprachen: 
+- Einer Sprache, die Daten beschreibt: wie sehen sie aus, wie sind sie
+  benannt, welche Eigenschaften haben sie, wie können einfache Daten
+  zu komplexeren Daten kombiniert werden?
+- Einer Sprache, die Operationen auf Daten beschreibt: wie können
+  Daten manipuliert werden, wie können neue Daten berechnet werden,
+  unter welchen Bedingungen soll das geschehen? 
+
+In Praxis sind diese beiden Teile einer Sprache oft nicht
+unterscheidbar und eng mit einander verwoben. Es gibt aber durchaus
+Beispiele, in denen nur ein Aspekt auftritt, etwas bei
+Spezifikationssprachen für Typen. 
+
+
+** Ausführung?							   :subslide:
+
+- Aber: Programme nicht mehr  direkt durch reale Maschinen ausführbar 
+
+*** Das macht nichts!						    :animate:
+
+- Wir stellen uns einfach eine "irreale" Maschine vor, die
+  entsprechend fähig ist
+- Später: von "irrealer" Maschine zu realer Maschine?!
+  - /Interpreter/
+  - /Compiler/ 
+
+
+* Programmierparadigma
+
+** Gute Programmiersprachen? 
+
+- Was ist das richtige Abstraktionsniveau?
+- Wie Sprachen gestalten, damit 
+  - für Menschen einfach nutzbar?
+  - für reale Maschinen gut umsetzbar? 
+
+*** Grundlegende Ideen						    :animate:
+
+- Ideen in /Programmierparadigmen/ beschrieben 
+- Gruppieren Programmiersprachen zu Familien 
+
+** Programmierparadigma 
+
+Sprachen eines Paradigmas gleichen sich in: 
+
+- Was sind statische Aspekte der Sprache?
+  - Konstanten? Daten? Typen? Code? Variablen? ...? 
+- Was sind dynamische Aspekte der Sprache?
+  - Variableninhalte? Variablen? Folge der Anweisungen?
+  - Woher stammt Dynamik?
+    - Eingaben? Zeitablauf? Ereignisse? Zufall? ...? 
+
+** Programmierparadigma: Imperativ				   :subslide:
+
+- Älteste Sprachfamilie 
+- Niedrige Abstraktionsebene
+- Sehr nahe am realen Maschinenmodell
+- Einfach zu erlernen, aber schlechte für große Anwendungen geeignet 
+
+- Beispiele: BASIC, C, Pascal, ... 
+
+** Programmierparadigma: Objektorientiert			   :subslide:
+
+- Beobachtung bei imperativen Sprachen: Zusammenhang zwischen "Daten"
+  und "Anweisungen" oft schwer zu sehen
+  - Insbesondere bei großen Programmen unübersichtlich
+- Idee: Zusammenfassen!
+  - Daten und der darauf anwendbare Code werden gemeinsam beschrieben 
+
+- Beispiele: Smalltalk, C++, Java, Python 
+
+** Programmierparadigma: Funktional				   :subslide:
+
+- Programm selbst kann zum Gegenstand des Programms werden
+  - Schlagwort: "Functions as first-class citizens"
+- Vermeidung der Vorstellung eines "Zustands"
+  - Keine Seiteneffekt
+
+- Beispiele: Lambda-Kalkül, Lisp, Haskell, F# 
+
+** Programmierparadigma: Logisch				   :subslide:
+
+- Ein Programm beschreibt Fakten und Schlussregeln
+- "Maschine" konstruiert durch Anwendung der Regeln auf Fakten neue
+  Fakten 
+- Wenn eine Frage als Fakt konstruiert werden kann, ist sie wahr 
+
+- Beispiele: Prolog  
+
+** Welches Paradigma für GP1?
+
+- Anforderungen
+  - Leicht erlernbar
+  - Praxisrelevant
+  - Ausgangspunkt für weitere Ausbildung 
+
+- GP1: 30% imperativ, 60% objektorientiert, 10% funktional
+
+- Details: VL Grundlagen der Programmiersprachen 
+
+** Paradigma und Sprache? 
+
+- Meist keine 1:1 Beziehung
+  - Kein Paradigma mit nur einer Beispielsprache
+  - (Fast) keine Sprache folgt nur einem Paradigma exklusiv
+- Meist Mischkonzepte, Überlappungen, ... 
+
+* Welche Programmiersprache? 
+
+** Anforderungen 
+
+- Anforderungen
+  - Leicht erlernbar
+  - Praxisrelevant
+  - Deckt wesentliche Paradigmen ab 
+  - Ausgangspunkt für weitere Ausbildung 
+
+- Keine Sprache erfüllt alle Anforderungen :-( 
+
+- Kandidaten: C/C++, Java, Python
+  - Alle praxisrelevant, wesentlich im weiteren Studienverlauf 
+
+** C/C++ ?							   :subslide:
+
+- Nahe am Maschinenmodell
+  - Es passiert nichts "unerklärliches"
+- Wenig Abstraktion
+- Wenig fehlerverzeihend
+- Alte Sprache: viel historischer Ballast
+  - Durch gewünschte /Rückwärtskompatibilität/
+  - Insbesondere bei C++
+- Kein Anteil funktionalen Paradigma 
+
+** Java?							   :subslide:
+
+- Hohe Abstraktion
+- Komplexes Ausführungsmodell
+  - Viel "Magie"
+- Moderne Sprache, die viele Trends integriert
+  - Dadurch auch unübersichtlich
+  - Beispiel: Funktional möglich, aber offensichtlich aufgepfropft 
+- Hoher Einarbeitungsaufwand zu Beginn 
+
+
+** Python?							   :subslide:
+
+- Moderne Sprache, aber strikt verwaltet
+- Weniger komplex als Java
+- Geringer Einarbeitungsaufwand
+- Interpretiert, dadurch einfach zu experimentieren 
+- Vor-/Nachteil: Keine statischen Typen 
+
+** Konsequenz? 
+
+- Beginn:  Python -- ca. 3/4 der Vorlesung
+  - Grundlegende imperative, objektorientierte, funktionale Aspekte 
+- Zum Ende: Java -- ca. 1/4
+  - Einführung statischer Typisierung 
+
+
+*** Vorteil?							    :animate:
+- Einfacher Einstieg & breiter Horizont
+- Zwei Sprachen sind kein Hexenwerk! 
+
+
+* Werkzeuge 
+
+** Werkzeuge 
+
+- Programmierer brauchen Werkzeuge, je nach Sprache 
+- Wesentlich:
+  - Editor
+  - Debugger
+  - Profiler
+  - (IDE)
+  - Dokumentation
+  - Versionsverwaltung 
+
+** Editor 
+
+- Programmtext eintippen... 
+- Einfacher Editor
+  - Komfortabel
+  - Aber *keine* spezifische Unterstützung für gewählte
+    Programmiersprache
+- "Programmier"-Editor
+  - Unterstützt editieren in gewählter Sprache
+  - "Versteht" Programmiersprache
+  - Kann Vorschläge machen, Ergänzungen, ...
+
+
+** Editor für GP1?						   :subslide:
+
+- Prinzipiell: Nutzen Sie was Sie wollen
+- Abgaben durch Browser-basiertes System
+  - Jupyter [[http://jupyter.org][Jupyter Projekt Webseiten]]
+  - Insbesondere: Editor im Browser 
+
+
+** Debugger
+
+- Niemand programmiert fehlerfrei 
+- Debugger hilft bei Fehlersuche
+  - Programm gezielt anhalten
+  - Variablenwerte anschauen, verändern
+  - ... 
+
+** Profiler 
+
+- Laufzeit eines Programms untersuchen
+- Wo ist es unnötig langsam?
+- Statistiken für viele Läufe erheben 
+
+** Dokumentation 
+
+- Innerhalb eines Programms: Dokumentation, Kommentare
+  - Notizen *was*, *warum* und *wie* geschieht
+- In Programm verteilt
+- Werkzeug: Dokumentation extrahieren und in kompakter Form bereit
+  stellen  
+
+- Beispiele: javadoc, doxygen (mit Abarten), pydoc, autodoc, ... 
+
+** Versionsverwaltung 
+
+- Kein Programm ist direkt perfekt
+  - Verfeinert, Fehler behoben, ...
+  - Es entstehen *Versionen* eines Programms 
+- Handhabung?
+  - Kopien in Ordnern? ~MyProgram/v17.3_after_midnight~ ?
+
+** Werkzeuge für Versionsverwaltung				   :subslide:
+
+- Nutzen Sie spezialisierte Werkzeuge!
+- Nur eine Version des Programms in Bearbeitung
+- Ältere Versionen, Alternativen zugreifbar
+
+- Beispiele:
+  - ~svn~, ~git~ (mit Zusatzfunktionen wie etwa ~github~ )
+  - Jupyter: einfaches Abspeichern und Wiederbenutzen älterer
+    Versionen (sog. "checkpoint")
+
+*** Versionsverwaltung -- aktueller Stand			      :notes:
+
+Es gibt eine große Anzahl unterschiedlicher
+Versionsverwaltungswerkzeuge. Aktuell ist ~git~ vermutlich am
+weitesten verbreitet; es ist sehr flexibel und funktionsreich. 
+
+In GP1 werden wir allerdings auf explizite
+Versionsverwaltungswerkzeuge (voraussichtlich) verzichten. 
+
+** Integrierte Entwicklungsumgebung 
+
+- Integrated Development Environment (IDE) 
+- Fasst viele Werkzeuge in einem Programm zusammen
+- Problem: Meist *sehr* komplex
+  - Bedienung, Nutzung einer IDE zu lernen ist sehr zeitaufwändig
+- /IDE-Bedienung ist *nicht* Programmieren/!
+
+
+*** Empfehlung							    :animate:
+- Tun Sie es nicht
+- Jedenfalls nicht in GP1! 
+
+* Programmierung im Kontext 
+
+** Alles alleine? 
+
+- Schreiben Sie alle Programme von Grund auf ("from scratch")? 
+
+*** Natürlich nicht						    :animate:
+
+- Sie nutzen Arbeit anderer
+  - Allgemein verfügbar
+  - Aus Ihrem Team
+- Sie nutzen Erfahrungen anderer 
+
+
+** Allgemein verfügbar: Bibliotheken 
+
+- Bibliothek
+  - Programmcode der vielen Zwecken dienen kann
+  - Teil der Sprache: /Standard-Bibliothek/ 
+  - Oder zusätzlich verfügbar 
+
+- Stark unterschiedliche Ansätze zwischen Sprachen
+  - C: fast leere Standardbibliothek
+  - Python: sehr umfangreich ("batteries included")
+
+
+*** Effizienz des Programmierers				    :animate:
+
+- Gute Programmiersprache mit guter Bibliothek!
+
+
+
+** Technisch: Package management systems 
+
+- Wie findet man, installiert man zusätzliche Bibliotheken?
+  - Bibliothek: /Package/
+  - /Package management system/
+- Stark unterschiedliche Ansätze zwischen Sprachen
+  - C: ???
+  - Python: [[https://pypi.python.org/pypi/pip][Python Package Index]]
+    (~pip~), [[http://conda.pydata.org/docs/][Conda]], ... 
+- Beispiele: Später 
+
+
+** Team-Arbeit: Versionsverwaltung 
+
+- Versionsverwaltung auch (insbesondere) für Team-Arbeit gedacht 
+- Gemeinsame Arbeit an größerem Projekt
+- Wiederverwendung! 
+- Beispiele: Später 
+
+** Hilfe finden 
+
+Wo finden Sie Hilfe? Bei allgemeinen Fragen? 
+
+- [[http://stackexchange.com][StackExchange]]
+  - Mit spezialisierten Unterseiten für einzelne Gebiete
+  - [[http://askubuntu.com][stackOverflow]] -- 4.7 million
+    programmers, helping each other 
+  - [[http://askubuntu.com][AskUbunutu]]
+  - [[http://serverfault.com][System adminstration]]
+  - [[http://tex.stackexchange.com][TeX/LaTex StackExchange]] --
+    Textverarbeitung für Erwachsene
+  - [[http://emacs.stackexchange.com][emacs]] -- Editor für Erwachsene 
+
+** Hilfe finden (2) 
+
+- Spezifisch: Sprache, Entwicklungsumgebung, ...
+  - Beispiel C++: [[http://en.cppreference.com/w/][C++ Reference Site]]
+
+
+** Gute Programmierer
+
+... wissen, wie man google/stackoverflow die richtigen Fragen stellt 
+
+* Material 
+
+** Programmierung 
+
+- Programmierung allgemein
+  - Felleisen et al., [[http://htdp.org][How to design programs, An introduction to
+    programming and computing]], MIT Press (online verfügbar). 
+
+- Online
+
+  - [[https://www.codecademy.com/][CodeCademy]]: Große Sammlung von
+    Kursen zu unterschiedlichen Themen; interaktiv
+
+  -
+    s. a. [[http://www.hongkiat.com/blog/sites-to-learn-coding-online/][Übersichtswebsite]];
+    meist kommerzielle Angebote 
+
+
+
+** Python 
+
+- Python, die Sprache 
+  - [[https://docs.python.org/3/][Python Dokumentation]]
+  - Mark Lutz, Learning Python, 5th ed., O'Reilly.
+    - Auch als
+      [[http://proquest.tech.safaribooksonline.de/9781449355722][eBook]]
+      in der UniBib 
+  - Jason Briggs, Python for Kids 
+  - Bernd Klein, Einführung in Python 3: In einer Woche programmieren
+    lernen 
+  - Thomas Theis, Einstieg in Python
+
+** Python, Umgebungen 
+
+- Jupyter
+  - [[http://jupyter.org][Jupyter Projekt Webseiten]]
+- Texteditor
+  - [[http://atom.io][Atom]]
+  - [[https://www.gnu.org/s/emacs/][Emacs]]
+    - Mit Abarten je nach Betriebssystem
+  - und viele, viele andere ... 
+- IDEs
+  - (Vorsicht, *sehr* komplex) 
+  - Kommerziell: [[https://www.jetbrains.com/pycharm/][PyCharm]]
+  - Open Source: Eclipse, insbes. [[http://www.pydev.org][PyDev]] 
+
+** Java 
+
+- Bücher
+  - Hanspeter Mössenböck, Sprechen Sie Java? dpunkt Verlag. 
+  - Reinhard Schiedermeier, Programmieren mit Java, Pearson Studium. 
+- [[http://download.oracle.com/javase/tutorial/][Java Tutorial]]
+
+
+** Java, Umgebungen 
+
+
+- IDEs
+  - (Vorsicht, *sehr* komplex) 
+  - Open Source: [[http://www.eclipse.org][Eclipse]] 
+
+* Zusammenfassung 
+
+** Zusammenfassung 
+
+- Programmieren ist
+  - ist mehr als zur "Coding"
+  - ist ein systematischer Prozess
+  - spielt sich in einem gewählten Paradigma ab
+- Gute Programmierer
+  - sind analytisch und stilistisch sicher 
+  - beherrschen wesentliche Werkzeuge
+  - kennen den Entwicklungskontext 
