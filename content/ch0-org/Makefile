@@ -31,6 +31,6 @@ distribute:
 	echo TODO
 
 clean:
-	rm *.tgz
+	-rm *.tgz
 	-rm *.tex *aux *fdb_latexmk *.fls *.log *.out *.toc
-	rm *.ipynb
+	-rm *.ipynb
