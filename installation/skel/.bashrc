@@ -111,3 +111,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# TODO: we should not be forced to do that, install nbgrader
+# repo in a better location
+export PYTHONPATH=/home/jupyterhub/nbgrader
