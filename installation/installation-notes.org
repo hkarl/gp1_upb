@@ -1,0 +1,51 @@
+* Notes for installation 
+
+- one server 
+- with group accounts AND access for individual accounts 
+- use pam mkdir module to create the home directories
+- group accounts have a corresponding group 
+- put group members into those groups, to allow them to access the
+  group directory (via samba, see below) 
+- install samba server to present the indivudal and group
+  directories. 
+
+
+- allow both group users and individual users to access the jupyterhub
+  server 
+
+- but only the gorup users are part of nbgrader 
+
+
+- think about where to install the nbgrader repo, and fix access
+  rights correspondingly. This is not well done at the moment; if we
+  need to trun from repo (and not pip, we need to decide on a better
+  place) 
+
+
+* Notes for releasing material 
+
+
+
+** Lectures 
+
+- Copy the notebooks and support files into the gp1 group directories 
+
+** emacs setup 
+
+
+
+* At lecture time 
+
+** once members are clear 
+
+- add them to the whitelist of jupyter 
+
+- do NOT add to nbgrader list 
+
+** once groups are clear 
+
+- add email addresses  to group list?  in order to send feedback ? 
+- somehow collect IRB accounts? emails? 
+
+- gp1_16_xx
+
