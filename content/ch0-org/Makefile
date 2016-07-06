@@ -11,14 +11,10 @@ tgz := $(patsubst %.org,%.tgz,$(wildcard *.org))
 build: $(objects) $(pdfs) $(tgz)
 
 $(objects): %.ipynb: %.org
-	-mkdir output 
+	mkdir -p output 
 	# building raw files 
 	../../build/tangle.sh $< >> ../../build/log
-	# note: we just copy the notebook file here and
-	# delete it after we have generated the tgz file! 
 	cp $@ output
-	make clean
-
 
 $(pdfs): %.pdf: %.tex
 	pdflatex $<
@@ -26,8 +22,7 @@ $(pdfs): %.pdf: %.tex
 	mv $@ output 
 
 $(tgz): %.tgz: %.ipynb
-	tar cfz output/$<.tgz $< figures
-	rm $<
+	tar cfz output/$*.tgz $< figures
 
 distribute:
 	# move produced outfiles into place
