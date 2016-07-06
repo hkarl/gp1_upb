@@ -98,8 +98,17 @@
       - studa
       - studb
       - studc
-  tags: user
 
+  # this was an interesting idea, but it seems not to work, so we will
+  # create directories for everybody? 
+  # - name: Make sure that ordinary users get a home directory after logon
+  #   lineinfile:
+  #     dest=/etc/pam.d/common-account
+  #     insertafter=EOF
+  #     line="session\trequired\tpam_mkhomedir.so\tskel=/home/jupyterhub/gp1/installation/skel/\tumask=0002"
+  # TODO: think about a proper skeleton ? 
+  tags: user
+  
 
 - name: Set up certificates 
   hosts: gp1hub
@@ -165,6 +174,8 @@
   hosts: gp1hub
   remote_user: root
   tasks:
+  - name: Install Jupyter standalone notebook
+    pip: name=getent executable=pip3 state=latest
   - name: Create notebook directory for users
     # file: path=/home/jupyterhub/assignments/{{ item }} owner={{ item }} group={{ item }} mode=0755 state=directory 
     file: path=/home/{{ item }}/notebooks owner={{ item }} group={{ item }} mode=0700 state=directory 
@@ -180,7 +191,6 @@
     file: path=/home/{{ item }} mode=0700 state=directory 
     with_items:
       # - hkarl <- this user needs special treatment as he already exists
-      - jupyterhub
       - studa
       - studb
       - studc
@@ -217,10 +227,19 @@
     with_items:
       - directory
       - touch
+  # TODO: Remove, once we have nbgrader either in final from PIP or
+  # at the right place
+  - name: put ~jupyterhub/nbgrader in PYTHONPATH of users
+    lineinfile:
+      dest=/home/jupyterhub/.zshrc
+      insertafter=EOF
+      line="export PYTHONPATH=/home/jupyterhub/nbgrader"
+    with_items:
+      - studa
+      - studb
+      - studc
   - name: install the nbgrader extension
     command: nbgrader extension install
-    become_user: jupyterhub
-    become: true 
   - name: install the nbgrader activate 
     command: nbgrader extension activate
     become_user: jupyterhub
@@ -239,10 +258,10 @@
     become_user: studc
     become: true
   # and a course
-  - name: quickstart an gp1test course
-    command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
-    become_user: jupyterhub
-    become: true
+  # - name: quickstart an gp1test course
+  #   command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
+  #   become_user: jupyterhub
+  #   become: true
   tags: nbgrader 
 
 
@@ -275,3 +294,36 @@
   tags: formgrader
 
 
+#
+# Setup for distribution of content
+#
+
+- name: DistributeContent
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: install emacs
+    apt: name={{ item }} state=installed
+    with_items:
+      - emacs24
+      - texlive-latex-base
+      - texlive-latex-extra
+      - texlive-lang-german
+  - name: install deployment key to access git.cs.upb.de
+    copy: src=key/ dest=/home/jupyterhub/.ssh mode=0600
+    become_user: jupyterhub
+    become: true
+  # TODO: copy skeleton to /etc/skel
+  - name: Pull repository
+    git:
+      repo=irb-git@git.cs.upb.de:holger.karl/gp1-jupyter.git
+      dest=/home/jupyterhub/gp1
+      update=yes
+    become_user: jupyterhub
+    become: true
+  - name: Symbolic link to emacs.d
+    file:
+      state=link
+      src=/home/jupyterhub/gp1/installation/emacs.d
+      dest=/home/jupyterhub/.emacs.d
+  tags: content 
