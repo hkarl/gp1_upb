@@ -14,7 +14,10 @@ $(objects): %.ipynb: %.org
 	-mkdir output 
 	# building raw files 
 	../../build/tangle.sh $< >> ../../build/log
-	mv $@ output 
+	# note: we just copy the notebook file here and
+	# delete it after we have generated the tgz file! 
+	cp $@ output
+	make clean
 
 
 $(pdfs): %.pdf: %.tex
@@ -24,6 +27,7 @@ $(pdfs): %.pdf: %.tex
 
 $(tgz): %.tgz: %.ipynb
 	tar cfz output/$<.tgz $< figures
+	rm $<
 
 distribute:
 	# move produced outfiles into place
