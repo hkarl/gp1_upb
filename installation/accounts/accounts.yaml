@@ -1,0 +1,18 @@
+---
+# only put imt account names here, with the exception of groups
+# sysadmins, relevant for sudoers file
+sysadmin:
+  - hkarl
+  - tsf
+
+# jupyterhub admins
+admin:
+  - hkarl
+  - tsf
+
+grader:
+  - hkarl
+  - harbig
+
+...
+  
