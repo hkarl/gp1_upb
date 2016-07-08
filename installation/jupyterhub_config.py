@@ -359,7 +359,24 @@ c.Spawner.notebook_dir = '~'
 # set of usernames of admin users
 # 
 # If unspecified, only the user that launches the server will be admin.
-c.Authenticator.admin_users = set(['hkarl', 'jupyterhub'])
+import yaml 
+with open('/home/jupyterhub/gp1/installation/accounts/accounts.yaml') as f:
+    cfg = yaml.load(f)
+    
+adminlist = cfg['admin']
+graderlist = cfg['grader']
+
+with open('/home/jupyterhub/gp1/installation/accounts/groups.yaml') as f:
+    cfg = yaml.load(f)
+    
+groupslist = [x['acc'] for x in cfg['groupaccounts']]
+
+with open('/home/jupyterhub/gp1/installation/accounts/students.yaml') as f:
+    cfg = yaml.load(f)
+    
+studentslist = cfg['students']
+
+c.Authenticator.admin_users = set(['jupyterhub'] + adminlist)
 
 # Dictionary mapping authenticator usernames to JupyterHub users.
 # 
@@ -377,7 +394,11 @@ c.Authenticator.admin_users = set(['hkarl', 'jupyterhub'])
 # 
 # Use this to restrict which users can login. If empty, allow any user to
 # attempt login.
-c.Authenticator.whitelist = set(['hkarl', 'jupyterhub', 'studa', 'studb', 'studc', 'tsf'])
+
+# Read the whitelist from the list of user accounts in the installation directory:
+
+# c.Authenticator.whitelist = set(['hkarl', 'jupyterhub', 'studa', 'studb', 'studc', 'tsf'])
+c.Authenticator.whitelist = set(graderlist + groupslist + studentslist)
 
 #------------------------------------------------------------------------------
 # LocalAuthenticator configuration
