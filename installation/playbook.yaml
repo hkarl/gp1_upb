@@ -88,11 +88,12 @@
         regexp="  LABEL=root    /               ext4        errors=remount-ro 0       1"
         line="  LABEL=root    /               ext4        errors=remount-ro,usrjquota=aquota.user,jqfmt=vfsv1 0       1"
     - name: remount to enable quotas
-      shell: mount -vo remount /home
-    - name: create quota index
-      shell: quotacheck -vgum /
-    - name: turn on quota
-      shell: quotaon -av
+      shell: mount -o remount /
+    # TODO: this needs figuring out - make sure to only run once, with filesystem unmounted
+    # - name: create quota index
+    #   command: quotacheck -vgum /
+    # - name: turn on quota
+    #   command: quotaon -av
   tags: software 
 
 
