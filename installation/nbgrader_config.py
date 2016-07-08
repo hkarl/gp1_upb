@@ -210,7 +210,16 @@ c.HubAuth.hub_address = "127.0.0.1"
 
 # Change this to be the list of unix usernames that are allowed to access
 # the formgrader.
-c.HubAuth.graders = ["hkarl", "jupyterhub"]
+
+import yaml 
+with open('/home/jupyterhub/gp1/installation/accounts/accounts.yaml') as f:
+    cfg = yaml.load(f)
+    
+adminlist = cfg['admin']
+graderlist = cfg['grader']
+
+
+c.HubAuth.graders = adminlist + graderlist + ["jupyterhub"]
 
 # This loads the environment variable containing the hubapi token that we will
 # generate by running the `jupyterhub token <name>` command, just before we
