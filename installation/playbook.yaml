@@ -9,7 +9,19 @@
 # that yet)
 # - https://github.com/jupyterhub/jupyterhub-deploy-teaching
 
-# -------------------- 
+# --------------------
+
+# load variables 
+
+- name: load account variables
+  hosts: gp1hub
+  remote_user: root
+  tasks: 
+  - include_vars: "accounts/accounts.yaml"
+  - include_vars: "accounts/students.yaml"
+  - include_vars: "accounts/groupaccounts.yaml"
+  tags: always
+
 # Basic setup 
 - name: Firewall
   remote_user: root
@@ -51,7 +63,7 @@
   tags: security
 
 # basic software
-- name: Basic software installation 
+- name: Basic software installation and configuration  
   hosts: gp1hub
   remote_user: root
   tasks:
@@ -62,13 +74,25 @@
         - python3-dev
         - python3-pip
         - build-essential
+        - quota
     - name: Add jessie backports (for certbot)
       copy: src=jessie-backports.list dest=/etc/apt/sources.list.d/jessie-backports.list owner=root mode=0644
     # TODO: the installation from backports seems to fail via ansible
     # it worked on command line ? 
     # - name: install certbot
     #   apt: name=certbot state=latest default_release=jessie-backports update_cache=yes
-    # 
+    #
+    - name: Turn on quotas on /home
+      lineinfile:
+        dest=/etc/fstab
+        regexp="  LABEL=root    /               ext4        errors=remount-ro 0       1"
+        line="  LABEL=root    /               ext4        errors=remount-ro,usrjquota=aquota.user,jqfmt=vfsv1 0       1"
+    - name: remount to enable quotas
+      shell: mount -vo remount /home
+    - name: create quota index
+      shell: quotacheck -vgum /
+    - name: turn on quota
+      shell: quotaon -av
   tags: software 
 
 
@@ -76,6 +100,7 @@
 # JupyterHub as such
 
 # create a user and a directory under which to run jupyterhub
+# create all the other users as well 
 
 - name: Create JupyterHub user and group, add some user 
   hosts: gp1hub
@@ -85,28 +110,24 @@
     group: name=jupyterhub state=present
   - name: Create jupyterhub user 
     action: user name=jupyterhub comment="JupyterHub User" state=present shell=/bin/date group=user groups="jupyterhub,shadow"
-  - name: Add admin user to the jupyterhub group
-    action: user name=hkarl groups=jupyterhub append=yes
   # TODO: think about whether public-key based login would help
   # - name: Copy public key to JupyterHub
   #   copy: src=/Users/hkarl/.ssh/id_rsa.pub dest=/home/jupyterhub/.ssh/authorized_keys owner=jupyterhub mode=0600
-  # 
-  # create a few test students 
-  - name: Create Student user
-    user: name={{ item }} comment="Test student account" state=present shell=/bin/zsh groups=user append=yes createhome=yes password="$6$DBwZI91KP$gnbsgSBlY/V32O4iPOaSRMPXxvLNRzgfE2/2byNY9Av7o8ryaJjivrygGTjBTgewcD98EEEcn73gDkhS6/E.2." append=yes
-    with_items:
-      - studa
-      - studb
-      - studc
+  #
 
-  # this was an interesting idea, but it seems not to work, so we will
-  # create directories for everybody? 
-  # - name: Make sure that ordinary users get a home directory after logon
-  #   lineinfile:
-  #     dest=/etc/pam.d/common-account
-  #     insertafter=EOF
-  #     line="session\trequired\tpam_mkhomedir.so\tskel=/home/jupyterhub/gp1/installation/skel/\tumask=0002"
-  # TODO: think about a proper skeleton ? 
+  # create groups jupadmin, jupgrader, jupgroup jupstudent
+  - name: create jupadmin group
+    group: name=jupadmin state=present 
+  - name: create jupgrader group
+    group: name=jupgrader state=present 
+  - name: create jupgroups group
+    group: name=jupgroups state=present 
+  - name: create jupstudent group
+    group: name=jupstudent state=present 
+
+  # create the corresponding accounts with quota (but we don't have
+  # the skeleton yet? do it later?)
+  
   tags: user
   
 
@@ -169,33 +190,7 @@
   tags: sudo
 
 
-# Deal with users in the configuration file, create directories, ...
-- name: User setup, directories for users, ...
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  - name: Install Jupyter standalone notebook
-    pip: name=getent executable=pip3 state=latest
-  - name: Create notebook directory for users
-    # file: path=/home/jupyterhub/assignments/{{ item }} owner={{ item }} group={{ item }} mode=0755 state=directory 
-    file: path=/home/{{ item }}/notebooks owner={{ item }} group={{ item }} mode=0700 state=directory 
-    with_items:
-      # - hkarl <- this user needs special treatment as he already exists
-      - jupyterhub
-      - studa
-      - studb
-      - studc
-  # - name: Create notebook directory for admin user at least
-  #   file: path=/home/jupyterhub/assignments/jupyterhub owner=hkarl group=user mode=0755
-  - name: Restrict access rights
-    file: path=/home/{{ item }} mode=0700 state=directory 
-    with_items:
-      # - hkarl <- this user needs special treatment as he already exists
-      - studa
-      - studb
-      - studc
-  tags: user
-  
+ 
 # Configure Jupyterhub and start it as a service
 - name: Config Jupyterhub as a service 
   hosts: gp1hub
@@ -227,36 +222,14 @@
     with_items:
       - directory
       - touch
-  # TODO: Remove, once we have nbgrader either in final from PIP or
-  # at the right place
-  - name: put ~jupyterhub/nbgrader in PYTHONPATH of users
-    lineinfile:
-      dest=/home/jupyterhub/.zshrc
-      insertafter=EOF
-      line="export PYTHONPATH=/home/jupyterhub/nbgrader"
-    with_items:
-      - studa
-      - studb
-      - studc
   - name: install the nbgrader extension
-    command: nbgrader extension install
+    command: nbgrader extension install 
   - name: install the nbgrader activate 
     command: nbgrader extension activate
     become_user: jupyterhub
     become: true 
-  # todo: figure out how to do that more elegantly, looping and become_user do not seem to mesh well
-  - name: run install for each student user, studa 
-    command: nbgrader extension activate
-    become_user: studa
-    become: true 
-  - name: run install for each student user, studb
-    command: nbgrader extension activate
-    become_user: studb
-    become: true 
-  - name: run install for each student user, studc
-    command: nbgrader extension activate
-    become_user: studc
-    become: true
+  - name: put configuration file gp1test in place
+    copy: src=nbgrader_config.py dest=/home/jupyterhub/notebooks/gp1test/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
   # and a course
   # - name: quickstart an gp1test course
   #   command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
@@ -269,9 +242,6 @@
   hosts: gp1hub
   remote_user: root
   tasks:
-  # todo: move this back up to previous step; only here to easy debugging
-  - name: put configuration file gp1test in place
-    copy: src=nbgrader_config.py dest=/home/jupyterhub/notebooks/gp1test/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
   - name: put CONFIGPROXY_AUTH_TOKEN into environment
     lineinfile:
       dest=/home/jupyterhub/.zshrc
@@ -327,3 +297,139 @@
       src=/home/jupyterhub/gp1/installation/emacs.d
       dest=/home/jupyterhub/.emacs.d
   tags: content 
+
+- name: Create actual student accounts
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+
+  #group users are created and get a password: 
+  - name: Create Group users
+    user: name={{ item.acc }} comment="Account for jointly handing in assignments" state=present shell=/bin/bash groups=user,jupgroups append=yes createhome=yes password={{ item.hash }} skeleton=/home/jupyterhub/gp1/installation/skel
+    with_items: "{{ groupaccounts }}"
+
+  # all the other users are not created, but get a home dir with a proper link
+  # prepare the pseudo-home directory hierarchy
+  - name: Create Pseudo home directories
+    file: path=/upb/users/{{ item }}/ owner=root group=root mode=0755 state=directory
+    with_items: [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
+  
+  # and are put in the respective groups
+  - name: Create Jupyter user directories
+    file: path=/home/{{ item }} owner={{ item }} group=user mode=0644 state=directory
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+    ignore_errors: yes 
+    # TODO: this ignore_errors needs to be removed in production run!!! 
+
+  # Create intermediate directory hierarchy - this looks like a stupid ansible limiation?
+  - name: Create Jupyter directories to mirror /upb structure 
+    file: path=/upb/users/{{ item[0] }}/{{ item }} owner=root group=root mode=0755 state=directory
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+  - name: Create Jupyter directories to mirror /upb structure 
+    file: path=/upb/users/{{ item[0] }}/{{ item }}/profiles owner=root group=root mode=0755 state=directory
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+  - name: Create Jupyter directories to mirror /upb structure 
+    file: path=/upb/users/{{ item[0] }}/{{ item }}/profiles/unix owner=root group=root mode=0755 state=directory
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+  
+  - name: Create symbolic links to home directories
+    file: dest=/upb/users/{{ item[0] }}/{{ item }}/profiles/unix/cs src=/home/{{ item }} owner=root group=root mode=0755 state=link 
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+    ignore_errors: yes 
+    # TODO: this ignore_errors needs to be removed in production run!!!
+    
+  - name: Restrict access rights to home directories
+    file: path=/home/{{ item }} mode=0700 state=directory 
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+      - "{{ groupaccounts }}"
+
+  # Put admins, graders, and students in the right groups
+  # (no need to do that for group accounts; happens at creation time)
+  - name: Put users in the corresponding groups -  jupadmin
+    user: name={{ item }} groups=jupadmin append=yes
+    with_items: "{{ admin }}"
+  - name: Put users in the corresponding groups -  jupgrader
+    user: name={{ item }} groups=jupgrader append=yes
+    with_items: "{{ grader }}"
+  - name: Put users in the corresponding groups -  jupstudent 
+    user: name={{ item }} groups=jupstudent append=yes
+    with_items: "{{ students }}"
+
+  # TODO: Remove, once we have nbgrader either in final from PIP or
+  # at the right place
+  - name: put ~jupyterhub/nbgrader in PYTHONPATH of users
+    lineinfile:
+      dest=/home/jupyterhub/.zshrc
+      insertafter=EOF
+      line="export PYTHONPATH=/home/jupyterhub/nbgrader"
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+      - "{{ groupaccounts }}"
+
+
+  # activate nbgrader for relevant users, i.e., NOT for individual student accounts! :
+  - name: activate nbgrader
+    command: nbgrader extension activate
+    become_user: "{{ item }}"
+    become: true
+    with_items:
+      - "{{ admin }}"
+      - "{{ grader }}"
+  # group accounts are a dictionary, have to fish out the account name explicitly 
+  - name: activate nbgrader
+    command: nbgrader extension activate
+    become_user: "{{ item.acc }}"
+    become: true
+    become_method: su
+    with_items:
+      - "{{ groupaccounts }}"
+    
+  # set quotas for student and group users
+  - name: quota for group users
+    command: setquota -u {{ item.acc }} 100000 200000 0 0  -a
+    with_items: 
+      - "{{ groupaccounts }}"
+  - name: quota for individual student id 
+    command: setquota -u {{ item }} 50000 100000 0 0  -a
+    with_items: 
+      - "{{ students }}"
+
+
+  # limit file permissions of student and group users 
+  - name: Limit permission of student, admin, grader user
+    file: path=/home/{{ item }} mode=0700 state=touch
+    with_items:
+      - "{{ students }}"
+      - "{{ grader }}"
+      - "{{ admin }}"
+  - name: Limit permission of group user
+    file: path=/home/{{ item.acc }} mode=0700 state=touch 
+    with_items:
+      - "{{ groupaccounts }}"
+
+    
+  - name: Restart the service after nbgrader setup 
+    service: name=jupyterhub state=restarted
+      
+  tags: user
+
