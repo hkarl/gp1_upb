@@ -366,7 +366,7 @@ with open('/home/jupyterhub/gp1/installation/accounts/accounts.yaml') as f:
 adminlist = cfg['admin']
 graderlist = cfg['grader']
 
-with open('/home/jupyterhub/gp1/installation/accounts/groups.yaml') as f:
+with open('/home/jupyterhub/gp1/installation/accounts/groupaccounts.yaml') as f:
     cfg = yaml.load(f)
     
 groupslist = [x['acc'] for x in cfg['groupaccounts']]
