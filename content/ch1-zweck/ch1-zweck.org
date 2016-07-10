@@ -48,23 +48,17 @@ ebenfalls dazu
 
 "Die Studierenden sollen
 - die Programmentwicklung von Grund auf erlernen;
-- lernen, Sprachkonstrukte sinnvoll und mit Verständnis anzuwenden;
+- lernen, Sprachkonstrukte sinnvoll und mit Verständnis anzuwenden;
 - grundlegende Konzepte der objektorientierten Programmierung
   verstehen und anzuwenden lernen; 
 - lernen, Software aus objektorientierten Bibliotheken wiederzuverwenden."
-
-** GP1 im Studienverlauf 
-
-#+CAPTION: Das Modul I.1.1 im Studienverlauf
-#+NAME: modul-I11
-[[./figures/studienverlauf.png]]
 
 
 ** Modul I.1.1 
 
 - Pflichtmodul im Gebiet „Softwaretechnik und Informationssysteme“
 - Ziel des Moduls „Programmiertechnik“:
-  - Das Modul vermittelt einführende und grundlegende Kenntnisse und Fähigkeiten in der Programmierung
+  - Das Modul vermittelt einführende und grundlegende Kenntnisse und Fähigkeiten in der Programmierung
 - Modul I.1.1 besteht aus
   - Grundlagen der Programmierung 1 (GP1)
   - Grundlagen der Programmierung 2 (GP2)
@@ -353,7 +347,9 @@ Sprachen eines Paradigmas gleichen sich in:
   - Leicht erlernbar
   - Praxisrelevant
   - Deckt wesentliche Paradigmen ab 
-  - Ausgangspunkt für weitere Ausbildung 
+  - Ausgangspunkt für weitere Ausbildung
+  - Portierbar zwischen Betriebssystemen, Architekturen
+  - Spass! 
 
 - Keine Sprache erfüllt alle Anforderungen :-( 
 
@@ -386,9 +382,25 @@ Sprachen eines Paradigmas gleichen sich in:
 
 - Moderne Sprache, aber strikt verwaltet
 - Weniger komplex als Java
+- Sehr gut lesbar, kompakt
+  - Typischerweise: 1/3 -- 1/5 vergleichbaren Java-Codes 
 - Geringer Einarbeitungsaufwand
 - Interpretiert, dadurch einfach zu experimentieren 
 - Vor-/Nachteil: Keine statischen Typen 
+
+** Vergleich: TIOBE Index 
+
+- [[http://www.tiobe.com/tiobe_index][TIOBE Index]]: Welche Sprachen
+  werden am Arbeitsmarkt nachgefragt?
+
+Ranking: 
+1. Java
+
+2. C, C++
+
+3. Python 
+
+
 
 ** Konsequenz? 
 
@@ -397,10 +409,20 @@ Sprachen eines Paradigmas gleichen sich in:
 - Zum Ende: Java -- ca. 1/4
   - Einführung statischer Typisierung 
 
+(und C kommt im vierten Semester...) 
 
 *** Vorteil?							    :animate:
 - Einfacher Einstieg & breiter Horizont
 - Zwei Sprachen sind kein Hexenwerk! 
+
+
+** Alle Sprachen? 
+
+#+CAPTION: Hartnäckigkeit kann sich auszahlen
+#+ATTR_LaTeX: scale=0.75
+#+NAME: fig:cobolsaurus
+[[./figures/cobolsaurus.gif]]
+
 
 
 * Werkzeuge 
