@@ -23,8 +23,11 @@ $(objects): %.ipynb: %.org
 $(pdfs): %.pdf: %.tex
 	pdflatex $<
 	pdflatex $<
-	mv $@ output 
-	-[ -z $$DEBUG ] && rm -f *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc 
+	cp $@ output 
+	# -[ -z $$DEBUG ] && rm -f *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc 
+
+%.tex: %.org
+	../../build/tangle.sh $< >> ../../build/log
 
 $(tgz): %.tgz: %.ipynb
 	tar cfz output/$*.tgz $< figures
