@@ -1,0 +1,56 @@
+#+TITLE: Kickoff GP1 BEsprechung mit WiMis 
+
+* Topics 
+
+** Assignments 
+
+- Handhabung? 
+- Plagiate? 
+
+
+*** Haus 
+
+- Durch WiMis
+- Vorbereitung?
+- Recycle old material?
+  - How to get it? 
+- Group handling?
+  - Passwords? 
+- Do we allow group changes? What does formgrader really support?
+  - How to announce new passwords, which group member? 
+
+
+*** Präsenz 
+
+- Recycle?
+- Studis?
+- How to kick off the first few weeks? 
+- When do we introduce other IDEs, shells? ? 
+
+
+*** Topics for starting weeks 
+
+- Week 1 of lab class: Get familiar with Jupyter
+  - Hand out passwords, collect group membership
+  - Show them how to change password
+  - Explain samba server access? 
+
+- Week 2 of class? how to get this dog and pony show on the road? 
+
+** nbgrader 
+
+- Testen? 
+- Setup-Hilfe? 
+
+** Lecture 
+
+- Proof reading? 
+
+
+** Administration
+
+- Mailingliste? 
+
+
+* Meeting notes 
+
