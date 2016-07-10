@@ -2,6 +2,10 @@
 
 .PHONY: build clean distribute 
 
+BASETARGETDIR := "/Users/hkarl/lectures/groups/gp1/vorlesung"
+DIRNAME := $(shell basename `pwd`)
+TARGETDIR := ${BASETARGETDIR}/${DIRNAME}
+
 SOURCE := $(wildcard *.org)
 objects := $(patsubst %.org,%.ipynb,$(wildcard *.org))
 pdfs := $(patsubst %.org,%.pdf,$(wildcard *.org))
@@ -20,6 +24,7 @@ $(pdfs): %.pdf: %.tex
 	pdflatex $<
 	pdflatex $<
 	mv $@ output 
+	-[ -z $$DEBUG ] && rm -f *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc 
 
 $(tgz): %.tgz: %.ipynb
 	tar cfz output/$*.tgz $< figures
@@ -27,9 +32,12 @@ $(tgz): %.tgz: %.ipynb
 distribute:
 	# move produced outfiles into place
 	# copy into all relevant group directories
-	echo TODO
+	# cp -r output ${TARGETDIR}
+	echo copying into ${TARGETDIR} 
 
 clean:
 	-rm *.tgz
-	-rm *.tex *aux *fdb_latexmk *.fls *.log *.out *.toc
-	-rm *.ipynb
+	-rm *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc
+	-rm *.ipynb *.ipynb~
+	-rm *.pdf
+
