@@ -1,4 +1,4 @@
-#+SUBTITLE: 
+#+SUBTITLE: Grundlagen der Programmierung 1 
 #+LATEX_CLASS_OPTIONS: [a4paper]
 
 #+OPTIONS: tags:nil
@@ -8,6 +8,16 @@
 #+LATEX_HEADER: \usepackage[ngerman]{babel}
 #+LATEX_HEADER: \usepackage{enumitem}
 #+LATEX_HEADER: \setlist[itemize]{noitemsep,nolistsep}
+#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{thmtools}
+#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Satz,shaded={rulecolor=green, rulewidth=0pt, bgcolor={rgb}{0.8,1,0.8}}]{theorem}
+#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Beispiel,shaded={rulecolor=green, rulewidth=0pt, bgcolor={rgb}{0.8,1,0.8}}]{example}
+#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Beweis,shaded={rulecolor=green, rulewidth=0pt, bgcolor={rgb}{0.8,1,0.8}}]{proof}
+#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Bemerkung,shaded={rulecolor=green, rulewidth=0pt, bgcolor={rgb}{0.8,1,0.8}}]{note}
+#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Definition,shaded={rulecolor=green, rulewidth=0pt, bgcolor={rgb}{0.8,1,0.8}}]{definition}
+#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Zitat,shaded={rulecolor=green, rulewidth=0pt, bgcolor={rgb}{0.8,1,0.8}}]{quote}
+#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Achtung,shaded={rulecolor=green, rulewidth=0pt, bgcolor={rgb}{0.8,1,0.8}}]{alertblock}
 #+DATE: Wintersemester 2016/2017
 
 
