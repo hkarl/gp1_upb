@@ -5,13 +5,88 @@
 
 
 (require 'ox-md)
+(require 'dash)
 
 (defgroup org-export-juslides nil
   "Options for Jupyer Slides export backend."
   :tag "Org Jupyter Slides Notebook"
   :group 'org-export
-  :version "24.4"
+  :version "0.1"
   :package-version '(Org . "8.0"))
+
+
+;; TODO: figure out how to put a map
+;; of (string, string, string) -> string
+;; into a customization variable 
+;; (defcustom org-export-juslides-beamer-divs
+;;   '(("theorem" "heading" "pre" "AAA")
+;;     ("theorem" "heading" "post" "BBB ")
+;;     ("theorem" "content" "pre" "CCC")
+;;     ("theorem" "content" "post" "DDD")
+;;     )
+;;   "For beamer blocks, which divs should be generated around the header and the content of the corresponding block?"
+;;   :version "0.1"
+;;   :group 'org-export-juslides
+;;   :type '(alist :key-type (string string string)
+;; 		:value-type string)
+;;   )
+
+(defcustom org-export-juslides-divs-heading-pre
+  '(("theorem" "<center> <div class=\"theorem-head\" style=\"border:2px; border-style:solid; border-color:#00FF00; padding: 1em; background-color:lightgreen; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\">")
+    ("proof" "<div class=\"proof-head\">")
+    ("example" "<div class=\"example-head\">")
+    ("note" "<div class=\"note-head\">")
+    ("definition" "<div class=\"definition-head\">")
+    ("quote" "<div class=\"quote-head\">")
+    ("alertblock" "<div class=\"alertblock-head\">")
+    )
+  "Divs to go before the heading"
+  :type '(alist :key-type string
+		:value-type (group string))
+  )
+
+(defcustom org-export-juslides-divs-heading-post
+  '(("theorem" "</div></center>")
+    ("proof" "</div>")
+    ("example" "</div>")
+    ("note" "</div>")
+    ("definition" "</div>")
+    ("quote" "</div>")
+    ("alertblock" "</div>")
+    )
+  "Divs to go after the heading"
+  :type '(alist :key-type string
+		:value-type (group string))
+  )
+
+(defcustom org-export-juslides-divs-content-pre
+  '(("theorem" "<center><div class=\"theorem-content\" style=\"border:2px; border-style:solid; border-color:#00FF00; padding: 1em; margin-top: 0; border-radius: 0px 0px 15px 15px; width: 80%;\">")
+    ("proof" "<div class=\"proof-content\">")
+    ("example" "<div class=\"example-content\">")
+    ("note" "<div class=\"note-content\">")
+    ("definition" "<div class=\"definition-content\">")
+    ("quote" "<div class=\"quote-content\">")
+    ("alertblock" "<div class=\"-content\">")
+    )
+  "Divs to go before the content"
+  :type '(alist :key-type string
+		:value-type (group string))
+  )
+
+
+(defcustom org-export-juslides-divs-content-post
+  '(("theorem" "</div></center>")
+    ("proof" "</div>")
+    ("example" "</div>")
+    ("note" "</div>")
+    ("definition" "</div>")
+    ("quote" "</div>")
+    ("alertblock" "</div>")
+    )
+  "Divs to go after the content"
+  :type '(alist :key-type string
+		:value-type (group string))
+  )
 
 
 ;; so far, nothing to customize yet :-/ 
@@ -110,6 +185,85 @@
     )
   )
 
+
+(defun org-juslides-get-div (beamertag p1 p2)
+  "if beamtag is non-nil, grab the divs for the various places. 
+p1 should be header or content, p2 should be pre or post"
+  (if beamertag
+      (let* ((customized-divs (cond
+			       ((string= p1 "heading")
+				(cond
+				 ((string= p2 "pre") org-export-juslides-divs-heading-pre)
+				 ((string= p2 "post") org-export-juslides-divs-heading-post)
+				 (t nil))
+				)
+			       ((string= p1 "content")
+				(cond
+				 ((string= p2 "pre") org-export-juslides-divs-content-pre)
+				 ((string= p2 "post") org-export-juslides-divs-content-post)
+				 (t nil))
+				)
+			       (t nil))
+			   )
+	     (divstring-tmp (-filter
+			     (lambda (x) (string= beamertag (car x)))
+			     customized-divs))
+	     (divstring-div (car ( cdr (car divstring-tmp))))
+	     (divstring (if divstring-div
+			    divstring-div
+			  ""))
+	     )
+	;; (print "divstring")
+	;; (print beamertag)
+	;; (print customized-divs)
+	;; (print divstring-div)
+	;; (print divstring)
+	divstring)
+    "")
+  )
+
+
+(defun org-juslides-format-content (headline contents anchor level info)
+  "We have a block with a headline. Produce the actual source for this part. 
+Check for possible BEAMER tags!"
+  (let* ((tags-list (org-export-get-tags headline info))
+					; get only those tags that start with B_ for Beamer tag
+	 (beamer-tags (-filter (lambda (x) (string-prefix-p "B_" x))
+			       tags-list))
+					; let's for now assume there is just a single beamer tag per block heading
+	 (tmp-beamer-tag (car beamer-tags))
+	 (beamer-tag (if tmp-beamer-tag
+			 (substring tmp-beamer-tag 2)
+		       nil))
+	 (heading_pre_div (org-juslides-get-div beamer-tag "heading" "pre"))
+	 (heading_post_div (org-juslides-get-div beamer-tag "heading" "post"))
+	 (content_pre_div (org-juslides-get-div beamer-tag "content" "pre"))
+	 (content_post_div (org-juslides-get-div beamer-tag "content" "post"))
+	 )
+    (message "juslides-format-content")
+    (print beamer-tag)
+    (concat
+     (if heading_pre_div
+	 (concat 
+	  heading_pre_div
+	  heading
+	  anchor
+	  heading_post_div
+	  )
+       (concat 
+	(make-string (- level 1) ?#)
+	" "
+	heading
+	anchor
+	))
+     "\n\n"
+     content_pre_div
+     contents
+     content_post_div
+     )
+    )
+  )
+
 (defun org-juslides-headline (headline contents info)
   "Don't show headlines level 1; turn them into a separation slide. 
 This is based on markdown exporter's headline handling"
@@ -204,7 +358,7 @@ This is based on markdown exporter's headline handling"
 		"\n\n"
 		contents))
        ;; Use "atx" style.
-       (t (let ((source (concat (make-string (- level 1) ?#) " " heading  anchor "\n\n" contents))
+       (t (let ((source (org-juslides-format-content headline contents anchor level info))
 		)
 	    ;; (if animateslide
 	    ;; 	(org-juslides-cell "markdown" "fragment" source)
@@ -388,7 +542,7 @@ holding export options."
 	      (pdffile (format "figures/%s.pdf" filebase))
 	      (pngfile (format "figures/%s.png" filebase))
 	      )
-    	(replace-match (format "![imgimg](figures/%s.png)"
+    	(replace-match (format "<center>![imgimg](figures/%s.png)</center>"
     			       (match-string 2)
     			       t t))
 	(message pdffile)
@@ -404,6 +558,13 @@ holding export options."
 	    )
     	  )
     	)
+      )
+    (goto-char (point-min))
+    ;; center figures
+    (while (re-search-forward "\\!\\[img\\]\\(\\(.*\\)\\)" nil t)
+      (replace-match (concat "<center>![img]"
+			     (match-string 1)
+			     "</center>"))
       )
     
     (goto-char (point-min))
