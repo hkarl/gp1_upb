@@ -41,6 +41,8 @@
 
 - Testen? 
 - Setup-Hilfe? 
+- Gruppen? Verlassen wir uns auf CONTRIBUTOR-Angabe, oder schreiben
+  wir Teilnehmer bei Gruppenaccounts fest vor. 
 
 ** Lecture 
 
@@ -50,7 +52,7 @@
 ** Administration
 
 - Mailingliste? 
-
+- Wiki im Git? 
 
 * Meeting notes 
 
