@@ -18,6 +18,10 @@ distribute: makefiles buildall
 		make -C $$d distribute ; \
 	done
 	# generate the file list ; maybe that has to be constructed from indiviaul parts?
+	# we need a few modules :-( ; note that this has be done in ONE shell invocation!
+	source ~/.venvs/ansible/bin/activate; \
+	python ../build/createWebpage.py --org . --released ./released.yaml --html ../output/vorlesung/index.html
+
 	# how to deal with audio files?
 	# copy into gp1 servers user directories; for group and student users 
 

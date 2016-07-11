@@ -1,10 +1,16 @@
-# Build the various output formats for a lecture chapter
+# Build the various output formats for a LECTURE chapter
+# (uebungen still to be decided)
 
-.PHONY: build clean distribute 
+.PHONY: build clean distribute outputdir 
 
 BASETARGETDIR := "/Users/hkarl/lectures/groups/gp1/vorlesung"
 DIRNAME := $(shell basename `pwd`)
-TARGETDIR := ${BASETARGETDIR}/${DIRNAME}
+
+# OUTPUTDIR: where to collect produced files 
+OUTPUTDIR := "../../output/vorlesung/${DIRNAME}"
+
+# TARGETDIR: this is accessible 
+WEBSERVERDIR := ${BASETARGETDIR}/${DIRNAME}
 
 SOURCE := $(wildcard *.org)
 objects := $(patsubst %.org,%.ipynb,$(wildcard *.org))
@@ -12,31 +18,37 @@ pdfs := $(patsubst %.org,%.pdf,$(wildcard *.org))
 tgz := $(patsubst %.org,%.tgz,$(wildcard *.org))
 
 
-build: $(objects) $(pdfs) $(tgz)
+build: outputdir $(objects) $(pdfs) $(tgz)
+
+outputdir:
+	echo "Ensuring ${OUTPUTDIR} exists"
+	mkdir -p ${OUTPUTDIR}
 
 $(objects): %.ipynb: %.org
 	mkdir -p output 
 	# building raw files 
 	../../build/tangle.sh $< >> ../../build/log
-	cp $@ output
+	cp $@ ${OUTPUTDIR}
+	cp -r figures ${OUTPUTDIR}
 
 $(pdfs): %.pdf: %.tex
 	pdflatex $<
 	pdflatex $<
-	cp $@ output 
+	cp $@ ${OUTPUTDIR} 
 	# -[ -z $$DEBUG ] && rm -f *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc 
 
 %.tex: %.org
 	../../build/tangle.sh $< >> ../../build/log
 
 $(tgz): %.tgz: %.ipynb
-	tar cfz output/$*.tgz $< figures
+	tar cfz ${OUTPUTDIR}/$*.tgz $< figures
 
 distribute:
 	# move produced outfiles into place
 	# copy into all relevant group directories
 	# cp -r output ${TARGETDIR}
-	echo copying into ${TARGETDIR} 
+	echo "Creating webpage" 
+	echo rsynching into ${WEBSERVERDIR} 
 
 clean:
 	-rm *.tgz
