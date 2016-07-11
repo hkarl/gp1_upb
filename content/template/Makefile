@@ -9,8 +9,6 @@ DIRNAME := $(shell basename `pwd`)
 # OUTPUTDIR: where to collect produced files 
 OUTPUTDIR := "../../output/vorlesung/${DIRNAME}"
 
-# TARGETDIR: this is accessible 
-WEBSERVERDIR := ${BASETARGETDIR}/${DIRNAME}
 
 SOURCE := $(wildcard *.org)
 objects := $(patsubst %.org,%.ipynb,$(wildcard *.org))
@@ -42,13 +40,6 @@ $(pdfs): %.pdf: %.tex
 
 $(tgz): %.tgz: %.ipynb
 	tar cfz ${OUTPUTDIR}/$*.tgz $< figures
-
-distribute:
-	# move produced outfiles into place
-	# copy into all relevant group directories
-	# cp -r output ${TARGETDIR}
-	echo "Creating webpage" 
-	echo rsynching into ${WEBSERVERDIR} 
 
 clean:
 	-rm *.tgz
