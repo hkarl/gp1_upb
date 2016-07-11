@@ -75,6 +75,7 @@
         - python3-pip
         - build-essential
         - quota
+        - PyYaml
     - name: Add jessie backports (for certbot)
       copy: src=jessie-backports.list dest=/etc/apt/sources.list.d/jessie-backports.list owner=root mode=0644
     # TODO: the installation from backports seems to fail via ansible
@@ -110,7 +111,7 @@
   - name: Create group for jupyterhub account 
     group: name=jupyterhub state=present
   - name: Create jupyterhub user 
-    action: user name=jupyterhub comment="JupyterHub User" state=present shell=/bin/date group=user groups="jupyterhub,shadow"
+    action: user name=jupyterhub comment="JupyterHub User" state=present shell=/bin/bash group=user groups="jupyterhub,shadow"
   # TODO: think about whether public-key based login would help
   # - name: Copy public key to JupyterHub
   #   copy: src=/Users/hkarl/.ssh/id_rsa.pub dest=/home/jupyterhub/.ssh/authorized_keys owner=jupyterhub mode=0600
@@ -360,6 +361,9 @@
       - "{{ admin }}"
       - "{{ grader }}"
       - "{{ students }}"
+  - name: Restrict access rights to home directories
+    file: path=/home/{{ item.acc }} mode=0700 state=directory 
+    with_items:
       - "{{ groupaccounts }}"
 
   # Put admins, graders, and students in the right groups
@@ -373,20 +377,6 @@
   - name: Put users in the corresponding groups -  jupstudent 
     user: name={{ item }} groups=jupstudent append=yes
     with_items: "{{ students }}"
-
-  # TODO: Remove, once we have nbgrader either in final from PIP or
-  # at the right place
-  - name: put ~jupyterhub/nbgrader in PYTHONPATH of users
-    lineinfile:
-      dest=/home/jupyterhub/.zshrc
-      insertafter=EOF
-      line="export PYTHONPATH=/home/jupyterhub/nbgrader"
-    with_items:
-      - "{{ admin }}"
-      - "{{ grader }}"
-      - "{{ students }}"
-      - "{{ groupaccounts }}"
-
 
   # activate nbgrader for relevant users, i.e., NOT for individual student accounts! :
   - name: activate nbgrader
@@ -428,9 +418,60 @@
     with_items:
       - "{{ groupaccounts }}"
 
+  # put a symbolic link to the uploaded content into each users home
+  # directory; to make it easier to access preconfigured content
+  # (force = yes because the linked-to directory does not yet exist)
+  - name: Create smybolic links to vorlesung content -- individual users 
+    file:
+      dest=/home/{{ item }}/vorlesung
+      src=/home/jupyterhub/output/vorlesung
+      owner=root
+      mode=755
+      state=link
+      force=yes 
+    with_items: 
+      - "{{ admin }}"
+      - "{{ grader }}"
+      - "{{ students }}"
+      
+  - name: Create symbolic links to vorlesung content -- groupusers 
+    file:
+      dest=/home/{{ item.acc }}/vorlesung
+      src=/home/jupyterhub/output/vorlesung
+      owner=root
+      mode=755
+      state=link
+      force=yes 
+    with_items: 
+      - "{{ groupaccounts }}"
     
   - name: Restart the service after nbgrader setup 
     service: name=jupyterhub state=restarted
       
   tags: user
+
+
+#####################################################
+
+- name: Set up samba server 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+    - name: allow Samba ports
+      ufw: rule=allow port={{ item }} proto=tcp
+      with_items:
+        - 445
+        - 137
+        - 138
+        - 139
+    - name: install samba packages
+      apt: "name={{ item }} state=installed"
+      with_items:
+        - samba
+        - samba-common
+
+    - name: Ensure Samba is running and set to start on boot.
+      service: "name=smbd state=started enabled=yes"
+
+  tags: samba
 
