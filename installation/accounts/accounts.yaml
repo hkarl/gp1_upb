@@ -6,12 +6,14 @@ admin:
   - hkarl
   - tsf
   - jharbig 
+  - asetzer
+  - mfeldma2
 
 grader:
   - hkarl
+  - asetzer 
   - parrucad
   - mfeldma2
-  - asetzer
   - psteffen
   - boerding
   - thomask2
