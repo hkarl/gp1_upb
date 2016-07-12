@@ -1,0 +1,56 @@
+#+TITLE: A very abbreviated manual on how to use nbgrader 
+
+For details, see here: https://nbgrader.readthedocs.io 
+
+1. Create assignment
+   1. We still need to decide on a good spot. Currently, they live in /home/jupyterhub/notebooks/gp1test/source 
+   2. Create under local account, and then copy over to the jupyterhub account?
+   3. One notebook per Aufgabe; multiple notebooks per Blatt
+   4. All in one directory! Directory name: reflect which Blatt
+      1. E.g., HB01
+   5. Make sure to use blocks with ~autograded tests~ and ~manually graded tests~, as appropriate.  
+2. Once done: *assign*
+   1. Terminal, cd into the directory where the nbgrader_config.py is
+      1. E.g., /home/jupyterhub/notebooks/gp1test/
+      2. Make sure this directory has the right accounts!  
+   2. Add the new directory name to c.NbGrader.db_assignments
+   3. In this directory, execute ~nbgrader assign NAMEOFDIRECTORY~
+      1. This should give green INFO messages; red ERRORs are bad
+   4. Check that there is a version of the assignment in ~/home/jupyterhub/notebooks/gp1test/release/NAMEOFDIRECTORY~
+3. Then: *release*
+   1. In config dir: ~nbgrader release NAMEOFDIRECTORY~
+   2. This should copy the assignment to the students
+   3. Student should see it in their ~Assignments~ tab
+      1. Do we need a test student account to check that?
+   4. *DANGER*: Once released, we can no longer make updates! That's the version that students will work on! DOUBLE CHECK HERE! 
+4. Inform students, e.g., by PAUL message, that a new assignment has been released and awaits their input
+5. *Student*:
+   1. Fetch assignment, via web page
+   2. Work on ~downloaded~ assignments
+   3. Typically, they will ~validate~ their solutions
+   4. And, eventually, they will ~submit~ 
+6. Back to instructor: *collect* 
+   1. Once the time is up, we do an nbgrader collect DIRECTORYNAME
+      1. Manually? Cron job? ??
+   2. This will produce entries in notebooks/gp1test/submitted; one directory per student
+      1. Notebook(s) and timestamp
+7. Start grading by *autograde*
+   1. do ~nbgrader autograde DIRECTORYNAME~
+   2. Creates entires
+8. Start formgrade 
+   1. And that's the point that still doesnt work properly :-(
+      1. The handling of the tokens between jupyterhub and nbgrader still gives me headaches; see here: http://nbgrader.readthedocs.io/en/stable/configuration/jupyterhub_config.html
+   2. It works if:
+      1. you start nbgrader formgrade
+      2. ssh forward your local port 8000 to gp1test port 8000
+      3. Use https://localhost:8000/hub/nbgrader/gp1test
+      4. And then change all the http to https manually :-(
+      5. There MUST be some configuration bug somewhere!
+      6. This problem would probably go away if we terminate https in a separate webserver running as proxy. :-(( 
+9. Tell SHKs to start manual grading via formgrader
+   1. login: https://gp1test.cs.uni-paderborn.de:8000/hub/nbgrader/gp1test
+   2. TODO: check whether 
+
+
+
+
