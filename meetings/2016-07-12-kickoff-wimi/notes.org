@@ -1,11 +1,24 @@
 #+TITLE: Kickoff GP1 BEsprechung mit WiMis 
 
+
+
 * Topics 
+
+** MAterial 
+
+- Prodcution
+- Distribution 
+- Availability 
+
+** Zwischentest 
+
+??? 
 
 ** Assignments 
 
 - Handhabung? 
-- Plagiate? 
+- Plagiate?
+  - Nur für TExtaufgaben 
 
 
 *** Haus 
@@ -13,9 +26,12 @@
 - Durch WiMis
 - Vorbereitung?
 - Recycle old material?
-  - How to get it? 
+  - How to get it?
+  - TODO: Wehrheim, Böttcher anschreiben 
 - Group handling?
-  - Passwords? 
+  - Passwords?
+  - TODO HArbig: Datenbank erweitern für Änderung der
+    Gruppenmitglieder 
 - Do we allow group changes? What does formgrader really support?
   - How to announce new passwords, which group member? 
 
@@ -24,8 +40,14 @@
 
 - Recycle?
 - Studis?
-- How to kick off the first few weeks? 
-- When do we introduce other IDEs, shells? ? 
+- How to kick off the first few weeks?
+  - IRB-Mitarbeiter für erste Übungen organisieren
+  - Problem Mathe-Pool
+  - Zentralübung? Einführung Rechner, IMT, ...
+  - TODO Setzer
+- When do we introduce other IDEs, shells? ?
+  - im neuen Jahr
+  - aber eher weniger betonen; durchaus Klausurrelevant 
 
 
 *** Topics for starting weeks 
@@ -51,8 +73,22 @@
 
 ** Administration
 
-- Mailingliste? 
+- Mailingliste? TODO: Setzer 
+
 - Wiki im Git? 
 
+- Verzeichnis geteilt unter Mitarbeitern und Tutoren für die Dokumente
+  TODO Karl 
+
+
+
 * Meeting notes 
+
+- mfeldma2 einloggen geht nicht 
+- Übungstermine an SHKs schicken ; doodle 
+- SHK; jour fixe? 
+
+- Concrete todos?
+
+  - Python buch lesen : 2 Wochen? 
 
