@@ -75,6 +75,7 @@
         - python3-pip
         - build-essential
         - quota
+        - mutt
     - name: Add jessie backports (for certbot)
       copy: src=jessie-backports.list dest=/etc/apt/sources.list.d/jessie-backports.list owner=root mode=0644
     # TODO: the installation from backports seems to fail via ansible
@@ -98,6 +99,7 @@
       pip: name={{ item }} executable=pip3 state=latest
       with_items:
         - PyYAML
+        - bpython
   tags: software 
 
 
@@ -265,7 +267,7 @@
   #     state=present
       
   # third approach: run formgrader as a service; this apparently
-# works, but so far just for one lecture (which is ok for now)
+  # works, but so far just for one lecture (which is ok for now)
   - name: Config Formgrader as a service (so far, just for one lecture)
     hosts: gp1hub
     remote_user: root
@@ -373,6 +375,7 @@
       - "{{ admin }}"
       - "{{ grader }}"
       - "{{ students }}"
+      - jupyterhub
   - name: Restrict access rights to home directories
     file: path=/home/{{ item.acc }} mode=0700 state=directory 
     with_items:
