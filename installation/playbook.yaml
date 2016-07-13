@@ -75,7 +75,6 @@
         - python3-pip
         - build-essential
         - quota
-        - PyYaml
     - name: Add jessie backports (for certbot)
       copy: src=jessie-backports.list dest=/etc/apt/sources.list.d/jessie-backports.list owner=root mode=0644
     # TODO: the installation from backports seems to fail via ansible
@@ -95,6 +94,10 @@
     #   command: quotacheck -vgum /
     # - name: turn on quota
     #   command: quotaon -av
+    - name: Install some python packages
+      pip: name={{ item }} executable=pip3 state=latest
+      with_items:
+        - PyYAML
   tags: software 
 
 
