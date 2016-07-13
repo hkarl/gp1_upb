@@ -1,5 +1,5 @@
-#+TITLE: GP1 Kapitel 0: Organisation 
 #+INCLUDE: "../template/header.org" :minlevel 2
+#+TITLE: Kapitel 0: Organisation 
 
 
 
@@ -301,11 +301,14 @@ durch den Tutor.
 - Anwesenheit 
 - Üben! Üben! Üben!
 
-** Zusammenfassung 
+
+* Zusammenfassung 
 
 - Vorlesungen haben Organisationsaufwand :-) 
 
 
 
  
+
+
 

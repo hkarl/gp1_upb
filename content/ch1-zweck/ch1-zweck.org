@@ -612,8 +612,10 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
   - [[https://www.codecademy.com/][CodeCademy]]: Große Sammlung von
     Kursen zu unterschiedlichen Themen; interaktiv
 
-  -
-    s. a. [[http://www.hongkiat.com/blog/sites-to-learn-coding-online/][Übersichtswebsite]];
+  - [[https://www.codewars.com][CodeWars]]: Lernen durch Herausforderungen 
+
+
+  - s. a. [[http://www.hongkiat.com/blog/sites-to-learn-coding-online/][Übersichtswebsite]];
     meist kommerzielle Angebote 
 
 

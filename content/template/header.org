@@ -24,7 +24,6 @@
 # colors: https://coolors.co/c8bcdd-5da9e9-d1cfcf-99d19c-f96900
 
 
-
 ** Setup						  :skipslide:nolatex:
 
 Main point here is to set up warnings properly for presentation and to
