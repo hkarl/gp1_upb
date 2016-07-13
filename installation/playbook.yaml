@@ -111,7 +111,7 @@
   - name: Create group for jupyterhub account 
     group: name=jupyterhub state=present
   - name: Create jupyterhub user 
-    action: user name=jupyterhub comment="JupyterHub User" state=present shell=/bin/bash group=user groups="jupyterhub,shadow"
+    action: user name=jupyterhub comment="JupyterHub for Gp1@UPB" state=present shell=/bin/bash group=user groups="jupyterhub,shadow"
   # TODO: think about whether public-key based login would help
   # - name: Copy public key to JupyterHub
   #   copy: src=/Users/hkarl/.ssh/id_rsa.pub dest=/home/jupyterhub/.ssh/authorized_keys owner=jupyterhub mode=0600
@@ -246,23 +246,32 @@
   tasks:
   - name: put CONFIGPROXY_AUTH_TOKEN into environment
     lineinfile:
-      dest=/home/jupyterhub/.zshrc
+      dest=/home/jupyterhub/.bashrc
       insertafter=EOF
       line="export CONFIGPROXY_AUTH_TOKEN=\"3487d889ae9e718440a3455222849665eae234fa7d4d6e1f6ef8578323ed27f7\" "
       state=present
-      # note: same value as in c.JupyterHub.proxy_auth_token of jupyterhub_config.py       
-  - name: obtain token from jupyterhub
-    command: jupyterhub token --db=sqlite:jupyterhub.sqlite -f jupyterhub_config.py jupyterhub  chdir=/home/jupyterhub
-    become_user: jupyterhub
-    become: true
-    register: tokenoutput
-  - debug: msg="{{ tokenoutput.stdout }}"
-  - name: put token into nbgrader config
-    lineinfile:
-      dest=/home/jupyterhub/notebooks/gp1test/nbgrader_config.py
-      regexp="c.HubAuth.hubapi_token = JPYAPITOKEN"
-      line="c.HubAuth.hubapi_token = \"{{ tokenoutput.stdout }}\""
-      state=present
+      # note: same value as in c.JupyterHub.proxy_auth_token of
+      # jupyterhub_config.py
+
+  # # second approach: an alias that always gets a new token first
+  # - name: alias for formgrade
+  #   lineinfile:
+  #     dest=/home/jupyterhub/.bashrc
+  #     insertafter=EOF
+  #     line="alias formgrader=\"export JPY_API_TOKEN=$(jupyterhub token --db=sqlite:///../../jupyterhub.sqlite -f ~/jupyterhub_config  jupyterhub ) ; nbgrader formgrade \""
+  #     state=present
+      
+  # third approach: run formgrader as a service; this apparently
+# works, but so far just for one lecture (which is ok for now)
+  - name: Config Formgrader as a service (so far, just for one lecture)
+    hosts: gp1hub
+    remote_user: root
+    tasks:
+      - name: Copy formgrader service description file 
+        copy: src=formgrader.service dest=/lib/systemd/system/formgrader.service owner=root mode=0644
+      - name: Start the service
+        service: name=formgrader state=restarted
+
   tags: formgrader
 
 

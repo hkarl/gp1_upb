@@ -1,0 +1,19 @@
+[Unit]
+Description=Formgrader for gp1test class
+After=syslog.target network.target jupyterhub.service
+Requires=jupyterhub.service
+
+[Service]
+User=jupyterhub
+# TODO: turn this into a template: 
+WorkingDirectory=/home/jupyterhub/notebooks/gp1test
+Environment=CONFIGPROXY_AUTH_TOKEN=3487d889ae9e718440a3455222849665eae234fa7d4d6e1f6ef8578323ed27f7
+ExecStartPre=/bin/sh -c "/bin/echo -n JPY_API_TOKEN= > /home/jupyterhub/notebooks/gp1test/token_from_service"
+ExecStartPre=/bin/sh -c "export CONFIGPROXY_AUTH_TOKEN=3487d889ae9e718440a3455222849665eae234fa7d4d6e1f6ef8578323ed27f7; /usr/local/bin/jupyterhub token --db=sqlite:////home/jupyterhub/jupyterhub.sqlite -f /home/jupyterhub/jupyterhub_config.py >> /home/jupyterhub/notebooks/gp1test/token_from_service "
+EnvironmentFile=/home/jupyterhub/notebooks/gp1test/token_from_service 
+ExecStart=/usr/local/bin/nbgrader formgrade
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

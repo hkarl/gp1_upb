@@ -224,7 +224,19 @@ c.HubAuth.graders = adminlist + graderlist + ["jupyterhub"]
 # This loads the environment variable containing the hubapi token that we will
 # generate by running the `jupyterhub token <name>` command, just before we
 # actually launch the formgrader.
-c.HubAuth.hubapi_token = JPYAPITOKEN
+
+# get the token by asking jupyterhub directly, rather than relying on incorrctly
+# set environment variables 
+
+import os
+
+c.HubAuth.hubapi_token = os.environ['JPY_API_TOKEN']
+
+# this seem to be the magical incantation:
+# see https://groups.google.com/forum/m/#!topic/jupyter/oTRM4XuRUew
+# TODO: still have to roll the formgrader into a service;
+# might be the easiest way to get tokens right... 
+c.HubAuth.hub_base_url = "https://gp1test.cs.upb.de:8000"
 
 # end of https://nbgrader.readthedocs.io/en/stable/configuration/jupyterhub_config.html
 #---------------------------------------------------------------
