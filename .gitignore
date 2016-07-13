@@ -12,3 +12,7 @@ _minted*org
 *.ipynb
 playbook.retry
 content/toc
+output
+*.retry
+build/log
+testplay.yaml
