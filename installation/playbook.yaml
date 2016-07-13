@@ -479,8 +479,15 @@
         - samba
         - samba-common
 
+    - name: Put customized smb.conf in place
+      copy: src=smb.conf dest=/etc/samba/smb.conf mode=644
+        
+    - name: ensure passwords for local users are in the smbpasswd
+      command:  echo -n "{{ item.pw }}\n {{ item.pw }}" | smbpasswd -s -a {{ item.acc }}
+      with_items:
+        - "{{ groupaccounts }}"
     - name: Ensure Samba is running and set to start on boot.
       service: "name=smbd state=started enabled=yes"
-
+      
   tags: samba
 
