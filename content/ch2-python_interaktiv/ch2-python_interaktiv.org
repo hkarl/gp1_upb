@@ -1,0 +1,764 @@
+#+TITLE: Kapitel 2: Python: Ausdrücke und Typen 
+#+INCLUDE: "../template/header.org"
+
+
+* Überblick 
+** Dieses Kapitel 
+
+- Erste Schritte mit Python 
+- Interaktive Nutzung 
+- Grundkonzepte: Zahlen, Ausdrücke, ... 
+- Fehler 
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+
+
+* Python interaktiv 
+
+** Interaktiv? 
+
+- Interaktive Software: Eingabe während der Ausführung entgegennehmen
+  und verarbeiten 
+- Interaktive Programmierung?
+  - Die /Sprache/ wird ausgeführt?
+  - Genauer: Ein Interpreter
+
+
+*** Interpreter					       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein Interpreter ist ein Programm, dass Programme (oder
+Programmfragmente)  entgegennimmt und ausführt. Die Ergebnisse der
+Ausführung werden unmittelbar ausgegeben. 
+
+*** Beispiele für Interpreter					      :notes:
+
+Beispiele für Interpreter gibt es viele, wenn man der Begriff des
+/eingegebenen Programms/ etwas weiter fasst. Tabellenkalkulationen
+sind typische Beispiele: Man gibt es Programm ein, das aus Formeln
+besteht. Die Berechnungsergebnisse werden sofort angezeigt. 
+
+Fasst man den Begriff noch offener, dann ist auch eine
+Textverarbeitung (wie etwa OpenOffice oder Word) ein Interpreter.
+
+** Python als Interpreter 
+
+- Graue Box erwartet Eingaben: ~In~
+- Result wird darunter erscheinen: ~Out~
+- Mit ~#~ werden Kommentare markiert 
+
+#+BEGIN_SRC python
+# Ihre Anweisungen? 
+#+END_SRC
+
+
+** Read-Evaluate-Print (REP) 
+
+Verhalten des Interpreters: 
+
+- Warte auf Eingabe, lies sie ein (/read/)
+- Werte die Eingabe aus, berechne ein Ergebnis (/evaluate/)
+- Gib das Ergebnis aus (/print/)
+- Beginne wieder von vorne (Schleife, /loop/)
+
+
+
+* Zahlen 
+
+** Eingaben? Zahlen 
+
+
+#+BEGIN_SRC python
+# Zahlen ? 
+#+END_SRC
+
+
+*** Gültige Zahlen (Version 1)					    :animate:
+
+- Jede Ziffer ist eine Zahl: 0, 1, ..., 9 
+- Jede Folge von Ziffern ist eine Zahl
+  - Aber nicht mit einer Null beginnen 
+- Eine Zahl darf *einen* Dezimalpunkt einhalten 
+- Eine Zahl darf mit einem Vorzeichen *beginnen* 
+
+*** UEBUNG Andere Zahlen 					  :dropslide:
+
+Der Begriff einer gültigen Zahl ist allgemeiner als in der Vorlesung
+gezeigt. Schauen Sie sich an, wie man: 
+
+- Zahlen in sog. /wissenschaftlicher Notation/ (z.B. $5.17\cdot10^{2.635}$
+  aufschreibt)
+- in anderen Zahlensystemen, d.h. Zahlen mit einer anderen Basis als
+  10, aufschreibt und was das bedeutet. 
+
+Erklären Sie den Comic in Abbildung [[fig:base10]]!  
+
+#+CAPTION: Jedes Zahlensystem ist Basis 10
+#+ATTR_LaTeX: :width=0.5\linewidth
+#+LABEL: fig:base10
+[[./../fun/base10.png]]
+
+
+
+** Ungültige Zahlen 
+
+*** Mehrere Dezimalpunkte 
+
+#+BEGIN_SRC python
+234.3451.213
+#+END_SRC
+
+
+*** Fehlermeldung						    :animate:
+
+~SyntaxError~: Eine Regel der Sprache wurde verletzt 
+
+#+CAPTION: Syntax-Fehler
+#+LABEL: fig:syntax-error
+[[./figures/doh.png]]
+
+** Ungültige Zahlen						   :subslide:
+
+*** Führende Null 
+
+#+BEGIN_SRC python
+0464
+#+END_SRC
+
+** Ungültige Zahlen						   :subslide:
+
+*** Mehrere Vorzeichen
+
+#+BEGIN_SRC python
+1+2+3
+#+END_SRC
+
+
+
+*** Ungültig? Nein... aber unerwartet? 
+
+- Text wie ~1+2+3~ wird nicht als Zahl interpretiert
+- Sondern als ~arithmetischer Ausdruck~
+- /Wert/ wird ausgerechnet 
+
+
+
+* Ausdrücke 
+
+** Arithmetischer Ausdruck  -- Syntax 
+
+- Jede Zahl ist ein arithmetischer Ausdruck 
+- Verbindet man zwei arithmetische Ausrücke durch ~+~, ~-~,  ~*~ oder '/', so entsteht ein
+  arithmetischer Ausdruck 
+- Setzt man um einen arithmetischen Ausdruck ein Klammerpaar ~(~
+  ... ~)~, so entsteht ein arithmetischer Ausdruck 
+
+*** Beispiel
+
+#+NAME: arithemtic-expression
+#+BEGIN_SRC python
+(5*3)+5
+#+END_SRC
+
+** Arithmetischer Ausdruck  -- Syntax				   :subslide:
+
+
+
+Was ist dann ~((627)(223++-+))~ ? 
+
+- Definition vorherige Folie: *Keine Aussage* 
+
+*** Was fehlt?							    :animate:
+
+*Und nur das sind arithmetische Ausdrücke* 
+
+- Typische /rekursive Definition/
+  - Details: VL Modellierung 
+
+
+*** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
+
+
+Geben Sie weitere Beispiele für arithmetische Ausdrücke an. Erklären
+Sie, warum das folgende *keine* arithmetischen Ausrücke sind. 
+
+*** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
+
+
+Die oben gegebene Definition arithmetischer Ausdrücke entspricht nicht
+exakt der von Python verwendeten. Finden Sie den Unterschied heraus;
+welcher Aspekt fehlt? 
+
+** Arithmetischer Ausdruck -- Semantik?				   :subslide:
+
+Bis jetzt: Nur Syntax, aber keine Bedeutung der Ausdrücke 
+
+- Was ist *der Wert* eines Ausdrucks? 
+
+- Beispiel:
+
+  - Ist $5+2\cdot 3 = 21$?
+
+  - Oder $5+2\cdot 3 = 11$? 
+
+
+#+NAME: punkt-vor-strich
+#+BEGIN_SRC python
+5+2*3
+#+END_SRC
+
+** Arithmetischer Ausdruck -- Semantik				   :subslide:
+
+- Klar für Zahlen: Der Wert einer Zahl ist die Zahl
+- Klar für binäre Ausdrücke
+  - Sind $a_1=5$ und $a_2$ arithmetische Ausdrücke und besteht der
+    arithmetische Ausdruck $a$ aus $a_1 + a_2$, so ist der Wert von
+    $a$ die Summe der Werte von $a_1$ und $a_2$.
+  - Und analog für ~-~, ~*~, ~/~
+
+** Eindeutigkeit?						   :subslide:
+- Ist $5+2\cdot 3$ ein binärer Ausdruck?
+  - Ja, mit zwei möglichen Interpretationen
+    - Einerseits: $a_1=5$
+    - Andererseits: $a_1=5+2$
+
+- Problem: tertiäre Ausdrücke $a_1 \circ a_2 \circ a_3$
+  - /Vorrangregeln/: Punkt vor Strich
+    - Also: $5+ (2\cdot 3)$
+
+  - /Links-nach-rechts/: Bei gleichem Vorrang, von links lesen 
+
+- Formal durch /Vorrangregeln/ festgelegt 
+  - Details: Kompliziert; später 
+
+
+*** UEBUNG Genaue Regeln für Semantik  arithmetischer Ausdrücke   :dropslide:
+
+Wie sehen die Regeln für die Semantik arithmetischer Ausrücke in
+Python *genau* aus? 
+
+** Arithmetischer Ausdruck -- Definition			   :subslide:
+
+*** Arithmetischer Ausdruck 				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Arithmetische Ausdrücke verknüpfen Zahlen und arithmetische Ausdrücke
+zu neuen arithmetischen Ausdrücken. Dazu legt  eine
+Programmiersprache syntaktisch /Verknüpfungen/ fest und beschreibt
+semantisch den Wert eines solchen verknüpften Ausdrucks. 
+
+Verknüpfungen werden häufig durch spezielle Zeichen wie ~+~, ~*~
+u.ä. angegeben. Diese Zeichen heißen /Operatoren/. 
+
+
+** Nur Zahlen? Text? 
+
+- Zahlen sind toll, aber was ist mit Text?
+
+*** Text direkt? 
+
+#+BEGIN_SRC python
+Hallo 
+#+END_SRC
+
+*** Text mit Anführungszeichen 
+
+#+BEGIN_SRC python
+"Hallo"
+#+END_SRC
+
+#+BEGIN_SRC python 
+'Hallo'
+#+END_SRC
+
+*** Syntaxregel: Text 
+
+- Test muss in Anführungszeichen eingeschlossen sein 
+
+
+*** UEBUNG Andere Anführungszeichen 				  :dropslide:
+
+- Warum erlaubt Python die Verwendung von sowohl einfachen wie
+  doppelten Anführungszeichen, um Text einzugrenzen?
+  - Hinweis: Was wäre der Fall, wenn Sie ein doppelte
+    Anführungszeichen im Text benutzen möchten?
+  - Wie könnte es klappen, in einem Text sowohl doppelte als auch
+    einfache Anführungszeichen zu benutzen?
+- Python stellt eine weitere Markierungsmöglichkeit zur Verfügung:
+  Paar von drei Anführungszeichen. Finden Sie heraus, wozu das gut
+  ist. Warum braucht man das zusätzlich? 
+
+
+*** UEBUNG Umlaute und Sonderzeichen  
+
+Funktionieren Umlaute und Sonderzeichen richtig? Welche Zeichen dürfen
+in einem Text vorkommen? Achten Sie bei Recherche darauf, nach Python
+3 zu suchen (Python 2 benimmt sich hier anders). 
+
+Was ist mit Sonderzeichen? backslash - Notation für tabs , etc. ? Das
+geht aber erst, wenn wir print haben :-( 
+
+** Ausdrücke für Text?						   :subslide:
+
+Zahlen kann man addieren - was ist mit Text?  Erwartung? 
+
+#+BEGIN_SRC python
+"Hallo" + " GP1" 
+#+END_SRC
+
+#+RESULTS:
+: None
+
+
+
+*** Semantik von  ~+~ bei  Texten 			       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Sind $t_1$ und $t_1$ Texte, so ist $t_1 + t_2$ ein Text. Der /Wert/
+von  $t_1 + t_2$ ist der Text $t_1$, an den unmittelbar der Text $t_2$
+angehängt wird. 
+
+** Andere Verknüpfungen für Text 				   :subslide:
+
+*** Subtraktion? 
+
+#+BEGIN_SRC python :exports both 
+"Hallo" - " GP1" 
+#+END_SRC
+
+#+RESULTS:
+
+
+*** Multiplikation? 
+
+#+BEGIN_SRC pyton 
+"Hallo" * " GP1" 
+#+END_SRC
+
+
+*** Division? 
+
+#+BEGIN_SRC python
+"Hallo" / " GP1" 
+#+END_SRC
+
+
+*** Nein, nur Addition!						    :animate:
+- Keine sinnvolle Semantik, also Fehler 
+
+
+* Typen
+
+** Fehlermeldungen: ~TypeError~
+
+Bei den sinnlosen Kombinationen gab es die Fehlermeldung: 
+
+- ~TypeError: unsupported operand type(s)~
+- ~TypeError: can't multiply sequence by non-int~
+
+*** Type?							    :animate:
+
+- Was könnte ein /Typ/ bedeuten? 
+- Die Fehlermeldung bei Multiplikation klingt interessant 
+
+
+** Datentypen 
+
+- Offenbar sind Zahlen und Texte ja etwas unterschiedliches
+  - Unterschiedliche Werte, unterschiedliche Verknüpfungen erlaubt,
+    unterschiedliche Interpretation (~+~ bei Zahlen vs. bei Texten) 
+- Beobachtung formalisiert in der Vorstellung eines /Datentyps/ 
+
+*** Datentyp 						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Ein /Datentyp/ oder kurz /Typ/ legt eine Menge möglicher Werte
+fest. /Literale/ sind die konkreten Notationen möglicher Werte. 
+
+Zusätzlich legt ein Datentyp erlaubte Verknüpfungen fest. Er erklärt
+sowohl die Syntax als auch die Semantik dieser Verknüpfungen.
+
+** Datentyp: Ganze Zahlen 					   :subslide:
+
+*** Datentyp: Ganze Zahlen 					  :B_example:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+Ganze Zahlen haben den Wertebereich \( \{ -\infty, \ldots, -3, -2, -1,
+0, 1, 2, 3, \ldots + \infty \} \). Die Verknüpfungen ~+~, ~-~, ~*~
+sind nach üblichen Rechenregeln erklärt. Die Verknüpfung ~/~ ist als
+ganzzahlige Division erklärt. 
+
+
+*** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
+
+Opertionen / vs. % (divmod machen wir, wenn wir Funktionen eingeführt
+haben) 
+
+** Literale  für ganze Zahlen					   :subslide:
+
+- Üblicherweise bauen  Literale für ganze Zahlen aus arabischen
+Ziffern: 0, 1, 2, ..., 4711, ... 
+
+- Denkbar wäre auch, römische Zahlen zu benutzen: I, II, III, IV,  ... 
+
+** Datentyp: Reelle Zahlen 					   :subslide:
+
+*** Datentyp: Reelle Zahlen				  :B_example:animate:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+Reelle Zahlen sind die rationalen, algebraischen und transzendenten
+Zahlen. Die arithmetischen Verknüpfungen sind wie üblich erklärt. 
+
+** Datentypen: Zahlen in Rechnern				   :subslide:
+
+Problem: Die gerade definierten Datentypen können in einem realen
+Rechner nicht dargestellt werden 
+
+- Jeder Rechner ist endlich
+- Kann keine unendlich großen Zahlen speichern 
+
+*** Endliche Ausschnitte 
+
+Datentypen in *vielen* (nicht allen) Programmiersprachen sind immer
+nur *endliche Ausschnitte* aus entsprechenden, konzeptionellen
+Datentypen.
+
+- Oft ist die Unterscheidung egal 
+- Aber manchmal wichtig: Endliche Präzision, endliche Werte
+- Verletzung von Rechenregeln
+  - Beispiel: Assoziativitätsgesetz gilt nicht mehr! 
+
+
+*** UEBUNG Maximale Integer in python3? 
+
+Nein, gibt es nicht. Was ist die Bedeutung der Zahl sys.maxsize? Was
+passiert bei sys.maxsize + 1? Bezug zu benutztem Rechner? 
+
+Klar machen: python 3 gibt sich viel Mühe, die mathemaitschen ganzen
+Zahlen zu approximieren. 
+
+Maximale integer in Java suchen? 
+
+*** UEBUNG Verletzung der Rechenregeln 
+
+Finden wir ein kompaktes Beispiel OHNE Schleifen, bei dem
+Assoziativität verletzt ist? Sehr große und sehr kleine Zahl addieren? 
+
+** Zahldarstellung						   :subslide:
+
+- Darstellung von numerischen Datentypen in Rechnern nicht trivial
+  - Vorzeichen?
+  - Genauigkeit?
+  - Platzbedarf?
+  - ...? 
+- Details: Vorlesung Grundlagen technische Informatik 
+
+
+** Datentyp: Text 						   :subslide:
+
+*** Datentyp: Text						  :B_example:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+
+Text sind Aneinandereihungen einzelner Zeichen. Die leere Reihe ist
+ebenfalls ein Text. Zeichen sind durch eine Aufzählung definiert (a,
+b, c, ...). 
+
+Zwei Texte können lediglich durch Addition miteinander verknüpft
+werden. 
+
+** Datentyp: ~bool~ 						   :subslide:
+
+*** Datentyp: bool					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Der Datentyp ~bool~ kennt nur die beiden Werte wahr und falsch,
+notiert als Literale ~True~ bzw. ~False~.
+
+Zwei Werte dieses Types können mit ~and~,
+~or~, ~!=~ verknüpft werden; dies liefert einen Wert vom Typ
+~bool~. Auf einen Wert ~bool~ kann ~not~ angewendet werden. 
+
+Die Semantik dieser Verknüpfungen ist in den folgenden Tabellen
+definiert. 
+
+** Datentyp: ~bool~ -- Semantik der Verknüpfungen 		   :subslide:
+
+*** Verknüpfung: ~and~ 
+
+
+| $b_1$   | $b_2$   | $b_1$ ~and~ $b_2$ |
+|---------+---------+-------------------|
+| ~False~ | ~False~ | ~False~           |
+| ~False~ | ~True~  | ~False~           |
+| ~True~  | ~False~ | ~False~           |
+| ~True~  | ~True~  | ~True~            |
+
+
+Siehe auch Vorlesung Modellierung. 
+
+*** TODO Slido-Abfrage hier? 
+
+*** UEBUNG Verknüpfung: ~or~, ~not~, ... 
+
+Leichte Übung; xor gibt es nicht, nachbauen? 
+
+
+** Vergleiche zwischen Werte 
+
+- Viele Datentypen erlauben Vergleiche zwischen Werten 
+- Meist: Gleichheit ~==~, Ungleichheit ~!=~
+- Oft: Kleiner/größer Vergleich
+  - Strikt: ~<~ , ~>~
+  - Mit Gleichheit: ~<=~, ~>=~
+- Definition der Datentypen von oben: ergänzen! 
+
+** Datentyp mit Vergleich					   :subslide:
+
+*** Datentyp: Ganze Zahlen (ergänzt)				  :B_example:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+ Ganze Zahlen haben den Wertebereich \( \{ -\infty, \ldots, -3, -2, -1,
+ 0, 1, 2, 3, \ldots + \infty \} \). Die Verknüpfungen ~+~, ~-~, ~*~
+ sind nach üblichen Rechenregeln erklärt. Die Verknüpfung ~/~ ist als
+ ganzzahlige Division erklärt. 
+
+ Zwei Zahlen können mit ~<~, ~<=~, ~>~, ~>=~, ~==~, ~!=~ mit einander
+ verglichen werden. Das Resultat eines Vergleichs ist ein Wert des
+ Datentyps ~bool~. 
+
+
+*** UEBUNG Vergleich bei Text 
+
+Wie Vergleich man zwei Texte? Formale Definition, bei Einzelzeichen
+anfangen. was ist mit Randfällen? Leerer Text? Beide leer?
+unterschiedliche Länge? 
+
+*** UEBUNG Vergleich bei bool 
+
+Sinnvoll? Wie? Wozu? 
+
+** Beispiel: Vergleich arithmetischer Ausdrücke			   :subslide:
+
+Was ist 
+
+#+BEGIN_SRC  python 
+ ((5+3*2) < 17-5) and ((1*1) > -1)
+#+END_SRC
+
+*** TODO slido/pingo? 
+
+** Vereinfachen?						   :subslide:
+   
+- Darf man das vereinfachen zu: 
+
+#+BEGIN_SRC  python
+ 5+3*2 < 17-5 and 1*1 > -1 
+#+END_SRC
+
+*** Was fehlt?							    :animate:
+
+- Welche Festlegung fehlt für so eine Vereinfachung? 
+
+
+*** UEBUNG Lazy evaluaiton 
+
+lazy eval bei and und or erkunden, überlegen, ausprobieren 
+
+
+** Weitere einfache Datentypen 
+
+- Numerisch: ~int~, ~float~, ~complex~
+  - Mit üblichen arithmetischen Operationen
+  - Unterschiedliche Repräsentation im Speicher 
+  - Und bit-für-bit Operationen für ~int~
+  - Siehe [[https://docs.python.org/3.5/library/stdtypes.html#numeric-types-int-float-complex
+    ][Details]] 
+- Text: ~str~
+  - Folge von Unicode-Zeichen
+  - Siehe [[https://docs.python.org/3.5/library/stdtypes.html#text-sequence-type-str][Details]] 
+- Folgen von Bytes, ...     
+
+*** UEBUNG Bitweise Operationen auf intergers 
+
+ausprobieren, vorhersagen lassen was passiert, ... 
+
+*** Maximale Zahl ? 
+
+
+
+
+** Verknüpfungen unterschiedlicher Typen?
+
+- Bisher: nur /typreine/ Verknüpfungen betrachtet
+  - ~str~ und ~str~, ~int~ und ~int~
+- Was passiert, wenn wir mischen? 
+
+
+*** Beispiel: Text und Zahl 
+
+#+BEGIN_SRC python
+"Hallo GP1" + 5
+#+END_SRC
+
+** Sinnvolle Verknüpfungen?					   :subslide:
+
+Was wären denn Verknüpfungen mit sinnvoller /Semantik/? 
+
+- Text und Zahl?
+  - Multiplikation: Text mehrfach hintereinander
+- Text, Zahl und ~bool~?
+  - ???
+- Zahl und Zahl, genauer: unterschiedliche Zahlen?
+  - Ja... 
+
+** Text und Zahl						   :subslide:
+
+*** ~str~ und ~int~ 
+
+#+BEGIN_SRC python 
+"Hallo GP1!" * 5
+#+END_SRC
+
+*** ~str~ und ~float~ 
+
+#+BEGIN_SRC python 
+"Hallo GP1!" * 3.1415
+#+END_SRC
+
+*** Semantik?							    :animate:
+
+Sinnlose Semantik, also Fehler 
+
+
+** Operatoren: Verschiedene Semantik! 
+
+*** Semantik von Operatoren ist typabhängig		       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Der gleiche Operator kann in Kombination mit unterschiedlichen Typen
+auftreten. Dadurch erhält der Operator jeweils eine andere Semantik. 
+
+Man spricht dann von /Operator Overloading/. 
+
+ 
+*** Beispiel: Multiplikation 
+
+#+BEGIN_SRC python
+3 * 5
+"Hallo" * 5
+#+END_SRC
+
+** Arithmetik? ~int~ und ~float~ ?  
+
+
+- Implizite Umwandlung, weitgehend problemlos
+  - In Python3; andere Programmiersprachen hier ggf. kompliziert
+- Explizite Umwandlung: Runden u.ä. -- später 
+
+#+BEGIN_SRC python
+10 * 0.3
+#+END_SRC
+
+#+BEGIN_SRC python
+10 / 3 
+#+END_SRC
+
+#+BEGIN_SRC python
+10 // 3 
+#+END_SRC
+
+
+
+
+*** UEBUNG Welche eigenschaft von P3 macht implizite Umwandlungen problemlos? 
+
+Infinite size of ints , keine unterschiedlichen Größen der intergers 
+
+
+* Zusammenfassung 
+
+** Typen in Python 3 
+
+*Alles* hat einen Typ in Python 3 
+
+- Literale haben stets einen eindeutigen Typ
+- Verknüpfungen zwischen zwei Werten produziert Wert mit Typ
+  - Eindeutig durch Typ der Werte und Verknüpfung bestimmt 
+- Folge: Man kann nichts ohne Typ hinschreiben... 
+- Typ eines Werts wird im Interpreter explizit repräsentiert 
+  - Man muss den Typ aber nicht explizit hinschreiben 
+
+
+** Typisierte Programmiersprache				   :subslide:
+
+*** Typisierte Programmiersprache			       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Ein Programmiersprache heißt /typisiert/ wenn für jeden Wert und
+Ausdruck nicht nur der Wert selbst sondern auch der Datentyp
+bekannt ist. 
+
+
+*** Beispiel 
+
+- Python (2 & 3)
+- Java
+- ... 
+
+
+
+** Ausdrücke und Zustand? 
+
+
+- Und was ist mit Zustand? 
+  - Vorheriges Kapitel: Lange Diskussion, Ausführungsmodell, ... 
+- *Ausdrücke für sich verändern den Zustand nicht* 
+- ??? 
+
+** Zusammenfassung 
+
+- Datentypen legen Werte und Verknüpfungen fest
+  - Werte werden durch Literale angegeben
+- Durch Verknüpfungen werden Ausdrücke gebildet
+  - Ausdrücken erzeugen neue Werte aus vorhandenen Werten 
+- Python ist ein Beispiel für
+  - eine Sprache/Umgebung mit einer read-evaluate-print-Schleife 
+  - eine typisierte Programmiersprache 
