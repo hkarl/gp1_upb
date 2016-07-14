@@ -268,17 +268,31 @@ durch den Tutor.
 - Voraussetzung: Klausur bestanden 
 
 
-** TODO Wo finden Sie was? 
+** Wo finden Sie was? 
 
-- PAUL: Anmeldung zu Übungen und Klausur
-- [[https://cs.uni-paderborn.de/index.php?id=59215][Webseite zur Veranstaltung]]
-  - Links zu allem weiteren Material
-  - Links zu Vorlesungsmitschnitten (hoffentlich) 
-- Vorlesungsmaterial
-  - ???
-- Übungen:
-  - https://gp1.uni-paderborn.de 
+ - PAUL: Anmeldung zu Übungen und Klausur
+ - [[https://cs.uni-paderborn.de/index.php?id=59215][Webseite zur Veranstaltung]]
+   - Links zu allem weiteren Material: Folien und PDF
+   - Links zu Vorlesungsmitschnitten (hoffentlich) 
+ - [[http://groups.uni-paderborn.de/fg-karl/lehre/ss16/gp1/index.html][Vorlesungsmaterial]]
+ - [[https://gp1.uni-paderborn.de][Übungen]]
 
+
+** Wo finden Sie was? -- Webseite				    :nolatex:
+
+#+CAPTION: Webseite der Vorlesung
+#+ATTR_LaTeX: scale=0.75
+#+LABEL: fig:webseite-qr
+[[./figures/vorlesung-qr.jpg]]
+
+
+** Wo finden Sie was? -- Material				    :nolatex:
+
+
+#+CAPTION: Materialien zur Vorlesung
+#+ATTR_LaTeX: scale=0.75
+#+LABEL: fig:material-qr
+[[./figures/groups-qr.jpg]]
 
 
 ** TODO Lernzentrum Informatik  (LZI)

@@ -1,12 +1,14 @@
 #+TITLE: GP1 Kapitel 1: Zweck der Vorlesung GP1 
 #+INCLUDE: "../template/header.org" :minlevel 2
 
+* Überblick 
 ** Dieses Kapitel 
 
 - Übersicht: Was beinhaltet "Programmieren"?
 - Was macht eine gute Programmiererin aus? 
 - Was soll in GP1 erreicht werden? 
 - Warum machen wir das so? 
+
 
 * GP1 im Studienverlauf 
   
@@ -69,13 +71,13 @@ ebenfalls dazu
 - "Irgendwie dem Computer erklären was er machen soll"
 - "Irgendwie zusammen hacken..."
 
-*** ? 								    :animate:
+*** Wirklich? 							    :animate:
 
 #+CAPTION: One does not simply walk into programming 
 #+NAME: fig:walk-programming
 [[./figures/simply-walk-programming.jpg]]
 
-    
+
 * Denken in Algorithmen und Datenstrukturen  
 
 ** Grobe Vorstellung
@@ -85,13 +87,26 @@ ebenfalls dazu
 
 ** Algorithmus
 
-- Handlungsvorschrift zur Lösung eines bestimmten Problems
-- Eindeutig, unmissverständlich
-- Endlich 
+*** Algorithmus 					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
 
-Historisch: 
+Ein *Algorithmus* ist eine endliche, eindeutige, unmissverständliche
+Handlungsvorschrift zur Lösung eines Problems. 
+
+** Algorithmus 
+
+
+*** Historisch
 - Erste Ideen, Abu Dscha'far Muhammad ibn Musa al-Chwarizmi, ca. 825 n.d.Z.
 - Ada Lovelace, 1843, Berechnung von Bernoullizahlen 
+
+*** Wie?							  
+
+- Wie stellen wir das sicher? 
+- Natürliche Sprache? 
+
 
 
 ** Datenstruktur 
@@ -104,8 +119,21 @@ Formalisiert:
 - Abstrakter Datentyp 
 - Siehe VL Modellierung 
 
+** Datenstruktur 
 
-** Alg/Datenstrukt in Isolation? 
+*** Datenstrukur					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Eine *Datenstruktur* legt fest, wie Daten in einem Rechner
+repräsentiert werden und wie sie verarbeitet oder manipuliert werden
+können. 
+
+
+
+** Algorithmus/Datenstrukturen in Isolation? 
 
 Kann man sich das beliebig ausdenken? 
 
@@ -136,6 +164,15 @@ Wir gehen von "normalen" Rechnern aus:
 - Inhalte der Speicherstellen zu einem Zeitpunkt: /Zustand/
   - *Zentraler Begriff*! 
 
+*** Zustand					       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Der *Zustand* eines Rechners ist ein Element einer diskreten Menge. Er
+wird gebildet durch den Inhalt aller (veränderlichen)
+Speicherstellen des Rechners. 
+
 ** Verarbeitungseinheit						   :subslide:
 
 - /Central Processing Unit/ (CPU) 
@@ -163,13 +200,21 @@ Beispiele für Anweisungen:
 ** Ausführungsmodell 
 
 Mit Speicher, CPU, Instruktionssatz ergibt sich ein
-/Ausführungsmodell/ :
+/Ausführungsmodell/:
 
 - CPU bearbeitet, zu jedem Zeitpunkt, eine /aktuelle Anweisung/ aus
   dem Programm
 - Bearbeitung dieser Anweisung führt ggf. zur Veränderung der Daten
 - Dann wird nächste Anweisung ausgeführt 
 
+
+*** Ausführungsmodell				       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein *Ausführungsmodell* legt fest, wie aus einem Zustand ein
+Folgezustand entstehen kann. 
 
 ** Ausführung						      :skip:subslide:
 
@@ -216,7 +261,9 @@ Mit Speicher, CPU, Instruktionssatz ergibt sich ein
 - Eine /Programmiersprache/ 
 
 
-** Programmiersprache - Definition				   :subslide:
+** Programmiersprache -- Definition			   :subslide:nolatex:
+
+
 
 - Dient der Formulierung von
   - Algorithmen und
@@ -229,8 +276,29 @@ Mit Speicher, CPU, Instruktionssatz ergibt sich ein
 - Vorschriften, wie Anweisungen und Daten aufgeschrieben werden
   - /Syntax/ der Sprache 
 
+** Programmiersprache -- Definition				  :dropslide:
 
-*** Zwei Sprachen						      :notes:
+*** Programmiersprache				     :B_definition:skipslide:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+
+- Eine Programmiersprache dient der Definition von Algorithmen und der
+  in Algorithmen benutzten Datenstrukturen.
+
+- Sie definiert ggf. Begriff des /Zustandes/ und der Übergänge zwischen
+  Zuständen. Hierfür wird meist der Begriff der /Anweisung/ verwendet.
+  Dadurch wird die /Semantik/ der Sprache festgelegt.
+
+- Zusätzlich legt eine Programmiersprache fest, wie Anweisungen und
+  Datenstrukturen notiert werden. Dies bestimmt die  /Syntax/ der
+  Sprache. 
+
+
+
+*** Anmerkung: Zwei Sprachen 					      :notes:
 
 Eigentlich besteht (nahezu) jede Programmiersprache aus zwei Teilsprachen: 
 - Einer Sprache, die Daten beschreibt: wie sehen sie aus, wie sind sie
@@ -246,15 +314,33 @@ Beispiele, in denen nur ein Aspekt auftritt, etwas bei
 Spezifikationssprachen für Typen. 
 
 
+*** Anmerkung: Syntax und Semantik				      :notes:
+
+Mit /Syntax/ werden genauer die Regeln bezeichnet, die ein Text
+einhalten muss, um in einer gegebenen Programmiersprache als gültig
+angesehen zu werden -- man spricht dann von einem /syntaktisch
+korrektem Programm/. Die VL Modellierung (und im weiteren
+Studienverlauf die VL Formale Sprachen) stellt unterschiedliche
+formale Techniken vor, solche Syntaxregeln zu formulieren.
+
+Die /Semantik/  beschreibt, wie ein syntaktisch korrektes Programm
+Eingaben auf Ausgaben abbildet. Insbesondere auch, wie die Semantik
+eines Programms aus der Semantik von Teilen des Programms -- bis zu
+einzelnen Anweisungen --  erklärt werden kann. Die mathematisch
+präzise Definition einer Sprachsemantik ist dabei anspruchsvoll und
+wird in GP1 nicht weiter formal behandelt. Wir beschränken uns hier
+auf intuitive Beschreibungen dieses Begriffs. 
+
+
 ** Ausführung?							   :subslide:
 
 - Aber: Programme nicht mehr  direkt durch reale Maschinen ausführbar 
 
 *** Das macht nichts!						    :animate:
 
-- Wir stellen uns einfach eine "irreale" Maschine vor, die
+- Wir stellen uns einfach eine irreale Maschine vor, die
   entsprechend fähig ist
-- Später: von "irrealer" Maschine zu realer Maschine?!
+- Später: von irrealer Maschine zu realer Maschine?!
   - /Interpreter/
   - /Compiler/ 
 
@@ -343,13 +429,15 @@ Sprachen eines Paradigmas gleichen sich in:
 
 ** Anforderungen 
 
-- Anforderungen
-  - Leicht erlernbar
-  - Praxisrelevant
-  - Deckt wesentliche Paradigmen ab 
-  - Ausgangspunkt für weitere Ausbildung
-  - Portierbar zwischen Betriebssystemen, Architekturen
-  - Spass! 
+- Leicht erlernbar, gut strukturiert
+- Praxisrelevant
+- Deckt wesentliche Paradigmen ab 
+- Ausgangspunkt für weitere Ausbildung
+- Portierbar zwischen Betriebssystemen, Architekturen
+- Spass! 
+
+
+** Auswahl? 
 
 - Keine Sprache erfüllt alle Anforderungen :-( 
 
@@ -359,13 +447,27 @@ Sprachen eines Paradigmas gleichen sich in:
 ** C/C++ ?							   :subslide:
 
 - Nahe am Maschinenmodell
-  - Es passiert nichts "unerklärliches"
+  - Es passiert nichts überraschendes 
 - Wenig Abstraktion
 - Wenig fehlerverzeihend
 - Alte Sprache: viel historischer Ballast
   - Durch gewünschte /Rückwärtskompatibilität/
   - Insbesondere bei C++
-- Kein Anteil funktionalen Paradigma 
+- (Nahezu) keine funktionalen Aspekte  
+
+
+*** Rückwärtskompatibilität					       :note:
+
+Mit /Rückwärtskompatibilität/ ist eine Eigenschaft, die bei neuen
+Versionen eines Systems -- hier: einer Programmiersprache --
+auftritt. Rückwärtskompatibilität liegt vor, wenn die neue Version in
+der Lage ist, Eingaben (hier: Programme) korrekt und unverändert zu
+verarbeiten, die für die alte Version erstellt wurden. 
+
+Beispiel: Benzinmotoren sind rückwärtskompatibel zu einander, da sie
+alle Benzin verarbeiten. Mit der Einführung des Katalysators war dies
+aber nicht der Fall, da verbleites Benzin nicht mehr verarbeitet
+werden kann. 
 
 ** Java?							   :subslide:
 
@@ -418,10 +520,12 @@ Ranking:
 
 ** Alle Sprachen? 
 
+
 #+CAPTION: Hartnäckigkeit kann sich auszahlen
-#+ATTR_LaTeX: scale=0.75
+#+ATTR_LaTeX: :float nil
 #+NAME: fig:cobolsaurus
-[[./figures/cobolsaurus.gif]]
+[[./figures/cobolsaurus.png]]
+
 
 
 
@@ -613,7 +717,6 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
     Kursen zu unterschiedlichen Themen; interaktiv
 
   - [[https://www.codewars.com][CodeWars]]: Lernen durch Herausforderungen 
-
 
   - s. a. [[http://www.hongkiat.com/blog/sites-to-learn-coding-online/][Übersichtswebsite]];
     meist kommerzielle Angebote 
