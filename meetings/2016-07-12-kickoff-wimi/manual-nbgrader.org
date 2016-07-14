@@ -49,7 +49,19 @@ For details, see here: https://nbgrader.readthedocs.io
       6. This problem would probably go away if we terminate https in a separate webserver running as proxy. :-(( 
 9. Tell SHKs to start manual grading via formgrader
    1. login: https://gp1test.cs.uni-paderborn.de:8000/hub/nbgrader/gp1test
-   2. TODO: check whether 
+10. Collect manual markup once all the graders are done
+    1. Not clear how to automatically detect that all graders are
+       done? 
+    2. Type: ~nbgrader feedback ASSIGNMENT~
+    3. Produce feedback in feedback subdirectory
+    4. Feedback can be then sent out to students
+       1. TODO: figure out to whom to send? Default contributors? 
+	  1. Or do we simply REQUIRE ALWAYS to put the contributors
+             tag in the solution? Would simplify a lot of things!
+       2. TODO: Figure out how not to send feedback multiple
+          times... ?
+    5. 
+
 
 
 
