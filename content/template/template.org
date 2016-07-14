@@ -1,2 +1,34 @@
-#+TITLE: GP1 Kapitel 0: Organisation 
+#+TITLE: Kapitel X: Title? 
 #+INCLUDE: "../template/header.org"
+
+
+* Überblick 
+
+** Dieses Kapitel 
+
+Was passiert hier? 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+was haben wir gelernt? 

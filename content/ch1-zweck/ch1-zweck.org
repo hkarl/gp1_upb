@@ -9,6 +9,22 @@
 - Was soll in GP1 erreicht werden? 
 - Warum machen wir das so? 
 
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+
+
 
 * GP1 im Studienverlauf 
   

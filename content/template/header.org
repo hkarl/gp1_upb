@@ -24,18 +24,3 @@
 # colors: https://coolors.co/c8bcdd-5da9e9-d1cfcf-99d19c-f96900
 
 
-** Setup						  :skipslide:nolatex:
-
-Main point here is to set up warnings properly for presentation and to
-load tutormagic, so that we can later on use pythontutor for code
-animations. 
-   
-#+BEGIN_SRC  Python 
-%load_ext tutormagic
-import warnings
-warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
-#+END_SRC
-
-
-
-
