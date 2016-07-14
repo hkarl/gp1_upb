@@ -16,3 +16,4 @@ output
 *.retry
 build/log
 testplay.yaml
+content/*/_minted-ch*
