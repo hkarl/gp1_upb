@@ -46,15 +46,10 @@ distribute:
 	rsync -vazh ../output/ ${GP1SERVERDIR}
 
 	# sync into the invidual directories; make sure to set permissions correclty
-	# list of acocunts can be optained via a little script, extracting from yaml files
-	# NOTE: watch out for the trailing / in the src directory; without it; chown does not work properly
-	source ~/.venvs/ansible/bin/activate; cd ../installation/accounts ; python createText.py > account.tmp
-	cat ../installation/accounts/account.tmp
-	while read acc ; do \
-		echo $${acc} ; \
-		${RSYNC} -vazhog --chown $${acc}:user ../output/vorlesung/ ${ACCOUNTDIRBASE}/$${acc}/vorlesung-copy ; \
-	done <../installation/accounts/account.tmp
-	rm ../installation/accounts/account.tmp
+
+	# intention: use distribute-notebook, but that is buggy 
+	# ssh root@gp1test.cs.upb.de /home/jupyterhub/gp1/build/distribute-notebooks.py
+
 
 
 makefiles:
