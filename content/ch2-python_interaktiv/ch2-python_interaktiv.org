@@ -42,15 +42,15 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
     :BEAMER_env: definition
     :END:
 
-Ein Interpreter ist ein Programm, dass Programme (oder
+Ein Interpreter ist ein Programm, das Programme (oder
 Programmfragmente)  entgegennimmt und ausführt. Die Ergebnisse der
 Ausführung werden unmittelbar ausgegeben. 
 
 *** Beispiele für Interpreter					      :notes:
 
-Beispiele für Interpreter gibt es viele, wenn man der Begriff des
+Beispiele für Interpreter gibt es viele, wenn man den Begriff des
 /eingegebenen Programms/ etwas weiter fasst. Tabellenkalkulationen
-sind typische Beispiele: Man gibt es Programm ein, das aus Formeln
+sind typische Beispiele: Man gibt ein Programm ein, das aus Formeln
 besteht. Die Berechnungsergebnisse werden sofort angezeigt. 
 
 Fasst man den Begriff noch offener, dann ist auch eine
@@ -290,7 +290,7 @@ Hallo
 
 *** Syntaxregel: Text 
 
-- Test muss in Anführungszeichen eingeschlossen sein 
+- Text muss in Anführungszeichen eingeschlossen sein 
 
 
 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
@@ -415,7 +415,7 @@ ganzzahlige Division erklärt.
 
 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
 
-Opertionen / vs. % (divmod machen wir, wenn wir Funktionen eingeführt
+Operationen / vs. % (divmod machen wir, wenn wir Funktionen eingeführt
 haben) 
 
 ** Literale  für ganze Zahlen					   :subslide:
@@ -555,15 +555,15 @@ Leichte Übung; xor gibt es nicht, nachbauen?
  sind nach üblichen Rechenregeln erklärt. Die Verknüpfung ~/~ ist als
  ganzzahlige Division erklärt. 
 
- Zwei Zahlen können mit ~<~, ~<=~, ~>~, ~>=~, ~==~, ~!=~ mit einander
+ Zwei Zahlen können mit ~<~, ~<=~, ~>~, ~>=~, ~==~, ~!=~ miteinander
  verglichen werden. Das Resultat eines Vergleichs ist ein Wert des
  Datentyps ~bool~. 
 
 
 *** UEBUNG Vergleich bei Text 
 
-Wie Vergleich man zwei Texte? Formale Definition, bei Einzelzeichen
-anfangen. was ist mit Randfällen? Leerer Text? Beide leer?
+Wie vergleicht man zwei Texte? Formale Definition, bei Einzelzeichen
+anfangen. Was ist mit Randfällen? Leerer Text? Beide leer?
 unterschiedliche Länge? 
 
 *** UEBUNG Vergleich bei bool 
@@ -705,7 +705,7 @@ Man spricht dann von /Operator Overloading/.
 
 
 
-*** UEBUNG Welche eigenschaft von P3 macht implizite Umwandlungen problemlos? 
+*** UEBUNG Welche Eigenschaft von P3 macht implizite Umwandlungen problemlos? 
 
 Infinite size of ints , keine unterschiedlichen Größen der intergers 
 
@@ -717,7 +717,7 @@ Infinite size of ints , keine unterschiedlichen Größen der intergers
 *Alles* hat einen Typ in Python 3 
 
 - Literale haben stets einen eindeutigen Typ
-- Verknüpfungen zwischen zwei Werten produziert Wert mit Typ
+- Verknüpfungen zwischen zwei Werten produzieren Wert mit Typ
   - Eindeutig durch Typ der Werte und Verknüpfung bestimmt 
 - Folge: Man kann nichts ohne Typ hinschreiben... 
 - Typ eines Werts wird im Interpreter explizit repräsentiert 
@@ -732,7 +732,7 @@ Infinite size of ints , keine unterschiedlichen Größen der intergers
     :END:
 
 
-Ein Programmiersprache heißt /typisiert/ wenn für jeden Wert und
+Eine Programmiersprache heißt /typisiert/ wenn für jeden Wert und
 Ausdruck nicht nur der Wert selbst sondern auch der Datentyp
 bekannt ist. 
 
