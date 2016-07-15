@@ -163,6 +163,8 @@
   tasks:
   - name: Install Jupyter standalone notebook
     pip: name=jupyter executable=pip3 state=latest
+  - name: Install Tutormagic extension 
+    pip: name=tutormagic executable=pip3 state=latest
   tags: jupyter 
 
 
