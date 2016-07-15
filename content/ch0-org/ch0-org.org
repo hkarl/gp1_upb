@@ -30,12 +30,10 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - GP1 Team
 - Dozent: Holger Karl
-- Mitarbeiter:
-  - Donald Parruca
-  - ... ?
-- Tutoren
-  - Jonas Harbig
-  - ... 
+- Mitarbeiter: M. Feldmann, D. Parruca, A. Setzer 
+- Tutoren: J. Harbig, P. Steffens, T. Kellner, M. Thiele, J. Rossel,
+  P. Börding 
+
 
 ** Wer sind wir?  -- Dozent					   :subslide:
 
@@ -259,8 +257,7 @@ durch den Tutor.
 *** IRB-Login							    :animate:
 - Nutzung der Poolraum-Rechner freischalten
 - Unter http://benutzerverwaltung.upb.de
-  - *Betreuung*: IRB
-    - Informatik-Rechnerbetrieb (IRB) 
+  - *Betreuung*: Informatik-Rechnerbetrieb (IRB) 
   - *Dezentrale Dienste*: Rechnerzugang im Institut für Informatik
   - Nicht-EIM-Studierende: IRB Support ansprechen (E1.129) 
 - Siehe auch: 

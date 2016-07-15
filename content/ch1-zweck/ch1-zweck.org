@@ -168,7 +168,7 @@ Kann man sich das beliebig ausdenken?
 Beispiele: 
 - Normaler Rechner 
 - Abstrakt: Turing-Maschine 
-  - Siehe VL Modellierung 
+  - Siehe VL Modellierung, VL EBKfS 
 - Quantencomputer 
 
 ** Maschinenmodell für GP1? 
