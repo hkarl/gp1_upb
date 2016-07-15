@@ -264,7 +264,7 @@ Folgezustand entstehen kann.
 - "Basteln bis es tut"??
 - Gutes Programmieren
   - *Systematisches* Nachdenken, Entwurf, Planung, Verständnis
-  - Auch: Ästethik 
+  - Auch: Ästhetik 
 - Systematik? -- Im Laufe der Vorlesung 
 
 ** Programmiersprachen 
@@ -703,7 +703,7 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
   - Mit spezialisierten Unterseiten für einzelne Gebiete
   - [[http://askubuntu.com][stackOverflow]] -- 4.7 million
     programmers, helping each other 
-  - [[http://askubuntu.com][AskUbunutu]]
+  - [[http://askubuntu.com][AskUbuntu]]
   - [[http://serverfault.com][System adminstration]]
   - [[http://tex.stackexchange.com][TeX/LaTex StackExchange]] --
     Textverarbeitung für Erwachsene
