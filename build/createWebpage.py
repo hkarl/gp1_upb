@@ -18,7 +18,7 @@ import time
 import locale
 
 def get_released_chapters(releasedFile):
-    with open(releasedFile, 'r') as f:
+    with codecs.open(releasedFile, 'r', 'utf-8') as f:
         released = yaml.load(f)
 
     return released['released']
@@ -28,9 +28,10 @@ def get_content(orgpath, released, output):
     for c in released:
         entry = {}
         # get the title 
-        with open(os.path.join(orgpath,
-                               c,
-                               c + ".org"), 'r') as f:
+        with codecs.open(os.path.join(orgpath,
+                                c,
+                                c + ".org"),
+                                'r', 'utf-8') as f:
             for line in f:
                     if line.startswith('#+TITLE:'):
                             entry['title']=line[9:]
@@ -55,7 +56,7 @@ def get_content(orgpath, released, output):
 
 
 def format_entry(entry):
-    return """
+    return u"""
 <li> <b> {} </b>
 <br>
 Version: {}
@@ -77,7 +78,7 @@ def format_page(entries):
 
     # TODO: add uebungen! 
 
-    html = ("<html><body><title>GP1 </title> <h1>GP1 </h1>\n<h2> Vorlesung </h2>\n<ul>"
+    html = ("<html><meta charset=\"UTF-8\"></head><body><title>GP1 </title> <h1>GP1 </h1>\n<h2> Vorlesung </h2>\n<ul>"
         + body + "</ul></body></html>")
     return html
 
@@ -97,6 +98,8 @@ released = get_released_chapters(args.released)
 
 entries = get_content(args.org, released, args.html)
 html = format_page(entries)
+
+# print html
 
 with codecs.open(args.html, 'w', 'utf-8') as f:
     f.write(html)
