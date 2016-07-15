@@ -48,7 +48,10 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - Donald Parruca
   - donald.parruca@upb.de , O3.xxx
-- ... ? 
+- Alexander Setzer
+  - asetzer@mail.uni-paderborn.de, F2.403
+- Michael Feldmann
+  - michael.feldmann@upb.de, F2.403
 
 
 ** Wo sind wir? -- Gebäude O 
