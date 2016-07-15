@@ -182,7 +182,7 @@ und sinnvoll zu strukturieren.
  sog.  [[http://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/index.html][Jupyter Notebooks]] des [[http://jupyter.org][Projektes Jupyter]]. Damit können Sie
  einfach Text und Programmcode in einem beliebigen Web-Browser
  editieren und den Programmcode auch ausführen. Dabei ist ein
- sog. "Notebook" das Dokument, mit dem Sie arbeiten. 
+ sog. /Notebook/ das Dokument, mit dem Sie arbeiten. 
 
  Wir werden die Aufgaben als ein (oder mehrere) solche Notebooks zur
  Verfügung stellen. Nach Anmeldung können Sie diese Notebooks

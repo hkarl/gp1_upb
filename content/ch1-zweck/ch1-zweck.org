@@ -4,7 +4,7 @@
 * Überblick 
 ** Dieses Kapitel 
 
-- Übersicht: Was beinhaltet "Programmieren"?
+- Übersicht: Was beinhaltet /Programmieren/?
 - Was macht eine gute Programmiererin aus? 
 - Was soll in GP1 erreicht werden? 
 - Warum machen wir das so? 
@@ -52,7 +52,7 @@ Von allem ein bisschen, insbesondere:
 
 *** Programmierparadigmen					      :notes:
 
-Mit dem Begriff "Programmierparadigmen" klassifiziert man
+Mit dem Begriff /Programmierparadigmen/ klassifiziert man
 Programmiersprachen in Familien. Innerhalb einer Familie kommen
 ähnliche Konzepte und Grundannahmen zur Geltung. Das betrifft zum
 Beispiel Annahmen über das Ausführungsmodell, über die Reihenfolgen
@@ -64,12 +64,20 @@ ebenfalls dazu
 
 ** GP1 im Modulhandbuch 
 
-"Die Studierenden sollen
+
+*** GP1 laut Modulhandbuch					:B_quotation:
+    :PROPERTIES:
+    :BEAMER_env: quotation
+    :END:
+
+Die Studierenden sollen
 - die Programmentwicklung von Grund auf erlernen;
 - lernen, Sprachkonstrukte sinnvoll und mit Verständnis anzuwenden;
 - grundlegende Konzepte der objektorientierten Programmierung
   verstehen und anzuwenden lernen; 
-- lernen, Software aus objektorientierten Bibliotheken wiederzuverwenden."
+- lernen, Software aus objektorientierten Bibliotheken
+  wiederzuverwenden.
+
 
 
 ** Modul I.1.1 
@@ -84,8 +92,8 @@ ebenfalls dazu
 
 ** Programmieren? 
 
-- "Irgendwie dem Computer erklären was er machen soll"
-- "Irgendwie zusammen hacken..."
+- Irgendwie dem Computer erklären was er machen soll?
+- Irgendwie zusammen hacken...?
 
 *** Wirklich? 							    :animate:
 
@@ -158,14 +166,14 @@ Kann man sich das beliebig ausdenken?
 - Hängt entscheidend von *Maschinenmodell* ab 
 
 Beispiele: 
-- "Normaler" Rechner 
+- Normaler Rechner 
 - Abstrakt: Turing-Maschine 
   - Siehe VL Modellierung 
 - Quantencomputer 
 
 ** Maschinenmodell für GP1? 
 
-Wir gehen von "normalen" Rechnern aus: 
+Wir gehen von normalen Rechnern aus: 
 
 - Speicher 
 - Verarbeitung 
@@ -261,7 +269,7 @@ Folgezustand entstehen kann.
 
 ** Programmieren 
 
-- "Basteln bis es tut"??
+- Basteln bis es tut??
 - Gutes Programmieren
   - *Systematisches* Nachdenken, Entwurf, Planung, Verständnis
   - Auch: Ästhetik 
@@ -270,7 +278,7 @@ Folgezustand entstehen kann.
 ** Programmiersprachen 
 
 - Heben des Abstraktionsniveaus
-  - "Mächtigere" Anweisungen
+  - Mächtigere Anweisungen
   - Einfacher für Menschen
 - Also: Definiere neuen Instruktionssatz, neue Vorstellung von
   Zustand, ... 
@@ -397,8 +405,8 @@ Sprachen eines Paradigmas gleichen sich in:
 
 ** Programmierparadigma: Objektorientiert			   :subslide:
 
-- Beobachtung bei imperativen Sprachen: Zusammenhang zwischen "Daten"
-  und "Anweisungen" oft schwer zu sehen
+- Beobachtung bei imperativen Sprachen: Zusammenhang zwischen /Daten/
+  und /Anweisungen/ oft schwer zu sehen
   - Insbesondere bei großen Programmen unübersichtlich
 - Idee: Zusammenfassen!
   - Daten und der darauf anwendbare Code werden gemeinsam beschrieben 
@@ -408,8 +416,8 @@ Sprachen eines Paradigmas gleichen sich in:
 ** Programmierparadigma: Funktional				   :subslide:
 
 - Programm selbst kann zum Gegenstand des Programms werden
-  - Schlagwort: "Functions as first-class citizens"
-- Vermeidung der Vorstellung eines "Zustands"
+  - Schlagwort: /Functions as first-class citizens/
+- Vermeidung der Vorstellung eines /Zustands/
   - Keine Seiteneffekt
 
 - Beispiele: Lambda-Kalkül, Lisp, Haskell, F# 
@@ -417,7 +425,7 @@ Sprachen eines Paradigmas gleichen sich in:
 ** Programmierparadigma: Logisch				   :subslide:
 
 - Ein Programm beschreibt Fakten und Schlussregeln
-- "Maschine" konstruiert durch Anwendung der Regeln auf Fakten neue
+- /Maschine/ konstruiert durch Anwendung der Regeln auf Fakten neue
   Fakten 
 - Wenn eine Frage als Fakt konstruiert werden kann, ist sie wahr 
 
@@ -489,7 +497,7 @@ werden kann.
 
 - Hohe Abstraktion
 - Komplexes Ausführungsmodell
-  - Viel "Magie"
+  - Viel Magie
 - Moderne Sprache, die viele Trends integriert
   - Dadurch auch unübersichtlich
   - Beispiel: Funktional möglich, aber offensichtlich aufgepfropft 
@@ -565,9 +573,9 @@ Ranking:
   - Komfortabel
   - Aber *keine* spezifische Unterstützung für gewählte
     Programmiersprache
-- "Programmier"-Editor
+- Programmier-Editor
   - Unterstützt editieren in gewählter Sprache
-  - "Versteht" Programmiersprache
+  - Versteht Programmiersprache
   - Kann Vorschläge machen, Ergänzungen, ...
 
 
@@ -620,7 +628,7 @@ Ranking:
 - Beispiele:
   - ~svn~, ~git~ (mit Zusatzfunktionen wie etwa ~github~ )
   - Jupyter: einfaches Abspeichern und Wiederbenutzen älterer
-    Versionen (sog. "checkpoint")
+    Versionen (sog. /checkpoint/)
 
 *** Versionsverwaltung -- aktueller Stand			      :notes:
 
@@ -648,7 +656,7 @@ Versionsverwaltungswerkzeuge (voraussichtlich) verzichten.
 
 ** Alles alleine? 
 
-- Schreiben Sie alle Programme von Grund auf ("from scratch")? 
+- Schreiben Sie alle Programme von Grund auf (/from scratch/)? 
 
 *** Natürlich nicht						    :animate:
 
@@ -667,7 +675,7 @@ Versionsverwaltungswerkzeuge (voraussichtlich) verzichten.
 
 - Stark unterschiedliche Ansätze zwischen Sprachen
   - C: fast leere Standardbibliothek
-  - Python: sehr umfangreich ("batteries included")
+  - Python: sehr umfangreich (/batteries included/)
 
 
 *** Effizienz des Programmierers				    :animate:
@@ -786,7 +794,7 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 ** Zusammenfassung 
 
 - Programmieren ist
-  - ist mehr als zur "Coding"
+  - ist mehr als zur /Coding/
   - ist ein systematischer Prozess
   - spielt sich in einem gewählten Paradigma ab
 - Gute Programmierer
