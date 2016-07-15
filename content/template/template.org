@@ -1,6 +1,11 @@
 #+TITLE: Kapitel X: Title? 
 #+INCLUDE: "../template/header.org"
 
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
 
 * Überblick 
 
