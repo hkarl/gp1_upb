@@ -691,8 +691,7 @@ Versionsverwaltungswerkzeuge (voraussichtlich) verzichten.
   - /Package management system/
 - Stark unterschiedliche Ansätze zwischen Sprachen
   - C: ???
-  - Python: [[https://pypi.python.org/pypi/pip][Python Package Index]]
-    (~pip~), [[http://conda.pydata.org/docs/][Conda]], ... 
+  - Python: [[https://pypi.python.org/pypi/pip][Python Package Index]] (PIP), [[http://conda.pydata.org/docs/][Conda]], u.a.
 - Beispiele: Später 
 
 
