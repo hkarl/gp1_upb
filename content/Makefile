@@ -64,4 +64,4 @@ newch:
 	mkdir $(ch)
 	mkdir $(ch)/figures
 	cp template/template.org $(ch)/$(ch).org
-	ln -s template/Makefile $(ch)
+	ln -s ../template/Makefile $(ch)
