@@ -34,7 +34,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 - Ausdrücken in einen Formalismus
   - /Codierung/
 - Nutzung von Werkzeugen 
-- Finden und nutzen von Teillösungen 
+- Finden und Nutzen von Teillösungen 
 
 ** Vorlesungsinhalt GP1 
 

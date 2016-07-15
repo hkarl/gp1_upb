@@ -96,7 +96,7 @@ Verhalten des Interpreters:
 - Jede Ziffer ist eine Zahl: 0, 1, ..., 9 
 - Jede Folge von Ziffern ist eine Zahl
   - Aber nicht mit einer Null beginnen 
-- Eine Zahl darf *einen* Dezimalpunkt einhalten 
+- Eine Zahl darf *einen* Dezimalpunkt enthalten 
 - Eine Zahl darf mit einem Vorzeichen *beginnen* 
 
 *** UEBUNG Andere Zahlen 					  :dropslide:
