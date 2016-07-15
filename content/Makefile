@@ -1,6 +1,6 @@
 # Top-level makefile
 
-.PHONY: makefiles distribute all cleanall 
+.PHONY: makefiles distribute all cleanall newch
 
 # we need an up-to-date rsync to support the chown option (v 3.1 of rsync seems to do the job):
 # (on mac: brew install rsync; possibly with a brew tap first)
@@ -59,3 +59,9 @@ makefiles:
 	done
 
 
+newch:
+	echo "this needs to be called make newch ch=bla"
+	mkdir $(ch)
+	mkdir $(ch)/figures
+	cp template/template.org $(ch)/$(ch).org
+	ln -s template/Makefile $(ch)
