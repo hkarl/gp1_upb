@@ -14,6 +14,8 @@ import argparse
 import os
 import yaml
 import codecs
+import time
+import locale
 
 def get_released_chapters(releasedFile):
     with open(releasedFile, 'r') as f:
@@ -35,6 +37,9 @@ def get_content(orgpath, released, output):
                             break
 
         entry['notebook'] = os.path.join(c, c+".ipynb")
+        entry['date'] = time.strftime(
+            "%A, %Y-%m-%d, %H:%M", 
+            time.localtime(os.path.getctime(os.path.join(c, c+".ipynb"))))
         entry['pdf'] = os.path.join(c, c+".pdf")
         entry['tgz'] = os.path.join(c, c+".tgz")
 
@@ -51,7 +56,9 @@ def get_content(orgpath, released, output):
 
 def format_entry(entry):
     return """
-<li> {}
+<li> <b> {} </b>
+<br>
+Version: {}
 <ul>
 <li><a href="{}">Notebook</a></li>
 <li><a href="{}">PDF</a></li>
@@ -60,7 +67,8 @@ def format_entry(entry):
 </ul>
 </li>
 
-""".format(entry['title'], entry['notebook'], entry['pdf'], entry['tgz'], entry['audio'])
+""".format(entry['title'], entry['date'],
+           entry['notebook'], entry['pdf'], entry['tgz'], entry['audio'])
 
 def format_page(entries):
     body = ""
@@ -69,11 +77,13 @@ def format_page(entries):
 
     # TODO: add uebungen! 
 
-    html = ("<html><body><title>GP1 </title> <h1>GP1 </h1><br><h2> Vorlesung </h2><br><ul>"
+    html = ("<html><body><title>GP1 </title> <h1>GP1 </h1>\n<h2> Vorlesung </h2>\n<ul>"
         + body + "</ul></body></html>")
     return html
 
 #################
+
+locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
 
 
 parser = argparse.ArgumentParser(description="Create a web page to point to all released chapters")
