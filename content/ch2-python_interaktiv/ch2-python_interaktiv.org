@@ -291,9 +291,11 @@ Hallo
 'Hallo'
 #+END_SRC
 
-*** Syntaxregel: Text 
+** Syntaxregel: Text als Zeichenkette
 
-- Text muss in Anführungszeichen eingeschlossen sein 
+- Text wird durch eine Kette von einzelnen Zeichen, kurz
+  /Zeichenkette/ dargestellt
+- Zeichenkette muss in Anführungszeichen eingeschlossen sein 
 
 
 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
@@ -318,11 +320,12 @@ in einem Text vorkommen? Achten Sie bei Recherche darauf, nach Python
 Was ist mit Sonderzeichen? backslash - Notation für tabs , etc. ? Das
 geht aber erst, wenn wir print haben :-( 
 
-** Ausdrücke für Text?						   :subslide:
 
-Zahlen kann man addieren - was ist mit Text?  Erwartung? 
+** Ausdrücke mit Zeichenketten? 				   :subslide:
 
-#+BEGIN_SRC python
+Zahlen kann man addieren - was ist mit Zeichenketten?  Erwartung? 
+
+#+BEGIN_SRC python 
 "Hallo" + " GP1" 
 #+END_SRC
 
@@ -331,16 +334,16 @@ Zahlen kann man addieren - was ist mit Text?  Erwartung?
 
 
 
-*** Semantik von  ~+~ bei  Texten 			       :B_definition:
+*** Semantik von  ~+~ bei  Zeichenketten 		       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
 
-Sind $t_1$ und $t_1$ Texte, so ist $t_1 + t_2$ ein Text. Der /Wert/
-von  $t_1 + t_2$ ist der Text $t_1$, an den unmittelbar der Text $t_2$
-angehängt wird. 
+Sind $t_1$ und $t_1$ Zeichenketten, so ist $t_1 + t_2$ eine
+Zeichenkette. Der /Wert/ von $t_1 + t_2$ ist die Zeichenkette die
+entsteht, indem an $t_1$ unmittelbar $t_2$ angehängt wird.
 
-** Andere Verknüpfungen für Text 				   :subslide:
+** Andere Verknüpfungen für Zeichenketten 			   :subslide:
 
 *** Subtraktion? 
 
@@ -386,9 +389,9 @@ Bei den sinnlosen Kombinationen gab es die Fehlermeldung:
 
 ** Datentypen 
 
-- Offenbar sind Zahlen und Texte ja etwas unterschiedliches
+- Offenbar sind Zahlen und Zeichenketten ja etwas unterschiedliches
   - Unterschiedliche Werte, unterschiedliche Verknüpfungen erlaubt,
-    unterschiedliche Interpretation (~+~ bei Zahlen vs. bei Texten) 
+    unterschiedliche Interpretation (~+~ bei Zahlen vs. bei Zeichenketten) 
 - Beobachtung formalisiert in der Vorstellung eines /Datentyps/ 
 
 *** Datentyp 						       :B_definition:
@@ -410,8 +413,8 @@ sowohl die Syntax als auch die Semantik dieser Verknüpfungen.
     :BEAMER_env: example
     :END:
 
-Ganze Zahlen haben den Wertebereich \( \{ -\infty, \ldots, -3, -2, -1,
-0, 1, 2, 3, \ldots + \infty \} \). Die Verknüpfungen ~+~, ~-~, ~*~
+Ganze Zahlen haben den Wertebereich $ \{ -\infty, \ldots, -3, -2, -1,
+0, 1, 2, 3, \ldots + \infty \} $. Die Verknüpfungen ~+~, ~-~, ~*~
 sind nach üblichen Rechenregeln erklärt. Die Verknüpfung ~/~ ist als
 ganzzahlige Division erklärt. 
 
@@ -424,7 +427,7 @@ haben)
 ** Literale  für ganze Zahlen					   :subslide:
 
 - Üblicherweise bauen  Literale für ganze Zahlen aus arabischen
-Ziffern: 0, 1, 2, ..., 4711, ... 
+  Ziffern: 0, 1, 2, ..., 4711, ...  
 
 - Denkbar wäre auch, römische Zahlen zu benutzen: I, II, III, IV,  ... 
 
@@ -483,20 +486,20 @@ Assoziativität verletzt ist? Sehr große und sehr kleine Zahl addieren?
 - Details: Vorlesung Grundlagen technische Informatik 
 
 
-** Datentyp: Text 						   :subslide:
+** Datentyp: ~str~ 						   :subslide:
 
-*** Datentyp: Text						  :B_example:
+*** Datentyp: ~str~ 						  :B_example:
     :PROPERTIES:
     :BEAMER_env: example
     :END:
 
 
-Text sind Aneinandereihungen einzelner Zeichen. Die leere Reihe ist
-ebenfalls ein Text. Zeichen sind durch eine Aufzählung definiert (a,
-b, c, ...). 
+Strings (kurz: ~str~) sind Aneinandereihungen einzelner Zeichen; sie
+formalisieren Zeichenketten. Die leere Reihe ist ebenfalls ein
+String. Zeichen sind durch eine Aufzählung definiert (a, b, c, ...).
 
-Zwei Texte können lediglich durch Addition miteinander verknüpft
-werden. 
+Zwei Strings können lediglich durch Addition miteinander verknüpft
+werden.
 
 ** Datentyp: ~bool~ 						   :subslide:
 
@@ -553,8 +556,8 @@ Leichte Übung; xor gibt es nicht, nachbauen?
     :BEAMER_env: example
     :END:
 
- Ganze Zahlen haben den Wertebereich \( \{ -\infty, \ldots, -3, -2, -1,
- 0, 1, 2, 3, \ldots + \infty \} \). Die Verknüpfungen ~+~, ~-~, ~*~
+ Ganze Zahlen haben den Wertebereich $ \{ -\infty, \ldots, -3, -2, -1,
+ 0, 1, 2, 3, \ldots + \infty \} $. Die Verknüpfungen ~+~, ~-~, ~*~
  sind nach üblichen Rechenregeln erklärt. Die Verknüpfung ~/~ ist als
  ganzzahlige Division erklärt. 
 
@@ -563,9 +566,9 @@ Leichte Übung; xor gibt es nicht, nachbauen?
  Datentyps ~bool~. 
 
 
-*** UEBUNG Vergleich bei Text 
+*** UEBUNG Vergleich bei Zeichenketten 
 
-Wie vergleicht man zwei Texte? Formale Definition, bei Einzelzeichen
+Wie vergleicht man zwei Strings? Formale Definition, bei Einzelzeichen
 anfangen. Was ist mit Randfällen? Leerer Text? Beide leer?
 unterschiedliche Länge? 
 
@@ -601,7 +604,7 @@ Was ist
 lazy eval bei and und or erkunden, überlegen, ausprobieren 
 
 
-** Weitere einfache Datentypen 
+** Zusammenfassung: Einfache Datentypen 
 
 - Numerisch: ~int~, ~float~, ~complex~
   - Mit üblichen arithmetischen Operationen
@@ -609,7 +612,7 @@ lazy eval bei and und or erkunden, überlegen, ausprobieren
   - Und bit-für-bit Operationen für ~int~
   - Siehe [[https://docs.python.org/3.5/library/stdtypes.html#numeric-types-int-float-complex
     ][Details]] 
-- Text: ~str~
+- Zeichenkette: ~str~
   - Folge von Unicode-Zeichen
   - Siehe [[https://docs.python.org/3.5/library/stdtypes.html#text-sequence-type-str][Details]] 
 - Folgen von Bytes, ...     
@@ -630,7 +633,7 @@ ausprobieren, vorhersagen lassen was passiert, ...
 - Was passiert, wenn wir mischen? 
 
 
-*** Beispiel: Text und Zahl 
+*** Beispiel: Zeichenkette und Zahl 
 
 #+BEGIN_SRC python
 "Hallo GP1" + 5
@@ -640,14 +643,14 @@ ausprobieren, vorhersagen lassen was passiert, ...
 
 Was wären denn Verknüpfungen mit sinnvoller /Semantik/? 
 
-- Text und Zahl?
-  - Multiplikation: Text mehrfach hintereinander
-- Text, Zahl und ~bool~?
+- Zeichenkette und Zahl?
+  - Multiplikation: Zeichenkette mehrfach hintereinander
+- Zeichenkette oder Zahl und ~bool~?
   - ???
 - Zahl und Zahl, genauer: unterschiedliche Zahlen?
   - Ja... 
 
-** Text und Zahl						   :subslide:
+** Zeichenkette und Zahl 					   :subslide:
 
 *** ~str~ und ~int~ 
 
