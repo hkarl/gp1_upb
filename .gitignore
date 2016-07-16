@@ -17,3 +17,7 @@ output
 build/log
 testplay.yaml
 content/*/_minted-ch*
+content/ch3-variables/figures/abHallo.png
+content/ch3-variables/figures/namesLabels.png
+content/ch3-variables/figures/TwoNamesLabels.png
+content/ch3-variables/figures/wrongLabels.png
