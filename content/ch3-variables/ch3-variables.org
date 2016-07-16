@@ -1,0 +1,700 @@
+#+TITLE: Kapitel 3: Variablen
+#+INCLUDE: "../template/header.org"
+
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+** Dieses Kapitel 
+
+- Bisher nur Ausdrücke, die keine Zustandsänderung bewirkten 
+- Dieses Kapitel: Konzept der /Variable/ -- das Bennen eines Werts
+- Erlaubt Weiterverwendung und Manipulation von Ergebnisses eines
+  Ausdrucks 
+
+
+* Variablen 
+
+
+** Ausdrücke sind vergesslich 
+
+- Bisher: Nur Literale und Ausdrücke 
+- Wert eines Ausdrucks nach Berechnung sofort wieder vergessen  
+
+- Unpraktisch! 
+
+*** Aufheben?							    :animate:
+
+- Wie können wir den Wert eines Ausdrucks aufbewahren?
+- Wie können wir wieder benutzen? 
+
+** Namen! 
+
+- Wir brauchen einen *Namen* für einen Ausdruck
+- Mit Namen dann wieder benutzbar 
+
+#+NAME: fig:vader-ring 
+#+CAPTION: If you like it, you should put a name on it
+#+ATTR_LaTeX: :width 0.25\linewidth
+[[./figures/vader-ring.png]]
+
+
+** Namen -- Beispiel 
+
+- Wir benutzen einfachen Namen: ~a~
+- Der Name ~a~ wird dem Wert 42 zugeordnet
+- Dazu nutzen wird das Zeichen ~=~
+- *Zuweisung* (*Assignment*)
+
+#+BEGIN_SRC python
+# a wird zu einem Namen für den Wert 42
+a = 42
+#+END_SRC
+
+
+** Zuweisung (v1) 
+
+
+*** Zuweisung (v1) 					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Bei einer Zuweisung wird ein *Name* mit einem Wert verbunden.  Der
+Name *referenziert* den Wert; der Wert wird der Variable *zugewiesen*.
+
+*** Schreibweise 
+
+- Zuweisung wird durch ein Gleichheitszeichen angegeben
+- Links davon: der Name
+- Rechts davon: der Wert 
+
+
+** Zuweisung: Im Detail 
+
+- Die Zuweisung *erzeugt* den Wert, falls er noch nicht existiert 
+- Die Zuweisung *erzeugt* den Namen, falls er noch nicht existiert 
+- Die Zuweisung *verbindet* Namen mit Wert
+  - Oder: erzeugt *Referenz* 
+
+*** Zustandsänderung! 
+
+- Eine Zuweisung ändert den Zustand des laufenden Programms 
+
+
+*** Wert erzeugen?						       :note:
+
+Die Formulierung, einen Wert zu /erzeugen/, ist für das hier gewählte
+Beispiel ggf. missverständlich -- inwieweit kann oder muss die Zahl 42
+erzeugt werden; die existiert doch an sich? 
+
+Das stimmt; die Zahl 42 wird nicht erzeugt. Genauer wäre zu sagen,
+eine Repräsentation der Zahl 42 wird im Speicher des Rechners
+erzeugt. Es wird eine freie Stelle im Speicher gefunden, an der (unter
+anderem) ein Bitmuster abgelegt wird, das als die Zahl 42
+interpretiert wird. 
+
+Bei einer Zeichenkette ist das schon deutlicher. Diese muss erst
+explizit im Speicher erzeugt werden, bevor sie mit einem Namen
+versehen werden kann.  Bei komplexeren Datentypen (siehe folgende
+Kapitel) ist dies ebenso der Fall. Wir kommen darauf noch zurück.
+
+
+** Zuweisung: Namen sind Schilder an Werten 
+
+Referenz: An den Wert ein Namensschild hängen 
+
+*** Code 
+
+#+BEGIN_SRC python
+# a wird zu einem Namen für den Wert 42
+a = 42
+#+END_SRC
+
+*** Konzept 
+
+#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 400 
+#+header: :cache yes
+#+begin_src latex :exports results :results output raw :file figures/namesLabels.png :fit t
+    \usetikzlibrary{arrows,positioning,decorations.pathmorphing}
+    \begin{tikzpicture}
+    [pyvariable/.style={rectangle,draw=black,thick},
+     pyvalue/.style={rectangle,draw=black,fill=black!10,thick}]
+    \node[pyvariable] (vara)  at (0,0) {a};
+    \node[pyvalue] (val42) at (2,-1) {42};
+    \draw [->,red,decorate,decoration=snake] (vara.east) -- (val42.west)
+    node[right=5cm,above=0.75cm,]{Referenz};
+    \end{tikzpicture}
+#+end_src
+
+#+NAME: value-a-42
+#+CAPTION: Der Name a referenziert den Wert 42
+#+ATTR_LATEX: :width 0.3\textwidth :float nil
+#+RESULTS[407396d8be44328c2bfbe097ce7510cd887255dc]:
+[[file:figures/namesLabels.png]]
+
+
+
+
+*** Schilder an Werten oder Boxen mit Aufschrift?		       :note:
+
+Wenn Sie schon mit anderen Programmiersprachen wie etwa Java vertraut
+sind, ist die Vorstellung, ein Variablenname ist eine Referenz auf
+oder ein Namensschild für einen Wert, möglicherweise
+befremdlich. Dort ist die typische Vorstellung eher: Eine Variable ist
+eine Schuhschachtel (mit einem Namen), in die ein Wert gelegt wird. 
+
+Auf den ersten Blick macht das keinen großen Unterschied. Allerdings
+ist für das Speichermodell von Python die Namensschild-Analogie
+passender. Details werden wir im Kapitel zu veränderlichen Datentypen
+besprechen.  
+
+
+** Gültige Namen? 
+
+- ~a~ war ein Beispiel für einen Variablennamen
+- Wie darf ein Variablenname überhaupt aussehen?
+
+*** Variablennamen					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Ein /Variablenname/ (oder /identifier/) ist eine nichtleere
+  Zeichenkette beliebiger Länge, bestehend aus Klein- oder
+  Großbuchstaben, Ziffern, oder dem Unterstrich ~_~.
+
+- Das erste Zeichen darf keine Ziffer sein. 
+
+- Einige Zeichenketten sind für andere Zwecke /reserviert/ -- siehe
+  später. 
+
+** Sinnvolle Namen? 
+
+Ist ~a~ ein sinnvoller Variablenname? 
+
+- Für eine Folie mit einer Variable: naja
+- Für ein größeres Programm: Nein!
+  - Nutzen Sie sog. *sprechende Namen*: Namen, denen man den Zweck,
+    Inhalt, Benutzung leicht ansieht
+    - Gut: ~eingabedatei~, ~quersumme~, usw. 
+    - Schlecht: ~ii2~, ~x_17_b~ 
+- Sie müssen Ihr Programm auch in drei Monaten noch selbst verstehen! 
+
+
+** Variable nutzen
+
+- Wie bekomme ich den referenzierten Wert? 
+- Einfach: Variable als Ausdruck benutzen
+
+#+BEGIN_SRC python
+a = 5
+a
+#+END_SRC
+
+
+** Weitere Variable 
+
+*** Code 
+
+#+BEGIN_SRC python
+# a und b werden zu Namen für Wert 42 
+a = 42
+b = 42
+#+END_SRC
+
+*** Konzept 
+
+#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 400 
+#+header: :cache yes
+#+begin_src latex :exports results :results output raw :file figures/TwoNamesLabels.png :fit t
+    \usetikzlibrary{arrows,positioning,decorations.pathmorphing}
+    \begin{tikzpicture}
+    [pyvariable/.style={rectangle,draw=black,thick},
+     pyvalue/.style={rectangle,draw=black,fill=black!10,thick}]
+    \node[pyvariable] (vara)  at (0,0) {a};
+    \node[pyvariable] (varb)  at (0,-2) {b};
+    \node[pyvalue] (val42) at (2,-1) {42};
+    \draw [->,red,decorate,decoration=snake] (vara.east) -- (val42.170);
+    \draw [->,red,decorate,decoration=snake] (varb.east) -- (val42.190);
+    \end{tikzpicture}
+#+end_src
+
+#+NAME: value-a-and-b
+#+CAPTION: Beiden Namen a und b  referenzieren den Wert 42
+#+ATTR_LATEX: :width 0.3\textwidth :float nil
+#+RESULTS[eaae2c4b0d77c7a6883b00efcd02b0a543d9ff83]:
+[[file:figures/TwoNamesLabels.png]]
+
+
+** Weitere Variable -- Beobachtungen 
+
+*** Namen und Werte
+
+- Zwei unterschiedliche Namen für den gleichen Wert!
+  - Dem Wert ist das egal; die Zahl 42 ist immer die gleiche
+
+*** Syntaxregel 						    :animate:
+
+- Mehrere Anweisungen: *Eine Zeile, eine Anweisung* 
+
+*** UEBUNG Lange Anweisung 
+
+Wie kann man eine Anweisung aufschreiben, die länger als eine Zeile
+ist? 
+
+- Ganz lange Zeile (mit scheinbarem Umbruach)
+- Zwischenergebnisse einführen
+- Syntax erweitern; continuation
+  - Explizit durch backslsh
+  - IMplzit durch Klammerregeln 
+
+
+** Weitere Zuweisung 
+
+*** Code 
+
+#+BEGIN_SRC python
+a = 42
+b = 42
+# a wird Referenz für einen neuen Wert  
+a = "Hallo"
+#+END_SRC
+
+*** Konzept 
+
+#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 400 
+#+header: :cache yes
+#+begin_src latex :exports results :results output raw :file figures/abHallo.png :fit t
+    \usetikzlibrary{arrows,positioning,decorations.pathmorphing}
+    \begin{tikzpicture}
+    [pyvariable/.style={rectangle,draw=black,thick},
+     pyvalue/.style={rectangle,draw=black,fill=black!10,thick}]
+    \node[pyvariable] (vara)  at (0,0) {a};
+    \node[pyvariable] (varb)  at (0,-2) {b};
+    \node[pyvalue] (val42) at (2,-1) {42};
+    \node[pyvalue,text=blue] (valstr) at (2,0) {``Hallo''};
+    \draw [->,blue,decorate,decoration=snake] (vara.east) -- (valstr.west);
+    \draw [->,red,decorate,decoration=snake] (varb.east) -- (val42.west);
+     \end{tikzpicture}
+#+end_src
+
+#+NAME: value-abHallo
+#+CAPTION: Name a referenziert einen neuen Wert 
+#+ATTR_LATEX: :width 0.3\textwidth  :float nil
+#+RESULTS[8506a1af9f236c7594993875c314053271386e0a]:
+[[file:figures/abHallo.png]]
+
+
+
+
+
+
+
+
+* Arbeiten mit Variablen und Zuweisungen 
+
+
+** Variablen an Variablen zuweisen 
+
+Geht das? Wert von b? 
+
+#+BEGIN_SRC python
+%%tutor  
+a = 42
+b = a
+b
+#+END_SRC
+
+*** Semantik von Zuweisung: *Wert* 
+
+- Das ist nur ein Sonderfall!
+- Allgemein:
+  - Wert des Ausdrucks auf der rechten Seite bestimmen
+  - Variable wird zu Namen für diesen Wert
+  - Egal, ob der Ausdruck rechts eine Variable ist -- es geht um *den
+    Wert* 
+
+
+** FALSCH: Name auf Name 
+
+*** ~b = a~ ist kein Name für ~a~ 			       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Durch die Zuweisung ~b = a~ wird *KEIN* neuer Name für ~a~
+vereinbart. ~b~ wird zu einem weiteren Namen für den Wert, der von ~b~
+referenziert wird. 
+
+
+*** FALSCH: 
+
+#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 400 
+#+header: :cache yes
+#+begin_src latex :exports results :results output raw :file figures/wrongLabels.png :fit t
+    \usetikzlibrary{arrows,positioning,decorations.pathmorphing}
+    \begin{tikzpicture}
+    [pyvariable/.style={rectangle,draw=black,thick},
+     pyvalue/.style={rectangle,draw=black,fill=black!10,thick}]
+    \node[pyvariable] (vara)  at (0,0) {a};
+    \node[pyvariable] (varb)  at (0,-2) {b};
+    \node[pyvalue] (val42) at (2,-1) {42};
+    \draw [->,decorate,decoration=snake] (vara.east) --
+    (val42.170); 
+    \draw [->,decorate,decoration=snake] (varb.north) --
+    (vara.south);
+    \draw[red, very thick] (-1, -2) -- (3, 0.5);
+    \draw[red, very thick] (-1, 0.5) -- (3, -2);
+    \end{tikzpicture}
+#+end_src
+
+#+NAME: wrongLabels
+#+CAPTION: Vorsicht falsch: ~b~ wird *nicht* zu Namen für ~a~
+#+ATTR_LATEX: :width 0.3\textwidth :float nil
+#+RESULTS[6950e4cfb75c232dda4bb997dc59d87f76010e7a]:
+[[file:figures/wrongLabels.png]]
+
+
+** Eine Variablen verändern 
+
+- Genauer: Eine Variable referenziert einen neuen Wert 
+- Wert von ~b~? 
+
+#+BEGIN_SRC python
+%%tutor  
+a = 5
+b = a
+a = a + 2 
+b
+#+END_SRC
+
+** Warum hat ~b~ den Wert 5?  
+
+1. ~a = 5~ : Variable ~a~ referenziert den Wert 5
+2. ~b = a~ : Der Wert des Ausdrucks auf der rechten Seite wird
+   bestimmt. Variable ~b~ wird zu einem Namen für diesen Wert. 
+3. ~a = a + 2~ : 
+   1. ~a + 2~ ausrechnen, ergibt Wert 7
+   2. Der Wert 7 wird im Speicher repräsentiert 
+   3. ~a~ wird zu einem Namen für diesen Wert
+4. ~b~ ist immer noch ein Name für 5
+   1. Warum sollte sich hier etwas geändert haben?
+
+
+** Ausdrücke in Variablen 
+
+- In Ausdrücken, Variablennamen können wir Werte benutzt werden 
+- Bei Berechnung des Ausdrucks: Variable durch Wert ersetzt
+  - Wie Beispiel oben: ~b = a~ 
+- Variable wird zu Namen für berechneten Ausdruck 
+
+*** Beispiele 
+
+#+BEGIN_SRC python
+a = 17 + 5 
+b = 3*a +5 
+c = (a + b)/5
+#+END_SRC
+
+
+** Beispiel: Wert von ~y~ am Ende? 
+
+#+BEGIN_SRC python
+x = 42
+y = x
+x = 42 - y
+y = 2*x + 17
+#+END_SRC
+
+** Beispiel: Werte zweier Variablen vertauschen 
+
+Wie vertauschen Sie die Werte zweier Variablen? 
+
+#+BEGIN_SRC python
+a = 17 
+b = 42 
+# Your code here 
+... 
+#+END_SRC
+
+*** UEBUNG Variable tauschen ohne Hilfsvariable; xor 
+
+Üblicher xor-Trick 
+
+
+** Gleichzeitig Zuweisungen 
+
+Python: *Gleichzeitige* Zuweisung an mehrere Variablen möglich 
+
+*** Syntax 
+
+- Links von ~=~: Mehrere Variablennamen, durch Komma getrennt 
+- Rechts von ~=~: Mehrere Ausrücke, durch Komma getrennt 
+- Anzahl *muss* übereinstimmen 
+- Beispiel mit drei Ausdrücken: 
+
+#+BEGIN_SRC python
+a, b, c = Ausdruck1, Ausdruck2, Ausdruck3 
+#+END_SRC
+
+** Gleichzeitige Zuweisungen -- Semantik 
+
+1. *Alle* Ausdrücke auf der linken Seite werden ausgewertet
+   1. Dabei werden noch die *ursprünglichen* Variablenwert benutzt
+2. *Danach* werden alle Zuweisungen zu den neu berechneten Werten
+   hergestellt
+3. Erst wenn *alle* Zuweisungen fertig sind, geht es weiter 
+
+Formal: *atomare* Zuweisungen 
+
+** Gleichzeitige Zuweisungen -- Beispiele 
+
+#+BEGIN_SRC python
+x, y = 17, 42
+x, y = 2*x, y-5 
+#+END_SRC
+
+*** Vertauschen zweier Variablenwerte? 
+
+#+BEGIN_SRC python
+x, y = 17, 42
+# ??? 
+#+END_SRC
+
+
+
+** Zuweisung (v2) 
+
+
+*** Zuweisung (v2) 					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Bei einer Zuweisung werden ein oder mehrere *Name* mit einem oder
+mehreren Wert verbunden.  Der Name *referenziert* den entsprechenden
+Wert; der Wert wird der Variable *zugewiesen*. 
+
+*** Schreibweise 
+
+- Zuweisung wird durch ein Gleichheitszeichen angegeben
+- Links davon: der oder die Namen, durch Komma getrennt
+- Rechts davon: der oder die Werte, durch Komma getrennt 
+
+
+
+* Zuweisungen und Typen 
+
+** Typen? 
+
+- Werte, Ausdrücke haben Typen 
+- Variablen?
+  - Variable ist nur eine Referenz auf einen Wert
+- Typ der Variable : Typ des zugewiesenen Werts
+  - Welcher Typ sollte es auch sonst sein?? 
+
+
+** Variablentyp veränderlich? 
+
+Heißt das, dass sich der Typ einer Variable verändern kann? 
+
+- *JA*! 
+
+#+BEGIN_SRC python
+x = 42
+# Typ von x: int
+x = 'Hallo GP1'
+# Typ von x: str
+#+END_SRC
+
+
+** Wo ist der Typ? 
+
+- Typ-Information liegt *nicht* beim Variablennamen
+  - Für eine Variable *muss kein Typ angegeben werden*
+  - Es wäre auch sinnlos, das zu tun
+- Typ-Information liegt beim referenzierten Wert  
+- Ist dort aber explizit bekannt
+
+
+** Problem? 
+
+- Dem Interpreter ist das egal -- die Typinformation ist ja vorhanden 
+- Ein Programmierer sieht einer Variable nicht an, was darin steckt
+  - Das kann sich ja ändern
+  - Das erfordert Disziplin! 
+- Idee: /Solange der Wert weiß, was er ist, ist alles gut/
+
+** Dynamisch typisierte Sprache 
+
+*** Dynamisch typisierte Programmiersprache		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine Programmiersprache ist */dynamisch typisiert/* wenn
+Typen-Informationen für jeden Wert oder Ausdruck *zur Laufzeit* bekannt
+ist. Diese Typen-Information ist im Programm-Code nicht explizit
+repräsentiert und nicht  notwendigerweise aus ihm ableitbar. 
+
+
+Python ist ein Beispiel. 
+
+** Statisch typisierte Sprache 
+
+*** Statisch typisierte Sprache				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine Programmiersprache ist */statisch typisiert/* wenn
+Typen-Informationen explizit im Programm-Code angegeben werden
+müssen. Aus der Betrachtung des Programm-Codes kann der Typ eines
+Wertes abgeleitet werden, bereits bevor das Programms selbst abläuft. 
+
+Meist (aber nicht unbedingt) wird in einer solchen Sprache auf die
+explizite Repräsentation des Typs eines Wertes /zur Laufzeit/
+verzichtet, da ja alle Informationen bereits vorab bekannt sind. 
+
+Java ist ein Beispiel. 
+
+* Anmerkungen zu Syntax und Stil 
+
+** Syntax 
+
+Einige aufgetauchte Syntaxregeln: 
+
+- Formulierung von Literalen und Ausdrücken 
+- Kommentare beginnen mit # 
+- Eine Anweisung, eine Zeile 
+- Anweisungen mit Gleichheitszeichen schreiben
+  - Und gleichzeitige Anweisungen mit Komma trennen 
+
+** Syntax: Formalisierung 
+
+- Syntaxregeln durch /formale Sprachen/ und Grammatiken  formalisiert 
+- Visualisiert: Syntaxdiagramme 
+- Beispiele: Später 
+
+** Stil 
+
+- Syntax: Harte Regeln, *müssen* eingehalten werden 
+- Aber mit Spielraum 
+  - Beispiel: Leerzeichen vor, nach ~=~, Klammern?
+- Unterschiedliche Interpretation von Spielraum? 
+  - Verwirrt, senkt Lesbarkeit, erschwert Wiederbenutzung
+  - /Code wird öfter gelesen als geschrieben!/
+- Daher: *Stilregeln* (*/sytle guides/*) für /*Konsistenz*/
+  - Anfänger-Code = inkonsistenter Code 
+
+
+
+** Schlechter Stil ist peinlich 
+
+#+CAPTION: Code ist kein Salatrezept
+#+ATTR_LaTeX: :width 0.75\linewidth :float nil
+#+NAME: fig:salatrezept
+[[./figures/code_quality.png]]
+
+
+** Stilregeln Python 
+
+- Python: festgelegte Stilregeln
+  - Python Enhancement Proposal No. 8 ([[https://www.python.org/dev/peps/pep-0008/][PEP 8]])
+- Beispiele:
+  - Maximale Zeilenlänge 79 Zeichen
+  - Leerzeichen
+    - Nach Komma, nicht davor
+    - Nicht nach öffender oder vor schließender Klammer
+    - Genau ein Leerzeichen vor und nach Zuweisung 
+    - Stimmt mit Buchsatzregeln überein!
+
+** Stilregeln in Python 
+
+- Aber: es sind Regel -- keine Regel ohne Ausnahme 
+
+- Selbst nachdenken, nachfragen, eigenes Urteil 
+
+- [[https://www.python.org/dev/peps/pep-0020/][PEP 20 -- The Zen of Python]]
+
+  - /*Beautiful is better than ugly.*/
+
+  - /*Readbility counts.*/
+
+
+*** UEBUNG Leerzeichen 
+
+Ein paar Beispiele für gute und schlechte Leerzeichennutzung 
+
+*** UEBUNG Leerzeichen in arithmetischen Asudrücken 
+
+Warum empfiehlt PEP8 Leerzeichen um Operatoren mit niedriger
+Priorität? 
+
+
+*** UEBUNG Zeilenumbruch 
+
+In vorheriger Übung haben Sie über lange Zeilen
+nachgedacht. Angenommen, Sie müssen innerhalb eines arithmetischen
+Ausdrucks umbrechen. Line break vor oder nach binärem Operator? 
+
+Warum? Referenz? 
+
+Lösung: PEP 8! (wo sonst...) 
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Variablen geben Werten einen /Namen/
+- Damit ändert sich der /Zustand/ eines laufenden Programms 
+- Syntaxregeln für Variablennamen
+- Semantik der Zuweisung
+- Die Repräsentation des Typs (in Wert oder Variable) unterscheidet
+  dynamisch von statisch typisieren Programmiersprachen 
+
+
+
+** Rückblick 
+
+Waren Sie überrascht? 
+- Gute Programmiersprache: Keine Überraschungen
+- /Principle of least possible surprise/
+
+Hätten Sie etwas anders gemacht? 
+- Idealerweise: *Eine* offensichtliche Lösung 
+- /*There should be one -- and preferably only one -- obvious way to do
+  it.*/ ([[https://www.python.org/dev/peps/pep-0020/][PEP 20 -- The Zen of Python]]) 
+
+
+* Notes								   :noexport:
+
+- Variablen
+  - ERzeugung
+  - Typ
+  - Nutzung 
+
+** Gemeinsame Referenzen -- Gleichheit 
+
+ aber das macht erst bei mutables Sinn zu unterscheiden? is vs. == ? 
+1
