@@ -237,6 +237,10 @@ Puzzle-Bild?
 - one obvious way to do things 
 
 
+* Veränderbare Objekte 
+
+mutables vs. unmutables 
+
 * Algorithmus
 
 ** Aufgabe vs. Algorithmus 
@@ -387,6 +391,24 @@ Was man alles machen muss, wenn man keine vernünftige Sprache zur Hand hat
 
 
 * Sonstiges 
+
+** TExt , encoding, UTF8 
+
+http://python-notes.curiousefficiency.org/en/latest/python3/text_file_processing.html
+
+
+* Java-Vergleich 
+
+- from future import braces 
+
+
+* Klausur 
+
+- ein cheat-sheet austeilen?
+  Z.B. https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf
+  ? 
+
+
 
 ** Referenzen 
 
