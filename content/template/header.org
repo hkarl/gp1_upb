@@ -9,7 +9,7 @@
 #+LATEX_HEADER: \usepackage[ngerman]{babel}
 #+LATEX_HEADER: \usepackage{enumitem}
 #+LATEX_HEADER: \setlist[itemize]{noitemsep,nolistsep}
-#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{xcolor}
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{thmtools}
 #+LATEX_HEADER: \declaretheorem[thmbox=M,name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=3pt, bgcolor={rgb}{1,1,1}}]{theorem}
