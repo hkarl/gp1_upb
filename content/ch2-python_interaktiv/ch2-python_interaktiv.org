@@ -372,6 +372,11 @@ entsteht, indem an $t_1$ unmittelbar $t_2$ angehängt wird.
 - Keine sinnvolle Semantik, also Fehler 
 
 
+*** UEBUNG Unterschied zwischen str und byte
+
+str code points, byte. utf8. ascii. decode/encode? Aber das geht erst
+mit Funktionen? 
+
 * Typen
 
 ** Fehlermeldungen: ~TypeError~
@@ -716,7 +721,7 @@ Man spricht dann von /Operator Overloading/.
 Infinite size of ints , keine unterschiedlichen Größen der intergers 
 
 
-* Zusammenfassung 
+* Typen
 
 ** Typen in Python 3 
 
@@ -729,6 +734,12 @@ Infinite size of ints , keine unterschiedlichen Größen der intergers
 - Typ eines Werts wird im Interpreter explizit repräsentiert 
   - Man muss den Typ aber nicht explizit hinschreiben 
 
+*** UEBUNG REgeln für Bestimmung des Typs eines Literals 
+
+Wie bestimmt der Interpreter, welchen Typ ein Literal hat? Wie
+unterscheidet er 42 von 42.0?
+
+Nicht schwer, kann aber helfen. 
 
 ** Typisierte Programmiersprache				   :subslide:
 
@@ -749,6 +760,49 @@ bekannt ist.
 - Java
 - ... 
 
+** Konvertierung zwischen Typen
+
+- Typen sind unterschiedlich, aber was, wenn das gleiche Datum
+  repräsentiert wird?
+- Beispiel:
+  - ~int~: 9
+  - ~string~: '9'
+- Was string '9' zu int 9? Umgekehrt?
+  - Möglich
+  - Details: später 
+
+** Bemerkung: Starke vs. schwache Typisierung 
+
+*** Schwach typisierte Programmiersprache		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine Programmiersprache ist */schwach typisiert/* wenn Werte
+unterschiedlicher, nicht verwandter Typen miteinander verknüpft werden
+können, ohne dass sie explizit konvertiert werden müssen. 
+
+*** Beispiel							    :animate:
+
+- Eine schwach typisierte Sprache würde 9 + '9' erlauben. 
+- Aber bedeutet das dann '99' oder 18? 
+- Sprache: Perl 
+
+** Bemerkung: Starke vs. schwache Typisierung (2)
+
+*** Stark typisierte Programmiersprache			       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine Programmiersprache ist */stark typisiert/* wenn Werte
+unterschiedlicher, nicht verwandter Typen *nur dann* miteinander
+verknüpft werden können, wenn sie explizit konvertiert werden.
+
+*** Beispiel							    :animate:
+
+- Bei starker Typisierung ist 9 + '9' nicht möglich
+- Beispiel: Python, Java 
 
 
 ** Ausdrücke und Zustand? 
@@ -756,9 +810,12 @@ bekannt ist.
 
 - Und was ist mit Zustand? 
   - Vorheriges Kapitel: Lange Diskussion, Ausführungsmodell, ... 
-- *Ausdrücke für sich verändern den Zustand nicht* 
-- ??? 
+- *Ausdrücke verändern den Zustand nicht* 
 
+
+- Und nun? 
+
+* Zusammenfassung 
 ** Zusammenfassung 
 
 - Datentypen legen Werte und Verknüpfungen fest
@@ -767,4 +824,4 @@ bekannt ist.
   - Ausdrücken erzeugen neue Werte aus vorhandenen Werten 
 - Python ist ein Beispiel für
   - eine Sprache/Umgebung mit einer read-evaluate-print-Schleife 
-  - eine typisierte Programmiersprache 
+  - eine stark typisierte Programmiersprache 
