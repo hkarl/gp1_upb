@@ -335,6 +335,43 @@ b
     Wert* 
 
 
+** Animationen von Programmen 
+
+- Die vorherige Folie war auch ein Beispiel für Programmanimationen
+  - Werkzeug: [[http://www.pythontutor.com/][PythonTutor]]
+  - Erlaubt Ausführung von Programmen in Einzelschritten und Anzeige
+    der Variablenbelegungen
+- Sie können das selbst nutzen
+  - direkt auf Webseite von PythonTutor 
+  - oder aus den Jupyter-Notebooks heraus: mit ~%%tutor~ in
+    der ersten Zeile 
+
+*** PythonTutor: Typische Anzeige				  :dropslide:
+
+#+CAPTION: Screenshot PythonTutor
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pythonTutor
+[[./figures/pythonTutor1.png]]
+
+Abbildung [[fig:pythonTutor]] ist ein typisches Beispiel der Anzeigen von
+PythonTutor. 
+
+- Auf der linken Seite wird das Programm angezeigt
+  - Der rote Pfeil zeigt auf die Anweisung, die als nächstes
+    ausgeführt wird (sobald man auf den Forward-Knopf drückt)
+  - Der grüne Pfeil weist auf die Zeile hin, die gerade ausgeführt
+    wurde und die den momentan angezeigten Zustand erzeugt hat
+- Auf der rechten Seite wird eben dieser Zustand angezeigt. Die rechte
+  Seite hat zwei Spalten:
+  - Links die sog. Frames; bis jetzt haben wir nur einen einzigen
+    (Details später). Hier sind die bisher bekannten Namen aufgeführt 
+  - Rechts die Werte (hier als Objects bezeichnet; mehr dazu später).
+  - Pfeile zeigen von den Namen auf die referenzierten Werte 
+
+
+
+
+
 ** FALSCH: Name auf Name 
 
 *** ~b = a~ ist kein Name für ~a~ 			       :B_alertblock:
