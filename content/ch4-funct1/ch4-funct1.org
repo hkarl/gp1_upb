@@ -1,0 +1,524 @@
+#+TITLE: Kapitel 5: Funktionen (Teil 1) 
+#+INCLUDE: "../template/header.org"
+
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+** Dieses Kapitel 
+
+- Wir fassen wiederkehrende Anweisungen zu /*Funktionen*/ zusammen
+- Funktionen können /*aufgerufen*/ werden
+- An einen Funktionsaufruf kann man /*Parameter*/ übergeben 
+- Dieses Kapitel: nur einfache Formen des Aufrufs, einfache Parameter
+  - Wir erweitern diese Konzepte in einem späteren Kapitel 
+
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+
+
+
+
+* Wiederkehrende Anweisungen
+
+** Wiederkehrende Anweisungen 
+
+- Angenommen, die gleiche Folge von Anweisungen taucht immer wieder
+  auf 
+  - Eventuell mit kleinen Variationen
+- Beispiele:
+  - Mathematische Funktionen ausrechen ($\sin$ etc.)
+  - Datei zeilenweise auslesen
+  - ... 
+- Jedes Mal neu eintippen?
+  - Programming by Copy/Paste??
+
+** Funktionen 
+
+- Idee: Wiederkehrende Anweisungen nur ein Mal aufschreiben
+- Von verschiedenen Stellen eines Programs aus nutzbar machen
+- Gründe:
+  - Wiederbenutzung erhöhen
+  - Redundanz verringern
+  - Zerteilen eines Problems in kleinere Teile 
+
+** Problem zerteilen: Kuchen backen 				   :subslide:
+
+
+- Mache den Teig
+- Mache den Belag 
+- Buttere die Form 
+- Stelle From in Ofen  
+
+** Problem zerteilen: Kuchen backen 				   :subslide:
+
+
+- Mache den Teig
+  - Wiege das Mehl
+  - Wiege den Zucker
+  - Trenne die Eier
+  - Schlage Eischnee
+  - Schlage Eigelb und Zucker
+  - ... 
+- Mache den Belag 
+  - ... 
+- Buttere die Form 
+- Stelle From in Ofen  
+
+** Problem zerteilen: Programmiertechnik			   :subslide:
+
+- Die meisten Programmieraufgaben sind zu groß, um direkt gelöst zu
+  werden
+- Stattdessen: Suche eine Aufteilung in kleinere Teile
+- Die möglicherweise immer noch zu groß sind
+  - Dann diese weiter unterteilen
+  - Bis handhab 
+- Schließlich: Setze die Lösung aus den Einzelteilen zusammen 
+
+*/Prodzedurale Dekomposition/*
+
+** Funktionen 
+
+- Teillösungen sind /*Funktionen*/
+- Wir müssen uns überlegen:
+  - Wie erstellen wir eine neue Funktion?
+  - Wie benutzen wir eine vorhandene Funktion? 
+
+* Funktionen definieren 
+
+** Name für Folge von Anweisungen 
+
+Wir brauchen: 
+- Einen Namen für eine Folge von Anweisungen -- ein Namensschild 
+- Ähnlich wie Zuweisung: Ein Name für einen Wert
+  - ~Name = Wert~ 
+Also: 
+- ~Name für Funktion = Folge von Anweisungen~ ?
+- Aber ~=~ ja schon benutzt?? 
+
+
+** Neue Anweisung: ~def~ 
+
+Wir brauche eine neue Anweisung: ~def~
+- Unsere zweite Anweisung nach ~=~
+- Ähnlich: Name, Wert 
+
+** Beispiel für ~def~
+
+#+BEGIN_SRC python
+  def meine_funktion():
+      x = 42
+      y = x/2
+      # usw... weiter Anweisungen
+#+END_SRC
+
+
+** ~def~
+
+*** Anweisung zur Definition einer Funktion		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Die Anweisung ~def~ verbindet einen (ggf. neuen) Namen (für eine Funktion) mit
+einer Folge von Anweisungen.  Der Name /referenziert/ diese
+Anweisungsfolge. Durch die Schaffung dieses Namens wird der
+Programmzustand geändert. 
+
+Namen für Funktionen folgen den Syntaxregeln der Namen für
+Variable. 
+
+
+** ~def~: Syntaxregel  (1) 
+
+
+
+*** Syntax für ~def~ (Teil 1)				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Der Anweisung ~def~ folgt in der gleichen Zeile 
+  - der zu definierende Funktionsname 
+  - ein Klammerpaar: ~()~
+  - und ein Doppelpunkt ~:~ 
+- Die Anweisungsfolge kommt in den folgenden Zeilen
+  - *eingerückt* um vier Leerzeichen 
+
+*** UEBUNG Eine Zeile für ~def~? 
+
+In vorheriger Übung gelernt: IN klammern darf Zeielumbruch schadlos
+erfolgen. Was sagt uns das für die Definition von Funktionen? 
+
+Probieren Sie das in einem Notebook aus! 
+
+
+
+** Einrückung? 
+
+- Durch die Einrückung sind die Anweisungen bestimmt, die mit dem
+  Funktionsname verbunden werden
+- Ende der Einrückung: Ende der Funktionsdefinition 
+- Darauf folgt: Einrückungen wichtig für Struktur
+  - Python: Willkürliches Ein-/Ausrücken fehlerhaft! 
+
+
+** Visuelle Struktur 
+
+- Python-Programme sind durch Einrückungen strukturiert 
+- Wir brauchen keine zusätzlichen Strukturelemente
+  - Wie beispielsweise Klammern ~{~ oder ~}~ 
+
+- Kompakte, leicht zu lesende Ausdrucksweise! 
+
+
+** Einrückung: Beispiel 
+
+#+BEGIN_SRC python
+  %%tutor 
+  def f():
+      x = 5
+      y = 17
+      # weitere Anweisungen
+
+  # Definition von f zu Ende!
+
+  def g():
+      a = 1
+      b = a+1
+      # usw
+
+  # Definition von g zu Ende!
+  z = 42
+#+END_SRC
+
+
+*** UEBUNG Leerzeichen? Tabs? 
+
+Was sagt PEP8 dazu? 
+
+Klar machen: das macht ein Editor sowieso 
+
+
+** Visualisierung: Was passiert? 
+
+- Beim Ablauf des obigen Beispiels: *drei* Anweisungen ausgeführt!
+  1. Die Definition von ~f~ und Herstellung der Referenz auf
+     Anweisungen
+  2. Entsprechend: die Definition von ~g~
+  3. Die Zuweisung ~z = 42~ 
+- Zustand des Programms: ~f~, ~g~ und ~z~ haben Werte 
+
+*** Zustand nach Funktionsdefinition				  :dropslide:
+
+Abbildung [[fig:zustand-f-g-z]] stellt den Zustand nach der Definition von
+~f~ und ~g~ dar. 
+
+#+CAPTION: Zustand nach Definition von ~f~, ~g~ und Zuweisung an ~z~
+#+ATTR_LaTeX: :width 0.75\linewidth :float nil
+#+NAME: fig:zustand-f-g-z
+[[./figures/frame-f-g-z.png]]
+
+
+** Starke Analogie: Variablename, Funktionsname 
+
+- Die Analogie zwischen Zuweisung und Funktionsdefinition ist sehr eng! 
+
+- Funktionsnamen benehmen sich nahezu identisch zu Variablennamen 
+
+- Aber Notation doch recht unterschiedlich? 
+
+*** Eine Anweisung zur Funktionsdefinition?			  :dropslide:
+
+Wenn Sie mit anderen Sprachen wir C oder Java vertraut sind, wird
+Ihnen dies vielleicht seltsam vorkommen: Eine /Anweisung/ definiert
+eine Funktion? Eine Anweisung muss durch das Programm doch ausgeführt
+werden, damit sie einen Effekt? 
+
+Das ist genau der Fall: die Anweisung ~def~ muss ausgeführt werden,
+sonst existiert die Funktion nicht. 
+
+
+
+
+*** Unterschiedliche Notation für Variablen und Funktionen?	  :dropslide:
+
+Das hat letztlich pragmatische und auch Geschmacksgründe. Tatsächlich
+gibt es Programmiersprache (etwas Lisp), bei denen diese Analogie noch
+viel enger ist und auch in der Syntax kaum ein Unterschied in der
+Definition einer Variabler  oder eines Funktionsnamens liegt. 
+
+** Sprechweise: Objekt 
+
+- Wir haben Namen für Werte, für Folgen von Anweisungen, usw.  
+- Das wird unübersichtlich!
+
+*** Verallgemeinerung: Objekt					    :animate:
+
+- Verallgemeinern wir die Sprechweise: Objekte
+  - Wenn es auf die Unterscheidung nicht ankommt
+  - Werte sind Objekte
+  - Folgen von Anweisungen sind Objekte
+  - ... 
+- Wir haben: Namen für /*Objekte*/ 
+
+* Aufruf und Rückgabewert 
+
+** Aufruf einer Funktion 
+
+- Funktionsfolgen mit Namen versehen: Toll!
+- Aber wie Nutzen? 
+- Genauer: Wie dafür sorgen, dass die Anweisungen einer Funktion an
+  einer Stelle im Programm ausgeführt werden?
+  - Ein /Funktionsaufruf/ durchführen 
+
+** Aufruf einer Funktion: Syntax 
+
+- Einfache Syntax: Den Funktionsnamen und ein Klammerpaar hinschreiben
+- Als Teil eines Ausdrucks 
+- Beispiel: 
+
+#+BEGIN_SRC python
+  %%tutor
+  def f():
+      x = 42
+      y = 17
+
+  # hier wird aufgerufen
+  z = "vorher"
+  f()
+  z = "nachher"
+#+END_SRC
+
+** Aufruf einer Funktion: Semantik  
+
+Wir erweitern das Ausführungsmodell:
+
+*** Aufruf einer Funktion: Semantik (V1)		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Aufruf der Funktion: Programm mit den Anweisungen der Funktion
+  fortsetzen
+  - Vorstellung: Der Aufruf der Funktion wird durch die Anweisungen
+    der Funktion ersetzt, und dann wird ausgeführt 
+- Nach Ausführung der letzten Anweisung der Funktion: Mit der
+  Anweisung nach dem Aufruf weitermachen 
+
+** Aufruf einer Funktion: Semantik  
+
+*** Das ist nur eine erste Vorstellung			       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Die Definition hier ist unvollständig und nicht ganz korrekt. Wir
+brauchen dazu noch ein paar Erweiterungen! 
+
+
+
+*** UEBUNG WArum sit das nur eine grobe Entsprechung
+
+Wo sind die Unterschied? Zumindest einer klar: Im Zustand fehlt der
+Eintrag für den Funktionsnamen f . Und die Variablen x und y sind
+nicht im Scope. 
+
+** Variablen: Scope 
+
+- Was passiert mit ~x~ und ~y~ aus der Funktion?
+  - Bei der groben Annäherung: Existieren weiter
+  - Eigentlich: Verschwinden nach Rückkehr aus der Funktion 
+
+***  ~Scope~ -- Lebensdauer			       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Variable, an die innerhalb einer Funktion zugewiesen
+  wird, ist *lokal* zu dieser Funktion
+- Existiert nur, solange Anweisungen dieser Funktion ausgeführt
+  werden
+- Verschwindet nach Ende der Funktion 
+
+** Scope: Beispiel 
+
+#+BEGIN_SRC python
+  %%tutor
+  def f():
+      x = 42
+      y = 17
+
+  z = "vorher"
+  f()
+  z = "dazwischen"
+  f()
+  z = "danach" 
+#+END_SRC
+
+
+*** Unterschiedliche Scopes					  :dropslide:
+
+Die folgenden Abbildungen zeigen die unterschiedlichen Scopes. In der
+Pythontutor-Anzeige werden dabei auf der rechten Seite die Scopes
+separat angezeigt (und als /Frames/ bezeichnet): 
+
+- Ein "global frame": Die Namen, die im aufrufenden Teil des Programms
+  bekannt sind.
+- Ein Scope für die Funktion ~f~: Namen, die nur innerhalb von ~f~
+  bekannt sind und die danach wieder verschwinden. 
+
+
+In den einzelnen Schritten geschieht folgendes: 
+
+1. Nach Definition von ~f~, vor dem ersten Aufruf (Abbildung
+   [[fig:pt-vor-f1]]): hier sind lediglich die Namen ~z~ und ~f~
+   bekannt. Der Aufruf von ~f~ wird als nächstes ausgeführt werden.
+#+CAPTION: Aufruf einer Funktion, Scopes: Vor erstem Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-vor-f1
+[[./figures/pt-f-1-vorf.png]]
+2. [@2] Innerhalb des ersten Aufrufs von ~f~ (Abbildung [[fig:pt-in-f1]]): Kurz vor
+   Ende von ~f~ sind die beiden Namen ~x~ und ~y~ bekannt, die lokal
+   innerhalb der Funktion eingeführt wurden. Achten Sie darauf, dass
+   diese Namen in einem anderen Scope -- dem von ~f~ -- existieren.
+#+CAPTION: Aufruf einer Funktione, Scopes: Im ersten Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-in-f1
+[[./figures/pt-f-2-inf1.png]]
+3. [@3] Nach Abschluss des ersten Aufrufs von ~f~, vor dem zweiten
+   (Abbildung [[fig:pt-zwischen-f]]): Achten Sie darauf, dass der Scope von
+   ~f~ nicht mehr existiert und damit auch die beiden Namen ~x~ und
+   ~y~ verschwunden sind (ebenso wie die Werte, die von ~x~ und ~y~
+   referenziert wurden -- es gibt ja keinen Namen mehr, unter denen
+   man sie finden könnte). Es existieren jetzt lediglich die schon
+   vor dem Aufruf bekannten Namen ~z~ und ~f~. ~z~ referenziert
+   inzwischen einen anderen Wert, nämlich die Zeichenkette
+   /dazwischen/.
+#+CAPTION: Aufruf einer Funktion, Scopes: Nach erstem Aufruf, vor zweitem Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-zwischen-f
+[[./figures/pt-f-3-dazwischen.png]]
+4. [@4] Wir sind im zweiten Aufruf von ~f~ (Abbildung [[fig:pt-inf2]]). Das
+   erkennen Sie in diesem Beispiel an dem Wert von ~z~ im globalen
+   Scope; aus den Pfeilen für die auszuführende Instruktion ist das
+   nicht ersichtlich -- die zeigen ja lediglich auf die aktuelle
+   Stelle. Die (neu geschaffenen) Namen ~x~ und ~y~ regenerieren die
+   gleichen Werte wie oben (die ebenfalls neu geschaffen wurden).
+#+CAPTION: Aufruf einer Funktion, Scopes: Im zweiten Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-inf2
+[[./figures/pt-f-4-inf2.png]]
+5. [@5] Nach dem der zweite Aufruf von ~f~ abgeschlossen wurde (Abbildung
+   [[fig:pt-nach-f]]) sind wieder die beiden Namen (samt referenzierter
+   Werte) ~x~ und ~y~ verschwunden. Der Name ~z~ zeigt auf den neuen
+   Wert. 
+#+CAPTION: Aufruf einer Funktion, Scopes: Nach zweitem Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-nach-f
+[[./figures/pt-f-5-danach.png]]
+
+
+** Funktionen haben keinen Effekt? 
+
+- Wenn die Variablen der Funktion nach Ende der Funktion vernichtet
+  werden -- dann hat eine Funktionsausführung doch gar keinen Effekt?
+  - Oder: Verändert den Zustand nicht?
+
+#+CAPTION: Funktionen ohne Effekt?
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:calvin-facepalm
+[[./figures/facepalm.png]]
+
+
+** Rückgabewert 
+- Benötigt: Mechanismus, um Wert aus Funktion an den aufrufenden
+  Programmteil zu transportieren
+  - Geht nicht in normaler Variable 
+
+
+*** Neue Anweisung: ~return~			       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Die Anweisung ~return~ erlaubt, einen beliebigen Wert aus einem 
+  Funktionsaufruf an den aufrufenden Teil zu transportieren 
+
+
+** Aufruf einer Funktion: Semantik  
+
+
+*** Aufruf einer Funktion: Semantik (V2) 		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Aufruf der Funktion: Programm mit den Anweisungen der Funktion
+  fortsetzen
+  - Vorstellung: Der Aufruf der Funktion wird durch die Anweisungen
+    der Funktion ersetzt, und dann wird ausgeführt
+- Bei der Ausführung einer Funktion wird ein neuer Scope für die
+  Variablen der Funktion angelegt
+  - Dieser Scope wird nach Ende der Funktion wieder vernichtet 
+- Nach Ausführung der letzten Anweisung der Funktion: Ersetze in der
+  aufrufenden Anweisung den Aufruf von der Funktion durch den
+  Rückgabewert
+  - Falls kein Rückgabewert: Nimm ~None~ 
+
+
+
+
+
+* Parameter 
+
+
+* Aufruf mit Parametern 
+
+* Randbemerkungen 
+
+** Funktionen finden 
+
+Wo gibt es Funktionen? 
+
+- Eingebaut, z.B. ~print~
+- Selbst geschrieben 
+- In ~Modulen~ -- siehe später 
+
+** Funktionen und Stil 
+
+PEP 8 
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+was haben wir gelernt? 
+
+
+* IM zweiten Teil						   :noexport:
+
+- geschachtelte Funktionsdefinition 
+- Module
+- Scopes
+- Funktionsdefinition in if statements 
+- lambda 
+- yield 
