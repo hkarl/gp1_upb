@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 5: Funktionen (Teil 1) 
+#+TITLE: Kapitel 4: Funktionen (Teil 1) 
 #+INCLUDE: "../template/header.org"
 
 # TODO states: looks like this has to go on main file and cannot be
@@ -13,8 +13,8 @@
 
 - Wir fassen wiederkehrende Anweisungen zu /*Funktionen*/ zusammen
 - Funktionen können /*aufgerufen*/ werden
-- An einen Funktionsaufruf kann man /*Parameter*/ übergeben 
-- Dieses Kapitel: nur einfache Formen des Aufrufs, einfache Parameter
+- An einen Funktionsaufruf kann man /*Argumente*/ übergeben 
+- Dieses Kapitel: nur einfache Formen des Aufrufs
   - Wir erweitern diese Konzepte in einem späteren Kapitel 
 
 
@@ -90,10 +90,10 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 - Stattdessen: Suche eine Aufteilung in kleinere Teile
 - Die möglicherweise immer noch zu groß sind
   - Dann diese weiter unterteilen
-  - Bis handhab 
+  - Bis handhabbar 
 - Schließlich: Setze die Lösung aus den Einzelteilen zusammen 
 
-*/Prodzedurale Dekomposition/*
+Sog. */prodzedurale Dekomposition/*
 
 ** Funktionen 
 
@@ -112,7 +112,7 @@ Wir brauchen:
   - ~Name = Wert~ 
 Also: 
 - ~Name für Funktion = Folge von Anweisungen~ ?
-- Aber ~=~ ja schon benutzt?? 
+- Aber Gleichheitszeichen ~=~ ja schon benutzt?? 
 
 
 ** Neue Anweisung: ~def~ 
@@ -127,7 +127,7 @@ Wir brauche eine neue Anweisung: ~def~
   def meine_funktion():
       x = 42
       y = x/2
-      # usw... weiter Anweisungen
+      # usw... weitere Anweisungen
 #+END_SRC
 
 
@@ -139,12 +139,27 @@ Wir brauche eine neue Anweisung: ~def~
     :END:
 
 Die Anweisung ~def~ verbindet einen (ggf. neuen) Namen (für eine Funktion) mit
-einer Folge von Anweisungen.  Der Name /referenziert/ diese
-Anweisungsfolge. Durch die Schaffung dieses Namens wird der
-Programmzustand geändert. 
+einer Folge von Anweisungen.  
 
-Namen für Funktionen folgen den Syntaxregeln der Namen für
+- Der Name /referenziert/ diese
+Anweisungsfolge. 
+- Durch die Schaffung dieses Namens wird der
+Programmzustand geändert. 
+- Namen für Funktionen folgen den Syntaxregeln der Namen für
 Variable. 
+
+*** Eine Anweisung zur Funktionsdefinition?			  :dropslide:
+
+Wenn Sie mit anderen Sprachen wir C oder Java vertraut sind, wird
+Ihnen dies vielleicht seltsam vorkommen: Eine /Anweisung/ definiert
+eine Funktion? Eine Anweisung muss durch das Programm doch ausgeführt
+werden, damit sie einen Effekt? 
+
+Das ist genau der Fall: die Anweisung ~def~ muss ausgeführt werden,
+sonst existiert die Funktion nicht. 
+
+
+
 
 
 ** ~def~: Syntaxregel  (1) 
@@ -158,7 +173,7 @@ Variable.
 
 - Der Anweisung ~def~ folgt in der gleichen Zeile 
   - der zu definierende Funktionsname 
-  - ein Klammerpaar: ~()~
+  - ein Klammerpaar ~()~
   - und ein Doppelpunkt ~:~ 
 - Die Anweisungsfolge kommt in den folgenden Zeilen
   - *eingerückt* um vier Leerzeichen 
@@ -170,6 +185,21 @@ erfolgen. Was sagt uns das für die Definition von Funktionen?
 
 Probieren Sie das in einem Notebook aus! 
 
+
+
+** Schlüsselwort: ~def~						   :subslide:
+
+- ~def~ hat offenbar Sonderrolle 
+- Als normaler Name benutzbar? 
+- *Nein!* 
+  - Ein weiteres Schlüsselwort!
+
+
+** Python-Schlüsselworte bis jetzt 				   :subslide:
+
+- ~True~, ~False~
+- ~and~, ~or~
+- ~def~ 
 
 
 ** Einrückung? 
@@ -225,7 +255,7 @@ Klar machen: das macht ein Editor sowieso
      Anweisungen
   2. Entsprechend: die Definition von ~g~
   3. Die Zuweisung ~z = 42~ 
-- Zustand des Programms: ~f~, ~g~ und ~z~ haben Werte 
+- Zustand des Programms: Namen ~f~, ~g~ und ~z~ referenzieren Werte 
 
 *** Zustand nach Funktionsdefinition				  :dropslide:
 
@@ -245,19 +275,6 @@ Abbildung [[fig:zustand-f-g-z]] stellt den Zustand nach der Definition von
 - Funktionsnamen benehmen sich nahezu identisch zu Variablennamen 
 
 - Aber Notation doch recht unterschiedlich? 
-
-*** Eine Anweisung zur Funktionsdefinition?			  :dropslide:
-
-Wenn Sie mit anderen Sprachen wir C oder Java vertraut sind, wird
-Ihnen dies vielleicht seltsam vorkommen: Eine /Anweisung/ definiert
-eine Funktion? Eine Anweisung muss durch das Programm doch ausgeführt
-werden, damit sie einen Effekt? 
-
-Das ist genau der Fall: die Anweisung ~def~ muss ausgeführt werden,
-sonst existiert die Funktion nicht. 
-
-
-
 
 *** Unterschiedliche Notation für Variablen und Funktionen?	  :dropslide:
 
@@ -280,7 +297,21 @@ Definition einer Variabler  oder eines Funktionsnamens liegt.
   - ... 
 - Wir haben: Namen für /*Objekte*/ 
 
-* Aufruf und Rückgabewert 
+
+** ~def~ definiert ein Objekt 
+
+- Damit Analogie zwischen ~=~ und ~def~ noch enger
+  - Eine Zuweisung ~=~ erzeugt ein Objekt und bindet den Namen daran
+    - Das Objekt ist hier der Wert 
+  - Eine Funktionsdefinition erzeugt ein Objekt und bindet den Namen
+    daran
+    - Das Objekt ist hier die Folge von Anweisungen 
+
+- Funktionen (=Folge der Anweisungen) benehmen sich nur wenig anders
+  als normale Werte! 
+
+
+* Aufruf 
 
 ** Aufruf einer Funktion 
 
@@ -297,7 +328,7 @@ Definition einer Variabler  oder eines Funktionsnamens liegt.
 - Beispiel: 
 
 #+BEGIN_SRC python
-  %%tutor
+  %%tutor -t 
   def f():
       x = 42
       y = 17
@@ -308,11 +339,12 @@ Definition einer Variabler  oder eines Funktionsnamens liegt.
   z = "nachher"
 #+END_SRC
 
+
 ** Aufruf einer Funktion: Semantik  
 
 Wir erweitern das Ausführungsmodell:
 
-*** Aufruf einer Funktion: Semantik (V1)		       :B_definition:
+*** Aufruf einer Funktion: Semantik (v1) 		       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
@@ -345,24 +377,48 @@ nicht im Scope.
 ** Variablen: Scope 
 
 - Was passiert mit ~x~ und ~y~ aus der Funktion?
-  - Bei der groben Annäherung: Existieren weiter
-  - Eigentlich: Verschwinden nach Rückkehr aus der Funktion 
+- Verschwinden nach Rückkehr aus der Funktion! 
 
-***  ~Scope~ -- Lebensdauer			       :B_definition:animate:
+*** Lebensdauer? 						    :animate:
+
+- Variable, an die innerhalb einer Funktion zugewiesen
+  wird, ist *lokal* zu dieser Funktion
+  - Existiert nur, solange Anweisungen dieser Funktion ausgeführt
+    werden
+  - Verschwindet nach Ende der Funktion 
+
+
+** Scope und Frame 
+
+***  ~Scope und Frame~					       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
 
-- Variable, an die innerhalb einer Funktion zugewiesen
-  wird, ist *lokal* zu dieser Funktion
-- Existiert nur, solange Anweisungen dieser Funktion ausgeführt
-  werden
-- Verschwindet nach Ende der Funktion 
+Der /Scope/ einer Variable sind die Zeilen des Programms, in denen auf
+diese Variable zugegriffen werden kann. 
 
-** Scope: Beispiel 
+Der /Frame/ einer Funktion fasst die Scopes der Variablen der Funktion
+ zusammen. Er enthält alle Variablen, die die Funktion selbst erzeugt
+ hat und auf die sie zugreifen kann. 
+
+Mit dem Ende der Funktion wird der Frame vernichtet. Damit endet der
+Scope der enthaltenen Variabeln (sie sind /out of scope/). 
+
+
+*** Anmerkung						   :B_note:dropslide:
+    :PROPERTIES:
+    :BEAMER_env: note
+    :END:
+
+
+Das stimmt nicht ganz. Wir werden diese Definition in folgenden
+Kapiteln noch verfeinern. 
+
+** Scope/Frame: Beispiel 
 
 #+BEGIN_SRC python
-  %%tutor
+  %%tutor -t
   def f():
       x = 42
       y = 17
@@ -378,12 +434,12 @@ nicht im Scope.
 *** Unterschiedliche Scopes					  :dropslide:
 
 Die folgenden Abbildungen zeigen die unterschiedlichen Scopes. In der
-Pythontutor-Anzeige werden dabei auf der rechten Seite die Scopes
-separat angezeigt (und als /Frames/ bezeichnet): 
+Pythontutor-Anzeige werden dabei auf der rechten Seite die Frames
+separat angezeigt: 
 
-- Ein "global frame": Die Namen, die im aufrufenden Teil des Programms
+- Ein /global frame/: Die Namen, die im aufrufenden Teil des Programms
   bekannt sind.
-- Ein Scope für die Funktion ~f~: Namen, die nur innerhalb von ~f~
+- Der frame für die Funktion ~f~: Namen, die nur innerhalb von ~f~
   bekannt sind und die danach wieder verschwinden. 
 
 
@@ -437,6 +493,7 @@ In den einzelnen Schritten geschieht folgendes:
 [[./figures/pt-f-5-danach.png]]
 
 
+
 ** Funktionen haben keinen Effekt? 
 
 - Wenn die Variablen der Funktion nach Ende der Funktion vernichtet
@@ -449,25 +506,57 @@ In den einzelnen Schritten geschieht folgendes:
 [[./figures/facepalm.png]]
 
 
+** Funktionen ohne Effekt: Beispiel 
+
+Was ist der Wert von ~x~ am Ende? 
+
+#+BEGIN_SRC python
+  %%tutor
+  def f():
+      x = 42
+
+  # rufe f auf:    
+  f()
+  # greife auf x zu:
+  x
+#+END_SRC
+
+
+* Rückgabewert 
 ** Rückgabewert 
 - Benötigt: Mechanismus, um Wert aus Funktion an den aufrufenden
   Programmteil zu transportieren
   - Geht nicht in normaler Variable 
 
 
-*** Neue Anweisung: ~return~			       :B_definition:animate:
+** Neue Anweisung: ~return~
+
+*** ~return~-Anweisung					       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
-
 - Die Anweisung ~return~ erlaubt, einen beliebigen Wert aus einem 
-  Funktionsaufruf an den aufrufenden Teil zu transportieren 
+  Funktionsaufruf an den aufrufenden Teil zu transportieren
+  - Auf ~return~ darf ein beliebiger Ausdruck folgen
+  - Des Wert wird /zurückgegeben/
+- ~return~ ist ein Schlüsselwort 
+
+*** Beobachtung							    :animate:
+
+- Ausführungsmodell erweitert! 
+
+
+** Python-Schlüsselworte bis jetzt 				   :subslide:
+
+- ~True~, ~False~
+- ~and~, ~or~
+- ~def~ 
+- ~return~ 
 
 
 ** Aufruf einer Funktion: Semantik  
 
-
-*** Aufruf einer Funktion: Semantik (V2) 		       :B_definition:
+*** Aufruf einer Funktion: Semantik (v2) 		       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
@@ -479,43 +568,574 @@ In den einzelnen Schritten geschieht folgendes:
 - Bei der Ausführung einer Funktion wird ein neuer Scope für die
   Variablen der Funktion angelegt
   - Dieser Scope wird nach Ende der Funktion wieder vernichtet 
-- Nach Ausführung der letzten Anweisung der Funktion: Ersetze in der
-  aufrufenden Anweisung den Aufruf von der Funktion durch den
-  Rückgabewert
-  - Falls kein Rückgabewert: Nimm ~None~ 
+- Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
+  durch ihren Rückgabewert
+  - Rückgabewert ist der Ausdruck nach ~return~ 
+
+** Funktion mit ~return~: Beispiel 
+
+#+BEGIN_SRC python
+  %%tutor -t
+  def pi():
+      return 3.14159296
+
+  x = pi()
+#+END_SRC
+
+
+*** Erläuterung							  :dropslide:
+
+Was geschieht bei der Ausführung dieses kleinen Programms? Betrachten
+wir drei Schritte: 
+
+1. Unmittelbar vor dem Aufruf der Funktion ~pi~ (Abbildung [[fig:pt-pi-vor]]) ist als
+   einziger Name der Funktionsname ~pi~ bekannt. Die nächste
+   auszuführende Anweisung ist der Aufruf.
+#+CAPTION: Vor dem Aufruf der Funktion ~pi~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-pi-vor
+[[./figures/pt-pi-1.png]]
+   
+2. [@2] Nach dem Aufruf und nach der Ausführung der Anweisung ~return~
+   (Abbildung [[fig:pt-pi-return-value]]) wird im Scope von ~pi~ eine
+   /scheinbare/ Variable ~return value~ angelegt. Diese Variable zeigt
+   auf den Wert des Ausdrucks, den ~return~ bearbeitet. Wie jede
+   andere Variable im Scope einer Funktion wird auch diese Variable
+   nach Rückkehr vernichtet. 
+#+CAPTION: Nach Berechnung des Rückgabewerts, Anlegen der scheinbaren Variable ~return value~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-pi-return-value
+[[./figures/pt-pi-2.png]]
+
+3. [@3] Aber der /*Wert*/ dieser scheinbaren Variable bleibt bei der
+   Rückkehr aus der Funktion erhalten! Dieser Wert wird wie ein ganz
+   normaler Wert weiterverwendet (es /ist) ein ganz normaler
+   Wert). Dieser Wert /ersetzt/ den Aufruf von ~pi~ in dem Ausdruck,
+   in dem der Ausdruck vorkam. 
+
+   Im Beispiel hier ist das die Zuweisung an die Variable ~x~. Als
+   Effekt stellt sich ein: ~x~ wird zu einem Namen für den Wert, den
+   die Funktion ~pi~ mit der Anweisung ~return~ angegeben hat. 
+
+#+CAPTION: Nach Ersetzung des Funktionsaufrufs durch den Rückgabewert, Zuweisung an ~x~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-pi-danach
+[[./figures/pt-pi-3.png]]
+
+
+Anmerkung: Die tatsächliche technische Realisierung innerhalb eines
+Python-Interpreters funktioniert so ähnlich, allerdings mit ein paar
+Abweichungen im Detail. 
+
+** Funktion ohne ~return~? 
+
+Was passiert, wenn eine Funktion keine ~return~ Anweisung hat? 
+
+#+BEGIN_SRC python
+  %%tutor
+  def no_return():
+      x = 17
+      y = 42*x
+
+  z = no_return()
+#+END_SRC
+
+
+** Aufruf einer Funktion: Semantik  
+
+*** Aufruf einer Funktion: Semantik (v3) 		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Aufruf der Funktion: Programm mit den Anweisungen der Funktion
+  fortsetzen
+- Bei der Ausführung einer Funktion wird ein neuer Scope für die
+  Variablen der Funktion angelegt
+  - Dieser Scope wird nach Ende der Funktion wieder vernichtet 
+- Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
+  durch ihren Rückgabewert
+  - Rückgabewert ist der Ausdruck nach ~return~
+  - Fehlt ein expliziter Rückgabewert, so nimm ~None~ als besonderen
+    Wert an
+
+** Funktion mit leerem ~return~
+
+Ein ~return~ ohne Ausdruck? 
+
+#+BEGIN_SRC python
+  %%tutor
+  def empty_return():
+      x = 17
+      y = 42*x
+      return 
+
+  z = empty_return()
+#+END_SRC
 
 
 
+** Python-Schlüsselworte bis jetzt 				   :subslide:
+
+- ~True~, ~False~
+- ~and~, ~or~
+- ~def~ 
+- ~return~ 
+- ~None~
+  - ~None~ wird sich an vielen Stellen als praktisch erweisen, um das
+    Fehlen eines eigentlich sinnvollen Wertes darzustellen
+  - Achtung: ~None~, nicht ~none~! 
 
 
 * Parameter 
 
+  
+** Funktionen bis jetzt: Langweilig
 
-* Aufruf mit Parametern 
+- Unsere Funktionen machen immer das gleiche 
+- Nur nützlich, wenn wirklich /identischer/ Code mehrfach in einem
+  Programm vorkäme
+- Flexibler?
+  - Funktion in Mathematik: Abbildungen von Werten auf Werte
 
-* Randbemerkungen 
+- Parameter! 
+
+** Funktion mit Parameter: Idee 
+
+- Funktionen können ja Variablen benutzen
+  - Sind innerhalb des Scopes der Funktion
+  - Funktion weist Werte zu 
+- Wie wäre es, wenn Variablen der Funktion /*von außen*/ mit Werten
+  versorgt werden könnten?
+  - Normale Variable im Scope der Funktion
+  - Aber der Wert wird durch aufrufenden Programmteil festgelegt? 
+
+
+** Funktion mit Parameter: Syntax der Definition 
+
+- Wir machen Anleihe bei mathematischer Notation
+- Zu belegende Variablennamen werden in Klammern nach Funktionsname
+  angegeben
+  - Der sog. /formale Parameter/ 
+- Beispiel: 
+
+#+BEGIN_SRC python
+  # Eine Funktion f mit formalem Parameter a 
+  def f(a):
+      # In Funktion: a ist ganz normale Variable
+      return a+1
+#+END_SRC
+
+
+** Funktion mit Parameter: Aufruf 
+
+- Wie ruft man eine solche Funktion auf? 
+  - Wie legt man den Wert für den formalen Parameter fest? 
+- Einfach: bei Aufruf, in Klammern angeben
+  - Der /übergebene Wert/, der /tatsächliche Wert/, das /Argument/,
+    der /actual parameter/
+
+#+BEGIN_SRC python
+  %%tutor
+  def f(a):
+      return a+1
+
+  x = f(2)
+#+END_SRC
+
+
+** Funktion mit Parameter: Semantik des Aufrufs 
+
+- Semantik: Formaler Parameter wird zu Namen für den übergebenen Wert 
+
+*** Literal als Argument					  :dropslide:
+
+In diesem ersten Beispiel übergeben wir einen festen Wert an eine
+Funktion mit einem Parameter. Dazu wird zunächst dieser Wert -- im
+Beispiel die Zahl 2 -- erzeugt. Der formale Parameter wird im Moment
+des Aufrufs zur Referenz für diesen Wert.  (Wie sollte es auch anders
+funktionieren, wenn man Variablen als Namen für Werte auffasst?)
+Abbildung [[fig:pt-fa-wert]] illustriert das. 
+
+#+CAPTION: Formaler Parameter ist Name für übergebenen Wert
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-fa-wert
+[[./figures/pt-fa.png]]
+
+
+** Funktion mit Parameter: Aufruf mit Ausdruck 
+
+- Vorheriges Beispiel: Fester Wert übergeben 
+- Geht das auch mit Ausdruck? 
+
+
+#+BEGIN_SRC python
+  %%tutor
+  def f(a):
+      return a+1
+
+  x = f(2+2)
+#+END_SRC
+
+
+*** Ausdruck als Argument					  :dropslide:
+
+Wenn wir einen Ausdruck übergeben, so passiert ebenfalls das
+Naheliegende: Der Wert des Ausdrucks wird bestimmt und erzeugt. Dann
+wird der formale Parameter zum Namen für diesen Wert. Siehe
+Abbildung [[fig:pt-fa-ausdruck]]. 
+
+#+CAPTION: Formaler Parameter ist Name für Wert eines übergebenen Ausrucks
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-fa-ausdruck
+[[./figures/pt-fa-ausdruck.png]]
+
+
+** Funktion mit Parameter: Aufruf mit Variable
+
+- Was, wenn Variable an Funktion übergeben wird? 
+- Wie bisher! Formaler Parameter ist Name des /Wertes/
+
+
+#+BEGIN_SRC python
+  %%tutor
+  def f(a):
+      return a+1
+
+  y = 5
+  x = f(y)
+#+END_SRC
+
+
+*** Variable als Argument					  :dropslide:
+
+
+Auch wenn eine Variable an eine Funktion übergeben wird, passiert
+wieder genau das gleiche: der formale Parameter wird zu einem (hier:
+weiteren) Namen für den übergebenen Wert. Abbildung [[fig:pt-fa-y]] zeigt
+deutlich: ~a~ und ~y~ sind beides Referenzen auf den gleichen Wert. 
+
+#+CAPTION: Formaler Parameter ist Name für Wert einer Variablen 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-fa-y
+[[./figures/pt-fa-y.png]]
+
+**** Formale Parameter werden NICHT zu Namen für Variablen     :B_alertblock:
+     :PROPERTIES:
+     :BEAMER_env: alertblock
+     :END:
+
+ Hier gilt ähnliches wie bei der Zuweisung: der formale Parameter ist
+ ein Name für den /Wert/. Ein formaler Parameter kann kein Name für
+ einen anderen Namen sein. 
+
+
+*** UEBUNG Und f(y+2) 
+
+animieren lassen, erklären was passiert 
+
+
+** Zuweisung an formale Parameter? 
+
+- Was geschieht, wenn Funktion Wert an formalen Parameter zuweist?
+  - Wert von ~y~ am Ende? 
+
+#+BEGIN_SRC python
+  %%tutor
+  def f(a):
+      a = a+1
+      return a
+
+  y = 5
+  x = f(y)
+#+END_SRC
+
+*** Was immer geschieht!					    :animate:
+
+- Die Variable ~a~ wird zu einem Namen für den neuen Wert 
+- Warum sollte sich dadurch an der Variable im Aufruf  etwas ändern??
+
+
+*** Zuweisung an formale Parameter -- Einzelschritte 		  :dropslide:
+
+
+Im einzelnen geschieht hier genau die zu erwartende Folge von
+Einzelschritten. Beim Aufruf wird ~a~ zunächst zu einem (zweiten)
+Namen für den Wert 5 (Abbildung [[fig:pt-fa2-vor]]). Nach der Zuweisung
+wird ~a~ zu einem Namen für einen anderen Wert (Abbildung
+[[fig:pt-fa2-nach]]). Dies beeinflusst nicht die Tatsache, dass ~y~ ein
+Name für den Wert 5 ist.
+
+
+#+CAPTION: Zuweisung an formalen Parameter in Funktion: Vor der Zuweisung
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-fa2-vor
+[[./figures/pt-fa2-1.png]]
+
+#+CAPTION: Zuweisung an formalen Parameter in Funktion: Nach der Zuweisung
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-fa2-nach
+[[./figures/pt-fa2-2.png]]
+
+
+*** UEBUNG Was passiert, wenn formaler Parameter und Argument gleichen Variabelennamen haben?  
+
+Überlegen, Scope verstehen, animation ? 
+
+
+** Aufrufsemantik: Pass-by-assignment  
+
+- Formal ist die Aufrufsemantik von Python ein
+  sog. /Pass-by-assignment/ 
+  - Den formale Parametern werden Werte der Argumente zugewiesen 
+
+*** Unterschied zu anderen Sprachen			   :B_note:dropslide:
+    :PROPERTIES:
+    :BEAMER_env: note
+    :END:
+
+Wenn Sie mit anderen Sprachen (C oder C++) vertraut sind: Dies klingt
+nach call-by-reference, ist aber nicht genau das gleiche. Wir kommen
+darauf noch zurück. 
+
+
+
+** Funktion mit mehreren Parametern: Syntax 
+
+- Mehrere Variablen: Aufzählung, durch Komma getrennt
+  - Ähnlich wie bei Zuweisung 
+- Beispiel: 
+
+
+#+BEGIN_SRC python
+  def f(a, b, c):
+      # In Funktion: a, b, c sind ganz normale Variablen
+      return a+b*c
+
+  # Aufruf:
+  f(1, 2, 3)
+#+END_SRC
+
+
+** Funktion mit Parametern: Syntax allgemein  
+
+Eine Funktion kann eine beliebige Anzahl an Parametern haben: 
+
+#+BEGIN_SRC python 
+  def f(arg1, arg2, ..., argN):
+      # Folge von Anweisungen
+      ... 
+      ... 
+      # Optional, aber oft sinnvoll:
+      return Rueckgabewert
+#+END_SRC
+
+
+** Funktion mit mehreren Parametern: Semantik 
+
+- Pass-by-assignment wird auf alle formalen Parameter separat
+  angewandt
+- Genauer:
+  - Die /Werte/ aller Argumente werden bestimmt
+  - Die formalen Parameter werden zu Namen für diese Werte 
+  - Ganz analog zur Mehrfachzuweisung!
+
+*** UEBUNG Auswertungsreihenfolge? Macht das einen Unterschied? Wann würde es Unterschied machen? 
+
+** Aufruf einer Funktion: Semantik  
+
+*** Aufruf einer Funktion: Semantik (v4) 		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Aufruf der Funktion: Programm mit den Anweisungen der Funktion
+  fortsetzen
+- Bei der Ausführung einer Funktion wird ein neuer Scope für die
+  Variablen der Funktion angelegt
+- Formale Parameter sind Variablen in diesem Scope; sie sind Namen für
+  die Werte der beim Aufruf übergebenen Argumente 
+- Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
+  durch ihren Rückgabewert
+  - Rückgabewert ist der Ausdruck nach ~return~
+  - Fehlt ein expliziter Rückgabewert, so nimm ~None~ als besonderen
+    Wert an
+
+
+
+* Seiteneffekt 
+
+** Besondere Funktionen: Beispiel ~print~
+
+Aufruf einer /vordefinierten/ Funktion: 
+
+#+BEGIN_SRC python
+print("Hallo GP1")
+x = 42
+print (x)
+#+END_SRC
+
+** ~print~: Seiteneffekt 
+
+~print~ ist Beispiel für eine Funktion mit einem /Seiteneffekt/ 
+
+*** Seiteneffekt					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Ein /Seiteneffekt/ (Wirkung, side effect) ist eine Aktivität des
+Programms, die 
+- /außerhalb/ des Programms (oder Programmteils) eine Wirkung hat
+- aber den /Zustand/ des Programms (Programmteils) /nicht/ verändert. 
+
+** Seiteneffekt von ~print~ 
+
+Bei ~print~: 
+- Gib den Wert des Arguments aus
+- Wohin? Auf die /Standard-Ausgabe/
+  - Bei Jupyter: Wird unterhalb der Zelle angezeigt
+  - Allgemein: Je nach Ausführungskontext  (Terminal, ...) 
+
+
+*** Seiteneffekt und funktionale Sprachen 			  :dropslide:
+
+Mit dieser Definition läßt sich eine funktionale Programmiersprache
+einfach definieren: Eine Sprache in der es keine Seiteneffekte
+gibt. 
+
+Mehr dazu in GPS. 
+
+
+* Randbemerkungen, Zusammenfassung  
 
 ** Funktionen finden 
 
 Wo gibt es Funktionen? 
 
-- Eingebaut, z.B. ~print~
 - Selbst geschrieben 
-- In ~Modulen~ -- siehe später 
+- Eingebaut, z.B. ~print~
+  - Siehe [[https://docs.python.org/3/library/functions.html][Liste der eingebauten Funktionen]]
+- In ~Modulen~, zusammengestellt zu ~Bibliotheken~ -- siehe später 
+
+** Eingebaute Funktionen, weitere Beispiele 
+
+*** ~type~
+
+#+BEGIN_SRC python
+  type(42)
+  type(0.01)
+  type("Hallo GP1")
+#+END_SRC
+
+
+*** ~max~ 
+
+#+BEGIN_SRC python
+max(1, 2, 3)
+#+END_SRC
+
+
+*** UEBUNG Beispiele fuer Ubeungen 
+
+- chr()
+- abs()
+- complex()
+- divmod()
+- float() float("17.2")
+- help()
+- max(), min()
+
+
+
 
 ** Funktionen und Stil 
 
-PEP 8 
+Wie schreibt man Funktionen stilsicher?  (PEP8)
 
-* Zusammenfassung
+- Namen: klein, mit ~_~
+  - Kein CamelCase
+- Leerzeichen:
+  - Keine zwischen ~funktionsname~ und ~(~
+    - Nicht bei Definition, nicht bei Aufruf
+  - Keine nach öffnender Klammer 
+  - Nach Komma (wie üblich) 
+
+
+** Kommentare 
+
+*Konvention*: Jede Funktion mit einem ~docstring~ versehen
+- ~docstring~ : Die erste Anweisung in einer Funktion ist eine Zeichenkette
+- Erläutert Zweck und Nutzung der Funktion 
+- Details: [[https://www.python.org/dev/peps/pep-0257/][PEP 257]]
+
+Konvention verletzt?  
+- Programmierwerkzeuge versagen 
+- Beispiel: [[http://docutils.sourceforge.net][docutils]]
+
+
+** ~docstring~ 
+
+- Kurzversion, eine Zeile
+  - Befehlsform, beschreibe den Effekt der Funktion
+  - Nicht die Parameter der Funktion wiederholen; das ist
+    offensichtlich 
+  - ~"""Kommentiere Deine Funktionen ordentlich."""~
+- Langversion, mehrere Zeilen
+  - Anfang wie bei einer Zeile
+  - Dann Parameter aufzählen und /Zweck/ beschreiben
+  - Ggf. Rückgabewert 
+
+** ~docstring~: Beispiel 
+
+#+BEGIN_SRC python
+
+def complex(real, imag):
+    """Form a complex number.
+
+    Keyword arguments:
+    real -- the real part
+    imag -- the imaginary part
+    """
+
+    # Und hier würden Anweisungen folgen 
+#+END_SRC
+
+
+*** UEBUNG Beispoiele für docstrings schreiben lassen 
+
+Funktionen vorgeben... 
+
+
+** Kommentare sind Kommunikation 
+
+#+CAPTION: Kommentare sind Kommunikation, möglicherweise mit sich selbst 
+#+ATTR_LaTeX: :width 0.25\linewidth :float nil
+#+NAME: fig:comments-communication
+[[./figures/future_self.png]]
+
+
 
 ** Zusammenfassung 
 
-was haben wir gelernt? 
+- Die gleichen Anweisungsfolgen wiederholen sich oft in Programmen
+- Zur einfachen Wiederverwendungen führen wir Funktionen ein
+  - Werden von einem oder mehreren Teilen des Programms /aufgerufen/
+- Interagieren mit aufrufendem Teil durch
+  - /formale Parameter/, die beim Aufruf mit  /Argumenten/ versehen
+    werden
+  - /Rückgabewert/, der die Stelle des Funktionsaufrufs einnimmt
+- Formale Parameter werden zu Namen für die Werte der Argumente
+- Manchmal: /Seiteneffekte/ 
+- Objekt: Verallgemeinert Sprechweise
+
 
 
 * IM zweiten Teil						   :noexport:
 
+
+- Rücksprungadresse? oder schon hier? 
 - geschachtelte Funktionsdefinition 
 - Module
 - Scopes
