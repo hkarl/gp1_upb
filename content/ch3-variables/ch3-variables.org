@@ -374,13 +374,31 @@ b = a
 ** Animationen von Programmen 
 
 - Die vorherige Folie war auch ein Beispiel für Programmanimationen
-  - Werkzeug: [[http://www.pythontutor.com/][PythonTutor]]
+  - Web-Anwendung: [[http://www.pythontutor.com/][PythonTutor]]
   - Erlaubt Ausführung von Programmen in Einzelschritten und Anzeige
     der Variablenbelegungen
 - Sie können das selbst nutzen
   - direkt auf Webseite von PythonTutor 
   - oder aus den Jupyter-Notebooks heraus: mit ~%%tutor~ in
     der ersten Zeile 
+
+** Animationen von Programmen -- Quellcode 
+
+*** Kein %%tutor in normalen Programmen			       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Die Anweisung ~%%tutor~ in der ersten Zeile einiger der
+Programmbeispiele hier ist eine JupyterNotebooks-Eigenheit.  Sie dient
+dazu, das Notebook mit der Web-Anwendung PythonTutor zu
+verknüpfen. Leider 
+
+
+Übernehmen
+Sie diese Zeile *nicht*, wenn Sie das Programm ausserhalb eines
+Notebooks (z.B. in einem Terminal-Fenster)  ausführen wollen. 
+
 
 *** PythonTutor: Typische Anzeige				  :dropslide:
 
