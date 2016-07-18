@@ -298,7 +298,7 @@ durch den Tutor.
 #+CAPTION: Webseite der Vorlesung
 #+ATTR_LaTeX: scale=0.75
 #+LABEL: fig:webseite-qr
-[[./figures/vorlesung-qr.jpg]]
+[[./figures/vorlesung-qr.png]]
 
 
 ** Wo finden Sie was? -- Material				    :nolatex:
@@ -307,7 +307,7 @@ durch den Tutor.
 #+CAPTION: Materialien zur Vorlesung
 #+ATTR_LaTeX: scale=0.75
 #+LABEL: fig:material-qr
-[[./figures/groups-qr.jpg]]
+[[./figures/groups-qr.png]]
 
 
 ** TODO Lernzentrum Informatik  (LZI)
