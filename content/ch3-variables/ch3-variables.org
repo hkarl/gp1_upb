@@ -185,8 +185,46 @@ besprechen.
 
 - Das erste Zeichen darf keine Ziffer sein. 
 
-- Einige Zeichenketten sind für andere Zwecke /reserviert/ -- siehe
-  später. 
+- Groß-/Kleinschreibung ist wichtig 
+
+- Einige Zeichenketten sind für andere Zwecke /reserviert/. 
+ 
+** Gültige und ungültige Namen: Beispiele 
+
+- Gültig: ~hallo~, ~x1~, ~_a_b~
+  - Gültig, aber unterschiedlich: ~a~, ~A~, ~var1~, ~Var1~ 
+- Ungültig: ~1x~, ~a#b~, ~x-y~
+
+
+
+** Reservierte Namen 
+
+- Manche Namen haben Sonderrolle 
+- Beispiel: Literale ~True~, ~False~
+  - ~True~ als Variablenname benutzbar?
+    - ~True = False~ ???
+    - *Nein!* 
+
+*** Schlüsselwort					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein /Schlüsselwort/ (reserviertes Wort, reservierte Name, key word) ist ein Bezeichner,
+der in einer Programmiersprache eine Sonderrolle einnimmt. Ein
+Schlüsselwort darf /nicht/ für andere Zwecke benutzte werden, z.B. als
+Variablenname. 
+
+Jede Programmiersprache hat eine Liste von Schlüsselworten. 
+
+
+** Python-Schlüsselworte bis jetzt 				   :subslide:
+
+- ~True~, ~False~
+  - Achtung: ~True~, nicht ~true~!
+  - Groß-/Kleinschreibung wichtig bei Schlüsselworten! 
+- ~and~, ~or~
+
 
 ** Sinnvolle Namen? 
 
