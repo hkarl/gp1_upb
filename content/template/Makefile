@@ -46,5 +46,5 @@ clean:
 	-rm *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc
 	-rm *.ipynb *.ipynb~
 	-rm *.pdf
-	-rm _minted-ch*
+	-rm -rf _minted-ch*
 
