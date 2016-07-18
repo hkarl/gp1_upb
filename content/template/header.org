@@ -1,7 +1,7 @@
 #+SUBTITLE: Grundlagen der Programmierung 1 
 #+OPTIONS: tags:nil
 
-#+LATEX_CLASS_OPTIONS: [a4paper]
+#+LATEX_CLASS_OPTIONS: [a4paper,colorlinks=true]
 #+LANGUAGE: de
 #+OPTIONS: toc:1
 #+TAGS: theorem proof example note definition quote alertblock dropslide skipslide animate nolatex 
