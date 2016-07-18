@@ -246,7 +246,6 @@ Ist ~a~ ein sinnvoller Variablenname?
 
 #+BEGIN_SRC python
 a = 5
-a
 #+END_SRC
 
 
@@ -360,7 +359,6 @@ Geht das? Wert von b?
 %%tutor  
 a = 42
 b = a
-b
 #+END_SRC
 
 *** Semantik von Zuweisung: *Wert* 
@@ -460,7 +458,6 @@ referenziert wird.
 a = 5
 b = a
 a = a + 2 
-b
 #+END_SRC
 
 ** Warum hat ~b~ den Wert 5?  
@@ -703,6 +700,24 @@ Einige aufgetauchte Syntaxregeln:
     - Nicht nach öffender oder vor schließender Klammer
     - Genau ein Leerzeichen vor und nach Zuweisung 
     - Stimmt mit Buchsatzregeln überein!
+
+** Stilregeln in Python: Beispiel Kommentare 
+
+- Schreibe englisch 
+- Beginne mit #, gefolgt von einem Leerzeichen
+
+Auch: Empfehlen zu Struktur, etwas bei Kommentaren 
+
+- Sinnlos: Offensichtliches 
+#+BEGIN_SRC  python 
+x = x + 1   # Erhoehe x um 1 
+#+END_SRC
+
+- Sinnvoll: /Grund/ für die Anweisung 
+#+BEGIN_SRC python 
+x = x + 1   # Platz am Rand lassen 
+#+END_SRC
+
 
 ** Stilregeln in Python 
 
