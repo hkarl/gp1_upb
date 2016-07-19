@@ -1008,6 +1008,32 @@ gibt.
 Mehr dazu in GPS. 
 
 
+*** UEBUNG print bei strings mit escape sequenzen 
+
+Unterschied klarmachen und ausprobieren: 
+
+#+BEGIN_SRC 
+s1 = "c:\documents\bla.txt"
+print(s1)
+s1
+#+END_SRC
+
+bzw. 
+
+#+BEGIN_SRC 
+s1 = r"c:\documents\bla.txt"
+print(s1)
+s1
+#+END_SRC
+
+
+*** UEBUNG print von triple-quotes 
+
+Ähnlich wie davor; aber jetzt triple quoted strings. Wie ist das mit
+Einrückung? 
+
+
+
 * Randbemerkungen, Zusammenfassung  
 
 ** Funktionen finden 
@@ -1046,7 +1072,8 @@ max(1, 2, 3)
 - float() float("17.2")
 - help()
 - max(), min()
-
+- len() für string
+  - wie ist das mit unicode strings? Was gibt len hier aus? 
 
 
 
