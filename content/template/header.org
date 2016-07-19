@@ -19,6 +19,8 @@
 #+LATEX_HEADER: \declaretheorem[thmbox=M,name=Definition,shaded={rulecolor={RGB}{93,169,233}, rulewidth=3pt, bgcolor={rgb}{1,1,1}}]{definition}
 #+LATEX_HEADER: \declaretheorem[style=remark,thmbox=M,name=Zitat,shaded={rulecolor={RGB}{209,207,207}, rulewidth=3pt, bgcolor={rgb}{1,1,1}}]{quote}
 #+LATEX_HEADER: \declaretheorem[thmbox=M,name=Achtung,shaded={rulecolor={RGB}{249,105,0}, rulewidth=3pt, bgcolor={rgb}{1,1,1}}]{alertblock}
+#+LATEX_HEADER: \usepackage{forest}
+
 #+DATE: Wintersemester 2016/2017
 
 # TODO states: 
