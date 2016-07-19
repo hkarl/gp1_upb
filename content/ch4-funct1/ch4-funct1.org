@@ -1,6 +1,8 @@
 #+TITLE: Kapitel 4: Funktionen (Teil 1) 
 #+INCLUDE: "../template/header.org"
 
+#+STARTUP: showeverything
+
 # TODO states: looks like this has to go on main file and cannot be
 # included 
 #+TODO: TODO(t) | UEBUNG(u) DONE(d)

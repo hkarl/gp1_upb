@@ -1,5 +1,8 @@
 #+TITLE: Kapitel 2: Python: Ausdrücke und Typen 
 #+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+
 # TODO states: 
 #+TODO: TODO(t) | UEBUNG(u) DONE(d)
 #+OPTIONS: tasks:todo tasks:done 
