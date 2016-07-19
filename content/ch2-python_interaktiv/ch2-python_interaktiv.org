@@ -503,8 +503,26 @@ Strings (kurz: ~str~) sind Aneinandereihungen einzelner Zeichen; sie
 formalisieren Zeichenketten. Die leere Reihe ist ebenfalls ein
 String. Zeichen sind durch eine Aufzählung definiert (a, b, c, ...).
 
-Zwei Strings können lediglich durch Addition miteinander verknüpft
+Zwei Strings können durch Addition miteinander verknüpft
 werden.
+
+*** UEBUNG Ganz viele Übungsaufgaben zu strings
+
+Allerdings wird für vieles auch erstmal Funktionsaufruf und
+Methodenaufrug gebraucth; da müssen wir schauen. Aber die ganzen
+Sonderzeichen \t usw. kann man schon hier besprechen in
+Übungsaufgaben. 
+
+Auch: was ist ein raw string, r"bla" ? Was hat das mit escapes zu tun? 
+
+Siehe z.B. das Python ebook ; Kapitel 7 
+
+
+*** UEBUNG Strings durch hintereinander schreiben verküpfen
+
+Für längere Strings nütlzich? Aber eigentlich ein unwichtiger Aspekt 
+
+
 
 ** Datentyp: ~bool~ 						   :subslide:
 
