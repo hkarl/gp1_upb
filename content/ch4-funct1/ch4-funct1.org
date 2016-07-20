@@ -1071,7 +1071,7 @@ Mehr dazu in GPS.
 
 Unterschied klarmachen und ausprobieren: 
 
-#+BEGIN_SRC 
+#+BEGIN_SRC python
 s1 = "c:\documents\bla.txt"
 print(s1)
 s1
@@ -1079,7 +1079,7 @@ s1
 
 bzw. 
 
-#+BEGIN_SRC 
+#+BEGIN_SRC python
 s1 = r"c:\documents\bla.txt"
 print(s1)
 s1
