@@ -885,6 +885,63 @@ Name für den Wert 5 ist.
 Überlegen, Scope verstehen, animation ? 
 
 
+** Aufruf: Gleicher Name mehrfach? 
+
+Was passiert bei: 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(x):
+      return 2*x
+
+  x = 17
+  x = f(x)
+  print(x)
+#+END_SRC 
+
+#+RESULTS:
+: 34
+
+
+*** Nichts unerwartetes!					    :animate:
+
+Es gibt einfach zwei Namen ~x~. Die sind aber durch den jeweiligen
+Scope eindeutig zuordenbar und haben nichts mit einandern zu tun. 
+
+*** Details							  :dropslide:
+
+In diesem Beispiel ist es Zufall, dass beide ~x~ zunächst auf das
+gleiche Objekt (die Zahl 17) verweisen (Abbildung
+[[fig:pt-call-f-x-x]]). Der Name des formalen Parameters der Funktion
+~f~ hat mit dem Namen des Arguments des Aufrufs von ~f~ nichts zu tun!
+
+#+CAPTION: Aufruf von ~def f(x)~ mit Argument ~x~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-call-f-x-x
+[[./figures/pt-call-f-x-x.png]]
+
+
+In Abbildung haben wir ein ähnliches Beispiel: Beim Aufrufer existiert
+ein Name ~x~, der aber mit dem Aufruf der Funktion nichts zu tun
+hat. Entsprechend ist der Wert auch unbeeinflusst. Hier referenzieren
+die Variable ~y~ des Aufrufers und das ~x~ der Funktion auf das
+gleiche Objekt. 
+
+
+#+CAPTION: Aufruf von ~def f(x)~ mit Argument ~y~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-call-f-x-y
+[[./figures/pt-call-f-x-y.png]]
+
+
+
+
+
+
+
+
+
+
+
 ** Aufrufsemantik: Pass-by-assignment  
 
 - Formal ist die Aufrufsemantik von Python ein
