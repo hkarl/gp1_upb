@@ -1,0 +1,1730 @@
+#+TITLE: Kapitel 5: Weitere Datentypen
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+** Dieses Kapitel 
+
+- Bisher: einfache unveränderliche Datentypen
+- Hier:
+  - Zusammengesetzte unveränderliche Typen
+    - Tuples, Mengen
+  - /Veränderliche/ Datentypen
+    - Aufzählungen! 
+
+* Aufzählungen 
+
+** Zeichenkette 
+
+- Erinnern wir uns an ~str~:  Eine /Aufzählung/ einzelner Zeichen 
+- Warum geht das nur mit Zeichen?
+- Andere Objekte aufzählen?
+  - Zahlen? Funktionen?
+- Und einer solchen Aufzählung einen Namen geben?
+  - Also wie bei ~str~
+
+
+** Aufzählung: Wunschliste
+
+Was hätten wir gerne? 
+
+- Beliebige Objekte aufzählen, nicht nur Zeichen
+- Reihenfolge!
+- Zugriff auf einzelne Elemente
+  - Zugriff auf der 1., 2., 3. Element
+
+
+** Aufzählungen von Aufzählungen? 
+
+- Auch: Aufzählungen von Aufzählungen?
+- Also: Aufzählungen müssten Objekte sein!
+- Ansatz: eine Aufzählung merkt sich Referenzen auf Objekte 
+
+** Tuple 
+
+- Wunschlist mit sog. /Tuples/ erfüllt 
+
+
+
+*** Eine Aufzählung von drei Zahlen:				    :animate:
+
+#+BEGIN_SRC python :exports both :results output 
+t = (17, 42, 101) 
+print(t)
+#+END_SRC 
+
+#+RESULTS:
+: (17, 42, 101)
+
+*** Eine Aufzählung von Zeichenketten:				    :animate:
+
+#+BEGIN_SRC python :exports both :results output 
+t = ("Hallo", "GP1", "!")
+print(t) 
+#+END_SRC 
+
+#+RESULTS:
+: ('Hallo', 'GP1', '!')
+
+*** Eine gemischte Aufzählung					    :animate:
+
+#+BEGIN_SRC python :exports both :results output 
+t = ("Hallo", "GP1", 16, 17) 
+print(t) 
+#+END_SRC 
+
+*** Eine Aufzählung von Aufzählung				    :animate:
+
+#+BEGIN_SRC python :exports both :results output 
+t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+print(t) 
+#+END_SRC 
+
+
+** Tuples und Objekte: Visualisierung  
+
+Tuple: Aufzählung von Referenzen auf Objekte 
+
+#+BEGIN_SRC python 
+%%tutor 
+t = ("Hallo", "GP1", 1, 2, 3)
+#+END_SRC 
+
+*** Visualisierung 						  :dropslide:
+
+Abbildung [[fig:pt-tuple]] illustriert, wie ein Tuple als eine
+Aufzählung auf Objekte strukturiert ist. Die Tatsache, dass es sich um
+Objekte unterschiedlicher Typen handelt, spielt keine Rolle. Auch ist
+egal, dass auf die einzelnen Objekte (~"Hallo"~, 1, 2, usw..) sonst
+keine anderen Namen verweisen, ohne Belang. 
+
+#+CAPTION: Tupel als Aufzählung von Referenzen auf Objekte
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-tuple
+[[./figures/pt-tuple.png]]
+
+
+** Tuple und Objekte: Visualisierung (2)
+   
+Tuple von Tuple: Aufzählung von Referenzen auf Referenzen auf Objekte  
+
+#+BEGIN_SRC python 
+%%tutor -t
+t = (("Hallo", "GP1"),  (1, 2, 3))
+#+END_SRC 
+
+
+*** Visualisierung						  :dropslide:
+
+Auch wenn ein Tuple aus Tuples besteht, passiert nichts
+überraschendes. Im Beispiel sind die beiden Tuple ~("Hallo", "GP1")~
+und  ~(1, 2, 3)~ Aufzählungen von Referenzen auf die jeweiligen
+Objekte. Diese beiden Tuple haben zwar keinen Namen, aber das macht
+nichts; eine Referenz darauf gibt es trotzdem -- nämlich aus dem
+Tuple mit dem Namen ~t~ heraus.  Abbildung [[fig:pt-tuple-of-tuple]]
+fast das zusammen. 
+
+#+CAPTION: Tuple aus Tupeln
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-tuple-of-tuple
+[[./figures/pt-tuple-of-tuple.png]]
+
+
+
+** Tuple und Objekte: Visualisierung (3)
+
+Was passiert, wenn das gleiche Element mehrfach in Tuple enthalten ist? 
+
+#+BEGIN_SRC python 
+%%tutor -t
+t = (1, 2, 3, 1, 2, 1, 1, 1)
+#+END_SRC 
+
+
+*** Visualisierung						  :dropslide:
+
+Wir brauchen in diesem Beispiel mehrfach eine Referenz auf die ganze
+Zahl 1 bzw. 2. Müssen  diese Zahlen  mehrfach repräsentiert werden? 
+
+*Nein!* Das wäre ja auch nicht sinnvoll und würde der bisherigen
+Denkweise widersprechen. Die Zahl 1 gibt es nur ein Mal, was wäre der
+Unterschied zwischen zwei verschiedenen Zahlen 1 (sinnvolle
+Sprechweise!).  Wozu sollte also diese Zahl mehrfach repräsentiert
+werden? Das ist ganz analog zur Diskussion in Kapitel 3; auch da waren
+mehrere Variablen Referenzen auf den gleichen Wert. 
+
+Aber natürlich werden mehrere Referenz auf die 1 bzw. die 2 gebraucht!
+Abbildung [[fig:pt-multiple-ones-tuple]] verdeutlich das: Jedes
+Element des Tuples ist eine Referenz; wenn die Zahl 1 im Tuple
+vorkommt, verweisen alle diese Tuple eben auf das eine Objekt /Zahl 1/
+das existiert.
+
+#+CAPTION: Mehrfaches Vorkommen des gleichen Elementes 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-multiple-ones-tuple
+[[./figures/pt-multiple-ones-tuple.png]]
+
+
+
+
+** Einfache Subskripts  
+
+- Wie bekommt man an die Werte in einem Tuple heran? 
+- /Subscript/-Notation: Index mit ~[~, ~]~
+  - Nummer des wünschten Elements
+  - Ab 0 beginnend! 
+
+*** Beispiel 							    :animate:
+
+#+BEGIN_SRC python :exports both :results output 
+t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+print(t[1])
+print(t[2]) 
+#+END_SRC 
+
+*** Beispiel: Verkettete Subskripts				    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+print(t[2][3])
+#+END_SRC 
+
+#+RESULTS:
+: 9
+
+
+*** Beispiel: Fehler						    :animate:
+
+#+BEGIN_SRC python :exports both :results output 
+t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+print(t[5])
+#+END_SRC
+
+
+*** UEBUNG Unpacking von Tuples 
+
+Unpacking einführen, Fälle durchspielen
+
+Insbesondere der Fall Anfang/Rest (car/cdr in Lisp :-) 
+
+#+BEGIN_SRC python :exports both :results output
+t = (1, 2, 3, 4)
+u, v, x, y = t
+x, *u,  y = (1, 2, 3, 4, 5)
+#+END_SRC 
+
+Siehe [[https://www.python.org/dev/peps/pep-3132/][PEP 3132]] 
+
+Warum funktionert das nicht, warum ist das nicht sinnvoll? 
+ 
+#+BEGIN_SRC python :exports both :results output
+x, *u, y, *v, z = (1, 2, 3, 4, 5)
+#+END_SRC 
+
+#+RESULTS:
+
+
+
+** Zugriff und Namen 
+
+Bei Zugriff: Namen an entsprechendes Objekt binden 
+
+#+BEGIN_SRC python :exports both :results output
+%%tutor
+t = ("Hallo", "GP1")
+s = t[0]
+#+END_SRC 
+
+
+
+** Slicing 
+
+- Aus einem Tuple kann man Teil-Tuple ausschneiden: /Slicing/ 
+- Start- und Endindex angeben, mit Doppelpunkt ~:~ getrennt
+  - Einschließlich Start, ausschließlich Ende!
+- Ergebnis: Tuple
+
+*** Beispiel: Slicing 
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[2:4])
+#+END_SRC
+
+** Slicing, Sonderfälle 
+
+*** Slicing über Ende hinaus 
+
+Kein Problem, liefert bis zum Ende 
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[2:100])
+#+END_SRC
+
+*** Slicing von rechts						    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[-1])
+print(t[-2])
+#+END_SRC
+
+*** Slicing mit mehreren Elementen: 
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[-2:-1])
+#+END_SRC
+
+
+** Slicing, Sonderfälle 
+
+
+
+
+
+
+
+*** Slicing mit einem Wert: [n:]
+
+Von gegebenem Wert bis zum Ende 
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[2:])
+#+END_SRC
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[-2:])
+#+END_SRC
+
+
+
+*** Slicing mit einem Wert: [:n]				    :animate:
+
+Von gegebenem Wert bis zum Ende 
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[:2])
+#+END_SRC
+
+#+BEGIN_SRC python :exports both :results output
+t = ('a', 'b', 'c', 'd', 'e', 'f')
+print(t[:-2])
+#+END_SRC
+
+
+
+** Komplexeres Beispiel 
+
+Was gibt das aus? 
+
+#+BEGIN_SRC python :exports both :results output 
+t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+print(t[t[2][0:1][0]-1:t[2][1]])
+#+END_SRC 
+
+
+*** TODO pingo? 
+
+
+** Verknüpfungen 
+
+Operationen mit Tuples 
+
+*** Zwei Tuples addieren 
+
+#+BEGIN_SRC python :exports both :results output
+t1 = (1, 2, 3)
+t2 = ("a", "b", "c", "d") 
+print(t1+t2)
+#+END_SRC 
+
+
+*** Tuple mit ganzer Zahl multiplizieren			    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+t1 = (1, 2, 3)
+print(t1 * 4)
+#+END_SRC 
+
+** Randfälle 
+
+*** Das leere Tupel 
+
+#+BEGIN_SRC python :exports both :results output
+t = () 
+#+END_SRC 
+
+*** Tupel mit einem Element
+
+Komma am Ende ist entscheidend -- Unterschied zu Ausdruck! 
+
+#+BEGIN_SRC python :exports both :results output
+# Ein Tupel mit einem Element:
+t = ("a",)
+print(t)
+# Ein einzelner String: 
+t = ("a")
+print(t)
+#+END_SRC 
+
+
+
+** Weitere Eigenschaften: Länge  
+
+
+~len~ Funktion mit Parameter tuple:  Anzahl Elemente 
+
+#+BEGIN_SRC python :exports both :results output
+t = (1, 2, 3, 4, 5, 6)
+l = len(t)
+print(l)
+#+END_SRC 
+
+*** UEBUNG Unterschied: Länge und Index des letzten Elements, wir fangen ja bei 0 an 
+
+** Wo ist ein Element in Tuple? 
+
+Wo im Tupel befindet sich ein bestimmtes Element ? 
+- Funktion ~index~, Parameter: gesuchtes Element 
+- Gewissermaßen Umkehrung des Zugriffs
+
+
+#+BEGIN_SRC python :exports both :results output
+t = (-1, 0, 17, 1, 2, 3, 4, 5, 6)
+l = t.index(3)
+print(l)
+#+END_SRC 
+
+#+RESULTS:
+: 5
+
+** Notation bei ~index~? 
+
+Eigentlich doch erwartet:  ~index(t, e)~ ? 
+
+Kleine syntaktische Variation für Funktionsaufruf: ~t.count(e)~ 
+- Ziehe das erste Argument der Funktion aus der Klamme
+- Vor den Funktionsnamen
+- Verbinde mit Punkt ~.~ 
+
+Gleicher Effekt; manchmal besser lesbar
+
+*** UEBUNG index(e, s) ausprobieren 
+
+** Wieviele Elemente mit bestimmtem Wert? 
+
+#+BEGIN_SRC python :exports both :results output
+t = (1, 2, 3, 4, 5, 1, 2, 3, 4, 1, 2, 3, 1, 2, 1)
+n = t.count(2)
+print(n)
+#+END_SRC 
+
+#+RESULTS:
+: 4
+
+Auch hier: Notation mit Tuple vor dem Funktionsnamen 
+
+
+** Zuweisung an Element? 
+
+- Tuple verändert? Ein Element des Tuples verändern? 
+- Naheliegender Versuch: 
+
+#+BEGIN_SRC python :exports both :results output
+t = (1, 2, 3, 4) 
+t[2] = 17
+#+END_SRC 
+
+Fehlermeldung:  ~TypeError: 'tuple' object does not support item assignment~ 
+
+
+** Keine Zuweisung an Tuple-Elemente
+
+- Offenbar keine Zuweisungen erlaubt!
+- Tuple sind /*unverändlich*/ : Einmal definiert zweigen die Elemente
+  des Tuples immer auf die gleichen Objekte 
+
+
+** Und Zeichenketten (~str~)? 
+
+- Zeichenketten benehmen sich sehr ähnlich zu Tupeln
+  - Zugriff auf Element, Slicing, ...
+  - Ebenfalls unveränderlich
+- Experimentieren Sie! 
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+s = "Hallo GP1"
+print(s[6:-1])
+#+END_SRC 
+
+#+RESULTS:
+: GP
+
+
+
+** Unveränderliche Datentypen 
+
+- Bisher sind alle Datentypen (Zahlen, Zeichenketten, Tuple)
+  unveränderlich 
+- Nützlich: Verlässlichkeit 
+- Aber manchmal Veränderung noch schön?
+  - Muss ich ein komplett neues Tuple erzeugen, um einen Wert zu
+    verändern??
+  - Und wäre das wirklich der  gleiche Effekt???
+
+
+*** UEBUNG Tuple ändern durch slicing und ändern 
+
+#+BEGIN_SRC python :exports both :results output
+t = (1, 2, 3, 4, 5)
+# wir wollen t[2] auf 17 ändern 
+t = (t[0], t[1], 17, t[3], t[4]) 
+# Warum ist das nicht entpsrechend? 
+t = (t[0:1], 17, t[3:4])
+#+END_SRC 
+
+Sturkturen zeichnen lassen!  (Wie geben wir eigentlichen Zeicnungen
+ab??) 
+
+Erklären lassen, warum das NICHT dem Ändern eines Tupels entspricht 
+
+
+** Tuple als Funktionsparameter 
+
+Parameter sind Referenzen auf Objekte -- also Referenz auf ein Tuple
+kein Problem 
+
+#+BEGIN_SRC python :exports both :results output
+  def quersumme3(t):
+      """Berechne die Quersumme aus einem 3-Tuple"""
+
+      return t[0] + t[1] + t[2]
+
+  # Tupel direkt als Parameter angeben: 
+  q = quersumme3((17, 42, 99))
+  print(q)
+
+#+END_SRC 
+
+#+RESULTS:
+: 158
+
+*** UEBUNG Falscher Aufruf  von quersumme 
+
+Warum scheitert das? 
+
+#+BEGIN_SRC python :exports both :results output
+  def quersumme3(t):
+      """Berechne die Quersumme aus einem 3-Tuple"""
+
+      return t[0] + t[1] + t[2]
+
+  # Tupel direkt als Parameter angeben: 
+  q = quersumme3(17, 42, 99)
+  print(q)
+#+END_SRC 
+
+#+RESULTS:
+
+
+** Definition Tuple 
+
+
+*** Tuple						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+/Tuple/ sind /*unveränderliche*/ Aufzählungen von Referenzen auf beliebige
+Objekte; verkürzt und vereinfachend sagt man auch /Aufzählung von
+Objekten/.
+
+- Tuple sind ein Datentyp 
+- Sie haben eine feste Reihenfolge
+- Auf Elemente kann durch die Angabe der Position (des Indexes)
+  zugegriffen werden.
+- Sie unterstützen das sog. /Slicing/
+- Sie unterstützen Verknüpfungen wie Addition, Multiplikation mit
+  Skala und die Funktionen ~len~, ~count~, ~index~ (mit leicht
+  unterschiedlicher Notation)
+- Tuple werden syntaktisch geschrieben als eine durch Komma
+  getrennte Liste von Ausdrücken, in /runde/ Klammern eingeschlossen
+  - Besteht ein Tupel aus nur einem Element, so muss ein Komma dem
+    Element folgen, vor der schließenden Klammer
+  - Am Ende darf ein Komma stehen 
+
+
+*** Anmerkung: Referenz auf Objekt oder Objekt?			  :dropslide:
+
+In der Definition oben wird die Vorstellung von /Referenz auf Objekt/
+verkürzend mit /Objekt/ gleichgesetzt. Das sind doch eigentlich zwei
+verschiedene Dinge? Warum erlauben wir uns hier eine schlampige
+Definition und Sprechweise? 
+
+Das stimmt, das sind zwei verschiedene Dinge. In anderen
+Programmiersprachen (z.B. C) muss man das sorgfältig auseinanderhalten
+und das ist oft eine Quelle von Fehlern.
+
+Der Python-Interpreter, im Gegensatz dazu, folgt immer einer Referenz
+auf das eigentlich Objekt. Man kann in einem Python-Programm gar nicht
+über eine Referenz an sich reden oder darauf zugreifen -- man bekommt
+immer das referenzierte Objekt. 
+
+
+* Veränderliche Aufzählungen: Listen 
+
+** Liste 
+
+- Listen sind die veränderliche Variante von Tuplen
+- Unterschied
+  - Einzelne Elemente können geändert werden
+  - Elemente können hinzugefügt und entfernt werden 
+- Gleich/ähnlich:
+  - Reihenfolge
+  - Beliebige Objekte
+    - Auch Listen, alles geschachtelte Listen möglich 
+  - Zugriff wie Tuple: ~[]~, slicing
+
+** Syntax 
+
+Listen durch Aufzählung in eckigen Klammern hinschreiben
+- Elemente der Aufzählung mit Komma  trennen 
+
+#+BEGIN_SRC python
+%%tutor -t
+# eine Liste mit vier Zahlen: 
+L = [1, 2, 42, 17]
+# die leere Liste: 
+L = []
+# eine heterogene Liste: 
+L = [1, 2, "Hallo", "GP1"]
+# eine geschachtelte Liste: 
+L = [1, 2, ["Hallo", "GP1"], (42, 17)]
+#+END_SRC 
+
+** Zugriff 
+
+Zugriff wie bei Tuple 
+
+
+#+BEGIN_SRC python :exports both :results output
+%%tutor -t
+L = [1, 2, 42, 17]
+# eine geschachtelte Liste: 
+L = [1, 2, ["Hallo", "GP1"], (42, 17)]
+print(L)
+print(L[1]) 
+print(L[2][0]) 
+print(len(L))
+#+END_SRC
+
+#+RESULTS:
+: [1, 2, ['Hallo', 'GP1'], (42, 17)]
+: 2
+: Hallo
+: 4
+
+
+*** Struktur geschachtelter Listen				  :dropslide:
+
+Eine geschachtelte Liste hat genau die erwartete Struktur (Abbildung
+[[fig:pt-nested-list]]). Das Beispiel zeigt eine Liste mit vier
+Elementen: 
+- zunächst zwei Zahlen 
+- dann eine Liste, die aus zwei Strings besteht 
+- und dann ein Tuple aus zwei Zahlen 
+
+#+BEGIN_SRC python :exports code
+L = [1, 2, ["Hallo", "GP1"], (42, 17)]
+#+END_SRC
+
+#+CAPTION: Struktur geschachtelter Liste
+#+ATTR_LaTeX: :width 0.50\linewidth
+#+NAME: fig:pt-nested-list
+[[./figures/pt-nested-list.png]]
+
+
+** Verknüpfungen und Funktionen à la Tuple 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3, 1, 2]
+print(L + [7, 8, 9])
+print(L * 3)
+# L hat sich nicht veraendert
+print(L)
+# Funktionen fuer Liste
+print(len(L))
+print(L.count(1))
+print(L.index(2))
+#+END_SRC 
+
+#+RESULTS:
+: [1, 2, 3, 1, 2, 7, 8, 9]
+: [1, 2, 3, 1, 2, 1, 2, 3, 1, 2, 1, 2, 3, 1, 2]
+: [1, 2, 3, 1, 2]
+: 5
+: 2
+: 1
+
+
+*** TODO pingo? 
+
+** Veränderung von Listenelementen 
+
+Ziel war: Listenelemente verändern 
+
+#+BEGIN_SRC python :exports both :results output
+%%tutor 
+L = [1, 2, 3, 1, 2]
+L[1] = 42
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 42, 3, 1, 2]
+
+*** Tada!							    :animate:
+
+#+CAPTION: Tada: Access to list elements works 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:tada-listelement
+[[./figures/tada.png]]
+
+*** Details: Liste bleibt gleich, aber eine Referenz ändert sich  :dropslide:
+
+Im Detail: wir beginnen mit einer Liste mit fünf Elementen wie in
+Abbildung [[fig:pt-listelement-before]] dargestellt. Nach der
+Zuweisung bleibt die Liste selbst erhalten, lediglich die Referenz an
+Position 1 wurde verändert (Abbildung
+[[fig:pt-listelement-after]]). Tatsächlich musste in diesem Beispiel
+noch das Objekt /Zahl 42/ geschaffen werden, das vor der Anweisung
+noch nicht im Speicher repräsentiert war und jetzt referenziert werden
+muss. 
+
+#+CAPTION: Änderung eines Listenelements: Zustand vor Zuweisung
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-listelement-before
+[[./figures/pt-listelemenet-before.png]]
+
+
+#+CAPTION: Änderung eines Listenelements: Nach der Zuweisung
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-listelement-after
+[[./figures/pt-listelement-after.png]]
+
+
+
+** Listen erweitern 
+
+*** Anhängen 
+
+Gegebenen Wert an Liste anhängen 
+
+
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+L.append(4)
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 2, 3, 4]
+
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+L.append([4, 5])
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 2, 3, [4, 5]]
+
+
+*** Erweitern 
+
+Eine Liste mit einer anderen Liste erweitern 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+L.extend([4, 5])
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 2, 3, 4, 5]
+
+**** UEBUNG Was passiert bei L.extend(4) ? 
+
+Warum ist das so ? 
+
+Hier viele Beispiele für Aufgaben ! 
+
+
+*** Einfügen 
+
+*Vor* Position einen Wert einfügen: 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+L.insert(1, 17)
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 17, 2, 3]
+
+*** UEBUNG Warum ist die Ferstlegung *vor* Position einfügen sinnvoll? 
+
+Weil wir ja schon ein append haben... aber noch kein prepend 
+
+
+
+** Listen verkleinern 
+
+*** ~pop~: Elemente entnehmen und als Wert zurückgeben 
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+x = L.pop(1)
+print(x)
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: 2
+: [1, 3]
+
+*** ~remove~: Erstes Auftragen eines Wertes entfernen		    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3, 1, 2, 3]
+L.remove(2)
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 3, 1, 2, 3]
+
+** Liste kopieren 
+
+Wichtiges Beispiel: Liste kopieren. 
+
+#+BEGIN_SRC python :exports both :results output
+%%tutor -t 
+L = [1, 2, 3]
+L1 = L 
+print(L1)
+L2 = L.copy()
+print(L2)
+#+END_SRC 
+
+#+RESULTS:
+
+*** Details							  :dropslide:
+
+Was geschieht hier im Detail, was ist der Unterschied zwischen  den
+beiden Zuweisungen an L1 und L2? 
+
+1. Vor der Zuweisung an L1 existiert eine Liste mit drei Elementen,
+   die durch den Namen L referiert wird (Abbildung [[fig:pt-listcopy-1]])
+2. Die Zuweisung an L1 bewirkt lediglich, dass L1 ein weiterer Name
+   für die /identisch gleiche Liste/ ist (L1 referenziert das gleiche
+   Listenobjekt) -- siehe Abbildung [[fig:pt-listcopy-2]]. 
+3. Mit der Anweisung ~L.copy()~ wird tatsächlich eine neue Liste
+   geschaffen und an L2 zugewiesen (Abbildung [[fig:pt-listcopy-3]]). 
+
+#+CAPTION: Kopieren einer Liste: Erste Liste anlegen 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-listcopy-1
+[[./figures/pt-listcopy-1.png]]
+
+
+#+CAPTION: Kopieren einer Liste: Zuweisung eines weiteren Namens an existierende Liste
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-listcopy-2
+[[./figures/pt-listcopy-2.png]]
+
+
+#+CAPTION: Kopieren einer Liste: Tatsächliches Kopieren der Liste
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-listcopy-3
+[[./figures/pt-listcopy-3.png]]
+
+
+** Liste von Liste kopieren 
+
+Kopieren einer Liste, die selbst Liste beinhaltet? 
+
+
+#+BEGIN_SRC python :exports both :results output
+%%tutor -t 
+L = [1, [17, 18, 19], 3]
+L1 = L 
+print(L1)
+L2 = L.copy()
+print(L2)
+#+END_SRC 
+
+
+*** Details							  :dropslide:
+
+Die sich nach diesem Beispiel einstellende Datenstruktur ist in
+Abbildung [[fig:pt-copy-list-of-list]] gezeigt. Je nach Situation ist das
+genau das gewünschte Ergebnis; es könnte aber auch unerwartet
+sein. Überlegen Sie sich, welche Alternative Struktur Sie
+möglicherweise erwarten könnten.
+
+#+CAPTION: Kopieren einer Liste von Liste
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-copy-list-of-list
+[[./figures/pt-copy-list-of-list.png]]
+
+
+*** UEBUNG Manipulation von Listenelementen bei kopierten Listen 
+
+
+
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+L1 = L 
+L2 = L.copy()
+L1[1] = 17
+L2[1] = 42
+print(L1)
+print(L2)
+#+END_SRC
+
+#+RESULTS:
+: [1, 17, 3]
+: [1, 42, 3]
+
+
+
+
+
+*** UEBUNG Was passiert, wenn eine Liste von Listen kopiert wird? 
+
+
+Was gibt das print aus? 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, [2, 3], 4] 
+L1 = L.copy()
+L1[1][0] = 17
+print(L) 
+#+END_SRC
+
+#+RESULTS:
+: [1, [17, 3], 4]
+
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, [17, 18, 19], 3]
+L1 = L 
+print(L1)
+L2 = L.copy()
+print(L2)
+L1[1][1] = 17
+print(L1)  
+L2[1][1] = 42
+print(L1)  
+print(L2)
+#+END_SRC 
+
+#+RESULTS:
+: [1, [17, 18, 19], 3]
+: [1, [17, 18, 19], 3]
+: [1, [17, 17, 19], 3]
+: [1, [17, 42, 19], 3]
+: [1, [17, 42, 19], 3]
+
+
+
+shallow vs. deep copy!  deepcopy können wir leider noch nicht nehmen
+da wir noch keine imports haben. Aber Problembewusstsein herstellen!
+Das deepcopy Beispiel holen wir später nach. 
+
+
+Was wird hier ausgebeben? 
+
+#+BEGIN_SRC python
+from copy import deepcopy 
+
+L = [1, [2, 3], 4] 
+L1 = L.copy()
+L2 = deepcopy(L)
+L1[1][0] = 17
+print(L) 
+L2[1][1] = 42
+print(L)
+#+END_SRC
+
+
+
+** Identität? 
+
+Aber wann sind zwei Listen dann eigentlich gleich? 
+
+- Wenn die /Namen/ auf das gleiche Listenobjekt referenzieren? 
+- Oder wenn die Inhalt übereinstimmen, egal, welches Objekt das ist? 
+
+*** Je nachdem!							    :animate:
+
+- Beides kann relevant sein! 
+- Zwei verschiedene Vergleichsoperationen dafür 
+
+** Identität: Zwei Vergleiche 
+
+*** Identisches Objekt, nur unterschiedlicher Name
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+L1 = L
+L2 = L.copy()
+print(L1 is L) 
+print(L2 is L) 
+#+END_SRC 
+
+#+RESULTS:
+: True
+: False
+
+
+*** Gleiche Werte enthalten 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+L1 = L
+L2 = L.copy()
+print(L1 == L) 
+print(L2 == L) 
+#+END_SRC 
+
+#+RESULTS:
+: True
+: True
+
+*** UEBUNG Identität von Listen von Listen, mit Zuweisungen, etc. 
+
+hier sind ganz viele schöne Beispiele denkbar. Kann man auch gut durch
+Tests abprüfen 
+
+** Warum Liste und Tuple? 
+
+Tuple geben ein Versprechen: Unveränderlichkeit 
+- Programmierer kann sich darauf verlassen 
+- Listen könnten irgendwie manipuliert werden -- z.B. durch
+  Unterprogramm 
+
+
+** Definition Liste 
+
+
+*** Liste 						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+/Liste/ sind /*veränderliche*/ Aufzählungen von Referenzen auf beliebige
+Objekte; verkürzt und vereinfachend sagt man auch /Aufzählung von
+Objekten/. 
+
+- Liste ist ein Datentyp 
+- Sie haben eine feste Reihenfolge
+- Auf Elemente kann durch die Angabe der Position (des Indexes)
+  zugegriffen werden.
+- Sie unterstützen das sog. /Slicing/
+- Sie unterstützen Verknüpfungen wie Addition, Multiplikation mit
+  Skala und die Funktionen ~len~, ~count~, ~index~ (mit leicht
+  unterschiedlicher Notation)
+- Sie können manipuliert werden, z.B. durch Löschen oder Einfügen 
+  von Elementen; Referenzen in einer Liste können verändert werden
+- Liste werden syntaktisch geschrieben als eine durch Komma
+  getrennte Liste von Ausdrücken, in /eckige/ Klammern eingeschlossen
+  - Am Ende darf ein Komma stehen 
+
+
+** Liste als Funktionsparameter
+
+Wie erwartet: 
+
+#+BEGIN_SRC python :exports both :results output
+  def quersumme3(t):
+      """Berechne die Quersumme aus einem 3-Tuple"""
+
+      return t[0] + t[1] + t[2]
+
+  # Tupel direkt als Parameter angeben: 
+  q = quersumme3([17, 42, 99])
+  print(q)
+
+#+END_SRC 
+
+#+RESULTS:
+: 158
+
+
+** Liste als Funktionsparameter -- Beobachtung? 
+
+- Wir haben die gleiche Funktion ~quersumme3~ benutzt wie im
+  Tuple-Beispiel
+- Der Funktion ~quersumme3~ war das offenbar egal
+  - Tuple und Liste gleich benutzbar, Zugriff durch ~[]~
+
+
+*** Ist das sinnvoll?						    :animate:
+
+- Python: *Ja!*
+- Andere Sprachen: aeehhh? 
+
+** Duck Typing 
+
+Die Austauschbarkeit von Tuple und Liste ist unser erstes Beispiel
+für /*duck typing*/
+
+
+*** Duck Typing						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Zwei Typen sind austauschbar wenn sie nach dem /*Duck Test*/ identisch
+sind. 
+
+
+*** Duck Test					       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Wenn es wie eine Ente quakt und wie eine Ente schwimmt und wie eine
+Ente quakt, dann ist es wohl eine Ente. 
+
+** Duck Typing 
+
+Prinzip: Ein Objekt hat den richtigen Typ, wenn es sich richtig
+verhält 
+- Erst zur Laufzeit entscheidbar
+- Reicht das? Situations-/Ansichtssache... 
+
+** Duck Typing -- Risiken 
+
+#+CAPTION: Auch Duck Typing bringt seine eigenen Risiken mit sich 
+#+ATTR_LaTeX: :width 0.25\linewidth :float nil
+#+NAME: fig:duck-typing
+[[./figures/duck-typing.png]]
+
+
+*** Risiken 							       :note:
+
+Duck Typing widerspricht dem Vorgehen eines statischen Typ-Systems wie
+etwa in Java diametral. Eines der wesentlichen Probleme ist, dass ein 
+Programmierer in einem Duck Typing Kontext sehr viel mehr über den
+vorliegenden Code wissen und verstehen muss. Eine Sprache wie Java
+kann oft Programmierfehler abfangen, die durch Duck Typing entstehen,
+bezahlt dies aber mit einer hohen Komplexität. 
+
+Wir kommen darauf im Kontext von Polymorphismus in statischen
+Typsystemen zurück. 
+
+** Liste als Funktionsparameter -- Veränderung? 
+
+Wenn eine Liste veränderlich ist, dann könnte eine Funktion sie doch
+auch verändern? 
+- Genauer: die Inhalte der Liste 
+
+#+BEGIN_SRC python :exports both :results output
+  def modify_list(l):
+      l[1] = 17
+
+  l = [1, 2, 3]
+  modify_list(l)
+  print(l)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 17, 3]
+
+
+*** Details 
+
+Mit dem bisherigen Verständnis, wie eine Liste funktioniert, sollte
+das Verhalten dieses Beispiels ganz naheliegend sein. 
+
+1. Abbildung [[fig:pt-modify-list-1]] zeigt die Situation vor Aufruf der
+   Funktion an. Es gibt, im globalen Scope, zwei Namen, einen für die
+   Funktion ~modify_list~ und einen für die Liste ~l~.
+2. Nach Aufruf der Funktion (Abbildung [[fig:pt-modify-list-2]]) gibt es,
+   im Scope der Funktion, einen weiteren Namen ~ll~ für die /gleiche
+   Liste/; es ist das gleiche Objekt das nun lediglich mit zwei Namen
+   referenziert wird.
+3. Nach der Zuweisung zu dem zweiten Element (Abbildung
+   [[fig:pt-modify-list-3]]) der Liste hat sich dieser Eintrag selbst
+   verändert; die Liste an sich ist aber noch die gleiche, und wird
+   natürlich auch nach wie vor durch die beiden Variablen ~l~ und ~ll~
+   referenziert.
+4. Damit ist nach der Rückkehr aus der Funktion (Abbildung
+   [[fig:pt-modify-list-4]]) auch diese Änderung mittels des
+   Variablennamens ~l~ sichtbar. Die Tatsache, dass der zweite Name
+   ~ll~ vernichtet wurde als die Funktion fertig war, hat damit nichts
+   zu tun. 
+
+#+CAPTION: Modifikation einer Liste in Funktion: Vor Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-modify-list-1
+[[./figures/pt-modify-list-1.png]]
+
+
+
+#+CAPTION: Modifikation einer Liste in Funktion: Nach Aufruf, vor Zuweisung
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-modify-list-2
+[[./figures/pt-modify-list-2.png]]
+
+
+#+CAPTION: Modifikation einer Liste in Funktion: Nach Zuweisung in Funktion 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-modify-list-3
+[[./figures/pt-modify-list-3.png]]
+
+#+CAPTION: Modifikation einer Liste in Funktion: Nach Rückkehr aus Funktion 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-modify-list-4
+[[./figures/pt-modify-list-4.png]]
+
+
+** Liste als Funktionsparameter -- Ergebnisse transportieren? 
+
+Wenn also eine Funktion den /Inhalt/ einer Liste manipulieren kann, 
+
+ist das dann ein geeigneter Weg, um Ergebnisse von Funktion an
+Aufrufen zu transportieren? 
+
+- Im Prinzip geht das
+- Manchmal sinnvoll und auch angewandt
+  - Spezialfall: eine Liste als Argument, diese wird verändert
+    - Sog. /in situ/ Operation
+    - Als Alternative zur Ergebnisrückgabe 
+- Kann aber überraschend sein, erfordert /sorgfältige/ Dokumentation
+  des Verhaltens 
+
+*/Kein/* Widerspruch zu Kapitel 4! 
+
+** Ergebnisse transportieren -- Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  def verdopple(l):
+      """Verdopple das erste Element der Liste"""
+      l[0] = l[0] + l[0]
+
+  l = [3, 4, 5]
+  verdopple(l)
+  print(l)
+  l = ["ab", 7, 8]
+  verdopple(l)
+  print(l)
+#+END_SRC 
+
+#+RESULTS:
+: [6, 4, 5]
+: ['abab', 7, 8]
+
+
+*** UEBUNG Verdstöndnisfragen 
+
+- Was passiert bei print(verdopple(l)) ? 
+- Was bei verdopple( (1,2,3)) ? 
+- Was bei verdopple(  [] ) ?
+- .... ? 
+
+
+
+** Von Liste zu Tuple und umgekehrt 
+
+*** Von Tuple zu Liste 
+
+#+BEGIN_SRC python :exports both :results output
+T = ('a', 'b', 'c' ) 
+L = list(T)
+print(L)
+#+END_SRC 
+
+#+RESULTS:
+: ['a', 'b', 'c']
+
+*** Von Liste zu Tuple 
+
+#+BEGIN_SRC python :exports both :results output
+L = ['a', 'b', 'c']
+T = tuple(L)
+print(T)
+#+END_SRC 
+
+#+RESULTS:
+: ('a', 'b', 'c')
+
+
+** UEBUNG Weitere Aufgaben für Liste 
+
+*** Grundfunktionen 
+
+- Sortieren , reverse, clear 
+
+- Insebsondere: Unterschied zwischen in situ und ERgebnisrückgabe
+  herausarbeiten 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+X = L * 4
+Y = [L] *4 
+L[1] = 17
+#+END_SRC 
+
+- Aufgabe: Komplizxierte verschachtelte Struktur. Code angeben, um auf
+  ein bestimmtes Element zuzugreifen 
+
+
+- Generell sind die Type Gotchas sehr schön
+  http://proquest.tech.safaribooksonline.de/9781449355722/ch09_html?sessionid=#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNTU3MjIlMkZjaDA5czA0X2h0bWwmcXVlcnk9 
+
+*** Ducktyping 
+
+- Was passiert, wenn man Quersumme mit einer Liste von STrings füttert?
+- Mit Liste von Tuplen? 
+- Mit gemsichter Liste ?
+  - WEr hat Verantwortung? 
+
+
+*** Kopieren: 
+
+- L[:] kopiert. Herausfinden lassen? Beispielprogramm? copy
+  überlagern?
+- Was ist mit list([1,2,3]) ? Kopie oder nicht? 
+
+
+* Veränderliche Aufzählungen: Mengen 
+
+
+** Menge -- ~set~ 
+
+- Listen können Duplikate enthalten 
+- Nicht immer erwünscht 
+- Weiterer Datentyp: ~set~
+  - Veränderlich, ohne Duplikate, keine Reihenfolge
+    - Also kein Index-Zugriff! 
+  - Enthält nur /unveränderliche/
+    Elemente
+    - Also keine Mengen von Listen o.ä. 
+
+**  Operationen auf Mengen 
+
+- Wie üblich: Schnitt, Vereinigung, Differenz
+- Konvertierung von Listen und Tuples 
+- Test auf enthalten-sein: ~in~
+
+#+BEGIN_SRC python :exports both :results output
+a = set( (1,2,3,4,3,2))
+print(a)
+print(2 in a)
+print(5 in a)
+#+END_SRC 
+
+#+RESULTS:
+: {1, 2, 3, 4}
+: True
+: False
+
+** Zugriff ohne Index? 
+
+#+BEGIN_SRC python :exports both :results output
+a = set( (1,2,3,4,3,2))
+a[1]
+#+END_SRC 
+
+#+RESULTS:
+
+- Fehler: ~TypeError: 'set' object does not support indexing~ 
+
+
+- Eine Menge, ohne Möglichkeit auf Elemente zuzugreifen? 
+  - Muss ich alle /möglichen/ Elemente durchgehen?? 
+
+- Unsinn -- wir brauchen einen *neuen Mechanismus*
+
+  - */Iteration/* über Aufzählungstypen -- siehe nächstes Kapitel 
+
+
+* Abbildungstypen
+
+** Aufzählen? 
+
+- Aufzählungen mit Reihenfolge (~list~, ~set~) ordern einer laufenden
+  Nummer (dem Index) ein Objekt zu 
+- Was, wenn ich mir ein Objekt
+  - nicht für eine Nummer, sondern einen anderen Wert merken will?
+  - nicht für fortlaufende Nummer, sondern nur für manche Nummern
+    einen Wert habe? 
+
+** Aufzählen  oder abbilden? 
+
+- Wäre es nicht elegant,
+  - für beliebige Werte eine Zuordnung zu einem Objekt herstellen zu
+    können?
+  - und das veränderlich zu haben? 
+
+Wir brauchen eine /*Abbildung*/ von Werten auf Objekte! 
+
+** Abbildung: Beispiele 
+
+- Von Matrikelnummer auf Klausurresultat
+- Von Name auf Telefonnummer
+- Von Wörtern im Wörterbuch zur Audiodatei mit Aussprache 
+- Von geographischem Ort auf umliegende Restaurants
+- Von URL auf Text der Webseite
+- Von Daumenabdruck auf Zugangsberechtigung 
+
+usw. 
+
+** Abbildung in Python: ~dict~ 
+
+- ~dict~ für dictionary (Wörterbuch, Verzeichnis, Abbildung)
+- Ein ungeordneter, veränderlicher Aufzählungstyp
+- Ordnet /*Schlüsseln*/ (keys) zu Objekten  (Werten, values) zu
+  - Ein sog. /*key-value*/-Typ 
+
+
+** ~dict~: Beispiel 
+
+*** Ein leeres ~dict~: geschweifte Klammern 
+
+#+BEGIN_SRC python :exports both :results output
+D = {}
+print(D)
+#+END_SRC 
+
+#+RESULTS:
+: {}
+
+
+*** Ein ~dict~ mit ein paar key/value Paaren			    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+%%tutor -t
+D = {}
+D["name"] = "Holger"
+D["berufung"] = "GP1-Leser" 
+D["telefon"] = 605375
+D[1] = 17 
+D[42] = "GP1" 
+D["Vorlesungen"] = ["GP1", "KMS", "Rechnernetze"]
+print(D)
+print(D[42])
+#+END_SRC 
+
+#+RESULTS:
+
+** ~dict~: Definition  
+
+
+*** ~dict~						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+~dict~ ist ein  ungeordneter, veränderlicher Aufzählungstyp, der
+beliebige andere Datentypen (auch ~dict~) enthalten kann. 
+
+- Ein leeres ~dict~ erzeugt durch ~{}~
+- Bildet Schlüssel auf Werte ab 
+  - Schlüssel (keys): Beliebige /unveränderliche/ Werte (auch Tuple!) 
+    - (Präziser: /hashable type/ -- später) 
+  - Einträge (values): Beliebige Objekte, auch Listen, etc.
+- Zugriff auf Einträge
+  - syntaktisch wie bei Tuple, Liste: Schlüssel in eckigen
+    Klammern
+  - aber nicht durch Position sondern durch Schlüssel 
+
+*** UEBUNG Slicing bei dicts? 
+
+Warum ist das sinnlos? 
+
+** ~dict~: Werte angeben, Kurznotation 
+
+Da ~dict~ sehr häufig  vorkommen gibt es eine Kurznotation,
+ähnlich zur Definition von Mengen
+- In gescheiften Klammern, die Schlüssel/Wert-Paaren aufzählen, mit
+  Komma getrennt 
+- Schlüssel und Wert durch Doppelpunkt getrennt
+- Entspricht der Ausgabe eines ~dict~ durch ~print~
+
+#+BEGIN_SRC python :exports both :results output
+D = {"a": 17, "x": "Hallo"}
+print(D) 
+#+END_SRC 
+
+#+RESULTS:
+: {'x': 'Hallo', 'a': 17}
+
+
+*** Visualisierung von ~dict~
+
+Zur Veranschaulichung hier noch eine Visualierung eines ~dict~:
+Variable ~D~ referenziert die Datenstruktur des ~dict~ (Abbildung
+[[fig:pt-dict]]). Dieses besteht aus einer Reihe von Paaren von
+Referenzen, jeweils eine Referenz auf den Schlüssel und eine auf den
+zugeordneten Wert.
+
+#+CAPTION: Visualisierung einer ~dict~-Datenstruktur
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-dict
+[[./figures/pt-dict.png]]
+
+
+** ~dict~: Werte angeben 
+
+- Alternative: An Funktion ~dict~ eine Liste von 2-Tupeln übergeben 
+  - Jedes Tupel: Schlüssel, dann zugeordneter Wert
+  - Liefert entsprechendes ~dict~
+- Diese Darstellung entspricht gut der internen Darstellung eines
+  ~dict~
+- Unterschied: Kurznotation oft praktisch einzutippen; diese Notation
+  oft praktisch zur Verarbeitung von Ergebnissen 
+
+
+#+BEGIN_SRC python :exports both :results output
+D = dict([("a", 17), ("x", "hallo")])
+#+END_SRC 
+
+#+RESULTS:
+: {'x': 'hallo', 'a': 17}
+
+
+*** UEBUNG dicts mit Listen 
+
+
+** ~dict~: Fehlerfall 
+
+Zugriff auf nicht vorhandenen Schlüssel führt zu Fehler 
+
+#+BEGIN_SRC python :exports both :results output
+D = {}
+D['a'] = 1
+x = D['b']
+#+END_SRC 
+
+
+Fehler: ~KeyError: 'b'~
+
+** 'dict' Test auf enthalten-sein 
+
+Analog zu ~set~: Mit ~in~ testen 
+
+
+#+BEGIN_SRC python :exports both :results output
+D = {}
+D['a'] = 1
+print('a' in D)
+print('b' in D) 
+#+END_SRC 
+
+#+RESULTS:
+: True
+: False
+
+
+** Operation auf ~dict~
+
+Reichhaltige Operationen auf ~dicts~: 
+
+- ~len(D)~: Anzahl der Einträge
+- ~D.keys()~: Liste aller Schlüssel
+- ~D.values()~: Liste aller eingetragenen Werte 
+- ~D.items()~: Liste von Tupeln der vorhandenen Schlüssel/Wert-Paare 
+
+#+BEGIN_SRC python :exports both :results output
+# Was liefert das hier? 
+# D ein beliebiges dict 
+D = dict([ ("a", 17), ("x", "hallo")])
+D1 = dict(D.items())
+print(D1)
+#+END_SRC 
+
+#+RESULTS:
+: {'a': 17, 'x': 'hallo'}
+: True
+: False
+
+
+
+** Identität? 
+
+Vorheriges Beispiel: ~dict(D.items())~ ist doch wieder D? 
+- Aber ist es D selbst, oder eine Kopie? 
+
+#+BEGIN_SRC python :exports both :results output
+%%tutur 
+D = dict([ ("a", 17), ("x", "hallo")])
+D1 = dict(D.items())
+#+END_SRC 
+
+*** Details							  :dropslide:
+
+Abbildung [[fig:pt-dict-copy]] zeigt die sich einstellende Struktur: ~D~
+und ~D1~ sind Kopien, die auf die gleichen Objekte verweisen (aber das
+war natürlich zu erwarten, unveränderliche Objekte wie Zahlen werden
+ja stets nur einmal im Speicher repräsentiert).
+
+
+#+CAPTION: Kopie eines ~dict~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-dict-copy
+[[./figures/pt-dict-copy-2.png]]
+
+*** UEBUNG Test auf Identität 
+
+
+* Zusammenhang der Datentypen 
+
+** Verschachtelung 
+
+Python erlaubt beliebige Verschachtelung unterschiedlicher Datentypen 
+- Mit ganz einfacher Syntax für Erzeugung und Zugriff 
+- Naheliegender Semantik 
+
+Beispiel: Ein Verzeichnis, bestehend aus
+- einem Verzeichnis mit zwei Schlüssel/Wert-Paaren
+- einer Liste
+- und einer einzelnen Zahl 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t
+  rec = {'name': {'first': 'Bob', 'last': 'Smith'},
+         'jobs': ['dev', 'mgr'],
+         'age':  40.5}
+#+END_SRC 
+
+*** Visualisierung						  :dropslide:
+
+Die Visualisierung dieser Datenstruktur ist dann schon etwas größer,
+aber sicherlich nicht mehr überraschend: 
+
+
+#+CAPTION: Eine verschachtelte, gemischte Datenstruktur
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-nested
+[[./figures/pt-nesting.png]]
+
+
+*** UEBUNG Datenstruktur-Bild vorgeben, Code dafpr schreiben? 
+
+** Gleichheit? 
+
+Wann sind Dinge gleich? == vs. is ? 
+
+
+
+* Zusammenfassung 
+
+** Zusammenfassung 
+
+
+- Flexibilität: Tuple, Listen und Verzeichnisse können beliebige
+  Objekte aufnehmen, auch verschachtelt 
+  - Mengen können nur unveränderliche Objekte aufnehmen 
+- Veränderlichkeit: Liste, Verzeichnisse und Mengen können beliebig
+  wachsen und schrumpfen 
+- Insgesamt: Reichhaltige Möglichkeiten für Datenstrukturen 
+
+
+** Python-Keywords: Liste bis jetzt 
+
+** COMMENT Python Datentypen -- Übersicht (bis jetzt)
+
+#+header: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 1000 
+#+header: :cache yes
+#+begin_src latex :exports results :results output raw :file figures/type-hierachy.png :fit t
+\begin{forest} 
+  [ Typen, for tree={draw, shape=rectangle, rounded corners,
+                     draw, align=center,
+                     top color=white}
+    [ Sonderfälle, for tree={bottom color=red!20} 
+      [ \texttt{None}  ]
+    ]
+    [ Unveränderlich\\ \emph{Immutable}, for tree={bottom color=green!20}  
+      [ Zahlen 
+        [ Ganze Zahlen
+          [Integers \\ (\texttt{int})]
+          [Boolens \\ (\texttt{bool})]
+        ] 
+        [ Fließkomma-\\zahlen \\ (\texttt{float} )]
+        [  Komplexe \\Zahlen \\ (\texttt{complex} )]
+      ]
+      [ Sequenzen
+        [ Zeichen-\\ketten \\ \texttt{str}]
+        [ Bytes ]
+        [ Tuple ]
+      ]
+    ]
+    [ Veränderlich\\ \emph{Mutable}, for tree={bottom color=blue!20} 
+      [ Sequenzen
+        [ List]
+      ]
+      [ Mengen 
+        [ Set ]    
+      ]
+      [ Abbildungen 
+        [ Verzeichnisse \\ \texttt{dict}]
+      ]
+    ]
+  ]
+\end{forest}
+#+end_src
+
+#+NAME: fig:type-hierachy
+#+CAPTION: Die wesentlichen Typen in Python 
+#+ATTR_LATEX: :width 0.6\textwidth :float nil
+#+RESULTS[8a476e377e5bc415ca201121fa62561bfdcb1e90]:
+[[file:figures/type-hierachy.png]]
+
+*** Datentypen Zusammenfassung					  :dropslide:
+
+Abbildung [[fig:type-hierachy]] fasst die bisher aufgetauchten Datentypen
+zusammen (es gibt noch ein paar mehr).  
+
+Als Anmerkung: ~None~ ist
+tatsächlich (auch) ein Datentyp; dieser Typ hat das Literal ~None~ als
+einzig möglichen Wert. Ähnlich wie der Typ ~bool~, der ja auch nur die
+beiden Werte ~True~ und ~False~ kennt. 
+
+
+* Future chapter						   :noexport:
+
+- Callable Typen ; erst bei Klassen? 
