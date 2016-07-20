@@ -44,6 +44,10 @@ done
      (setq org-latex-listings 'minted)
      (setq org-latex-minted-options
         '((\"frame\" \"lines\") (\"linenos=true\") (\"mathescape\" \"true\")))
+     ; undecided: do I want automatic runnign of all code blocks? 
+     ; or manual control in the buffer? currently, left in buffer
+     ; (setq org-export-babel-evaluate t)
+     ; (setq org-confirm-babel-evaluate nil)
      (mapc (lambda (file)
             (find-file (expand-file-name file \"$DIR\"))
             (org-babel-tangle)
