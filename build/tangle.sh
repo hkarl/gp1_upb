@@ -37,6 +37,13 @@ done
      (require 'json-mode)
      (require 'ox-juslides)
      (require 'ox-julatex)
+     ; setup package options
+     (add-to-list 'org-latex-packages-alist '(\"newfloat\" \"minted\")) 
+     (add-to-list 'org-latex-packages-alist '(\"\" \"tikz\")) 
+     (add-to-list 'org-latex-packages-alist '(\"\" \"forest\")) 
+     (setq org-latex-listings 'minted)
+     (setq org-latex-minted-options
+        '((\"frame\" \"lines\") (\"linenos=true\") (\"mathescape\" \"true\")))
      (mapc (lambda (file)
             (find-file (expand-file-name file \"$DIR\"))
             (org-babel-tangle)

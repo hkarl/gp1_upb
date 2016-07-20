@@ -30,8 +30,8 @@ $(objects): %.ipynb: %.org
 	cp -r figures ${OUTPUTDIR}
 
 $(pdfs): %.pdf: %.tex
-	pdflatex $<
-	pdflatex $<
+	pdflatex -shell-escape $<
+	pdflatex -shell-escape $<
 	cp $@ ${OUTPUTDIR} 
 	# -[ -z $$DEBUG ] && rm -f *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc 
 
