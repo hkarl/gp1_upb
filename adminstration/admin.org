@@ -1,0 +1,83 @@
+#+TITLE: GP1 - Organisation mit Tutoren 
+
+* Team 
+** Wimis 
+
+ - Parruca, parrucad 
+ - Feldmann, mfeldma2
+ - Setzer, asetzer
+
+** Tutoren GP1 
+
+ - Harbig : jharbig@mail.uni-paderborn.de ; jharbig
+ - Steffens : psteffen@mail.uni-paderborn.de ; psteffen 
+ - Börding : boerding@mail.uni-paderborn.de ; boerding 
+ - Kellner : thomask2@campus.uni-paderborn.de ; thomask2 
+ - Thiele : moritzt@mail.uni-paderborn.de, moritzt   (1/2 Stelle)  
+ - Rossel : jrossel@mail.uni-paderborn.de , jrossel (1/2 Stelle) 
+
+
+ 
+
+* Besprechungen 
+
+** Vorbesprechung, 2016-07-20
+
+*** Themen 
+
+**** Tutorenschulung
+  - Details? 
+
+**** Lernbedarf
+  - Git
+    - https://git.cs.upb.de/holger.karl/gp1-jupyter
+    - Insbes. die issues:
+      https://git.cs.upb.de/holger.karl/gp1-jupyter/issues
+      - Nutzen Sie die!! 
+  - Python v3!!
+    - ebook http://proquest.tech.safaribooksonline.de/9781449355722
+  - Markdown
+  - Jupyter Notebooks
+    - http://jupyter.org
+    - http://jupyterhub.readthedocs.io/en/latest/
+      - Nutzung, nicht die Installationsfragen
+    - Insbes.: Nbgrader extension
+      - https://nbgrader.readthedocs.io/en/stable/index.html
+      - Nutzung, Erstellen von Aufgaben; nicht Installation 
+  - ggf. Emacs, Org-Mode
+    - http://orgmode.org
+    - Insbes. für Exporte nach Jupyter
+      https://github.com/hkarl/org-juslides 
+
+**** Workflow
+  - Vorlesung 
+    - UEBUNG Markierung in org-files
+    - Verteilung der Dokumente
+      - PDF, ipynb
+      - Auf webseite:
+        http://groups.uni-paderborn.de/fg-karl/lehre/ws1617/gp1/index.html 
+      - in jupyterhub accounts
+      - Demo: https://gp1test.cs.uni-paderborn.de:8000
+  - Hausübungen 
+    - Anfertigung durch Mitarbeiter
+    - Korrekturlesen durch jeweils 1-2 weitere Personen 
+    - Demo nbgrader
+      - Verwaltung durch Mitarbeiter 
+  - Präsenzübungen
+    - Anfertigung durch SHKs 
+    - Korrekturlesen durch jeweils 1-2 weitere Personen 
+  - Erste Übungen
+    - Gruppen-Accounts austeilen; Passwörter austeilen
+    - Mitglieder einer Gruppe (gp1_16_xx) in Liste eintragen 
+    - Passwort in Terminal ändern lassen!! 
+  - Erste Übungsblätter
+    - Voraussetzungen: Accounts, etc. 
+    - Einstieg in Jupyter
+
+**** Termine
+  - Siehe doodle für Termine der Tutoren
+  - Später: doodle für wöchentliche Besprechung 
+
+
+*** Notizen 
+
