@@ -657,6 +657,34 @@ non-nil."
   )
 
 
+;;--------------------
+
+;; possible approach, but does not mesh nicely with editing of code blocks: 
+;; ;; we need a little helper function to properly export code blocks
+;; ;; - when export to latex, export the results as well
+;; ;; - when export to slides, only the code
+;; ;; usage:
+;; ;; #+BEGIN_SRC python :exports (export-by-backend) :results output
+;; (defmacro export-by-backend ()
+;;   `(progn
+;;       (cond 
+;;        ((org-export-derived-backend-p backend 'latex) "both")
+;;        ((org-export-derived-backend-p backend 'md) "code") 
+;;        (t "code"))
+;;     ))
+
+
+;; a filter to only export code blocks, but no results to juslides 
+
+(defun juslides-code-export (backend)
+  "Ensure that tutor magic markup is removed for Latex export."
+  (when (org-export-derived-backend-p backend 'juslides)
+    (replace-regexp ":exports both" ":exports code"))
+  )
+
+(add-to-list 'org-export-before-processing-hook
+	     'juslides-code-export)
+
 
 
 ;;;----------------

@@ -46,8 +46,19 @@ done
         '((\"frame\" \"lines\") (\"linenos=true\") (\"mathescape\" \"true\")))
      ; undecided: do I want automatic runnign of all code blocks? 
      ; or manual control in the buffer? currently, left in buffer
-     ; (setq org-export-babel-evaluate t)
-     ; (setq org-confirm-babel-evaluate nil)
+     (setq org-export-babel-evaluate t)
+     (setq org-confirm-babel-evaluate nil)
+     ;; active Org-babel languages
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      '(;; other Babel languages
+        (plantuml . t)
+        (python . t)
+        (ditaa . t)
+        (dot . t)
+        (latex . t)
+        )
+      )
      (mapc (lambda (file)
             (find-file (expand-file-name file \"$DIR\"))
             (org-babel-tangle)
