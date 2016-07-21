@@ -183,14 +183,19 @@ besprechen.
 
 - Ein /Variablenname/ (oder /identifier/) ist eine nichtleere
   Zeichenkette beliebiger Länge, bestehend aus Klein- oder
-  Großbuchstaben, Ziffern, oder dem Unterstrich ~_~.
+  Großbuchstaben, Ziffern, oder dem Unterstrich ~_~
 
-- Das erste Zeichen darf keine Ziffer sein. 
+- Das erste Zeichen hat Sonderrolle:
+
+  - Es darf keine Ziffer sein
+
+  - Unterstrich '_' als erstes Zeichen hat besondere Bedeutung
+    (später) 
 
 - Groß-/Kleinschreibung ist wichtig 
 
-- Einige Zeichenketten sind für andere Zwecke /reserviert/. 
- 
+- Einige Zeichenketten sind für andere Zwecke /reserviert/
+
 ** Gültige und ungültige Namen: Beispiele 
 
 - Gültig: ~hallo~, ~x1~, ~_a_b~
