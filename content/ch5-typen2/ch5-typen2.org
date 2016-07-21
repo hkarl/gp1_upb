@@ -7,7 +7,6 @@
 #+TODO: TODO(t) | UEBUNG(u) DONE(d)
 #+OPTIONS: tasks:todo
 
-
 * Überblick 
 
 ** Setup 						  :skipslide:nolatex:
@@ -1541,7 +1540,7 @@ x = D['b']
 #+END_SRC 
 
 
-Fehler: ~KeyError: 'b'~
+Fehler: KeyError: 'b'
 
 ** 'dict' Test auf enthalten-sein 
 
@@ -1653,20 +1652,53 @@ Wann sind Dinge gleich? == vs. is ?
 
 * Zusammenfassung 
 
-** Zusammenfassung 
-
-
-- Flexibilität: Tuple, Listen und Verzeichnisse können beliebige
-  Objekte aufnehmen, auch verschachtelt 
-  - Mengen können nur unveränderliche Objekte aufnehmen 
-- Veränderlichkeit: Liste, Verzeichnisse und Mengen können beliebig
-  wachsen und schrumpfen 
-- Insgesamt: Reichhaltige Möglichkeiten für Datenstrukturen 
-
 
 ** Python-Keywords: Liste bis jetzt 
 
-** COMMENT Python Datentypen -- Übersicht (bis jetzt)
+- Aus Kapitel 4: 
+  - ~True~, ~False~, ~and~, ~or~,  ~def~,  ~return~, ~None~
+- Neu:
+  - ~in~
+
+
+** Python: eingebaute Funktionen 
+
+- Allgemein 
+  - ~print~
+- Typ-bezogen
+  - ~len~
+- Datentypen erzeugen
+  - ~tuple~
+  - ~list~
+  - ~set~
+  - ~dict~
+
+
+** Python-Syntax: Klammern 
+
+- Runde Klammern ~(~ und ~)~
+  - In Ausrücken, um Vorrang auszudrücken
+  - Bei Definition und Aufruf von Funktionen
+  - Bei /Definition/ von Tuplen, /nicht/ bei Zugriff
+- Eckige Klammern ~[~ und ~]~
+  - /Zugriff/ auf Element von Tuple, Liste oder Abbildung (~dict~)
+  - Mit einfachem Index
+  - Zusätzlich mit  Slicing bei geordneten Aufzählungen 
+- Geschweifte Klammern ~{~ und ~}~
+  - Defintion von ~set~ oder ~dict~
+
+
+** Python Datentypen 
+
+Wir haben unterschiedliche Datentypen kennengelernt: 
+- Verschiedene Sorten von Zahlen
+- Aufzählungen mit unterschiedlichen Charakteristiken
+  - Veränderlich oder nicht 
+  - Mit oder ohne Reihenfolge
+
+Gemeinsamkeiten? Ordnung ins Chaos? 
+
+** Python Datentypen -- Übersicht (bis jetzt)
 
 #+header: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 1000 
 #+header: :cache yes
@@ -1710,7 +1742,7 @@ Wann sind Dinge gleich? == vs. is ?
 
 #+NAME: fig:type-hierachy
 #+CAPTION: Die wesentlichen Typen in Python 
-#+ATTR_LATEX: :width 0.6\textwidth :float nil
+#+ATTR_LATEX: :width 0.9\textwidth :float nil
 #+RESULTS[8a476e377e5bc415ca201121fa62561bfdcb1e90]:
 [[file:figures/type-hierachy.png]]
 
@@ -1723,6 +1755,16 @@ Als Anmerkung: ~None~ ist
 tatsächlich (auch) ein Datentyp; dieser Typ hat das Literal ~None~ als
 einzig möglichen Wert. Ähnlich wie der Typ ~bool~, der ja auch nur die
 beiden Werte ~True~ und ~False~ kennt. 
+
+** Zusammenfassung 
+
+
+- Flexibilität: Tuple, Listen und Verzeichnisse können beliebige
+  Objekte aufnehmen, auch verschachtelt 
+  - Mengen können nur unveränderliche Objekte aufnehmen 
+- Veränderlichkeit: Liste, Verzeichnisse und Mengen können beliebig
+  wachsen und schrumpfen 
+- Insgesamt: Reichhaltige Möglichkeiten für Datenstrukturen 
 
 
 * Future chapter						   :noexport:
