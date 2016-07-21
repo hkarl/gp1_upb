@@ -226,8 +226,25 @@
   hosts: gp1hub
   remote_user: root
   tasks:
-  - name: Install nbgrader
-    pip: name=nbgrader executable=pip3 state=present
+  # TODO  ATTENTION!
+  # Regular setup: 
+  # - name: Install nbgrader
+  #   pip: name=nbgrader executable=pip3 state=present
+
+  # But until the extension for hidden tests is pushed back upstream,
+  # we need to run from a local version
+  - name: Install a local version of nbgrader 
+    git:
+      repo=https://github.com/CN-UPB/nbgrader.git
+      dest=/home/jupyterhub/nbgrader
+    become_user: jupyterhub
+    become: true 
+  - name: Add read/execute rights to the loal nbgrader directory
+    acl: name=/home/jupyterhub/nbgrader permissions="rx" state=present etype=group entity={{ item }}
+    with_items:
+      - jupadmin
+      - jupgrader
+      - jupgroups
   - name: make sure /var/log/nbgrader exists
     file: path=/var/log/nbgrader/ state={{item}} owner=jupyterhub group=root mode=0755
     with_items:
@@ -240,7 +257,7 @@
       - touch
   - name: install the nbgrader extension
     command: nbgrader extension install 
-  - name: install the nbgrader activate 
+  - name: activate the nbgrader extension 
     command: nbgrader extension activate
     become_user: jupyterhub
     become: true 
@@ -277,14 +294,10 @@
       
   # third approach: run formgrader as a service; this apparently
   # works, but so far just for one lecture (which is ok for now)
-  - name: Config Formgrader as a service (so far, just for one lecture)
-    hosts: gp1hub
-    remote_user: root
-    tasks:
-      - name: Copy formgrader service description file 
-        copy: src=formgrader.service dest=/lib/systemd/system/formgrader.service owner=root mode=0644
-      - name: Start the service
-        service: name=formgrader state=restarted
+  - name: Copy formgrader service description file 
+    copy: src=formgrader.service dest=/lib/systemd/system/formgrader.service owner=root mode=0644
+  - name: Start the service
+    service: name=formgrader state=restarted
 
   tags: formgrader
 
@@ -384,7 +397,8 @@
       - "{{ admin }}"
       - "{{ grader }}"
       - "{{ students }}"
-      - jupyterhub
+      # See nbgrader discussion above; jupyterhub must remain at 0755 to run local version of nbgrader 
+      # - jupyterhub
   - name: Restrict access rights to home directories
     file: path=/home/{{ item.acc }} mode=0700 state=directory 
     with_items:
@@ -402,6 +416,13 @@
     user: name={{ item }} groups=jupstudent append=yes
     with_items: "{{ students }}"
 
+
+  # Because we run nbgrader form a local version, we must give accees rights to /home/jupyterhub 
+  # This REALLY needs change in the production setup
+  - name: Add 755 to /home/jupyterhub; just to allow to run local version of nbgrader. This MUST change!
+    file: path=/home/jupyterhub mode=0755 state=touch
+
+    
   # activate nbgrader for relevant users, i.e., NOT for individual student accounts! :
   - name: activate nbgrader
     command: nbgrader extension activate
