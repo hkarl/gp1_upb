@@ -1686,7 +1686,22 @@ Wann sind Dinge gleich? == vs. is ?
   - Zusätzlich mit  Slicing bei geordneten Aufzählungen 
 - Geschweifte Klammern ~{~ und ~}~
   - Defintion von ~set~ oder ~dict~
+- Klammern dürfen sich über mehrere Zeilen erstrecken
+  - Zeilenumbruch empfohlen nach Komma oder Operatoren
 
+
+*** Mehrere Zeilen? 						  :dropslide:
+
+Die Tatsache, dass sich ein Klammerausdruck über mehrere Zeilen
+erstrecken darf, ist ein Bruch mit der Syntaxkonvention "Eine Zeile,
+eine Anweisung". Allerdings ist dies ein pragmatisch notwendiger
+Bruch. Andernfalls wäre z.B. die Parameterliste von Funktionen
+künstlich eingeschränkt, Ausdrücke müsste man mit Hilfsvariablen in
+unsinnige Teilausdrücke aufbrechen, etc. 
+
+Es sei denn, man würde beliebig lange Zeilen erlauben. Aber auch das
+ist wieder schwer zu lesen, selbst wenn ein Editor die Zeilen
+künstlich umbricht (sog. soft linewrap). 
 
 ** Python Datentypen 
 
