@@ -1,0 +1,1048 @@
+#+TITLE: Kapitel 6: Anweisungen -- Teil 1 
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+** Was bisher geschah 
+
+- Wir können bis jetzt 
+  - Werte aufschreiben, was Objekte erzeugt 
+  - aus Objekten Ausdrücke für neue Objekte bilden
+    - mit Aufruf von Funktionen als Beispiel 
+  - mit Namen auf Objekte referenzieren (zuweisen)
+    - mit der Definition einer Funktion als Sonderfall
+- Also: Folgen von Zuweisungen
+  - Die eine nach der anderen ausgeführt werden 
+
+Aber: /Kein Einfluss auf Reihenfolge der Ausführung!/
+
+** Dieses Kapitel  
+
+- Wir nehmen Einfluss auf die Reihenfolge der Ausführung von
+  Anweisungen
+- Dazu brauchen wir weitere Anweisungen
+  - Bedingungen, Schleifen
+- Wir verallgemeinern die Vorstellung, was eine Anweisung ist 
+
+
+
+
+
+
+* Programm 
+
+** Ein Programm 
+
+- Ein Programm ist eine Folge von Anweisungen
+  - Ausgeführt entsprechend des /Ausführungsmodells/
+  - Bis jetzt: Sequentiell, Funktionsaufruf 
+- Um die Reihenfolge der Anweisungen zu beeinflussen, müssen wir das
+  Ausführungsmodell erweitern 
+
+** Anweisungen -- bis jetzt 
+
+- Die Zuweisung ~=~
+- Die Funktionsdefinition ~def~
+- Der Funktionsaufruf 
+- Die Rückkehr aus einer Funktion ~return~
+
+Und die Folge von Anweisungen 
+- Erinnerung: Eine Zeile, eine Anweisung! 
+
+** Bedingte Folge von Anweisungen 
+
+Idee: 
+- Die Fortsetzung des Programms nicht fest bei der nächsten Anweisung
+- Sondern die Wahl der nächsten /auszuführenden/ Anweisung von dem
+  Wert eines Ausdrucks abhängig machen 
+- /Alternativen/ im Programm vorsehen 
+
+
+** Schleifen von Anweisungen 
+
+Idee: 
+- In der Fortsetzung des Programms erlauben, zu vorherigen Anweisungen
+  zurückzukehren
+- Meist (nicht unbedingt) abhängig vom Wert eines Ausdrucks 
+- /Wiederholungen/ oder /Schleifen/ erlauben 
+
+* Bedingte Ausführung: ~if~
+
+** Neue Anweisung: ~if~
+
+- Die Anweisung ~if~ besteht aus zwei Teilen:
+  - Einem Ausdrucks, der auf wahr oder falsch ausgewertet wird
+  - Eine Folge von Anweisungen -- der so genannte /*block*/ 
+- Semantik: die angegebene Folge von Anweisungen nur ausführen, wenn
+  der Ausdruck den Wert wahr hat 
+
+** ~if~: Syntax 
+
+#+BEGIN_SRC python :exports code :results output
+  if Ausdruck:
+      Anweisung1
+      Anweisung2
+      usw.
+
+  # if hier zu Ende
+  Anweisung nach if
+#+END_SRC 
+
+Beobachtung: 
+- Das Ende des Ausdrucks wird durch Doppelpunkt ~:~ markiert
+- Die durch ~if~ kontrollierten Anweisungen werden /unterhalb/ von
+  ~if~ /eingerückt/ aufgeschrieben
+- Der Block endet dort, wo die Einrückung endet 
+
+
+
+** ~if~: Syntax im Vergleich mit ~def~ 
+
+- Syntax ist der von ~def~ sehr ähnlich
+  - Schlüsselwort, dann ein Ausdruck, dann ein Doppelpunkt
+  - Dann /eingerückt/ die kontrollierten Anweisungen
+  - Ende der Einrückung = Ende des Blocks (~if~, ~def~,
+    etc.) 
+
+- Typisches Muster der Syntax von Python! 
+
+** Warum Einrückung?
+
+- Einrückung ist kompakt, leicht lesbar
+- /Erzwingt/ ordentliche Struktur des Codes
+  - Keine Variationsmöglichkeiten wie in anderen Sprachen
+- /Readability counts/ (PEP 20) 
+
+
+*** Vergleich mit anderen Sprachen				    :dropslide:
+
+Wenn Sie andere Sprachen wie C oder Java kennen, wird Ihnen die
+Kompaktheit dieser Formulierung auffallen. Keine runden Klammern um
+den Ausdruck erforderlich, keine geschweiften Klammen, um den Beginn
+und das Ende der kontrollierten Anweisungen zu kontrollieren. Kein
+überschlüssiges Wort ~then~, was in manchen Sprachen vorkommt. 
+Insgesamt ist die Syntax von Python sehr knapp und frugal. 
+
+
+
+
+
+
+
+** Alternative: Wahr oder falsch? 
+
+- Erweiterung: Zwei Code-Blöcke, für den Wahr- und den Falsch-Fall 
+
+#+BEGIN_SRC python :exports code :results output
+  if Ausdruck:
+      # Block für wahr: 
+      Anweisung1
+      Anweisung2
+      ...
+  else:
+      # Block für falsch:
+      Anweisung1
+      Anweisung2
+      ...
+
+  # Anweisungen nach if/else
+  Anweisung1
+  ... 
+#+END_SRC 
+
+Achtung: Doppelpunkt nach ~else~! 
+
+** Alternative: Semantik 
+
+- Der ~Ausdruck~ wird einmal ausgewertet und auf wahr oder falsch
+  überprüft
+- Danach wird /entweder/ der Wahr-Block /oder/ der Falsch-Block
+  ausgeführt 
+
+ 
+** ~if~: Beispiele  
+
+#+BEGIN_SRC python :exports both :results output
+  if True:
+      print("Ja!")
+#+END_SRC 
+
+#+RESULTS:
+: Ja!
+
+#+BEGIN_SRC python :exports both :results output
+  if not True:
+      print("Ja!")
+  else:
+      print("Nein!")
+#+END_SRC
+
+#+RESULTS:
+: Nein!
+
+
+*** UEBUNG Funktion max3 ohne else 
+
+Ähnlich zu Folie bei Wehrheim 
+
+** ~if~: Beispiel Betrag 
+
+Wie Code ergänzen, um den Betrag einer Zahl zu bestimmen?
+
+#+BEGIN_SRC python :exports both :results output
+  def betrag(x):
+      """Liefere Absolutbetrag von x"""
+      if (???):
+          return ???
+      else:
+          return ???
+
+  print(betrag(5))
+  print(betrag(-3))
+#+END_SRC 
+ 
+** Ausflug: Code testen
+
+Wie sind Sie /sicher/, dass Ihre Lösung stimmt? 
+- Erste Idee: Testfälle ausprobieren
+- Von Hand? Automatisch! 
+- Insbesondere: Randfälle
+
+Aber: /sicher/? Nein... 
+
+** Test-Anweisung: ~assert~					   :subslide:
+
+~assert~: Anweisung, der ein Ausdruck folgt
+- Wenn Ausdruck wahr, weitermachen 
+- Wenn Ausdruck falsch, mit Fehler abbrechen 
+
+#+BEGIN_SRC python :exports both :results output
+  def betrag(x):
+      if (x>0):
+          return x
+      else:
+          return -1 * x
+
+  assert 5 == betrag(5)
+  assert 7 == betrag(-7)
+  assert 0 == betrag(0)
+  assert "abc" == betrag("abc")
+#+END_SRC 
+
+#+RESULTS:
+
+** Tests für ~quersumme3~					   :subslide:
+
+Was wäre gute ~assert~-Anweisungen für die Funktion ~quersumme3~ aus
+vorherigem Kapitel? 
+
+#+BEGIN_SRC python :exports both :results output
+  def quersumme3(t):
+      return t[0] + t[1] + t[2]
+
+  # Nuetzliche asserts? 
+  assert True
+#+END_SRC 
+
+
+
+
+
+
+** Geschachtelte ~if/else~ 
+
+Beobachtung: 
+- ~if/else~ ist eine Anweisung
+- Im Block von ~if~ bzw. ~else~ dürfen Anweisungen stehen
+
+*** Darf dann da auf ein ~if/else~ stehen ?			    :animate:
+
+- Die Logik der Syntax gibt das her 
+- Also: *JA!* 
+
+*** UEBUNG if else als Ausdruck 
+
+die KLurzform ~a if c else b~ erkären. 
+
+Insebs.: das ist ein AUSDRUCK und keine Anweisung, kann also an eine
+Variable zugewiesen werden. 
+
+
+** Geschachtelte ~if/else~: Allgemeiner Fall 
+ 
+#+BEGIN_SRC python :exports code :results output
+  if Bedingung1:
+      Teilblock1
+      if Bedingung2:
+          Teilblock2
+      else:
+          Teilblock3
+      # Ende des inneren if 
+      Teilblock4
+  else:
+      Teilblock5
+      if Bedingung3:
+          Teilblock6
+      else:
+          Teilblock7
+      # Ende des zweiten inneren if
+      Teilblock8
+  # Ende von if 
+#+END_SRC 
+
+
+** Geschachtelte ~if/else~: Einfachere Fälle 
+
+- Die ganzen Teilblöcke dürfen auch leer sein 
+- Leerer Teilblock nach ~else~?
+  - Dann kann man das ~else~ auch weglassen und nur das ~if~ schreiben
+
+
+** Leerer Teilblock nach ~if~? 
+
+Würde das gehen? 
+
+#+BEGIN_SRC python :exports code :results output
+  if Bedingung:
+  else:
+      Anweisung
+#+END_SRC 
+
+*** Kein leerer Block nach ~if~!				    :animate:
+
+Nein, nach ~if~ *muss* Anweisung folgen! 
+- Aber wenn da nichts zu tun ist?
+  - Weil Code noch kommt, ... ?
+- Sonderanweisung: ~pass~
+
+
+** ~pass~: Beispiel 
+
+Angenommen, Sie wollen Variable ~laenge~ zwischen auf mindestens 100
+aber höchstens 200 begrenzen: 
+
+#+BEGIN_SRC python :exports both :results output
+  laenge = 252
+  if laenge >= 100:
+      if laenge <=200:
+          pass
+      else:
+          laenge = 200
+  else:
+      laenge = 100
+  print(laenge)
+#+END_SRC 
+
+
+** Anweisung: ~pass~
+
+*** ~pass~						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+~pass~ ist die leere Anweisung: Sie verändert den Zustand des
+Programms nicht und geht zur folgenden Anweisung über. 
+
+~pass~ wird typischerweise benutzt 
+- wo die Syntax eine Anweisung vorschreibt aber keine sinnvolle Handlung möglich ist oder
+- als  ein Platzhalter für noch zu ergänzenden Code. 
+
+
+** Eindeutigkeit von ~else~? 
+
+Ist immer eindeutig klar, zu welchem ~if~ ein ~else~ gehört? 
+
+*** Beispiel 1 
+
+#+BEGIN_SRC python :exports code :results output
+  if Bedingung1:
+      if Bedingung 2:
+          Block1
+  else:
+      Block2 
+#+END_SRC 
+
+
+*** Beispiel 2							    :animate:
+
+#+BEGIN_SRC python :exports code :results output
+  if Bedingung1:
+      if Bedingung 2:
+          Block1
+      else:
+          Block2 
+#+END_SRC 
+
+Unproblematisch dank Einrückung!
+
+*** Verschachtelte if/else in anderen Sprachen			  :dropslide:
+
+Auch hier wieder: in anderen Sprachen werden die Blöcke häufig durch
+Konstrukte wie geschweifte Klammern markiert. Das ist zwar semantisch
+ebenfalls eindeutig, für einen Menschen aber ggf. viel schwer zu lesen
+und verwirrend, wenn die optische Einrückung nicht mit der
+Klammerstruktur übereinstimmt. Wir werden uns im Java-Teil der
+Vorlesung hier noch einige unschöne Beispiele anschauen. 
+
+
+
+
+
+** Häufiger Fall: Nach ~else~ wieder ein ~if~
+
+- Szenario: /Wenn nicht das, ist dann das der Fall? Und wenn das nicht,
+  dann das? ...?/
+- Mit ~if/else~ ausdrückbar, aber schrecklich lesbar 
+
+#+BEGIN_SRC python :exports code :results output
+  if Bedingung1:
+      Anweisung1
+  else:
+      if Bedingung2:
+          Anweisung2
+      else:
+          if Bedingung3:
+              Anweisung3
+          else:
+              Anweisung4
+#+END_SRC 
+
+
+** Allgemeine Form: ~if/elif/else~ 
+
+Gleicher Effekt, aber knapper: ~elif~ 
+
+#+BEGIN_SRC python :exports code :results output
+  if Bedingung1:
+      Anweisung1
+  elif Bedingung2:
+      Anweisung2
+  elif Bedingung3:
+      Anweisung3
+  else:
+      Anweisung4
+#+END_SRC 
+
+Auf Doppelpunkt nach elif-Bedingung achten! 
+
+
+** ~if/elif/else~: Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2, 17, 42]
+  if len(L) < 3:
+      print("zu kurz")
+  elif len(L) > 5:
+      print("zu lang")
+  elif len(L) == 4:
+      print("ausgereizt")
+  else:
+      print("knapp")
+#+END_SRC 
+
+#+RESULTS:
+: ausgereizt
+
+*** UEBUNG Bedingung nach else? 
+
+Warum darf nach else keine Bedingung stehen? 
+
+*** UEBUNG Auswertung Einfluss auf Bedingungsergebnis? 
+
+- Hat die Ausführung der Blöcke Auswirkungen darauf, welcher Zweig
+  genommen wird?
+  - Nein, da steht ja fest, was passiert 
+- Hat der Test der ersten Bedingung Auswirkung darauf, wlecher Zweig
+  genommen wird?
+  - Ja, wenn Seiteneffekt vorliegen! z.b. Funktionsaufrufe
+  - Beispiel konstruieren lassen!? 
+
+*** UEBUNG switch nachbauen? 
+
+python hat kein switch wie andere Sprachen. Nachbauen? 
+
+Mit ~in~ Test?  Default abzufangen? 
+
+>>> branch = {'spam': 1.25,
+...           'ham':  1.99,
+...           'eggs': 0.99}
+
+An in membership test in an if statement can have the same default effect:
+
+>>> choice = 'bacon'
+>>> if choice in branch:
+...     print(branch[choice])
+... else:
+...     print('Bad choice')
+...
+Bad choice
+
+
+*** UEBUNG groeser/gleich/kleiner definieren 
+
+Schreibe Funktion ~vergleich~ die zwei Werte nimmt. Wenn erste größer, gibt
+"groesser" zureuck, wenn gleich, "gleich", sonst "kleiner". 
+
+Denken Sie an Randfälle. 
+
+Können Sie etwas sinnvolles  tun, wenn jemand ~vergelich(17, "abc")~
+aufruft?  
+
+** Definition: ~if/elif/else~ 
+   
+*** Anweisung: ~if/elif/else~ 				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Die Anweisung ~if/elif/else~ ermöglichen die alternative Ausführung
+einer Folge von Anweisungen -- eines /*Blocks*/ -- in Abhängigkeit des
+Wahrheitswertes eine Ausdrucks (~if~) bzw. mehrerer Ausrücke (~if~ und
+folgende ~elif~ Ausdrücke). Dem ~if~ kann optional ein oder mehrere
+~elif~ und optional höchstens ein ~else~-Teil folgen. 
+
+Die Blöcke werden durch Einrückung den jeweiligen Bedingungen bzw. dem
+~else~ zugeordnet. 
+
+*** Block					       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein Block ist eine Folge beliebiger Anweisungen (mindestens eine
+Anweisung).  Die Zustandsänderung, die ein Block bewirkt, ist die
+Zustandsänderung, die sich durch die sequentielle Ausführung der
+Anweisungen des Blocks ergibt. Sequentiell bezieht sich hier auf die
+Reihenfolge der Anweisung im Programmcode. 
+
+
+* Schleifen: ~while~ 
+
+** Allgemeine Schleifen 
+
+- Idee: Wiederhole einen Block solange, wie eine Bedingung wahr ist 
+- Grundform: 
+
+#+BEGIN_SRC python :exports code :results output
+  while Test
+      Block
+#+END_SRC 
+
+- Typisch: Anweisungen im Block werden Einfluss auf den Test haben 
+
+** ~while~: Flussdiagramm 
+
+
+   #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
+   #+header: :cache yes
+   #+begin_src latex :exports results :results output raw :file figures/while-flowchart.png :fit t
+     \usetikzlibrary{shapes,arrows,positioning}
+     \tikzset{
+       block/.style = {shape=rectangle, 
+                          draw, align=left},
+       decision/.style     = {block, align=center, diamond, aspect=2},
+       arr/.style = {->, thick, }
+     }
+     \begin{tikzpicture}
+     \node [decision] (while) {\texttt{while}};
+     \node [left=1cm of while.west] (whiledockl)  {};
+     \node [block, below=of while ] (rumpf)
+     {\#
+       Rumpf\\Anweisung\\Anweisung\\Anweisung};
+     \node [below=0.5cm of rumpf.south] (rumpfdock) {};
+     \node [block, below right=of rumpf] (after) {\# Nach Schleife\\Anweisung};
+     \draw [arr] (while) -- node[near start, right] {Wahr}  (rumpf);
+     \draw [arr] (while.east) -| node[near start, above] {Falsch} (after);
+     \draw [arr] (rumpf.south) --  (rumpfdock.center)  -| (whiledockl.center)   -- (while.west);
+     \end{tikzpicture}
+   #+end_src
+
+   #+RESULTS[68c2c177280bf7b2129df78c62ad021d8a5a1394]:
+   #+NAME: fig:while-flowchart
+   #+CAPTION: Flussdiagramm einer einfachen While-Schleife
+   #+ATTR_LATEX: :width 0.75\textwidth 
+   [[file:figures/while-flowchart.png]]
+
+
+** ~while~: Beispiel Zählschleife 
+
+#+BEGIN_SRC python :exports code :results output
+a=0
+b=5
+while a < b:              
+    print(a)
+    a += 1         
+#+END_SRC 
+
+#+RESULTS:
+: 0
+: 1
+: 2
+: 3
+: 4
+
+** Schleifen: Terminierung 
+
+Gefahr: Schleifenbedingung stets wahr 
+- Schleife wird nicht verlassen
+- Programm /in Endlosschleife/
+
+** Einfache Regeln für Terminierung 
+
+Schleife terminiert bestimmt, wenn es
+- eine Variable gibt, die in jedem Schleifendurchlauf /streng monoton/
+  wächst und 
+- die Variable /diskret/ wächst und 
+- die Schleifenbedingung eine obere Schranke darstellt
+
+Analog: Variable schrumpft, untere Schranke 
+
+*** UEBUNG Warum diskret? 
+
+Ist die Forderung wächst diskret im Prinzip wichtig? 
+
+und bei realer Rechnerarithmetik? 
+
+aber dann auch praktikabel ? 
+
+Beispiel: i=0 ; while 1/i > 0 ; i++ 
+
+
+
+*** UEBUNG Viele Schleifenbeispiele 
+
+Fibonacci, usw. 
+
+
+** ~while~: Schleife über Feld 
+
+Beispiel: Werte in einer Liste aufaddieren 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2, 3, 4]
+  i = 0
+  sum = 0
+  while i < len(L):
+      sum = sum + L[i]
+      i = i + 1
+  print(sum) 
+#+END_SRC 
+
+#+RESULTS:
+: 10
+
+*** Nicht pythonisch					       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+Das ist nicht Python-Style (/pythonic/). Hier nur als didaktischer
+Zwischenschritt!
+
+** ~while~: Beispiel Suchschleife 
+
+Szenario: 
+- Wir haben eine Liste (oder Tuple) 
+- Wir suchen ein Element mit einer bestimmten Eigenschaft
+  - Allgemeiner als mit ~index~ machbar: da nur Identität als
+    Eigenschaft möglich 
+
+Idee: 
+- Mit einer Schleife die Elemente ablaufen
+- Testen, ob Eigenschaft erfüllt
+  - Merken, dass gefunden
+
+** ~while~: Beispiel Suchschleife  (2)
+
+
+#+BEGIN_SRC python :exports both :results output
+  # ist eine ungerade Zahl in L? 
+  def ungerade_in_liste(L):
+      gefunden = False
+      i = 0
+      while i < len(L):
+          if L[i] % 2 == 1:
+              gefunden = True
+          i = i + 1
+      return gefunden
+
+  print (ungerade_in_liste([2, 18, 6, 5, 9]))
+  print (ungerade_in_liste([2, 18, 6, 10, 22]))
+#+END_SRC 
+
+#+RESULTS:
+: True
+: False
+
+
+*** Beobachtung							    :animate:
+- /Alle/ Elemente untersuchen?
+  - Nein, nach erstem Finden aufhören? 
+ 
+
+** ~while~: Beispiel Suchschleife  (2)
+
+
+Zusätzliches Abbruchkriterium: ~not gefunden~
+
+#+BEGIN_SRC python :exports both :results output
+  # ist eine ungerade Zahl in L? 
+  def ungerade_in_liste(L):
+      gefunden = False
+      i = 0
+      while (not gefunden) and (i < len(L)):
+          if L[i] % 2 == 1:
+              gefunden = True
+          i = i + 1
+      return gefunden
+
+  print (ungerade_in_liste([2, 18, 6, 5, 9]))
+  print (ungerade_in_liste([2, 18, 6, 10, 22]))
+#+END_SRC 
+
+** Schleifenbedingungen finden? 
+
+Inspiration? Oder strukturiertes Vorgehen? 
+
+- Idee: *Nach* der Schleife soll irgendeine Zielbedingung gelten
+- *Während* der Schleife gilt die Schleifenbedingung 
+- Schön wäre: Negation der Schleifenbedingung ist Zielbedingung?
+  - Oder: impliziert Zielbedingung? 
+
+
+** Schleifenbedingungen finden? (2)
+
+
+Oft praktisch: Schleifenbedingung konstruieren aus zwei Teilen
+- Die /Zielbedingung/ an sich
+  - Oder eine stärkere Variante davon 
+- Eine /Invariante/: Gilt vor, während, nach der Schleife
+  - Stellt sicher, dass alle Anweisungen innerhalb der Anweisung
+    korrekt ausgeführt werden können
+  - Beispiel: Index für Listenzugriffe gültig 
+
+
+~Schleifenbedingung = (not Zielbedingung) and Invariante~
+
+** Schleifenbedingung finden? (3) 
+
+Mit ~Schleifenbedingung = (not Zielbedingung) and Invariante~ nach
+Schleife gilt: 
+
+~Zielbedingung or (not Invariante)~ 
+
+
+*** Was gilt also? 						    :animate:
+
+D.h.: Nach Schleife *nicht* klar, was eigentlich der Fall ist!? 
+- Es könnte die Zielbedingung gelten 
+- Es könnte aber auch die Invariante verletzt sein 
+
+Also unklar! 
+
+** Nach Schleife: Prüfen! 
+
+Wenn also unklar ist, weswegen die Schleife beendet wurde
+- also wegen Erreichen der Zielbedingung
+- oder Verletzten der Invariante 
+
+Dann muss man ggf. nach der Schleife nachprüfen! 
+- *Häufiges Muster*: Zielbedingung durch Variable explizit darstellen 
+- Wie im Beispiel oben: ~gefunden~
+
+
+** Schleifen: Hilfskonstrukte 
+
+Innerhalb einer Schleife kann viel passieren 
+
+- Wirklich jede Iteration komplett durchlaufen? 
+- Eine Schleife abbrechen? 
+
+
+** Schleifeniterationen nicht komplett durchlaufen 
+
+Typisches Muster:  Umständlich 
+
+#+BEGIN_SRC python :exports code :results output
+  while Schleifenbedingung:
+      Anweisungen
+      if Andere_Bedingung:
+          # Lasse den Rest der Schleife aus 
+          pass
+      else:
+          Restliche Anweisungen 
+#+END_SRC 
+
+** Schleifeniterationen nicht komplett durchlaufen: ~continue~ 
+
+Gleich, aber knapper: 
+
+#+BEGIN_SRC python :exports code :results output
+  while Schleifenbedingung:
+      Anweisungen
+      if Andere_Bedingung:
+          continue
+      Restliche Anweisungen 
+#+END_SRC 
+
+
+*** UEBUNG continue bei geschachtelten Schleifen? 
+
+
+** Schleife abbrechen 
+
+Typisches Muster:  Umständlich 
+
+#+BEGIN_SRC python :exports code :results output
+  while (not Abbruchsbedingung) and WeitereBedingung:
+      Anweisungen
+      if Abbruchsbedingungen:
+          pass
+      else:
+          Restliche Anweisungen
+#+END_SRC 
+
+
+** Schleife abbrechen: ~break~
+
+Gleich, aber knapper: 
+
+
+#+BEGIN_SRC python :exports code :results output
+  while WeitereBedingung:
+      Anweisungen
+      if Abbruchsbedingungen:
+          break
+      Restliche Anweisungen
+#+END_SRC 
+
+
+*** Bedingung genau beachten				       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Vorsicht, das Weglassen der Abbruchsbedingung aus der
+Schleifenbedingung im Einzelfall genau überlegen. 
+
+
+*** UEBUNG break bei geschachtelten Schleifen? 
+
+
+** Reguläre Beendigung vs. ~break~: Reaktion  
+
+Unterschiedliches Beenden einer Schleife kann unterschiedliche
+Reaktionen erfordern -- siehe oben 
+
+Unterstützung: ~else~ für Schleife! 
+
+** ~else~ bei Schleifen 
+
+Beispiel: 
+
+#+BEGIN_SRC python :exports code :results output
+  def is_prime(n):
+      """Ist n eine Primzahl?"""
+      x = n // 2                                # For some n > 1
+      while x > 1:
+          if n % x == 0:                        # Remainder
+              print('Hat Teiler!')
+              break                             # Skip else
+          x -= 1
+      else:                                     # Normal exit
+          print('Primzahl')
+#+END_SRC 
+
+*** UEBUNG Warum // und nicht / ? Was ist Unterschied 
+
+*** UEBUNG Ohne else umschreiben 
+
+Schreiben Sie is_prime mit while-Schleife ohne else. Vergliechen Sie
+code-Komplexität 
+
+*** UEBUNG assert fuer is_prime 
+
+- Was sind sinnvolle Asserts für is_prime? (oder vorgeben?)
+- Bei welchen versagt das?
+- Wie müssen Sie is_prime verbessern? 
+
+** ~else~ bei Schleifen (2) 
+
+- Vorteil: Keine Test-Variable nötig
+  - Vereinfacht Schleifenbedingung
+  - Vereinfacht Anweisungen in der Schleife
+  - Wohldefinierter Art, Anweisungen für einen typischen Fall zu
+    platzieren -- leichte Lesbarkeit durch Konvention 
+ 
+
+** ~while~: Suchschleife mit ~else~
+
+
+#+BEGIN_SRC python :exports both :results output
+  # ist eine ungerade Zahl in L? 
+  def ungerade_in_liste(L):
+      i = 0
+      while (i < len(L)):
+          if L[i] % 2 == 1:
+              break
+          i = i + 1
+      else:
+          print("nix ungerades!")
+          return False
+    
+      return True 
+
+  print (ungerade_in_liste([2, 18, 6, 5, 9]))
+  print (ungerade_in_liste([2, 18, 6, 10, 22]))
+#+END_SRC 
+
+
+*** ~while~ und ~else~: Sinnvoll?				  :dropslide:
+
+In den hier gezeigten, kleinen Beispielen ist der Einsatz von ~else~
+möglicherweise nicht vollständig überzeugend. Der Nutzen wird wirklich
+klar, wenn im ~else~-Teil einer Schleife nicht-triviale Operationen
+durchlaufen werden müssen, zum Beispiel eine Fehlerbehandlung, weitere
+Verarbeitungsschritte, etc. Wir kommen in den Übungsaufgaben darauf
+zurück. 
+
+*** UEBUNG while / else Beispiele  
+
+So was schön kompaktes habe ich jetzt leider auch nicht zur Hand :-(. 
+
+** Stil: ~continue~, ~break~ ? 
+
+Ist das überhaupt guter Stil? Wird das Programm unstrukturiert? 
+
+- Das ist beinahe Glaubenssache
+- Aber ~break~ und ~continue~ haben klar definiertes Verhalten
+- Insbesondere in Verbindung mit ~else~ alle Fälle eines
+  Schleifenendes im Programmcode klar identifizierbar
+
+Also: Ja, das ist ok! Mit Verständnis!  
+
+** Stil: goto 
+
+Goto considered harmful 
+
+#+CAPTION: goto considered harmful 
+#+ATTR_LaTeX: :width 0.50\linewidth
+#+NAME: fig:goto-saurier
+[[./figures/goto.png]]
+
+
+
+
+** Definition: ~while~ 
+
+*** ~while~						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Eine ~while~-Schleife besteht aus einem Ausdruck als /Test/
+(/Schleifenbedingung/) und einem /Rumpf/ (/Schleifenrumpf/,
+/Schleifenkörper/). Beim Einreichen der ~while~-Anweisung wird der
+Test-Ausdruck ausgewertet und mit dem booleschen Wert ~True~
+verglichen. Ist der Test-Ausdruck wahr, wird der Rumpf einmal
+ausgeführt; die Veränderungen des Zustands durch die Anweisungen des
+Rumpfs sind (natürlich) wirksam. 
+
+Danach wird wie beim Erreichen der ~while~-Anweisung verfahren: Der
+Test wird (aufgrund der neuen Variablen-Werte) ausgewertet und
+ggf. der Rumpf ausgeführt. 
+
+
+Der Rest einer Schleifeniteration kann durch die Anweisung ~continue~
+übersprungen werden und mit der folgenden Iteration begonnen
+werden. Eine Schleife kann mit der Anweisung ~break~ abgebrochen
+werden. 
+
+Am Ende einer regulär (nicht durch ~break~) beendeten Schleife wird
+ein ggf. vorhandener Block nach der Anweisung ~else~ ausgeführt. Bei
+Beendung der Schleife durch ~break~ wird dieser Block ignoriert. 
+
+** ~while~: Komplettes Flussdiagramm 
+
+
+   #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
+   #+header: :cache yes
+   #+begin_src latex :exports results :results output raw :file figures/while-flowchart-complete.png :fit t
+     \usetikzlibrary{shapes,arrows,positioning}
+     \tikzset{
+       block/.style = {shape=rectangle, 
+                          draw, align=left},
+       decision/.style     = {block, align=center, diamond, aspect=2},
+       arr/.style = {->, thick, }
+     }
+     \begin{tikzpicture}
+     \node [decision] (while) {\texttt{while}};
+     \node [left=1cm of while.west] (whiledockl)  {};
+     \node [left=0.5cm of while.west] (whiledockr)  {};
+     \node [block, below=of while ] (rumpf)
+     {\#
+       Rumpf\\Anweisung\\\texttt{continue}\\Anweisung\\\texttt{break}\\Anweisung};
+     \node [below=0.5cm of rumpf.south] (rumpfdock) {};
+     \node [block, right=of rumpf] (else)  {\texttt{else:}\\Anweisung};
+     \node [block, below=of else] (after) {\# Nach Schleife\\Anweisung};
+     \draw [arr] (while) -- node[near start, right] {Wahr}  (rumpf);
+     \draw [arr] (while.east) -| node[near start, above] {Falsch} (else);
+     \draw [arr] (else) -- (after);
+     \draw [arr,blue] ([xshift=0.1cm, yshift=0.2cm]rumpf.west) -| (whiledockr.center)   -- (while.west);
+     \draw [arr] (rumpf.south) --  (rumpfdock.center)  -| (whiledockl.center)   -- (while.west);
+     \draw [arr,red] ([xshift=-0.3cm,yshift=-0.6cm]rumpf.east) -- (after);
+     \end{tikzpicture}
+   #+end_src
+
+   #+RESULTS[e7ec553ca1223ed541d99d1ff12639a47af711ba]:
+   #+NAME: fig:while-flowchart-complete
+   #+CAPTION: Flussdiagramm einer While-Schleife mit ~continue~, ~break~ und ~else~
+   #+ATTR_LATEX: :width 0.75\textwidth 
+   [[file:figures/while-flowchart-complete.png]]
+
+
+* Schleifen: ~for~
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+was haben wir gelernt? 
+
+
+* Notes								   :noexport:
+
+- if 
+- while 
+
+später: 
+
+- exceptions 
+- yield , generators 
+- assert 
+
+noch später: 
+- context managers 
