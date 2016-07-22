@@ -600,6 +600,18 @@ Wert; der Wert wird der Variable *zugewiesen*.
 
 
 
+** Kurzschreibweisen bei Zuweisungen 
+
+- Häufig: an Variable einfachen arithmetischen Ausdruck aus dieser
+  Variable zuweisen
+  - ~x = x + 1~, ~y = y / 2~
+- Dafür Kurzschreibweise:
+  - ~Variable Operator= Ausdruck~
+  - Entspricht: ~Variable = Variable Operator Ausdruck~
+- Beispiele
+  - ~x += 1~
+  - ~y /= 2~
+
 * Zuweisungen und Typen 
 
 ** Typen? 
