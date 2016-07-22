@@ -24,3 +24,4 @@ content/ch3-variables/figures/wrongLabels.png
 *.synctex.gz
 content/tmp
 *.loe
+*.lof
