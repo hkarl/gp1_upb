@@ -434,7 +434,7 @@ haben)
 
 ** Literale  für ganze Zahlen					   :subslide:
 
-- Üblicherweise bauen  Literale für ganze Zahlen aus arabischen
+- Üblicherweise bestehen  Literale für ganze Zahlen aus arabischen
   Ziffern: 0, 1, 2, ..., 4711, ...  
 
 - Denkbar wäre auch, römische Zahlen zu benutzen: I, II, III, IV,  ... 
@@ -755,7 +755,7 @@ Infinite size of ints , keine unterschiedlichen Größen der intergers
 - Typ eines Werts wird im Interpreter explizit repräsentiert 
   - Man muss den Typ aber nicht explizit hinschreiben 
 
-*** UEBUNG REgeln für Bestimmung des Typs eines Literals 
+*** UEBUNG Regeln für Bestimmung des Typs eines Literals 
 
 Wie bestimmt der Interpreter, welchen Typ ein Literal hat? Wie
 unterscheidet er 42 von 42.0?
