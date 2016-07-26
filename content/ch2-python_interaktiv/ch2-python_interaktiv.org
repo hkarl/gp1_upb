@@ -99,8 +99,8 @@ Verhalten des Interpreters:
 - Jede Ziffer ist eine Zahl: 0, 1, ..., 9 
 - Jede Folge von Ziffern ist eine Zahl
   - Aber nicht mit einer Null beginnen 
-- Eine Zahl darf *einen* Dezimalpunkt enthalten 
-- Eine Zahl darf mit einem Vorzeichen *beginnen* 
+- Eine Zahl darf *einen* Dezimalpunkt ~.~ enthalten 
+- Eine Zahl darf mit einem Vorzeichen ~+~ oder ~-~ *beginnen* 
 
 *** UEBUNG Andere Zahlen 					  :dropslide:
 
@@ -115,7 +115,7 @@ gezeigt. Schauen Sie sich an, wie man:
 Erklären Sie den Comic in Abbildung [[fig:base10]]!  
 
 #+CAPTION: Jedes Zahlensystem ist Basis 10
-#+ATTR_LaTeX: :width=0.5\linewidth
+#+ATTR_LaTeX: :width=0.25\linewidth 
 #+LABEL: fig:base10
 [[./../fun/base10.png]]
 
@@ -130,11 +130,13 @@ Erklären Sie den Comic in Abbildung [[fig:base10]]!
 #+END_SRC
 
 
+
 *** Fehlermeldung						    :animate:
 
 ~SyntaxError~: Eine Regel der Sprache wurde verletzt 
 
 #+CAPTION: Syntax-Fehler
+#+ATTR_LaTeX: :width=0.25\linewidth 
 #+LABEL: fig:syntax-error
 [[./figures/doh.png]]
 
@@ -146,6 +148,8 @@ Erklären Sie den Comic in Abbildung [[fig:base10]]!
 0464
 #+END_SRC
 
+
+
 ** Ungültige Zahlen						   :subslide:
 
 *** Mehrere Vorzeichen
@@ -153,7 +157,6 @@ Erklären Sie den Comic in Abbildung [[fig:base10]]!
 #+BEGIN_SRC python
 1+2+3
 #+END_SRC
-
 
 
 *** Ungültig? Nein... aber unerwartet? 
@@ -332,9 +335,6 @@ Zahlen kann man addieren - was ist mit Zeichenketten?  Erwartung?
 "Hallo" + " GP1" 
 #+END_SRC
 
-#+RESULTS:
-: None
-
 
 
 *** Semantik von  ~+~ bei  Zeichenketten 		       :B_definition:
@@ -354,12 +354,12 @@ entsteht, indem an $t_1$ unmittelbar $t_2$ angehängt wird.
 "Hallo" - " GP1" 
 #+END_SRC
 
-#+RESULTS:
+
 
 
 *** Multiplikation? 
 
-#+BEGIN_SRC pyton 
+#+BEGIN_SRC python 
 "Hallo" * " GP1" 
 #+END_SRC
 
@@ -788,7 +788,7 @@ bekannt ist.
 - Beispiel:
   - ~int~: 9
   - ~string~: '9'
-- Was string '9' zu int 9? Umgekehrt?
+- Wie kommt man von string '9' zu int 9? Umgekehrt?
   - Möglich
   - Details: später 
 
