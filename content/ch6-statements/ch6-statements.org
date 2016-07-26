@@ -988,6 +988,10 @@ Beendung der Schleife durch ~break~ wird dieser Block ignoriert.
 ** ~while~: Komplettes Flussdiagramm 
 
 
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:while-flowchart-complete} zeigt eine vollständiges Flussdiagramm einer while-Schleife in Python. 
+#+END_LaTeX
+
    #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
    #+header: :cache yes
    #+begin_src latex :exports results :results output raw :file figures/while-flowchart-complete.png :fit t
@@ -1025,6 +1029,96 @@ Beendung der Schleife durch ~break~ wird dieser Block ignoriert.
 
 
 * Schleifen: ~for~
+
+
+** Häufiger Fall: Schleife über Aufzählung 
+
+Häufig: Eine Aufzählung (Liste, Tuple, usw) Element für Element
+verarbeiten 
+
+Skizze: 
+#+BEGIN_SRC python :exports code :results output
+  L = [1, 2, 3, 4, 5]
+  while L is not []:
+      aktuellesElement = L[0]
+      # mache etwas mir aktuellem Element
+      # ...
+      # betrachte die restlichte Liste: 
+      L = L[1:]
+#+END_SRC 
+
+*** UEBUNG WArum funktioniert dieser Pseudo-Code nicht direkt? 
+
+** Häufige Fälle verdienen eigene Anweisung: ~for~
+
+Schleifen über Aufzählungen vereinfacht schreiben
+
+#+BEGIN_SRC python :exports both :results output
+  # Sei A ein Aufzählungsdatentyp
+  for element in A:
+      Anweisung1
+      Anweisung2
+      ... 
+#+END_SRC 
+
+** ~for~: Definition 
+
+*** ~for~-Schleife					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Mit jeder Iteration einer ~for~ Schleife wird das jeweils nächste
+  Element der gegeben Aufzählung der /Schleifenvariable/ zugewiesen
+  (im Beispiel: ~element~; Name ist frei wählbar)
+- Nach Bearbeitung des letzten Elements der Aufzählung wird die
+  Schleife verlassen
+- Ist die Aufzählung leer (z.B. ~[]~), so wird die Schleife nicht
+  betreten und keine Iteration ausgeführt 
+- Die Anweisungen ~break~, ~continue~ und ~else~ verhalten sich genau wie bei
+  ~while~-Schleifen
+
+
+
+*** UEBUNG Einfaches Beispiel: mit SChleife mit zwei Laufvariablen über dict.key, dict.values iterieren 
+
+** Zuweisung an Aufzählung? 
+
+Was passiert, wenn der Aufzählung einer neuer Wert zugewiesen wird?
+- Ändert das den Schleifenverlauf? 
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, 2, 3]
+for l in L:
+    print(l)
+    L = [17, 18, 19]
+#+END_SRC 
+
+** Zuweisung an Aufzählung -- passiert gar nicht! 
+
+- Tatsächlich kann an die Aufzählung, die für die Schleife verwendet
+  wird, nicht zugewiesen werden 
+- Zu Beginn der ~for~-Schleife wird eine /Kopie/ der Aufzählung
+  erstellt
+  - Kopie wird unter einem verborgenen Namen referenziert
+  - Diese Kopie bestimmt, welche Werte die Schleife durchläuft 
+- Weißt man also einer Variable, die im Schleifenkopf benutzt wird,
+  einen neuen Wert zu, so beeinflusst das nicht den Schleifenablauf
+
+
+*** Visualisierung 
+
+
+** Aufzählung in ~for~ -- duck typing? 
+
+Im Kopf der ~for~-Schleife: 
+- Muss es eine Aufzählung sein?
+- Oder -- nach duck typing-Prinzip -- reicht etwas, dass sich wie eine
+  Aufzählung benimmt?
+  - Dafür haben wir noch kein Beispiel -- aber vielleicht ein
+    interessanter Gedanke 
+
 
 * Zusammenfassung
 
