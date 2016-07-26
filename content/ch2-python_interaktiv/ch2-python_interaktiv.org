@@ -5,7 +5,7 @@
 
 # TODO states: 
 #+TODO: TODO(t) | UEBUNG(u) DONE(d)
-#+OPTIONS: tasks:todo tasks:done 
+#+OPTIONS: tasks:todo 
 
 
 * Überblick 
