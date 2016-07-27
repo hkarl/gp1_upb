@@ -895,7 +895,6 @@ Was passiert bei:
 
   x = 17
   x = f(x)
-  print(x)
 #+END_SRC 
 
 #+RESULTS:
@@ -1090,6 +1089,67 @@ s1
 
 Ähnlich wie davor; aber jetzt triple quoted strings. Wie ist das mit
 Einrückung? 
+
+
+** Weitere Aspekte von ~print~: Mehrere Parameter 
+
+- ~print~ kann eine /beliebige Anzahl/ an Parameter verarbeiten
+  - Durch Komma
+  - Werden nach einander ausgegeben 
+  - (Das geht bei allen Funktionen, siehe späteres Kapitel) 
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+print("Hallo", "GP", 1)
+#+END_SRC 
+
+#+RESULTS:
+: Hallo GP 1
+
+
+** Weitere Aspekte von ~print~: Benannter Parameter 
+
+- Beim Aufruf kann an ~print~ ein Parameter mit einem Namen versehen
+  werden
+  - (Das geht bei allen Funktionen, siehe späteres Kapitel) 
+  - Es gibt mehrere Namen
+
+*** Beispiel: ~end~						    :animate:
+- Wir brauchen zunächst: ~end~
+  - Gibt Zeichen an, mit dem ~print~ die Ausgabe abschliesst
+  - ~default~: Zeilenumbruch 
+
+*** default					       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein ~default~-Wert für einen Parameter wird benutzt, wenn kein anderer
+Parameter explizit angegeben wird. 
+
+** Weitere Aspekte von ~print~: ~end~
+
+Vergleiche: 
+
+#+BEGIN_SRC python :exports both :results output
+print("Hallo")
+print("GP1")
+#+END_SRC 
+
+#+RESULTS:
+: Hallo
+: GP1
+
+und: 
+
+#+BEGIN_SRC python :exports both :results output
+print("Hallo", end=" ")
+print("GP1")
+#+END_SRC 
+
+#+RESULTS:
+: Hallo GP1
+
 
 
 
