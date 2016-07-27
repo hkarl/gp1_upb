@@ -88,7 +88,9 @@ Idee:
 - Meist (nicht unbedingt) abhängig vom Wert eines Ausdrucks 
 - /Wiederholungen/ oder /Schleifen/ erlauben 
 
-* Bedingte Ausführung: ~if~
+
+
+* Bedingte Ausführung: if
 
 ** Neue Anweisung: ~if~
 
@@ -219,9 +221,12 @@ Wie Code ergänzen, um den Betrag einer Zahl zu bestimmen?
       else:
           return ???
 
-  print(betrag(5))
-  print(betrag(-3))
+  print("Betrag von 5: ", betrag(5))
+  print("Betrag von -3: ", betrag(-3))
 #+END_SRC 
+
+#+RESULTS:
+
  
 ** Ausflug: Code testen
 
@@ -539,7 +544,7 @@ Anweisungen des Blocks ergibt. Sequentiell bezieht sich hier auf die
 Reihenfolge der Anweisung im Programmcode. 
 
 
-* Schleifen: ~while~ 
+* Schleifen: while 
 
 ** Allgemeine Schleifen 
 
@@ -554,6 +559,10 @@ Reihenfolge der Anweisung im Programmcode.
 - Typisch: Anweisungen im Block werden Einfluss auf den Test haben 
 
 ** ~while~: Flussdiagramm 
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:while-flowchart} zeigt eine erste Vorstellung einer while-Schleife in Python als Flussdiagramm.  
+#+END_LaTeX
 
 
    #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
@@ -583,26 +592,22 @@ Reihenfolge der Anweisung im Programmcode.
    #+RESULTS[68c2c177280bf7b2129df78c62ad021d8a5a1394]:
    #+NAME: fig:while-flowchart
    #+CAPTION: Flussdiagramm einer einfachen While-Schleife
-   #+ATTR_LATEX: :width 0.75\textwidth 
+   #+ATTR_LATEX: :width 0.75\textwidth :float nil
    [[file:figures/while-flowchart.png]]
 
 
 ** ~while~: Beispiel Zählschleife 
 
-#+BEGIN_SRC python :exports code :results output
+#+BEGIN_SRC python :exports both :results output
 a=0
 b=5
 while a < b:              
-    print(a)
+    print(a, end=" ")
     a += 1         
 #+END_SRC 
 
 #+RESULTS:
-: 0
-: 1
-: 2
-: 3
-: 4
+: 0 1 2 3 4 
 
 ** Schleifen: Terminierung 
 
@@ -635,6 +640,13 @@ Beispiel: i=0 ; while 1/i > 0 ; i++
 *** UEBUNG Viele Schleifenbeispiele 
 
 Fibonacci, usw. 
+
+
+** Terminierung ist kritisch! 
+
+Q. How did the programmer die in the shower?
+
+A. He read the shampoo bottle instructions: Lather. Rinse. Repeat.
 
 
 ** ~while~: Schleife über Feld 
@@ -868,12 +880,23 @@ Beispiel:
       x = n // 2                                # For some n > 1
       while x > 1:
           if n % x == 0:                        # Remainder
-              print('Hat Teiler!')
+              print(n, 'hat Teiler', x)
               break                             # Skip else
           x -= 1
       else:                                     # Normal exit
-          print('Primzahl')
+          print(n, 'ist eine Primzahl')
+
+  print("Ist 5 eine Primzahl?")        
+  is_prime(5)
+  print("Ist 9 eine Primzahl?")        
+  is_prime(9)
 #+END_SRC 
+
+#+RESULTS:
+: Ist 5 eine Primzahl?
+: 5 ist eine Primzahl
+: Ist 9 eine Primzahl?
+: 9 hat Teiler 3
 
 *** UEBUNG Warum // und nicht / ? Was ist Unterschied 
 
@@ -914,9 +937,14 @@ code-Komplexität
     
       return True 
 
-  print (ungerade_in_liste([2, 18, 6, 5, 9]))
-  print (ungerade_in_liste([2, 18, 6, 10, 22]))
+  print(ungerade_in_liste([2, 18, 6, 5, 9]))
+  print(ungerade_in_liste([2, 18, 6, 10, 22]))
 #+END_SRC 
+
+#+RESULTS:
+: True
+: nix ungerades!
+: False
 
 
 *** ~while~ und ~else~: Sinnvoll?				  :dropslide:
@@ -989,7 +1017,7 @@ Beendung der Schleife durch ~break~ wird dieser Block ignoriert.
 
 
 #+BEGIN_LaTeX
-Abbildung~\ref{fig:while-flowchart-complete} zeigt eine vollständiges Flussdiagramm einer while-Schleife in Python. 
+Abbildung~\ref{fig:while-flowchart-complete} zeigt ein vollständiges Flussdiagramm einer while-Schleife in Python. 
 #+END_LaTeX
 
    #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
@@ -1024,11 +1052,11 @@ Abbildung~\ref{fig:while-flowchart-complete} zeigt eine vollständiges Flussdiag
    #+RESULTS[e7ec553ca1223ed541d99d1ff12639a47af711ba]:
    #+NAME: fig:while-flowchart-complete
    #+CAPTION: Flussdiagramm einer While-Schleife mit ~continue~, ~break~ und ~else~
-   #+ATTR_LATEX: :width 0.75\textwidth 
+   #+ATTR_LATEX: :width 0.75\textwidth :float nil
    [[file:figures/while-flowchart-complete.png]]
 
 
-* Schleifen: ~for~
+* Schleifen: for
 
 
 ** Häufiger Fall: Schleife über Aufzählung 
@@ -1047,7 +1075,20 @@ Skizze:
       L = L[1:]
 #+END_SRC 
 
+*** Keine korrekte Schleife!				       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Dies ist *keine* korrekte Schleife; sie hat mindestens *zwei*
+Probleme. Siehe Details in der Übungsaufgabe. 
+
 *** UEBUNG WArum funktioniert dieser Pseudo-Code nicht direkt? 
+
+WICHTIGE Übung! 
+
+- Weil Behandlung für letztes Element fehlt 
+- Weil wir L verändern; wir müssten vorher eine Kopie machen 
 
 ** Häufige Fälle verdienen eigene Anweisung: ~for~
 
@@ -1069,7 +1110,8 @@ Schleifen über Aufzählungen vereinfacht schreiben
     :END:
 
 - Mit jeder Iteration einer ~for~ Schleife wird das jeweils nächste
-  Element der gegeben Aufzählung der /Schleifenvariable/ zugewiesen
+  Element der gegeben Aufzählung der /Schleifenvariable/ (auch
+  /Laufvariable/)zugewiesen
   (im Beispiel: ~element~; Name ist frei wählbar)
 - Nach Bearbeitung des letzten Elements der Aufzählung wird die
   Schleife verlassen
@@ -1077,6 +1119,7 @@ Schleifen über Aufzählungen vereinfacht schreiben
   betreten und keine Iteration ausgeführt 
 - Die Anweisungen ~break~, ~continue~ und ~else~ verhalten sich genau wie bei
   ~while~-Schleifen
+
 
 
 
@@ -1091,24 +1134,336 @@ Was passiert, wenn der Aufzählung einer neuer Wert zugewiesen wird?
 #+BEGIN_SRC python :exports both :results output
 L = [1, 2, 3]
 for l in L:
-    print(l)
+    print(l, end=" ")
     L = [17, 18, 19]
 #+END_SRC 
+
+#+RESULTS:
+: 1 2 3 
 
 ** Zuweisung an Aufzählung -- passiert gar nicht! 
 
 - Tatsächlich kann an die Aufzählung, die für die Schleife verwendet
-  wird, nicht zugewiesen werden 
+  wird, gar nicht zugewiesen werden 
 - Zu Beginn der ~for~-Schleife wird eine /Kopie/ der Aufzählung
   erstellt
   - Kopie wird unter einem verborgenen Namen referenziert
   - Diese Kopie bestimmt, welche Werte die Schleife durchläuft 
 - Weißt man also einer Variable, die im Schleifenkopf benutzt wird,
   einen neuen Wert zu, so beeinflusst das nicht den Schleifenablauf
+  - Die Kopie wird ja dadurch nicht verändert 
 
 
-*** Visualisierung 
+*** Visualisierung						  :dropslide:
 
+Die Visualisierung dieses Effekts durch unsere üblichen Diagramme
+gelingt leider nicht gut. Der  verborgene Name für die
+Aufzählung wird durch Pythontutor leider nicht explizit
+dargestellt. Dennoch hilft dieses Diagramm vielleicht ein wenig. 
+
+#+CAPTION: Zuweisung an Aufzählung während while-Schleife
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-zuweisung-for
+[[./figures/pt-zuweisung-for.png]]
+
+
+** Zuweisung an Schleifenvariable
+
+Was passiert, wenn der Schleifenvariable etwas zugewiesen wird? 
+- Ändert das die Aufzählung? Den Schleifenverlauf? 
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2, 3, 4, 5]
+  for x in L:
+      x += 1
+  print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 2, 3, 4, 5]
+
+
+*** Nein!							    :animate:
+
+Auch hier ist die ursprüngliche Aufzählung nicht betroffen 
+- Die Schleifenvariable ~x~ ist ein Name für den Wert; zeigt nicht in
+  die Aufzählungsstruktur 
+
+** ~for~-Schleifen über andere Aufzählungen 
+
+- Beispiele bisher: ~for~ über Liste 
+- Laut Kapitel 5: Andere Aufzählungen sind ~str~, ~tuple~, ~set~
+  - Und eigentlich auch ~dict~
+- ~for~-Schleifen darüber? 
+
+
+** ~for~-Schleifen über andere Aufzählungen -- Beispiele 
+
+
+#+BEGIN_SRC python :exports both :results output
+  s = "Hallo GP1"
+  for ss in s:
+      print(ss, end=" ")
+#+END_SRC 
+
+#+RESULTS:
+: H a l l o   G P 1 
+
+
+#+BEGIN_SRC python :exports both :results output
+t = (1, 2, 3, 4)
+for tt in t:
+    print(tt, end=" ")
+#+END_SRC 
+
+#+RESULTS:
+: 1 2 3 4 
+
+** ~for~-Schleifen über andere Aufzählungen -- Beispiele 
+
+- Überraschend? Nein!
+  - Principle of least surprise 
+
+
+
+#+BEGIN_SRC python :exports both :results output
+s = {1, 2, 3, 4, 2, 3, 4}
+for ss in s:
+    print(ss, end=" ")
+#+END_SRC 
+
+#+RESULTS:
+: 1 2 3 4 
+
+- Überraschend? Nein!
+  - Semantik einer Menge 
+
+*** TODO slido? 
+
+
+** ~for~-Schleife über verschachtelte Datentypen 
+
+Beispiel: Liste von Tupeln 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [ (1,2), (3, 4), (5, 6)]
+  for t in L:
+      print(t, end=" ")
+#+END_SRC 
+
+#+RESULTS:
+: (1, 2) (3, 4) (5, 6) 
+
+** ~for~-Schleife mit erweiterter Zuweisung? 
+
+- Eigentlich macht ja eine ~for~-Schleife jeweils eine Zuweisung an
+  die Laufvariable
+- Python kennt erweiterte Zuweisungen und unpacking: ~x, y = (1, 2)~
+- Funktioniert das bei ~for~? 
+
+
+#+BEGIN_SRC python :exports both :results output
+  L = [ (1,2), (3, 4), (5, 6)]
+  for a, b in L:
+      print(a, end=" ")
+      print(b)
+      print("---")
+#+END_SRC 
+
+#+RESULTS:
+: 1 2
+: ---
+: 3 4
+: ---
+: 5 6
+: ---
+
+
+** ~for~-Schleife über ~dict~ ? 
+
+#+BEGIN_SRC python :exports both :results output
+  D = {"a": 1, "b": 2, "c": 3, "d": "abc"}
+  for key in D:
+      print(key, end=" ")
+#+END_SRC 
+
+#+RESULTS:
+: a b c d 
+
+
+Iterieren über ein ~dict~ liefert die Schlüssel 
+
+** ~for~-Schleife über ~dict~ -- Key und Value? 
+
+Wir bekommen eine Liste von Schlüssel-/Wert-Tuple eines ~dicts~ mit
+Aufruf  von ~items~
+- Mit implizitem unpacking der Tuple in separate Variablen ~k~ und
+  ~v~
+
+#+BEGIN_SRC python :exports both :results output
+  D = {"a": 1, "b": 2, "c": 3, "d": "abc"}
+  for key, value in D.items():
+      print(key, end=" ")
+      print(value)
+      print("----")
+#+END_SRC 
+
+#+RESULTS:
+: b 2
+: ----
+: d abc
+: ----
+: a 1
+: ----
+: c 3
+: ----
+
+
+*** Visualisierung						  :dropslide:
+
+
+Zur Illustration [[fig:pt-dict_items ]] hier ein Schnappschuss aus dem
+zweiten Durchlauf der Schleife. Die beiden Schleifenvariablen ~key~
+und ~value~ referenzieren dabei Werte aus dem Dictionary ~D~.
+
+#+CAPTION: Zwischenstand bei einer Iteration über ein Dict ~D.items()~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-dict_items
+[[./figures/pt-dict_items.png]]
+
+
+** UEBUNG for-Schleife Übungen 
+
+- Unmengen an Übungen für die ganzen SChleifen 
+
+- Z.B. die extended assignment sequecnes aus dem ebook 
+
+#+BEGIN_SRC python :exports both :results output
+for (a, *b, c) in [(1, 2, 3, 4), (5, 6, 7, 8)]:
+     print(a, b, c)
+#+END_SRC 
+
+#+RESULTS:
+: 1 [2, 3] 4
+: 5 [6, 7] 8
+
+
+** ~for~ über Folge von Zahlen: ~range~ 
+
+- Häufig: Liste über eine Folge Zahlen 
+  - Z.B. 1 ... 10, 1 ... n für Variable n, usw 
+- Mit ~for~ so nicht unmittelbar darstellbar
+  - Mit ~while~ schon, aber umständlich 
+
+*** ~range~						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+~range(stop)~ liefert eine Aufzählung der Zahlen von 0 bis
+(ausschliesslich) ~stop~
+
+*** UEBUNG allgemeinere Version von range 
+
+range(start, stop[, step]) -> range object
+
+** ~range~: Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  for i in range(11):
+      print(i, end=" ")
+#+END_SRC 
+
+#+RESULTS:
+: 0 1 2 3 4 5 6 7 8 9 10 
+
+
+*** UEBUNG Vergleiche Iteration über SEquenz mit range, vs. natürlich
+
+Den Unterschied erklären zwischen den beidne Optionen. Warum ist die
+range-Variante doof (aber in primitiven Sprachen geht es halt manchmal
+nicht anders): 
+
+#+BEGIN_SRC python :exports both :results output
+  s = "Hallo GP1"
+  for i in range(len(s)):
+      print(s[i], end="")
+#+END_SRC 
+
+#+RESULTS:
+: Hallo GP1
+
+
+
+#+BEGIN_SRC python :exports both :results output
+  for c in "Hallo GP1":
+      print(c, end="")
+#+END_SRC 
+
+#+RESULTS:
+: Hallo GP1
+
+
+Und das ganze evtl .mit Zeitmessung verbinden? Siehe magic %timeit 
+https://ipython.org/ipython-doc/3/interactive/magics.html 
+
+
+mit S = "abcdefg" * 10000
+
+
+*** UEBUNG Zeichenketten umkehren 
+
+>>> S = 'spam'
+>>> for i in range(len(S)):       # For repeat counts 0..3
+...     S = S[1:] + S[:1]         # Move front item to end
+...     print(S, end=' ')
+...
+pams amsp mspa spam
+
+>>> S
+'spam'
+>>> for i in range(len(S)):       # For positions 0..3
+...     X = S[i:] + S[:i]         # Rear part + front part
+...     print(X, end=' ')
+
+
+
+
+** ~range~: Aufzählung verändern 
+
+Erinnerung: Das hier verändert die Aufzählung ~L~ *nicht* 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2, 3, 4, 5]
+  for x in L:
+      x += 1
+  print(L)
+#+END_SRC 
+
+
+Was aber, wenn Schleife doch ~L~ verändern soll? 
+
+** ~range~: Aufzählung verändern 
+
+
+Dann brauchen wir eine ~for~-Schleife mit Zugriff auf ~L~ durch den
+Index 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2, 3, 4, 5]
+  for i in range(len(L)):
+      L[i] += 1
+  print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [2, 3, 4, 5, 6]
+
+
+Typisches Muster für den Einsatz von ~range~ und ~len~ in
+~for~-Schleifen 
+- Durch Struktur der ~for~-Schleife Indiz an Leser des Codes! 
 
 ** Aufzählung in ~for~ -- duck typing? 
 
@@ -1117,14 +1472,309 @@ Im Kopf der ~for~-Schleife:
 - Oder -- nach duck typing-Prinzip -- reicht etwas, dass sich wie eine
   Aufzählung benimmt?
   - Dafür haben wir noch kein Beispiel -- aber vielleicht ein
-    interessanter Gedanke 
+    interessanter Gedanke!
+
+** UEBUNG for loops und zip 
+
+Funktion zip erklären. Beispiele finden, wo man mit ~for x, y in
+zip(L1, L2)~ was schönes machen kann. 
+
+** UEBUNG Nachtrag: zip und dict 
+
+Typisches Muster: ~D = dict(zip(keys, vals))~ 
+
+
+** UEBUNG ~enumerate~ in ~for~
+
+>>> S = 'spam'
+>>> for (offset, item) in enumerate(S):
+...     print(item, 'appears at offset', offset)
+
+
+
+
+* List comprehensions 
+
+
+
+** Listen in Schleife konstruieren 
+
+
+- Häufiges Muster:
+  - Eine Schleife produziert Ergebnis pro Druchlauf
+  - Ergebnisse werden in Liste aufgesammelt 
+- Einfachster Fall: Einen Ausdruck für jedes Element der Aufzählung
+  berechnen 
+
+#+BEGIN_SRC python :exports code :results output
+  # leere Liste zum Ergebnisse sammeln: 
+  ergebnis = []
+  for x in aufzaehlung:
+      ergebnis.append(Ausdruck ueber x)
+#+END_SRC 
+
+** Listen in Schleife konstruieren - Beispiel 
+
+Beispiel: Wir verdoppeln jeden Eintrag der Liste 
+
+#+BEGIN_SRC python :exports both :results output
+  ergebnis = []
+  for x in [1, 2, 3, "abc", "xyz"]:
+      ergebnis.append(x * 2)
+  print(ergebnis)
+#+END_SRC 
+
+#+RESULTS:
+: [2, 4, 6, 'abcabc', 'xyzxyz']
+
+
+** Listen in Schleifen bedingt konstruieren 
+
+- Auch häufig: Pro Durchlauf Ergbnis nur bei bestimmer Bedingung
+  konstruieren 
+
+#+BEGIN_SRC python :exports code :results output
+  # leere Liste zum Ergebnisse sammeln: 
+  ergebnis = []
+  for x in aufzaehlung:
+      if x erfuellt Bedingung: 
+          ergebnis.append(Ausdruck ueber x)
+#+END_SRC 
+
+
+** Listen in Schleifen bedingt konstruieren -- Beispiel 
+
+Verdopple Eintrag nur wenn gerade Zahl: 
+
+#+BEGIN_SRC python :exports both :results output
+  ergebnis = []
+  for x in [1, 2, 3, 17, 42, 99]:
+      if x % 2 == 0:
+          ergebnis.append(x * 2)
+  print(ergebnis)
+#+END_SRC 
+
+#+RESULTS:
+: [4, 84]
+
+** List comprehensions 
+
+Wie üblich: Häufig Muster verdienen eigene Syntax! 
+
+List comprehension: 
+- Konstruieren eine Liste aus einer anderen Liste
+- mit einer kompakten ~for~-Formulierung 
+
+#+BEGIN_SRC python :exports code :results output
+[ Ausdruck ueber x  for x in Liste if x erfuellt Bedingung]
+#+END_SRC 
+
+
+
+
+** List comprehension -- Beispiel 1
+
+Verdopple Eintrag nur wenn gerade Zahl: 
+
+#+BEGIN_SRC python :exports both :results output
+  # Zeilenumbruch nur für Lesbarkeit
+  ergebnis = [x * 2
+              for x in [1, 2, 3, 17, 42, 99]
+              if x % 2 == 0]
+  print(ergebnis)
+#+END_SRC 
+
+#+RESULTS:
+: [4, 84]
+
+
+** UEBUNG List comprehesion, ändern der Liste? 
+
+
+Erinnern Sie sich an : 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2, 3, 4, 5]
+  for i in range(len(L)):
+      L[i] += 1
+  print(L)
+#+END_SRC 
+
+
+Ist das hier das gleiche: 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2, 3, 4, 5]
+  L = [x+1 for x in L]
+  print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [2, 3, 4, 5, 6]
+
+Finden Sie Situationen, wo diese beiden Code-Abschnitte *nicht* den
+gleichen Effekt haben. Hinweis: Was ist, wenn es andere Namen für die
+ursprünliche Liste gibt?
+
+
+* Geschachtelte Schleifen 
+
+** Geschachtelte Schleifen 
+
+- Schleifenrumpf: Folge von Anweisungen 
+- Schleifen (~while~ und ~for~) sind Anweisungen
+- Also: Schleifen in Schleifen möglich!? 
+
+- Na klar! 
+
+** Paarweise Operation 
+
+- Angenommen, wir wollen Elemente zweiter Listen paarweise miteinander
+  vergleichen 
+  - Schleife 1 (/äußere/ Schleife): Iteriere über eine Liste
+  - Schleife 2 (/innere/ Schleife): In jeder Iteration der äußteren
+    Schleife, iteriere über die zweite Schleife
+    - Führe Operation durch 
+
+#+BEGIN_SRC python :exports code :results output
+  for l1 in liste1:
+      for l2 in liste2:
+          operation auf l1, l2
+#+END_SRC 
+
+
+** Paarweise Operation: Beispiel 1 -- Summe der Produkte 
+
+Berechne Summe der Produkte jedes Elements von Liste 1 mit jedem
+Element von Liste 2 
+
+#+BEGIN_SRC python :exports both :results output
+  L1 = [1, 2, 3]
+  L2 = [17, 18, 19]
+  summe = 0
+  for l1 in L1:
+      for l2 in L2:
+          summe += l1 * l2
+  print(summe)
+#+END_SRC 
+
+#+RESULTS:
+: 324
+
+** Paarweise Operation: Beispiel 2 -- Test auf enthalten 
+
+Innere Schleife abbrechen wenn Ergebnis feststeht 
+
+#+BEGIN_SRC python :exports both :results output
+  items = ["aaa", 111, (4, 5), 2.01]      # Eine Liste von Daten 
+  tests = [(4, 5), 3.14]                  # Wonach suchen wir? 
+
+  for key in tests:                       # Fuer alle zu suchenden Daten
+      for item in items:                  # Fuer alle vorhandenen Daten 
+          if item == key:                 # Gleich? 
+              print(key, "gefunden in Daten")
+              break                       # Brich die innere Schleife ab 
+      else:
+          print(key, "nicht in Daten")    # Nur ausgefuehrt wenn innere Schleife 
+	                                  # nichts gefunden hat 
+#+END_SRC 
+
+#+RESULTS:
+: (4, 5) gefunden in Daten
+: 3.14 nicht in Daten
+
+
+*** UEBUNG DAs geht mit ~in~ viel einfacher 
+
+Recoding zu if key in items ; innere Schleife sparen 
+
+*** UEBUNG Schnitt zweier Strings 
+
+- Version 1: Mit geschachteleter SChleife 
+
+- Version 2: Mit test per in
+
+- Version 3: mit list comprehension 
+
+#+BEGIN_SRC python :exports code :results output
+[x for x in seq1 if x in seq2]
+#+END_SRC 
+
+
+** Beispiel mit geschachteltem ~range~ 
+
+Berechne $\sum_{i=0}^{10} \sum_{j=0}^i i \cdot j$
+
+#+BEGIN_SRC python :exports both :results output
+  summe = 0
+  for i in range(11):
+      for j in range(i+1):
+          summe += i*j
+  print(summe)
+#+END_SRC 
+
+#+RESULTS:
+: 1705
+
+** Beispiel mit geschachteltem ~range~ und list comprehension  
+
+#+BEGIN_SRC python :exports both :results output
+  summe = sum([i*j
+               # aeußere Schleife: 
+               for i in range(11)
+               # innere Schleife: 
+               for j in range(i+1)
+               ])
+  print(summe)
+#+END_SRC 
+
+#+RESULTS:
+: 1705
+
+Hilfsfunktion ~sum~: Addiere alle Elemente einer Aufzählung auf 
+
+*** UEBUNG Geschachtelte for in list comprehensions 
+
+ganz viele Übungen denkbar. 
 
 
 * Zusammenfassung
 
 ** Zusammenfassung 
 
-was haben wir gelernt? 
+- Wiederholte Ausführung von Anweisungen ist extrem nützlich 
+- Unterschiedliche Kontrollmechanismen existieren 
+  - ~while~-Schleife: Kontrolle durch einen Ausdruck, der
+    Wahrheitswert liefert
+  - ~for~-Schleife: In jeder Wiederholung nimmt eine (oder mehrere)
+    Schleifenvariable einen Wert aus einer vorgegebenen Aufzählung an 
+- Schleifen erlauben Ausnahmen (~break~, ~continue~) und Code für
+  reguläres Ende (~else~)
+- Zusammen mit ein paar Hilfsfunktionen (~range~, ~zip~) sind
+  insbes. ~for~-Schleifen in Python extrem praktisch 
+
+
+** Python-Keywords: Liste bis jetzt 
+
+- Bis jetzt:
+  - ~True~, ~False~, ~and~, ~or~,  ~def~,  ~return~, ~None~
+  - ~in~
+- Neu:
+  - ~if~, ~else~, ~pass~, ~elif~, ~while~, ~for~, ~break~, ~continue~, ~assert~
+
+
+** Python: eingebaute Funktionen 
+
+- Allgemein 
+  - ~print~, *~range~*, *~zip~*
+- Typ-bezogen
+  - ~len~
+- Datentypen erzeugen
+  - ~tuple~
+  - ~list~
+  - ~set~
+  - ~dict~
+
 
 
 * Notes								   :noexport:
