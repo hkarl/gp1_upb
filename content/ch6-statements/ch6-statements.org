@@ -609,6 +609,35 @@ while a < b:
 #+RESULTS:
 : 0 1 2 3 4 
 
+
+** Beobachtung: Sichtbarkeit von Variablen 
+
+- Vorheriges Beispiel: Auf Variable ~a~ wurde innerhalb der Schleife
+  zugegriffen
+- Offenbar unproblematisch 
+- Regel: Schon /vor/ der Schleife bekannte Variablen bleiben innerhalb
+  der Variable /sichtbar/
+  - Sie sind im gleichen /Scope/ 
+
+
+** Beobachtung: Sichtbarkeit von Variablen (2) 
+
+- Was ist umgekehrt? Variable wird erst in Schleife erzeugt? 
+
+#+BEGIN_SRC python :exports both :results output
+  i = 0
+  while i < 2:
+      i += 1
+      x = 2*i
+  print(x)
+#+END_SRC 
+
+#+RESULTS:
+: 4
+
+- Variable bleibt nach der Schleife erhalten und zeigt auf
+  entsprechenden Wert  
+
 ** Schleifen: Terminierung 
 
 Gefahr: Schleifenbedingung stets wahr 
@@ -983,6 +1012,8 @@ Goto considered harmful
 
 
 
+
+
 ** Definition: ~while~ 
 
 *** ~while~						       :B_definition:
@@ -1189,6 +1220,26 @@ Was passiert, wenn der Schleifenvariable etwas zugewiesen wird?
 Auch hier ist die ursprüngliche Aufzählung nicht betroffen 
 - Die Schleifenvariable ~x~ ist ein Name für den Wert; zeigt nicht in
   die Aufzählungsstruktur 
+
+
+** Schleifenvariable nach Schelifenende? 
+
+Bleibt Schleifenvariable erhalten nach Schleifenende? 
+
+#+BEGIN_SRC python :exports both :results output
+  for i in [1, 2, 3]:
+      print("in schleife")
+  print("Variable i nach Schleife: ", i)
+#+END_SRC 
+
+#+RESULTS:
+: in schleife
+: in schleife
+: in schleife
+: Variable i nach Schleife:  3
+
+Ja, mit Wert des letzten Durchlaufs 
+
 
 ** ~for~-Schleifen über andere Aufzählungen 
 
