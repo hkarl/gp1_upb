@@ -1285,6 +1285,13 @@ Funktionen vorgeben...
 - Manchmal: /Seiteneffekte/ 
 - Objekt: Verallgemeinert Sprechweise
 
+** Wiederverwendung -- Die hohe Schule 
+
+#+CAPTION: Die hohe Schule der Wiederverwendung
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+NAME: fig:wally-reuse
+[[./figures/dilbert-reuse.png]]
+
 
 
 * IM zweiten Teil						   :noexport:
