@@ -390,6 +390,48 @@ Was man alles machen muss, wenn man keine vernünftige Sprache zur Hand hat
 
 
 
+* Funktionen II 
+
+- args und kwargs 
+- Rekursion, indirekt und direkt
+
+
+* Klassen  und Objekte 
+
+ERste Idee: Dokumentation von Datenstruktur 
+
+Beispiel: Linie für Grafikprogramm? 
+
+Objekte in und aus Funktoinen übergeben 
+
+- Kombination mit Listen, Dicts, ... 
+
+* Objektorieriterung 
+
+
+Dann auch Methoden dazufügen 
+
+Namensraum nicht verschmiutzen! 
+
+
+
+* Vererbung 
+
+
+
+* Module 
+- Modules nutzen 
+
+* Exception 
+
+- evtl. recht früh? 
+
+* Python-specfics 
+
+- Generators
+  - yield
+- 
+
 * Sonstiges 
 
 ** TExt , encoding, UTF8 
