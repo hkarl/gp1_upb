@@ -1233,6 +1233,15 @@ Konvention verletzt?
   - Dann Parameter aufzählen und /Zweck/ beschreiben
   - Ggf. Rückgabewert 
 
+
+** Nützliche Kommentare 
+
+#+CAPTION: Nützliche Kommentare retten Zeit
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:get_serial_number
+[[./figures/get_serial_number.png]]
+
+
 ** ~docstring~: Beispiel 
 
 #+BEGIN_SRC python
