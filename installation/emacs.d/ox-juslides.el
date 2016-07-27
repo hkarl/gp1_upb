@@ -544,6 +544,11 @@ holding export options."
 (defun org-juslides-final-function (contents _backend info)
   ;; work on the buffer to replace the sources strings
 
+  ;; debugging code, alternative to with-temp-buffer: 
+  ;; (setq buffer (generate-new-buffer "juslides"))
+  ;; (set-buffer buffer)
+  ;; (print buffer)
+  ;; (progn
   (with-temp-buffer
     (insert contents)
     (goto-char (point-min))
