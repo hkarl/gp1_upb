@@ -217,7 +217,7 @@ besprechen.
     :BEAMER_env: definition
     :END:
 
-Ein /Schlüsselwort/ (reserviertes Wort, reservierte Name, key word) ist ein Bezeichner,
+Ein /Schlüsselwort/ (reserviertes Wort, reservierter Name, key word) ist ein Bezeichner,
 der in einer Programmiersprache eine Sonderrolle einnimmt. Ein
 Schlüsselwort darf /nicht/ für andere Zwecke benutzte werden, z.B. als
 Variablenname. 
@@ -500,7 +500,7 @@ a = a + 2
 
 ** Ausdrücke in Variablen 
 
-- In Ausdrücken, Variablennamen können wir Werte benutzt werden 
+- In Ausdrücken können Variablennamen wie Werte benutzt werden 
 - Bei Berechnung des Ausdrucks: Variable durch Wert ersetzt
   - Wie Beispiel oben: ~b = a~ 
 - Variable wird zu Namen für berechneten Ausdruck 
@@ -588,8 +588,8 @@ x, y = 17, 42
     :BEAMER_env: definition
     :END:
 
-Bei einer Zuweisung werden ein oder mehrere *Name* mit einem oder
-mehreren Wert verbunden.  Der Name *referenziert* den entsprechenden
+Bei einer Zuweisung werden ein oder mehrere *Namen* mit einem oder
+mehreren Werten verbunden.  Der Name *referenziert* den entsprechenden
 Wert; der Wert wird der Variable *zugewiesen*. 
 
 *** Schreibweise 
@@ -661,9 +661,9 @@ x = 'Hallo GP1'
     :BEAMER_env: definition
     :END:
 
-Eine Programmiersprache ist */dynamisch typisiert/* wenn
+Eine Programmiersprache ist */dynamisch typisiert/*, wenn
 Typen-Informationen für jeden Wert oder Ausdruck *zur Laufzeit* bekannt
-ist. Diese Typen-Information ist im Programm-Code nicht explizit
+sind. Diese Typen-Information ist im Programm-Code nicht explizit
 repräsentiert und nicht  notwendigerweise aus ihm ableitbar. 
 
 
@@ -679,7 +679,7 @@ Python ist ein Beispiel.
 Eine Programmiersprache ist */statisch typisiert/* wenn
 Typen-Informationen explizit im Programm-Code angegeben werden
 müssen. Aus der Betrachtung des Programm-Codes kann der Typ eines
-Wertes abgeleitet werden, bereits bevor das Programms selbst abläuft. 
+Wertes abgeleitet werden, bereits bevor das Programm selbst abläuft. 
 
 Meist (aber nicht unbedingt) wird in einer solchen Sprache auf die
 explizite Repräsentation des Typs eines Wertes /zur Laufzeit/
@@ -713,7 +713,7 @@ Einige aufgetauchte Syntaxregeln:
 - Unterschiedliche Interpretation von Spielraum? 
   - Verwirrt, senkt Lesbarkeit, erschwert Wiederbenutzung
   - /Code wird öfter gelesen als geschrieben!/
-- Daher: *Stilregeln* (*/sytle guides/*) für /*Konsistenz*/
+- Daher: *Stilregeln* (*/style guides/*) für /*Konsistenz*/
   - Anfänger-Code = inkonsistenter Code 
 
 
@@ -734,7 +734,7 @@ Einige aufgetauchte Syntaxregeln:
   - Maximale Zeilenlänge 79 Zeichen
   - Leerzeichen
     - Nach Komma, nicht davor
-    - Nicht nach öffender oder vor schließender Klammer
+    - Nicht nach öffnender oder vor schließender Klammer
     - Genau ein Leerzeichen vor und nach Zuweisung 
     - Stimmt mit Buchsatzregeln überein!
 
@@ -766,14 +766,14 @@ x = x + 1   # Platz am Rand lassen
 
   - /*Beautiful is better than ugly.*/
 
-  - /*Readbility counts.*/
+  - /*Readability counts.*/
 
 
 *** UEBUNG Leerzeichen 
 
 Ein paar Beispiele für gute und schlechte Leerzeichennutzung 
 
-*** UEBUNG Leerzeichen in arithmetischen Asudrücken 
+*** UEBUNG Leerzeichen in arithmetischen Ausdrücken 
 
 Warum empfiehlt PEP8 Leerzeichen um Operatoren mit niedriger
 Priorität? 
@@ -798,7 +798,7 @@ Lösung: PEP 8! (wo sonst...)
 - Syntaxregeln für Variablennamen
 - Semantik der Zuweisung
 - Die Repräsentation des Typs (in Wert oder Variable) unterscheidet
-  dynamisch von statisch typisieren Programmiersprachen 
+  dynamisch von statisch typisierten Programmiersprachen 
 
 
 
