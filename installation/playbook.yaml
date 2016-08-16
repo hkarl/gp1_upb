@@ -217,7 +217,7 @@
   - name: Copy service description file 
     copy: src=jupyterhub.service dest=/lib/systemd/system/jupyterhub.service owner=root mode=0644
   - name: Start the service
-    service: name=jupyterhub state=started
+    service: name=jupyterhub state=started enabled=yes
   tags: service
 
 
