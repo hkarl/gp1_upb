@@ -399,12 +399,12 @@ b = a
 Die Anweisung ~%%tutor~ in der ersten Zeile einiger der
 Programmbeispiele hier ist eine JupyterNotebooks-Eigenheit.  Sie dient
 dazu, das Notebook mit der Web-Anwendung PythonTutor zu
-verknüpfen. Leider 
+verknüpfen. Leider werden diese in die Ausgabe des Skriptes mit
+übernommen. 
 
 
-Übernehmen
-Sie diese Zeile *nicht*, wenn Sie das Programm ausserhalb eines
-Notebooks (z.B. in einem Terminal-Fenster)  ausführen wollen. 
+Übernehmen Sie diese Zeile *nicht*, wenn Sie das Programm ausserhalb
+eines Notebooks (z.B. in einem Terminal-Fenster) ausführen wollen.
 
 
 *** PythonTutor: Typische Anzeige				  :dropslide:
@@ -556,7 +556,7 @@ a, b, c = Ausdruck1, Ausdruck2, Ausdruck3
 
 ** Gleichzeitige Zuweisungen -- Semantik 
 
-1. *Alle* Ausdrücke auf der linken Seite werden ausgewertet
+1. *Alle* Ausdrücke auf der rechten Seite werden ausgewertet
    1. Dabei werden noch die *ursprünglichen* Variablenwert benutzt
 2. *Danach* werden alle Zuweisungen zu den neu berechneten Werten
    hergestellt
@@ -740,10 +740,10 @@ Einige aufgetauchte Syntaxregeln:
 
 ** Stilregeln in Python: Beispiel Kommentare 
 
-- Schreibe englisch 
 - Beginne mit #, gefolgt von einem Leerzeichen
+- Schreibe englisch 
 
-Auch: Empfehlen zu Struktur, etwas bei Kommentaren 
+- Auch: Empfehlungen zu Struktur der Kommentare 
 
 - Sinnlos: Offensichtliches 
 #+BEGIN_SRC  python 
