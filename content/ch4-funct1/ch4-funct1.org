@@ -1033,11 +1033,11 @@ x = 42
 print (x)
 #+END_SRC
 
-** ~print~: Seiteneffekt 
+** ~print~: Seiteneffekt, Prozedur 
 
 ~print~ ist Beispiel für eine Funktion mit einem /Seiteneffekt/ 
 
-*** Seiteneffekt					       :B_definition:
+*** Seiteneffekt 				       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
@@ -1047,6 +1047,23 @@ Ein /Seiteneffekt/ (Wirkung, side effect) ist eine Aktivität des
 Programms, die 
 - /außerhalb/ des Programms (oder Programmteils) eine Wirkung hat
 - aber den /Zustand/ des Programms (Programmteils) /nicht/ verändert. 
+
+
+*** Prozedur						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Funktionen mit Seiteneffekten werden auch /Prozeduren/ genannt. Der
+Begriff wird insbesondere verwendet, wenn die Funktionen keinen
+Rückgabewert hat. 
+
+** Funktion oder Prozedur? 
+
+Sind das Funktionen oder Prozeduren: 
+- Summe zweier Zahlen berechnen?
+- Festellen, ob eine Zahl ungerade ist?
+- Eine Tabelle der Klausurergebnisse ausgeben? 
 
 ** Seiteneffekt von ~print~ 
 
@@ -1060,10 +1077,10 @@ Bei ~print~:
 *** Seiteneffekt und funktionale Sprachen 			  :dropslide:
 
 Mit dieser Definition läßt sich eine funktionale Programmiersprache
-einfach definieren: Eine Sprache in der es keine Seiteneffekte
+einfach definieren: Eine Sprache, in der es keine Seiteneffekte
 gibt. 
 
-Mehr dazu in GPS. 
+Mehr dazu in VL GPS. 
 
 
 *** UEBUNG print bei strings mit escape sequenzen 
@@ -1150,6 +1167,32 @@ print("GP1")
 #+RESULTS:
 : Hallo GP1
 
+
+
+
+** Weitere Beispiele für Funktionen 
+
+Was wird hier ausgegeben? 
+
+#+BEGIN_SRC python :exports code :results output
+  def m(x):
+      x += 1
+      return x*x
+
+  i = 2
+  i = m(i) + i
+  print(i)
+  i = 2
+  i = m(m(i)) + m(i) + i
+  print(i)
+#+END_SRC 
+
+#+RESULTS:
+: 11
+: 111
+
+
+*** UEBUNG Pingo? 
 
 
 
