@@ -396,6 +396,11 @@ Was man alles machen muss, wenn man keine vernünftige Sprache zur Hand hat
 - Rekursion, indirekt und direkt
 
 
+
+* Module 
+- Modules nutzen 
+
+
 * Klassen  und Objekte 
 
 ERste Idee: Dokumentation von Datenstruktur 
@@ -417,10 +422,11 @@ Namensraum nicht verschmiutzen!
 
 * Vererbung 
 
+* Funktionen III 
 
-
-* Module 
-- Modules nutzen 
+- Nested Functions 
+- Closures 
+- nonlocal 
 
 * Exception 
 
