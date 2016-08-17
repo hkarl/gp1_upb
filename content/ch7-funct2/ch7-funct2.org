@@ -1,0 +1,1360 @@
+#+TITLE: Kapitel 7: Funktion Teil 2: Rekursion, Scopes
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+** Was bisher geschah 
+
+Wir haben: 
+- Ausdrücke und Anweisungen 
+- Variablen als Referenz auf Werte
+- Kontrollstrukturen für Ablauf: ~if~, ~while~, ~for~
+- Funktionen als Zusammenfassung von Anweisungen
+  - Definition und Aufruf 
+
+** Dieses Kapitel 
+
+Wir kehren noch einmal zu Funktionen zurück und betrachten: 
+- Aufruf durch flexible Parameter 
+- Funktionen rufen andere Funktionen (oder sich selbst) auf
+- Funktionsdefinition innerhalb anderer Funktionen 
+- Die Regeln für /Scopes/
+
+* Flexible Funktionsparameter und Rückgabewerte 
+
+** Erinnerung: Parameter von ~print~
+
+An ~print~ können Parameter flexibler übergeben werden als an selbst
+definierte Funktionen: 
+- Beliebige Anzahl
+- Parameter können mit Namen versehen werden 
+
+Wäre das nicht auch für eigene Funktionen praktisch? 
+
+** Erinnerung: Welche formale Parameter bekommen welchen Wert? 
+
+Mehrere formale Parameter in Funktionsdefinition: 
+
+#+BEGIN_SRC python :exports code :results output
+def f(a, b, c):
+    # ... 
+
+f(x, y, z)
+#+END_SRC 
+
+- Argumente und formale Parameter werden von links nach rechts
+  zugeordnet: a wird zu Namen für Wert von x, b für y, c für z
+- Sogenannte /Positionsparameter/ (/positional arguments/)
+
+** Variable Anzahl an Positionsparametern? 
+
+- Bisherige Syntax von ~def~: Feste Anzahl Parameter vorgegeben 
+- Erweiterte Syntax: Beliebige Parameteranzahl erlauben
+  - Wie Funktionsrumpf die Werte zur Verfügung stellen?
+    - Als Aufzählung!
+  - In Funktionsdefinition: *einem* Parameter einen Stern ~*~
+    voranstellen
+    - Häufig: ~args~ als formaler Parametername (nur Konvention!)
+  - Nach Stern-Parameter darf kein normaler Parameter folgen 
+    
+*** UEBUNG WArum nicht mehrere Parameter mit Sternen? 
+
+weil Semantik nicht klar wäre 
+
+** Variable Anzahl an Positionsparametern -- Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(a, b, *args):
+      # a und b sind normale Parameter
+      # args ist eine Aufzählung mit ggf. weiteren Parameter
+      print("a:", a, "b:", b)
+      print("Anzahl weitere Parameter:", len(args))
+      print("weitere Parameter:", args)
+      print("-------------")
+
+  # f mit zwei Parametern aufrufen:     
+  f(1, 2)
+  # f mit zusätzlichen, optionalen Parametern aufrufen:
+  f(3, 4, "a")
+  f(5, 6, "b", 17, "c")
+  # das würde scheitern: 
+  # f(1)
+#+END_SRC 
+
+#+RESULTS:
+
+** Formale Parameter mit vorbelegten Werten (/default/)
+
+- Möglicherweise haben manche formale Parameter häufig vorkommende,
+  typische Werte (/defaults/)
+- Die der Funktionsentwickler kennt
+- Und die der Aufrufer nicht jedes Mal neu hinschreiben will 
+- Syntax für defaults: Im Funktionskopf default mit ~=~ notieren
+  - Müssen bei Aufruf nicht vorhanden sein
+
+#+BEGIN_SRC python :exports both :results output
+  def f(a, b=42):
+      """Parameter b hat default-Wert 42, wenn nicht
+      explizit anders übergeben."""
+      print("a:", a, end=", ")
+      print("b:", b)
+
+  # Aufruf ohne default-Parameter
+  f(1)
+  # Parameter nach Reihenfolge
+  f(2, 3)
+#+END_SRC 
+
+#+RESULTS:
+: a: 1, b: 42
+: a: 2, b: 3
+: a: 5, b: 4
+
+** Argument bei Aufruf benennen 
+
+- Formale Parameter haben Namen 
+- Möglicherweise bei Aufruf angenehmen, die Namen zu nennen, statt die
+  Position zu wissen?
+- Sogenannte Schlüssel/Wert-Paare (*/keyword arguments/*)
+  - Überschreiben ggf. vorhandene default-Werte 
+- Syntax: Als Zuweisung bei Aufruf
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(a, b=42):
+      print("a:", a, end=", ")
+      print("b:", b)
+
+  # Aufruf nach Position:
+  f(1, 2)
+  # Aufruf mit Nennung der Parameter:
+  f(a=3, b=4)
+  # Bei Nennung der formalen Parameter Reihenfolge unwichtig:
+  f(b=5, a=6)
+#+END_SRC 
+
+#+RESULTS:
+: a: 1, b: 2
+: a: 3, b: 4
+: a: 6, b: 5
+
+
+** ~dict~ als Schlüssel-/Wert-Paare übergeben
+
+- Keyword arguments: Abbildung von Namen auf Wert
+- Das kennen wir von ~dict~!
+  - Kann man ein ~dict~ als Folge Schlüssel-Wert-Paaren an Funktion
+    übergeben?
+- Syntax: Ein dict mit *zwei* vorangestellten Sternen wird als Folge
+  von entsprechenden Argumenten aufgefasst 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(a, b, c):
+      print("a:", a, end=", ")
+      print("b:", b, end=", ")
+      print("c:", c)
+
+  d = {'a': 17, 'b': 42, 'c': 99}
+  # Kann das funktionieren? 
+  # f(d)
+  # Besondere Aufrufssyntax: 
+  f(**d)
+#+END_SRC 
+
+
+*** Aufruf mit ~f(d)~						  :dropslide:
+
+Der Aufruf mit ~f(d)~ kann natürlich nicht funktionieren. Dabei würde
+-- per Reihenfolge der Parameter -- dem formalen Parameter ~a~ der
+Wert von ~d~ zugewiesen. Für die formalen Parameter ~b~ und ~c~ sind
+keine Argumente mehr übrig, es gibt keinen default-Wert, also
+scheitert der Funktionsaufruf. 
+
+
+** ~dict~ als Schlüssel-/Wert-Paare übergeben -- Fehlende Schlüssel 
+
+Was passiert hier, was muss man ändern? 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(a, b, c):
+      print("a:", a, end=", ")
+      print("b:", b, end=", ")
+      print("c:", c)
+
+  d = {'a': 17, 'b': 42}
+  # Besondere Aufrufssyntax: 
+  f(**d)
+#+END_SRC 
+
+#+RESULTS:
+
+*** Fehlermeldung						  :dropslide:
+
+Die Fehlermeldung ~TypeError: f() missing 1 required positional
+argument: 'c'~ weist deutlich auf das Problem hin. Es fehlt ein Wert
+für den benötigten Parameter ~c~. Also Parameter mit Wert versorgen --
+entweder bei Aufruf oder mit einem default-Wert ausstatten und den
+Parameter damit optional machen.
+
+
+** ~dict~ als Schlüssel-/Wert-Paare übergeben -- Zu viele Schlüssel? 
+
+#+BEGIN_SRC python :exports code :results output
+  def f(a, b, c):
+      print("a:", a, end=", ")
+      print("b:", b, end=", ")
+      print("c:", c)
+
+  d = {'a': 17, 'b': 42, 'c': 99, 'd': 1}
+
+  # Das scheitert: 
+  f(**d)
+#+END_SRC 
+
+#+RESULTS:
+
+*** Fehlermeldung						  :dropslide:
+
+~TypeError: f() got an unexpected keyword argument 'd'~ -- auch hier
+ist die Fehlermeldung deutlich. Es gibt keinen formalen Parameter d,
+also kann der Aufruf nicht erfolgen. Das entspricht genau einem
+Aufruf: 
+
+~f(a=17, b=42, c=99, d=1)~ 
+
+der genau so scheitern würde. 
+
+
+
+
+
+** ~dict~ als Schlüssel-/Wert-Paare übergeben -- Optionale Schlüssel? 
+
+- Wir brauchen eine Vorkehrung, um beliebige Schlüssel/Wert-Paare
+  aufzunehmen
+  - Ähnlich wie bei beliebigen Positionsparametern mit ~*args~
+- Syntax entsprechend angelehnt:
+  - In Funktionskopf, einen Parameter mit *zwei* Sternen versehen
+    - Konvention: oft ~**kwargs~ (für keyword arguments) 
+  - Alle überzähligen Schlüssel-/Wert-Paare werden in diesem Parameter
+    als ~dict~ abgelegt 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(a, **kwargs):
+      print("a:", a, end=", ")
+      print("kwargs:", kwargs)
+
+  d = {'a': 17, 'b': 42, 'c': 99, 'd': 1}
+  # Besondere Aufrufssyntax: 
+  f(**d)
+#+END_SRC 
+
+#+RESULTS:
+: a: 17, kwargs: {'b': 42, 'c': 99, 'd': 1}
+
+
+** Zusammenfassung formale Parameter und Argumente -- Syntax 
+
+
+|--------------------+-----------------------------------------------|
+| Definitions-Syntax | Interpretation                                |
+|--------------------+-----------------------------------------------|
+| ~def f(a, b)~      | Positionsparameter                            |
+| ~def f(a=17)~      | Parameter mit default                         |
+| ~def f(*args)~     | Parameter für überzählige Positions-Argumente |
+| ~def f(**kwargs)~  | Parameter für überzählige benannte Argumente  |
+|--------------------+-----------------------------------------------|
+| Aufruf-Syntax      | Interpretation                                |
+|--------------------+-----------------------------------------------|
+| ~f(x, y)~          | Positionsparameter                            |
+| ~f(a=5)~           | Parameter benennen                            |
+| ~f(*l)~            | Siehe Übungsblatt                             |
+| ~f(**d)~           | d als Liste der benannten Argumente           |
+|--------------------+-----------------------------------------------|
+
+Bemerkung: Python 3 hat noch ein paar weitere Feinheiten; brauchen wir
+zunächst nicht 
+
+
+*** UEBUNG f(*l) mit l as iterable durchgehen
+
+** Tuple als Rückgabewerte 
+
+Eigentlich selbstverständlich: Tuple sind legale Rückgabewerte 
+- Damit einfache Möglichkeit, aus Funktion mehr als einen Wert
+  zurückzugeben 
+- ~return~ Tuple
+- Automatisches unpacking bei Funktionsaufruf 
+
+#+BEGIN_SRC python :exports both :results output
+  def mehrfache_rueckgabe():
+      x = 10
+      y = [1, 2, 3]
+      return x, y
+
+  # Tuple entgegennehmen:
+  t = mehrfache_rueckgabe()
+  print("t:", t)
+  # Unpacking des tuples: 
+  a, b = mehrfache_rueckgabe()
+  print("a:", a, "b:", b)
+#+END_SRC 
+
+#+RESULTS:
+: t: (10, [1, 2, 3])
+: a: 10 b: [1, 2, 3]
+
+
+* Funktionen rufen Funktionen auf  
+
+** Funktionen rufen Funktionen auf 
+
+- Bis jetzt: lediglich eine Funktion, die aufgerufen wurde
+  - Stimmt nicht ganz: Unsere Funktion hat auch schon die Funktion
+    ~print~ aufgerufen
+- Was passiert genau, wenn eine Funktion eine andere aufruft?
+  - Insbesondere: Welche Variablen sind sichtbar? 
+
+** Ausführungsmodell 
+
+Das Ausführungsmodell ist ganz naheliegend
+- Aufrufende Funktion unterbricht Ablauf bei Aufruf
+- Aufgerufene Funktion wird ausgeführt
+- Rückgabewert nimmt den Platz des Aufrufs in der aufrufenden
+  Funktion ein
+- Aufrufer macht weiter 
+
+** Illustration 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor 
+  def f():
+      print("in f, vor g")
+      x = g()
+      print("in f, nach g", "x: ", x)
+
+  def g():
+      y = 42
+      return y
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: in f, vor g
+: in f, nach g x:  42
+
+** Beispiel: Matrix ausgeben  
+
+Beispiel: Zwei Funktionen, um eine Matix auszugeben 
+
+#+BEGIN_SRC python :exports both :results output
+  # eine verschachtelte Liste: 
+  matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+  # matrix wollen wir als eine 4x3 Matrix ausgeben 
+
+  def print_matrix(m):
+      for zeile in m:
+          print_zeile(zeile)
+          # Neue Zeile
+          print()
+
+  def print_zeile(z):
+      for c in z:
+          print(c, end=" ")
+
+  print_matrix(matrix)
+#+END_SRC 
+
+#+RESULTS:
+: 1 2 3 
+: 4 5 6 
+: 7 8 9 
+: 10 11 12 13 
+
+
+** Beobachtung: Reihenfolge ~f~, ~g~
+
+- Im Programmcode steht ein Aufruf von ~g~ bevor ~g~ definiert wurde
+- Offenbar unproblematisch
+  - Weil ~def~ eine Anweisung ist, die lediglich den Namen der
+    Funktion mit dem Programmcode verbindet
+  - Dabei wird noch nichts ausgeführt!
+
+Vorsicht, das kann in anderen Sprachen anders aufgefasst
+werden. Reihenfolge der Festlegung kann wichtig sein! 
+
+** Variablen und Sichtbarkeit? 
+
+Auf welche Variablen kann man in einer Funktion zugreifen? 
+- Natürlich auf die selbst zugewiesenen 
+- Andere? 
+
+** Sichtbarkeit Variablen außerhalb der Funktion? 
+
+*** Beispiel 1: Variable vor Funktionsdefinition zugewiesen 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor 
+  x = 5
+  def f():
+      y = x 
+      print(x)
+  f()
+#+END_SRC 
+
+#+RESULTS:
+
+*** Beispiel 2: Variable *nach* Funktionsdefinition zugewiesen 
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      y = x 
+      print(y)
+  x = 5 
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: 5
+
+** Offenbar sichtbar!
+
+- Bei Zugriff auf ~x~ stellt ~f~ fest, dass es kein ~x~ im eigenen
+  scope gibt
+- Dann beginnt Suche: gibt es ein ~x~ im Scope des aufrufenden
+  Programmteils?
+  - Ja!
+  - Dann benutzen wird doch das ~x~!
+- Diese Such findet während der Ausführung von ~f~ statt, nicht
+  während der Definition von ~f~
+  - Deswegen ist es hier egal, ob ~x~ vor oder nach def Definition von
+    ~f~ belegt wird 
+
+*** Visualisierung						  :dropslide:
+
+
+Abbildung [[fig:pt-x-in-global]] zeigt die Situation, nachdem die Funktion
+~f~ die Variable ~x~ im aufrufenden Scope gefunden hat und die eigene
+Variable ~y~ den Wert von ~x~ referenziert. 
+
+#+CAPTION: Variable ~x~ wird im globalen Scope gefunden, ~y~ referenziert den Wert von ~x~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-x-in-global
+[[./figures/pt-x-in-global.png]]
+
+
+
+** Sichtbarkeit bei schreibendem Zugriff? 
+
+Funktioniert das hier?  
+- Nur minimale Änderung zu oben!
+
+#+BEGIN_SRC python :exports both :results output
+  x = 5
+  def f():
+      x = x 
+      print(x)
+  f()
+#+END_SRC 
+
+*** Warum funktioniert das nicht? 
+
+Die Fehlermeldung: ~UnboundLocalError: local variable 'x' referenced
+before assignment~ gibt einen ersten Hinweis. Offenbar wird die
+Variable ~x~ hier als eine Variable, die lokal zur Funktion ist,
+aufgefasst. Die Tatsache, dass es eine globale Variable ~x~ gibt,
+spielt jetzt keine Rolle -- anders als im Beispiel oben. 
+
+Offenbar liegt der Unterschied zwischen diesen beiden Beispielen
+daran, dass an die Variable ~x~ im zweiten Beispiel zugewiesen wird;
+im vorherigen Beispiel wird ~x~ lediglich gelesen. 
+
+Damit haben wir einen entscheidenen Punkt erarbeitet: Der Ort einer
+Zuweisung an eine Variable bestimmt ihren Scope. 
+
+
+
+** Sichtbarkeit von Variablen *zwischen* zwei Funktionen? 
+
+- Aufruf von ~g~ durch ~f~ oben hatte keine Variablen
+- Was passiert, wenn wir das hinzufügen? 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      x = 17
+      g()
+
+  def g():
+      z = a
+      z += x
+      print(z)
+
+  a = 42
+  f()
+#+END_SRC 
+
+#+RESULTS:
+
+- Fehlermeldung in Funktion ~g~: ~NameError: global name 'x' is not defined~
+
+** Unterschied der beiden Fälle? 
+
+Offenbar unterschiedliches Verhalten 
+- Namen innerhalb oder außerhalb einer Funktion definiert 
+- Namen außerhalb /aller/ Funktionen existieren in einem besonderem Scope:
+  dem /global scope/
+- Namen innerhalb einer Funktion existieren nur im Scope der Funktion
+  - Der /local scope/ der Funktion
+  - Local scopes zweier Funktionen haben nichts miteinander zu tun! 
+    - Gleicher Variablenname in unterschiedlichen Scopes:
+      Unterschiedliche Variable!   
+
+** Disjunkte local scopes -- Beispiel 
+
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor
+  x = 99
+
+  def f():
+      x = 17
+      print("x in f:", x)
+      g()
+      print("x in f:", x)
+
+  def g():
+      x = 42
+      print("x in g:", x)
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: x in f: 17
+: x in g: 42
+: x in f: 17
+
+*** Visualisierung 
+
+Im obigen Progerammbeispiel tauchen drei verschiedene Variablen
+auf, die alle ~x~ heißen. Sie existieren in drei verschiedenen
+Kontexten und haben daher nichts miteinander zu tun. Abbildung
+[[fig:pt-three-xs]] illustriert die Situation, nachdem in Funktion ~g~ an
+~x~ zugewiesen wurde. 
+
+
+#+CAPTION: Drei verschiedene Variablen ~x~ in drei verschiedenen Scopes
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-three-xs
+[[./figures/pt-three-xs.png]]
+
+
+** Disjunkte local scopes -- Beispiel 2 
+
+
+- Fast das gleiche Beispiel wie eben 
+- Allerdings wird in ~g~ nicht an ~x~ zugewiesen
+- Was gibt ~g~ aus? Erklärung? 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor 
+  x = 99
+
+  def f():
+      x = 17
+      print("x in f:", x)
+      g()
+      print("x in f:", x)
+
+  def g():
+      print("x in g:", x)
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: x in f: 17
+: x in g: 99
+: x in f: 17
+
+
+*** Visualisierung 
+
+In dieser Variante von ~g~ gibt es im lokalen Scope von ~g~ keine
+Variable ~x~. Daher schaut die Funktion ~g~ beim Zugriff auf ~x~ nach,
+ob im globalen Scope ein ~x~ existiert. Das ist der Fall; also wird
+dieser Wert (hier: 99) benutzt.  Abbildung [[fig:pt-two-xs]] zeigt die
+Situation nach der Ausgabe des (globalen) ~x~ in ~g~.
+
+#+CAPTION: Zugriff auf globales ~x~ in ~g~; Verdeckung in ~f~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-two-xs
+[[./figures/pt-two-xs.png]]
+
+
+Beachten Sie, dass in ~f~ das globale ~x~ *verdeckt* ist durch die
+Zuweisung an die lokale Variable ~x~. 
+
+
+** Modifizierende Nutzung globaler Variablen 
+
+- Zuweisung erzeugt eine Variable im lokalen Scope
+- Was passiert, wenn eine globale Variable verändert wird? 
+
+*** Zuweisung erzeugt lokale Variable 
+
+Wie oben: das hier funktioniert nicht: 
+
+#+BEGIN_SRC python :exports both :results output
+  x = 5
+  def f():
+      x = x + 1
+
+  f()
+#+END_SRC 
+
+
+*** Modifikation einer globalen Variable 
+
+Das hier funktioniert: 
+
+#+BEGIN_SRC python :exports both :results output
+  L = [1, 2]
+  def f():
+      L.append(3)
+
+  f()
+  print(L)
+#+END_SRC 
+
+#+RESULTS:
+: [1, 2, 3]
+
+- An ~L~ wird nicht zugewiesen, also wird das globale ~L~ benutzt
+- Es wird nicht ~L~ verändert, sondern das referenzierte Objekt! 
+
+** Modifikation einer globalen Variablen 
+
+- Eigentlich geht das nicht!
+  - Funktionen kommunizieren Ergebnisse durch
+    - Rückgabewerte (gut!) 
+    - Ggf. durch Veränderung globaler Objekte (zweischneidig!) 
+- Aber wenn doch nötig?
+
+
+#+CAPTION: Danger, danger!
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:danger
+[[./figures/DangerWillRobinson.png]]
+
+** Modifikation einer globalen Variablen 
+
+- Eigenes Schlüsselwort: ~global~
+  - Deklariert einen Variablen als dem globalen Scope zugehörig 
+- *Extrem bedenklich*!!
+  - Schwer lesbar, schlecht wartbar, unübersichtlich, fehleranfällig,
+    ... 
+
+#+BEGIN_SRC python :exports both :results output
+  x = 5
+  def f():
+      global x
+      x = x + 1
+
+  f()
+  print(x)
+#+END_SRC 
+
+#+RESULTS:
+: 6
+
+** Die Gefahr globaler Variablen 
+
+- Die Modifikation globaler Variablen wird durch die Sprache bewusst
+  erschwert
+- Kernproblem: Problem ist nicht mehr verständlich, indem man nur den
+  jeweiligen Ausschnitt betrachtet
+  - Beispiel: Welchen Wert hat ~X~? 
+
+#+BEGIN_SRC python :exports both :results output
+X = 99
+def func1():
+    global X
+    X = 88
+
+def func2():
+    global X
+    X = 77
+#+END_SRC 
+
+
+
+
+
+** Zusammenfassung: Scope von Variablen in Funktionen 
+
+*** Scope von Variablen					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+ 
+Der Scope einer Variablen bestimmt sich daraus, wo an diese Variable
+eine *Zuweisung* erfolgt. 
+
+- Variablen, an die innerhalb eines ~def~ zugewiesen wurde, sind im
+  local scope dieser Funktion
+- Variablen, an die außerhalb aller Funktionen zugewiesen wurde, sind
+  im global scope
+  - Referenziert eine Variable im global scope ein Objekt, so kann das
+    Objekt durchaus verändert werden!
+- Auf Variablen in global scope kann von einer Funktion aus nur lesend
+  zugegriffen werden 
+  - Es sei denn, sie sind vorher durch ~global~ deklariert 
+
+
+* Indirekte Rekursion 
+
+** Funktionen rufen sich gegenseitig auf  
+
+- Bisher: ~f~ hat ~g~ aufgerufen.
+  - Und würde ~g~ eine Funktion ~h~ aufrufen, so ginge das genauso 
+- Was passiert, wenn ~g~ dann wieder ~f~ aufruft? 
+
+Zwei Fragen: 
+- Terminierung? 
+- Scope? 
+
+** Wechselseitiger Aufruf: (Inkorrektes) Beispiel 
+
+#+BEGIN_SRC python :exports code :results output
+  def f():
+      print("f")
+      g()
+
+  def g()
+      print("g")
+      f()
+
+  f()
+#+END_SRC 
+
+
+Problem: Endlos, terminiert nicht! 
+
+** Wechselseitiger Aufruf: Terminierung 
+
+Ziel: Stelle sicher, dass die Folge von Aufrufen terminiert 
+
+- Idee: Ähnlich wie Terminierung von Schleifen 
+  - Finde einen Ausdruck, der mit jedem Ausdruck streng monoton und
+    diskret fällt 
+  - Zeige, dass Aufrufe enden, wenn Ausdruck einen Wert erreicht
+    (z.B. 0) 
+
+
+** Wechselseitiger Aufruf: Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  def is_even(x):
+      print("is_even checks:", x)
+      if x == 0:
+          return True
+      else:
+          y = x - 1
+          return is_odd(y)
+
+  def is_odd(x):
+      print("is_odd checks:", x)
+      if x == 0:
+          return False
+      else:
+          y = x - 1
+          return is_even(y)
+
+  result = is_even(5)
+  print(result)
+#+END_SRC 
+
+#+RESULTS:
+: is_even checks: 5
+: is_odd checks: 4
+: is_even checks: 3
+: is_odd checks: 2
+: is_even checks: 1
+: is_odd checks: 0
+: False
+
+
+Was tut dieses Programm? 
+
+** Wechselseitiger Aufruf: Scopes 
+
+Schauen wir uns die Scopes genauer an: 
+
+- Beide Funktionen ~is_even~ und ~is_odd~ haben Variablen ~x~ und ~y~
+- Diese ~x~ und ~y~ werden sich gegenseitig *verdecken*
+- Aber was passiert mit einem ~x~ von ~is_even~, wenn ~is_even~ erneut
+  aufgerufen wird? 
+- Was würden Sie sinnvollerweise erwarten? 
+
+** Wechselseitiger Aufruf: Animation 
+
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor
+  def is_even(x):
+      print("is_even checks:", x)
+      if x == 0:
+          return True
+      else:
+          y = x - 1
+          return is_odd(y)
+
+  def is_odd(x):
+      print("is_odd checks:", x)
+      if x == 0:
+          return False
+      else:
+          y = x - 1
+          return is_even(y)
+
+  result = is_even(5)
+  print(result)
+#+END_SRC 
+
+
+*** Animationsschritte 
+
+Der erste interessante Schritt passiert in diesem Beispiel, wenn
+~is_odd~ die Funktion ~is_even~ mit dem Parameter 3 aufruft. Abbildung 
+zeigt, dass dann für den erneuten Aufruf von ~is_even~ ein neuer Scope
+angelegt wird, mit separatem ~x~ und ~y~. 
+
+#+CAPTION: Beim zweiten Aufruf von ~is_even~ wird ein weiterer Scope angelegt, mit neuen ~x~ und ~y~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-is_even
+[[./figures/pt-is_even.png]]
+
+
+Dieses Muster setzt sich fort: jeder Aufruf einer Funktion erhält
+einen eigenen Scope, der mit den Scopes der anderen Funktionen nichts
+zu tun hat. 
+
+#+CAPTION: Weitere Aufrufe von ~is_even~ und ~is_odd~ mit jeweils eigenen Scopes 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-multiple-even-odd
+[[./figures/pt-multiple-even-odd.png]]
+
+
+** Zugriff auf Variablen in anderen Scopes? 
+
+- Im oben Beispiel mit ~f~ und ~g~ gelang es nicht, auf eine Variable
+  ~x~ in einem anderen Scope zuzugreifen
+- Geht das hier?
+  - Kann eine Funktion ~is_even~ auf eine Variable ~x~ "von sich
+    selbst" zugreifen? In einem anderen Scope von ~is_even~? 
+  - *Nein!*
+    - Man kann das nicht einmal hinschreiben
+    - Welches ~x~ würde man auch meinen?
+
+*** UEBUNG Warum nutzt eine Deklaration wie global hier nichts? 
+
+Weil man ggf. den relativen Stack frame angeben müsste. 
+
+
+** Rekursion und Scopes 
+
+*** Jeder Funktionsaufruf hat eigenen Scope		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Jeder rekursive Funktionsaufruf hat einen eigenen Scope. Die
+Variablennamen in einem Scope haben nichts mit Variablennamen in einem
+anderen Scope zu tun.
+
+* Direkte Rekursion 
+
+** Direkte Rekursion 
+
+- Sonderfall der Rekursion: Eine Funktion ruft sich selbst auf 
+  - Terminierung sicherstellen!
+- Allgemeiner: /Definition nimmt auf sich selbst Bezug/ 
+
+** Rekursion in der Kunst 
+
+Abbildung [[fig:bild-im-bild]] illustriert Rekursion. 
+
+#+CAPTION: Bild im Bild
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:bild-im-bild
+[[./figures/bild-rekursion.png]]
+
+** Rekursion in der Kunst 
+
+Abbildung [[fig:escher]] illustriert Rekursion. 
+
+
+#+CAPTION: Rekursion: Zeichnende Hände
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:escher
+[[./figures/escher.png]]
+
+
+
+
+** Beispiel: Fakultät 
+
+*** Definition, nicht-rekursiv
+
+Für $n\geq 1$: 
+
+$\mathrm{fak}(n) = \Pi _{i=1}^n i = 1 \cdot \ldots \cdot n$ 
+
+*** Definition, rekursiv
+
+$$\mathrm{fak}(n) = \begin{cases}
+1 & n = 0 \\ 
+1 & n = 1 \\
+n \cdot \mathrm{fak}(n-1) & \mathrm{sonst.}  
+\end{cases}$$ 
+
+
+** Beispiel: Fakultät -- Code 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor
+  def fak(n):
+      if n==1:
+          return 1
+      else:
+          return n*fak(n-1)
+
+  res = fak(5)
+  print(res)
+#+END_SRC 
+
+#+RESULTS:
+: 120
+
+*** Visualisierung						  :dropslide:
+
+Abbildung [[fig:pt-fak-rekursiv]] zeigt einen Zwischenzustand bei der
+rekursiven Berechnung der Fakultät. Hier haben alle rekursiven Aufrufe
+stattgefunden; danach beginnt die Berechnung der Ergebnisse. 
+
+#+CAPTION: Visualisierung der rekursiven Fakultätsberechnung
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-fak-rekursiv
+[[./figures/pt-fakultaet.png]]
+
+
+Den Zustand ein paar Schritte weiter zeigt Abbildung
+[[fig:pt-fak-rek-ergebnis]]. Hier wurden die Teilergebnisse von ~fak(1)~,
+~fak(2)~ und ~fak(3)~ berechnet; der Aufruf von ~fak(3)~ wird gleich
+zurückkehren und den Wert 6 zurückgeben. 
+
+#+CAPTION: Visualisierung der rekursiven Fakultätsberechnung -- Rückgabe der Ergebnisse
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-fak-rek-ergebnis
+[[./figures/pt-fak-2.png]]
+
+
+** Randfälle? 
+
+Was passiert bei: 
+
+#+BEGIN_SRC python :exports both :results output
+fak(0)
+fak(-5)
+#+END_SRC 
+
+Notwendige Änderungen? 
+
+
+** Beispiel: String umdrehen 
+
+- Gegeben: Zeichenkette
+- Gesucht: Die Zeichenkette, rückwärts gelesen 
+
+
+***  Rekursive Idee						    :animate:
+- Die einfachen Fälle: 
+  - Eine leere Zeichenkette rückwärts: die leere Zeichenkette
+  - Eine Zeichenkette der Lände 1 rückwärts: die Zeichenkette selbst 
+- Die interessanten Fälle: eine längere Kette
+  - Nimm das erste Zeichen von der Kette weg
+  - Drehe die verkürzte Kette um
+  - Hänge das erste Zeichen ans Ende der umkehrten, verkürzten Kette
+    an 
+
+** Beispiel: String umdrehen -- Code  
+
+#+BEGIN_SRC python :exports both :results output
+  def reverse(s):
+      if len(s)<=1:
+          return s
+      else:
+          first = s[0]
+          rest = reverse(s[1:])
+          return rest + first
+
+  print(reverse("Hallo GP1"))
+#+END_SRC 
+
+#+RESULTS:
+: 1PG ollaH
+
+*** Visualisierung						  :dropslide:
+
+Hier nur kurz die Visualisierung eines Zwischenstandes, nachdem
+bereits die ersten Zwischenergebnisse produziert wurden (Abbildung
+[[fig:pt-reverse-string]]). Vollziehen Sie dieses Beispiel bitte selbst in
+[[http://pythontutor.com]] nach!
+
+#+CAPTION: Zeichenkette umkehren
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-reverse-string
+[[./figures/pt-reverse-string.png]]
+
+*** Knapperer Code						  :dropslide:
+
+Der hier angegebenen Code ist nur zur einfacheren Visualisierung etwas
+weitschweifig. Das kann man knapper wie folgt aufschreiben: 
+
+#+BEGIN_SRC python :exports both :results output
+def reverse(s):
+    if len(s)<=1:
+        return s
+    else:
+        return reverse(s[1:]) + s[0]
+
+print(reverse("Hallo GP1"))
+#+END_SRC 
+
+
+
+
+** Rekursion -- Muster 
+
+- Rekursion beruht auf
+  - der Berechnung einfacherer Teilproblem
+  - Zusammensetzen der Lösung dieser Teilprobleme zur Gesamtlösung
+  - Ganz einfache Teilprobleme werden direkt gelöst 
+- Typisches Muster: 
+
+#+BEGIN_SRC python :exports code :results output
+  def rekursive_Funktion(parameter):
+      if (parameter einfach genug für direkte Loesung):
+          return Funktionswert beruhend auf parameter
+      else:
+          Bestimme einfacherere(s) Teilproblem(e)
+          Rufe rekursive_Funktion fuer Teilprobleme auf
+          Berechne Funktionswert beruhend auf Loesungen der Teilprobleme
+#+END_SRC 
+
+*** UEBUNG Beispiele fuer Rekursion 
+
+
+** Rekursion -- Entwurf? 
+
+Wie entwirft man rekursive Algorithmen? 
+
+- Suche einfache Grenzfälle: Für welche Eingaben kann man das Ergebnis
+  direkt angeben?
+- Suche Zerteilung: Wie kann man kompliziertere Eingaben in einfachere
+  Eingaben zerteilen; das komplexe Probleme in einfachere Teilprobleme
+  zerlegen?
+- Suche Zusammensetzung: Wie kann man Lösungen der Teilprobleme zur
+  Lösung des Gesamtproblems zusammensetzen? 
+
+** Entwurfsbeispiel: Türme von Hanoi
+
+- Auf einem Turm liegt ein Stapel Scheiben unterschiedlicher Größe
+  - Kleinere Scheiben müssen auf größeren Scheiben liegen
+- Dieser Scheibenstapel soll auf einen anderen Turm transportiert
+  werden
+- Es kann immer nur eine Scheibe bewegt werden
+  - Kleinere nur auf größeren, nicht umgekehrt! 
+- Es gibt einen dritten Turm, der als Zwischenablage verwendet werden
+  kann 
+
+** Türme von Hanoi -- Start  
+
+
+
+   #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
+   #+header: :cache yes
+   #+begin_src latex :exports results :results output raw :file figures/hanoi.png :fit t
+     \definecolor{barcolor}{named}{lightgray}
+     \definecolor{barborder}{named}{black}
+
+     \newcommand{\barheight}{0.5cm}
+
+     \newcommand{\pyramid}[1]{%
+         \begin{tikzpicture}[x=0.25cm]
+             \foreach \b [count=\n] in {#1} {
+                 \draw [barborder,fill=barcolor]
+                     (-0.5*\b,{(\n-1)*\barheight}) rectangle (0.5*\b,\n*\barheight);
+             }
+         \end{tikzpicture}
+     }
+
+     \begin{tabular}{ccc}
+     Start   & Ablage &  Ende \\
+     \pyramid{9,7,5,3,1} & & 
+     \end{tabular}
+ 
+   #+end_src
+
+   #+RESULTS[3569b3243050d9df8affde615baf4ac9cb512edf]:
+   #+NAME: fig:hanoi
+   #+CAPTION: Türme von Hanoi
+   #+ATTR_LATEX: :width 0.3\textwidth 
+   [[file:figures/hanoi.png]]
+
+
+
+** Türme von Hanoi -- Ziel  
+
+
+
+   #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
+   #+header: :cache yes
+   #+begin_src latex :exports results :results output raw :file figures/hanoi2.png :fit t
+     \definecolor{barcolor}{named}{lightgray}
+     \definecolor{barborder}{named}{black}
+
+     \newcommand{\barheight}{0.5cm}
+
+     \newcommand{\pyramid}[1]{%
+         \begin{tikzpicture}[x=0.25cm]
+             \foreach \b [count=\n] in {#1} {
+                 \draw [barborder,fill=barcolor]
+                     (-0.5*\b,{(\n-1)*\barheight}) rectangle (0.5*\b,\n*\barheight);
+             }
+         \end{tikzpicture}
+     }
+
+     \begin{tabular}{ccc}
+     Start   & Ablage &  Ende \\
+     & & \pyramid{9,7,5,3,1}
+     \end{tabular}
+ 
+   #+end_src
+
+   #+RESULTS[99859da97681d6024e6d16918e5e8b9c00e04f64]:
+   #+NAME: fig:hanoi
+   #+CAPTION: Türme von Hanoi
+   #+ATTR_LATEX: :width 0.3\textwidth 
+   [[file:figures/hanoi2.png]]
+
+
+** Türme von Hanoi -- Möglicher Zwischenstand  
+
+
+
+   #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
+   #+header: :cache yes
+   #+begin_src latex :exports results :results output raw :file figures/hanoi3.png :fit t
+     \definecolor{barcolor}{named}{lightgray}
+     \definecolor{barborder}{named}{black}
+
+     \newcommand{\barheight}{0.5cm}
+
+     \newcommand{\pyramid}[1]{%
+         \begin{tikzpicture}[x=0.25cm]
+             \foreach \b [count=\n] in {#1} {
+                 \draw [barborder,fill=barcolor]
+                     (-0.5*\b,{(\n-1)*\barheight}) rectangle (0.5*\b,\n*\barheight);
+             }
+         \end{tikzpicture}
+     }
+
+     \begin{tabular}{ccc}
+     Start   & Ablage &  Ende \\
+     \pyramid{9,7} &\pyramid{3,1} &  \pyramid{5}
+     \end{tabular}
+ 
+   #+end_src
+
+   #+RESULTS[3261387d560f6c3e689e9980f08521b7cb3812b4]:
+   #+NAME: fig:hanoi
+   #+CAPTION: Türme von Hanoi
+   #+ATTR_LATEX: :width 0.3\textwidth 
+   [[file:figures/hanoi3.png]]
+
+
+** Türme von Hanoi -- Fragen  
+
+Also: 
+
+- Grenzfall?
+- Zerteilung?
+- Zusammensetzung? 
+
+** Türme von Hanoi -- Code 					  :dropslide:
+
+#+BEGIN_SRC python :exports both :results output
+  def hanoi(hoehe, von, nach, ablage):
+      if hoehe==1:
+          print("Lege Scheibe von", von, "nach", nach)
+      else:
+          hanoi(hoehe-1, von, ablage, nach)
+          print("Lege Scheibe von", von, "nach", nach)
+          hanoi(hoehe-1, ablage, nach, von)
+
+  hanoi(3, "start", "ziel", "ablage")
+#+END_SRC 
+
+#+RESULTS:
+: Lege Scheibe von start nach ziel
+: Lege Scheibe von start nach ablage
+: Lege Scheibe von ziel nach ablage
+: Lege Scheibe von start nach ziel
+: Lege Scheibe von ablage nach start
+: Lege Scheibe von ablage nach ziel
+: Lege Scheibe von start nach ziel
+
+
+** Wie oft wird eine Scheibe bewegt? 
+
+- Wie könnten wir das mitzählen? 
+  - Ordentliche Lösung?
+  - Unordentlich? 
+
+*** UEBUNG Beispiele für Übungen 
+
+- fibonacci 
+- Wie oft durch zwei Teilen? 
+- Binäre Scuhe! 
+
+** Rekursion oder Iteration? 
+
+- Fakultät lässt sich natürlich auch trivial iterativ (ohne rekursive
+  Funktionsaufrufe) implementieren
+- Häufig:
+  - Rekursive Variante einfacher, übersichtlicher
+  - Iterative Variante schneller, komplizierter 
+- Allgemein: Rekursiv und iterativ ineinander überführbar 
+- Wann nimmt man was?
+  - Je nach Problem, Struktur, Relevanz der Lösungszeit
+  - Vgl. VL Datenstrukturen und Algorithmen 
+
+
+** Rekursion zur Definition 
+
+- Grundidee der Rekursion auch für Definitionen anwendbar
+  - Für Funktionen, wie oben
+  - Für Datenstrukturen: Bäume , Listen
+  - Für Programmiersprachen:
+    - Eine Anweisung besteht aus...
+    - Ein Ausdruck besteht aus... anderen Ausdrücken! 
+- Mehr dazu in VL Modellierung, VL DuA, und im ganzen Rest des
+  Studiums! 
+
+
+** Rekursion: Realisierung? 
+
+- Jeder Aufruf einer Funktion -- sei es normal, durch indirekte oder
+  direkte Rekursion -- hat also einen eigenen Scope, eigene Version
+  des Zustands der Funktion
+  - Zustand: werte der Parameter, der lokalen Variablen, des Rückgabewertes
+- Konzeptionell schön, aber wie wird das realisiert?
+- Kernidee: Ein /Stapel/
+  - Datenstruktur, auf der andere Daten angelegt werden können
+  - Kann wachsen und schrumpfen
+  - Stellt Platz für die Scopes bereit
+  - Detals: VL GPS 
+
+* Funktionen und Software-Entwurf 
+
+** Wie nutzt man Funktionen sinnvoll? 
+
+- Bis jetzt: Syntax und Semantik für Funktionen
+  - (Noch nicht vollständig)
+- Aber wie entwirft man Programme sinnvoll?
+  - Regel für die Nutzung von Funktionen? 
+- Hier: einige erste Faustregeln
+  - Später: VL Software-Entwurf 
+
+** Funktionen und Coupling 
+
+*** Eingabe mit Argumente, Ausgabe mit return  
+
+- Funktionen sollten Eingaben nur durch die Argumente erhalten
+- Resultate nur durch ~return~ 
+- Unabhängig von Werte um die Funktion herum 
+- /Isolation/ der Funktion erhöht Wiederverwendbarkeit 
+
+*** Globale Variablen nur wenn nicht anders möglich		    :animate:
+
+- Globale Variablen erzeugen Abhängigkeiten und Komplexität
+- Nur als letzter Ausweg!
+
+** Funktionen und Coupling (2) 
+
+
+*** Veränderbare Argumente nicht verändern			    :animate:
+
+- Bekommt eine Funktion veränderbare Typen (Listen, Mengen, Dicts) als
+  Argumente, so sollte sie diese typischerweise nicht verändern
+- Nur, wenn dies der Aufrufer offensichtlich erwarten muss 
+- Klar dokumentieren, wenn dies passiert!
+- Meist besser: Veränderte Werte mit ~return~ zurückgeben
+  - Aufrufer entscheidet, was passiert 
+
+** Funktionen und Kohesion 
+
+- Eine Funktion erledigt genau eine Aufgabe
+- Aufgabe typischerweise in einem knappen Satz beschreibbar
+- Wenn zu kompliziert, zu viele unterschiedliche Aspekte: Funktion 
+  in Teilfunktionen aufteilen! 
+
+** Funktionen und Größe 
+
+- Funktion sollte relativ klein sein (Anzahl Code-Zeilen)
+- Faustregel: zwei Bildschirmseiten als Maximum 
+- Wenn größer: Funktion 
+  in Teilfunktionen aufteilen! 
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Funktionen können Parameter in flexibler Form entgegen nehmen:
+  default-Werte, variable Parameteranzahl, Aufruf mit Parameter-Namen
+- Funktionen können beliebige Typen zurückgeben, insbesondere Tuple
+  - Nützlich um mehrere unterschiedliche Werte als Resultat zu
+    verwenden
+- Jeder Funktionsaufruf hat einen eigenen Scope, in dem Variablennamen
+  lokal existieren
+  - Entsteht bei Funktionsaufruf, zerstört bei Funktionsende
+- Der Scope einer Variable ist lexikalisch durch den Ort der Zuweisung
+  an die Variable bestimmt
+  - Bei Nutzung einer Variable wird zunächst der lokalen, dann der
+    globale Scope besucht
+- Funktionen können direkte oder indirekte Rekursion nutzen
+  - Jeweils mit eigenem Scope 
