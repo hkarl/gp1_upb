@@ -1230,10 +1230,10 @@ Mit dem bisherigen Verständnis, wie eine Liste funktioniert, sollte
 das Verhalten dieses Beispiels ganz naheliegend sein. 
 
 1. Abbildung [[fig:pt-modify-list-1]] zeigt die Situation vor Aufruf der
-   Funktion an. Es gibt, im globalen Scope, zwei Namen, einen für die
+   Funktion an. Es gibt, im globalen Namensraum, zwei Namen, einen für die
    Funktion ~modify_list~ und einen für die Liste ~l~.
 2. Nach Aufruf der Funktion (Abbildung [[fig:pt-modify-list-2]]) gibt es,
-   im Scope der Funktion, einen weiteren Namen ~ll~ für die /gleiche
+   im Namensraum der Funktion, einen weiteren Namen ~ll~ für die /gleiche
    Liste/; es ist das gleiche Objekt das nun lediglich mit zwei Namen
    referenziert wird.
 3. Nach der Zuweisung zu dem zweiten Element (Abbildung

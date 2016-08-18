@@ -376,7 +376,7 @@ Wo sind die Unterschied? Zumindest einer klar: Im Zustand fehlt der
 Eintrag für den Funktionsnamen f . Und die Variablen x und y sind
 nicht im Scope. 
 
-** Variablen: Scope 
+** Variablen: Lebensdauer 
 
 - Was passiert mit ~x~ und ~y~ aus der Funktion?
 - Verschwinden nach Rückkehr aus der Funktion! 
@@ -387,25 +387,77 @@ nicht im Scope.
   wird, ist *lokal* zu dieser Funktion
   - Existiert nur, solange Anweisungen dieser Funktion ausgeführt
     werden
-  - Verschwindet nach Ende der Funktion 
+  - Verschwindet nach Ende der Funktion
+    - (bis auf Ausnahmen, siehe später) 
 
 
-** Scope und Frame 
+** Namensraum (Namespace)
 
-***  ~Scope und Frame~					       :B_definition:
+
+
+*** Namensraum (Namespace) 				       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
 
-Der /Scope/ einer Variable sind die Zeilen des Programms, in denen auf
-diese Variable zugegriffen werden kann. 
+Ein /Namensraum/ (oder /namespace/) ist eine Abbildung von Namen zu
+Werten.  Namensräume gruppieren Namen, z.B. Variablennamen. 
 
-Der /Frame/ einer Funktion fasst die Scopes der Variablen der Funktion
- zusammen. Er enthält alle Variablen, die die Funktion selbst erzeugt
- hat und auf die sie zugreifen kann. 
+Namen in unterschiedlichen Namensräumen sind von einander isoliert;
+der gleiche Name kann in unterschiedlichen Namensräumen verwendet
+werden und auf unterschiedliche Objekte verweisen. 
 
-Mit dem Ende der Funktion wird der Frame vernichtet. Damit endet der
-Scope der enthaltenen Variabeln (sie sind /out of scope/). 
+
+*** Namespaces: Beispiele				  :B_example:animate:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+- Ein Funktionsaufruf erzeugt einen Namensraum für
+  diese Funktion. Dieser Namensraum verschwindet wenn die Funktion
+  zurückkehrt. 
+- Alle vordefinierten Funktionen existieren in einem eignen Namensraum
+  (mit Namen ~builtins~). 
+- Alle globalen Namen existieren in einem eigenen Namensraum.
+- Namensräume können sich während der Laufzeit verändern (und tun das
+  typischerweise auch). 
+- Siehe [[https://docs.python.org/3/tutorial/classes.html][Abschnitt 9.2]] für Details. 
+
+** Scope 
+
+
+***  Scope 					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Der /Scope/ eines Namensraums sind die Zeilen des Programms, in denen
+auf dessen Namen /direkt/ zugegriffen werden kann. Der Scope bestimmt
+die Sichtbarkeit eines Namens.
+
+Ein Scope ist eine statische Eigenschaft des
+Programms; er entsteht /nicht/ zur Laufzeit. 
+
+Ein Name kann an einer Stelle des Programms nicht sichtbar sein, aber
+durchaus zur Laufzeit existieren. Er heißt dann /out of scope/.
+
+Verkürzend sprechen wir von /Scope einer Variable/ und meinen damit den
+Scope des Namensraum, zu dem der Name dieser Variable gehört. 
+
+** Frame 
+
+*** Frame						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Der /Frame/ einer Funktion beschreibt /zur Laufzeit/ ihren Zustand. Er
+enthält u.a. 
+- den Namensraum der Funktion
+- Information, wo das Programm nach Ende der Funktion fortgesetzt
+  wird. 
+
+
 
 
 *** Anmerkung						   :B_note:dropslide:
@@ -413,9 +465,18 @@ Scope der enthaltenen Variabeln (sie sind /out of scope/).
     :BEAMER_env: note
     :END:
 
-
 Das stimmt nicht ganz. Wir werden diese Definition in folgenden
 Kapiteln noch verfeinern. 
+
+*** Anmerkung: Pythontutor			     :B_definition:dropslide:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Pythontutor stellt den Ablauf eines Programms dar. Also werden dort
+die /frames/ angezeigt. Die Namensräume sind als Teil des Frames
+sichtbar, werden aber nicht besonders als solche markiert. 
+
 
 ** Scope/Frame: Beispiel 
 
@@ -433,9 +494,9 @@ Kapiteln noch verfeinern.
 #+END_SRC
 
 
-*** Unterschiedliche Scopes					  :dropslide:
+*** Unterschiedliche Namensräume 				  :dropslide:
 
-Die folgenden Abbildungen zeigen die unterschiedlichen Scopes. In der
+Die folgenden Abbildungen zeigen die unterschiedlichen Namensräume bzw. Frames. In der
 Pythontutor-Anzeige werden dabei auf der rechten Seite die Frames
 separat angezeigt: 
 
@@ -450,20 +511,21 @@ In den einzelnen Schritten geschieht folgendes:
 1. Nach Definition von ~f~, vor dem ersten Aufruf (Abbildung
    [[fig:pt-vor-f1]]): hier sind lediglich die Namen ~z~ und ~f~
    bekannt. Der Aufruf von ~f~ wird als nächstes ausgeführt werden.
-#+CAPTION: Aufruf einer Funktion, Scopes: Vor erstem Aufruf
+#+CAPTION: Aufruf einer Funktion: Vor erstem Aufruf
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-vor-f1
 [[./figures/pt-f-1-vorf.png]]
 2. [@2] Innerhalb des ersten Aufrufs von ~f~ (Abbildung [[fig:pt-in-f1]]): Kurz vor
    Ende von ~f~ sind die beiden Namen ~x~ und ~y~ bekannt, die lokal
    innerhalb der Funktion eingeführt wurden. Achten Sie darauf, dass
-   diese Namen in einem anderen Scope -- dem von ~f~ -- existieren.
-#+CAPTION: Aufruf einer Funktione, Scopes: Im ersten Aufruf
+   diese Namen in einem anderen Namensraum -- dem von ~f~ -- existieren.
+#+CAPTION: Aufruf einer Funktion: Im ersten Aufruf
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-in-f1
 [[./figures/pt-f-2-inf1.png]]
 3. [@3] Nach Abschluss des ersten Aufrufs von ~f~, vor dem zweiten
-   (Abbildung [[fig:pt-zwischen-f]]): Achten Sie darauf, dass der Scope von
+   (Abbildung [[fig:pt-zwischen-f]]): Achten Sie darauf, dass der
+   Namensraum von
    ~f~ nicht mehr existiert und damit auch die beiden Namen ~x~ und
    ~y~ verschwunden sind (ebenso wie die Werte, die von ~x~ und ~y~
    referenziert wurden -- es gibt ja keinen Namen mehr, unter denen
@@ -471,17 +533,17 @@ In den einzelnen Schritten geschieht folgendes:
    vor dem Aufruf bekannten Namen ~z~ und ~f~. ~z~ referenziert
    inzwischen einen anderen Wert, nämlich die Zeichenkette
    /dazwischen/.
-#+CAPTION: Aufruf einer Funktion, Scopes: Nach erstem Aufruf, vor zweitem Aufruf
+#+CAPTION: Aufruf einer Funktion: Nach erstem Aufruf, vor zweitem Aufruf
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-zwischen-f
 [[./figures/pt-f-3-dazwischen.png]]
 4. [@4] Wir sind im zweiten Aufruf von ~f~ (Abbildung [[fig:pt-inf2]]). Das
    erkennen Sie in diesem Beispiel an dem Wert von ~z~ im globalen
-   Scope; aus den Pfeilen für die auszuführende Instruktion ist das
+   Namensraum; aus den Pfeilen für die auszuführende Instruktion ist das
    nicht ersichtlich -- die zeigen ja lediglich auf die aktuelle
    Stelle. Die (neu geschaffenen) Namen ~x~ und ~y~ regenerieren die
    gleichen Werte wie oben (die ebenfalls neu geschaffen wurden).
-#+CAPTION: Aufruf einer Funktion, Scopes: Im zweiten Aufruf
+#+CAPTION: Aufruf einer Funktion: Im zweiten Aufruf
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-inf2
 [[./figures/pt-f-4-inf2.png]]
@@ -489,7 +551,7 @@ In den einzelnen Schritten geschieht folgendes:
    [[fig:pt-nach-f]]) sind wieder die beiden Namen (samt referenzierter
    Werte) ~x~ und ~y~ verschwunden. Der Name ~z~ zeigt auf den neuen
    Wert. 
-#+CAPTION: Aufruf einer Funktion, Scopes: Nach zweitem Aufruf
+#+CAPTION: Aufruf einer Funktion: Nach zweitem Aufruf
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-nach-f
 [[./figures/pt-f-5-danach.png]]
@@ -567,9 +629,9 @@ Was ist der Wert von ~x~ am Ende?
   fortsetzen
   - Vorstellung: Der Aufruf der Funktion wird durch die Anweisungen
     der Funktion ersetzt, und dann wird ausgeführt
-- Bei der Ausführung einer Funktion wird ein neuer Scope für die
+- Bei der Ausführung einer Funktion wird ein neuer Namensraum für die
   Variablen der Funktion angelegt
-  - Dieser Scope wird nach Ende der Funktion wieder vernichtet 
+  - Dieser Namensraum wird nach Ende der Funktion wieder vernichtet 
 - Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
   durch ihren Rückgabewert
   - Rückgabewert ist der Ausdruck nach ~return~ 
@@ -599,10 +661,10 @@ wir drei Schritte:
 [[./figures/pt-pi-1.png]]
    
 2. [@2] Nach dem Aufruf und nach der Ausführung der Anweisung ~return~
-   (Abbildung [[fig:pt-pi-return-value]]) wird im Scope von ~pi~ eine
+   (Abbildung [[fig:pt-pi-return-value]]) wird im Namensraum von ~pi~ eine
    /scheinbare/ Variable ~return value~ angelegt. Diese Variable zeigt
-   auf den Wert des Ausdrucks, den ~return~ bearbeitet. Wie jede
-   andere Variable im Scope einer Funktion wird auch diese Variable
+   auf den Wert des Ausdrucks, den ~return~ bearbeitet. Wie jeder
+   andere Name im Namensraum einer Funktion wird auch dieser Name
    nach Rückkehr vernichtet. 
 #+CAPTION: Nach Berechnung des Rückgabewerts, Anlegen der scheinbaren Variable ~return value~
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -652,9 +714,9 @@ Was passiert, wenn eine Funktion keine ~return~ Anweisung hat?
 
 - Aufruf der Funktion: Programm mit den Anweisungen der Funktion
   fortsetzen
-- Bei der Ausführung einer Funktion wird ein neuer Scope für die
+- Bei der Ausführung einer Funktion wird ein neuer Namensraum für die
   Variablen der Funktion angelegt
-  - Dieser Scope wird nach Ende der Funktion wieder vernichtet 
+  - Dieser Namensraum wird nach Ende der Funktion wieder vernichtet 
 - Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
   durch ihren Rückgabewert
   - Rückgabewert ist der Ausdruck nach ~return~
@@ -882,7 +944,7 @@ Name für den Wert 5 ist.
 
 *** UEBUNG Was passiert, wenn formaler Parameter und Argument gleichen Variabelennamen haben?  
 
-Überlegen, Scope verstehen, animation ? 
+Überlegen, Namensraum verstehen, animation ? 
 
 
 ** Aufruf: Gleicher Name mehrfach? 
@@ -904,7 +966,7 @@ Was passiert bei:
 *** Nichts unerwartetes!					    :animate:
 
 Es gibt einfach zwei Namen ~x~. Die sind aber durch den jeweiligen
-Scope eindeutig zuordenbar und haben nichts mit einandern zu tun. 
+Namensraum eindeutig zuordenbar und haben nichts mit einandern zu tun. 
 
 *** Details							  :dropslide:
 
@@ -1009,9 +1071,9 @@ Eine Funktion kann eine beliebige Anzahl an Parametern haben:
 
 - Aufruf der Funktion: Programm mit den Anweisungen der Funktion
   fortsetzen
-- Bei der Ausführung einer Funktion wird ein neuer Scope für die
+- Bei der Ausführung einer Funktion wird ein neuer Namensraum für die
   Variablen der Funktion angelegt
-- Formale Parameter sind Variablen in diesem Scope; sie sind Namen für
+- Formale Parameter sind Variablen in diesem Namensraum; sie sind Namen für
   die Werte der beim Aufruf übergebenen Argumente 
 - Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
   durch ihren Rückgabewert

@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 7: Funktion Teil 2: Rekursion, Scopes
+#+TITLE: Kapitel 7: Funktion Teil 2: Rekursion, Namensräume, Scopes
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything
@@ -39,7 +39,7 @@ Wir kehren noch einmal zu Funktionen zurück und betrachten:
 - Aufruf durch flexible Parameter 
 - Funktionen rufen andere Funktionen (oder sich selbst) auf
 - Funktionsdefinition innerhalb anderer Funktionen 
-- Die Regeln für /Scopes/
+- Die Regeln für Namensräume und  /Scopes/
 
 * Flexible Funktionsparameter und Rückgabewerte 
 
@@ -441,13 +441,13 @@ Auf welche Variablen kann man in einer Funktion zugreifen?
 ** Offenbar sichtbar!
 
 - Bei Zugriff auf ~x~ stellt ~f~ fest, dass es kein ~x~ im eigenen
-  scope gibt
+  Scope gibt
 - Dann beginnt Suche: gibt es ein ~x~ im Scope des aufrufenden
   Programmteils?
   - Ja!
   - Dann benutzen wird doch das ~x~!
-- Diese Such findet während der Ausführung von ~f~ statt, nicht
-  während der Definition von ~f~
+- Diese Such findet während der *Ausführung* von ~f~ statt, nicht
+  während der *Definition* von ~f~
   - Deswegen ist es hier egal, ob ~x~ vor oder nach def Definition von
     ~f~ belegt wird 
 
@@ -473,12 +473,16 @@ Funktioniert das hier?
 #+BEGIN_SRC python :exports both :results output
   x = 5
   def f():
-      x = x 
+      x = x + 1
       print(x)
   f()
 #+END_SRC 
 
-*** Warum funktioniert das nicht? 
+*** Scope durch Zuweisung					    :animate:
+
+- *Zuweisung* an Variable bestimmt ihren Scope 
+
+*** Warum funktioniert das nicht?				  :dropslide:
 
 Die Fehlermeldung: ~UnboundLocalError: local variable 'x' referenced
 before assignment~ gibt einen ersten Hinweis. Offenbar wird die
@@ -491,7 +495,7 @@ daran, dass an die Variable ~x~ im zweiten Beispiel zugewiesen wird;
 im vorherigen Beispiel wird ~x~ lediglich gelesen. 
 
 Damit haben wir einen entscheidenen Punkt erarbeitet: Der Ort einer
-Zuweisung an eine Variable bestimmt ihren Scope. 
+*Zuweisung* an eine Variable bestimmt ihren Scope. 
 
 
 
@@ -526,7 +530,8 @@ Offenbar unterschiedliches Verhalten
   dem /global scope/
 - Namen innerhalb einer Funktion existieren nur im Scope der Funktion
   - Der /local scope/ der Funktion
-  - Local scopes zweier Funktionen haben nichts miteinander zu tun! 
+  - Local scopes zweier Funktionen haben nichts miteinander zu tun!
+    - Genauer: Die Scopes der Namensräume der Funktionen... 
     - Gleicher Variablenname in unterschiedlichen Scopes:
       Unterschiedliche Variable!   
 
@@ -620,11 +625,12 @@ Zuweisung an die lokale Variable ~x~.
 ** Modifizierende Nutzung globaler Variablen 
 
 - Zuweisung erzeugt eine Variable im lokalen Scope
+  - Genauer: Im Namensraum des lokalen Scopes 
 - Was passiert, wenn eine globale Variable verändert wird? 
 
 *** Zuweisung erzeugt lokale Variable 
 
-Wie oben: das hier funktioniert nicht: 
+Wie oben --  das hier funktioniert nicht: 
 
 #+BEGIN_SRC python :exports both :results output
   x = 5
@@ -633,6 +639,8 @@ Wie oben: das hier funktioniert nicht:
 
   f()
 #+END_SRC 
+
+
 
 
 *** Modifikation einer globalen Variable 
@@ -653,7 +661,7 @@ Das hier funktioniert:
 
 - An ~L~ wird nicht zugewiesen, also wird das globale ~L~ benutzt
 - Es wird nicht ~L~ verändert, sondern das referenzierte Objekt! 
-
+  
 ** Modifikation einer globalen Variablen 
 
 - Eigentlich geht das nicht!
@@ -728,7 +736,7 @@ eine *Zuweisung* erfolgt.
   im global scope
   - Referenziert eine Variable im global scope ein Objekt, so kann das
     Objekt durchaus verändert werden!
-- Auf Variablen in global scope kann von einer Funktion aus nur lesend
+- Auf Variablen im global scope kann von einer Funktion aus nur lesend
   zugegriffen werden 
   - Es sei denn, sie sind vorher durch ~global~ deklariert 
 
@@ -808,9 +816,9 @@ Ziel: Stelle sicher, dass die Folge von Aufrufen terminiert
 
 Was tut dieses Programm? 
 
-** Wechselseitiger Aufruf: Scopes 
+** Wechselseitiger Aufruf: Scopes und Namensräume 
 
-Schauen wir uns die Scopes genauer an: 
+Schauen wir uns die Scopes bzw. Namensräume genauer an: 
 
 - Beide Funktionen ~is_even~ und ~is_odd~ haben Variablen ~x~ und ~y~
 - Diese ~x~ und ~y~ werden sich gegenseitig *verdecken*
@@ -847,33 +855,36 @@ Schauen wir uns die Scopes genauer an:
 *** Animationsschritte 
 
 Der erste interessante Schritt passiert in diesem Beispiel, wenn
-~is_odd~ die Funktion ~is_even~ mit dem Parameter 3 aufruft. Abbildung 
-zeigt, dass dann für den erneuten Aufruf von ~is_even~ ein neuer Scope
-angelegt wird, mit separatem ~x~ und ~y~. 
+~is_odd~ die Funktion ~is_even~ mit dem Parameter 3 aufruft. Abbildung
+[[fig:pt-is_even]] zeigt, dass dann für den erneuten Aufruf von ~is_even~
+ein *neuer Namensraum* angelegt wird, mit separatem ~x~ und ~y~.  Der
+Scope dieser beiden neuen Variablen ~x~ und ~y~ ist aber der gleiche
+(die gleichen Zeilen im Programmcode!).
 
-#+CAPTION: Beim zweiten Aufruf von ~is_even~ wird ein weiterer Scope angelegt, mit neuen ~x~ und ~y~
+#+CAPTION: Beim zweiten Aufruf von ~is_even~ wird ein weiterer Namensraum angelegt, mit neuen ~x~ und ~y~
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-is_even
 [[./figures/pt-is_even.png]]
 
 
-Dieses Muster setzt sich fort: jeder Aufruf einer Funktion erhält
-einen eigenen Scope, der mit den Scopes der anderen Funktionen nichts
-zu tun hat. 
+Dieses Muster setzt sich fort (Abbildung [[fig:pt-multiple-even-odd]]):
+jeder Aufruf einer Funktion erhält einen eigenen Namensraum, der mit den
+Namensraum der anderen Funktionen nichts zu tun hat. 
 
-#+CAPTION: Weitere Aufrufe von ~is_even~ und ~is_odd~ mit jeweils eigenen Scopes 
+#+CAPTION: Weitere Aufrufe von ~is_even~ und ~is_odd~ mit jeweils eigenem Namensraum
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-multiple-even-odd
 [[./figures/pt-multiple-even-odd.png]]
 
 
-** Zugriff auf Variablen in anderen Scopes? 
+** Zugriff auf Variablen in anderen Namensraum? 
 
 - Im oben Beispiel mit ~f~ und ~g~ gelang es nicht, auf eine Variable
-  ~x~ in einem anderen Scope zuzugreifen
+  ~x~ in einem anderen Namensraum zuzugreifen
 - Geht das hier?
   - Kann eine Funktion ~is_even~ auf eine Variable ~x~ "von sich
-    selbst" zugreifen? In einem anderen Scope von ~is_even~? 
+    selbst" zugreifen? In einem anderen Namensraum von ~is_even~
+    (allerdings im gleichen Scope)? 
   - *Nein!*
     - Man kann das nicht einmal hinschreiben
     - Welches ~x~ würde man auch meinen?
@@ -883,16 +894,17 @@ zu tun hat.
 Weil man ggf. den relativen Stack frame angeben müsste. 
 
 
-** Rekursion und Scopes 
+** Rekursion und Namensraum  
 
-*** Jeder Funktionsaufruf hat eigenen Scope		       :B_definition:
+*** Jeder Funktionsaufruf hat eigenen Namensraum 	       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
 
-Jeder rekursive Funktionsaufruf hat einen eigenen Scope. Die
-Variablennamen in einem Scope haben nichts mit Variablennamen in einem
-anderen Scope zu tun.
+Jeder rekursive *Funktionsaufruf* hat einen eigenen Namensraum. Die
+Variablennamen in einem Namensraum haben nichts mit Variablennamen in einem
+anderen Namensraum zu tun, selbst wenn es sich um den gleichen Scope
+handeln sollte. 
 
 * Direkte Rekursion 
 
@@ -992,6 +1004,14 @@ fak(-5)
 
 Notwendige Änderungen? 
 
+
+** Fakultät: Scope und Namensraum 
+
+Um das nochmals zu betonen: 
+- Der /Namensraum/ der Variable  ~n~ ist bei jedem Aufruf ein neuer; jeder
+  Aufruf hat einen eigenen Namensraum 
+- Der /Scope/ der Variable ~n~ ist bei allen Aufrufen von ~fak~ der
+  gleiche: die Zeilen 2--6
 
 ** Beispiel: String umdrehen 
 
@@ -1278,14 +1298,14 @@ Also:
 ** Rekursion: Realisierung? 
 
 - Jeder Aufruf einer Funktion -- sei es normal, durch indirekte oder
-  direkte Rekursion -- hat also einen eigenen Scope, eigene Version
+  direkte Rekursion -- hat also einen eigenen Namensraum, eigene Version
   des Zustands der Funktion
   - Zustand: werte der Parameter, der lokalen Variablen, des Rückgabewertes
 - Konzeptionell schön, aber wie wird das realisiert?
-- Kernidee: Ein /Stapel/
+- Kernidee: Ein /Stapel/ von /Frames/
   - Datenstruktur, auf der andere Daten angelegt werden können
   - Kann wachsen und schrumpfen
-  - Stellt Platz für die Scopes bereit
+  - Stellt Platz für die Namensräume bereit
   - Detals: VL GPS 
 
 * Funktionen und Software-Entwurf 
@@ -1349,12 +1369,12 @@ Also:
 - Funktionen können beliebige Typen zurückgeben, insbesondere Tuple
   - Nützlich um mehrere unterschiedliche Werte als Resultat zu
     verwenden
-- Jeder Funktionsaufruf hat einen eigenen Scope, in dem Variablennamen
+- Jeder Funktionsaufruf hat einen eigenen Namensraum, in dem Variablennamen
   lokal existieren
   - Entsteht bei Funktionsaufruf, zerstört bei Funktionsende
 - Der Scope einer Variable ist lexikalisch durch den Ort der Zuweisung
   an die Variable bestimmt
-  - Bei Nutzung einer Variable wird zunächst der lokalen, dann der
+  - Bei Nutzung einer Variable wird zunächst der lokale, dann der
     globale Scope besucht
 - Funktionen können direkte oder indirekte Rekursion nutzen
-  - Jeweils mit eigenem Scope 
+  - Jeweils mit eigenem Namensraum 

@@ -617,7 +617,7 @@ while a < b:
 - Offenbar unproblematisch 
 - Regel: Schon /vor/ der Schleife bekannte Variablen bleiben innerhalb
   der Variable /sichtbar/
-  - Sie sind im gleichen /Scope/ 
+  - Sie sind im gleichen /Scope/ (und auch im gleichen Namensraum)
 
 
 ** Beobachtung: Sichtbarkeit von Variablen (2) 
