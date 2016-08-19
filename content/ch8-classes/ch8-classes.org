@@ -1,0 +1,2036 @@
+#+TITLE: Kapitel 8: Klassen und Objekte
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+** Was bisher geschah 
+
+- Datenstrukturen
+  - Einfach: Zahlen, Wahrheitswerte
+  - Zusammengesetzt: Zeichenketten, Listen, Tuple, Sets, Dicts
+- Programmstrukturen
+  - Schleifen, Verzweigung
+  - Funktionen: Definition und Aufruf 
+
+** Dieses Kapitel 
+
+- Wir erweitern die Vorstellung zusammengesetzter Datenstrukturen 
+  - Definition und Nutzung eigener Strukturen
+  - Angepasst an Bedarf des Programms 
+- Formalisiert als /Klassen/ (/classes/) 
+
+
+* Zusammenhang von Daten und Funktionen 
+
+
+** Sammlung von Daten 
+
+- Zusammengesetzte Datenstrukturen erlauben das Sammeln
+  zusammengehöriger Daten
+  - Listen, Tuple: Zugriff durch Index
+  - Dicts: Zugriff durch Name
+- Mit einfacher Funktionalität
+  - Anzahl Elemente
+  - Anfügen, Entfernen, Suchen, ... 
+- Aber: /Generisch/
+  - /Eigene/ Funktionen? 
+
+** Daten und Funktionen
+
+- Datenstruktur be-/verarbeiten: Anwendungsspezifische Funktionen
+  benötigt 
+- Beispiele:
+  - Anmeldungen zur Vorlesung GP1 verwalten (in PAUL) 
+  - Liste der Klausurnoten manipulieren
+  - in einem Grafikprogramm: Funktionen, um Kreise zu malen,
+    verschieben, verändern, ...
+  - Kontoverwaltung einer Bank
+- Gemeinsamkeit: Spezifische Daten mit spezifischen Funktionen
+  bearbeiten 
+
+** Spezifische Daten, spezifische Funktion 
+
+- Wie würde man das implementieren?
+- Klassisch:
+  - Wir beschreiben die Datenstruktur, z.B. als ~dict~ und ~list~,
+    Liste von Dicts, etc.
+  - Wir schreiben separat Funktionen dazu auf
+
+** Frage: Zusammenhang? 
+- Woher weiß man, dass
+  - bestimmte Daten durch bestimmte Funktionen verarbeitet werden
+    müssen?
+  - bestimmte Funktionen nur sinnvoll auf bestimmte Daten angewandt
+    werden können? 
+- Optionen?
+  - Namenskonvention? Für die Funktionen?
+  - Im Programmcode "nahe beinander" aufschreiben? 
+- *Nicht überzeugend!*
+
+** Zusammenhang explizit? 
+
+- Übliches Argument: Häufiger Fall verdient Unterstützung durch
+  Programmiersprache!
+- Wunschvorstellung: Ein Konstrukt dass erlaubt:
+  - Datenstruktur zu beschreiben
+  - Zugehörige Funktionen zu definieren
+    - Funktionen, die diese Daten be-/verarbeiten können 
+- Grobe Analogie: Eine Art ~dict~ dem man Funktionen hinzufügen kann 
+
+
+** Beispiel: Ellipse in einem Zeichenprogramm 
+
+- Kontext: Ein 2D-Zeichenprogramm 
+- Was braucht man, um eine Ellipse zu beschreiben?
+  - Ort
+  - Die beiden Achsen
+  - Randfarbe, Strichdicke, ... 
+  - Füllfarbe, Schraffur, ...
+- Was macht man mit einer Ellipse?
+  - Verschieben
+  - Verzerren
+  - Drehen
+  - Auf Sonderfälle testen: Ist es ein Kreis?
+  - ... 
+
+** Beispiel: Ellipse 
+
+#+BEGIN_LaTeX
+Abbilidung~\ref{fig:ellipse} zeigt eine gefärbte, gedrehte und verschobene Ellipse. 
+#+END_LaTeX
+
+   #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
+   #+begin_src latex :exports results :results output raw :file figures/ellipse.png :fit t
+     \begin{tikzpicture}
+       \filldraw[fill=green,rotate=35] (0.5,-0.3) ellipse [x radius=20pt, y radius=10pt];
+       \draw (-1,0) -- (1,0);
+       \draw (0,-1) -- (0,1);
+     \end{tikzpicture}
+   #+end_src
+
+   #+NAME: fig:ellipse
+   #+CAPTION: Ein Beispiel für die Eigenschaften einer Ellipse
+   #+ATTR_LaTeX: :caption \caption{Ein Beispiel für die Eigenschaften einer Ellipse\label{fig:ellipse}}
+   #+ATTR_LATEX: :width 0.5\textwidth 
+   #+RESULTS:
+   [[file:figures/ellipse.png]]
+
+
+* Klassen 
+
+** Klassen 
+
+- Eine Klasse (~class~) dient dazu, zusammengehörende Daten und
+  Funktionen zusammen aufzuschreiben
+  - (Plus weitere Eigenschaften; siehe später)
+  - Klasse beschreibt die Struktur, ist ein Bauplan 
+
+** Kreis als Klasse: Graphische Notation 
+
+#+CAPTION: Eine Klasse für Ellipsen
+#+ATTR_LaTeX: :width 0.5\linewidth 
+#+ATTR_LaTeX: :caption \caption{Eine Klasse für Ellipsen \label{fig:uml-ellipse}}
+#+NAME: fig:uml-ellipse
+[[./uml/ellipse.png]]
+
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:uml-ellipse} zeigt ein sog. UML-Diagramm für eine Klassen. UML steht für Unified Modelling Language und ist eine Standard-Notation für Klassen (und Objektorientierung im allgemeinen; siehe später). 
+
+Eine Klasse wird in UML als eine Box mit drei Teilen gezeichnet: Im ersten Teil der Name der Klasse. Dann eine Auflistung der Daten, die zu der Klasse gehörten. Im dritten Teil die Funktionen, die diese Daten manipulieren. 
+#+END_LaTeX
+
+
+** Klasse: Definition 
+
+*** Klasse						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Eine /Klasse/ definiert einen Bauplan für gleichartige Objekte. Sie
+beschreibt in einer kompakten, zusammenhängenden Form
+- Datenelemente (auch: Variablen, /Attribute/, Felder, fields) und
+- Operationen auf diesen Daten (auch: /Methoden/, /methods/) 
+
+
+** Klassen -- Notation in Python 
+
+- Wir brauchen ein neues Schlüsselwort: ~class~
+  - ~class~ erzeugt (ähnlich zu ~def~) einen neuen Block, in dem die
+    Methoden und Daten aufgeführt werden
+  - In diesem Block dürfen Anweisungen stehen
+- Einfachstes Beispiel: Eine Klasse ohne Daten, ohne Operationen  
+- Anmerkung: ~pass~ ist syntaktisch notwendig; es darf keinen leeren
+  Block geben. ~pass~ ist die Anweisung, die nichts tut.
+
+#+BEGIN_SRC python :exports both :results output
+  class Ellipse:
+      pass
+#+END_SRC 
+
+
+* Objekte/Instanzen 
+
+** Klassen und Instanzen 
+
+- Eine Klasse ist aber zunächst kein nutzbarer Wert
+- Wir nutzen den Bauplan, um einen entsprechenden Wert zu erhalten 
+  - Wir /instantiieren/ die Klasse um ein /Objekt/ (eine /Instanz/)
+    der Klasse zu erzeugen 
+
+** Erzeugen eines Objektes 
+
+- Typischerweise werden bei Objekterzeugung Anfangswerte an das zu
+  erzeugende Objekt übergeben
+- Diese Anfangswerte werden durch eine spezielle Methode der Klasse
+  verarbeitet, den /Konstruktor/
+  - In Python, per Konvention: ~__init__~ 
+- Der Konstruktur nimmt die Anfangswert und befüllt damit die
+  Attribute der Klasse 
+
+
+** Objekte: Definition 
+
+*** Objekt (oder Instanz)				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Ein /Objekt/ (oder /Instanz/) einer Klasse ist eine konkrete
+Ausprägung des durch eine Klasse vorgegebenen Bauplans. Ein Objekt
+enthält bestimmte Werte. Ein Objekt führt Code nur auf Aufforderung
+auf. 
+
+Die Begriffe Objekt und Instanz sind weitgehend austauschbar. 
+
+*** Objekt einer Klasse					     :B_note:animate:
+    :PROPERTIES:
+    :BEAMER_env: note
+    :END:
+
+Ein Objekt oder eine Instanz ist /immer/ auf eine bestimmte Klasse
+bezogen. Es ist sinnlos, von einem Objekt ohne Bezug auf /seine/
+Klasse zu reden.
+ 
+
+** Objekte/Instanzen: Graphische Notation 
+
+
+#+BEGIN_LaTeX
+Eine Instanz einer Klasse wird in UML ähnlich notiert wie eine Klasse -- Abbildung~\ref{fig:uml-ellipse-instanz} zeigt ein Beispiel. Im Unterschied zur Klasse wird im Kopf der Name des Objekts zusätzlich zum Namen der Klasse angegeben. Im zweiten Abschnitt werden die jeweils spezifischen Werte der Attribute aufgeführt (hier nur ein paar Beispiele für eine Ellipse). 
+#+END_LaTeX
+
+#+CAPTION: Instanz der Ellipsen-Klassen
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+ATTR_LaTeX: :caption \caption{Instanz der Ellipsen-Klassen \label{fig:uml-ellipse-instanz}} 
+#+NAME: fig:uml-ellipse-instanz
+[[./uml/ellipse-instanz.png]]
+
+** Objekt: Zugriff auf die eigenen Attribute?  
+
+- Die Methoden einer Klasse werden wir wohl ähnlich wie Funktionen mit ~def~
+  aufschreiben (es *sind* schließlich Funktionen) 
+- Eine solche Methode hat einen Namensraum -- analog bei einem Objekt?
+  - Sicherlich evtl. vorhandene Parameter der Methode, evtl. globale
+    Variablen
+  - *Zusätzlich*: die Attribute des Objektes selbst! 
+- Idee: Objekte definieren einen Namensraum
+  - Ähnlich wie Funktionen 
+
+
+** Objekt: Notation 
+
+- Zugriff auf eigene Attribute ist wichtiger Fall, sollte im Code
+  deutlich sichtbar sein 
+- Konvention in Python: Einem Attribute wird ~self.~ vorangestellt
+  - Signalisiert: Zugriff auf Attribut des Objektes! 
+
+* Definition und Instantiierung einer Klasse 
+
+** Konstruktur 
+
+Fangen wir mit dem Konstruktur der Klasse ~Ellipse~ an: 
+
+#+BEGIN_SRC python :exports code :results output
+  class Ellipse:
+      def __init__(self, x, y, a1, a2):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          self.achse2 = a2
+#+END_SRC 
+
+** Konstruktor -- Struktur
+
+- Innerhalb der Klasse vereinbaren wir eine Methode mit ~def~
+  - Offenbar soll das bedeuten, dass diese Methode eine Funktion ist,
+    die zu dieser Klasse gehört 
+- Der Name dieser Methode ist  ~__init__~
+  - Und damit per Konvention der Konstruktor -- der muss so heißen
+    - In Python -- andere Sprachen haben andere Konventionen
+  - Der Konstruktor wird beim Instanziieren eines Objektes aufgerufen
+    (mehr gleich)
+
+** Konstruktor -- Struktur (2)
+
+- Diese Methode hat fünf Parameter:
+  - Den besonderen Parameter ~self~
+  - ~x~ und ~y~ für den Mittelpunkt, ~a1~ und ~a2~ für die beiden
+    Achsen einer Ellipse
+- Die Methode ~__init__~ kopiert die letzen vier Parameter in
+  Attribute des Objektes
+  - Erkennbar durch das Voranstellen von ~self.~ (der Punkt ist wichtig)!
+  - Die Namen der Parameter under Attribute müssen nicht gleich sein
+  - Kann aber praktisch sein, ähnliche Namen zu nutzen --
+    Dokumentation! 
+
+** Instanziieren und Konstruktoraufruf 
+
+- Wann wird diese Methode nun aufgerufen? 
+- Beim Instanziieren eines Objektes! 
+- Notation: den Klassennamen wie einen Funktionsnamen nutzen
+  - Und mit Parametern für ~__init__~ versorgen 
+
+#+BEGIN_SRC python :exports code :results output
+e1 = Ellipse(1, 2, 17.5, 0.4)
+#+END_SRC 
+
+** Klassen sind Typen 
+
+- Die Notation zur Instatiierung ist vertraut
+- Das entspricht etwa der Definition einer Liste, eines Sets, o.ä. 
+  - Das waren Typen
+  - Ist eine Klasse also ein neuer Typ? 
+
+*** Ja!								    :animate:
+- Klassen definieren einen neuen Datentyp
+- Kann überall verwendet werden, wo auch sonst ein Typ verwendet
+  werden kann 
+
+** Nur vier Parameter?				
+
+- Müssten das nicht fünf Parameter sein? Was ist mit dem Wert für
+  ~self~?
+- Überlegung: ~self~ kann man beim Erzeugen des Objekts gar nicht
+  angeben; das Objekt gibt es ja noch nicht
+  - Also kann man das auch nicht "von Hand" an den Konstruktor
+    übergeben
+  - Das muss die Programmiersprache von alleine erledigen! 
+
+** Instanziieren und Konstruktoraufruf (2) 
+
+Was passiert also beim Erschaffen eines Objektes? 
+1. Beim Aufruf des Klassennamens wird Speicherplatz für das Objekt
+   angelegt
+2. Eine Referenz auf diesen Speicherplatz entsteht
+3. Der Konstruktur wird aufgerufen mit
+   1. Dieser Referenz als Wert für den Parameter ~self~
+   2. Der restlichen Wert für die anderen Parameter
+4. Der Konstruktur wird wie eine normale Funktion ausgeführt
+   1. Mit der zusätzlichen Besonderheit, dass durch ~self.~ Attribute
+      innerhalb des Objektes zugegriffen werden kann 
+
+
+** Konstruktor -- Ablaufbeispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor
+  class Ellipse:
+      def __init__(self, x, y, a1, a2):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          self.achse2 = a2
+
+  e1 = Ellipse(1, 2, 17.5, 0.4)
+#+END_SRC 
+
+
+*** Visualisierung						     :dropslide:
+
+Gehen wir diesen Ablauf Schritt für Schritt durch. 
+
+**** Anlegen des Namens ~Ellipse~
+
+Im ersten Schritt wird die Anweisung ~class~ ausgeführt. Es ist eine
+Anweisung ähnlich wie ~def~, d.h., sie vereinbart einen Namen (hier:
+~Ellipse~) der auf eine Klasse zeigt. Diese Klasse ist in diesem
+Beispiel noch sehr bescheiden -- sie hat lediglich eine einzige
+Methode ~__init__~. Abbildung [[fig:instantiate-classname]] zeigt diesen
+Zustand. 
+
+
+#+CAPTION: Anlegen der Klasse selsbt 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:instantiate-classname
+[[./figures/pt-instantiate-classname.png]]
+
+**** Erzeugen des Objekts, Aufruf des Konstruktors 
+
+Im nächsten Schritt (Abbildung [[fig:instantiate-before-constructor]]),
+mit der Ausführung der Zeile 8, beginnt der 
+Aufruf des Konstruktors. Hier wurde bereits das Objekt an sich
+angelegt -- im rechten Teil als ~Ellipse instance~ zu
+sehen. Allerdings ist dieses Objekt noch leer (es hat noch keine
+Attribute) und ist somit nur als eine einzelne Zeile dargstellt. 
+
+Die ~__init__~-Methode wird -- wie jede andere Funktion auch -- beim
+Aufruf mit einem eigenen Namensraum versehen. In diesem Namensraum sind die fünf
+Parameter. Der ~self~ Parameter ist eine Referenz auf das gerade neu
+angelegte Objekt (siehe rechts: ~self~ hat einen Pfeil auf ~Ellipse
+instance~).  Die vier anderen Parameter zeigen (ganz normal) auf die
+entsprechenden Werte. 
+
+#+CAPTION: Instantiieren des Objekts; zu Beginn der Ausführung des Konstruktors
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:instantiate-before-constructor
+[[./figures/pt-instantiate-before-constructor.png]]
+
+**** Erzeugen des ersten Attributes 
+
+Sobald die Zeile 3 ausgeführt wurde (Abbildung ), wurde das erste
+Attribut (der Name ~x~) im Ellipse-Objekt angelegt. In ~Ellipse
+instance~ ist ein Pfeilpaar entstanden; der erste Pfeil weisst auf den
+String ~x~ -- den Namen des Attributes -- der zweite Pfeil auf den
+Wert 1.  Natürlich zeigt auch der Parameter ~x~ auf den Wert 1. 
+
+
+#+CAPTION: Instatiieren des Objekts; Anlegen des ersten Attriubtes
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:instantiate-first-attribute
+[[./figures/pt-instantiate-first-attribute.png]]
+
+Aber entsteht jetzt hier nicht ein Problem? Haben wir jetzt nicht zwei
+verschiedene ~x~ im Spiel?  Nein, eigentlich nicht! Es gibt einmal den
+Parameter ~x~ der Methode ~__init__~; dieses ~x~ lebt (wie bei jeder
+Funktion) im Namensraum dieser Methode. Das andere ~x~ ist das
+Attribut des gerade angelegten Objektes; dieses ~x~ existiert in einem
+anderen Namensraum, nämlich dem Objekt-Namensraum. Um auf diesen
+Namensraum zuzugreifen, brauchen wir ~self~ -- ~self.x~ ist also eine
+Notation, die den Zugriff auf Namen in einem anderen Namensraum erlaubt!
+
+Beobachten Sie hier auch die Ähnlichkeit der Darstellung zu
+~dict~-Objekten: auch diese sind durch solche Pfeilpaare
+repräsentiert. Tatsächlich sind ~dict~ und die Attribute eines
+Objektes recht eng verwandt; typischerweise werden die Attribute
+einfach in einem ~dict~ gespeichert! Sie unterscheiden sich
+hauptsächlich durch die Notation:
+- Bei ~dict d~ wird auf die einzelnen Einträge durch eckige Klammer
+  zugegriffen ~d['x']~
+- Bei einem Objekt, das durch ~self~ referenziert wird, reicht die
+  einfachere Notation ~self.x~ 
+
+Dies hat vor allem historische Gründe und Gründe in der Analgoie zu
+anderen Sprachen. Sie sollten diesen notationellen Unterschied nicht
+überbewerten; das muss man sich einfach merken. 
+
+**** Erzeugen aller Attriubute 
+
+Nachdem Zeile 6 ausgeführt wurde (Abbildung
+[[fig:pt-instantiate-constructor-done]]) sind die weiteren Attribute ~y~,
+~achse1~ und ~achse2~ im Namensraum ~self~ erzeugt worden.
+
+Beachten Sie hier den ~return~-Wert der ~__init__~-Methode: das ist
+~None~, der nicht vorhandene Wert. 
+
+#+CAPTION: Instantiieren des Objektes: Alle Attribute erzeugt, Konstruktor unmittelbar vor Ende  
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-instantiate-constructor-done
+[[./figures/pt-instantiate-construtor-done.png]]
+
+**** Nach Ende des Konstruktors 
+
+Nachdem dem Ende des Konstruktors ~__init__~ zeigt der Name ~e1~ auf
+das gerade erzeugte und durch den Konstruktor mit Attributen befüllte
+Objekt (Abbildung [[fig:pt-instantiate-ready]]). 
+
+#+CAPTION: Instantiieren des Objektes: Nach Ende des Konstruktors
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-instantiate-ready
+[[./figures/pt-instantiate-ready.png]]
+
+Das ist eigentlich etwas selstam: Der Konstruktor hatte doch ~None~
+als Rückgabewert? Wäre es nicht plausibler, hier ein ~return self~ am
+Ende des Konstruktors zu fordern? 
+
+Möglicherweise wäre dies konsistenter mit der Erwartungshaltung bei
+Funktionen. Allerdings ist dieser Fall so häufig, dass die
+Sprachkonvention bei Python ist, bei einem Konstruktor *keine*
+~return~-Anweisung vorzusehen (oder nur ein ~return None~). Die
+Zuweisung des erzeugten Objektes an den Namen ~e1~ erfolgt implizit. 
+
+
+** Beobachtung: ~self~ ist eine Art Namensraum! 
+
+- Bei Ausführung des Konstruktors sind zwei Namensräume im Spiel
+  - Der übliche Namensraum des Konstruktors als Funktion: ~x~, ~y~, ~a1~,
+    ~a2~ und insbesondere ~self~
+  - Der durch ~self~ erreichbare Namensraum des Objekts
+
+
+
+** Instantiierung weiterer Objekte 
+
+- Instantiieren wir als Beispiel zwei weitere Instanzen der Klasse 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t 
+  class Ellipse:
+      def __init__(self, x, y, a1, a2):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          self.achse2 = a2
+
+  e1 = Ellipse(1, 2, 17.5, 0.4)
+  e2 = Ellipse(0, -5, 3, 1)
+  e3 = Ellipse(17, 18, 19, 20)
+#+END_SRC 
+
+*** Visualisierung						  :dropslide:
+
+Die Visualierung durch pythontutor ist in Abbildung
+[[fig:three-ellipses]] zu sehen: 
+- Drei Namen ~e1~, ~e2~, ~e3~ referenzieren drei Objekte der Klasse
+  ~Ellipse~
+- Diese drei Objekte haben jeweils die gleichen Attribute; diese
+  Attributname referenzieren jeweils die gleiche Werte
+- Die Attributwerte hingegen sind je nach Objekt unterschiedlich 
+
+#+CAPTION: Drei Ellipsen-Objekte 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:three-ellipses
+[[./figures/pt-three-ellipses.png]]
+
+#+BEGIN_LaTeX
+\clearpage
+#+END_LaTeX
+
+** Flexible Konstruktoren 
+
+- Parameter eines Konstruktors sind Parameter einer Funktion
+- Also kann man hier die flexiblen Techniken für Funktionsparameter einsetzen!
+  - Default-Werte für optionale Parameter
+  - Variable Anzahl von Parametern (~*args~)
+  - Schlüsselwort-Parameter (~**kwargs~)
+- Konstruktor inspiziert seine Parameter und verhält sich entsprechend 
+
+** Flexible Konstruktoren -- Beispiel Ellipse 
+
+- Eine Ellipse mit nur einem Radius ist ein Kreis: 
+
+#+BEGIN_SRC python :exports code :results output
+  %%tutor -t
+  class Ellipse:
+      def __init__(self, x, y, a1, a2=None):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          if a2:
+              self.achse2 = a2
+          else:
+              self.achse2 = a1
+
+  e1 = Ellipse(1, 2, 17.5)
+#+END_SRC 
+
+#+RESULTS:
+: <__main__.Ellipse object at 0x1010789b0>
+
+
+*** UEBUNG Beispiele mit kwargs? 
+
+fuellfarbe etc.? ? 
+
+** Unterschiede zu anderen Sprachen: Dynamische Attribute	  :dropslide:
+
+Wenn Sie mit anderen Sprachen (wie Java o.ä.) vertraut sind, wird
+Ihnen vielleicht seltsam vorkommen, dass wir keine Attribute an sich
+vereinbaren mussten bei der Definition der Klasse.  Das stimmt -- in
+Python werden Attribute dynamisch festgelegt. Das funktioniert auch
+ausserhalb eines Konstruktors. 
+
+
+** Dokumentation einer Klasse: docstring 
+
+- Erinnerung: docstring einer Funktion 
+
+#+BEGIN_SRC python
+
+def complex(real, imag):
+    """Form a complex number.
+
+    Keyword arguments:
+    real -- the real part
+    imag -- the imaginary part
+    """
+
+    # Und hier würden Anweisungen folgen 
+#+END_SRC
+
+
+*** Für Klassen? 
+
+- Dokumentation einer Klasse durch docstrings? 
+
+** docstring für Klasse 
+
+- Analog zu Funktion: Folgt nach dem ~class~-Ausdruck ein String, so
+  wird dieser zum docstring der Klasse
+- Ist als vordefiniertes Attribut ~__doc__~  eines Objektes zugreifbar
+- Auch: Vordefiniertes Attribut des Klassennamens selbst 
+
+#+BEGIN_SRC python :exports code :results output
+  class Ellipse:
+      """Eine Ellipsen-Klasse implementiert Datenstruktur und Verhalten
+      einer Ellipse."""
+  
+      def __init__(self, x, y, a1, a2):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          self.achse2 = a2
+
+  e1 = Ellipse(1, 2, 17.5, 9.3)
+  print(e1.__doc__)
+  print(Ellipse.__doc__)
+#+END_SRC 
+
+#+RESULTS:
+: Eine Ellipsen-Klasse implementiert Datenstruktur und Verhalten
+:     einer Ellipse.
+: Eine Ellipsen-Klasse implementiert Datenstruktur und Verhalten
+:     einer Ellipse.
+
+
+** Konvention: Paare von Unterstrichen 				  
+
+
+*** Vordefinierte Namen					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Vordefinierte Namen sind durch ~__~-Paare markiert. Solche Namen
+sollten nicht in eigenem Code definiert werden! 
+
+
+** Beispiele für weitere vordefinierte Attribute
+
+
+- Neben ~__doc__~ existieren weitere vordefinierte Attribute für
+  Klassen 
+- Beispiele:
+  - ~__name__~ : Der Name einer Funktion oder einer Klasse
+  - ~__dict__~ : Das ~dict~-Objekt, in dem die Attribute abgelegt sind 
+
+
+* Definition und Aufruf weiterer Methoden 
+
+
+** Weitere Methoden 
+
+Weitere Methoden eines Objektes werden analog zu ~__init__~
+vereinbart: 
+
+#+BEGIN_SRC python :exports code :results output
+  class Ellipse:
+      def __init__(self, x, y, a1, a2):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          self.achse2 = a2
+
+      def verschiebe(self, deltax, deltay):
+          self.x += deltax
+          self.y += deltay
+    
+      def istKreis(self):
+          return self.achse1 == self.achse2
+#+END_SRC 
+
+*** Visualisierung						  :dropslide:
+
+Es lohnt sich, hier die Visualisierung zu betrachten, obwohl nur eine
+einzige Anweisung ausgeführt wird: die Anweisung ~class~, die den
+Namen ~Ellipse~ definiert. Während dieser Anweisung passieren
+allerdings mehrere Dinge: Die Namen ~__init__~, ~verschiebe~ und
+~istKreis~ für die drei Methoden werden erzeugt und mit den
+entsprechenden Funktionen verbunden.
+
+Diese drei Namen gehören zur Klasse und müssen im  Attribute-~dict~
+der Klasse abgelegt werden. Abbildung [[fig:pt-class-attributes]]
+illustriert dies: Im Attribute-~dict~ der Klasse werden diese drei
+Namen mit den entsprechenden Funktionen verbunden. 
+
+#+CAPTION: Attribute der Klasse: Methoden und docstring
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-class-attributes
+[[./figures/pt-class-attributes.png]]
+
+
+
+** Weitere Methoden: Auf ~self~ achten! 
+
+- Achten Sie bei der Vereinbarung einer Methode auf den ersten
+  Parameter ~self~
+- Ohne diesen haben Sie keinen Zugriff auf den Namensraum des Objektes,
+  können also die Attribute nicht benutzen! 
+
+** Aufruf von Methoden 
+
+- Methoden sind auch nur Attribute eines Objekts!
+- Also durch Punkt ~.~ ausgewählt
+  - Ähnlich wie bei ~self~ in einer Methode 
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+  class Simple:
+      def f(self):
+          print("f aufgerufen")
+
+  s = Simple()
+  print(s.f)
+#+END_SRC 
+
+#+RESULTS:
+: <bound method Simple.f of <__main__.Simple object at 0x101078588>>
+
+*** Beobachtung 
+
+- ~s.f~ ist nur ein Name für eine Methode (als Funktion innerhalb
+  eines Objekts)
+- Nebenbei: eine Klasse braucht kein ~__init__~! 
+
+** Aufruf von Methoden (2) 
+
+- Wir müssen ~s.f~ also noch aufrufen!
+- Aufruf wie gewohnt durch ~()~
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+  class Simple:
+      def f(self):
+          print("f aufgerufen")
+
+  s = Simple()
+  print(s.f) 
+  s.f() 
+#+END_SRC 
+
+#+RESULTS:
+: <bound method Simple.f of <__main__.Simple object at 0x101178588>>
+: f aufgerufen
+: f aufgerufen
+
+
+** Was passiert bei Aufruf? 
+
+- Auch hier stimmen die Parameter wieder nicht?
+  - Ähnlich wie oben bei ~__init__~?
+- ~f~ wird mit einem Parameter ~self~ vereinbart, beim Aufruf wird
+  aber kein Wert übergeben?
+  - *Doch!*
+  - Als Wert für den Parameter ~self~ wird eine Referenz auf das
+    Objekt übergeben, bei dem die Funktion aufgerufen wurde! 
+
+** Was passiert bei Aufruf? -- Kurzschreibweise! 
+
+- Tatsächlich ist ~s.f()~ nur eine Kurzschreibweise
+- Ausführlich könnte man schreiben:
+  - ~Simple.f(s)~
+- Das bedeutet:
+  - Nimm die Klasse ~Simple~
+  - Davon die Funktion ~f~, die ja einen Parameter erwartet44
+  - Rufe diese Funktion auf, und Übergabe eine Referenz auf das Objekt
+    ~s~ an den Parameter ~self~
+- Und damit ist das eigentlich *ein ganz normaler Funktionsaufruf*!!!
+
+** Was passiert bei Aufruf? -- Kurzschreibweise auflösen  
+
+#+BEGIN_SRC python :exports both :results output
+  class Simple:
+      def f(self):
+          print("f aufgerufen mit Objekt:", self)
+
+  s = Simple()
+  s.f() 
+  Simple.f(s) 
+#+END_SRC 
+
+#+RESULTS:
+: f aufgerufen mit Objekt: <__main__.Simple object at 0x101278588>
+: f aufgerufen mit Objekt: <__main__.Simple object at 0x101278588>
+
+
+** Konventionen für weitere Methoden 
+
+- ~__init__~ ist eine Konvention für die Konstruktor-Methode 
+- Python sieht eine Reihe weiterer Konventionen vor:
+  - Eine Methode ~__str__(self)~ erzeugt eine Text-Repräsentation eines
+    Objekts
+    - Wird automatisch aufgerufen, wenn ein String gebraucht wird,
+      z.B. für ~print~
+  - Methode ~__eq__(self, other)~ vergleicht das Objekt self mit einem
+    anderen Objekt ~other~ der gleichen Klassen und entscheidet, ob
+    die beiden Objekte gleich sind
+    - Inhaltliche Gleichheit; nicht Identität
+  - Analog: ~__lt__~, ~__le__~, usw.
+- Siehe [[https://docs.python.org/3/reference/datamodel.html]], Abschnitt
+  3.3,  für Details 
+
+
+
+** Gleichheit? 
+
+- Gleichheit der Referenz: Zwei Namen referenzieren das gleiche Objekt 
+  - Durch ~is~ getestet
+  - Auch durch ~==~ falls kein ~__eq__~
+- Inhaltliche Gleichheit: Eine Klasse kann beliebig definieren, wann
+  zwei unterschiedliche Objekte als /gleich/ angesehen werden sollen
+  - Hinreichend ähnlich, kongruent, ... je nach Anwendung
+  - Durch ~__eq__~ realisiert 
+
+** Gleichheit -- Beispiel ohne ~eq~ 
+
+Ohne ~__eq__~: 
+- Nur Vergleich /referenziert gleiches Objekt/  zwischen Namen 
+- Kein Unterschied zwischen ~==~ und ~is~ 
+
+#+BEGIN_SRC python :exports code :results output
+  class Ellipse:
+      def __init__(self, x, y, a1, a2):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          self.achse2 = a2
+
+  e1 = Ellipse(0, 1, 2, 3)
+  e2 = e1
+  e3 = Ellipse(0, 1, 2, 3)
+
+  print("==:")
+  print(e1 == e2)
+  print(e1 == e3)
+  print(e2 == e3)
+
+  print("is:")
+  print(e1 is e2)
+  print(e1 is e3)
+  print(e2 is e3)
+#+END_SRC 
+
+#+RESULTS:
+: ==:
+: True
+: False
+: False
+: is:
+: True
+: False
+: False
+
+
+** Gleichheit -- Beispiel mit ~eq~ 
+
+Mit  ~__eq__~: 
+- ~==~ ruft ~__eq__~ auf und macht inhaltlichen Vergleich
+- ~is~ wie oben: Referenziert gleiches Objekt? 
+
+
+#+BEGIN_SRC python :exports code :results output
+  %%tutor -t
+  class Ellipse:
+      def __init__(self, x, y, a1, a2):
+          self.x = x
+          self.y = y
+          self.achse1 = a1
+          self.achse2 = a2
+
+      def __eq__(self, otherEllipse):
+          return (
+              self.x == otherEllipse.x and
+              self.y == otherEllipse.y and
+              self.achse1 == otherEllipse.achse1 and
+              self.achse2 == otherEllipse.achse2
+              )
+
+  e1 = Ellipse(0, 1, 2, 3)
+  e2 = e1
+  e3 = Ellipse(0, 1, 2, 3)
+
+  print("==:")
+  print(e1 == e2)
+  print(e1 == e3)
+  print(e2 == e3)
+
+  print("is:")
+  print(e1 is e2)
+  print(e1 is e3)
+  print(e2 is e3)
+#+END_SRC 
+
+#+RESULTS:
+: True
+: True
+: True
+: is:
+: True
+: False
+: False
+
+** Fallstricke bei ~eq~
+
+- Möglicher Fallstrick: Objekt einer Klasse ~C1~ hat Referenzen auf
+  andere Objekte einer Klasse ~C2~
+- In ~C1.__eq__~: wie mit Referenzen auf ~C2~ umgehen?
+  - Lediglich die ~C2~-Referenzen vergleichen?
+  - Oder sollte ~C2~ selbst ein ~__eq__~ haben?
+  - Anders gesagt: nimmt man ~is~ oder ~==~ für die ~C2~-Objekte? 
+
+
+
+
+
+*** UEBUNG Beispiele für unterschiedliche Gleichheiten und ungleichheiten 
+
+
+*** UEBUNG Erklären, warum die folgenden Ausgaben entstehen 
+
+#+BEGIN_SRC python :exports both :results output
+  class C:
+      def __init__(self):
+          self.x = 17
+
+  c1 = C()
+  c2 = c1
+  c1.x = 42
+  print(c2.x)
+#+END_SRC 
+
+
+
+** Ellipse -- mit ~str~
+
+#+Begin_SRC python :exports code :results output
+    class Ellipse:
+        def __init__(self, x, y, a1, a2):
+            self.x = x
+            self.y = y
+            self.achse1 = a1
+            self.achse2 = a2
+
+        def __str__(self):
+            return ("Ellipse at ({},{}) with axes {},{}".
+                    format(self.x, self.y,
+                           self.achse1, self.achse2))
+
+        def verschiebe(self, deltax, deltay):
+            self.x += deltax
+            self.y += deltay
+    
+        def istKreis(self):
+            return self.achse1 == self.achse2
+
+    e = Ellipse(0, 1, 2, 3)
+    print(e)
+    print(e.istKreis())
+    e.verschiebe(-2, +5)
+    print(e)
+#+END_SRC 
+
+#+RESULTS:
+: Ellipse at (0,1) with axes 2,3
+: False
+: Ellipse at (-2,6) with axes 2,3
+
+
+
+
+
+
+
+** Flexible Methoden
+
+- Ähnlich zu Konstruktoren: Wie gehen wir mit Methoden um, die
+  eigentlich das gleiche tun, aber unterschiedliche Anzahl Parameter
+  haben?
+- Optionen:
+  - Mehrere Methoden mit gleichem Namen definieren, mit
+    unterschiedlicher Parameterzahl?
+    - Nein, funktioniert nicht 
+    - (Häufiger Ansatz in anderen Sprachen)
+  - Flexible Parameter nutzen: defaults, ~*args~, ~**kwargs~
+    - Deutlich übersichtlicher; Code bleibt an einer Stelle gesammelt 
+
+*** Vergleich mit anderen Sprachen				  :dropslide:
+    :PROPERTIES:
+    :BEAMER_env: quotation
+    :END:
+
+Wenn Sie mit Sprachen C++ oder Java bereits vertraut sind, würden Sie
+an dieser Stelle möglicherweise eine Diskussion über überladene
+Methoden erwarten. Dies ist in einer dynamisch typisierten Sprache wie
+Python allerdings kein sinnvolles Konzept; man könnte lediglich auf
+die Anzahl der Parameter zurückgreifen, was wenig hilfreich ist. Daher
+gibt es keine überladenen Methoden in Python. 
+
+Wir kommen darauf bei der Besprechung von Java nochmals zurück.  
+
+* Statische Attribute und Methoden 
+
+
+
+** Aufruf von Methoden bei Objekten 
+
+- Wir haben die Äquivalenz dieser beiden Anweisungen oben diskutiert:
+
+#+BEGIN_SRC python :exports both :results output
+Simple.f(s)
+s.f()
+#+END_SRC 
+
+*** Beobachtung 
+
+- Offenbar definiert also eine Klasse einen Namensraum, in dem
+  Funktionsnamen zugreifbar sind
+- Bisher haben wir in diesem Namensraum nur Methoden vereinbart, die ~self~
+  als ersten Parameter haben 
+- Was, wenn kein ~self~? 
+
+** ~self~-lose Methoden 
+
+- Ist so etwas denkbar? Was wäre die Semantik? 
+
+#+BEGIN_SRC python :exports both :results output
+  class C:
+      def f():
+          print("Methode ohne self")
+
+  c1 = C()
+  print(c1)
+#+END_SRC 
+
+#+RESULTS:
+: <__main__.C object at 0x101278630>
+
+*** Offenbar möglich						    :animate:
+
+- Offenbar kann so eine Klasse definiert und instanziiert werden
+- Aber was ist mit ~f~? Aufruf? 
+
+** ~self~-lose Methoden 
+
+
+- Aufruf einer ~self~-losen Methode bei Objekt?
+
+#+BEGIN_SRC python :exports code :results output
+  class C:
+      def f():
+          print("Methode ohne self")
+
+  c1 = C()
+  c1.f()
+#+END_SRC 
+
+*** Aufruf scheitert						    :animate:
+- Fehlermeldung: ~TypeError: f() takes 0 positional arguments but 1
+  was given~
+- Das ist plausibel!
+  - Definition des Methodenaufrufs sagt da, dass ~c1.f()~ das gleiche
+    ist wie ~C.f(c1)~
+  - Aber ~f~ nimmt keinen Parameter entgegen; das kann nicht gehen
+
+
+** ~self~-lose Methoden -- Aufruf nur bei Klasse? 
+
+- Wie wäre es mit Aufruf nur über die Klasse selbst? 
+
+#+BEGIN_SRC python :exports code :results output
+  class C:
+      def f():
+          print("Methode ohne self aufgerufen")
+
+  C.f()
+#+END_SRC 
+
+#+RESULTS:
+: Methode ohne self aufgerufen
+
+*** Das geht!							    :animate:
+
+- Offenbar möglich: Die Funktion ~f~ wird als ganz normale Funktion
+  ausgeführt -- ohne den Namensraum eines Objekts!
+- Aber dann hat ~f~ keinen Zugriff auf Attribute!?
+  - Die existieren ja im Namensraum eines jeden Objektes, separat 
+- Ist das nützlich? 
+
+** Daten für ~self~-lose Methoden? 
+
+- Methoden ohne ~self~ haben keinen Zugriff auf einen Namensraum eines
+  Objekts
+- Wir müssten also einen neuen Namensraum zur Verfügung stellen, der
+  - ... nicht an ein spezifisches Objekt gebunden ist
+  - ... aber mit der Klasse zu tun hat
+
+*** Idee							    :animate:
+- *Die Klasse selbst* bekommt ebenfalls einen Namensraum, in dem
+  Daten abgelegt werden können
+- Und den haben wir ja schon! Das Attribute-~dict~ bietet sich an!
+
+
+** Daten im Namensraum der Klasse -- Erzeugen 
+
+- Erinnerung: Nach ~class~ folgt ein Block
+- Block: Liste von Anweisungen
+- Also darf man da z.B. Variablenzuweisungen schreiben?
+
+*** Ja!								    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor
+  class C:
+      x = 1
+
+  c1 = C()
+#+END_SRC 
+
+
+*** Visualisierung						  :dropslide:
+
+Wie erwartet taucht im Attribute- ~dict~ der Klasse ~C~ ein Eintrag
+auf, der den Namen ~x~ mit dem Wert 1 verbindet (Abbildung
+[[fig:x-inattributedict]]).  
+
+#+CAPTION: Erweiterung des Attriubte-dict um weitere Namen/Werte
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:x-inattributedict
+[[./figures/pt-x-in-dict.png]]
+
+
+** Daten im Namensraum der Klasse vs. eines Objektes 
+
+#+BEGIN_SRC python :exports code :results output
+  %%tutor
+  class C:
+      x = 1
+
+      def __init__(self, y):
+          self.y = y
+    
+  c1 = C(17)
+  c2 = C(18)
+#+END_SRC 
+
+*** Visualisierung						  :dropslide:
+
+Gehen wir dieses kleine Beispiel Schritt für Schritt durch. 
+
+**** Anlegen der Klasse
+
+Mit Ausführen der ersten Zeile (~Class C:~) wird die Klasse selbst
+angelegt (Abbildung [[fig:pt-static-Cdefined]]). D.h., es gibt im globalen
+Namensraum einen Namen ~C~ der auf die Beschreibung der Klasse
+referenziert. 
+
+#+CAPTION: Statische vs. dynamische Attribute: Anlegen der Klasse selbst
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-static-Cdefined
+[[./figures/pt-static-Cdefined.png]]
+
+Um diese Beschreibung aufzubauen, werden die Anweisungen ausgeführt,
+die im Block von ~Class C~ stehen. Dies sind in diesem Beispiel zwei
+Anweisungen: 
+1. Die Zuweisung des Wertes 1 an den Namen ~x~
+2. Die Zuweisung einer Funktion an den Namen ~__init__~ 
+
+**** Anlegen des Objektes c1
+
+Nach Ausführung des Konstruktors für das Objekt ~c1~ referenziert der Name ~c1~
+ein entsprechendes Objekt. Dieses Objekt besitzt in seinem eigenen
+Namensraum einen Eintrag für den Namen ~y~, der auf den Wert 17 verweist
+(Abbildung [[fig:pt-static-c1]]).  
+
+#+CAPTION: Statische vs. Objektattribute: Anlegen von c1
+#+ATTR_LaTeX: :width 0.785\linewidth
+#+NAME: fig:pt-static-c1
+[[./figures/pt-static-c1defined.png]]
+
+**** Anlegen des Objektes c2
+
+Abbildung [[fig:pt-static-c2]] zeigt schließlich den Endzustand: Ein
+weiteres Objekt der Klasse ~C~ existiert, mit einem eigenen Namensraum, bei
+dem der Name ~y~ den Wert 18 referenziert. 
+
+#+CAPTION: Statische vs. Objektattribute: Anlegen von c2
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-static-c2
+[[./figures/pt-static-c1defined.png]]
+
+Der Namensraum der Klasse selbst hat nach wie vor unverändert den Namen
+~x~, der den Wert 1 referenziert. 
+
+Anmerkung: die Zeichenkette ~y~ für das Attribut der beiden Objekt
+muss nur einmal repräsentiert werden! 
+
+
+
+** Daten im Namensraum der Klasse -- Zugriff 
+
+Erster Versuch: 
+
+#+BEGIN_SRC python :exports code :results output
+  class C:
+      x = 17
+      def f():
+          print("f kennt Wert von x:", x)
+
+  C.f()
+#+END_SRC 
+
+#+RESULTS:
+
+*** Fehler							    :animate:
+
+- Fehlermeldung: ~NameError: global name 'x' is not defined~
+- Plausibel!
+  - Nach bisherigen Regeln für Scopes von Funktionen (~f~ ist eine
+    Funktion!) ist ~x~ eine lokale Variable von ~f~
+    - Und es gibt kein *globales* ~x~
+  - Also funktioniert der Zugriff von ~x~ in Zeile 4 nicht
+- Aber wir wissen doch, wo ~x~ existiert! Im Namensraum von ~C~! 
+
+** Daten im Namensraum der Klasse -- Optionen für Zugriff? 
+
+- Option 1: Wir ändern die Regeln, nach denen Scopes auf Namen hin
+  durchsucht werden
+  - Könnte gehen, wird aber problematisch mit Vererbung (siehe nächste
+    Kapitel)
+- Option 2: Wir ermöglichen, einen Namensraum *explizit* anzugeben, in dem
+  ein Name gesucht werden soll
+  - Das geht und erweist sich auch später als praktisch
+  - [[https://www.python.org/dev/peps/pep-0020/][Zen]]: *Explicit is better than implicit*  
+
+** Expliziter Namensraum für Zugriff 
+
+
+- Notation: Wir stellen den Namen des Namensraums der Variable voran, mit
+  ~.~ getrennt
+  - Genauso wie bei Zugriff auf Funktion! 
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+  class C:
+      x = 17
+      def f():
+          print("f kennt Wert von x:", C.x)
+	  C.x += 1
+
+  C.f() 
+  C.f() 
+#+END_SRC 
+
+#+RESULTS:
+: f kennt Wert von x: 17
+: f kennt Wert von x: 18
+
+** ~self~ als Namensraum 
+
+- Notation für Zugriff auf Namensraum also  ganz analog zu ~self~!!
+- Damit: ~self~ ist lediglich der Name eines Namensraums! 
+
+
+** Terminologie 
+
+- Bei Objekten: *dynamische* Methoden und Attribute
+- Bei Klassen: *statische* Methoden und Attribute (/static methods/)
+
+Anmerkung: Python kennt noch sogenannte /class methods/ -- später. 
+
+** Beispiel: Anzahl der erzeugten Objekte zählen 
+
+- Idee: statische Attribut als Zähler
+  - In Klasse mit 0 initialisieren 
+  - In ~__init__~ hochzählen
+  - Mit statischer Methode ausgeben 
+
+- Siehe [[http://proquest.tech.safaribooksonline.de/9781449355722/ch03_html#X2ludGVybmFsX0h0bWxWaWV3P3htbGlkPTk3ODE0NDkzNTU3MjIlMkZjaDMyczA1X2h0bWwmcXVlcnk9Y2xhc3NtZXRob2Q=][ebook]] für weitere Optionen 
+
+** Beispiel: Anzahl der erzeugten Objekte zählen -- Code 
+
+#+BEGIN_SRC python :exports both :results output
+  class Counted:
+      zaehler = 0
+  
+      def __init__(self):
+          Counted.zaehler += 1
+
+      def printInstances():
+          print("Erzeugt: {}".format(
+              Counted.zaehler))
+
+  c1 = Counted()
+  c2 = Counted()
+  Counted.printInstances()
+#+END_SRC 
+
+#+RESULTS:
+: Erzeugt: 2
+
+
+
+** Beispiel: MP3Player 
+
+- Für eine Klasse ~MP3Player~, was sind dynamische, was statische
+  Variablen/Methoden?
+- Variablen: farbe, preis, verkaufteExemplare, songs
+- Methoden: batterieLaden(), playSong(), lauter(), rueckruf(),
+  chooseSong()
+
+** Zusammenfassung: Dynamisch vs. statisch Attribute 
+
+#+ATTR_LATEX: :align l|p{0.4\textwidth}|p{0.4\textwidth}
+|                   | Dynamisches Attribute                               | Statische Attribute                                             |
+|-------------------+-----------------------------------------------------+-----------------------------------------------------------------|
+| Erzeugen          | Durch Zuweisung in Objekt-Methode (ins. ~__init__~)    | Durch Zuweisung in ~Class~ Block oder mit explizitem Namensraum |
+| Existenz          | in jedem Objekt                                     | einmal pro Klasse                                               |
+| Daten ansprechen  | self.attributname                                   | Klassenname.attributname                                        |
+| Methoden aufrufen | obj.method()                                        | Class.method()                                                  |
+|                   | Class.method(obj)                                   |                                                                 |
+
+
+
+* Beobachtungen 
+
+** Überrascht? 
+
+- Eigentlich sollte Sie das alles nicht überrascht haben 
+- Namen/Werte-Paare werden in einem ~dict~ abgelegt
+  - egal ob Klasse oder Objekt
+  - egal ob "normaler" Wert oder eine Funktion
+- Namensräume können explizit angegeben werden
+  - Egal ob Namensraum der Klasse oder des Objekts
+  - Man braucht nur einen Namen dafür: die Klasse, oder ~self~
+- Alles recht einheitlich; wie sollte es anders sein? 
+
+** Principle of least astonishment 				  
+
+- Neue Eigenschaften sollten nicht überraschend sein 
+- Auch: Principle of least surprise 
+- Eigentlich für Nutzerschnittstellen gedacht 
+- Auch für Programmiersprachen/-paradigmen sinnvoll!
+- Siehe auch: Occams Messer 
+
+
+
+** Analogien zwischen Klassen und Objekten? 
+
+- Objekte:
+  - Haben ein ~dict~ für Attribute
+  - Gehören zu einer Klasse, um dort Methoden zu finden
+- Klassen:
+  - Haben ein ~dict~ für Attribute
+  - ... ? 
+
+** Klasse als Objekt? 						 
+
+- Kann man eine Klasse als ein Objekt auffassen?
+- Was wäre denn dann die "Klasse der Klasse"? 
+- Was wären die Methoden für diese "Klasse als Objekt"? 
+
+** Klasse als Objekt! 
+
+Ja! 
+- Eine Klasse selbst ist auch nur ein Objekt der speziellen Klasse
+  ~type~
+- Damit: Jede Klasse ist ein Type
+  - Wie ~int~, ~list~, etc. 
+
+** Python: Everything is an Object 
+
+- Tatsächlich ist Python konsequent auf Objekte hin orientiert 
+- *Alles* ist ein Objekt: Listen, Dicts, Funktionen, Klassen, selbst
+  einfache Literale wie Integers und Zeichenketten 
+- Das hat Vor- und Nachteile
+  - Vorteil: Konsistente Sprache, least astonishment, keine
+    Widersprüche
+    - Gegenbeispiel Java: Viele Ausnahmen und Sonderfälle
+  - Nachteil: Aufwändig zur Laufzeit 
+
+
+
+
+** Wie verschwinden Objekte? 
+
+- Wir haben Objekte explizit erzeugt durch "Aufruf" des Klassennamens
+  - Objekt samt seines Namensraums entsteht
+  - Belegt Platz im Speicher
+- Wie verschwindet ein Objekt wieder?
+  - Hoffnung: Nicht, so lange es noch gebraucht werden könnte
+  - Woher weiß man, dass ein Objekt noch gebraucht wird? 
+
+** Zählen: Referenzen auf Objekte 
+
+- Ein Objekt /könnte/ noch gebraucht werden, so lange man es noch
+  benutzen /kann/
+- Um es zu benutzen, muss man darauf zeigen können -- es muss einen
+  Namen geben, der das Objekt referenziert
+- Wenn es keinen referenzierenden Namen mehr gibt, es das Objekt verloren
+- Dann kann man es vernichten 
+
+Also: Referenzen zählen 
+
+** Referenzen zählen 
+
+*** Referenzen erzeugen 
+
+- Referenz auf Objekt entsteht im Moment der Konstruktion 
+  - Oft: einem Namen zugewiesen ~c = C()~
+- Namen kann kopiert werden
+  - Zuweisung an andere Variable: ~c1 = c~
+  - Aufruf als Funktionsparameter: ~f(c)~
+
+*** Referenzen verlieren					    :animate:
+
+- Referenzen gehen verloren, wenn Namensraum der referenzierenden Variable verschwindet!
+  - Funktion kehrt zurück
+  - Ein anderes Objekt mit Referenz verschwindet
+
+** Garbage Collection 
+
+- Wenn ein Objekt keine Referenzen mehr hat, vernichten 
+  - Das Objekt ist dann Müll (Garbage): Garbage Collection
+- Automatischer Prozess!
+  - Einer der /großen/ Vorteile moderner Programmiersprachen
+  - Vermeidet erhebliche Fehlerquellen 
+- Man kann auch Objekte explizit löschen (mit ~del~), aber selten
+  notwendig 
+
+
+* Beispiele 
+
+** Stack 
+
+Ein /Stack/ ist ein /Last-In-First-Out/ (LiFo) Speicher:
+- Beliebige viele Objekte können gespeichert werden
+- Man kann ein Objekt /von oben/ auf den Stack legen: ein ~push~
+- Man kann ein Objekt /von oben/ wieder entnehmen: ein ~pop~
+- Man kann nach der Anzahl der Objekt fragen 
+- Man kann /nicht/ irgendein Objekt von unten oder aus der Mitte
+  entnehmen 
+
+** Stack -- UML							   :subslide:
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
+#+END_LaTeX
+
+#+CAPTION: Eine Stack-Klasse als UML-Diagramm
+#+ATTR_LaTeX: :width 0.25\linewidth 
+#+ATTR_LaTeX: :caption \caption{Eine Stack-Klasse als UML-Diagramm \label{fig:uml-stack}}
+#+NAME: fig:uml-stack
+[[./uml/stack.png]]
+
+
+** Stack -- Idee						   :subslide:
+
+- Die Daten legen wir in einer Liste ab
+  - Erfüllt Anforderungen: beliebig groß, beliebige Objekte
+- Die Stack-Methoden sind einfach auf Listen-Operationen abzubilden
+  - Dank List-Slicing!
+
+** Stack -- Code						   :subslide:
+
+#+BEGIN_SRC python :exports both :results output
+  class Stack:
+      def __init__(self):
+          self.daten=[]
+
+      def push(d):
+          self.daten.append(d)
+
+      def pop():
+          if len(self.daten) > 0:
+              r, self.daten = self.daten[-1], self.daten[:-1]
+          else:
+              r = None
+          return r
+
+      def len():
+          return len(self.daten)
+#+END_SRC 
+
+
+** Nochmal Ellipse 
+
+- Klasse Ellipse hat den Mittelpunkt explizit repräsentiert
+  - Als x und y Koordinaten
+- Aber ein /Punkt/ ist doch auch ein Objekt?
+  - Das in unterschiedlichen Kontexten vorkommt?
+  - Ein Rechteck: zwei Eckpunkte
+  - Ein Dreieck: drei Punkte 
+- Als eigene Klasse darstellen?
+  - Ellipse nutzt diese Klasse? 
+
+** Punkt als Klasse						   :subslide:
+
+#+BEGIN_SRC python :exports both :results output
+  class Punkt:
+      def __init__(self, x, y):
+          self.x = x
+          self.y = y
+
+      def verschiebe(self, deltax, deltay):
+          self.x += deltax
+          self.y += deltay
+#+END_SRC 
+
+** Ellipse nutzt Punkt						   :subslide:
+
+
+#+BEGIN_SRC python :exports both :results output
+  class Punkt:
+      ... # siehe oben
+    
+  class Ellipse:
+      def __init__(self, mittelpunkt, a1, a2):
+          self.mittelpunkt = mittelpunkt
+          self.achse1 = a1
+          self.achse2 = a2
+
+      def verschiebe(self, deltax, deltay):
+          self.mittelpunkt.verschiebe(deltax, deltay)
+      
+#+END_SRC 
+
+
+** Delegation							   :subslide:
+
+- Klasse Ellipse /delegiert/ Aufgaben an die Klasse Punkt 
+- Delegation erzielt wiederbenutzt von Funktionen
+  - Eine Klasse Rechteck ist mit Klasse Punkt einfacher zu schreiben
+    als ohne 
+
+
+** Ellipse mit Punkt: Erzeugen					   :subslide:
+
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor
+  class Punkt:
+      def __init__(self, x, y):
+          self.x = x
+          self.y = y
+
+      def verschiebe(self, deltax, deltay):
+          self.x += deltax
+          self.y += deltay
+
+  class Ellipse:
+      def __init__(self, mittelpunkt, a1, a2):
+          self.mittelpunkt = mittelpunkt
+          self.achse1 = a1
+          self.achse2 = a2
+
+      def verschiebe(self, deltax, deltay):
+          self.mittelpunkt.verschiebe(deltax, deltay)
+
+  p = Punkt(1,2)
+  e1 = Ellipse(p, 3, 4)
+  e2 = Ellipse(Punkt(-2,3), 0.5, 7)
+#+END_SRC 
+
+
+*** Visualisierung						  :dropslide:
+
+Abbildung [[fig:pt-ellipse-punkt]] illustriert (leider etwas
+unübersichtlich), wie sich  die Delegation der Repräsentation des
+Mittelpunktes an eine Punkt-Klasse auswirkt. Es gibt natürlich zwei
+Ellipsen-Objekte, referenziert durch ~e1~ und ~e2~. Zusätzlich gibt es
+zwei Punkt-Objekte. Das erste es ebenfalls durch den Namen ~p~ (im
+globalen Scope) referenziert. Das zweite hat keinen eigenen globalen
+Namen; es wird aber durch das Attribut ~mittelpunkt~ des durch ~e2~
+referenzierten Objektes referenziert. 
+
+#+CAPTION: Ellipse delegiert an Punkt
+#+ATTR_LaTeX: :width 0.95\linewidth
+#+NAME: fig:pt-ellipse-punkt
+[[./figures/pt-ellipse-punkt.png]]
+
+#+BEGIN_LaTeX
+\clearpage
+#+END_LaTeX
+
+
+Beachten Sie, dass es zwei Methoden ~verschiebe~ gibt, die aber
+jeweils in unterschiedlichen Namensräumen referenziert werden und
+damit nicht mit einander in Konflikt stehen können. 
+
+
+** Punkt: Abstand bestimmen					   :subslide:
+
+Abstand zwischen zwei Punkten bestimmen
+- Option 1: Statische Methode der Klasse, bekommt zwei Parameter
+- Option 2: Normale Methode, hat ~self~ und ein anderes Objekt als
+  Parameter 
+
+Beispiel: Definition ähnlich; Benutzung unterschiedlich! 
+
+#+BEGIN_SRC python :exports both :results output
+  class Punkt:
+      def __init__(self, x, y):
+          self.x = x
+          self.y = y
+
+      def abstand(self, other):
+          return (
+              (self.x - other.x)**2 +
+              (self.y - other.y)**2             
+              )**0.5
+
+      def abstand2(o1, o2):
+          return (
+              (o1.x - o2.x)**2 +
+              (o1.y - o2.y)**2             
+              )**0.5
+#+END_SRC 
+
+
+** Telefonbuch 
+
+- Telefonbuch besteht aus Einträgen
+  - Operationen: Hinzufügen, löschen, ändern, suchen
+- Eintrag:
+  - Name und Telefonnummer 
+
+** Telefonbuch -- UML						   :subslide:
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:uml-telefonbuch} zeigt die UML-Darstellung einer Telefonbuch-Klasse.
+#+END_LaTeX
+
+#+CAPTION: Ein Telefonbuch-Klasse als UML-Diagramm
+#+ATTR_LaTeX: :width 0.5\linewidth 
+#+ATTR_LaTeX: :caption \caption{Eine Telefonbuch-Klasse als UML-Diagramm \label{fig:uml-telefonbuch}}
+#+NAME: fig:uml-telefonbuch
+[[./uml/telefonbuch.png]]
+
+
+** Telefonbuch -- Code						   :subslide:
+
+#+BEGIN_SRC python :exports both :results output
+  class Telefonbuch:
+      def __init__(self):
+          eintraege = []
+
+      def enter(self, name, phone):
+          self.eintraege.append({'name': name,
+                              'phone': phone})
+
+      def lookup(self, name=None, phone=None):
+          if name:
+              key, val = 'name', name
+          elif phone:
+              key, val = 'phone', phone 
+          else:
+              return None
+
+          for e in self.eintraege:
+              if e[key] == val:
+                  return e
+
+          return None
+#+END_SRC 
+
+
+*** UEBUNG Einträge in eigene Klasse abspalten 
+
+Argumente: Mehr Informatione, komplexere suche, blabla... 
+
+Gleichheit-Operator überladen? Oder zu weit hergeholt? 
+
+
+** Lineare Liste durchsuchen?					   :subslide:
+
+- Telefonbuch sucht linear die Liste der Einträge ab
+  - Alternativlos, da nicht sortiert
+- Schneller? Einträge sortieren
+  - Selection sort bei ~enter~?
+  - Möglich, aber mit linearer Liste nicht ideal 
+- Bessere Datenstruktur nötig! 
+
+
+** Binärer Suchbaum 
+
+- Datenstruktur in Form eines Baums
+- Ein Knoten eines Baums enthält
+  - Ein eigentliches Datum (z.B. einen Telefonbucheintrag)
+  - Einen Baum, in dem alle /kleineren/ Einträge abgelegt werden --
+    /linker Teilbaum/
+  - Einen Baum, in dem alle /größeren/ Einträge abgelegt werden --
+    /rechter Teilbaum/
+- Also: eine /rekursive/ Datenstruktur 
+- Darstellung hier folgt in etwa [[http://interactivepython.org/runestone/static/pythonds/Trees/SearchTreeImplementation.html][Interactive Python Beispiel]]
+
+** Binärer Suchbaum -- Illustration				   :subslide:
+
+Vereinfachung: Hier nur Zahlen als Einträge, keine Telefonbucheinträge 
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:binary-tree} illustriert einen solchen Suchbaum. 
+#+END_LaTeX
+
+#+header: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 1000 
+#+begin_src latex :exports results :results output raw :file figures/binary-tree.png :fit t
+\begin{forest} 
+  [ 33, for tree={draw, shape=circle}
+    [ 15
+      [ 10  
+        [ -- , for tree={draw=none} ] 
+        [ 11 ]
+      ]
+      [ 19  
+        [ 17 ] 
+        [ -- , for tree={draw=none} ]
+      ]
+    ]
+    [ 47
+      [ -- , for tree={draw=none} 
+      ]
+      [  49
+      ]
+    ]
+  ]
+\end{forest}
+#+end_src
+
+#+NAME: fig:binary-tree 
+#+CAPTION: Ein binärer Suchbaum 
+#+ATTR_LaTeX: :caption \caption{Ein binärer Suchbaum \label{fig:binary-tree}}
+#+ATTR_LATEX: :width 0.5\textwidth :float t
+#+RESULTS:
+[[file:figures/binary-tree.png]]
+
+
+** Binärer Suchbaum -- Operationen				   :subslide:
+
+Wesentlich: 
+- Einfügen
+- Suchen
+- Löschen
+- In Reihenfolge durchlaufen 
+
+** Knoten eines Baums?						   :subslide:
+
+Was müssen wir über den Knoten eines Baumes wissen? 
+- Den Suchschlüssel
+  - Um größer, kleiner, gleich zu entscheiden
+- Den eigentlichen Wert
+- Den linken und rechten Teilbaum (falls existent) 
+
+** Binärer Suchbaum -- Klassen					   :subslide:
+
+- Es bieten sich also hier *zwei* Klassen an:
+  - Eine Klasse für die Knoten
+  - Eine Klasse für den Baum als ganzes, der diese Knoten enthält 
+
+** Binärer Suchbaum -- UML					   :subslide:
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:uml-tree} zeigt die UML-Darstellung von Suchbaum und Knoten-Klasse.
+#+END_LaTeX
+
+#+CAPTION: Suchbaum und Knoten als UML-Diagramm
+#+ATTR_LaTeX: :width 0.5\linewidth 
+#+ATTR_LaTeX: :caption \caption{Suchbaum und Knoten als UML-Diagramm \label{fig:uml-tree}}
+#+NAME: fig:uml-tree
+[[./uml/tree.png]]
+
+
+** Klasse TreeNode						   :subslide:
+
+Eine insgesamt recht einfache Klasse: 
+
+#+BEGIN_SRC python :exports both :results output
+  class TreeNode:
+      def __init__(self, key, val):
+          self.key = key
+          self.value = val
+          self.leftChild = None
+          self.rightChild = None
+
+      def isLeaf(self):
+          return ((self.leftChild is None) and
+                  (self.rightChild is None))
+#+END_SRC 
+
+
+** Binärbaum -- Grundgerüst					   :subslide:
+
+Der Konstruktor des Binärbaums ist auch einfach: 
+
+#+BEGIN_SRC python :exports code :results output
+  class BinaryTree:
+      def __init__(self):
+          self.root = None
+          self.size = 0
+
+      def add(self, key, value):
+          """Füge eine Eintrag unter key an die richtige Stelle ein"""
+          ???
+
+      def search(self, key):
+          """Suche nach key; gib None falls nicht gefunden,
+          sonst den TreeNode"""
+          ???
+
+      def remove(self, key):
+          """Entferne Eintrag unter key falls vorhanden;
+          erhalte Baumstruktur!"""
+          ???
+
+      def iterate(self):
+          """Laufe den Baum in aufsteigender Reihenfolge
+          der Knoten ab."""
+          ???
+#+END_SRC 
+
+** Suchen							   :subslide:
+
+- Angenommen, wir haben schon einen Baum
+- Wie suchen wir darin? 
+- Rekursives Vorgehen:
+  - Beginne bei der Wurzel -- Ist das der gesuchte Schlüssel?
+    - Ja? Fertig
+    - Nein?
+      - Gesuchter Schlüssel kleiner? Suche links weiter
+      - Sonst rechts
+
+** Suchen -- Code						   :subslide:
+
+#+BEGIN_SRC python :exports both :results output
+  class BinaryTree:
+      def search(self, key):
+          # Wir benutzen intern eine etwas andere Funktion:
+          # fuehre den aktuell zu untersuchenden Knoten als
+          # Parameter mit 
+          return self._search(key, self.root)
+
+      def _search(self, key, currentNode):
+          """Hilfsfunktion: currentNode ist Zustand der Suche"""
+          # Sonderfall abfangen: nicht gefunden: 
+          if currentNode is None:
+              return None
+        
+          if key == currentNode.key:
+              return currentNode
+          elif key < currentNode.key:
+              # suche im linken Teil weiter:
+              return self._search(key, currentNode.leftChild)
+          else:
+              return self._search(key, currentNode.rightChild)
+
+#+END_SRC 
+
+** Python Konvention: Unterstrich				   :subslide:
+
+- Die Methode ~_search~ ist eine ganz normale Methode 
+- Der Nutzer der Klasse kann die genauso gut aufrufen wie die Methode
+  ~search~; daran ist nicht falsch
+- Aber Konvention: Vorangestellter Unterstrich ~_~ signalisiert, dass
+  diese Methode eher zum internen Gebrauch der Klasse gedacht ist 
+- Siehe [[https://www.python.org/dev/peps/pep-0008/][PEP8]]
+
+
+
+** Einfügen -- Rekursives Vorgehen				   :subslide:
+
+- Erinnerung: Bei rekursiven Datenstrukturen bieten sich rekursive
+  Algorithmen an
+- Einfügen rekursiv?
+  - Einfacher Fall: Der Baum ist leer -- direkt erzeugen
+  - Wenn nicht leer: Ist das entsprechende Kind vorhanden?
+    - Wenn nein: Einfügen als Kind, fertig
+    - Wenn ja: Rekursiv ab Kind einfügen! 
+
+** Einfügen -- Spezialfall					   :subslide:
+
+#+BEGIN_SRC python :exports both :results output
+  class BinaryTree:
+      #.... wie oben
+
+      def add(self, key, value):
+          if self.root is None:
+              # Baum ist leer, wir erzeugen den ersten Eintrag
+              self.root = TreeNode(key, val)
+          else:
+              # Versuche, den Eintrag unter dem Knoten self.root einzufuegen
+              # das wird laenger; also eigene Methode 
+              self._add(key, val, self.root)
+
+          self.size += 1 
+#+END_SRC 
+
+** Einfügen -- Illustration					   :subslide:
+
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:binary-tree} illustriert das Einfügen der Zahl 39 (in blau) und die dabei besuchten Knoten (in grün). 
+#+END_LaTeX
+
+#+header: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 1000 
+#+begin_src latex :exports results :results output raw :file figures/binary-tree-insert.png :fit t
+\begin{forest} 
+  [ 33, fill=green, for tree={draw, shape=circle}
+    [ 15
+      [ 10  
+        [ -- , for tree={draw=none} ] 
+        [ 11 ]
+      ]
+      [ 19 
+        [ 17 ] 
+        [ -- , for tree={draw=none} ]
+      ]
+    ]
+    [ 47, fill=green
+      [ 39 , fill=blue!30
+      ]
+      [  49
+      ]
+    ]
+  ]
+\end{forest}
+#+end_src
+
+#+NAME: fig:binary-tree-insert
+#+CAPTION: Einfügen in einen binärer Suchbaum 
+#+ATTR_LaTeX: :caption \caption{Einfügen in einen binärer Suchbaum \label{fig:binary-tree-insert}}
+#+ATTR_LATEX: :width 0.5\textwidth :float t
+#+RESULTS:
+[[file:figures/binary-tree-insert.png]]
+
+
+
+** Einfügen -- allgemeiner Fall					   :subslide:
+
+#+BEGIN_SRC python :exports both :results output
+  class BinaryTree:
+      def _add(self, key, value, currentNode):
+          if key < currentNode.key:
+              # fuege im linken Teil ein
+              if currentNode.leftChild is None:
+                  # hier muss der neue Knoten hin!
+                  currentNode.leftChild = TreeNode(key, value)
+              else:
+                  # es gibt schon Kinder, suche dort weiter: 
+                  self._add(key, value, currentNode.leftChild)
+          elif key > currentNode.key:
+              # der Fall is ganz symmetrisch
+              if currentNode.rightChild is None:
+                  currentNode.rightChild = TreeNode(key, value)
+              else:
+                  self._add(key, value, currentNode.rightChild)
+          else:
+              # wenn key schon existiert: aktualisiere Wert
+              currentNode.value = value
+#+END_SRC 
+
+
+** Löschen -- rekursiv						   :subslide:
+
+- Auch Löschen eines Eintrags geht rekursiv vor 
+- Spezialfälle suchen
+  - Der einzige Knoten des Baums wird gelöscht
+  - Ein Blatt wird gelöscht
+  - Ein Knoten mit einem oder zwei Kindern wird gelöscht 
+- Allgemeinen Fall zusammensetzen
+
+
+** Löschen -- Spezialfall				:skipslide:dropslide:
+
+Wann ist Löschen eines Knoten einfach? 
+- Wenn keine Kinder! 
+- Wurzel brauch allerdings Sonderbehandlung, wenn keine Kinder 
+
+#+BEGIN_SRC python :exports both :results output
+  class BinaryTree:
+      def remove(self, key):
+          if self.root.key == key and self.size == 1:
+              # wir entfernen den letzten Knoten:
+              self.root = None
+          else:
+              self._remove(key, self.rootNode)
+
+          self.size -= 1
+
+      def _remove(self, key, currentNode):
+          if key == currentNode.key:
+              # zu loeschender Knoten gefunden -- hat er Kinder?
+            
+#+END_SRC 
+
+
+
+** Hotel -- Entwurfsdiskussion 
+
+Wie würde ein Klasse für eine Hotelverwaltung aussehen? 
+- Welche weiteren Klassen würden Sie für Delegation nutzen?
+- Welche Variabeln, Methoden brauchen Sie 
+
+** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum 
+
+- der Telefonbuch auf Binärbaum umstellen
+- zwei Suchbäume nutzen, um nach Name und Nummer suchen zu können! 
+- eigentlich ist das keine RICHTIGE rekursive Datenstruktur: Im Baum
+  sind keine Bäume, sondern TreeNodes gespeichert. Wie ändert man das;
+  bringt das Vorteile? 
+ 
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Klassen
+  - sind ein Bauplan für Objekte
+  - beschreiben Daten und Methoden für diese Daten /an einer
+    Stellen/ 
+- Objekte repräsentieren Dinge aus dem Kontext der Anschauung
+  - Oft sehr anschaulich: Student, Punkt, Ellipse, Hotel, Hotelzimmer, Buchung
+  - Manchmal abstrakt: Binärer Suchbaum
+- Objekte entstehen durch Konstruktion (meist mit Initialisierung)
+
+
+** Wie gehts es weiter? 
+
+- Klassen und Objekt in bisheriger Form sind schon recht nützlich 
+  - Kapseln Daten und Methoden zusammen an einer Stelle
+  - Können direkt von anderem Code benutzt werden
+- Aber was, wenn man nicht *genau* die richtige Klasse, aber eine
+  ähnliche findet?
+  - Adaptieren? 
+
