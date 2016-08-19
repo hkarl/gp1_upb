@@ -484,6 +484,18 @@ Sprachkonvention bei Python ist, bei einem Konstruktor *keine*
 Zuweisung des erzeugten Objektes an den Namen ~e1~ erfolgt implizit. 
 
 
+Zur besseren Übersichtlichkeit in Abbildung
+[[fig:pt-instantiate-ready-compact]] noch die kompakte Darstellung des
+Endzustandes (inhaltlich äquivalent zu Abbildung
+[[fig:pt-instantiate-ready]]).
+
+#+CAPTION: Instantiieren des Objektes: Nach Ende des Konstruktors, kompakte Darstellung
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-instantiate-ready-compact
+[[./figures/pt-instantiate-classname-compact.png]]
+
+
+
 ** Beobachtung: ~self~ ist eine Art Namensraum! 
 
 - Bei Ausführung des Konstruktors sind zwei Namensräume im Spiel
@@ -529,6 +541,17 @@ Die Visualierung durch pythontutor ist in Abbildung
 #+BEGIN_LaTeX
 \clearpage
 #+END_LaTeX
+
+Auch hier (Abbildung [[fig:pt-three-ellipses-compact]]) noch die kompakte
+Darstellung des gleichen Zustands.
+
+#+CAPTION: Dree Ellipsen-Objekte, kompakt
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-three-ellipses-compact
+[[./figures/pt-three-ellipses-compact.png]]
+
+
+
 
 ** Flexible Konstruktoren 
 
@@ -647,6 +670,8 @@ sollten nicht in eigenem Code definiert werden!
 - Beispiele:
   - ~__name__~ : Der Name einer Funktion oder einer Klasse
   - ~__dict__~ : Das ~dict~-Objekt, in dem die Attribute abgelegt sind 
+
+
 
 
 * Definition und Aufruf weiterer Methoden 
@@ -1370,6 +1395,18 @@ Ja!
 - Damit: Jede Klasse ist ein Type
   - Wie ~int~, ~list~, etc. 
 
+
+** Erinnerung: Typkonvertierung 
+
+- Damit wird auch die Syntax der Typkonvertierung verständlich (vgl. Kapitel 5)!
+- Bei Typkonvertierung wird, ganz normal, der Konstruktur der Klasse
+  des gewünschten Typs aufgerufen
+  - Mit dem zu konvertierenden Objekt als Parameter
+  - Ergebnis: Objekt des gewünschten Typs mit entsprechendem Inhalt
+    (oder Fehler) 
+- Beispiel:
+  - ~int("12")~ vs.  ~int("12.34")~
+
 ** Python: Everything is an Object 
 
 - Tatsächlich ist Python konsequent auf Objekte hin orientiert 
@@ -1450,7 +1487,7 @@ Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
 #+END_LaTeX
 
 #+CAPTION: Eine Stack-Klasse als UML-Diagramm
-#+ATTR_LaTeX: :width 0.25\linewidth 
+#+ATTR_LaTeX: :width 0.15\linewidth 
 #+ATTR_LaTeX: :caption \caption{Eine Stack-Klasse als UML-Diagramm \label{fig:uml-stack}}
 #+NAME: fig:uml-stack
 [[./uml/stack.png]]
@@ -1568,13 +1605,14 @@ Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
 *** Visualisierung						  :dropslide:
 
 Abbildung [[fig:pt-ellipse-punkt]] illustriert (leider etwas
-unübersichtlich), wie sich  die Delegation der Repräsentation des
+unübersichtlich) bzw. Abbildung [[fig:pt-ellipse-punkt-compact]] (kompakt,
+aber weniger präzise), wie sich die Delegation der Repräsentation des
 Mittelpunktes an eine Punkt-Klasse auswirkt. Es gibt natürlich zwei
 Ellipsen-Objekte, referenziert durch ~e1~ und ~e2~. Zusätzlich gibt es
 zwei Punkt-Objekte. Das erste es ebenfalls durch den Namen ~p~ (im
 globalen Scope) referenziert. Das zweite hat keinen eigenen globalen
 Namen; es wird aber durch das Attribut ~mittelpunkt~ des durch ~e2~
-referenzierten Objektes referenziert. 
+referenzierten Objektes referenziert.
 
 #+CAPTION: Ellipse delegiert an Punkt
 #+ATTR_LaTeX: :width 0.95\linewidth
@@ -1584,6 +1622,12 @@ referenzierten Objektes referenziert.
 #+BEGIN_LaTeX
 \clearpage
 #+END_LaTeX
+
+#+CAPTION: Ellipse delegiert an Punkt, kompakte Darstellung
+#+ATTR_LaTeX: :width 0.95\linewidth
+#+NAME: fig:pt-ellipse-punkt-compact
+[[./figures/pt-ellipse-punkt-compact.png]]
+
 
 
 Beachten Sie, dass es zwei Methoden ~verschiebe~ gibt, die aber
