@@ -615,6 +615,13 @@ holding export options."
     (indent-for-tab-command)
 
     
+    ;; somehow, somewhere, tabs appears :-(
+    ;; they correspond to eight spaces 
+    (goto-char (point-min))
+    (while (re-search-forward "\t" nil t)
+      (replace-match "        "))
+
+    
     ;; return buffer content as resulting string:
     (buffer-substring-no-properties (point-min) (point-max))
     )
