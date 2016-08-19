@@ -102,7 +102,7 @@ print(t)
 #+END_SRC 
 
 
-** Tuples und Objekte: Visualisierung  
+** Tuples und Objekte: Visualisierung				   :subslide:
 
 Tuple: Aufzählung von Referenzen auf Objekte 
 
@@ -125,7 +125,7 @@ keine anderen Namen verweisen, ohne Belang.
 [[./figures/pt-tuple.png]]
 
 
-** Tuple und Objekte: Visualisierung (2)
+** Tuple und Objekte: Visualisierung (2)			   :subslide:
    
 Tuple von Tuple: Aufzählung von Referenzen auf Referenzen auf Objekte  
 
@@ -152,7 +152,7 @@ fast das zusammen.
 
 
 
-** Tuple und Objekte: Visualisierung (3)
+** Tuple und Objekte: Visualisierung (3)			   :subslide:
 
 Was passiert, wenn das gleiche Element mehrfach in Tuple enthalten ist? 
 
@@ -192,10 +192,12 @@ das existiert.
 
 - Wie bekommt man an die Werte in einem Tuple heran? 
 - /Subscript/-Notation: Index mit ~[~, ~]~
-  - Nummer des wünschten Elements
+  - Nummer des gewünschten Elements
   - Ab 0 beginnend! 
 
-*** Beispiel 							    :animate:
+** Einfache Subskripts  -- Beispiele			  :subslide:subslide:
+
+*** Beispiel
 
 #+BEGIN_SRC python :exports both :results output 
 t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
@@ -288,7 +290,7 @@ print(t[2:4])
 #+RESULTS:
 : ('c', 'd')
 
-** Slicing, Sonderfälle 
+** Slicing, Sonderfälle						   :subslide:
 
 *** Slicing über Ende hinaus 
 
@@ -322,7 +324,7 @@ print(t[-2:-1])
 #+END_SRC
 
 
-** Slicing, Sonderfälle 
+** Slicing, Sonderfälle						   :subslide:
 
 
 *** Slicing mit einem Wert: [n:]
@@ -339,17 +341,17 @@ t = ('a', 'b', 'c', 'd', 'e', 'f')
 print(t[-2:])
 #+END_SRC
 
-**** Spezialfall:						    :animate:
+*** Spezialfall: 						    :animate:
 
 #+BEGIN_SRC python :exports both :results output
-t = ('a', 'b', 'c', 'd', 'e', 'f') 
-print(t)   
-t = t[1:]
-print(t)   
-t = t[1:]
-print(t)  
-t = t[1:]
-print(t) 
+  t = ('a', 'b', 'c', 'd', 'e', 'f') 
+  print(t)   
+  t = t[1:]
+  print(t)   
+  t = t[1:]
+  print(t)  
+  t = t[1:]
+  print(t) 
 #+END_SRC 
 
 #+RESULTS:
@@ -450,7 +452,7 @@ print(l)
 
 *** UEBUNG Unterschied: Länge und Index des letzten Elements, wir fangen ja bei 0 an 
 
-** Wo ist ein Element in Tuple? 
+** Wo ist ein Element in Tuple?					   :subslide:
 
 Wo im Tupel befindet sich ein bestimmtes Element ? 
 - Funktion ~index~, Parameter: gesuchtes Element 
@@ -466,7 +468,7 @@ print(l)
 #+RESULTS:
 : 5
 
-** Notation bei ~index~? 
+** Notation bei ~index~?					   :subslide:
 
 Eigentlich doch erwartet:  ~index(t, e)~ ? 
 
@@ -479,7 +481,10 @@ Gleicher Effekt; manchmal besser lesbar
 
 *** UEBUNG index(e, s) ausprobieren 
 
-** Wieviele Elemente mit bestimmtem Wert? 
+** Wieviele Elemente mit bestimmtem Wert?			   :subslide:
+
+Auch hier: Notation mit Tuple vor dem Funktionsnamen 
+
 
 #+BEGIN_SRC python :exports both :results output
 t = (1, 2, 3, 4, 5, 1, 2, 3, 4, 1, 2, 3, 1, 2, 1)
@@ -490,7 +495,6 @@ print(n)
 #+RESULTS:
 : 4
 
-Auch hier: Notation mit Tuple vor dem Funktionsnamen 
 
 
 ** Zuweisung an Element? 
@@ -503,10 +507,12 @@ t = (1, 2, 3, 4)
 t[2] = 17
 #+END_SRC 
 
-Fehlermeldung:  ~TypeError: 'tuple' object does not support item assignment~ 
+*** Fehlermeldung						    :animate:
+
+~TypeError: 'tuple' object does not support item assignment~
 
 
-** Keine Zuweisung an Tuple-Elemente
+** Keine Zuweisung an Tuple-Elemente				   :subslide:
 
 - Offenbar keine Zuweisungen erlaubt!
 - Tuple sind /*unverändlich*/ : Einmal definiert zweigen die Elemente
@@ -654,7 +660,7 @@ immer das referenzierte Objekt.
     - Auch Listen, alles geschachtelte Listen möglich 
   - Zugriff wie Tuple: ~[]~, slicing
 
-** Syntax 
+** Syntax							   :subslide:
 
 Listen durch Aufzählung in eckigen Klammern hinschreiben
 - Elemente der Aufzählung mit Komma  trennen 
@@ -671,7 +677,7 @@ L = [1, 2, "Hallo", "GP1"]
 L = [1, 2, ["Hallo", "GP1"], (42, 17)]
 #+END_SRC 
 
-** Zugriff 
+** Zugriff							   :subslide:
 
 Zugriff wie bei Tuple 
 
@@ -734,7 +740,7 @@ print(L.index(2))
 
 *** TODO pingo? 
 
-** Veränderung von Listenelementen 
+** Veränderung von Listenelementen				   :subslide:
 
 Ziel war: Listenelemente verändern 
 
@@ -779,7 +785,7 @@ muss.
 
 
 
-** Listen erweitern 
+** Listen vergrößern 
 
 *** Anhängen 
 
@@ -806,6 +812,7 @@ print(L)
 #+RESULTS:
 : [1, 2, 3, [4, 5]]
 
+** Listen vergrößern (2)					   :subslide:
 
 *** Erweitern 
 
@@ -846,7 +853,7 @@ Weil wir ja schon ein append haben... aber noch kein prepend
 
 
 
-** Listen verkleinern 
+** Listen verkleinern						   :subslide:
 
 *** ~pop~: Element entnehmen und als Wert zurückgeben 
 #+BEGIN_SRC python :exports both :results output
@@ -923,7 +930,7 @@ beiden Zuweisungen an L1 und L2?
 [[./figures/pt-listcopy-3.png]]
 
 
-** Liste von Liste kopieren 
+** Liste von Liste kopieren					   :subslide:
 
 Kopieren einer Liste, die selbst Liste beinhaltet? 
 
@@ -1051,7 +1058,7 @@ Aber wann sind zwei Listen dann eigentlich gleich?
 - Beides kann relevant sein! 
 - Zwei verschiedene Vergleichsoperationen dafür 
 
-** Identität: Zwei Vergleiche 
+** Identität: Zwei Vergleiche					   :subslide:
 
 *** Identisches Objekt, nur unterschiedlicher Name
 
@@ -1141,7 +1148,7 @@ Wie erwartet:
 : 158
 
 
-** Liste als Funktionsparameter -- Beobachtung? 
+** Liste als Funktionsparameter -- Beobachtung?			   :subslide:
 
 - Wir haben die gleiche Funktion ~quersumme3~ benutzt wie im
   Tuple-Beispiel
@@ -1175,17 +1182,17 @@ sind.
     :BEAMER_env: definition
     :END:
 
-Wenn es wie eine Ente quakt und wie eine Ente schwimmt und wie eine
+Wenn es wie eine Ente watschelt und wie eine Ente schwimmt und wie eine
 Ente quakt, dann ist es wohl eine Ente. 
 
-** Duck Typing 
+** Duck Typing							   :subslide:
 
 Prinzip: Ein Objekt hat den richtigen Typ, wenn es sich richtig
 verhält 
 - Erst zur Laufzeit entscheidbar
 - Reicht das? Situations-/Ansichtssache... 
 
-** Duck Typing -- Risiken 
+** Duck Typing -- Risiken					   :subslide:
 
 #+CAPTION: Auch Duck Typing bringt seine eigenen Risiken mit sich 
 #+ATTR_LaTeX: :width 0.25\linewidth :float nil
@@ -1193,7 +1200,7 @@ verhält
 [[./figures/duck-typing.png]]
 
 
-*** Risiken 							       :note:
+*** Risiken							  :dropslide:
 
 Duck Typing widerspricht dem Vorgehen eines statischen Typ-Systems wie
 etwa in Java diametral. Eines der wesentlichen Probleme ist, dass ein 
@@ -1224,7 +1231,7 @@ auch verändern?
 : [1, 17, 3]
 
 
-*** Details 
+*** Details							  :dropslide:
 
 Mit dem bisherigen Verständnis, wie eine Liste funktioniert, sollte
 das Verhalten dieses Beispiels ganz naheliegend sein. 
@@ -1271,7 +1278,7 @@ das Verhalten dieses Beispiels ganz naheliegend sein.
 [[./figures/pt-modify-list-4.png]]
 
 
-** Liste als Funktionsparameter -- Ergebnisse transportieren? 
+** Liste als Funktionsparameter -- Ergebnisse transportieren?	   :subslide:
 
 Wenn also eine Funktion den /Inhalt/ einer Liste manipulieren kann, 
 
@@ -1390,8 +1397,7 @@ L[1] = 17
 - Weiterer Datentyp: ~set~
   - Veränderlich, ohne Duplikate, keine Reihenfolge
     - Also kein Index-Zugriff! 
-  - Enthält nur /unveränderliche/
-    Elemente
+  - Enthält nur /unveränderliche/ Elemente
     - Also keine Mengen von Listen o.ä. 
 
 **  Operationen auf Mengen 
@@ -1421,7 +1427,9 @@ a[1]
 
 #+RESULTS:
 
-- Fehler: ~TypeError: 'set' object does not support indexing~ 
+*** Fehler							    :animate:
+
+- ~TypeError: 'set' object does not support indexing~ 
 
 
 - Eine Menge, ohne Möglichkeit auf Elemente zuzugreifen? 
@@ -1443,7 +1451,7 @@ a[1]
   - nicht für fortlaufende Nummer, sondern nur für manche Nummern
     einen Wert habe? 
 
-** Aufzählen  oder abbilden? 
+** Aufzählen  oder abbilden?					   :subslide:
 
 - Wäre es nicht elegant,
   - für beliebige Werte eine Zuordnung zu einem Objekt herstellen zu
@@ -1452,7 +1460,7 @@ a[1]
 
 Wir brauchen eine /*Abbildung*/ von Werten auf Objekte! 
 
-** Abbildung: Beispiele 
+** Abbildung: Beispiele						   :subslide:
 
 - Von Matrikelnummer auf Klausurresultat
 - Von Name auf Telefonnummer
@@ -1471,7 +1479,7 @@ usw.
   - Ein sog. /*key-value*/-Typ 
 
 
-** ~dict~: Beispiel 
+** ~dict~: Beispiel						   :subslide:
 
 *** Ein leeres ~dict~: geschweifte Klammern 
 
@@ -1501,7 +1509,7 @@ print(D[42])
 
 #+RESULTS:
 
-** ~dict~: Definition  
+** ~dict~: Definition						   :subslide:
 
 
 *** ~dict~						       :B_definition:
@@ -1512,7 +1520,7 @@ print(D[42])
 ~dict~ ist ein  ungeordneter, veränderlicher Aufzählungstyp, der
 beliebige andere Datentypen (auch ~dict~) enthalten kann. 
 
-- Ein leeres ~dict~ erzeugt durch ~{}~
+- Ein leeres ~dict~ wird erzeugt durch ~{}~
 - Bildet Schlüssel auf Werte ab 
   - Schlüssel (keys): Beliebige /unveränderliche/ Werte (auch Tuple!) 
     - (Präziser: /hashable type/ -- später) 
@@ -1526,11 +1534,11 @@ beliebige andere Datentypen (auch ~dict~) enthalten kann.
 
 Warum ist das sinnlos? 
 
-** ~dict~: Werte angeben, Kurznotation 
+** ~dict~: Werte angeben, Kurznotation				   :subslide:
 
 Da ~dict~ sehr häufig  vorkommen gibt es eine Kurznotation,
 ähnlich zur Definition von Mengen
-- In gescheiften Klammern, die Schlüssel/Wert-Paaren aufzählen, mit
+- In geschweiften Klammern, die Schlüssel/Wert-Paaren aufzählen, mit
   Komma getrennt 
 - Schlüssel und Wert durch Doppelpunkt getrennt
 - Entspricht der Ausgabe eines ~dict~ durch ~print~
@@ -1544,7 +1552,7 @@ print(D)
 : {'x': 'Hallo', 'a': 17}
 
 
-*** Visualisierung von ~dict~
+*** Visualisierung von ~dict~					  :dropslide:
 
 Zur Veranschaulichung hier noch eine Visualierung eines ~dict~:
 Variable ~D~ referenziert die Datenstruktur des ~dict~ (Abbildung
@@ -1558,7 +1566,7 @@ zugeordneten Wert.
 [[./figures/pt-dict.png]]
 
 
-** ~dict~: Werte angeben 
+** ~dict~: Werte angeben					   :subslide:
 
 - Alternative: An Funktion ~dict~ eine Liste von 2-Tupeln übergeben 
   - Jedes Tupel: Schlüssel, dann zugeordneter Wert
@@ -1580,7 +1588,7 @@ D = dict([("a", 17), ("x", "hallo")])
 *** UEBUNG dicts mit Listen 
 
 
-** ~dict~: Fehlerfall 
+** ~dict~: Fehlerfall						   :subslide:
 
 Zugriff auf nicht vorhandenen Schlüssel führt zu Fehler 
 
@@ -1591,9 +1599,13 @@ x = D['b']
 #+END_SRC 
 
 
-Fehler: KeyError: 'b'
+*** Fehler							    :animate:
 
-** 'dict' Test auf enthalten-sein 
+- KeyError: 'b'
+- Der Schlüssel ~b~ ist nicht im dict enthalten 
+
+
+** ~dict~: Test auf enthalten-sein				   :subslide:
 
 Analog zu ~set~: Mit ~in~ testen 
 
@@ -1610,7 +1622,7 @@ print('b' in D)
 : False
 
 
-** Operation auf ~dict~
+** Operation auf ~dict~						   :subslide:
 
 Reichhaltige Operationen auf ~dicts~: 
 
@@ -1640,7 +1652,7 @@ Vorheriges Beispiel: ~dict(D.items())~ ist doch wieder D?
 - Aber ist es D selbst, oder eine Kopie? 
 
 #+BEGIN_SRC python :exports both :results output
-%%tutur 
+%%tutor 
 D = dict([ ("a", 17), ("x", "hallo")])
 D1 = dict(D.items())
 #+END_SRC 
@@ -1684,8 +1696,8 @@ Beispiel: Ein Verzeichnis, bestehend aus
 
 *** Visualisierung						  :dropslide:
 
-Die Visualisierung dieser Datenstruktur ist dann schon etwas größer,
-aber sicherlich nicht mehr überraschend: 
+Die Visualisierung (Abbildung [[fig:pt-nested]]) dieser Datenstruktur ist
+dann schon etwas größer, aber sicherlich nicht mehr überraschend:
 
 
 #+CAPTION: Eine verschachtelte, gemischte Datenstruktur
@@ -1694,11 +1706,51 @@ aber sicherlich nicht mehr überraschend:
 [[./figures/pt-nesting.png]]
 
 
+Eine kompaktere (und praktisch äquivalente) Darstellung liefert
+Abbildung [[fig:pt-nested-compact]]. Hier werden die einzelnen Objekte für 
+die Schlüssel oder Werte nicht separat dargestellt sondern in
+kompakter Form in der enthaltenden Aufzählung repräsentiert. Wir
+werden gelegentlich auch diese kompakte Darstellung benutzen. 
+
+#+CAPTION: Eine verschachtelte, gemischte Datenstruktur (kompakte Darstellung)
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-nested-compact
+[[./figures/pt-nesting-compact.png]]
+
 *** UEBUNG Datenstruktur-Bild vorgeben, Code dafpr schreiben? 
 
-** Gleichheit? 
 
-Wann sind Dinge gleich? == vs. is ? 
+** Konvertierung 
+
+- Oben bereits einige Beispiele: Manche Typen können in andere
+  /konvertiert/ werden
+  - Genauer: Objekte eines Typs können in ein Objekt eines anderen
+    Typs konvertiert werden
+  - Begriff: /Type casting/
+  - Dabei entsteht ein /neues/ Objekt des gewünschten Typs mit
+    entsprechendem Inhalt 
+- Beispiele
+  - Aufzählungen 
+    - Tuple und Listen
+    - Tuple und Sets
+  - Zahlen und Strings: ~int("12")~
+    - Aber: ~int("12.34")~
+
+** Konvertierung: Syntax 
+
+*** Syntax der Typkonvertierung				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Soll ein Objekt in ein Objekt eines anderen Typs konvertiert werden,
+so ist das Objekt als Parameter des gewünschten Typs angegeben. Die
+Syntax sieht aus wie ein Funktionsaufruf mit dem Typ als
+Funktionsname. 
+
+Je nach neuem Typ und gewünschtem Objekt kann die Konvertierung
+gelingen oder scheitern (was zu Fehlermeldung führt).
 
 
 
@@ -1710,10 +1762,10 @@ Wann sind Dinge gleich? == vs. is ?
 - Aus Kapitel 4: 
   - ~True~, ~False~, ~and~, ~or~,  ~def~,  ~return~, ~None~
 - Neu:
-  - ~in~
+  - ~in~ 
 
 
-** Python: eingebaute Funktionen 
+** Python: eingebaute Funktionen				   :subslide:
 
 - Allgemein 
   - ~print~
@@ -1726,7 +1778,7 @@ Wann sind Dinge gleich? == vs. is ?
   - ~dict~
 
 
-** Python-Syntax: Klammern 
+** Python-Syntax: Klammern					   :subslide:
 
 - Runde Klammern ~(~ und ~)~
   - In Ausrücken, um Vorrang auszudrücken
@@ -1755,7 +1807,7 @@ Es sei denn, man würde beliebig lange Zeilen erlauben. Aber auch das
 ist wieder schwer zu lesen, selbst wenn ein Editor die Zeilen
 künstlich umbricht (sog. soft linewrap). 
 
-** Python Datentypen 
+** Python Datentypen						   :subslide:
 
 Wir haben unterschiedliche Datentypen kennengelernt: 
 - Verschiedene Sorten von Zahlen
