@@ -112,7 +112,7 @@ Idee:
   Anweisung nach if
 #+END_SRC 
 
-Beobachtung: 
+*** Beobachtung
 - Das Ende des Ausdrucks wird durch Doppelpunkt ~:~ markiert
 - Die durch ~if~ kontrollierten Anweisungen werden /unterhalb/ von
   ~if~ /eingerückt/ aufgeschrieben
@@ -174,7 +174,9 @@ Insgesamt ist die Syntax von Python sehr knapp und frugal.
   ... 
 #+END_SRC 
 
-Achtung: Doppelpunkt nach ~else~! 
+*** Achtung 
+
+Doppelpunkt nach ~else~!
 
 ** Alternative: Semantik 
 
@@ -282,7 +284,7 @@ Beobachtung:
 - ~if/else~ ist eine Anweisung
 - Im Block von ~if~ bzw. ~else~ dürfen Anweisungen stehen
 
-*** Darf dann da auf ein ~if/else~ stehen ?			    :animate:
+*** Darf dann da auch ein ~if/else~ stehen ? 			    :animate:
 
 - Die Logik der Syntax gibt das her 
 - Also: *JA!* 
@@ -295,7 +297,7 @@ Insebs.: das ist ein AUSDRUCK und keine Anweisung, kann also an eine
 Variable zugewiesen werden. 
 
 
-** Geschachtelte ~if/else~: Allgemeiner Fall 
+** Geschachtelte ~if/else~: Allgemeiner Fall			   :subslide:
  
 #+BEGIN_SRC python :exports code :results output
   if Bedingung1:
@@ -318,7 +320,7 @@ Variable zugewiesen werden.
 #+END_SRC 
 
 
-** Geschachtelte ~if/else~: Einfachere Fälle 
+** Geschachtelte ~if/else~: Einfachere Fälle			   :subslide:
 
 - Die ganzen Teilblöcke dürfen auch leer sein 
 - Leerer Teilblock nach ~else~?
@@ -361,7 +363,7 @@ aber höchstens 200 begrenzen:
 #+END_SRC 
 
 
-** Anweisung: ~pass~
+** Anweisung: ~pass~						   :subslide:
 
 *** ~pass~						       :B_definition:
     :PROPERTIES:
@@ -401,7 +403,9 @@ Ist immer eindeutig klar, zu welchem ~if~ ein ~else~ gehört?
           Block2 
 #+END_SRC 
 
-Unproblematisch dank Einrückung!
+*** Unproblematisch 
+
+Dank Einrückung ist die Syntax eindeutig 
 
 *** Verschachtelte if/else in anderen Sprachen			  :dropslide:
 
@@ -450,6 +454,8 @@ Gleicher Effekt, aber knapper: ~elif~
   else:
       Anweisung4
 #+END_SRC 
+
+*** Doppelpunkt 
 
 Auf Doppelpunkt nach elif-Bedingung achten! 
 
@@ -532,6 +538,8 @@ folgende ~elif~ Ausdrücke). Dem ~if~ kann optional ein oder mehrere
 Die Blöcke werden durch Einrückung den jeweiligen Bedingungen bzw. dem
 ~else~ zugeordnet. 
 
+*** Definition: Block 
+
 *** Block					       :B_definition:animate:
     :PROPERTIES:
     :BEAMER_env: definition
@@ -549,6 +557,7 @@ Reihenfolge der Anweisung im Programmcode.
 ** Allgemeine Schleifen 
 
 - Idee: Wiederhole einen Block solange, wie eine Bedingung wahr ist 
+- Typisch: Anweisungen im Block werden Einfluss auf den Test haben 
 - Grundform: 
 
 #+BEGIN_SRC python :exports code :results output
@@ -556,7 +565,6 @@ Reihenfolge der Anweisung im Programmcode.
       Block
 #+END_SRC 
 
-- Typisch: Anweisungen im Block werden Einfluss auf den Test haben 
 
 ** ~while~: Flussdiagramm 
 
@@ -592,7 +600,8 @@ Abbildung~\ref{fig:while-flowchart} zeigt eine erste Vorstellung einer while-Sch
    #+RESULTS[68c2c177280bf7b2129df78c62ad021d8a5a1394]:
    #+NAME: fig:while-flowchart
    #+CAPTION: Flussdiagramm einer einfachen While-Schleife
-   #+ATTR_LATEX: :width 0.75\textwidth :float nil
+   #+ATTR_LaTeX: :caption \caption{Flussdiagramm einer einfachen While-Schleife \label{fig:while-flowchart}}
+   #+ATTR_LATEX: :width 0.75\textwidth :float t
    [[file:figures/while-flowchart.png]]
 
 
@@ -616,11 +625,11 @@ while a < b:
   zugegriffen
 - Offenbar unproblematisch 
 - Regel: Schon /vor/ der Schleife bekannte Variablen bleiben innerhalb
-  der Variable /sichtbar/
+  des Blocks /sichtbar/
   - Sie sind im gleichen /Scope/ (und auch im gleichen Namensraum)
 
 
-** Beobachtung: Sichtbarkeit von Variablen (2) 
+** Beobachtung: Sichtbarkeit von Variablen (2)			   :subslide:
 
 - Was ist umgekehrt? Variable wird erst in Schleife erzeugt? 
 
@@ -634,6 +643,8 @@ while a < b:
 
 #+RESULTS:
 : 4
+
+*** Variable nach Schleife sichtbar				    :animate:
 
 - Variable bleibt nach der Schleife erhalten und zeigt auf
   entsprechenden Wert  
@@ -671,7 +682,7 @@ Beispiel: i=0 ; while 1/i > 0 ; i++
 Fibonacci, usw. 
 
 
-** Terminierung ist kritisch! 
+** Terminierung ist kritisch!					   :subslide:
 
 Q. How did the programmer die in the shower?
 
@@ -735,7 +746,7 @@ Idee:
 - Testen, ob Eigenschaft erfüllt
   - Merken, dass gefunden
 
-** ~while~: Beispiel Suchschleife  (2)
+** ~while~: Beispiel Suchschleife  (2)				   :subslide:
 
 
 #+BEGIN_SRC python :exports both :results output
@@ -763,7 +774,7 @@ Idee:
   - Nein, nach erstem Finden aufhören? 
  
 
-** ~while~: Beispiel Suchschleife  (2)
+** ~while~: Beispiel Suchschleife  (2)				   :subslide:
 
 
 Zusätzliches Abbruchkriterium: ~not gefunden~
@@ -793,7 +804,7 @@ Inspiration? Oder strukturiertes Vorgehen?
   - Oder: impliziert Zielbedingung? 
 
 
-** Schleifenbedingungen finden? (2)
+** Schleifenbedingungen finden? (2)				   :subslide:
 
 
 Oft praktisch: Schleifenbedingung konstruieren aus zwei Teilen
@@ -809,7 +820,7 @@ Oft praktisch: Schleifenbedingung konstruieren aus zwei Teilen
 - ~Invariante~ kann oft entfallen 
 
 
-** Schleifenbedingung finden? (3) 
+** Schleifenbedingung finden? (3)				   :subslide:
 
 Mit ~Schleifenbedingung = (not Zielbedingung) and Invariante~ nach
 Schleife gilt: 
@@ -844,7 +855,7 @@ Innerhalb einer Schleife kann viel passieren
 - Eine Schleife abbrechen? 
 
 
-** Schleifeniterationen nicht komplett durchlaufen 
+** Schleifeniterationen nicht komplett durchlaufen		   :subslide:
 
 Typisches Muster:  Umständlich 
 
@@ -858,7 +869,7 @@ Typisches Muster:  Umständlich
           Restliche Anweisungen 
 #+END_SRC 
 
-** Schleifeniterationen nicht komplett durchlaufen: ~continue~ 
+** Schleifeniterationen nicht komplett durchlaufen: ~continue~	   :subslide:
 
 Gleich, aber knapper: 
 
@@ -874,7 +885,7 @@ Gleich, aber knapper:
 *** UEBUNG continue bei geschachtelten Schleifen? 
 
 
-** Schleife abbrechen 
+** Schleife abbrechen						   :subslide:
 
 Typisches Muster:  Umständlich 
 
@@ -888,7 +899,7 @@ Typisches Muster:  Umständlich
 #+END_SRC 
 
 
-** Schleife abbrechen: ~break~
+** Schleife abbrechen: ~break~					   :subslide:
 
 Gleich, aber knapper: 
 
@@ -914,14 +925,14 @@ Schleifenbedingung im Einzelfall genau überlegen.
 *** UEBUNG break bei geschachtelten Schleifen? 
 
 
-** Reguläre Beendigung vs. ~break~: Reaktion  
+** Reguläre Beendigung vs. ~break~: Reaktion			   :subslide:
 
 Unterschiedliches Beenden einer Schleife kann unterschiedliche
 Reaktionen erfordern -- siehe oben 
 
 Unterstützung: ~else~ für Schleife! 
 
-** ~else~ bei Schleifen 
+** ~else~ bei Schleifen
 
 Beispiel: 
 
@@ -962,16 +973,16 @@ code-Komplexität
 - Bei welchen versagt das?
 - Wie müssen Sie is_prime verbessern? 
 
-** ~else~ bei Schleifen (2) 
+** ~else~ bei Schleifen (2)					   :subslide:
 
 - Vorteil: Keine Test-Variable nötig
   - Vereinfacht Schleifenbedingung
   - Vereinfacht Anweisungen in der Schleife
-  - Wohldefinierter Art, Anweisungen für einen typischen Fall zu
+  - Wohldefinierte Art, Anweisungen für einen typischen Fall zu
     platzieren -- leichte Lesbarkeit durch Konvention 
  
 
-** ~while~: Suchschleife mit ~else~
+** ~while~: Suchschleife mit ~else~				   :subslide:
 
 
 #+BEGIN_SRC python :exports both :results output
@@ -1022,7 +1033,7 @@ Ist das überhaupt guter Stil? Wird das Programm unstrukturiert?
 
 Also: Ja, das ist ok! Mit Verständnis!  
 
-** Stil: goto 
+** Stil: goto							   :subslide:
 
 Goto considered harmful 
 
@@ -1105,7 +1116,8 @@ Abbildung~\ref{fig:while-flowchart-complete} zeigt ein vollständiges Flussdiagr
    #+RESULTS[e7ec553ca1223ed541d99d1ff12639a47af711ba]:
    #+NAME: fig:while-flowchart-complete
    #+CAPTION: Flussdiagramm einer While-Schleife mit ~continue~, ~break~ und ~else~
-   #+ATTR_LATEX: :width 0.75\textwidth :float nil
+   #+ATTR_LaTeX: :caption \caption{Flussdiagramm einer While-Schleife mit ~continue~, ~break~ und ~else~ \label{fig:while-flowchart-complete}}
+   #+ATTR_LATEX: :width 0.75\textwidth :float t
    [[file:figures/while-flowchart-complete.png]]
 
 
@@ -1128,7 +1140,7 @@ Skizze:
       L = L[1:]
 #+END_SRC 
 
-*** Keine korrekte Schleife!				       :B_alertblock:
+*** Keine korrekte Schleife!			       :B_alertblock:animate:
     :PROPERTIES:
     :BEAMER_env: alertblock
     :END:
@@ -1194,7 +1206,7 @@ for l in L:
 #+RESULTS:
 : 1 2 3 
 
-** Zuweisung an Aufzählung -- passiert gar nicht! 
+** Zuweisung an Aufzählung -- passiert gar nicht!		   :subslide:
 
 - Tatsächlich kann an die Aufzählung, die für die Schleife verwendet
   wird, gar nicht zugewiesen werden 
@@ -1210,9 +1222,10 @@ for l in L:
 *** Visualisierung						  :dropslide:
 
 Die Visualisierung dieses Effekts durch unsere üblichen Diagramme
-gelingt leider nicht gut. Der  verborgene Name für die
-Aufzählung wird durch Pythontutor leider nicht explizit
-dargestellt. Dennoch hilft dieses Diagramm vielleicht ein wenig. 
+gelingt leider nicht gut (Abbildung [[fig:pt-zuweisung-for]]). Der
+verborgene Name für die Aufzählung wird durch Pythontutor leider nicht
+explizit dargestellt. Dennoch hilft dieses Diagramm vielleicht ein
+wenig.
 
 #+CAPTION: Zuweisung an Aufzählung während while-Schleife
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -1220,7 +1233,7 @@ dargestellt. Dennoch hilft dieses Diagramm vielleicht ein wenig.
 [[./figures/pt-zuweisung-for.png]]
 
 
-** Zuweisung an Schleifenvariable
+** Zuweisung an Schleifenvariable				   :subslide:
 
 Was passiert, wenn der Schleifenvariable etwas zugewiesen wird? 
 - Ändert das die Aufzählung? Den Schleifenverlauf? 
@@ -1244,7 +1257,7 @@ Auch hier ist die ursprüngliche Aufzählung nicht betroffen
   die Aufzählungsstruktur 
 
 
-** Schleifenvariable nach Schelifenende? 
+** Schleifenvariable nach Schleifenende?			   :subslide:
 
 Bleibt Schleifenvariable erhalten nach Schleifenende? 
 
@@ -1260,7 +1273,9 @@ Bleibt Schleifenvariable erhalten nach Schleifenende?
 : in schleife
 : Variable i nach Schleife:  3
 
-Ja, mit Wert des letzten Durchlaufs 
+*** Ja								    :animate:
+
+- Mit Wert des letzten Durchlaufs
 
 
 ** ~for~-Schleifen über andere Aufzählungen 
@@ -1271,7 +1286,7 @@ Ja, mit Wert des letzten Durchlaufs
 - ~for~-Schleifen darüber? 
 
 
-** ~for~-Schleifen über andere Aufzählungen -- Beispiele 
+** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
 
 
 #+BEGIN_SRC python :exports both :results output
@@ -1293,7 +1308,7 @@ for tt in t:
 #+RESULTS:
 : 1 2 3 4 
 
-** ~for~-Schleifen über andere Aufzählungen -- Beispiele 
+** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
 
 - Überraschend? Nein!
   - Principle of least surprise 
@@ -1355,6 +1370,8 @@ Beispiel: Liste von Tupeln
 
 ** ~for~-Schleife über ~dict~ ? 
 
+- Iterieren über ein ~dict~ liefert die Schlüssel 
+
 #+BEGIN_SRC python :exports both :results output
   D = {"a": 1, "b": 2, "c": 3, "d": "abc"}
   for key in D:
@@ -1365,9 +1382,9 @@ Beispiel: Liste von Tupeln
 : a b c d 
 
 
-Iterieren über ein ~dict~ liefert die Schlüssel 
 
-** ~for~-Schleife über ~dict~ -- Key und Value? 
+
+** ~for~-Schleife über ~dict~ -- Key und Value?			   :subslide:
 
 Wir bekommen eine Liste von Schlüssel-/Wert-Tuple eines ~dicts~ mit
 Aufruf  von ~items~
@@ -1396,9 +1413,9 @@ Aufruf  von ~items~
 *** Visualisierung						  :dropslide:
 
 
-Zur Illustration [[fig:pt-dict_items ]] hier ein Schnappschuss aus dem
-zweiten Durchlauf der Schleife. Die beiden Schleifenvariablen ~key~
-und ~value~ referenzieren dabei Werte aus dem Dictionary ~D~.
+Zur Illustration (Abbildung [[fig:pt-dict_items]]) hier ein Schnappschuss
+aus dem zweiten Durchlauf der Schleife. Die beiden Schleifenvariablen
+~key~ und ~value~ referenzieren dabei Werte aus dem Dictionary ~D~.
 
 #+CAPTION: Zwischenstand bei einer Iteration über ein Dict ~D.items()~
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -1444,7 +1461,7 @@ for (a, *b, c) in [(1, 2, 3, 4), (5, 6, 7, 8)]:
 
 range(start, stop[, step]) -> range object
 
-** ~range~: Beispiel 
+** ~range~: Beispiel						   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
   for i in range(11):
@@ -1507,7 +1524,7 @@ pams amsp mspa spam
 
 
 
-** ~range~: Wie viele Durchläufe? 
+** ~range~: Wie viele Durchläufe?				   :subslide:
 
 Fencepost-Problem: Wie viele Pfähle braucht man für einen 100m langen
 Zaun mit Pfählen im Abstand von 10m? 
@@ -1520,7 +1537,7 @@ Zaun mit Pfählen im Abstand von 10m?
 *** pingo? 
 
 
-** Terminierung von ~for~ und  ~range~
+** Terminierung von ~for~ und  ~range~				   :subslide:
 
 Terminiert das hier? 
 
@@ -1529,14 +1546,14 @@ Terminiert das hier?
       i -= 1
 #+END_SRC 
 
-*** Terminierung von range 
+*** Terminierung von range					    :animate:
 
 Natürlich terminiert das. Der Schleifenstruktur ist egal, was
 innerhalb der Schleife mit dem Namen ~i~ gemacht wird (genauer: auf
 welchen Wert der Name ~i~ referenziert). Am Ende der Schleife wird der
 nächste Wert aus der Aufzählung verwendet. 
 
-** ~range~: Aufzählung verändern 
+** ~range~: Aufzählung verändern				   :subslide:
 
 Erinnerung: Das hier verändert die Aufzählung ~L~ *nicht* 
 
@@ -1547,10 +1564,11 @@ Erinnerung: Das hier verändert die Aufzählung ~L~ *nicht*
   print(L)
 #+END_SRC 
 
+*** ~L~ verändern?						    :animate:
 
 Was aber, wenn Schleife doch ~L~ verändern soll? 
 
-** ~range~: Aufzählung verändern 
+** ~range~: Aufzählung verändern				   :subslide:
 
 
 Dann brauchen wir eine ~for~-Schleife mit Zugriff auf ~L~ durch den
@@ -1566,6 +1584,8 @@ Index
 #+RESULTS:
 : [2, 3, 4, 5, 6]
 
+
+*** Muster							    :animate:
 
 Typisches Muster für den Einsatz von ~range~ und ~len~ in
 ~for~-Schleifen 
@@ -1610,7 +1630,7 @@ Oder: Liste ausdrucken, nach jedem fünften Element neue Zeile?
   - Bis keine nicht gestrichene Zahl mehr übrig
   
 
-** Eratostenes: Umsetzung 
+** Eratostenes: Umsetzung					   :subslide:
 
 - Wie Tabelle repräsentieren?
   - Als Liste der Zahlen: ~[2, 3, 4, 5, ... ]~
@@ -1619,7 +1639,7 @@ Oder: Liste ausdrucken, nach jedem fünften Element neue Zeile?
     Index
     - nicht/gestrichen als ~True~ oder ~False~ repräsentieren 
 
-** Erathostenes: Code 
+** Erathostenes: Code						   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
   n = 20
@@ -1671,7 +1691,7 @@ ausgebnen, keine Liste.
       ergebnis.append(Ausdruck ueber x)
 #+END_SRC 
 
-** Listen in Schleife konstruieren - Beispiel 
+** Listen in Schleife konstruieren -- Beispiel			   :subslide:
 
 Beispiel: Wir verdoppeln jeden Eintrag der Liste 
 
@@ -1700,7 +1720,7 @@ Beispiel: Wir verdoppeln jeden Eintrag der Liste
 #+END_SRC 
 
 
-** Listen in Schleifen bedingt konstruieren -- Beispiel 
+** Listen in Schleifen bedingt konstruieren -- Beispiel		   :subslide:
 
 Verdopple Eintrag nur wenn gerade Zahl: 
 
@@ -1724,13 +1744,14 @@ List comprehension:
 - mit einer kompakten ~for~-Formulierung 
 
 #+BEGIN_SRC python :exports code :results output
-[ Ausdruck ueber x  for x in Liste if x erfuellt Bedingung]
+[Ausdruck ueber x  for x in Liste if x erfuellt Bedingung]
 #+END_SRC 
 
+*** Schleifenvariable						    :animate:
 
+Natürlich auch andere Variablennamen als ~x~ möglich 
 
-
-** List comprehension -- Beispiel 1
+** List comprehension -- Beispiel 1				   :subslide:
 
 Verdopple Eintrag nur wenn gerade Zahl: 
 
@@ -1746,7 +1767,7 @@ Verdopple Eintrag nur wenn gerade Zahl:
 : [4, 84]
 
 
-** Beispiel 2
+** Beispiel 2							   :subslide:
 
 - Liste der Noten von Austauschstudierenden 
 
@@ -1763,7 +1784,9 @@ Verdopple Eintrag nur wenn gerade Zahl:
 #+RESULTS:
 : [2.0, 1.0, 2.3]
 
-- Was passiert, wenn Matrikelnummer fehlt? 
+*** Fehler?							    :animate:
+
+Was passiert, wenn Matrikelnummer fehlt? 
 
 
 ** UEBUNG List comprehesion, ändern der Liste? 
@@ -1835,7 +1858,7 @@ for i in [3*x for x in range(5)]:
 #+END_SRC 
 
 
-** Paarweise Operation: Beispiel 1 -- Summe der Produkte 
+** Paarweise Operation: Beispiel 1 -- Summe der Produkte	   :subslide:
 
 Berechne Summe der Produkte jedes Elements von Liste 1 mit jedem
 Element von Liste 2 
@@ -1853,7 +1876,7 @@ Element von Liste 2
 #+RESULTS:
 : 324
 
-** Paarweise Operation: Beispiel 2 -- Test auf enthalten 
+** Paarweise Operation: Beispiel 2 -- Test auf enthalten	   :subslide:
 
 Innere Schleife abbrechen wenn Ergebnis feststeht 
 
@@ -1908,7 +1931,7 @@ Berechne $\sum_{i=0}^{10} \sum_{j=0}^i i \cdot j$
 #+RESULTS:
 : 1705
 
-** Beispiel mit geschachteltem ~range~ und list comprehension  
+** Beispiel mit geschachteltem ~range~ und list comprehension	   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
   summe = sum([i*j
@@ -1922,6 +1945,9 @@ Berechne $\sum_{i=0}^{10} \sum_{j=0}^i i \cdot j$
 
 #+RESULTS:
 : 1705
+
+*** Eingebaute Funktion: ~sum~
+
 
 Hilfsfunktion ~sum~: Addiere alle Elemente einer Aufzählung auf 
 
@@ -1947,7 +1973,7 @@ ganz viele Übungen denkbar.
 Sog. *Selection Sort* 
 
 
-** Selection Sort: Vorüberlegung 
+** Selection Sort: Vorüberlegung				   :subslide:
 
 - Wie viele, welche Schleifen?
   - Eine Schleife, um das erste, zweite, ... Element zu bestimmen:
@@ -1955,9 +1981,10 @@ Sog. *Selection Sort*
   - Um ein Element zu bestimmen, den Rest absuchen: noch eine ~for~,
     geschachtelt 
 
-** Selection Sort: Code
+** Selection Sort: Code						   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
+  %%tutor -t
   liste = [17, 1, 42, 99, 33]
   for pos in range(len(liste)):
       tausch = pos
@@ -1972,9 +1999,10 @@ Sog. *Selection Sort*
 #+RESULTS:
 : [1, 17, 33, 42, 99]
 
-*** Visualisierung 
+*** Visualisierung						    :animate:
 
-Abbildung zeigt eine Visualisierung des Ablaufs von Selection Sort 
+Abbildung [[fig:selection-sort]] visualisiert einen Zwischenstand beim
+Ablauf von Selection Sort. 
 
 #+CAPTION: Selection Sort
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -1982,7 +2010,7 @@ Abbildung zeigt eine Visualisierung des Ablaufs von Selection Sort
 [[./figures/pt-selectionsort.png]]
 
 
-** Sortieren in Python: Eingebaut 
+** Sortieren in Python: Eingebaut				   :subslide:
 
 - Niemand schreibt so eine Sortier-Funktion von Hand 
 - Das ist als eingebaute Funktion verfügbar: ~l.sort()~ für eine Liste ~l~
@@ -1993,7 +2021,7 @@ Abbildung zeigt eine Visualisierung des Ablaufs von Selection Sort
 - Gesucht: Eine sortierte Liste, die die Elemente der beiden Listen
   enthält 
 
-** Mischen: Vorüberlegung 
+** Mischen: Vorüberlegung					   :subslide:
 
 - Triviale Idee: Listen hintereinander kopieren, dann sortieren 
   - Verschwenderisch -- wir können die Sortierung der Listen ja
@@ -2002,7 +2030,7 @@ Abbildung zeigt eine Visualisierung des Ablaufs von Selection Sort
   kleinere Element 
 
 
-** Mischen konventionell 
+** Mischen konventionell					   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
   a = [1, 3, 6, 9, 12, 23]
@@ -2047,7 +2075,7 @@ Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23]
 #+end_example
 
 
-** Mischen mit Slicing 
+** Mischen mit Slicing						   :subslide:
 
 
 #+BEGIN_SRC python :exports both :results output
@@ -2098,7 +2126,7 @@ Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23]
   - Index des Wertes in Liste, falls vorhanden
   - Information, andernfalls
 
-** Binäre Suche, Vorüberlegung 
+** Binäre Suche, Vorüberlegung					   :subslide:
 
 - Liste linear absuchen?
   - Funktioniert, aber wir können Sortierung ausnutzen!
@@ -2109,7 +2137,7 @@ Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23]
   - Wenn kein Wert mehr übrig, fertig 
 - Welche Schleifen? 
 
-** Binäre Suche, Code 
+** Binäre Suche, Code						   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
   l = [2, 4, 5, 10, 11, 17, 18]
