@@ -25,7 +25,7 @@ outputdir:
 $(objects): %.ipynb: %.org
 	mkdir -p output
 	# check whether there is an UML directory to build in
-	[ -d uml ] && (cd uml ; make)
+	-[ -d uml ] && (cd uml ; make)
 	# building raw files 
 	../../build/tangle.sh $< >> ../../build/log
 	cp $@ ${OUTPUTDIR}
