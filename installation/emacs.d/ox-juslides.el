@@ -621,6 +621,23 @@ holding export options."
     (while (re-search-forward "\t" nil t)
       (replace-match "        "))
 
+    ;; RYSE math rendering matces on $ $ and $$...$$, not the more correct \( \) and \[ \]
+    ;; that is produced by org. So we have to swap that back
+    ;; In the json file, we see: \\( -- turn that into regexp
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\(" nil t)
+      (replace-match "$"))
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\)" nil t)
+      (replace-match "$"))
+    ;; not that the open bracket needs to be protected by two backslashed itself: 
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\\\[" nil t)
+      (replace-match "$$"))
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\]" nil t)
+      (replace-match "$$"))
+    
     
     ;; return buffer content as resulting string:
     (buffer-substring-no-properties (point-min) (point-max))
