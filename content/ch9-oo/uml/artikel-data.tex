@@ -1,0 +1,39 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+     \begin{tikzpicture}
+       \umlclass{Artikel}{
+         Artikelnummer \\
+         Preis \\
+       } {}
+       \umlclass[x=-3,y=-3]{Werk}{
+         Ersteller \\
+         Titel \\
+       } {}
+       \umlclass[x=3,y=-3]{Gerät}{
+         Hersteller \\
+       } {}
+       \umlclass[x=-6,y=-6]{Buch}{
+         Autor \\
+         Verlag \\
+         ISBN    \\
+       } {}
+       \umlclass[x=0,y=-6]{Musikträger}{
+         Autor \\
+         Verlag \\
+         ISBN    \\
+       } {}
+       % inheritances: 
+       \umlinherit[geometry=|-|]{Werk}{Artikel}
+       \umlinherit[geometry=|-|]{Gerät}{Artikel}
+       \umlinherit[geometry=|-|]{Buch}{Werk}
+       \umlinherit[geometry=|-|]{Musikträger}{Werk}
+     \end{tikzpicture}
+\end{document}

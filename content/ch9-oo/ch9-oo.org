@@ -1,0 +1,1526 @@
+#+TITLE: Kapitel 9: Objektorientierung, Vererbung  
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+** Was bisher geschah 
+
+- Funktionen und Klassen erlauben die Wiederverwendung von
+  Programmcode
+- Aber es gibt keine Möglichkeit, vorhandene Funktionen/Klassen
+  abzuwandeln, auf Spezialfälle zuzuschneiden 
+
+** Dieses Kapitel 
+
+- Wir entwicklen Klassen weiter und erlauben Modifikation
+  und Adaption der Funktionalität
+  - /Vererbung/ von Klassen und /Polymorphie/ 
+  - Erfordert /Überschreiben/ von Methoden
+- Dies resultiert in /Hierarchien/ von Klassen
+- Insgesamt: Konzept der /objektorientierten Programmierung/
+
+
+* Verwandtschaft zwischen Dingen/Konzepten 
+  
+** Programme reflektieren die Wirklichkeit 
+
+- Viele Programmen haben etwas mit der Wirklichkeit zu tun
+  - Be-/verarbeiten Daten, die /tatsächliche Dinge/ beschreiben
+- Tatsächliche Dinge sind oft klassifizierbar
+  - Möglicherweise mit verschiedenen Sichtweisen
+- Vorstellungen: /ähnliche Dinge/, /allgemeinere Dinge/, /speziellere
+  Dinge/ 
+
+
+** Ähnlich, allgemeiner, spezieller 
+
+Vorüberlegungen: 
+- Zwei Dinge sind ähnlich wenn sie
+  - ähnliche Daten haben; mit gleicher Struktur
+  - ähnlich verarbeitet werden können
+- Ein Ding ist spezieller als ein anderes Ding wenn
+  - mehr Wissen über das speziellere Ding gibt
+  - besondere Verarbeitung möglich ist
+  - besondere Fähigkeiten vorliegen 
+
+** Allgemeiner/spezieller und Hierarchien 
+
+- Wenn Dinge in einer allgemeiner/spezieller Beziehung stehen, dann in
+  eine Hierarchie einordnen?
+- Je allgemeiner, desto weiter oben
+- Je spezieller, desto weiter unten 
+
+** Hierarchien: Beispiel Lebewesen 
+
+Beispiel:  Linnesche Taxonomy 
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:linne-tree} 
+#+END_LaTeX
+
+#+header: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 1000 
+#+begin_src latex :exports results :results output raw :file figures/linne-tree.png :fit t
+\begin{forest} 
+  [Tiere, for tree={draw, shape=rectangle, rounded corners,
+                    align=center}
+    [Wirbeltiere 
+      [ Fische 
+        [ \ldots ] 
+        [ \ldots ]
+      ]
+      [ Reptilien  
+        [ \ldots ] 
+        [ \ldots ]
+      ]
+      [ Säugetiere 
+        [ Raubtiere 
+   	  [ Hundeartige 
+	    [ Hunde ]
+	    [ Bären ]
+	    [ Marder ]
+	  ]
+	  [ Katzenartige         [ \ldots ] 
+	  ]
+	]
+        [ Nagetiere ]
+        [ \ldots ]
+        [ Primaten  
+	  [ Feuchtnasenprimaten ]
+	  [ Trockennasenprimaten 
+	    [ Koboldmakis ]
+	    [ Affen 
+	      [Neuweltaffen         [ \ldots ] 
+	      ]
+	      [ Altweltaffen 
+	        [ Geschwänzte ] 
+ 	        [ Menschenartige [ \ldots ] ]
+		  ]
+	    ]
+	  ]
+	]
+      ]      
+    ]
+    [ \ldots 
+    ]
+    [ \ldots 
+    ]
+  ]
+\end{forest}
+#+end_src
+
+#+NAME: fig:linne-tree 
+#+CAPTION: Linne'sche Klassifikation
+#+ATTR_LaTeX: :caption \caption{Linne'sche Klassifikation \label{fig:linne-tree}}
+#+ATTR_LATEX: :width 0.75\textwidth :float t
+#+RESULTS:
+[[file:figures/linne-tree.png]]
+
+
+
+** Hierarchien: Waren bei Online-Buchhändler 
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:artikel-tree} 
+#+END_LaTeX
+
+#+header: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 1000 
+#+begin_src latex :exports results :results output raw :file figures/artikel-tree.png :fit t
+\begin{forest} 
+  [Artikel, for tree={draw, shape=rectangle, rounded corners,
+                    align=center}
+    [ Werk 		    
+    [Buch 
+      [ Hardcover 
+        [ Kinderbuch  ] 
+        [ Fachbuch ]
+        [ \ldots ]
+      ]
+      [ Softcover         [ \ldots ]
+      ]
+      [ eBook 
+        [ \ldots ] 
+        [ \ldots ]
+      ]
+    ]
+    [ Musikträger
+      [  CD
+      ]
+      [ DVD ]
+      [ Datei ]
+    ]
+    [ Poster [ \ldots ]]
+    ]
+    [ Gerät 
+     [Elektrisch 
+       [Haushaltsgeräte [ \ldots ] ]
+       [Unterhaltung [ \ldots ] ]
+       [ \ldots ] 
+     ]
+     [Mechanisch          [ \ldots ] 
+     ]
+    ]
+  ]
+\end{forest}
+#+end_src
+
+#+NAME: fig:artikel-tree 
+#+CAPTION: Artikel-Klassifikation
+#+ATTR_LaTeX: :caption \caption{Artikel-Klassifikation \label{fig:artikel-tree}}
+#+ATTR_LATEX: :width 0.75\textwidth :float t
+#+RESULTS:
+[[file:figures/artikel-tree.png]]
+
+
+   
+
+** Hierarchien: Personen an einer Uni 
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:personen-tree} 
+#+END_LaTeX
+
+#+header: :imagemagick yes :iminoptions -density 1200 :imoutoptions -geometry 1000 
+#+begin_src latex :exports results :results output raw :file figures/personen-tree.png :fit t
+\begin{forest} 
+  [Personen, for tree={draw, shape=rectangle, rounded corners,
+                    align=center}
+    [Studierende 
+      [ Informatik 
+         [ \ldots ]
+         [ Einschreibung 2015 ] 
+         [ Einschreibung 2016 ] 
+      ]
+      [ Computer Engineering 
+         [ \ldots ]
+         [ Einschreibung 2015 ] 
+         [ Einschreibung 2016 ] 
+      ]
+      [ \ldots ]
+    ]
+    [ Mitarbeiter 
+      [  Verwaltung 
+        [Technisch]
+        [Nichttechnisch]
+      ]
+      [ Fakultät        
+        [  Verwaltung 
+          [Technisch]
+          [Nichttechnisch]
+	]
+	[ Forschung 
+	  [WiMi]
+	  [Hochschullehrende]
+	]
+	]
+    ]
+  ]
+\end{forest}
+#+end_src
+
+#+NAME: fig:personen-tree 
+#+CAPTION: Personen-Klassifikation
+#+ATTR_LaTeX: :caption \caption{Personen-Klassifikation \label{fig:personen-tree}}
+#+ATTR_LATEX: :width 0.75\textwidth :float t
+#+RESULTS:
+[[file:figures/personen-tree.png]]
+
+** Klassifikation: Gemeinsamkeiten
+
+- Klassifikation ist nützlich
+- Aber entscheidend: Gemeinsamkeiten identifizieren!
+  - Zwischen Hominiden?
+  - Geräten?
+  - Werken? 
+
+
+** Beispiel: Gemeinsamkeiten von Artikel, Werk, Buch, ... 
+
+- Alle Artikel haben
+  - Artikelnummer
+  - Preis
+- Alle Werke haben /zusätzlich/ zu Artikel: 
+  - Ersteller
+  - Titel 
+- Aller Bücher haben  /zusätzlich/ zu Werk: 
+  - Autor
+  - Verlag
+  - ISBN    
+- Alle Musikträger haben /zusätzlich/ zu Werk: 
+  - Interpret
+  - Liste von Musikstücken 
+   
+
+
+
+* Verwandtschaft zwischen Klassen 
+
+** Gemeinsamkeiten in Klassen fassen 
+
+Bisher wäre möglich: 
+- Je eine Klasse für Kinderbuch, Fachbuch, CD, DVD, ...
+  - Die Blätter der Hierarchie
+- In jeder Klasse alle gemeinsamen Daten jeweils wieder neu
+  aufschreiben 
+
+Nicht schön! Redundant! Fehleranfällig! 
+- Besser: Gemeinsamkeiten zur einmal aufschreiben! 
+
+
+** Gemeinsamkeiten in Klassen fassen (2)
+
+Also Idee: 
+- Eine Klasse, die ~Artikel~ darstellt
+- Eine weitere Klasse, die die *zusätzliche* Information für ein Buch 
+  *hinzufügt*, Ausgangsdaten von Artikel übernimmt 
+- Eine weitere Klasse, die die *zusätzliche* Information für ein
+  Hardcover *hinzufügt*, Ausgangsdaten von Buch übernimmt 
+- usw... 
+
+** Gemeinsamkeiten -- Darstellung in UML 
+
+- Klasse ~B~ *übernimmt* Daten von Klasse ~A~: Linie von ~B~ nach ~A~
+  mit Pfeil bei ~A~
+  - Genauer: Ein Objekt der Klasse ~B~ hat alle Attribute, die auch
+    ein Objekt der Klasse ~A~ hat
+  - Plus ggf. weitere 
+
+** Gemeinsamkeiten -- Darstellung in UML 
+
+
+#+CAPTION: Klassenhierarchie für Artikel: Daten in UML
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:artikel-uml-daten
+[[./uml/artikel-data.png]]
+
+
+*** Visualisierung						  :dropslide:
+
+Abbildung [[fig:artikel-uml-daten]] zeigt die UML-basierte Visualisierung
+dieser Idee. Beachten Sie, dass nur die hinzugefügten Daten notiert
+werden. 
+
+** Vererbung, ~is-a~-Beziehung 
+
+- Terminologie: *Verberbung*
+  - Die allgemeinere Klasse *vererbt* ihre Daten und Methoden an die
+    *speziellere* Klasse
+- Weil Objekte der spezielleren Klasse alle Attribute der
+  allgemeineren Klasse haben, *IST* ein spezielleres Objekt auch ein
+  allgemeineres Objekt
+  - Das speziellere Objekt kann an Stelle eines allgemeineren Objekts
+    verwendet werden; das fällt nicht auf 
+  - Die sog. *~is-a~* Beziehung 
+
+** ~is-a~ -- Mengenbeziehung 
+
+Die spezielleren Objekte bilden eine Teilmenge der allgemeineren
+Objekte.
+#+BEGIN_LaTeX
+Abbilidung~\ref{fig:venn} illustriert das.  
+#+END_LaTeX
+
+   #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
+   #+begin_src latex :exports results :results output raw :file figures/venn.png :fit t
+     \begin{tikzpicture}
+       \node[ellipse,draw,fill=gray!60,minimum width=10cm, minimum height=5cm, label={[anchor=south,above=3mm]270:Artikel}] (0,0) {};
+       \node[ellipse,draw,fill=gray!20,minimum width=5cm, minimum height=3.5cm, xshift=-1.5cm, yshift=-0.1cm, label={[anchor=south,above=2mm]270:Werk}] (0,0) {};
+       \node[ellipse,draw,fill=gray!20,minimum width=2cm, minimum height=1.5cm, xshift=2.5cm, yshift=0.5cm, label={[anchor=south,above=5mm]270:Gerät}] (0,0) {};
+       \node[ellipse,draw,fill=gray!40,minimum width=1cm, minimum height=1cm, xshift=-2cm, yshift=0.5cm, label={[anchor=center,below=0.2cm]:Buch}] (0,0) {};
+       \node[ellipse,draw,fill=gray!40,minimum width=2cm, minimum height=1cm, xshift=-1cm, yshift=-0.5cm, label={[anchor=center,above=-0.8cm]:Musikträger}] (0,0) {};
+     \end{tikzpicture}
+   #+end_src
+
+   #+NAME: fig:venn
+   #+CAPTION: Speziellere Objekte sind eine Teilmenge der allgemeineren Objekte 
+   #+ATTR_LaTeX: :caption \caption{Speziellere Objekte sind eine Teilmenge der allgemeineren Objekte  \label{fig:venn}}
+   #+ATTR_LATEX: :width 0.75\textwidth 
+   #+RESULTS:
+   [[file:figures/venn.png]]
+
+
+
+
+** Warum nur Daten? Methoden! 
+
+- Klassen haben Methoden
+- Die werden natürlich auch übernommen
+  - Wenn Daten hinzukommen, werden die vorhandenen Methoden ja noch
+    funktionieren! 
+- Methoden hinzufügen?
+  - Warum nicht!
+  - Die ~is-a~-Beziehung ist dadurch nicht verletzt
+
+
+** Neue Methoden im Artikel-Beispiel 
+
+Was können diese Klassen? 
+- Jeder Artikel kann:
+  - Information anzeigen
+  - Preis um festen Prozentsatz verändern
+- Jedes Buch kann zusätzlich:
+  - Leseprobe anzeigen
+- Jeder Musikträger kann zusätzlich:
+  - Liste der Musikstücke ausgeben 
+  - Jeweils Hörprobe ausgeben
+
+** Neue Methoden -- UML 
+
+
+#+CAPTION: Klassenhierarchie für Artikel: Neue Methoden 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:artikel-new-methods
+[[./uml/artikel-new-methods.png]]
+
+
+** Methoden an Klasse anpassen? 
+
+- Die Information für ein Werk sollte den Titel enthalten? Für ein
+  Geräte den Hersteller? 
+- Das könnte man mit neuen Methoden machen:
+  - ~show_info_werk()~ in der Klasse ~Werk~
+  - ~show_info_geraet()~ in der Klasse ~Geraet~
+
+Nicht schön! 
+- Wird schnell unübersichtlich
+- Eigentlich will doch auch von einem Gerät die Information
+
+
+** Methoden verändern? 
+
+
+- Idee: Könnte die Klasse ~Werk~, ~Geraet~ die Methode ~show_info()~
+  der Klasse ~Artikel~ *verändern* oder *anpassen*? 
+  - Eine abgewandelte Version der Methode, mit *gleichem Namen* angeben?
+- Klassen (nicht nur Objekte) bilden Namensräume!
+  - D.h., die Namen der Methoden der verschiedenen Klassen existieren
+    ohnehin in verschiedenen Namensräume
+  - Also ist es kein Problem, mehrere Methoden mit gleichem
+    Namen in unterschiedlichen Klassen zu haben 
+
+Also eigentlich: langweilig! 
+
+** Veränderte Methoden -- Aufruf 
+
+- Angenommen, wird implementieren eine andere Methode ~show_info()~ in
+  Klasse ~Werk~
+- Was passiert bei Aufruf der Methode?
+  - Bei Aufruf bei einem Objekt von ~Artikel~: Die einfache Methode
+    wird aufgerufen
+  - Bei Aufruf bei einem Objekt von ~Werk~: Die neue Methode
+    wird aufgerufen
+
+Was soll auch sonst passieren?? 
+
+
+
+** Veränderte Methoden -- UML 
+
+Verändert eine Klasse eine Methode der allgemeineren Klasse, wird
+diese Methode explizit im UML-Diagramm gezeigt 
+
+#+CAPTION: Klassenhierarchie für Artikel: Veränderte Methoden 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:artikel-override
+[[./uml/artikel-override.png]]
+
+
+
+
+
+** Terminologie 
+
+*** Vererbung: Terminologie				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+- Eine Klasse /vererbt/ Daten oder Methoden eine andere Klasse
+  - Daten, Methoden stehen in Objekten der erbenden Klasse zur
+    Verfügung 
+- Die vererbende Klasse heißt /Oberklasse/ (/super class/) oder
+  /Basisklasse/ (/base class/)
+- Die erbende Klasse heißt /Unterklasse/ (/sub class/) oder
+  /abgeleitete Klasse/ (/derived class/)
+- Wird bei Vererbung eine Methode verändert, so sagt man die Methode
+  wird /überschrieben/
+- Vererbung kann rekursiv erfolgen
+  - Eine Unterklasse kann Oberklasse einer weiteren Klasse sein
+
+** ~is-a~, Kompatibilität 
+
+Zur Betonung: 
+
+*** Kompatibilität zwischen Ober- und Unterklasse		     :B_note:
+    :PROPERTIES:
+    :BEAMER_env: note
+    :END:
+
+Jedes Objekt einer Oberklasse kann durch ein Objekt einer Unterklasse
+ersetzt werden. Objekte einer Unterklasse können den Platz von
+Objekten der Oberklasse einnehmen. Sie können dabei durch
+überschriebene Methoden adaptiertes Verhalten zeigen. 
+
+Oder anders gesagt: Kann ein Programm mit Objekten einer Oberklasse
+arbeiten, kann es auch *ohne Änderung* mit Objekten einer Unterklasse
+arbeiten. Es wird diese Objekte als Instanzen der Oberklasse ansehen;
+durch Überschreiben von Methoden kann trotzdem Funktionalität
+angepasst werden. 
+
+** ~is-a~, Kompatibilität (2)  
+
+
+- Die ~is-a~ Beziehung und Nutzung von Unterklasse-Objekten ist der
+  *entscheidende Punkt* der Vererbung
+  - Schreibersparnis bei Definition ist nett, aber nicht so wichtig
+- Durch Schaffung neuer Klassen kann einem Programm Funktionalität
+  hinzugefügt werden, ohne dass der Rest des Programms geändert werden
+  muss 
+- Beispiel:
+  - Kommen neue Artikelkategorie (Videospiele? Hausschuhe?) hinzu,
+    können die ohne Änderung mit verarbeitet werden 
+
+
+
+
+* Vererbung in Python
+
+** Konkret: Vererbung in Python 
+
+- Schauen wir uns an, wie wir die Konzepte oben in Python umsetzen
+  können
+
+** Zunächst: Die Basisklasse ~Artikel~ 
+
+Eine ganz normale Klasse: 
+
+#+BEGIN_SRC python :exports both :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def markup(self, percentage):
+          """Konvention: Percentage == 1 lässt Preis unverändert"""
+          self.preis *= percentage
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+      def __str__(self):
+          return self.show_info()
+
+  a = Artikel("1234", 42.17)
+  print(a)
+  a.markup(1.1)
+  print(a)
+#+END_SRC 
+
+#+RESULTS:
+: Artikel 1234 zu 42.17€
+: Artikel 1234 zu 46.38700000000001€
+
+
+** Unterklasse ~Werk~
+
+- Ableiten: Unterklasse definieren, Oberklasse in Parameter angeben 
+- Im Beispiel: ~Werk~ und ~Artikel~ identisch 
+
+#+BEGIN_SRC python :exports code :results output
+  class Werk(Artikel):
+      pass
+#+END_SRC 
+
+** Unterklasse ~Werk~: Konstruktor 
+
+
+#+BEGIN_SRC python :exports code :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, ersteller, titel):
+          self.ersteller = ersteller
+          self.titel = titel
+
+  # Ein Werk wird mit vier Parametern initiatlisert
+  w = Werk("1234", 42.17, "Peter Müller", "Zur Bedeutung von GP1")
+#+END_SRC 
+
+*** Fehler							    :animate:
+
+- ~TypeError: __init__() takes 3 positional arguments but 5 were given~
+- Das konnte nicht gehen: Konstruktor von ~Werk~ hat nicht genug
+  Parameter
+
+
+
+
+** Unterklasse ~Werk~: Konstruktor (2)
+
+Fix: Parameter hinzufügen
+
+#+BEGIN_SRC python :exports code  :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, artikelnummer, preis, ersteller, titel):
+          self.ersteller = ersteller
+          self.titel = titel
+
+  # Ein Werk wird mit vier Parametern initiatlisert
+  w = Werk("1234", 42.17, "Peter Müller", "Zur Bedeutung von GP1")
+  print(w.show_info())
+#+END_SRC 
+
+#+RESULTS:
+
+** Fehler?? 
+
+- AttributeError: 'Werk' object has no attribute 'artikelnummer' 
+- Das geht immer noch nicht? Das Attribute ~artikelnummer~ wird nicht
+  gesetzt? 
+- Na, wie auch??
+  - Der Konstruktor von ~Artikel~ würde das machen, aber den rufen wir
+    ja nirgends auf
+
+
+*** Remember							    :animate:
+
+Explicit is better than implicit!
+
+
+#+CAPTION: Kein Konstruktoraufruf der Oberklasse 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:calvin-facepalm
+[[../ch4-funct1/figures/facepalm.png]]
+
+
+** Unterklasse ~Werk~: Konstruktor der Oberklasse aufrufen 
+
+Wie kommen wir an Konstruktor von ~Artikel~?
+  - Zugriff über Namensraum der *Klasse*!
+  - Mit ~self~ als explizitem Parameter! 
+ 
+#+BEGIN_SRC python :exports code  :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, artikelnummer, preis, ersteller, titel):
+          # Oberklassen-Konstruktor aufrufen: 
+          Artikel.__init__(self, artikelnummer, preis)
+          self.ersteller = ersteller
+          self.titel = titel
+
+  # Ein Werk wird mit vier Parametern initiatlisert
+  w = Werk("1234", 42.17, "Peter Müller", "Zur Bedeutung von GP1")
+  print(w.show_info())
+#+END_SRC 
+
+#+RESULTS:
+: Artikel 1234 zu 42.17€
+
+
+** Unterklasse ~Werk~: Konstruktor der Oberklasse mit ~super~ aufrufen  
+
+
+- Das funktioniert, aber ist nicht so schön: Der Klassenname ~Artikel~
+  wird mehrfach aufgeschrieben
+  - Fehleranfällig, z.B. wenn man sich entscheidet, die Basisklasse zu
+    wechseln
+  - Generell: *Don't repeat yourself* (DRY)!
+  - (Und funktioniert nicht bei multiple inheritance, siehe später)
+- Daher neues Konstrukt: ~super()~
+  - Funktion, die Objekt der Oberklasse einer abgeleiteten Klasse
+    liefert 
+  - Zum Aufruf der entsprechenden Methoden 
+  - Nicht nur in ~__init__~ nützlich (siehe z.B. [[https://rhettinger.wordpress.com/2011/05/26/super-considered-super/][Blog post]])
+
+
+** Unterklasse ~Werk~: Konstruktor der Oberklasse mit ~super~ aufrufen (2)   
+
+#+BEGIN_SRC python :exports code  :results output
+  %% tutor -t 
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, ersteller, titel, artikelnummer, preis):
+          # Oberklassen-Konstruktor aufrufen: 
+	  super().__init__(artikelnummer, preis)
+          self.ersteller = ersteller
+          self.titel = titel
+
+  # Ein Werk wird mit vier Parametern initiatlisert
+  w = Werk("Peter Müller", "Zur Bedeutung von GP1", "1234", 42.17)
+  print(w.show_info())
+#+END_SRC 
+
+#+RESULTS:
+: Artikel 1234 zu 42.17€
+
+** Unterklasse ~Werk~: Parameter des Oberklasse-Konstruktors merken? 
+
+- Auch unschön: Im Konstruktor der Unterklasse muss man die Parameter
+  der Oberklasse aufführen
+  - Woher weiß ich das; fehleranfällig bei Änderung, ... 
+  - *Don't repeat yourself*!
+- Besser: Nur eigene Parameter aufführen, Parameter der Basisklasse
+  nur anonym durchreichen; egal wie beschaffen 
+  - ~*args~ und ~**kwargs~!
+- Typischer Programmierstil: ~*args~ und ~**kwargs~ durchreichen! 
+
+** Unterklasse ~Werk~: Parameter des Oberklasse-Konstruktors durchreichen 
+
+#+BEGIN_SRC python :exports code  :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, ersteller, titel, *args, **kwargs):
+          # Oberklassen-Konstruktor aufrufen: 
+          super().__init__(*args, **kwargs)
+          self.ersteller = ersteller
+          self.titel = titel
+
+  # Ein Werk wird mit vier Parametern initialisert
+  w = Werk("Peter Müller", "Zur Bedeutung von GP1", "1234", 42.17, )
+  print(w.show_info())
+#+END_SRC 
+
+#+RESULTS:
+: Artikel 1234 zu 42.17€
+
+** Unterklasse ~Werk~: Parameter des Oberklasse-Konstruktors durchreichen (2) 
+
+Oder noch schöner beim Instantiieren: Mit keyword-Argumenten 
+- Dann ist Reihenfolge egal! 
+
+#+BEGIN_SRC python :exports code  :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, ersteller, titel, *args, **kwargs):
+          # Oberklassen-Konstruktor aufrufen: 
+          super().__init__(*args, **kwargs)
+          self.ersteller = ersteller
+          self.titel = titel
+
+  # Ein Werk wird mit vier Parametern initialisert
+  w = Werk(artikelnummer="1234", preis=42.17,
+           ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
+  print(w.show_info())
+#+END_SRC 
+
+#+RESULTS:
+: Artikel 1234 zu 42.17€
+
+** Unterklasse ~Werk~: ~show_info~
+
+
+- Objekt wird jetzt wohl richtig initialisiert
+- Aber nicht richtig ausgegeben
+- Wir müssen die Methode ~show_info~ noch überschreiben! 
+
+
+#+BEGIN_SRC python :exports code  :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, ersteller, titel, *args, **kwargs):
+          # Oberklassen-Konstruktor aufrufen: 
+          super().__init__(*args, **kwargs)
+          self.ersteller = ersteller
+          self.titel = titel
+
+      def show_info(self):
+          return "'{}' von {} (Artikel {} zu {} €)".format(
+              self.titel,
+              self.ersteller,
+              self.artikelnummer,
+              self.preis)
+
+  # Ein Werk wird mit vier Parametern initialisert
+  w = Werk(artikelnummer="1234", preis=42.17,
+           ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
+  print(w.show_info())
+#+END_SRC 
+
+#+RESULTS:
+: 'Zur Bedeutung von GP1' von Peter Mueller (Artikel 1234 zu 42.17€)
+
+
+** Unterklasse ~Werk~: ~show_info~ -- Oberklasse mitbenutzen 
+
+- Oder in ~Werk.show_info~ Methode ~Artikel.show_info~ nutzen
+  - *Don't repeat yourself!*
+
+#+BEGIN_SRC python :exports code  :results output
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+  class Werk(Artikel):
+      def __init__(self, ersteller, titel, *args, **kwargs):
+          # Oberklassen-Konstruktor aufrufen: 
+          super().__init__(*args, **kwargs)
+          self.ersteller = ersteller
+          self.titel = titel
+
+      def show_info(self):
+          return "'{}' von {} ({})".format(
+              self.titel,
+              self.ersteller,
+	      super().show_info())
+
+  # Ein Werk wird mit vier Parametern initialisert
+  w = Werk(artikelnummer="1234", preis=42.17,
+           ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
+  print(w.show_info())
+#+END_SRC 
+
+#+RESULTS:
+: 'Zur Bedeutung von GP1' von Peter Mueller (Artikel 1234 zu 42.17€)
+
+
+** Don't repeat yourself 
+
+*** Don't repeat yourself (DRY)				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein Prinzip der Software-Entwicklung: *Every piece of knowledge must have a single, unambiguous, authoritative representation within a system*. (Hunt & Thomas , Practical Programmer)
+
+Bezieht sich auf viele Arten von Dokumenten: Quellcode, Dokumentation,
+Tests, Übersetzungssysteme, ... 
+
+Gegensatz: Write everything twice (WET) (auch: we enjoy typing, waste
+everybody's time). 
+
+** str mitbenutzen? 
+
+Was wird hier ausgeben? Warum? 
+
+#+BEGIN_SRC python :exports code  :results output
+  %%tutor -t
+  class Artikel:
+      def __init__(self, artikelnummer, preis):
+          self.artikelnummer = artikelnummer
+          self.preis = preis
+
+      def show_info(self):
+          return "Artikel {} zu {}€".format(self.artikelnummer,
+                                    self.preis)
+
+      def __str__(self):
+          return self.show_info()
+
+  class Werk(Artikel):
+      def __init__(self, ersteller, titel, *args, **kwargs):
+          # Oberklassen-Konstruktor aufrufen: 
+          super().__init__(*args, **kwargs)
+          self.ersteller = ersteller
+          self.titel = titel
+
+      def show_info(self):
+          return "'{}' von {} ({})".format(
+              self.titel,
+              self.ersteller,
+	      super().show_info())
+
+  # Ein Werk wird mit vier Parametern initialisert
+  w = Werk(artikelnummer="1234", preis=42.17,
+           ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
+  print(w)
+#+END_SRC 
+
+#+RESULTS:
+: 'Zur Bedeutung von GP1' von Peter Mueller (Artikel 1234 zu 42.17€)
+
+*** Erläuterung							  :dropslide:
+
+Hier geschieht folgendes. Die Funktion ~print~ versucht das Objekt ~w~
+auszugeben. Dazu ruft sie, um eine Zeichenketten-Repräsentation von
+~w~ zu bekommen, die Methode ~__str__~ von ~w~ aufzurufen. 
+
+Und die gibt es natürlich! ~w~ ist ja vom Typ ~Werk~. ~Werk~ selbst
+hat keine Methode ~__str__~ definiert, aber da es ja alle Methoden von
+~Artikel~ erbt, kommt die von ~Artikel~ definierte Version ~__str__~
+zum Zug. 
+
+Der spannende Punkt ist nun, was beim Aufruf ~self.show_info()~ in
+~__str__~ passiert. Welche Version von ~show_info~ wird ausgeführt? 
+
+Das liegt daran, was ~self~ ist. Erinnern Sie sich: ~self~ ist ein
+Name für ein Objekt; hier das Objekt, das auch unter dem Namen ~w~ (im
+globalen Scope) referenziert wird. Und das ist ein Objekt der Klasse
+~Werk~. Also wird im Namensraum dieser Klasse ~Werk~ nach einer
+Methode ~show_info~ gesucht. Die gibt es, also wird diese Methode
+~Werk.show_info~ ausgeführt. 
+
+Als Teil dieser Ausführung von ~Werk.show_info()~ wird dann noch
+~super.show_info()~ aufgerufen. Hier passiert dann das gleiche wie
+beim Aufruf des Kosntruktors: ~super~ bestimmt die Oberklasse und
+sucht *dort* nach einer Methode ~show_info~, die dann zur Ausführung
+kommt. 
+
+Insgesamt ist also der Ablauf der Methodenaufrufe bei ~print(w)~: 
+1. ~Artikel.__str__~, weil von ~print~ bei ~w~ aufgerufen und von
+   ~Artikel~ and ~Werk~ vererbt, 
+2. ~Werk.show_info~, weil ~self~ ein Name für ein ~Werk~-Objekt ist
+   und also die Methode ~show_info~ aus diesem Namensraum genommen
+   wird,
+3. ~Artikel.show_info~, weil ~super~ in der Oberklasse nach
+   ~show_info~ sucht. 
+
+
+** Anmerkung: Dynamische Bindung 
+
+- Vorherige Folie zeigt Beispiel, wie die richtige Methode
+  *dynamisch*, passierend auf dem vorliegenden Objekt, ausgewählt wird
+  - Bindung: Auswahl der richtigen Methodenimplementation für
+    Methodenaufruf 
+- In Python ist das der natürlich Vorgang
+- Andere Programmiersprachen kennen noch /statische Bindung/, was in
+  der Regel zu Verwirrung führt 
+
+
+* Sichtbarkeit 
+
+** Zugriff auf Attribute, Methoden? 
+
+- Wer darf auf Attribute und Methoden eines Objektes zugreifen? 
+- Einfach: Jeder, der eine Referenz auf das Objekt hat! 
+- Sinnvoll?
+  - Sollte jeder Nutzer einer Klasse beliebig Daten ändern?
+- Beispiel: Binärbaum
+  - Nicht-triviale Struktur
+  - Vertrauen wir dem Nutzer des Binärbaum, die Struktur richtig zu
+    behandeln? 
+
+** Optionen? Öffentlich vs. privat  
+
+- Option 1:
+  - Nur manche Methoden, Attribute einer Klasse /öffentlich/
+    zugänglich machen
+  - Andere Methoden, Attribute können nur von Methoden der Klasse
+    selbst benutzt werden (/private/ Methoden, Attribute) 
+- Option 2:
+  - Alles öffentlich zugänglich
+  - We are all consenting adults 
+- Option 3 (Zwischenweg):
+  - Im Prinzip öffentlich, aber mit Hinweisen an Nutzer 
+
+** Python:  Hinweise an Nutzer durch Namenskonvention 
+
+- Python wählt Option 3 
+- Hinweise durch Konvention bei Namensgebung 
+- Konvention: Führender Unterstrich
+  - Methoden, Attribute mit ~_~ zu Beginn /sollten/ vom Nutzer einer
+    Klasse nicht direkt aufgerufen, gelesen, verändert werden
+  - Aber der Nutzer /kann/ das schon, wenn er denkt, wer weiß was er
+    tut ... 
+
+** With great power comes great responsibility
+
+#+CAPTION: With great power comes great responsibility
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:great-power
+[[./figures/greatpower.png]]
+
+
+
+** Sichtbarkeit 
+
+- Formal: Programmiersprachen haben unterschiedliche Ansätze zu
+  /Sichtbarkeit/ von Methoden, Attributen 
+
+*** Sichtbarkeit					     :B_note:animate:
+    :PROPERTIES:
+    :BEAMER_env: note
+    :END:
+
+Python hat ein sehr offenes Modell von Sichtbarkeit -- der
+Programmierer hat hier die Verantwortung, sinnvoll mit diesen
+Möglichkeiten umzugehen. 
+
+Andere Programmiersprachen haben ein elaboriertes System
+eingeschränkten Zugriffs auf Attribute und Methoden. Das ist manchmal
+nützlich, macht die Sprachen und das Objektmodell aber /deutlich/
+komplizierter. 
+
+Wir schauen uns das bei Java noch genauer an. 
+
+
+* getter/setter 
+
+** Zugriff auf Attribute
+
+Frage: Gibt es Attribute eines Objektes, die an sich für den Nutzer
+einer Klasse nicht unmittelbar nützlich  sind? 
+- Bei lesendem Zugriff:
+  - Die aufbereitet werden müssen?
+  - Für die Statistiken geführt werden sollen? (Z.B. Anzahl Zugriff) 
+- Bei schreibendem Zugriff:
+  - Auf sinnvolle Werte prüfen?
+  - Bei denen mehrere Werte zueinander konsistent gehalten werden
+    müssen? 
+  - Für die Statistiken geführt werden sollen? (Z.B. Anzahl Zugriff) 
+
+** Zugriff auf Attribute: Beispiele 
+
+- Beispiel: Klasse Studenten
+  - Attribut Matrikelnummer (neben Name, Vorname, ...)
+  - Matrikelnummer hat Prüfziffer -- nur korrekt Matrikelnummer
+    akzeptieren
+- Beispiel: Klasse Datum
+  - Attribute: Tag, Monat, Jahr
+  - Schreibender Zugriff: Tag=31 nicht in allen Monaten sinnvoll;
+    Konsistenz prüfen
+- Beispiel: Klasse Temperatur
+  - Attribut: Temperatur, in Kelvin
+  - Lesender/schreibender Zugriff auf Temperatur, in Grad Celsius
+  - Ist das ein neues Attribut? Oder nur umrechnen? Gleiche Syntax? 
+
+** Naiver Ansatz: Nach Attribut-Zugriff, Methodenaufruf vorschreiben 
+
+- Eine naive Idee: Nutzer der Klasse aufgefordert, nach
+  Attributzugriff eine Methode aufzurufen
+  - Die dann ggf. Fehlermeldungen liefert 
+
+#+BEGIN_SRC python :exports both :results output
+  class C:
+      """Invariante: Attribut x darf nur ungerade Zahlen enthalten"""
+      def __init__(self):
+          self.x = 17
+
+      def repair(self):
+          # check x is odd
+          if x % 2:
+              return "Fehler"
+
+  c = C()        
+  c.x = 2
+  c.repair()
+#+END_SRC 
+
+*** Absurd!							    :animate:
+
+- Zu eingeschränkt
+- Fehleranfällig wegen vergesslicher Programmierer 
+
+** Nötig: Attribute hinter Methoden verbergen 
+
+- Per Konvention: Attribut bekommt einen Unterstrich vorangestellt
+  - Sollte also nicht direkt benutzt werden
+- Dann aber (typischerweise) nötig:
+  - Methode zum Lesen des Attributs (/get/)
+  - Methode zum Schreiben des Attributs (/set/)
+
+*** Pro Attribute: /getter/ und /setter/			    :animate:
+
+- Pro solch geschütztem Attribut: eine sog. /getter/, eine /setter/
+  Methode
+- Ggf. auch eine /delete/-Methode 
+
+** /getter/ und /setter/ -- Beispiel Student 
+
+#+BEGIN_SRC python :exports code
+  class Student:
+      def __init__(self):
+          # Achten Sie auf Unterstrich: 
+          self._matrikelnummer = None
+
+      def get_matrikelnummer(self):
+          # Keine besonderen Vorkehrungen beim Lesen nötig 
+          return self._matrikelnummer
+
+      def set_matrikelnummer(self, value):
+          if value hat richtige Pruefziffer:
+              self._matrikelnummer = value
+              return None
+          else:
+              return "Error"
+
+  s = Student()
+  # So: 
+  s.set_matrikelnummer(1234)
+  # Nicht so - möglich, aber dringend abgeraten:
+  s._matrikelnummer = 1234 
+#+END_SRC 
+
+*** Anmerkung: Fehlerbehandlung					    :animate:
+
+Vorsicht, die Fehlerbehandlung in diesen Beispiel ist nicht
+praktikabel. Wir brauchen dazu noch das Konzept der /Exceptions/ --
+siehe nächstes Kapitel! 
+
+** /getter/ und /setter/ -- Beispiel Temperatur 
+
+Temperatur-Beispiel folgt grob  [[http://www.programiz.com/python-programming/property][dieser Webseite]]. 
+
+#+BEGIN_SRC python :exports both :results output
+  class Temperature:
+      def __init__(self, temp=0):
+          # rufe setter auch uns Methode der Klasse auf: 
+          self.set_temperature(temp)
+
+      def get_temperature(self):
+          return self._temperature
+
+      def set_temperature(self, value):
+          if value < 0:
+              return "Error"
+          else:
+              self._temperature = value
+
+  t1 = Temperature(17)
+  print(t1.get_temperature())
+  t1.set_temperature(4242)
+  print(t1.get_temperature())
+  t1.set_temperature(-99)
+  print(t1.get_temperature())
+#+END_SRC 
+
+#+RESULTS:
+: 17
+: 4242
+: 4242
+
+** /getter/ und /setter/ -- Beispiel Temperatur: Scheinattribute hinzufügen  
+
+
+- Grad Celsius zusätzlich zu Kelvin?
+- Getter und setter für Celsius
+  - Aber wir nutzen nur /ein/ Temperatur-Attribut! 
+
+#+BEGIN_SRC python :exports both :results output
+  class Temperature:
+      def __init__(self, temp=0):
+          # rufe setter auch uns Methode der Klasse auf: 
+          self.set_temperature(temp)
+
+      def get_temperature(self):
+          return self._temperature
+
+      def set_temperature(self, value):
+          if value < 0:
+              return "Error"
+          else:
+              self._temperature = value
+
+      # Ein weiteres getter/setter-Paar:
+      def get_celsius(self):
+          return self.get_temperature() - 273
+
+      def set_celsius(self, value):
+          return self.set_temperature(value + 273)
+          
+  t1 = Temperature(17)
+  print(t1.get_temperature())
+  t1.set_celsius(100)
+  print("In Kelvin:",  t1.get_temperature())
+  print("In Celsius:", t1.get_celsius())
+#+END_SRC 
+
+#+RESULTS:
+: 17
+: In Kelvin: 373
+: In Celsius: 100
+
+** Getter und Setter -- syntaktisch schöner? 
+
+- Getter und Setter-Methoden sind extrem praktisch für
+  Klassenentwickler
+- Aber für Klassennutzer nicht schön zu benutzen
+  - Eigentlich will man die Attribute wie gewohnt nutzen *ohne*
+    Methoden aufzurufen 
+  - Beispiel: ~t1.temperature = 17~ , ~print(t1.temperature)~
+- Wie üblich: wichtige Sonderfälle verdienen Unterstützung durch
+  Sprache 
+
+** Getter und Setter: /Property/ 
+
+- Python unterstützt das getter/setter-Konzept explizit durch den
+  /Property/-Mechanismus
+  - Zen: Explicit is better than implicit! 
+- Idee:
+  - Wir koppeln explizit ein Attribut einer Klasse an eine Methode zum
+    Lesen, eine andere Methode zum Schreiben
+  - Wird dann lesen/schreibend auf Attribute zugegriffen, werden
+    stattdessen diese Methoden aufgerufen
+- Damit: Nutzung des Attributs syntaktisch wie zuvor; getter/setter
+  für Nutzer /nicht sichtbar/ (transparent)!
+
+** Getter und Setter: /Property/ -- Beispiel Temperature 
+
+#+BEGIN_SRC python :exports both :results output
+  class Temperature:
+      def __init__(self, temp=0):
+          # auch Methoden der Klasse greifen normal auf das Attribut zu: 
+          self.temperature = temp
+
+      def get_temperature(self):
+          print("Lesender Zugriff")
+          return self._temperature
+
+      def set_temperature(self, value):
+          print("Schreibender Zugriff")
+          if value < 0:
+              return "Error"
+          else:
+              self._temperature = value
+
+      # Vereinbare Attribut temperature als eine Property:
+      temperature = property(get_temperature,
+                             set_temperature)
+
+  t1 = Temperature(17)
+  print(t1.temperature) 
+  t1.temperature = 42
+  print(t1.temperature) 
+#+END_SRC 
+
+#+RESULTS:
+: Schreibender Zugriff
+: Lesender Zugriff
+: 17
+: Schreibender Zugriff
+: Lesender Zugriff
+: 42
+
+*** Visualiserung, Ablauf					  :dropslide:
+
+**** Vereinbarung der Klasse 
+
+Was passiert bei diesem kleine Programm? Die erste Anweisung ist die
+Vereinbarung der Klasse (Anweisung ~class~, Zeile 1). Nach Ausführung
+dieser Anweisung ist die Klasse ~Temperature~ im globalen Namensraum
+bekannt. Sie hat vier Attribute: die drei Methoden ~__init__~,
+~get_temperature~, und ~set_temperature~ sowie eine ~property~
+~temperature~. Abbildung [[fig:pt-property-class]] illustriert das. 
+
+#+CAPTION: Verinbarung einer Temperature-Klasse mit einer Property
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-property-class
+[[./figures/pt-property-class.png]]
+
+Wichtig ist hier zu verstehen, dass beim /Definieren/ der Klasse die
+Anweisungen im Body der Klasse ausgeführt werden. Also neben den drei
+Anweisungen ~def~ für die Definition der Methoden auf die Zuweisung an
+den Namen ~temperature~, dem eine ~property~ zugewiesen wird als
+Rückgabewert der eingebauten Funktion ~property~ (genau genommen
+liefert diese Funktion ein Objekt der eingebauten Klasse ~property~).
+
+**** Ausführung des Konstruktors 
+
+Im Konstruktur wird in Zeile 4 auf die Property ~temperature~
+schreibend zugegriffen. Vereinbarungsgemäß (per Anweisung in Zeile
+18, 19) wird dazu die Methode ~set_temperature~ aufgerufen. In Zeile
+15 wird dann dem gerade initialisierten Objekt (durch ~self~
+referenziert) ein (ganz normales) Attribut ~_temperature~
+hinzugefügt. Abbildung [[fig:pt-property-write1]] zeigt den Zustand des
+Programms unmittelbar vor Rückkehr des ersten Aufrufs des setters. 
+
+
+#+CAPTION: Setzen des Attributs, um den Wert der Property zu speichern
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-property-write1
+[[./figures/pt_property_created.png]]
+
+
+Zusätzlich sieht man noch die Ausgabe ~Schreibender Zugriff~ im
+Output-Fenster rechts oben. 
+
+**** Nach Ende des Konstruktors 
+
+In Abbildung [[fig:pt-property-construktur done]] ist der Zustand nach
+Rückkehr des Konstruktors gezeigt. Es gibt ein ~Temperature~-Objekt,
+das im globalen Scope durch den Namen ~t1~ referenziert wird. Dieses
+Objekt hat ein einziges Datum, das Attribute ~_temperature~ (ja, mit
+Unterstrich!).
+
+#+CAPTION: Nach Ende des Konstruktors
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-property-construktur done
+[[./figures/pt-property-constructor-done.png]]
+
+**** Am Ende der ersten getter-Aufrufs 
+
+Als letzten Schritt schauen wir noch den ersten Aufruf der
+~getter~-Methode ~get_temperature~ an. Das ist ein recht unspannender
+Teil: Beim Zugriff auf ~t1.temperature~ in Zeile 22 wurde die Methode
+~get_temperature~ mit ~self is t1~ aufgerufen. Entsprechend greift
+~get_temperature~ dann auf das Attribut ~_temperature~ von ~self~ ganz
+normal zu und macht den Wert zu ihrem Rückgabewert. 
+
+
+
+*** Anmerkung: Zugriff auf ~_temperature~			  :dropslide:
+
+Das Attribut ~_temperature~ ist ein völlig normales Attribut. Über
+eine Objektreferenz ~t1~ könnte man ohne weiteres auf
+~t1._temperature~ zugreifen. Aber da dieses Attribut ja mit einem
+Unterstrich beginnt, macht man das als anständiger Programmierer
+natürlich nicht! 
+
+
+*** Anmerkung: Namen						  :dropslide:
+
+Nur um das klar zu stellen: Die Namen der Property und der setter und
+getter Methoden können beliebig gewählt werden. Das muss nicht, wie in
+diesem Beispiel, irgendwie dem Klassennamen entsprechen. Dazu noch ein
+Beispiel, in dem wird eine weitere Property ~celsius~ hinzufügen. 
+
+Allerdings bietet es sich an, Konventionen einzuhalten und etwas
+~get_...~ und ~set_...~ für die Methodennamen zu nutzen. Denken Sie an
+jemanden, der Ihren Code lesen muss! (Principle of least astonishment)
+
+** Weitere getter/setter: Celsius 
+
+#+BEGIN_SRC python :exports both :results output
+  class Temperature:
+      def __init__(self, temp=0):
+          # auch Methoden der Klasse greifen normal auf das Attribut zu: 
+          self.temperature = temp
+
+      def get_temperature(self):
+          print("Lesender Zugriff")
+          return self._temperature
+
+      def set_temperature(self, value):
+          print("Schreibender Zugriff")
+          if value < 0:
+              return "Error"
+          else:
+              self._temperature = value
+
+      # Vereinbare Attribut temperature als eine Property:
+      temperature = property(get_temperature,
+                             set_temperature)
+
+      # Eine zweite Property:
+      def get_celsius(self):
+          return self.temperature - 273
+
+      def set_celsius(self, val):
+          self.temperature = val + 273
+        
+      celsius = property(get_celsius, set_celsius) 
+
+  t1 = Temperature(273)
+  print(t1.celsius) 
+#+END_SRC 
+
+#+RESULTS:
+: Schreibender Zugriff
+: Lesender Zugriff
+: 0
+
+
+** Ablauf -- Verständnisfrage 
+
+Was passiert hier, warum? 
+
+#+BEGIN_SRC python :exports code 
+  class Temperature:
+      def __init__(self, temp=0):
+          # auch Methoden der Klasse greifen normal auf das Attribut zu: 
+          self.temperature = temp
+
+      # Vereinbare Attribut temperature als eine Property:
+      temperature = property(get_temperature,
+                             set_temperature)
+
+      def get_temperature(self):
+          print("Lesender Zugriff")
+          return self._temperature
+
+      def set_temperature(self, value):
+          print("Schreibender Zugriff")
+          if value < 0:
+              return "Error"
+          else:
+              self._temperature = value
+
+  t1 = Temperature(273)
+#+END_SRC 
+
+#+RESULTS:
+
+
+
+
+** Diskussion: Getter/setter vs. Property 
+
+- Inhaltlich erreicht man mit beiden Ansätzen im wesentlichen das
+  gleiche
+- Properties mögen netter ausschauen, aber ist es das wert?
+
+*** Vorteil von Properties: Legacy Code!			    :animate:
+
+- Mit Properties können Sie getter/setter-Funktionalität einer Klasse
+  hinzufügen *ohne nutzenden Code zu ändern*!
+- Das ist mit bloßen getter/setter nicht möglich; Sie müssten alle
+  Programme ändern, die Ihre Klasse nutzen 
+- Formal: Wir mussten die /Schnittstelle/ der Klasse nicht ändern und
+  konnten trotzdem Funktionalität hinzufügen! 
+
+** Schnittstelle  (Interface) 
+
+Allgemeiner: Durch die Nutzung von Properties mussten wir die
+*/Schnittstelle/* der Klasse nicht ändern. 
+
+*** Schnittstelle (Interface)				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Die /Schnittstelle/ (das /Interface/) einer Klasse sind die allgemein
+zugreifbaren Methoden (samt ihrer Signaturen) und Datenattribute der
+Klasse.  Dies beinhaltet die Methoden/Daten evtl. benutzter
+Oberklassen. 
+
+Allgemein zugreifbar heißt hier: vom Zugreif wird nicht durch die
+Konvention ~_~  abgeraten. 
+
+*** Anmerkung: Interfaces in anderen Sprachen			  :dropslide:
+
+In Sprachen wir Java ist der Begriff des Interfaces von wesentlich
+größerer Bedeutung als in Python. Dies liegt insbesondere daran, dass
+Java kein mutliple inheritance beherrscht und versucht, dies über den
+Interface-Mechanismus nachzubilden. Wir werden dies in folgenden
+Kapiteln noch genauer untersuchen. 
+
+
+
+
+
+
+* Fehlerhafte Nutzung? 
+
+** Fehler in Methoden? 
+
+Fehlerszenario: In Methode tritt Fehler auf 
+
+- Die Fehlerbehandlung in den Beispielen oben war sehr seltsam
+- Rückgabe eines Strings im Fehlerfall?
+- Keine Rückgabe wenn kein Fehler? 
+
+#+BEGIN_SRC python :exports both :results output
+  def set_temperature(self, value):
+      if value < 0:
+          return "Error"
+      else:
+          self._temperature = value
+#+END_SRC 
+
+** Fehler bei falschen Methoden? 
+
+Anderes Fehlerszenario:  Eine nicht vorhandene Methode wird aufgerufen 
+
+Optionen? 
+- Ignorieren -- denkbar, aber gefährlich
+  - Viel Spaß bei Fehlersuche!
+- Rückgabewert mit Fehlercode?
+  - Aber wie sollte die Rückgabe aussehen?
+  - Was, wenn der Aufrufer den zurückgegebenen Wert gar nicht
+    auswertet? 
+
+** Fehlermechanismus 
+
+Wir brauchen eine leistungsfähigeren Mechanismus, um mit Fehlern
+umzugehen! 
+
+Nächstes Kapitel: Exceptions! 
+
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Vererbung ist ein Kernmechanismus, um Software-Entwurf mit Klassen
+  und Objekten leistungsfähig zu machen
+  - Wiederbenutzung von Code /mit Adaption und Erweiterung/
+  - Kapseln von Funktionalität in Basisklassen, schrittweise
+    Spezialisierung
+- Unterklassen können Methoden der Oberklasse überschrieben und
+  dadurch Funktionalität adaptieren oder ergänzen 
+- Durch Vererbung entstehen Klassenhierarchien mit fortschreitender
+  Spezialisierung und Adaptierung der Funktionalität 
+
