@@ -191,6 +191,15 @@ beschreibt in einer kompakten, zusammenhängenden Form
       pass
 #+END_SRC 
 
+** Konventionen 
+
+Namenskonventionen:
+  - Klassennamen mit Großbuchstaben
+  - Methoden, Attribute klein
+    - wie Funktionen und Variablen sonst
+      auch
+  - Methoden oft ein Verb: etwas tun! 
+
 
 * Objekte/Instanzen 
 
