@@ -6,7 +6,7 @@ _minted*org
 *.fls
 *.log
 *.out
-*.tex
+content/*/*.tex
 *.toc
 *.pdf
 *.ipynb
@@ -25,3 +25,4 @@ content/ch3-variables/figures/wrongLabels.png
 content/tmp
 *.loe
 *.lof
+content/*/uml/*png
