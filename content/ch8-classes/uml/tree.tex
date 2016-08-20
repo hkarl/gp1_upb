@@ -1,0 +1,29 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+     \begin{tikzpicture}
+       \umlclass{BinaryTree}{
+         root \\
+         size \\}
+       {
+         add \\
+         search \\
+         remove \\
+         iterate \\
+       }
+       \umlclass[x=3,y=-2]{TreeNode}{
+         key\\
+         value \\
+         leftChild \\
+         rightChild \\
+       }{
+         isLeaf() \\
+       }
+       \umluniassoc[geometry=-|,mult1=*,pos1=1.5]{BinaryTree}{TreeNode}
+     \end{tikzpicture}
+\end{document}

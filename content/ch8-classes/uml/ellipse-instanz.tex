@@ -1,0 +1,20 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+     \begin{tikzpicture}
+       \umlclass{e1 : Ellipse}{
+         x = 17 \\
+         y = 42 \\
+         achse1 = 1.56 \\
+         ... \\
+       }{
+         verschiebe(deltax, deltay) \\
+         istKreis() \\
+       }
+     \end{tikzpicture}
+\end{document}
