@@ -1,7 +1,7 @@
 #+SUBTITLE: Grundlagen der Programmierung 1 
 #+OPTIONS: tags:nil
 
-#+LATEX_CLASS_OPTIONS: [a4paper,colorlinks=true]
+#+LATEX_CLASS_OPTIONS: [a4paper,colorlinks=true,parskip=half]
 #+LANGUAGE: de
 #+OPTIONS: toc:1
 #+TAGS: theorem proof example note definition quote alertblock dropslide skipslide animate nolatex 
@@ -12,13 +12,13 @@
 #+LATEX_HEADER: \usepackage{xcolor}
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{thmtools}
-#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{theorem}
-#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Beweis,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{proof}
-#+LATEX_HEADER: \declaretheorem[style=remark,thmbox=M,name=Beispiel,shaded={rulecolor={RGB}{153,209,156}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{example}
-#+LATEX_HEADER: \declaretheorem[style=remark,thmbox=M,name=Bemerkung,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{note}
-#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Definition,shaded={rulecolor={RGB}{93,169,233}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{definition}
-#+LATEX_HEADER: \declaretheorem[style=remark,thmbox=M,name=Zitat,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{quote}
-#+LATEX_HEADER: \declaretheorem[thmbox=M,name=Achtung,shaded={rulecolor={RGB}{249,105,0}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{alertblock}
+#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{theorem}
+#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Beweis,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{proof}
+#+LATEX_HEADER: \declaretheorem[thmbox=S,style=remark,name=Beispiel,shaded={rulecolor={RGB}{153,209,156}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{example}
+#+LATEX_HEADER: \declaretheorem[thmbox=S,style=remark,name=Bemerkung,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{note}
+#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Definition,shaded={rulecolor={RGB}{93,169,233}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{definition}
+#+LATEX_HEADER: \declaretheorem[thmbox=S,style=remark,name=Zitat,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{quote}
+#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Achtung,shaded={rulecolor={RGB}{249,105,0}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{alertblock}
 #+LATEX_HEADER: \usepackage{forest}
 
 
