@@ -28,6 +28,8 @@ $(objects): %.ipynb: %.org
 	-[ -d uml ] && (cd uml ; make)
 	# building raw files 
 	../../build/tangle.sh $< >> ../../build/log
+	# This is a dirty hack; tangle.sh ignores org-latex-classes
+	sed -i bak -e '1,/article/s/article/scrartcl/' *.tex
 	cp $@ ${OUTPUTDIR}
 	cp -r figures ${OUTPUTDIR}
 
