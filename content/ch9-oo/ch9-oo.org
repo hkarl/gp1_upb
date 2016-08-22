@@ -40,6 +40,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
   - Erfordert /Überschreiben/ von Methoden
 - Dies resultiert in /Hierarchien/ von Klassen
 - Insgesamt: Konzept der /objektorientierten Programmierung/
+  - Ohne Vererbung: nur /objektbasiert/
 
 
 * Verwandtschaft zwischen Dingen/Konzepten 
@@ -270,7 +271,16 @@ Abbildung~\ref{fig:personen-tree}
   - Interpret
   - Liste von Musikstücken 
    
+** Beispiel: Gemeinsamkeiten von Artikel, Werk, Buch, ... (2) 
 
+
+Aber: 
+- Hat jeder Artikel einen Autor?
+- Hat jedes Werk einen Interpret?
+- ... ? 
+
+Nein! 
+- Manche Daten nur ab einer bestimmten Spezialisierung sinnvoll 
 
 
 * Verwandtschaft zwischen Klassen 
@@ -305,11 +315,25 @@ Also Idee:
     ein Objekt der Klasse ~A~ hat
   - Plus ggf. weitere 
 
-** Gemeinsamkeiten -- Darstellung in UML 
+** Gemeinsamkeiten -- Darstellung in UML allgemein 
+
+
+#+BEGIN_LaTeX
+Abbildung \ref{fig:uml-inheritance} zeigt beispielhaft die Darstellung der Verschwandschaftsbeziehungen zwischen der Oberklasse und einer Unterklasse. 
+#+END_LaTeX
+
+#+CAPTION: Klassenhierarchie in UML: Darstellung der ~is-a~ Relation
+#+ATTR_LaTeX: :width 0.15\linewidth
+#+ATTR_LaTeX: :caption \caption{Klassenhierarchie in UML: Darstellung der ~is-a~ Relation  \label{fig:uml-inheritance}}
+#+NAME: fig:uml-inheritance
+[[./uml/uml-inheritance.png]]
+
+
+** Gemeinsamkeiten -- Darstellung in UML für Artikel 
 
 
 #+CAPTION: Klassenhierarchie für Artikel: Daten in UML
-#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:artikel-uml-daten
 [[./uml/artikel-data.png]]
 
@@ -319,6 +343,10 @@ Also Idee:
 Abbildung [[fig:artikel-uml-daten]] zeigt die UML-basierte Visualisierung
 dieser Idee. Beachten Sie, dass nur die hinzugefügten Daten notiert
 werden. 
+
+Zustätzlich sind hier mehrere Unterklassen zu sehen. Diese zeigen
+jeweils auf die Oberklasse. Eine Anordnung horizontal nebeneinander
+ist üblich und deute eine Gschwister-artige Beziehung an. 
 
 ** Vererbung, ~is-a~-Beziehung 
 
@@ -354,12 +382,9 @@ Abbilidung~\ref{fig:venn} illustriert das.
    #+NAME: fig:venn
    #+CAPTION: Speziellere Objekte sind eine Teilmenge der allgemeineren Objekte 
    #+ATTR_LaTeX: :caption \caption{Speziellere Objekte sind eine Teilmenge der allgemeineren Objekte  \label{fig:venn}}
-   #+ATTR_LATEX: :width 0.75\textwidth 
+   #+ATTR_LATEX: :width 0.5\textwidth 
    #+RESULTS:
    [[file:figures/venn.png]]
-
-
-
 
 ** Warum nur Daten? Methoden! 
 
@@ -372,7 +397,7 @@ Abbilidung~\ref{fig:venn} illustriert das.
   - Die ~is-a~-Beziehung ist dadurch nicht verletzt
 
 
-** Neue Methoden im Artikel-Beispiel 
+** Neue, speziellere Methoden im Artikel-Beispiel 
 
 Was können diese Klassen? 
 - Jeder Artikel kann:
@@ -384,13 +409,28 @@ Was können diese Klassen?
   - Liste der Musikstücke ausgeben 
   - Jeweils Hörprobe ausgeben
 
+** Allgemeinere Methoden im Artikel-Beispiel 
+
+Was ist mit den allgemeineren Methoden? 
+- Kann man den Preis eines Buches verändern?
+- Die Informationen eines Musikstückes anzeigen? 
+
+Warum nicht! 
+- Das Buch ist ein Artikel, also sollten diese Methoden anwendbar sein 
+
 ** Neue Methoden -- UML 
 
 
 #+CAPTION: Klassenhierarchie für Artikel: Neue Methoden 
-#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:artikel-new-methods
 [[./uml/artikel-new-methods.png]]
+
+
+*** Visualisierung						  :dropslide:
+
+In Abbildung [[fig:artikel-new-methods]] werden die /zusätzlichen/
+Methoden in den Unterklassen angegeben. 
 
 
 ** Methoden an Klasse anpassen? 
@@ -439,8 +479,10 @@ Was soll auch sonst passieren??
 Verändert eine Klasse eine Methode der allgemeineren Klasse, wird
 diese Methode explizit im UML-Diagramm gezeigt 
 
+
+
 #+CAPTION: Klassenhierarchie für Artikel: Veränderte Methoden 
-#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:artikel-override
 [[./uml/artikel-override.png]]
 
@@ -467,25 +509,30 @@ diese Methode explizit im UML-Diagramm gezeigt
 - Vererbung kann rekursiv erfolgen
   - Eine Unterklasse kann Oberklasse einer weiteren Klasse sein
 
-** ~is-a~, Kompatibilität 
+** ~is-a~, Kompatibilität, Substition 
 
 Zur Betonung: 
 
-*** Kompatibilität zwischen Ober- und Unterklasse		     :B_note:
+*** Substitionsprinzip 					       :B_definition:
     :PROPERTIES:
-    :BEAMER_env: note
+    :BEAMER_env: definition
     :END:
 
 Jedes Objekt einer Oberklasse kann durch ein Objekt einer Unterklasse
-ersetzt werden. Objekte einer Unterklasse können den Platz von
-Objekten der Oberklasse einnehmen. Sie können dabei durch
-überschriebene Methoden adaptiertes Verhalten zeigen. 
+ersetzt werden -- das sog. /Substitionsprinzip/. Objekte einer
+Unterklasse können den Platz von Objekten der Oberklasse
+einnehmen. Sie können dabei durch überschriebene Methoden adaptiertes
+Verhalten zeigen.
 
 Oder anders gesagt: Kann ein Programm mit Objekten einer Oberklasse
 arbeiten, kann es auch *ohne Änderung* mit Objekten einer Unterklasse
 arbeiten. Es wird diese Objekte als Instanzen der Oberklasse ansehen;
 durch Überschreiben von Methoden kann trotzdem Funktionalität
-angepasst werden. 
+angepasst werden.
+
+Umgekehrt funktioniert dies in der Regel nicht! Ein allgemeineres
+Objekt kann i.a. nicht benutzt werden, wenn ein spezielleres erwartet
+wird.
 
 ** ~is-a~, Kompatibilität (2)  
 
@@ -935,7 +982,7 @@ Als Teil dieser Ausführung von ~Werk.show_info()~ wird dann noch
 ~super.show_info()~ aufgerufen. Hier passiert dann das gleiche wie
 beim Aufruf des Kosntruktors: ~super~ bestimmt die Oberklasse und
 sucht *dort* nach einer Methode ~show_info~, die dann zur Ausführung
-kommt. 
+kommt. ~super~ ist also nicht auf den Konstruktor beschränkt. 
 
 Insgesamt ist also der Ablauf der Methodenaufrufe bei ~print(w)~: 
 1. ~Artikel.__str__~, weil von ~print~ bei ~w~ aufgerufen und von
@@ -958,6 +1005,266 @@ Insgesamt ist also der Ablauf der Methodenaufrufe bei ~print(w)~:
   der Regel zu Verwirrung führt 
 
 
+** Beispiel: Dynamische Bindung in Klassenhierarchie 
+
+#+BEGIN_SRC python :exports both :results output
+  class A:
+      def __str__(self):
+          return "A"
+
+  class B(A):
+      pass
+
+  class B1(B):
+      def __str__(self):
+          return "B1"
+
+  class B2(B):
+      pass
+
+  class C(A):
+      def __str__(self):
+          return "C"
+  
+  class C1(C):
+      def __str__(self):
+          return "C1"
+
+  class C2(C):
+      pass
+
+  class C3(C):
+      def __str__(self):
+          return super().__str__()
+
+  for l in [A(), B(), B1(), B2(), C(), C1(), C2(), C3()]:
+      print(l, end=", ")
+#+END_SRC 
+
+#+RESULTS:
+: A, A, B1, A, C, C1, C, C, 
+
+
+
+* Reflektion 
+
+** Veranschaulichung: ~isinstance~ und ~__class__~, ~__name__~
+
+Zur Veranschalichung und Fehlersuche: 
+- Eingebaute Funktion ~isstance~
+  - Argumente: Objekt und Klasse
+  - Wahr, wenn Objekt ein Objekt der Klasse ist oder einer seiner
+    Unterklassen 
+- Vordefiniertes Attribut ~__class__~ eines Objektes
+  - Liefert eine Referenz auf die Klasse (als ein Klassenobjekt)
+- Vordefiniertes Attribut ~__name__~ einer Klasse
+  - Liefert den Namen der Klasse als String 
+  - Also: ~c.__class__.__name__~ ist Name der Klasse des Objektes ~c~
+
+** Veranschaulichung: ~isinstance~ und ~__class__~, ~__name__~ -- Beispiel 
+
+
+#+BEGIN_SRC python :exports both :results output
+  class A: pass
+
+  class B(A): pass 
+
+  class B1(B): pass
+
+  class B2(B): pass
+
+  class C(A): pass
+
+  class C1(C): pass 
+
+  class C2(C): pass 
+
+  class C3(C): pass 
+
+  for l in [A(), B(), B1(), B2(), C(), C1(), C2(), C3()]:
+      print("{} von Klasse {}: ".format(l,
+                                        l.__class__.__name__),
+                                        end="")
+      print("is-a A: {}; ". format(isinstance(l, A)), end="") 
+      print("is-a B: {}; ". format(isinstance(l, B)), end="") 
+      print("is-a C: {}". format(isinstance(l, C))) 
+#+END_SRC 
+
+#+RESULTS:
+: <__main__.A object at 0x101135b70> von Klasse A: is-a A: True; is-a B: False; is-a C: False
+: <__main__.B object at 0x101135ba8> von Klasse B: is-a A: True; is-a B: True; is-a C: False
+: <__main__.B1 object at 0x101135be0> von Klasse B1: is-a A: True; is-a B: True; is-a C: False
+: <__main__.B2 object at 0x101135c18> von Klasse B2: is-a A: True; is-a B: True; is-a C: False
+: <__main__.C object at 0x101135c50> von Klasse C: is-a A: True; is-a B: False; is-a C: True
+: <__main__.C1 object at 0x101135c88> von Klasse C1: is-a A: True; is-a B: False; is-a C: True
+: <__main__.C2 object at 0x101135cc0> von Klasse C2: is-a A: True; is-a B: False; is-a C: True
+: <__main__.C3 object at 0x101135cf8> von Klasse C3: is-a A: True; is-a B: False; is-a C: True
+
+
+** Veranschaulichung: ~isinstance~ und ~__class__~, ~__name__~ -- Beispiel mit ~__str__~ 
+
+Mit einer ~__str()__~-Methode in ~A~: 
+
+#+BEGIN_SRC python :exports both :results output
+  class A:
+      def __str__(self):
+          return "ich bin ein Objekt der Klasse {}; ".format(self.__class__.__name__)
+
+  class B(A): pass 
+
+  class B1(B): pass
+
+  class B2(B): pass
+
+  class C(A): pass
+
+  class C1(C): pass 
+
+  class C2(C): pass 
+
+  class C3(C): pass 
+
+  for l in [A(), B(), B1(), B2(), C(), C1(), C2(), C3()]:
+      print(l, end="")
+      print("is-a A: {}; ". format(isinstance(l, A)), end="") 
+      print("is-a B: {}; ". format(isinstance(l, B)), end="") 
+      print("is-a C: {}". format(isinstance(l, C))) 
+#+END_SRC 
+
+#+RESULTS:
+: ich bin ein Objekt der Klasse A; is-a A: True; is-a B: False; is-a C: False
+: ich bin ein Objekt der Klasse B; is-a A: True; is-a B: True; is-a C: False
+: ich bin ein Objekt der Klasse B1; is-a A: True; is-a B: True; is-a C: False
+: ich bin ein Objekt der Klasse B2; is-a A: True; is-a B: True; is-a C: False
+: ich bin ein Objekt der Klasse C; is-a A: True; is-a B: False; is-a C: True
+: ich bin ein Objekt der Klasse C1; is-a A: True; is-a B: False; is-a C: True
+: ich bin ein Objekt der Klasse C2; is-a A: True; is-a B: False; is-a C: True
+: ich bin ein Objekt der Klasse C3; is-a A: True; is-a B: False; is-a C: True
+
+
+
+** Beginn der Klassenhierarchie: ~object~ 
+
+Wo kommen eigentlich die Methoden wie ~__str__~, ~__eq__~ etc. her? 
+- Waren bei jedem Objekt verfügbar
+- Müssten die nicht aus einer Oberklasse kommen? 
+
+*** Oberste Oberklasse: ~object~				    :animate:
+
+Ja! 
+- Jede Klasse hat eine Oberklasse ~object~
+- Es muss nicht explizit von dieser ererbt werden
+  - (Explicit is besser than implicit... ??)
+- Damit: ~isinstance(o, object) == True~ für jedes Objekt 
+
+** Methoden, Attribute von ~object~ ? 
+
+Und was kann ~object~? Wie findet man die Methoden heraus?
+- Option 1: Dokumentation lesen 
+- Option 2: Die Klasse fragen! 
+
+#+CAPTION: Dokumentation lesen rettet Leben 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:toaster
+[[./figures/toaster.png]]
+
+** ~dir~ einer Klasse, eines Objektes 
+
+- Eingebaute Funktion: ~dir~
+- Anwendbar auf Klassen, Objekte
+- Gibt die bekannten Attribute als Liste zurück 
+
+#+BEGIN_SRC python :exports both :results output
+  print("Verzeichnis der Klasse object:")
+  print(dir(object))
+
+  class C:
+      def bla(): pass
+
+  c = C()
+  # Verzeichnis eins Objekts der Klasse C
+  print(dir(c))
+  # Gibt es eine Methode hallo in Klasse C? 
+  print("hallo" in dir(C))
+#+END_SRC 
+
+#+RESULTS:
+: Verzeichnis der Klasse object:
+: ['__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
+: ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'bla']
+: False
+
+** Attribute inspizieren: ~getattr~
+
+Was wissen wir über ~bla~? 
+- Eingebaute Funktion ~getattr~ liefert Information über Attribute
+  einer Klasse, eines Objektes 
+
+#+BEGIN_SRC python :exports both :results output
+  class C:
+      def bla(): pass
+
+  c = C()
+  print(getattr(C, 'bla'))
+  print(getattr(c, 'bla'))
+#+END_SRC 
+
+#+RESULTS:
+: <function C.bla at 0x10107b6a8>
+: <bound method C.bla of <__main__.C object at 0x101035898>>
+
+*** Anmerkung: Funktion vs. bound method			  :dropslide:
+
+Python unterscheidet intern zwischen einer reinen Funktion
+(~function~) und einer Funktion, die als Methode zu einem Objekt
+gehört (~bound method~). Dieser Unterschied ist für uns hier zunächst
+nicht weiter wichtig.
+
+** Attribut hinzufügen: ~setattr~
+
+Angenommen, wir möchten einer Klasse nachträglich eine Methode
+hinzufügen:  
+
+#+BEGIN_SRC python :exports both :results output
+  class C: pass 
+
+  def f(self):
+      print("Hallo")
+
+  setattr(C, "hallo", f)
+  # oder auch knapper: C.hallo = f
+  c = C()
+  c.hallo()
+#+END_SRC 
+
+#+RESULTS:
+: Hallo
+
+
+** Insgesamt: Reflektion 
+
+Hier betrachte Funktionen, Attribute sind Beispiele für /Reflektion/ 
+
+*** Reflektion	(/Reflection/) 				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Reflektion ist die Fähigkeit eines Programms, seine eigene Struktur
+und die Struktur seiner Daten zur Laufzeit zu untersuchen
+(/introspection/) und ggf. zu
+modifizieren (/modification/). 
+
+Reflektion wird häufig zur Fehlersuche, Testen, Bewertung der
+Leistungsfähgikeit, Integration ungünstig entworfener
+Klassenhierachien, oder automatische Dokumentationserstellung
+benutzt. 
+
+Introspection steht in vielen objektorientierten Programmiersprachen
+zur Verfügung. Modification ist meist nur in dynamischen,
+interpretierten Sprachen vollständig vorhanden. 
+
+
 * Sichtbarkeit 
 
 ** Zugriff auf Attribute, Methoden? 
@@ -974,8 +1281,7 @@ Insgesamt ist also der Ablauf der Methodenaufrufe bei ~print(w)~:
 ** Optionen? Öffentlich vs. privat  
 
 - Option 1:
-  - Nur manche Methoden, Attribute einer Klasse /öffentlich/
-    zugänglich machen
+  - Nur manche Methoden, Attribute einer Klasse /öffentlich/ zugänglich machen
   - Andere Methoden, Attribute können nur von Methoden der Klasse
     selbst benutzt werden (/private/ Methoden, Attribute) 
 - Option 2:
@@ -1470,6 +1776,7 @@ Kapiteln noch genauer untersuchen.
 
 
 
+
 * Fehlerhafte Nutzung? 
 
 ** Fehler in Methoden? 
@@ -1523,4 +1830,6 @@ Nächstes Kapitel: Exceptions!
   dadurch Funktionalität adaptieren oder ergänzen 
 - Durch Vererbung entstehen Klassenhierarchien mit fortschreitender
   Spezialisierung und Adaptierung der Funktionalität 
+- Konvention für die Nutzen von Attributen (Property)
+- Reflection als erweiterte Möglichkeit 
 
