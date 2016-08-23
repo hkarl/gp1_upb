@@ -925,7 +925,7 @@ handeln sollte.
 Abbildung [[fig:bild-im-bild]] illustriert Rekursion. 
 
 #+CAPTION: Bild im Bild
-#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :width 0.25\linewidth
 #+NAME: fig:bild-im-bild
 [[./figures/bild-rekursion.png]]
 
@@ -935,7 +935,7 @@ Abbildung [[fig:escher]] illustriert Rekursion.
 
 
 #+CAPTION: Rekursion: Zeichnende Hände
-#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:escher
 [[./figures/escher.png]]
 
@@ -1157,7 +1157,7 @@ Wie entwirft man rekursive Algorithmen?
 
    #+RESULTS[3569b3243050d9df8affde615baf4ac9cb512edf]:
    #+NAME: fig:hanoi
-   #+CAPTION: Türme von Hanoi
+   #+CAPTION: Türme von Hanoi: Start
    #+ATTR_LATEX: :width 0.3\textwidth 
    [[file:figures/hanoi.png]]
 
@@ -1193,7 +1193,7 @@ Wie entwirft man rekursive Algorithmen?
 
    #+RESULTS[99859da97681d6024e6d16918e5e8b9c00e04f64]:
    #+NAME: fig:hanoi
-   #+CAPTION: Türme von Hanoi
+   #+CAPTION: Türme von Hanoi: Ziel 
    #+ATTR_LATEX: :width 0.3\textwidth 
    [[file:figures/hanoi2.png]]
 
@@ -1221,14 +1221,14 @@ Wie entwirft man rekursive Algorithmen?
 
      \begin{tabular}{ccc}
      Start   & Ablage &  Ende \\
-     \pyramid{9,7} &\pyramid{3,1} &  \pyramid{5}
+     \pyramid{9,7} &\pyramid{3} &  \pyramid{5, 1}
      \end{tabular}
  
    #+end_src
 
-   #+RESULTS[3261387d560f6c3e689e9980f08521b7cb3812b4]:
+   #+RESULTS[9aab787c4989d06b0d20f510ee63212e501bce7e]:
    #+NAME: fig:hanoi
-   #+CAPTION: Türme von Hanoi
+   #+CAPTION: Türme von Hanoi: Zwischenstand
    #+ATTR_LATEX: :width 0.3\textwidth 
    [[file:figures/hanoi3.png]]
 
@@ -1314,6 +1314,7 @@ Also:
   - Kann wachsen und schrumpfen
   - Stellt Platz für die Namensräume bereit
   - Detals: VL GPS 
+
 
 * Funktionen und Software-Entwurf 
 
