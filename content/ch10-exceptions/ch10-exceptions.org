@@ -1,0 +1,1233 @@
+#+TITLE: Kapitel 10: Fehlerbehandlung -- Exceptions 
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+** Was bisher geschah 
+
+- Wir hatten in Funktionen, Klassen mit Sonderfällen zu tun
+  - Fehlende oder sinnlose Eingaben
+  - Unmögliche Ausführung
+- Wir haben versucht, Probleme durch Rückgabewerte dem Aufrufer
+  mitzuteilen
+- Das funktioniert bestenfalls kläglich 
+
+** Dieses Kapitel 
+
+- Eine konsistentes Vorgehen, um mit Fehler und Ausnahmen umzugehen
+  - Fehler zu signalisieren
+  - Fehler zu behandeln, weiter zu reichen oder zu ignorieren
+- Objektorientiert, also Fehler sind ebenfalls Objekte 
+
+* Fehlerbehandlung durch Rückgabewerte 
+
+** Vorgehen bisher: Fehlercode 
+
+- Kann eine Funktion nicht weiter arbeiten, gibt sie einen besonderen
+  Rückgabewert zurück -- einen /Fehlercode/ 
+  - Den String ~Error~, die Zahl -1, ...
+  - Je nach Funktion; hoffentlich ordentlich dokumentiert
+- Der Aufrufer muss dieser Fehlercode abfragen und entsprechend
+  weitermachen 
+
+** Probleme bei Fehlercodes 
+
+- Wie Fehlercodes von normalen Rückgabewerte unterscheiden?
+  - Immer zwei Werte zurückgeben? Fehlercode und eigentliches
+    Resultat?
+    - Geht nicht in allen Programmiersprachen
+- Fehlerbehandlung im Aufrufer bei aufeinander folgenden Aufrufen?
+- Was, wenn der Aufrufer nicht alle Fehler selbst behandeln kann,
+  sondern an seinen Aufurufer nach oben weitergeben muss? 
+
+
+** Probleme bei Fehlercodes -- Beispiel 
+
+*** Code ohne Fehlerbehandlung 
+
+#+BEGIN_SRC python :exports both :results output
+f()
+g()
+h()
+#+END_SRC 
+
+
+*** Code mit Fehlerbehandlung					    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+  myresult = "ok"      # das gebe ich an meinen Aufrufer zurück 
+
+  result = f()
+  if result == "ok":
+      result = g()
+      if result == "ok" or result == "nicht schlimm":
+          if result == "nicht schlimm":
+              # Fehler reparieren
+              ...
+          result = h()
+          if result == "ok":
+              ...
+          else:
+              # kann ich nicht reparieren
+              myresult = "h failed"
+      else:
+          # schlimme Fehler von g 
+          ...
+  else:
+      ... 
+  return myresult 
+#+END_SRC 
+
+** Probleme bei Fehlercodes -- Analyse
+
+
+- Man erkennt nicht mehr die Struktur
+- Das Programm ist nicht wartbar
+- Z.B. Fehlerbehandlung von ~g~ an verschiedenen Stellen
+- Mit dem gleichen Fehler aus verschiedenen Aufrufen kann man
+  praktisch nicht umgehen 
+
+*** Fehlercodes					       :B_alertblock:animate:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Kein Wunder, dass niemand Fehlerbehandlung schreibt! 
+
+* Ausnahmebehandlung (Exceptions)
+
+** Anforderungen Fehlerbehandlung 
+
+- Die Darstellung des fehlerfreien Ablaufs möglichst nicht
+  unterbrechen 
+- Meldung des Fehlers /nicht/ über Rückgabewert
+- Nicht nach jedem Aufruf einen Fehler auswerten
+- Reaktion auf Fehler an beliebiger Stelle in Aufruferkette möglich 
+
+** Mechanismus: Ausnahmen 
+
+Idee: Wir führen eine neue Art von Blocks ein 
+- Einen /geschützten Block/
+  - Fehler in diesem Block werden behandelt 
+- Eine /Ausnahme/ repräsentiert einen aufgetretenen Fehler
+- Solche Blöcke haben eigenen Code zur Behandlung einer Ausnahme --
+  einen /exception handler/
+
+
+** Was will man über eine Ausnahme wissen? 
+
+- Wäre es nicht nützlich zu wissen: 
+  - Welche Fehler vorlag? 
+  - Wo der Fehler auftrat? 
+- Und beim Behandeln der Ausnahme dieses Wissen zu benutzen?
+- Ggf. Ähnlichkeiten zwischen Fehler auszunutzen?
+  - Eigene Fehlerkategorien zu definieren, zu verfeinern? 
+
+** Ausnahmen als Objekte
+
+Also naheliegend: 
+- Ausnahmen als Objekte repräsentieren
+- Eine geeignete Klassenhierarchie entwerfen
+- Eigene Unterklassen erlauben
+- Beim Behandeln Unterklassen/Oberklassen unterscheiden und ~is-a~
+  Beziehungen ausnutzen
+  - Manchmal den speziellen Fehler, manchmal den allgemeineren Fall
+    behandeln 
+
+** Ausnahmen und Ausführungsmodell 
+
+
+*** Ausnahme 						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine Ausnahme ist eine Repräsentation eines Fehlerzustands in einem
+Objekt einer geeigneten Klasse. 
+
+Eine eintretende Ausnahme /verändert das Ausführungsmodell/: Es wird
+nicht die nächste Anweisung ausgeführt sondern die Folge der
+Anweisungen abgebrochen und der zugehörige Ausnahmebehandler (xception
+handler) zur Ausführung gebracht. 
+
+
+
+* Exceptions in Python -- Basics 
+
+
+** Ausnahmen: Objekte von ~Exception~
+
+- Ausnahmen werden in Python durch Objekte der Klasse ~BaseException~ oder
+  abgeleiteter Klassen dargestellt
+- Siehe [[https://docs.python.org/3/library/exceptions.html#exception-hierarchy][Klassenhierarchie der Ausnahmen]] 
+- Einige Beispiele:
+  - ~ArithmeticError~
+    - ~ZeroDivisionError~
+  - ~LookupError~
+    - ~IndexError~: Index ausserhalb des gültigen Bereichs 
+    - ~KeyError~: Schlüssel in ~dict~ nicht vorhanden 
+
+** Auftreten von Exceptions 
+
+Schreiben wir ein paar fehlerhafte Programme 
+
+*** Division durch 0 
+
+#+BEGIN_SRC python :exports code :results output
+x = 5/0
+#+END_SRC 
+
+#+RESULTS:
+
+**** Entstehende Fehlermeldung 					  :dropslide:
+
+ #+BEGIN_SRC python :exports code :results output
+ Traceback (most recent call last):
+   File "<stdin>", line 1, in <module>
+ ZeroDivisionError: division by zero
+ #+END_SRC 
+
+
+*** Zugriff auf nicht vorhandenen Index 
+
+#+BEGIN_SRC python :exports code 
+l = [4, 5, 6]
+l[22]
+#+END_SRC 
+
+#+RESULTS:
+
+**** Entstehende Fehlermeldung 					  :dropslide:
+
+#+BEGIN_SRC python :exports code 
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "<stdin>", line 4, in main
+IndexError: list index out of range
+#+END_SRC 
+
+** Auftreten von Exceptions (2) 
+
+
+*** Nachschlagen eines nicht vorhandenen Schlüssels in ~dict~
+
+#+BEGIN_SRC python :exports code 
+d = {'a': 17, 'b': 42}
+d['c']
+#+END_SRC 
+
+#+RESULTS:
+
+**** Entstehende Fehlermeldung 							  :dropslide:
+
+#+BEGIN_SRC python :exports code
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+KeyError: 'c'
+#+END_SRC 
+
+
+** Unbehandelte Exceptions 
+
+Verhalten: 
+- Die Exception trat auf
+- Sie wurde nicht behandelt
+- Also wird das Programm mit der Fehlerausgabe abgebrochen 
+
+** Exceptions behandeln: geschützter Block 
+
+Wir brauchen neue Schlüsselworte: 
+- ~try~: Definierte einen geschützten Block
+- ~except~: Nach einem geschützten Block; Code zur Fehlerbehandlung
+  - Code selbst: ein block!
+- Assoziation von ~try~ und ~except~: Gleiche Einrückung 
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      d = {'a': 17, 'b': 42}
+      d['c']
+  except:
+      print("Ein Fehler ist aufgetreten")
+
+  print("Es geht hier weiter") 
+#+END_SRC 
+
+#+RESULTS:
+: Ein Fehler ist aufgetreten
+: Es geht hier weiter
+
+
+** Semantik von ~try~ / ~except~, Fehlerfall  
+
+- Anweisung im Block von ~try~ ausführen
+- Bei Auftreten von Fehler:
+  - Mit Anweisungen nach ~except~ weitermachen
+  - Effekte der Anweisung des ~try~-Blocks bleiben erhalten 
+
+
+#+BEGIN_SRC python :exports both :results output
+  x = 17
+  try:
+      x = 42
+      y = 5/0
+  except:
+      print("Aufgefangen")
+  print("x: ", x)
+#+END_SRC 
+
+#+RESULTS:
+: Aufgefangen
+: x:  42
+
+** Nur Fehler bestimmten Typs behandeln 
+
+~except~ kann Klasse der zu behandelnden  Exception als Parameter bekommen 
+
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      d = {'a': 17, 'b': 42}
+      d['c']
+  except KeyError:
+      print("Ein Fehler ist aufgetreten")
+
+  print("Es geht hier weiter") 
+#+END_SRC 
+
+#+RESULTS:
+: Ein Fehler ist aufgetreten
+: Es geht hier weiter
+
+** Nur Fehler bestimmten Typs behandeln (2) 
+
+
+
+
+Falls Fehler anderen Typs auftritt: Programm wird abgebrochen; keine
+Ausgabe in diesem Beispiel 
+
+#+BEGIN_SRC python :exports code :results output
+  try:
+      d = {'a': 17, 'b': 42}
+      d['c']
+  except IndexError:
+      print("Ein Fehler ist aufgetreten")
+
+  print("Es geht hier weiter") 
+#+END_SRC 
+
+
+
+** Auf mehrere Fehlerklassen vorbereitet sein 
+
+Auf einen ~try~-Block dürfen mehrere ~except~-Anweisungen folgen 
+
+#+BEGIN_SRC python :exports code :results output
+  try:
+      d = {'a': 17, 'b': 42}
+      d['c']
+  except KeyError:
+      print("Ein Schlüssel-Fehler ist aufgetreten")
+  except IndexError:
+      print("Ein Index-Fehler ist aufgetreten")
+
+  print("Es geht hier weiter") 
+#+END_SRC 
+
+#+RESULTS:
+: Ein Schlüssel-Fehler ist aufgetreten
+: Es geht hier weiter
+
+
+** Reihenfolge mehrerer ~except~ 
+
+Semantik der Reihenfolge? 
+- Nimm den /ersten/  ~except~-Block, der der aufgetretenen Exception entspricht 
+
+*** LookupError vor KeyError 
+
+#+BEGIN_SRC python :exports code :results output
+  try:
+      d = {'a': 17, 'b': 42}
+      d['c']
+  except LookupError:
+      print("Ein Lookup-Fehler ist aufgetreten")
+  except KeyError:
+      print("Ein Schlüssel-Fehler ist aufgetreten")
+
+  print("Es geht hier weiter") 
+#+END_SRC 
+
+#+RESULTS:
+: Ein Lookup-Fehler ist aufgetreten
+: Es geht hier weiter
+
+
+
+** Reihenfolge mehrerer ~except~ 
+
+*** KeyError vor LookupError 
+
+#+BEGIN_SRC python :exports code :results output
+  try:
+      d = {'a': 17, 'b': 42}
+      d['c']
+  except KeyError:
+      print("Ein Schlüssel-Fehler ist aufgetreten")
+  except LookupError:
+      print("Ein Lookup-Fehler ist aufgetreten")
+
+  print("Es geht hier weiter") 
+#+END_SRC 
+
+#+RESULTS:
+: Ein Schlüssel-Fehler ist aufgetreten
+: Es geht hier weiter
+
+** Mehrere ~except~-Blöcke 
+
+Also: Die allgemeineren Exception-Klassen /nach/ den spezielleren
+Exception-Klassen abfangen 
+
+*** Leeres ~except~ 				       :B_alertblock:animate:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Vorsicht bei der Nutzung eines /leeren/ ~except~; damit werden /alle/
+Exceptions abgefangen. Unter anderem auch der Versuch, das Programm
+abzubrechen. Das ist in der Regel nicht gewünscht. 
+
+Üblicherweise ist es besser, ein ~except Exception~ hier zu nutzen;
+die Klasse ~Exception~ fasst die nicht-system-bezogenen Exceptions
+zusammen ([[https://docs.python.org/3/library/exceptions.html#exception-hierarchy][Klassenhierarchie der Ausnahmen]]). Aber auch so ein /catch
+all/ ist mit Vorsicht zu benutzen (siehe später).
+
+
+** Exception-Objekt: Aufbewahren und Auswerten 
+
+Wenn eine Exception als ein Objekt repräsentiert wird: 
+- Wie kommen wir an das Objekt?
+- Was kann uns das sagen? 
+
+*** Syntax für Exception-Objekt					    :animate:
+
+#+BEGIN_SRC python :exports code :results output
+  try: 
+      ...
+  except ExceptionClass as e:
+      # werte Objekt e aus 
+#+END_SRC 
+
+** Exception-Objekt: Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      x = 5/0
+  except Exception as exc:
+      print(exc)
+      print(dir(exc))
+      print(exc.args)
+#+END_SRC 
+
+#+RESULTS:
+: division by zero
+: ['__cause__', '__class__', '__context__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__setstate__', '__sizeof__', '__str__', '__subclasshook__', '__suppress_context__', '__traceback__', 'args', 'with_traceback']
+: ('division by zero',)
+
+** Vorsicht: Exception-Objekt geht out of scope! 
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      x = 5/0
+  except Exception as exc:
+      print(exc)
+      print(dir(exc))
+      print(exc.args)
+    
+  print(exc)
+#+END_SRC 
+
+#+RESULTS:
+: division by zero
+: ['__cause__', '__class__', '__context__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__le__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__setstate__', '__sizeof__', '__str__', '__subclasshook__', '__suppress_context__', '__traceback__', 'args', 'with_traceback']
+: ('division by zero',)
+: division by zero
+
+*** Wie aufbewahren?						    :animate:
+
+
+
+** Fehlerfreier Fall: ~else~
+
+Was, wenn keine Exception auftrat? Code für diesen Fall? 
+- ~else~-Anweisung!
+- Ähnlich wie bei Schleifen! 
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      x = 5/1
+  except Exception as exc:
+      print(exc)
+  else:
+      print("Alles gut")
+#+END_SRC 
+
+#+RESULTS:
+: Alles gut
+
+** ~else~: Semantik? 
+
+Wozu braucht man ~else~? Warum nicht einfach ans Ende des  ~try~
+Blocks? 
+
+*** Äquivalenz? 
+
+#+BEGIN_SRC python :exports code:results output
+  # Version 1:
+  try:
+      ...
+  except:
+      ...
+  else:
+      Anweisungsfolge
+
+  # Version 2:
+  try:
+      ...
+      Anweisungsfolge
+  except:
+      ...
+#+END_SRC 
+
+
+
+*** Nicht äquivalent!						  :dropslide:
+
+Diese beiden Code-Versionen sind /nicht/ äquivalent. Falls im
+Anweisungsblock nach ~else~ wiederum ein Fehler auftritt, so würde
+dieser Fehler durch den ~except~-Block behandelt werden. Dies ist bei
+der Version mit ~else~-Block nicht der Fall: Ein dort auftretender
+Fehler würde wiederum eine Exception auslösen, die dann wiederum
+behandelt werden müsste (mehr dazu siehe unten, Abschnitt [[Geschachtelte
+Exceptions]]). 
+
+Beides kann gewünscht sein, aber es ist definitiv nicht das gleiche
+Verhalten. 
+
+** ~else~: Typisches Muster 
+
+Häufig genutzt für eigentliche Aktion
+- Beispiel: Datei einlesen
+- (Beispiel hier noch nicht ganz verständlich; mehr später) 
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      f = open(arg, 'r')
+  except IOError:
+      print('cannot open', arg)
+  else:
+      print(arg, 'has', len(f.readlines()), 'lines')
+      f.close()
+#+END_SRC 
+
+
+
+
+** Und zum Abschluss eines Blocks: ~finally~ 
+
+Und schließlich: Code, der nach ~try~ immer ausgeführt werden soll 
+- Egal, ob Exception auftrat oder nicht
+- ~finally~-Abschnitt: Wird stets nach ~except~ oder ~else~ aufgeführt
+- Zweck: Aufräumen, z.B. Datei schließen 
+
+#+BEGIN_SRC python :exports code:results output
+  try:
+      ...
+  except:
+      ...
+  else:
+      ...
+  finally:
+      ...
+#+END_SRC 
+
+
+** ~finally~ und Exceptions 
+
+Trat eine Exception auf, die von keinem ~except~ behandelt wurde, so
+wird ~finally~ ausgeführt und die Exception tritt danach wieder auf! 
+- Beispiel: 
+
+
+#+BEGIN_SRC python :exports both :results output
+  def divide(x, y):
+      try:
+          result = x / y
+      except ZeroDivisionError:
+          print("division by zero!")
+      else:
+          print("result is", result)
+      finally:
+          print("executing finally clause")
+
+  divide(2, 1)
+  divide(2, 0)
+  # divide("2", "1")
+#+END_SRC 
+
+#+RESULTS:
+: result is 2.0
+: executing finally clause
+: division by zero!
+: executing finally clause
+
+
+** ~finally~ auch ohne ~except~ ausgeführt
+
+~finally~ wird wirklich /immer/ ausgeführt: 
+
+#+BEGIN_SRC python :exports code :results output
+  try:
+      try:
+          x = 5/0
+      except IndexError:
+          # das ist leider der falsche Fehler
+          print("IndexError aufegetreten")
+      finally:
+          print("inner finally")
+  except TypeError:
+      print("TypeError aufgetreten")
+  finally:
+      print("outer finally")
+#+END_SRC 
+
+Ausgabe: 
+#+BEGIN_SRC python :exports both :results output
+inner finally
+outer finally
+Traceback (most recent call last):
+  File "bla.py", line 3, in <module>
+    x = 5/0
+ZeroDivisionError: division by zero
+#+END_SRC 
+
+
+
+** Exceptions auslösen 
+
+Manchmal sinnvoll: Exceptions bewusst auslösen 
+- Für Tests, gezieltes Auslösen von Fehlerbehandlung woanders 
+- Schlüsselwort ~raise~ mit Argument Exceptionklasse 
+  - Konstruktor-Parameter werden aufbewahrt und durch ~print~
+    ausgegeben
+  - Nützlich bei Fehlersuche! 
+
+#+BEGIN_SRC python :exports code :results output
+raise NameError('HiThere')
+#+END_SRC 
+
+#+RESULTS:
+
+*** Resultat							  :dropslide:
+
+Wie erwartet ist das Resultat dieser einen Anweisung: 
+
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: HiThere
+#+END_SRC 
+
+
+
+*** UEBUNG ~assert~ als Übung 
+
+** Exceptions in Funktionsaufrufen 
+
+Was passiert, wenn 
+- in Funktion eine Exception aufritt, 
+- Aufruf in ~try~-Bock war? 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(nenner):
+      x = 5/nenner
+      print("nach Division")
+      return x
+
+  try:
+      x = f(0)
+  except ArithmeticError:
+      print("Hoppala")
+      x = 42
+#+END_SRC 
+
+#+RESULTS:
+: Hoppala
+
+
+*** Semantik: Exception in Funktionsaufrufen			  :dropslide:
+
+Tritt in einer Funktion eine Exception auf, so wird die Ausführung der
+Exception /abgebrochen/ und zum umgebenen ~try~-Block zurückgekehrt. 
+
+** ~try~ -- Definition 
+
+*** ~try~						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine ~try~-Anweisung besteht aus 
+- dem ~try-Block an sich
+- keinem, einem oder mehreren ~except~
+- einem optionalen ~else~-Teil
+- einem optionalen ~finally~-Teil 
+
+
+Wenn ein ~else~ auftaucht, muss mindestens ein ~except~ vorhanden
+sein.  Die Reihenfolge ist wie angeben.
+
+Tritt eine Exception in einem Funktionsaufruf auf, so wird die
+Aufruffolge so lange abgebrochen, bis ein ~try~-Block mit passendem
+~except~ gefunden wird. Wird keiner gefunden, wird das Programm
+abgebrochen. 
+
+* Geschachtelte Exceptions 
+
+** ~try~ in ~try~ ? 
+
+- Ein ~try~-Block hat Anweisungen
+- ~try~ selbst ist eine Anweisung
+- Also verschachteln möglich? 
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      ...
+      try:
+          ...
+      except ExceptionClass2:
+          ...
+      ...
+  except ExceptionClass1:
+      ...
+#+END_SRC 
+
+** ~try~ in ~try~ ! 
+
+- Warum auch nicht! 
+- Semantik ist naheliegend:
+  - Exceptions im inneren ~try~ werden zunächst durch dessen
+    ~except~-Anweisungen behandelt
+  - Falls dort nicht behandelt, eskaliert die Exception zur äußeren
+    ~except~-Anweisung 
+
+** ~try~ in ~try~ : Beispiel
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      # nenner = 0 
+      nenner = 10**-10000
+      try:
+          x = 5/nenner
+      except OverflowError:
+          print("das wird zu groß")
+          x = 0
+  except ArithmeticError as e:
+      print("irgendwas arithmatisches ging schief: ", e)
+      x = 42
+
+  print(x)
+#+END_SRC 
+
+#+RESULTS:
+: irgendwas arithmatisches ging schief:  float division by zero
+: 42
+
+
+
+
+** ~try~, Funktionsaufruf, ~try~
+
+- Typisch: 
+  - In ~try~-Block Funktion aufrufen
+  - Diese Funktion hat selbst einen ~try~-Block 
+- Spannender Punkt:  In Funktion nicht behandelte Exception
+- Erwartungshaltung: Äußerer ~try~-Block zum Zug?
+  - Funktionsausführung abgebrochen 
+
+** ~try~, Funktionsaufruf, ~try~  : Beispiel 
+
+
+
+#+BEGIN_SRC python :exports both :results output
+  def f(nenner):
+      try:
+          x = 5/nenner
+      except OverflowError:
+          print("das wird zu groß")
+          x = 0
+      return x
+
+  try:
+      # nenner = 0 
+      nenner = 10**-10000
+      val = f(nenner)
+  except ArithmeticError as e:
+      print("irgendwas arithmatisches ging schief: ", e)
+      val = 42
+
+  print(val)
+#+END_SRC 
+
+#+RESULTS:
+: irgendwas arithmatisches ging schief:  float division by zero
+: 42
+
+
+** Ein ~except~, alle ~finally~ 
+
+- Eine Exception wird nur durch /ein/ ~except behandelt
+- Aber es werden /alle/ umschließenden /finally/-Klauseln ausgeführt 
+
+*** Beispiel							    :animate:
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      # irgendwas
+      try:
+          try:
+              raise Exception("meine!")
+          except:
+              print("im dritten except")
+          finally:
+              print("im dritten finally")
+      except:
+          print("im zweiten except")
+      finally:
+          print("im zweiten finally")
+  except:
+      print("im ersten except")
+  finally:
+      print("im ersten finally")
+#+END_SRC 
+
+#+RESULTS:
+: im dritten except
+: im dritten finally
+: im zweiten finally
+: im ersten finally
+
+** Ein ~except~, alle ~finally~ -- Beispiel 2 
+
+Egal, ob direkt geschachtelt oder in Funktionen -- gleiches Verhalten 
+
+
+#+BEGIN_SRC python :exports both :results output
+  def action2():
+      print(1 + [])            # Generate TypeError
+
+  def action1():
+      try:
+          action2()
+      except TypeError:        # Most recent matching try
+          print('inner except')
+      finally:
+          print('inner finally')
+
+  try:
+      action1()
+  except TypeError:            # Here, only if action1 re-raises
+      print('outer except')
+  finally:
+      print('outer finally')
+    
+#+END_SRC 
+
+#+RESULTS:
+: inner except
+: inner finally
+: outer finally
+
+
+
+
+** Geschachtelte ~try~: Realisierung 
+
+- Intern werden ~try~-Kontexte auf einem Stack organisiert
+  - Ähnlich zu Unterprogrammaufrufen
+  - In einem Kontext sind u.a. die ~except~-Stellen abgelegt -- welche
+    Klassen, an welcher Stelle wird fortgesetzt? 
+- Bei Auftreten einer Exception wird dieser Stack durchsucht 
+
+* Exceptions: Typische Nutzung 
+
+** Typische Muster, wie Exceptions genutzt werden 
+
+- Bisher: Mechanik der Exceptions, mit ein paar Beispielen 
+- Schauen wir uns typische Muster an, wie Expcetions häufig eingesetzt
+  werden
+- Benutzen Sie das mit Vorsicht; nicht alles hier ist immer sinnvoll
+  - Aber Sie müssen solche Muster zumindest wiedererkennen können 
+
+
+** Mehrere geschachtelte Schleifen abbrechen
+
+- ~break~ bricht nur die innerste Schleife ab 
+- Mit Exceptions: 
+
+#+BEGIN_SRC python :exports both :results output
+  class Exitloop(Exception): pass
+
+  try:
+      while True:
+          while True:
+              for i in range(10):
+                  # break would just not do the job 
+                  if i > 3: raise Exitloop          
+                  print('loop3: %s' % i)
+              print('loop2')
+          print('loop1')
+  except Exitloop:
+      print('continuing')   
+#+END_SRC 
+
+#+RESULTS:
+: loop3: 0
+: loop3: 1
+: loop3: 2
+: loop3: 3
+: continuing
+
+Anmerkung: Zeigen Sie das keinem Software-Techniker :-) 
+
+** Exceptions als Anzeichen für erwartetes Verhalten 
+
+- Typisch: Mit Exception auf das Ende einer Eingabe reagieren 
+
+#+BEGIN_SRC python :exports code :results output
+  while True:
+      try:
+          # Eingabe einlesen (z.B. von Tastatur, Datei)
+          line = input()           
+      except EOFError:
+          # EOFError: keine Eingabe mehr vorhanden 
+          break                    
+      else:
+          # hier nächste Zeile verarbeiten
+          ... 
+#+END_SRC 
+
+
+** Exceptions anstelle besonderer  Rückgabewerte 
+
+- Funktion, die
+  - bestimmtes Ereignis kommunizieren muss
+  - aber keinen besonderen Wert (/sentinel value/)  verwenden kann, weil alle Werte
+    vorkommen könnten
+- Beispiel: Suchfunktion 
+
+#+BEGIN_SRC python :exports both :results output
+class Found(Exception): pass
+
+def searcher():
+    if ...success...:
+        raise Found()            # Raise exceptions instead of returning flags
+    else:
+        return
+
+try:
+    searcher()
+except Found:                    # Exception if item was found
+    ...success...
+else:                            # else returned: not found
+    ...failure...
+#+END_SRC 
+
+
+
+** Was gehört in ~try~? 
+
+Zusammenfassend: Was sollte in einem ~try~-Block ausgeführt werden? 
+- Anweisungen, bei denen häufig Fehler auftreten: Interaktion mit
+  Nutzer oder Betriebssystem
+- Lange Funktionen: Viele ~try~ in Funktion, oder ein ~try~ beim
+  Aufruf?
+  - Viele ~try~: Exception an der richtigen Stelle; Code wird
+    unleserlich
+  - Ein ~try~ für Aufruf: Gefahr den zu vergessen!
+    Ggf. Wrapper-Funktion (insbes. sinnvoll in Klasse mit eigentlicher
+    Funktion als Unterstrich-Version) 
+
+** Was abfangen? 
+
+- Nicht zu viel: Klasse nicht zu allgemein 
+  - Ein bloßes ~except:~ ohne Klasse ist gefährlich; behandelt auch
+    Fehler, die eigentlich nicht behandelt werden soll an dieser
+    Stelle
+    - Z.B. Programmabbruch
+    - Fehler die weiter außen sinnvoller behandelt werden können
+  - In der Regel sollte mindestens auf ~except Exception~ eingeschränkt
+    werden, um Programmablauf-Exceptions nicht zu behandeln 
+- Nicht zu wenig: Klasse nicht zu speziell
+  - Insbes. wenn eigene Exceptions als normal behandelt werden sollen
+  - Was passiert, wenn man weitere normale Exceptions hinzufügt?
+  - Über Klassenhierarchie der eigenen Exceptions nachdenken! 
+
+
+
+* Exceptions in Python -- Advanced Features 
+
+** Eigene Exceptions 
+
+- Fehlersuche in einem komplexen Programm wird kompliziert
+- Wir würden gerne mehr Information aufbewahren und ausgeben 
+- Und mehr Klassen von Exceptions unterscheiden können, zur genaueren
+  Fehlerbehandlung 
+
+Lösung: Exceptions sind Objekt; Klassenhierarchie erweitern! 
+
+** Eigene Exception-Klassen 
+
+Beispiel: Detaillierte Ausgabe von Parametern 
+
+#+BEGIN_SRC python :exports both :results output
+  class MyExcp(Exception):
+      def __str__(self):
+          return ("MyExcept deals with this: {}, {}. {}".format(
+              self.args[0], self.args[1], self.args[2])
+              )
+
+  try:
+      raise MyExcp("a", 2, 3)
+  except MyExcp as e:
+      print(e)
+#+END_SRC 
+
+#+RESULTS:
+: MyExcept deals with this: a, 2. 3
+
+** Eigene Exception-Klassen (2) 
+
+Beispiel: Exceptions in Datei mitprotokollieren 
+
+#+BEGIN_SRC python :exports code :results output
+  class MyExcp(Exception):
+      logfile = "mylogs.txt"
+      def logerror(self):
+          log = open(self.logfile, 'a')
+          print("MyExcept deals with this: {}, {}. {}".format(
+              self.args[0], self.args[1], self.args[2]),
+              file=log)
+	  log.close()
+
+  try:
+      raise MyExcp("a", 2, 3)
+  except MyExcp as e:
+      # let's log this:
+      e.logerror()
+#+END_SRC 
+
+#+RESULTS:
+
+
+
+** Exceptions in ~except~? 
+
+Was passiert, wenn der Code in ~except~ selbst wieder einen Fehler
+produziert? 
+- Option 1: Weitere ~except~-Klauseln des gleichen ~try~ werden
+  benutzt
+  - Unübersichtlich...
+- Option 2: ~finally~ ausführen, und danach die Exception als neu
+  aufgetreten ansehen
+  - Und natürlich den ~except~-Block nach Fehler abbrechen 
+
+** Exceptions in ~except~? -- Beispiel  
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      try:
+          x = 5/0
+      except ArithmeticError:
+          print("Anfang ArithmeticError Handler")
+          raise IndexError
+          print("Ende ArithmeticError Handler")
+      except IndexError:
+          print("im inneren IndexError Handler")
+      finally:
+          print("Finally im inneren try")
+  except:
+      print("Im outer exception handler")
+#+END_SRC 
+
+#+RESULTS:
+: Anfang ArithmeticError Handler
+: Finally im inneren try
+: Im outer exception handler
+
+
+
+** ~sys.exc_info~ und Tracebacks 
+
+Es gibt mehr über eine Exception zu erfahren! 
+- Information über gerade behandelte  Exception: eingebaute Funktion ~sys.ecx_info~
+  - Liefert 3-Tuple (type, value, traceback):
+    - Type: Die Klasse der aufgetretenen Exception
+    - Value: Das Objekt dieser Klasse
+    - Traceback: siehe unten
+  - Nur sinnvoll in except-Klausel, sonst (None, None, None) 
+
+** ~sys.exc_info~: Beispiel 
+
+
+#+BEGIN_SRC python :exports both :results output
+  # import machen wir in folgendem Kapitel 
+  import sys
+  try:
+      raise IndexError("ein absichtlicher Fehler")
+  except Exception:
+      print(sys.exc_info())
+    
+#+END_SRC 
+
+#+RESULTS:
+: (<class 'IndexError'>, IndexError('ein absichtlicher Fehler',), <traceback object at 0x10107ce48>)
+
+*** Beobachtung							    :animate:
+
+Obwohl wir nur nach ~Exception~ fragen, bekommen wir über
+~sys.exc_info()~ genauere Informationen über die tatsächliche Klasse 
+
+
+
+** Traceback 
+
+- Traceback: Folge der Aufrufe, die zu der Exception geführt haben
+  - Welche Funktionsaufrufe?
+  - Welche Zeilen?
+- Haben wir schon in den Beispielen oben gesehen!
+- Steht als eigenes Objekt in ~sys.exc_info~ zur Verfügung
+- Zur Verarbeitung braucht man Hilfsfunktionen 
+
+
+** Traceback -- Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+  import sys
+  import traceback 
+  def f():
+      print("Anfang f")
+      try:
+          g()
+      except IndexError:
+          print("Index Error")
+      print("Ende f")
+
+  def g():
+      raise ArithmeticError 
+
+  try:
+      f()
+  except Exception:
+      exc = sys.exc_info()
+      tb = traceback.extract_tb(exc[2])
+      print(tb)
+#+END_SRC 
+
+#+RESULTS:
+: Anfang f
+: [<FrameSummary file <stdin>, line 15 in <module>>, <FrameSummary file <stdin>, line 6 in f>, <FrameSummary file <stdin>, line 12 in g>]
+
+
+** Aufräumarbeiten: Context managers 
+
+Häufiges Muster bei ~finally~: Aufräumarbeiten durchführen 
+- Datei schließen und ähnliches 
+- Auch oft: Aufräumarbeiten hängen von einem bestimmten Objekt an, das
+  in ~try~ benutzt wird
+  - Und sind immer die gleichen, egal was sonst passiert
+
+Also Muster: 
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      # erzeuge ein Objekt 
+      obj = ...
+      # Verarbeite
+      ...
+  finally:
+      obj.aufraeum()
+#+END_SRC 
+
+** Aufräumarbeiten: Context managers 
+
+- Idee: Wir legen fest, wie man bei einem Objekt (genauer: bei der
+  Klasse) die Aufräumarbeiten identifizieren kann
+  - Z.B.: eine Methode ~__exit__~ 
+- Dann: Kompakte Version möglich durch neues Schlüsselwort: ~with ... as~
+  - Wichtige Fälle verdienen explizite Unterstützung durch Sprache!
+- [[http://proquest.tech.safaribooksonline.de/book/programming/python/9781449355722/34dot-exception-coding-details/ch34s06_html][Details]] sind umfangreicher 
+
+
+** ~with ... as~ als Ersatz für ~try~-Muster 
+
+*** Kompakt mit ~with~
+
+#+BEGIN_SRC python :exports both :results output
+  with Ausdruck as variable:
+      ... 
+#+END_SRC 
+
+*** Entspricht ~try~
+
+#+BEGIN_SRC python :exports both :results output
+  try:
+      variable = Ausdruck
+      ...
+  finally:
+      variable.__exit__()
+#+END_SRC 
+
+
+
+*** UEBUNG __enter__ als Teil des context manager protokolls 
+
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+
+- Exceptions sind ein Mittel, den Programmablauf in Fehlerfällen und
+  Sonderfällen gezielt zu beeinflussen 
+- Exceptions können an einer Stelle eines Programms auftreten und an
+  anderen Stellen behandelt werden
+  - Insbes. bei geschachtelten Funktionsaufrufen 
+- Exceptions werden häufig in bestimmten Mustern benutzt (Lesbarkeit!)
+
+
+
