@@ -10,6 +10,7 @@ content/*/*.tex
 *.toc
 *.pdf
 *.ipynb
+*.texbak
 playbook.retry
 content/toc
 output
@@ -26,3 +27,4 @@ content/tmp
 *.loe
 *.lof
 content/*/uml/*png
+
