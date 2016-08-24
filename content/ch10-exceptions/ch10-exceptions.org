@@ -1099,6 +1099,14 @@ produziert?
 
 
 
+** Exceptions in ~except~  -- Vorsicht 
+
+#+CAPTION: Exceptions beim Behandeln von Exceptions
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:exception-in-exception
+[[./figures/exception-in-except.png]]
+
+
 ** ~sys.exc_info~ und Tracebacks 
 
 Es gibt mehr über eine Exception zu erfahren! 
