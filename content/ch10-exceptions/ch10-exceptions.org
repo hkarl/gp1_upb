@@ -255,6 +255,16 @@ Verhalten:
 - Sie wurde nicht behandelt
 - Also wird das Programm mit der Fehlerausgabe abgebrochen 
 
+
+** Unbehandelte Exceptions an Halloween 
+
+#+CAPTION: An Halloween kann es sinnvoll sein, Exceptions nicht zu behandeln
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:halloween
+[[./figures/foxtrot_bluescreenofdeath.png]]
+
+Abbildung [[fig:halloween]]
+
 ** Exceptions behandeln: geschützter Block 
 
 Wir brauchen neue Schlüsselworte: 
