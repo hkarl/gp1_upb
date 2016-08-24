@@ -1537,7 +1537,7 @@ Temperatur-Beispiel folgt grob  [[http://www.programiz.com/python-programming/pr
   class Temperature:
       def __init__(self, temp=0):
           # auch Methoden der Klasse greifen normal auf das Attribut zu: 
-          self.temperature = temp
+          self._temperature = temp
 
       def get_temperature(self):
           print("Lesender Zugriff")
@@ -1661,7 +1661,7 @@ jemanden, der Ihren Code lesen muss! (Principle of least astonishment)
   class Temperature:
       def __init__(self, temp=0):
           # auch Methoden der Klasse greifen normal auf das Attribut zu: 
-          self.temperature = temp
+          self._temperature = temp
 
       def get_temperature(self):
           print("Lesender Zugriff")
@@ -1680,10 +1680,10 @@ jemanden, der Ihren Code lesen muss! (Principle of least astonishment)
 
       # Eine zweite Property:
       def get_celsius(self):
-          return self.temperature - 273
+          return self._temperature - 273
 
       def set_celsius(self, val):
-          self.temperature = val + 273
+          self._temperature = val + 273
         
       celsius = property(get_celsius, set_celsius) 
 
@@ -1692,12 +1692,14 @@ jemanden, der Ihren Code lesen muss! (Principle of least astonishment)
 #+END_SRC 
 
 #+RESULTS:
-: Schreibender Zugriff
 : Lesender Zugriff
 : 0
 
 
 ** Ablauf -- Verständnisfrage 
+   :PROPERTIES:
+   :ORDERED:  t
+   :END:
 
 Was passiert hier, warum? 
 
@@ -1705,7 +1707,7 @@ Was passiert hier, warum?
   class Temperature:
       def __init__(self, temp=0):
           # auch Methoden der Klasse greifen normal auf das Attribut zu: 
-          self.temperature = temp
+          self._temperature = temp
 
       # Vereinbare Attribut temperature als eine Property:
       temperature = property(get_temperature,
