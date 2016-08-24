@@ -1,0 +1,1674 @@
+#+TITLE: Kapitel 11: Funktionen Teil 3: Verschachtelung, $\lambda$, Closures, Generatoren  
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+
+** Was bisher geschah 
+
+- Wir haben uns grundlegende Techniken zur Gestaltung und Nutzung von
+  Funktionen angeschaut
+- Wir haben Funktionen im Kontext von Klassen als Methoden verwendet
+  (eine Funktion, die an/mit einem Objekt arbeitet)
+- Wir haben angedeutet, dass eine Funktion eigentlich auch nur ein
+  Objekt (von einem recht speziellen Typ) ist 
+
+
+** Dieses Kapitel 
+
+- Wir erweitern die Möglichkeiten, wie man mit Funktionen arbeiten
+  kann
+  - Insbes.. die Vorstellung, dass eine Funktion ein Objekt ist, auf
+    das man eine Referenz erzeugen und herumreichen kann 
+- Darauf aufbauend erarbeiten wir typische Programmiertechniken zur
+  /funktionalen Programmierung/ 
+
+
+
+* Verschachtelte Funktionen 
+
+** Vorüberlegung: ~def~ ist eine Anweisung 
+
+- ~def~ ist eine Anweisung, die eine Funktion mit einem Namen versieht
+  - Der Code der Funktion wird intern abgelegt
+  - In einem Objekt einer geeigneten Klasse gespeichert
+- Im Block einer Funktion stehen Anweisungen 
+- Darf dann dort auch ein ~def~ stehen? 
+
+** ~def~ in Funktionsblock 
+
+Syntaktisch geht das natürlich -- Semantik? 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t 
+  def f():
+      print("f1") 
+
+      def g():
+          print("g!")
+
+      g()
+      print("f2") 
+
+  f()
+  print("nach f")
+#+END_SRC 
+
+#+RESULTS:
+
+** ~def~ in Funktionsblock: Semantik 
+
+
+Bei geschachtelter Funktionsdefinition: 
+- Der Name der inneren Funktion ist im Namensraum der äußeren Funktion
+  nach Ausführung der inneren ~def~-Anweisung bekannt
+- Dieser Name kann -- wie jede andere Funktionsname auch -- zum Aufruf
+  benutzt werden
+- Nach Rückkehr der äußeren Funktion verschwindet der Name ~g~
+  - Im Beispiel: damit ist diese Funktion auch nicht aufrufbar! 
+
+
+*** Visualisierung						  :dropslide:
+
+**** Erzeugen von ~f~
+
+Mit Ausführung der ~def~-Anweisung in Zeile 1 wird das Objekt für die
+Funktion ~f~ angelegt und der Name ~f~ (im globalen Namensraum)
+referenziert es. Abbildung [[fig:pt-nested1-1]] zeigt diesen Zustand. 
+
+#+CAPTION: Verschachtelte Funtionen, Anlegen der äußeren Funktion
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-nested1-1
+[[./figures/pt-nested1-1.png]]
+
+**** Erzeugen von ~g~ 
+
+Abbildung [[fig:pt-nested2-2]] zeigt den nächsten Schritt.  Nach dem
+Aufruf von ~f~ wird in ~f~ selbst die Zeile 4 ausgeführt. Dadurch wird
+ebenfalls ein Objekt für eine Funktion angelegt. Dieses Objekt
+unterscheidet sich (zunächst) nicht besonders von einem
+Funktionsobjekt, dass im globalen Scope erzeugt wurde (aber siehe
+später Abschnitt [[Closures]]).
+
+Für dieses Objekt wird der Name ~g~ vereinbart; dieser Name existiert
+nur im Namensraum von ~f~ (präziser: im Namensraum des ersten Aufrufs
+von ~f~, in der Abbildung als ~f1~ angegeben -- ~f1~ steht hier für
+Frame 1, nicht für Funktion ~f~). 
+
+
+#+CAPTION: Verschachtelte Funktionen, Anlegen der inneren Funktion
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-nested2-2
+[[./figures/pt-nested1-2.png]]
+
+**** Aufruf von ~g~ aus ~f~ heraus 
+
+Der eigentlich Aufruf von ~g~ aus ~f~ heraus (Zeile 7) ist dann ein
+ganz normaler Funktionsaufruf; hier passiert nichts außergewöhnliche
+(Abbildung [[fig:pt-nested1-3]]). Dass es sich um eine Funktion handelt,
+die in ~f~ vereinbart wurde und dass der Name ~g~ nur im lokalen
+Namensraum bekannt ist, spielt dabei keine Rolle.
+
+#+CAPTION: Verschachtelte Funktionen, Aufruf der inneren Funktion
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-nested1-3
+[[./figures/pt-nested1-3.png]]
+
+
+
+** Verschachtelte Funktionen: Argumente, Rückgabewert 
+
+Argumentübergabe und Rückgabewert funktionieren ganz normal 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      def g(x):
+          print(x+1)
+          return x+2
+
+      y = g(17)
+      print(y)
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: 18
+: 19
+
+
+** Verschachtelte Funktionen: Zugriff auf Variablen? 
+
+- Wie funktioniert der Zugriff auf Variablen außerhalb des eigenen
+  Namensraum aus einer inneren Funktion heraus?
+- Im wesentlichen: Regeln wie bisher 
+
+** Zugriff auf globale Variablen, lesend
+
+Ohne besondere Vorkehrungen, wenn nur lesen 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      def g():
+          print(x)
+      g()
+
+  x = 1
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: 1
+
+
+
+
+** Zugriff auf globale Variablen, schreiben 
+
+Schreibender Zugriff: Erfordert Deklaration mit ~global~
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      def g():
+          global x
+          x = x + 1 
+          print(x)
+      g()
+
+  x = 1
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: 2
+
+
+** Zugriff auf Variablen der äußeren Funktion? ~global~? 
+
+Spannend Punkt: Was ist mit Variable, die nicht global, aber in der
+äußeren Funktion vereinbart ist? 
+
+
+*** Zugriff mit ~global~?
+
+#+BEGIN_SRC python :exports code :results output
+  def f():
+      def g():
+          global x
+          x = x + 1 
+          print(x)
+      x = 1
+      g()
+
+  f()
+#+END_SRC 
+
+
+*** Fehlermeldung						  :dropslide:
+
+Das scheitert: Es gibt kein globales ~x~, also kann der Zugriff
+hier nicht gelingen. 
+
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 9, in <module>
+  File "<stdin>", line 7, in f
+  File "<stdin>", line 4, in g
+NameError: name 'x' is not defined
+#+END_SRC 
+
+
+
+
+
+
+
+
+** Zugriff auf Variablen der äußeren Funktion? Direkt? 
+
+#+BEGIN_SRC python :exports code :results output
+  def f():
+      def g():
+          x = x + 1 
+          print(x)
+      x = 1
+      g()
+
+  f()
+#+END_SRC 
+
+
+*** Fehlermeldung						  :dropslide:
+
+Scheitern ist plausibel: Nach bisherigen Regeln wird im *lokalen*
+Namensraum von ~g~ gesucht; dort gibt es kein ~x~. Also Fehler.
+
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+  File "<stdin>", line 6, in f
+  File "<stdin>", line 3, in g
+UnboundLocalError: local variable 'x' referenced before assignment
+#+END_SRC 
+
+
+
+
+** Zugriff auf Variablen der äußeren Funktion -- Reihenfolge? 
+
+
+Liegt es vielleicht an der Reihenfolge? 
+- Im Beispiel eben war bei der /Definition/ von ~g~ die Variable ~x~
+  noch gar nicht existent
+- Muss es das ~x~ schon geben, wenn ~g~ definiert wird? Damit ~g~
+  darauf zugreifen kann? 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      x = 1 
+      def g():
+          print(x)
+      g()
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: 1
+
+*** Ja!								    :animate:
+
+Offenbar wird auch der Namensraum einer umschließenden Funktion
+durchsucht! 
+
+
+** Modifizierender Zugriff auf Variablen der äußeren Funktion? 
+
+Kann man solche umschließenden Variablen auch verändern? 
+
+#+BEGIN_SRC python :exports code :results output
+  def f():
+      x = 1 
+      def g():
+          x += 1
+          print(x)
+      g()
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+
+*** Offenbar nein						    :animate:
+
+Das ist analog zur Situation bei ~global~
+
+*** Fehlermeldung						  :dropslide:
+
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+  File "<stdin>", line 6, in f
+  File "<stdin>", line 4, in g
+UnboundLocalError: local variable 'x' referenced before assignment
+#+END_SRC 
+
+
+
+** Neues Schlüsselwort: ~nonlocal~ 				   
+
+Analog zu ~global~: Neues Schlüsselwort, um umschließende Variablen zu
+verändern
+- ~nonlocal~
+- Unterschied zu ~global~: Die Variable muss schon existieren! (durch
+  Zuweisung, siehe oben)
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      x = 1 
+      def g():
+          nonlocal x
+          x += 1
+          print(x)
+      g()
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: 2
+
+** Beispiel: Tiefere Verschachtelung (1)
+
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      x = 1 
+      def g():
+          def h():
+              nonlocal x
+              x += 1
+              print("x in h:", x)
+          h()
+          print("x in g:", x)
+      g()
+      print("x in f:", x)
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: x in h: 2
+: x in g: 2
+: x in f: 2
+
+
+** Beispiel: Tiefere Verschachtelung (2)
+
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t
+  def f():
+      x = 1 
+      def g():
+          x = 42
+          def h():
+              nonlocal x
+              x += 1
+              print("x in h:", x)
+          h()
+          print("x in g:", x)
+      g()
+      print("x in f:", x)
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: x in h: 43
+: x in g: 43
+: x in f: 1
+
+
+*** Anmerkung: ~x~ aus ~f~?					    :animate:
+
+Es gibt keine Möglichkeit, von ~h~ aus auf das von ~f~ angelegt ~x~
+zuzugreifen. Dieses ~x~ wird durch das ~x~ von ~g~ verdeckt! 
+
+
+
+*** Visualisierung						  :dropslide:
+
+Es lohnt sich, hier kurz  Abbildung [[fig:pt-nonlocal]]
+zu betrachten. Die Abbildung zeigt den Zustand nach Ausführung der
+Addition in ~h~, Zeile 7. Dabei fällt auf, dass es 
+- einerseits natürlich eine Variable ~x~ im Frame ~f1~ von ~f~ gibt,
+  die auf den Wert 1 verweist;
+- anderseits auch eine Variable ~x~ im Frame ~f2~ von ~g~ gibt, die
+  auf den Wert 43 (nach der Addition) weist;
+- aber /keine/ Variable ~x~ im Frame von ~h~ gibt; ~nonlocal~ sorgt
+  dafür, dass der Namespace von ~g~ hier benutzt wird. 
+
+#+CAPTION: Effekt von ~nonlocal~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-nonlocal
+[[./figures/pt-nonlocal.png]]
+
+
+
+
+
+** Nachschlageregel: LEGB 
+
+- Bisher einfache Nachschlagregel für Namensräume: Erst lokal, dann global
+- Tatsächlich etwas umfangreicher 
+
+*** Nachschlageregel für Namen: LEGB			       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Python sucht Namen in diesen Namensräumen, in dieser Reihenfolge: 
+1. dem lokalen Namensraum (einer Funktion): *L*
+2. dem Namensraum umgebendenr (/enclosing/) Funktionen: *E*
+3. dem globalen Namensraum: *G*
+4. dem Namensraum eingebauter (vordefinierter) Namen (build-in): *B*
+
+Kurz: Die Reihenfolge ist *LEGB* 
+
+
+
+* Closures 
+
+** Vorüberlegung: Referenzen auf Funktionen? 
+
+- Kann man Funktionsnamen wie normale Namen behandeln? 
+- Kann man die kopieren, und trotzdem noch aufrufen? 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      print("f!")
+
+  g = f
+  g()
+#+END_SRC 
+
+#+RESULTS:
+: f!
+
+*** Was passiert hier?						    :animate:
+
+- ~f~ ist ein Name für ein Funktionsobjekt
+- Die Anweisung ~g = f~ lässt den Namen ~g~ auf das gleiche Objekt
+  referenzieren
+- Also wird der Aufruf ~g()~ auch die gleiche Funktion aufrufen
+  - Der Name der regenerierenden Variable ist /irrelevant/! 
+
+
+
+** Vorüberlegung 2: Funktionsreferenzen als Rückgabewert? 
+
+- Wenn man Funktionsreferenzen kopieren kann
+- Dann kann man sie doch bestimmt auch als Rückgabewert einer Funktion
+  verwenden? 
+
+#+BEGIN_SRC python :exports code :results output
+  %%tutor -t
+  def f():
+      def g():
+          print("innere Funktion!")
+      return g
+
+  h = f()
+  h()
+#+END_SRC 
+
+#+RESULTS:
+: innere Funktion!
+
+*** Natürlich!							    :animate:
+
+- Die Semantik ist ganz banal!
+- Nach Aufruf von ~f~ ist ~h~ ein
+  weiterer Name für das Funktionsobjekt geworden, das ursprünglich
+  unter dem Namen ~g~ eingeführt wurde 
+
+*** Visualisierung						  :dropslide:
+
+
+Auch Abbildung [[fig:pt-closure-h]] zeigt, dass hier eigentlich nichts
+spannendes passiert. Der Umstand, dass das Funktionsobjekt ~g~
+innerhalb einer Funktion erzeugt wurde, ist genauso viel oder wenig
+relevant wie das bei einem normalen Objekt der Fall wäre.
+
+
+#+CAPTION: Aufruf eines Funktion, die als Funktionsergebnis bekannt wurde
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-closure-h
+[[./figures/pt-closure-h.png]]
+
+
+** Analogie: Normales Objekt als Rückgabewert
+
+Zur Analogie: Dieser Code ist ja klar 
+- Eine Liste kann man nicht aufrufen, sondern ausgeben
+- Aber sonst ist das /genau das gleiche/!
+
+#+BEGIN_SRC python :exports code :results output
+  def f():
+      g = ["ein", "Beispiel", "Objekt"]
+      return g
+
+  h = f()
+  print(h)
+#+END_SRC 
+
+#+RESULTS:
+: ['ein', 'Beispiel', 'Objekt']
+
+
+
+** Funktionen mit Parametern als Rückgabe? 
+
+Was passiert, wenn wir eine Funktion zurückgeben, die
+Parameter benutzt? 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      def g(x):
+          print("innere Funktion!", x)
+      return g
+
+  h = f()
+  h("Wert für x")
+#+END_SRC 
+
+#+RESULTS:
+: innere Funktion! Wert für x
+
+*** Parameter bleibt bestehen 
+
+Dann hat die Funktion natürlich einen Parameter 
+- Aufruf unter neuem Namen erfordert diesen Parameter 
+
+** Funktion mit Zugriff auf nichtlokale Variablen als Rückgabe 
+
+Spannender: 
+- Innere Funktion greif auf Parameter der äußeren Funktion zu
+- Innere Funktion wird zurückgeben 
+- und dann aufgerufen 
+
+Erwartetes Verhalten? 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t
+  def f():
+      n = 5
+      def g(x):
+          print("innere Funktion!", x*n)
+      return g
+
+  h = f()
+  h("Wert für x")
+#+END_SRC 
+
+#+RESULTS:
+: innere Funktion! Wert für xWert für xWert für xWert für xWert für x
+
+*** Äußerer Parameter bleibt erhalten!				    :animate:
+
+- Offenbar behält die Funktion, die unter ~h~ im globalen Scope
+  bekannt ist, Zugriff auf die Variable ~x~
+- Erstaunlich! ~x~ im Namensraum von ~f~, aber ~f~ schon beendet!?
+
+
+*** Visualisierung						  :dropslide:
+
+Abbildung [[fig:pt-closure2-1]] zeigt hier den Zustand beim Ablauf von
+~f~, kurz vor Rückgabe von ~g~ an den Aufruf in Zeile 7. Man sieht
+schön das angelegte Funktionsobjekt für ~g~ (mit dem Parameter ~x~)
+und den Namen ~n~ für die Zahl 5. 
+
+
+#+CAPTION: Zurückgegeben Funktion mit Parameter: Vor Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-closure2-1
+[[./figures/pt-closure2-1.png]]
+
+Abbildung [[fig:pt-closure2-2]] visualisiert dann die Ausführung der
+Funktion ~h~ (was ~g~ ist). ~g~ wird mit dem String /Wert für x/  als
+Wert für den Parameter ~x~ aufgerufen. Zusätzlich behält ~g~ Zugriff
+auf den Wert von ~n~ (hier nicht schön visualisiert; man sieht aber,
+dass der Frame ~f1~ noch existiert. 
+
+#+CAPTION: Zurückgegebene Funktion mit Parameter: Im Aufruf
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-closure2-2
+[[./figures/pt-closure2-2.png]]
+
+
+
+
+** Nicht-lokale Variable selbst als Parameter 
+
+- In obigem Beispiel: ~n~ hatte einen festen Wert
+- Aber wo der Wert für ~n~ herkommt ist egal
+  - Er muss lediglich vor dem ~def~ von ~g~ vorhanden sein
+- Es könnte selbst ein Funktionsparameter sein? 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(n):
+      def g(x):
+          print("innere Funktion!", x*n)
+      return g
+
+  h = f(3)
+  h("Wert für x")
+#+END_SRC 
+
+#+RESULTS:
+: innere Funktion! Wert für xWert für xWert für x
+
+** Beispiel -- Aufgeräumt 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t
+  def vervielfacher_fabrik(n):
+      def vervielfacher(x):
+          return x*n
+
+      return vervielfacher
+
+  doppler = vervielfacher_fabrik(2)
+  fuenffacher = vervielfacher_fabrik(5) 
+
+  print(doppler("Mehrfach ausgeben! "))
+  print(fuenffacher("Mehrfach ausgeben! "))
+#+END_SRC 
+
+#+RESULTS:
+: Mehrfach ausgeben! Mehrfach ausgeben! 
+: Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! 
+
+** Muster: Fabrik (/Factory/)
+
+- Beispiel hatte mehrere Bestandteile
+  - Eine ~...-fabrik~ Funktion: Sie erzeugt eine andere Funktion,
+    richtig parametriert
+  - Der Bauplan für die zu erzeugende Funktion (hier: ~vervielfacher~)
+    - Bauplan wird konkretisiert durch Einsetzen von Werten für
+      Parameter (hier: ~n~)
+  - Mehrfacher Aufruf der Fabrik mit unterschiedlichen Parametern
+    - Ergibt maßgeschneiderte Funktionen, die aufgerufen werden 
+- Das sog. /factory pattern/ 
+
+** Realisierung: Closures 
+
+- Das erstaunliche: Die produzierten Funktionen merken sich die Werte
+  der Parameter der Fabrik-Funktion!
+- Dazu werden die Frames (Namensräume) dieser Fabrikfunktionsaufrufe
+  nicht entsorgt, sondern an die produzierte Funktion (~doppler~,
+  ~fuenffacher~, ...) gekoppelt 
+- Diese Datenstruktur (Kopplung von Frames an einen Funktionsnamen)
+  heißt /Closure/
+- Closure merken sich den relevanten Zustand -- ein /state retention/
+  Ansatz 
+
+*** Closure						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein Closure ist eine Funktion, deren nicht-lokalen Namen an Objekte
+gebunden wurden. 
+
+*** Visualisierung						  :dropslide:
+
+Abbildung [[fig:two-closures]] zeigt die beiden im Beispiel entstandenen
+Closures. Die beiden Funktionsnamen ~doppler~ und ~fuenffacher~
+referenzieren jeweils zwei Funktionsobjekte. Der entscheidende Punkt
+ist nun die Angabe ~parent~ bei diesen Objekten: sie verweisen auf den
+Namensraum, in dem die fehlenden Variablen (hier: ~n~) gesucht werden
+sollen. Dies sind die beiden Namensräume, die durch die beiden Aufrufe
+von ~vervielfacher_fabrik~ erzeugt wurden. 
+
+#+CAPTION: Zwei Closures
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:two-closures
+[[./figures/pt-two-closures.png]]
+
+
+*** Anmerkung: Terminologie					  :dropslide:
+
+Je nach Literaturquelle wird aus das Programmiermuster selbst als
+Closure bezeichnet, nicht nur die Realisierungstechnik. Das macht
+letztlich keine großen Unterschied. 
+
+** Nutzen: Fabriken und Closures 
+
+- Beispiel oben ist zugeben etwas künstlich
+- Typischer Einsatz von Closures:
+  - Graphische Nutzerschnittstellen: Funktionen, die abhängig von
+    Nutzereingabe erzeugt werden
+  - Web-Anwendungen: Funktionen erzeugen, die auf Veränderungen
+    reagiert (sog. /callbacks/)
+    - Häufig in event handlers in Javascript! 
+
+
+
+*** UEBUNG In closures die gemerkte Variable verändern? 
+
+#+BEGIN_SRC python :exports both :results output
+  def vervielfacher_fabrik(n):
+      def vervielfacher(x):
+          nonlocal n
+          n += 1
+          return x*n
+
+      return vervielfacher
+
+  doppler = vervielfacher_fabrik(2)
+
+  print(doppler("Mehrfach ausgeben! "))
+  print(doppler("Noch mehr Text "))
+  print(doppler("Schon ganz oft "))
+#+END_SRC 
+
+#+RESULTS:
+: Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! 
+: Noch mehr Text Noch mehr Text Noch mehr Text Noch mehr Text 
+: Schon ganz oft Schon ganz oft Schon ganz oft Schon ganz oft Schon ganz oft 
+
+
+
+
+*** UEBUNG Closures nutzen, um C static Variablen nachzubauen
+
+
+*** UEBUNG Weitere Closure-Beispiele? 
+
+
+* Anonyme Funktionen: lambda-Ausdrücke 
+
+** Funktionsdefinition bisher: ~def~
+
+- ~def~ ist Anweisung
+  - Erzeugt ein Funktionsobjekt
+  - Legt einen Namen im entsprechenden Namensraum an
+  - Verbindet Namen mit erzeugtem Objekt 
+- Was, wenn man den Namen eigentlich gar nicht braucht?
+  - Sondern nur das Funktionsobjekt an sich?
+  - Z.B., weil es in einer Factory sowieso direkt zurückgegeben wird?
+  - Oder nur an einer einzigen Stelle gebraucht wird, z.B. in einer
+    list comprehension? 
+
+** Funktionsname in Factory: Nötig?
+
+
+Beispiel oben: Name ~vervielfacher~ eigentlich nicht sehr nützlich  
+
+#+BEGIN_SRC python :exports both :results output
+  def vervielfacher_fabrik(n):
+      def vervielfacher(x):
+          return x*n
+
+      return vervielfacher
+
+  doppler = vervielfacher_fabrik(2)
+  fuenffacher = vervielfacher_fabrik(5) 
+
+  print(doppler("Mehrfach ausgeben! "))
+  print(fuenffacher("Mehrfach ausgeben! "))
+#+END_SRC 
+
+
+** Anonyme Funktionen: \lambda-Ausdrücke 
+
+- Das kommt häufig vor, verdient also Sprachunterstützung 
+
+
+***  \lambda-Ausdrücke: ~lambda~ 			       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+- /Ausdruck/, der eine /anonyme Funktion/ vereinbart
+  - Keine Anweisung! 
+  - Präziser: der ein Funktionsobjekt erzeugt und eine Referenz auf
+    dieses Objekt zurückgibt
+- Eigenschaften
+  - Anonyme Funktion darf beliebige viele Parameter haben
+  - Aber die Funktion darf nur aus einem /Ausdruck/ bestehen; sie darf
+    /keine Anweisungen/ nutzen
+- Syntax:
+  - ~lambda Liste von Parameter : Zu berechnender Ausdruck~
+
+
+** \lambda-Ausdrücke -- Beispiele 
+
+*** Funktion, die drei Zahlen addiert 
+
+#+BEGIN_SRC python :exports both :results output
+adder = lambda a, b, c : a + b + c 
+print(adder(1, 2, 3))
+#+END_SRC 
+
+*** ~lambda~ in Factory
+
+Viel besser lesbare Closure-Version: 
+
+#+BEGIN_SRC python :exports both :results output
+  def vervielfacher_fabrik(n):
+      return lambda x: x*n
+
+  doppler = vervielfacher_fabrik(2)
+  fuenffacher = vervielfacher_fabrik(5) 
+
+  print(doppler("Mehrfach ausgeben! "))
+  print(fuenffacher("Mehrfach ausgeben! "))
+#+END_SRC 
+
+#+RESULTS:
+: Mehrfach ausgeben! Mehrfach ausgeben! 
+: Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! 
+
+
+
+** \lambda-Ausdrücke -- Funktionen an Objekte übergeben 
+
+- Objekte brauchen manchmal eine Funktion, die sie aufrufen können 
+  - Häufig: GUI-Frameworks
+- Funktion wird nur als Referenz in Objekt gespeichert 
+- Funktion bei Methodenaufruf bei ~lambda~ erzeugen 
+
+#+BEGIN_SRC python :exports both :results output
+  class SomeClass:
+      def __init__(self, name, fct):
+          self.name = name
+          self.fct = fct
+
+      def do(self):
+          self.fct()
+        
+
+  o = SomeClass(name="somename",
+                fct = lambda: some expression here)
+  o.do()
+#+END_SRC 
+
+#+RESULTS:
+
+
+*** UEBUNG Standard-Programmierproblem mit lambda closures 
+
+http://stackoverflow.com/questions/13355233/python-lambda-closure-scoping
+
+
+auch: 
+http://stackoverflow.com/questions/6076270/python-lambda-function-in-list-comprehensions
+
+[(lambda x: x*x) for x in range(10)]
+
+
+
+* Funktionaler Programmierstil 
+
+
+** Beobachtung: Funktionen sind first-class citizens 
+
+- Python behandelt Funktionen wie ganz normale Objekte, mit allerlei
+  Operationen darauf
+  - Funktionen als Parameter, als Rückgabewerte, speichern in
+    Variablen oder Datenstrukturen, ... 
+- Solche Funktionen sind /first-class citizens/ 
+- Dies erlaubt /funktionale Programmierung/ als Programmierparadigma 
+
+** Funktionale Programmierung -- Typische Merkmale 
+
+
+- Funktionen sind first-class citizens
+  - Impliziert: Funktionen können auf Funktionen angewendet werden
+- Rekursion
+- Keine Seiteneffekte 
+
+** Beispiel: map, filter 
+
+- Häufiger Stil in funktionalen Sprachen:
+  - Daten in Listen ablegen
+  - Listen filtern gemäß einer Filterfunktion
+  - Funktion auf jedes Element einer Liste anwenden
+  - Liste zu einem einzelnen Wert reduzieren 
+- Sog. *map/filter/reduce*-Muster 
+
+
+** Iterables 
+
+- Idee nicht nur auf Listen eingeschränkt
+- Warum nicht auf Tuple, Mengen, ... ?
+- Alles, was man der Reihe nach durchlaufen kann
+- Formalisiert: Klasse ~Iterable~
+  - Unterklassen: ~list~, ~str~, ~tuple~, ~dict~, Dateien, ... 
+
+** ~filter~ 
+
+- ~filter~: eingebaute Funktion 
+- Signatur: ~map(function, iterable)~
+  - Wende die Funktion ~function~ auf jedes Element eines Objektes an
+  - Nimm Element in Resultat auf, wenn Funktionswert wahr ist     
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+l = [1, 2, 3, 4, 5]
+l2 = filter(lambda x: x % 2 == 1, l)
+print(list(l2))
+#+END_SRC 
+
+#+RESULTS:
+: [1, 3, 5]
+
+
+** ~map~
+
+- ~map~: eingebaute Funktion 
+- Signatur: ~map(function, iterable)~
+  - Wende die Funktion ~function~ auf jedes Element eines Objektes an,
+    dass zu einer von ~iterable~ abgeleiteten Klasse gehört
+  - Produziere iterable mit den entsprechenden Funktionswerten 
+- Beispiel: 
+
+#+BEGIN_SRC python :exports both :results output
+l = [1, 2, 3, 4, 5]
+l2 = map(lambda x: x*x, l)
+print(list(l2))
+#+END_SRC 
+
+#+RESULTS:
+: [1, 4, 9, 16, 25]
+
+*** Anmerkung
+
+Konvertierung in Liste nur nötig für ~print~
+
+
+** Weitere Operationen auf iterables 
+
+Reichlich Beispiele, siehe Übungen: 
+- zip
+- reduce 
+
+*** UEBUNG Ganz viele Beispiele hier denkbar
+
+** \lambda-Ausdrücke und flexible Argumente 
+
+Eine Funktion, die beliebig viele Argumente beliebigen Types mit & dazwischen ausgibt? 
+
+#+BEGIN_SRC python :exports both :results output
+out = lambda *x: print(" & ".join(map(str, x)))
+out(1, 2, 3, "hallo", "gp1")
+#+END_SRC 
+
+#+RESULTS:
+: 1 & 2 & 3 & hallo & gp1
+
+** Vergleich: list comprehensions und map/filter 
+
+- Die Beispiele oben sind in Python einfacher und kompakter als list
+  comprehensions aufzuschreiben
+- Allerdings: dadurch wird die komplette Liste erzeugt -- Sinnvoll? 
+
+#+BEGIN_SRC python :exports code :results output
+l = [x for x in range(100000) if x < 2][0:1]
+print(l)
+#+END_SRC 
+
+#+RESULTS:
+: [0, 1]
+
+
+
+** Evolution funktionaler Sprache: Großvater LISP 
+
+#+CAPTION: LISP 
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+NAME: fig:lisp
+[[./figures/lisp_cycles.png]]
+
+
+** Rein funktionale Sprachen 
+
+#+CAPTION: Popularität reiner funktionaler Sprachen 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:haskeel
+[[./figures/haskell.png]]
+
+
+* Generatoren 
+
+
+** Funktionen auf /große/ Listen anwenden? 
+
+- Große Eingaben brauchen viel Platz
+  - Ggf. kann das Erzeugen der Eingabe schon allen Speicherplatz
+    verbrauchen
+- Mit endlichen Listen kann man keine unendlichen Folgen erzeugen
+  - Beispiel: Alle Primzahlen
+- Vielleicht 
+
+
+*** Idee: Werte nach und nach erzeugen 
+
+- Statt komplette Liste zu berechnen, nur jeweils den /nächsten/ Wert 
+- Auf Aufforderung -- als Funktionsaufruf? 
+
+
+** Werte auf Aufforderung -- Skizze? 
+
+#+BEGIN_SRC python :exports code :results output
+  def magic_prime_production(start):
+      if erster Aufruf: 
+          letzte_zahl = start
+      res = nächste Primzahl größer als letzte_zahl
+      letzte_zahl = res
+      return res
+
+  # Nutzung in for Schleife??
+  for p in magic_prime_production():
+      print(p)
+#+END_SRC 
+
+
+** Werte auf Aufforderung -- Realisierung? 
+
+- Mit Funktionsaufruf wie bisher geht das so nicht
+- Funktion hat keine Vorstellung, was der /letzte Wert/ ist
+- Wir müssten das der Funktion beibringen? ...?
+  - Analogie: Closures? Hat sich auch Zustand gemerkt? 
+
+*** Realisierung: Closure-artig					    :animate:
+
+- Mit Closure-artiger Zustandsspeicherung lässt sich das Problem lösen
+- Siehe auch Programmieraufgabe!
+- Aber syntaktisch unhandlich -- also Anweisung! 
+
+
+** Werte auf Aufforderung -- Generatoren 
+
+Syntaktischer Zucker: Generatoren 
+- Schlüsselwort: ~yield~ und Generatorenfunktionen 
+- Idee: Ersetze in einer Funktion  ~return~ durch ~yield~ 
+  - Liefert Wert an Aufrufer
+  - *und* merkt sich Zustand für nächsten Aufruf!
+    - Zustand: Werte lokaler Variablen; Zeilennummer; ... 
+
+
+** Generator: Einfaches Beispiel 
+
+Generator wird die Werte 1, 2, 3. Danach nichts. 
+
+#+BEGIN_SRC python :exports both :results output
+  def gen():
+      yield 1
+      yield 2
+      yield 3
+#+END_SRC 
+
+
+** Generatoren: Nutzung 
+
+- Aufruf: Unterscheidung erster und folgende Aufrufe notwendig
+  - Erster Aufruf: normaler Funktionsaufruf, initialisiert
+    - Gibt ein Generator-Objekt 
+  - Folgende Aufruf: Funktion ~next~ auf dieses Generator-Objekt
+    anwenden 
+
+
+** Generator: Einfaches Beispiel -- Nutzung 
+
+Generator wird die Werte 1, 2, 3. Danach ~StopIteration~-Exception. 
+
+#+BEGIN_SRC python :exports both :results output
+  def gen():
+      yield 1
+      yield 2
+      yield 3
+
+  g = gen()
+  print(g)
+  print(next(g))
+  print(next(g))
+  print(next(g))
+  try:
+      print(next(g))
+  except StopIteration:
+      print("da kommt nichts mehr")
+#+END_SRC 
+
+#+RESULTS:
+: <generator object gen at 0x101a80780>
+: 1
+: 2
+: 3
+: da kommt nichts mehr
+
+** Generator: Nutzung in Schleife 
+
+Spannender Punkt: Generatoren können wie Iterables in Schleife benutzt
+werden 
+- Syntax dadurch deutlich einfacher
+- ~StopIteration~ führt zum Schleifenende 
+
+#+BEGIN_SRC python :exports both :results output
+  def gen():
+      yield 1
+      yield 2
+      yield 3
+
+  for v in gen():
+      print(v)
+#+END_SRC 
+
+#+RESULTS:
+: 1
+: 2
+: 3
+
+
+
+** Beispiel: Unendlicher Generator 
+
+Produziere *alle* Vielfachen von 3 ab Startwert: 
+
+#+BEGIN_SRC python :exports code :results output
+  def gen(start):
+      # wir wollen alle Vielfache, also Endlosschleife: 
+      while True:
+          if start % 3 == 0:
+              yield start
+              print("Restarting with value: ", start)
+          start += 1
+
+  # Variable i: Endlosschleife vermeiden
+  i = 0         
+  for v in gen(16):
+      print(v)
+      i += 1
+      if i > 5:
+          break
+#+END_SRC 
+
+#+RESULTS:
+#+begin_example
+18
+Restarting with value:  18
+21
+Restarting with value:  21
+24
+Restarting with value:  24
+27
+Restarting with value:  27
+30
+Restarting with value:  30
+33
+#+end_example
+
+** Wesentlicher Punkt: Speicherverbrauch 
+
+- Natürlich kann man das auch über eine list comprehension
+  hinschreiben
+- Aber Speicherverbrauch:
+  - List comprehension erzeugt die *gesamte Liste* vor Verarbeitung;
+    muss im Speicher stehen 
+  - Generator: nur Platz für eine einzige Iteration notwendig
+    - Also: ~start~, und die Closure für den Generator 
+
+** Generators für List comprehensions 
+
+Kombination der Vorteile? 
+- Elegante Syntax der List comprehension? 
+- Ohne den Speicherverbrauch? 
+
+*** Generatoren statt Listen! 
+
+Kleine syntaktische Änderung: Wir ersetzen ~[]~ durch ~()~ in
+Schleifen
+
+#+BEGIN_SRC python :exports both :results output
+print("Mit Liste: ")  
+for i in [x for x in range(17, 40) if x % 3 == 0]:
+    print(i, end=", ")
+
+print("\nMit Generator: ")  
+for i in (x for x in range(17, 40) if x % 3 == 0):
+    print(i, end=", ")
+#+END_SRC 
+
+#+RESULTS:
+: Mit Liste: 
+: 18, 21, 24, 27, 30, 33, 36, 39, 
+: Mit Generator: 
+: 18, 21, 24, 27, 30, 33, 36, 39, 
+
+
+
+
+
+* Decorators
+
+
+** Ausgangspunkt 
+
+Wir haben folgende Eigenschaften kennengelernt: 
+- Funktionen sind first-class citizens in Python
+- Fuktionsnamen sind eigentlich auch nur Variablen, die  ein
+  Funktionsobjekt referenzieren 
+- Solche Referenzen können aus Funktionen zurückgegeben werden 
+- Und Referenzen können können an Funktionsnamen zugewiesen werden 
+
+Was kann man damit anstellen? 
+
+** Überlegung 1: Wir können aus einer Funktion eine neue Funktion bauen 
+
+- Beispiel: Wir möchten die Ausgaben einer Funktion ~f~ mit ==== einrahmen 
+- Ansatz: Baue eine neue Funktion, die
+  - === ausgibt
+  - ~f~ aufruft
+  - und nochmal === ausgibt 
+- Diese neue Funktion bauen wir als Closure und geben eine Referenz
+  darauf zurück 
+
+Schauen wir uns den Code in mehreren Schritten an! 
+
+** Eingerahmte Ausgabe -- Version 1 
+
+Version 1: Eine einfache factory 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      print("Ausgabe von f")
+
+  def einrahmer_fabrik():
+      def einrahmer():
+          print("=====")
+          f()
+          print("=====")
+
+      return einrahmer
+
+  f_neu = einrahmer_fabrik()
+  f_neu()
+#+END_SRC 
+
+#+RESULTS:
+: =====
+: Ausgabe von f
+: =====
+
+
+** Eingerahmte Ausgabe -- Version 2 
+
+Version 1 ist unnötig speziell
+- Factory-Muster kann doch Parameter nehmen (Closures!) 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      print("Ausgabe von f")
+
+  def g():
+      print("Ausgabe von g")
+
+  def einrahmer_fabrik(fct):
+      def einrahmer():
+          print("=====")
+          fct()
+          print("=====")
+
+      return einrahmer
+
+  f_neu = einrahmer_fabrik(f) 
+  g_neu = einrahmer_fabrik(g) 
+  
+  f_neu() 
+  g_neu() 
+#+END_SRC 
+
+#+RESULTS:
+: =====
+: Ausgabe von f
+: =====
+: =====
+: Ausgabe von g
+: =====
+
+
+** Eingerahmte Ausgabe -- Version 3 
+
+
+Den einrahmenden Text kann man auch zum Parameter machen
+
+#+BEGIN_SRC python :exports both :results output
+    def f():
+        print("Ausgabe von f")
+
+    def g():
+        print("Ausgabe von g")
+
+    def einrahmer_fabrik(fct, s="==========="):
+        def einrahmer():
+            print(s)
+            fct()
+            print(s)
+
+        return einrahmer
+
+    f_neu = einrahmer_fabrik(f, "***********") 
+    g_neu = einrahmer_fabrik(g) 
+  
+    f_neu() 
+    g_neu() 
+#+END_SRC 
+
+#+RESULTS:
+: ***********
+: Ausgabe von f
+: ***********
+: ===========
+: Ausgabe von g
+: ===========
+
+
+
+** Eingerahmte Ausgabe -- Version 4 
+
+Brauchen wir die ursprünglich Version von ~f~ noch? Nein? 
+- Dann brauchen wir auch keinen neuen Namen! 
+
+#+BEGIN_SRC python :exports both :results output
+  def f():
+      print("Ausgabe von f")
+
+  def einrahmer_fabrik(fct, s="==========="):
+      def einrahmer():
+          print(s)
+          fct()
+          print(s)
+
+      return einrahmer
+
+  # Wir lassen die Variable f ein neues Funktionsobjekt referenzieren:
+  f = einrahmer_fabrik(f, "***********") 
+  
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: ***********
+: Ausgabe von f
+: ***********
+
+** Muster
+
+Dieses Muster tritt häufig auf, ist extrem nützlich 
+- Einer Funktion wird neues Verhalten hinzugefügt, ohne dass für einen
+  Nutzer der Funktion sichtbar ist!
+- Die Signatur der Funktion verändert sich nicht; nicht einmal der Name
+- Nützlich, um vorhandenen Code anzupassen 
+
+
+** Dekoration (/decorator/)
+
+*** Das Decorator-Muster				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Das Decorator-Muster beschreibt eine typische Struktur, mit der eine
+Funktion mit weiterer Funktionalität versehen werden kann, ohne die
+Funktion oder den nutzenden Code zu verändern. 
+
+** Decorators: Anwendungen 
+
+- Vorhanden Code verändern, patchen 
+- Fehlersuche, Leistungsmessung 
+- Komplexere Code-Strukturen
+  - GUI-Frameworks
+    - Beispiel: einer Funktion zum Zeichnen eines Fenster werden als
+      decorators Funktionen zum Zeichnen von Scrollbars hinzugefügt
+      - Funktion selbst und Aufrufer merken nicht, dass das Fenster
+        Scrollbars hat 
+  - Webframework (Beispiel: Django)
+    - Die Handhabung von URLs wird durch Dekoratoren angepasst
+
+** Decorators für Methoden 
+
+- Methoden einer Klasse sind Funktion 
+- Also können sie dekoriert werden 
+
+** Decorators: Syntaktischer Zucker 
+
+- Decorators stellen sich als extrem nützlich und vielseitig heraus 
+- Aber auch unhandlich 
+  - Beispiel oben: Die Funktion ~f~ wird 3x erwähnt? DRY?
+  - Die Dekoration kann an ganz anderer Stelle geschehen;
+    unübersichtlich 
+- Kompakter? Sprachunterstützung? 
+
+** Decorators: Syntaktischer Zucker (2) 
+
+Syntax: 
+- Die dekorierende Funktion wird wie üblich vereinbart
+- Sie nimmt einen Parameter: die aufzurufende (zu dekorierende)
+  Funktion 
+- Die zu dekorierende Funktion wird durch voranstellen von
+  *@Dekoratorfunktion* dekoriert 
+
+** Decorator: kompakte Syntax -- Beispiel
+
+#+BEGIN_SRC python :exports both :results output
+  def einrahmer_fabrik(fct):
+      def einrahmer():
+          print("=====")
+          fct()
+          print("=====")
+
+      return einrahmer
+
+  @einrahmer_fabrik
+  def f():
+      print("Ausgabe von f")
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: =====
+: Ausgabe von f
+: =====
+
+** Decorator: kompakte Syntax -- Beispiel mit typischen Namen 
+
+Die ~_fabrik~-Terminologie wird bei Dekoratoren typischerweise
+weggelassen 
+
+#+BEGIN_SRC python :exports both :results output
+  def einrahmer(fct):
+      def _einrahmer():
+          print("=====")
+          fct()
+          print("=====")
+
+      return _einrahmer
+
+  @einrahmer
+  def f():
+      print("Ausgabe von f")
+
+  f()
+#+END_SRC 
+
+#+RESULTS:
+: =====
+: Ausgabe von f
+: =====
+
+** Decorators: Syntaktischer Zucker (3) 
+
+~@~-Syntax:
+- Kompakt, leicht lesbar, elegant, häufig benutzt
+  - Sie werden kaum ein nicht-triviales Python-Programm ohne
+    decorators finden
+- Nachteil: Parameter an dekorierende Funktion übergeben ist
+  umständlich
+  - Siehe z.B. 
+
+** @-Decorators: Beispiel Benchmarking 
+
+Wie bestimmt man Zeitverbrauch einer Funktion? 
+- Man schaut in einem Dekorator vor und nach dem Aufruf der Funktion
+  auf die Uhr! 
+
+#+BEGIN_SRC python :exports both :results output
+  import time
+
+  def benchmark(fct):
+      def _benchmark(*args, **kwargs):
+          tstart = time.time()
+          fct(*args, **kwargs)
+          tend = time.time()
+
+          print("{} ({}, {}) verbrauchte {} Sekunden".format(
+              fct.__name__, args, kwargs, tend-tstart))
+
+      return _benchmark
+
+  @benchmark 
+  def f1(s):
+      print("Anfang f1")
+      time.sleep(s)
+      print("Ende f1")
+
+
+  f1(0.2)
+  f1(0.6)
+#+END_SRC 
+
+#+RESULTS:
+: Anfang f1
+: Ende f1
+: f1 ((0.2,), {}) verbrauchte 0.2000889778137207 Sekunden
+: Anfang f1
+: Ende f1
+: f1 ((0.6,), {}) verbrauchte 0.6030921936035156 Sekunden
+
+** @-Decorator: Property 
+
+Tatsächlich kennen wir schon einen Decorator: Property 
+- Bisher nur als eingebaute Funktion ~property~
+- Es fehlt also nur noch der Zucker
+  - Getter: mit ~@property~ dekorieren; Funktionsname wird Name der
+    Property
+  - Setter: mit ~@Propertyname.setter~ dekorieren; Funktionsname muss
+    Name der Property sein, mit value
+
+#+BEGIN_SRC python :exports both :results output
+  class Temperature:
+      def __init__(self, temp=0):
+          # auch Methoden der Klasse greifen normal auf das Attribut zu: 
+          self._temperature = temp
+
+      @property
+      def temperature(self):
+          print("Lesender Zugriff")
+          return self._temperature
+
+      @temperature.setter
+      def temperature(self, value):
+          print("Schreibender Zugriff")
+          if value < 0:
+              raise ValueError("Keine negativen Temperaturen in Kelvin!")
+          else:
+              self._temperature = value
+
+  t1 = Temperature(17)
+  print(t1.temperature) 
+  t1.temperature = 42 
+  print(t1.temperature) 
+#+END_SRC 
+
+#+RESULTS:
+: Lesender Zugriff
+: 17
+: Schreibender Zugriff
+: Lesender Zugriff
+: 42
+
+*** Für Fortgeschrittene					  :dropslide:
+
+Warum kann man hier scheinbar eine Funktion doch überschreiben? Das
+geht doch angeblich nicht? 
+
+
+** @-Decoratoren verketten? 
+
+
+#+BEGIN_SRC python :exports both :results output
+def star(func):
+    def inner(*args, **kwargs):
+        print("*" * 30)
+        func(*args, **kwargs)
+        print("*" * 30)
+    return inner
+
+def percent(func):
+    def inner(*args, **kwargs):
+        print("%" * 30)
+        func(*args, **kwargs)
+        print("%" * 30)
+    return inner
+
+@star
+@percent
+def printer(msg):
+    print(msg)
+
+printer("Hallo GP1!")
+#+END_SRC 
+
+#+RESULTS:
+: ******************************
+: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+: Hallo GP1!
+: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+: ******************************
+
+[[http://www.programiz.com/python-programming/decorator][Quelle des Beispiels]]
+
+
+** Decorators: Ausblick 
+
+- Das Dekorieren von Methoden einer Klasse ist typisch (siehe auch 
+  ~@property~) 
+- Man kann auch Klassen zu decorators machen, nicht nur Funktionen
+- Siehe auch [[https://wiki.python.org/moin/PythonDecoratorLibrary][eine lange Liste mit Beispielen]] 
+
+
+
+*** UEBUNG Memoization als Decortor 
+
+
+Mal was anspruchsvolleres: Ein decorator, um Ergebnisse zu cachen 
+
+Siehe z.B. http://scottlobdell.me/2015/04/decorators-arguments-python/ 
+
+Und dann Performance benchmarking z.B. für fibonacci? 
+
+
+
+** War doch gar nicht so schwer
+
+#+CAPTION: Master of a tiny universe
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+NAME: fig:master-tiny
+[[./figures/phd-hard-code.png]]
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Funktionen können Funktionen definieren
+  - Erfordert Erweiterung der Nachschlageregel für Namen: LEGB  
+- Macht ein Programmierparadigma Funktionen zu /first-class citizens/,
+  eröffnen sich viele elegante Möglichkeiten
+  - Fabriken / Closures, um Funktionen zur Laufzeit zu erzeugen 
+  - Generatoren, um große (unendliche) Aufzählungen bei Bedarf zu
+    erzeugen
+  - Decorators, um Funktionen zur Laufzeit zu modifizieren
+- Eine elegante Syntax ist dabei für praktische Nützlichkeit wichtig
+  - ~lambda~-Ausdrücke für anonyme Funktionen, ~@~-Notation für
+    Decorators 
+
+** Und nun? 
+
+- Was waren diesen seltsamen ~import~-Anweisungen?? 

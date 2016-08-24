@@ -28,3 +28,11 @@ content/tmp
 *.lof
 content/*/uml/*png
 
+content/ch11-funct3/figures/pt-closure-h.png
+content/ch11-funct3/figures/pt-closure2-1.png
+content/ch11-funct3/figures/pt-closure2-2.png
+content/ch11-funct3/figures/pt-nested1-1.png
+content/ch11-funct3/figures/pt-nested1-2.png
+content/ch11-funct3/figures/pt-nested1-3.png
+content/ch11-funct3/figures/pt-nonlocal.png
+content/ch11-funct3/figures/pt-two-closures.png
