@@ -513,7 +513,7 @@ diese Methode explizit im UML-Diagramm gezeigt
 
 Zur Betonung: 
 
-*** Substitionsprinzip 					       :B_definition:
+*** Substitionsprinzip (Liskov) 			       :B_definition: 
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
@@ -1817,6 +1817,60 @@ umzugehen!
 Nächstes Kapitel: Exceptions! 
 
 
+
+
+* Gute Nutzung? Entwurf mit Klassen 
+
+** Was gehört in eine Klasse? 
+
+- Bisher: Mechanismen, wie Klassen realisiert, umgesetzt werden 
+- Spannende Frage:
+  - Wie nutzt man Klassen sinnvoll?
+  - Was ist eine /gute/ Klassenhierarchie? 
+- Hier: Nur ein paar Anhaltspunkte, Daumenregeln 
+  - Siehe
+    z.B. [[http://blog.cleancoder.com/uncle-bob/2015/01/08/InterfaceConsideredHarmful.html][Blog zu Software-Entwurf]] 
+  - Details: VL Software-Entwurf 
+
+** Prinzip: Single Responsibility
+
+- Eine Klasse sollte genau für einen Aspekt des Gesamtsystems
+  verantwortlich sein 
+  - Genauer: Es sollte nur einen Aspekt geben, dessen Veränderung eine
+    Veränderung der Klasse erfordern könnte
+- Wenn nein: Teile die Klasse in Teilklassen auf
+- Beispiel: Ein Spiel, mit Regel für Spielzüge und Regeln für Punkte
+  - Option 1: Eine Klasse, die beides macht
+  - Option 2:
+    - Eine Klasse für Zustand des Spiels und Züge
+    - Eine Klasse um Punkte zu berechnen 
+
+** Prinzip: Open-Closed (Meyer, 1988) 
+
+- Eine Klasse sollte offen für Erweiterungen sein aber abgeschlossen
+  gegenüber Veränderungen
+  - Grund: Eine Veränderung im Code einer Basisklasse könnte eine Kaskade
+    an Änderungen in abgeleiteten Klassen erfordern 
+- Kernpunkt: Wie wählt man die richtige Abstraktion für Basisklassen?
+  - Was ist Teil der Signatur der Basisklasse?
+
+** Prinzip: Abhängigkeiten 
+
+- Abstraktionen sollten nicht von Details abhängen
+
+
+** Wie ererbt man? 
+
+- Parameter sinnvoll durchreichen
+  - Siehe ~*args~ und ~**kwargs~ bei Konstruktor
+- Sorgfältig überlegen, wo Methoden der Oberklasse aufgerufen werden
+  sollen/müssen 
+
+** Wie bereit man Klasse auf Ableitung vor? 
+
+- Geeignete Methoden zum Überschreiben vorsehen
+  - Komplexe Methoden in Teilmethoden aufbrechen
+  - Lieber zu viele als zu wenige
 
 
 * Zusammenfassung
