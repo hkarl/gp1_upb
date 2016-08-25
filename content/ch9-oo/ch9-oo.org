@@ -1871,6 +1871,23 @@ Nächstes Kapitel: Exceptions!
 - Geeignete Methoden zum Überschreiben vorsehen
   - Komplexe Methoden in Teilmethoden aufbrechen
   - Lieber zu viele als zu wenige
+  - Leere Methoden! 
+ 
+#+BEGIN_SRC python :exports code :results output
+  class C():
+      def k(self):
+          # does not do anything
+          # slot for subclasses to overrite
+          return 
+    
+      def m(self):
+          #... do something
+          self.k()
+          #... do something
+#+END_SRC 
+
+
+
 
 
 * Zusammenfassung
