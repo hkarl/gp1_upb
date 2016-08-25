@@ -756,7 +756,7 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 
 - Python, die Sprache 
   - [[https://docs.python.org/3/][Python Dokumentation]]
-  - Mark Lutz, Learning Python, 5th ed., O'Reilly.
+  - Mark Lutz, Learning Python, 5th ed., O'Reilly
     - Auch als
       [[http://proquest.tech.safaribooksonline.de/9781449355722][eBook]]
       in der UniBib 
@@ -782,8 +782,8 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 ** Java 
 
 - Bücher
-  - Hanspeter Mössenböck, Sprechen Sie Java? dpunkt Verlag. 
-  - Reinhard Schiedermeier, Programmieren mit Java, Pearson Studium. 
+  - Hanspeter Mössenböck, Sprechen Sie Java? dpunkt Verlag
+  - Reinhard Schiedermeier, Programmieren mit Java, Pearson Studium
 - [[http://download.oracle.com/javase/tutorial/][Java Tutorial]]
 
 
