@@ -1,0 +1,1526 @@
+#+TITLE: Kapitel 12: Objektorientierung, Mehrfachvererbung 
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+** Was bisher geschah 
+
+- Wir haben Grundlagen von Klassen und Objekten besprochen
+- Insbes. Objektorientierte Programmierung
+  - Kernkonzept: Vererbung
+
+
+** Dieses Kapitel 
+
+- Wir erweitern Vererbung auf die Möglichkeit, mehrere Oberklassen zur
+  Vererbung zu nutzen
+- Dazu müssen wir festlegen, in welcher Reihenfolge Methoden der
+  Oberklassen benutzt werden 
+- Der Fall einer rautenförmigen Klassenhierarchie wird besonders
+  interessant 
+
+* Multiple inheritance
+
+
+** Grundidee 
+
+- Vererbung diente der Code-Wiederverwendung und Spezialisierung
+  - Oberklasse stellt Code bereit; Unterklasse erweitert, überschreibt ggf.
+- Was, wenn Code aus unterschiedlichen Klassen benutzt werden soll? 
+- Siehe auch [[https://docs.python.org/3.5/tutorial/classes.html#inheritance][Python-Dokumentation]]
+
+** Beispiel Uhr, Kalender 
+
+- Uhr: Klasse, die Uhrzeit bereit hält und auf ~tick~ eine Sekunde weiterzählt
+  - Um Mitternach auf 0:00:00 zurückspringt 
+- Kalender: Klasse, die Datum bereit hält und auf ~tick~ einen Tag weiterzählt
+- Siehe [[http://www.python-course.eu/python3_multiple_inheritance.php][Details]]
+
+#+BEGIN_SRC python :exports code :results output
+  class Clock:
+      def __init__(self, hour, minute, second):
+          # ...
+      def tick(self):
+          self.second += 1
+          if self.second > 60:
+              ...
+
+  class Calendar:
+      def __init__(self, day, month, year):
+          #...
+
+      def next_day(self):
+          self.day += 1
+          if self.day > 28:
+              # check month ...
+#+END_SRC 
+
+
+** Beispiel: Uhr und Kalender? 
+
+- Wie baut man eine /Uhr mit Kalender/?
+  - Von ~Clock~ ableiten, und die Kalender-Funktionen nachimplementieren?
+  - Umgekehrt? 
+- Nicht schön! 
+
+** Mehrfache Oberklassen! 
+
+- Natürlich Idee: Wir erben von zwei Klassen statt nur einer
+  - Können auf die Methoden dieser Klassen zugreifen, überschreiben, ... 
+
+#+CAPTION: Mehrere Oberklassen: Clock und Calendar
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:mi-clock-calendar
+[[./uml/mi-clock.png]]
+
+** Syntax? 
+
+- Naheliegend: Einfache Vererbung mit Oberklasse in Klammer 
+- Mehrere Oberklassen: Komma-separierte Liste der Oberklassen 
+
+#+BEGIN_SRC python :exports code :results output
+  class C(Oberklasse1, Oberklasse2, ...):
+      ...
+#+END_SRC 
+
+
+
+** Semantik? 
+
+In diesem einfachen Beispiel ist die Semantik klar: 
+- Methodenaufruf: eindeutig zuzuordnen 
+  - Methodennamen der Oberklassen unterschieden sich!
+- Datenzugriff: Passiert sowieso im Namensraum des Objekts
+
+** Einfaches Beispiel  
+
+Schauen wir uns das mit einem einfachen Beispiel an
+
+#+BEGIN_SRC python :exports both :results output
+  class A():
+      def m_a(self):
+          print("a")
+        
+  class B():
+      def m_b(self):
+          print("b")
+
+  class C(A, B):
+      pass
+
+  c = C()
+  c.m_a()
+  c.m_b()
+#+END_SRC 
+
+#+RESULTS:
+: a
+: b
+
+
+** Gleiche Methodennamen in Oberklassen? 
+
+Was passiert, wenn der gleiche Methodenname in mehreren Oberklassen auftritt? 
+
+#+BEGIN_SRC python :exports both :results output
+  class A():
+      def m(self):
+          print("a")
+      
+  class B():
+      def m(self):
+          print("b")
+
+  # erst A, dann B: 
+  class C(A, B): pass
+  C().m()
+
+  # erst B, dann A:
+  class D(B, A): pass
+  D().m()
+#+END_SRC 
+
+#+RESULTS:
+: a
+: b
+
+** Gleiche Methodennamen in Oberklassen -- Reihenfolge! 
+
+
+Offenbar ist die Reihenfolge der Oberklassen wichtig 
+
+- Vermutung: Methoden werden in den Oberklassen gesucht
+  - Liste von links nach rechts gelesen
+- Regel: Die Methode der zuerst angebenen Klasse überdeckt die Methode der später angebenen Klasse
+  - (Da fehlen noch Details!) 
+
+
+
+** Insbesondere: ~__init__~ ? 
+
+Beispiel: ~__init__~ taucht in den meisten Klassen auf! 
+- Vereinbaren von Daten? 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t
+  class A():
+      def __init__(self):
+          self.a = 17
+  
+  class B():
+      def __init__(self):
+          self.b = 42
+
+  # erst A, dann B: 
+  class C(A, B): pass
+
+  c = C()
+  print(c.a)
+  print(c.b)
+#+END_SRC 
+
+*** Fehlermeldung						  :dropslide:
+
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 14, in <module>
+AttributeError: 'C' object has no attribute 'b'
+#+END_SRC 
+
+Augenscheinlich wird Zeile 13 ~print(c.a)~ noch ausgeführt, aber der Zugriff auf ~b~ gelingt nicht mehr. Wird der Konstruktor von ~B~ nicht ausgeführt? 
+
+
+*** Visualisierung						  :dropslide:
+
+Abbildung [[fig:pt-mi-fehlendes-b]] visualisiert den Zustand nach
+Konstruktion des Objekts ~c~ und Ablauf des ersten ~print~. Offenbar
+ist in der Tat im Objekt kein Datenattribut ~b~ vorhanden, wohl aber
+~a~. Der Konstruktor von ~b~ läuft nicht. 
+
+
+#+CAPTION: Fehlendes Datenattribut wegen nicht aufgerufenen Konstruktors
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:pt-mi-fehlendes-b
+[[./figures/pt-mi-no-b.png]]
+
+
+
+** ~__init__~ typischerweise mit ~super~? 
+
+
+
+Ist das Problem, dass wir in Klasse ~C~ keinen Konstruktor haben, der
+den Konstruktor der Oberklasse aufruft? 
+
+#+BEGIN_SRC python :exports code :results output
+  %%tutor -t 
+  class A():
+      def __init__(self):
+          self.a = 17
+
+  class B():
+      def __init__(self):
+          self.b = 42
+
+  # erst A, dann B: 
+  class C(A, B):
+      def __init__(self):
+          super().__init__() 
+
+  c = C()
+  print(c.a)
+  print(c.b)
+#+END_SRC 
+
+*** Fehlermeldung 						  :dropslide:
+
+
+Das führt zur gleichen Fehlermeldung. Was auch nicht überraschend ist:
+die ~super~-Funktion sucht die entsprechende Methode, und das ist eben
+die von Klasse ~A~. 
+
+** ~__init__~ ruft Konstruktoren explizit auf? 
+
+Zur Erinnerung: Man kann Methoden der Klassen auch explizit aufrufen 
+
+#+BEGIN_SRC python :exports both :results output
+  class A():
+      def __init__(self):
+          self.a = 17
+
+  class B():
+      def __init__(self):
+          self.b = 42
+
+  # erst A, dann B: 
+  class C(A, B):
+      def __init__(self):
+          A.__init__(self)
+          B.__init__(self)
+
+  c = C()
+  print(c.a)
+  print(c.b)
+#+END_SRC 
+
+#+RESULTS:
+: 17
+: 42
+
+*** Beobachtung							    :animate:
+
+- Das funktioniert! 
+- Aber ist das schön? Verletzt DRY!
+  - Was, wenn man die Klassenhierarchie ändert und ~C~ von anderen
+    Klassen ableitet?
+  - Und das nicht nur im Konstruktor benutzt wird? 
+
+** ~super~ im ~__init__~ der Oberklasse? 
+
+Was würde eigentlich passieren, wenn die Oberklasse im Konstruktur
+~super~ benutzt? 
+- Sie könnte ja ihrerseits abgeleitet sein
+- (Und das ist sie auch -- alle Klassen sind Unterklassen von
+  ~object~!) 
+- In gewissem Sinne kanonischer Code: 
+
+
+#+BEGIN_SRC python :exports both :results output
+  class A():
+      def __init__(self):
+          print("A init") 
+          super().__init__() 
+          self.a = 17
+
+  class B():
+      def __init__(self):
+          print("B init")
+          super().__init__() 
+          self.b = 42
+
+  # erst A, dann B: 
+  class C(A, B):
+      def __init__(self):
+          print("C init")
+          super().__init__() 
+
+  c = C()
+  print(c.a)
+  print(c.b)
+#+END_SRC 
+
+#+RESULTS:
+: C init
+: A init
+: B init
+: 17
+: 42
+
+
+** Beobachtung
+
+- Entscheidend scheint der Aufruf von ~super().__init__()~ in Klasse A
+  zu sein
+- Das hängt offenbar mit der Reihenfolge von ~C(A,B)~ vs. ~C(B,A)~
+  zusammen
+- Das müssen wir genauer anschauen! (Abschnitt [[Method Resolution Order]])  
+
+
+*** Visualisierung						  :dropslide:
+
+Offenbar findet eine Aufrufenreihefolge (roter Pfeil in Abbildung
+[[fig:constructor-calls]]) und Rückkehr aus den Konstruktoren (grüner
+Pfeil in Abbildung [[fig:constructor-calls]]) statt, die der Angabe der
+Klassen in der Oberklasse von ~C~ entspricht. 
+
+#+CAPTION: Aufrufreihenfolge zwischen Konstruktoren mehrfach ererbender Klassen
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+NAME: fig:constructor-calls
+[[./uml/constructor-calls.png]]
+
+
+** Gleiche Daten? 
+
+Kleine Variation zu oben: Beide Klassen benutzten gleiches
+Datenattribut? 
+- Offenbar nur ein ~x~
+- Das ist plausibel, wird zur Laufzeit angelegt! 
+
+#+BEGIN_SRC python :exports both :results output
+  %%tutor -t 
+  class A():
+      def __init__(self):
+          print("A init") 
+          super().__init__() 
+          self.x = 17
+
+  class B():
+      def __init__(self):
+          print("B init") 
+          super().__init__() 
+          self.x = 42
+
+  # erst A, dann B: 
+  class C(A, B):
+      def __init__(self):
+          print("C init") 
+          super().__init__() 
+
+  c = C()
+  print(c.x)
+#+END_SRC 
+
+#+RESULTS:
+
+*** Visualisierung						  :dropslide:
+
+Abbildung [[fig:same-variable-Bwrites]] zeigt den Zustand des Objektes
+~self~, nachdem der Konstruktor der Klasse ~B~ die Anweisung ~self.x =
+42~ ausgeführt hat. Dieser Zustand ist nicht überraschend und mit
+allen bisherigen Regel in direktem Einklang. 
+
+
+#+CAPTION: Gleiche Variable in mehreren Oberklassen -- Schreiben durch den ersten Konstruktor
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:same-variable-Bwrites
+[[./figures/pt-same-variable-Bwrites.png]]
+
+
+Abbildung [[fig:same-variable-Awrites]] ist dann der Zustand, nachdem der
+Konstruktor von ~A~ die Schreiboperation durchgeführt hat. Dabei wird
+von diesem Code die übliche Regel angewandt: ~self~ ist eine Referenz
+auf in Objekt; in dessen Namensraum soll das Attribut ~x~ verändert
+werden. Das gibt es schon, aber das ist egal; es wird eine ganz
+normale Zuweisung durchgeführt. 
+
+#+CAPTION: Gleiche Variable in mehreren Oberklassen -- Schreiben durch den zweiten Konstruktor
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:same-variable-Awrites
+[[./figures/pt-same-variable-Awrites.png]]
+
+
+
+Anmerkung zur Darstellung: Pythontutor beschreibt in diesen
+Abbildungen die Klasse ~C~ auf der rechten Seite als ~extends A,
+B~. Diese Termoinologie ist bei Java entlehnt und bedeutet lediglich,
+dass A und B Oberklassen der Klasse ~C~ sind.   
+
+*** Anmerkung: Gleiche Daten in anderen Sprachen		  :dropslide:
+
+Sollten Sie mit Sprachen wie Java vertraut sein, wird Sie die
+unproblematische Vorgehensweise hier vielleicht überraschen. In einer
+Sprache wie Java werden Datenattribute als Teil der Klasse zu
+Compile-Zeit vereinbart, und dann entsteht die Frage, welches ~x~ denn
+hier gemeint sein könnte? Wir kommen bei der Diskussion von Java
+darauf noch zu zurück. 
+
+* Method Resolution Order 
+
+
+** Reihenfolge der Methodenaufrufe 
+
+Kommen wir auf dieses Beispiel zurück: 
+
+#+BEGIN_SRC python :exports both :results output
+  class A():
+      def __init__(self):
+          print("A init") 
+          super().__init__() 
+
+  class B():
+      def __init__(self):
+          print("B init")
+          super().__init__() 
+
+  # erst A, dann B: 
+  class C(A, B):
+      def __init__(self):
+          print("C init")
+          super().__init__() 
+
+  c = C()
+#+END_SRC 
+
+#+RESULTS:
+: C init
+: A init
+: B init
+
+*** Fragen: Reihenfolge 
+
+- In welcher Reihenfolge werden die Methoden hier aufgerufen?
+- Was wäre wünschenswert?
+- Wie kann man das beeinflussen?
+- Gibt es relevante Sonderfälle? 
+
+- Siehe [[https://www.python.org/download/releases/2.3/mro/][hier für Details]] (für Python 2.3 beschrieben; auch für Python
+  3 gültig) 
+
+** Suche nach auszuführender Methode, erste Ideen 
+
+- Finde Attribute spezialisierterer Klassen vor denen allgemeinerer Klassen 
+- Zwischen gleichrangigen Klasse, lass den Programmierer der
+  Unterklasse bestimmen
+  - Durch Angabe der Reihenfolge der Oberklasse für direkt Vorgänger
+    schon erfüllt 
+
+** Suche nach auszuführender Methode, Sonderfall Einzelvererbung 
+
+Sonderfall (wie bisher): eine Klasse nur jeweils genau eine Oberklasse bis zu ~object~
+- Also keine Mehrfachvererbung
+- Man sagt: /die Klassenhierarchie ist nicht *nach oben* verzweigt/
+
+Dann ist die auszuführende Methode einfach zu finden: 
+- Suche in der Klasse selbst
+- Wenn nicht erfolgreich, suche in (eindeutig bestimmter) Oberklasse
+- Und rekursiv fortsetzen 
+
+Verallgemeinerung? 
+
+** Linearisierung nötig für Suche 
+
+Wir brauchen: eine /Linearisierung/ der Klassenhierachie 
+- Aus dem Graph der Oberklassen wird eine Liste der Klassennamen 
+- Die Linearisierung bestimmt die Reihenfolge, in der nach Methoden
+  gesucht wird
+  -  Die /Method Resolution Order/ (MRO) 
+- Beispiel: Aus ~class C(A, B)~ wird die Linearisierung ~C, A, B~
+
+
+*** Regel?							    :animate:
+
+Was ist eine  *sinnvolle* Regel, um Linearisierung zu bestimmen? 
+
+
+** Zugriff auf MRO 
+
+Python erlaubt unmittelbar Zugriff auf die MRO einer Klasse: Attribut
+~__mro__~ 
+
+#+BEGIN_SRC python :exports both :results output
+class A(): pass
+class B(A): pass
+class C(B): pass 
+print(C.__mro__)
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.C'>, <class '__main__.B'>, <class '__main__.A'>, <class 'object'>)
+
+
+** Anforderungen an sinnvolle Linearisierung: Monotonie  
+
+Angenommen: 
+- Wir betrachten die Linearisierung einer Klasse ~C~ 
+- Darin kommt ~C1~ vor ~C2~
+- Wir leiten von ~C~ eine neue Klasse ~Cneu~ ab 
+- Was sollte dann für die Linearisierung von ~Cneu~ gelten? 
+
+*** Monotonie					       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Kommt in der Linearisierung einer Klasse ~C~ die Klasse ~C1~ vor der
+Klasse ~C2~, so kommt ~C1~ auch vor ~C2~ in allen Linearisierungen von
+Unterklassen von ~C~. 
+
+*** Warum?							    :animate:
+
+Andernfalls: durch Ableiten einer Klasse von ~C~ könnte man die
+Aufrufreihenfolge von Methoden verändern. Mit sehr subtilen Bugs. 
+
+
+** Anforderungen an sinnvolle Linearisierung: Local precedence ordering 
+
+
+*** Local precedence ordering				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Die Reihenfolge der direkten Oberklassen einer Klasse ~C~  soll in der
+Linearisierung der Klasse ~C~ respektiert werden. 
+
+
+*** Warum?							    :animate:
+
+Abweichendes Verhalten würde sicherlich jeden Programmierer
+verwundern. 
+
+** MRO: Erste Idee
+
+- Wir schauen von der Klasse nach oben (und sehen keinen Baum, sondern
+  einen allgemeinen Graph) 
+- Wir suchen von links nach rechts in der Oberklassendeklaration 
+- Wir durchsuchen die Oberklassen
+  - Option 1: Erst alle Eltern, dann die Großeltern, usw. (eine /Breitensuche/)
+  - Option 2: Erst die erste Oberklasse (der erste Elter), dann dessen
+    Eltern, usw; dann die zweite Oberklasse (der zweite Elter),
+    ... (eine /Tiefensuche/)
+- Besuchen wir eine Klasse zweimal? Nein
+
+Beispiele? 
+
+
+** Darstellung: einfachere Klassendiagramme 
+
+- Zunächst: Wir vereinfachen die Klassendiagramme (UML braucht zu viel
+  Platz) 
+- Zwei äquivalente Darstellungen von  ~class C(A,B)~
+
+#+CAPTION: Zwei äquivalent Darstellungen von ~class C(A,B)~: UML 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:simpler-diagrams
+[[./uml/simpler-graph-0.png]]
+
+#+CAPTION: Zwei äquivalent Darstellungen von ~class C(A,B)~: Vereinfachtes Diagramm; Ziffern geben Reihenfolge der Oberklassen an
+#+ATTR_LaTeX: :width 0.15\linewidth
+#+NAME: fig:simpler-diagrams
+[[./uml/simpler-graph-1.png]]
+
+
+** Beispiel: Ein Klassendiamand 
+
+Anmerkung: 
+- Auf die Reihenfolge bei ~A~ und ~B~ achten! 
+- ~X(object)~ ist nicht nötig; hier nur zur Verdeutlichung 
+
+#+CAPTION: Vereinfachtes Klassendiagramm für Diamanten 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:diamand
+[[./uml/diamond.png]]
+
+#+BEGIN_SRC python :exports both :results output
+class X(object): pass 
+class Y(object): pass 
+class A(X, Y): pass 
+class B(Y, X): pass
+print(A.__mro__) 
+print(B.__mro__) 
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.A'>, <class '__main__.X'>, <class '__main__.Y'>, <class 'object'>)
+: (<class '__main__.B'>, <class '__main__.Y'>, <class '__main__.X'>, <class 'object'>)
+
+** Problem: Nicht alle Fälle linearisierbar 
+
+Es gibt Klassenhierarchien zu denen keine sinnvolle Linearsierung
+sinnvoll bestimmt werden kann
+- Beispiel: /Diamond of death/ 
+
+#+BEGIN_SRC python :exports code :results output
+class X(object): pass
+class Y(object): pass
+class A(X,Y): pass
+class B(Y,X): pass
+class C(A, B): pass
+#+END_SRC 
+
+#+RESULTS:
+
+*** Diagramm 
+
+#+CAPTION: Nicht linearisierbare Klassenhierarchie
+#+ATTR_LaTeX: :width 0.2\linewidth
+#+NAME: fig:not-linearizable
+[[./uml/not-linearizable.png]]
+
+** Problem: Nicht alle Fälle linearisierbar  (2) 
+
+Kern des Problems: Unterschiedliche Reihenfolgen von ~X~, ~Y~ bei ~A~,
+~B~
+
+#+BEGIN_SRC python :exports code :results output
+  class X(object):
+      def m(self): pass
+  class Y(object): 
+      def m(self): pass
+      
+  class A(X,Y):
+      def a(self):
+          m()
+  class B(Y,X):
+      def b(self):
+          m()
+      
+  class C(A, B):
+      def m(self):
+          self.a()
+          self.b()
+          super().m()
+#+END_SRC 
+
+#+RESULTS:
+
+** Uneinheitliche Reihenfolge
+
+Was passiert bei: 
+- C.a(): Methode A.a() aufgerufen, die wird wohl X.m() aufrufen 
+- C.b(): Methode B.b() aufgerufen, die wird wohl Y.m() aufrufen
+  - Also inkonsistentes Verhalten der Klasse ~C~!
+- ~super~ in ~C~: Welches ~super.m~ nehmen? ~X.m~? ~Y.m~?
+  - Unklar; beides ist plausibel wegen Verhalten bei ~C.a~, ~C.b~
+
+*** Optionen? 
+
+- Option 1: Irgendeine Reihenfolge festlegen; Inkonsistenz akzeptieren
+- Option 2: Solche Klassenhierarchien nicht erlauben
+  - Python 3: Wirft Ecxeption beim Versuch, ~class C~ wie oben zu
+    definieren 
+
+**** Fehlermeldung						  :dropslide:
+
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 13, in <module>
+TypeError: Cannot create a consistent method resolution
+order (MRO) for bases X, Y
+#+END_SRC 
+
+
+** Gesucht: Vorgehen für Linearisierung 
+
+Wir brauchen also: 
+- Ein Verfahren, das eine Linearisierung bestimmt wenn möglich
+  - Im Einklang mit Monotonie und local precedence 
+- Oder einen Fehler mitteilt falls nicht existent 
+
+Aber zunächst: Noch ein paar Beispiele! 
+
+
+* Linearisierungsalgorithmus: C3 
+
+
+** Linearisierungsalgorithmus: C3 
+
+- Python benutzt den C3 Algorithmus
+  - Aus Sprache Dylan; auch in anderen OO-Sprachen benutzt
+  - [[http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.19.3910&rep=rep1&type=pdf][Quelle]] 
+
+*** Terminologie						    :animate:
+  - Linearisierung einer Klasse (die MRO): eine geordnete Liste aller
+    (direkten oder indirekten) Oberklassen der Klasse
+    - Notation: C1 C2 ... CN
+  - /Head/ einer Liste ~L~: das erste Element, ~L[0]~
+  - /Tail/ einer Liste ~L~: der Rest der Liste ab zweitem Element,
+    ~L[1:]~, ggf ~None~
+  - /Verkettung/: als + geschrieben 
+
+
+** C3: Grundidee 
+
+Die Linearisierung ~Lin~ einer Klasse ~C~ ist 
+- die Klasse ~C~ selbst,
+- verkettet mit der Kombination (/merge/)
+  - der Linearisierung seiner
+    direkten Oberklassen und
+  - der Liste der direkten Oberklassen (in Reihenfolge wie angegeben)
+    - Um local precedence sicherzustellen 
+- Rekursiver Algorithmus!
+  - Basisfall: ~Lin(object) = object~
+
+Oder kurz: 
+
+~Lin(C(B1, B2, ..., Bn)) = C + merge(Lin(B1), Lin(B2), ..., Lin(Bn),
+[B1, B2, ... Bn]))~
+
+
+** C3: Merge 
+
+Was bedeutet /merge/?
+- Funktion merge durchsucht Oberklassen, sucht nach  Konflikten 
+- merge arbeitet auf mehreren Linearisierungen, produziert daraus eine
+  (oder Fehler) 
+
+*** Gewünschtes Verhalten: Klasse von ~object~ abgeleitet	    :animate:
+
+~Lin(C(object)) = C + merge(Lin(object), [object])~
+- ~= C + merge([object], [object])~
+- ~= C + object~
+
+
+** C3: Merge -- /good heads/
+
+Wir brauchen das Konzept eines /good heads/ um Merge zu formulieren 
+- Gegeben:
+  - Eine Liste von Linearisierung: [Lin1, Lin2, ... Lin n]
+    - Jede Linearisierung ist eine Liste von Klassen
+    - Leere Linearisierungen werden ignoriert 
+- Gesucht: Ist der Head einer  Liste /good/ ?
+  - Ein Head ist good wenn er in keinem Tail irgendeiner Liste vorkommt
+    - Ein good head darf head mehrerer Listen sein
+
+*** Beispiel							    :animate:
+
+- [ABC, BCD, BCA] -- weder A noch B sind good heads
+- [ABC, BCD, BCF] -- A ist good, B nicht 
+
+
+** C3: Merge -- Definition 
+
+- ~merge (Lin1, ... Lin n) = X  + merge(Lin1 - X, ... Lin n - X)~
+  falls X der *erste* good head in Lin1, ..., Lin n ist
+  - ~merge( [], ... , []) = []~
+  - Notation ~l - X~: die Liste ~l~ aus der der Wert ~X~ entfernt wurde
+- Nicht definiert (Fehler), falls es keinen good head gibt 
+
+** Beispiele 
+
+- ~merge([ABC, BCD, BCA]) = Fehler~
+  - Fehler: Weder A noch B sind good heads 
+- ~merge([ABC, BCD, BCF]) = A + merge([BC, BCD, BCF]) = A + B +  merge([C, CD, CF]) = A + B + C + merge([ [] , D, F]) = A + B + C +  D + F~
+  - Leere Linearisierungen werden ignoriert 
+- ~merge([ABC, BCD, FCB]) = A + merge([BC, BCD, FCB]) = A +  F +  merge([BC, BCD, CB]) = A + F + Fehler = Fehler~
+  - Fehler tritt erst später auf; insgesamt aber doch Fehler 
+- ~merge([AB, CB, DB]) = A + merge([B, CB, DB]) = A + C + merge([ B,  B,  DB]) = A + C + D + merge(B, B, B) = A + C + D + B~
+  - ~B~ ist erst im letzten Schritt ein good head
+- ~merge(ABEF, CD, BEF) = A + B + E + F + C + D~
+  - Wir fangen jeweils wieder vorne an! Tiefensuche!
+
+** C3 -- Pseudocode-Skizze					  :dropslide:
+
+#+BEGIN_SRC python :exports both :results output
+  class InconsistentHierarchy(Exception): pass
+
+  import functools
+
+  def merge(L):
+      """Input: List of (possibly empty)
+      linearizations, as strings 
+      Output: Produced linearization, or raise error"""
+
+      def good_head(h, L):
+          print("good_head: ", h, L, [h in l[1:] for l in L if l])
+          if functools.reduce(
+                  lambda x, y: x and y,
+                  [(h not in l[1:]) for l in L if len(l) > 1],
+                  True):
+              return h
+          else:
+              return None 
+
+      print('merge called:', L)
+      # are there non-empty lists?
+      if sum([len(l) for l in L]) > 0:
+          good_heads = [good_head(l[0], L)
+                        for l in L if l]
+          good_heads = [h for h in good_heads if h]
+          if good_heads:
+              head = good_heads[0][0]
+              newL = [l.replace(head, '') for l in L if l]
+              print("merge decided: ", head)
+              return [head] + merge(newL)
+          else:
+              raise InconsistentHierarchy 
+      else:
+          return []
+
+
+  print(merge(['AB', 'BC']), end="\n-------------\n")
+  print(merge(['ABC', 'BCD', 'BCF']), end="\n-------------\n")
+
+  try: 
+      print(merge(['ABC', 'BCD', 'BCA']))
+  except InconsistentHierarchy:
+      print("inconsistent; as it should be", end="\n-------------\n")
+
+  try: 
+      print(merge(['ABC', 'BCD', 'FCB']), end="\n-------------\n")
+  except InconsistentHierarchy:
+      print("inconsistent; as it should be", end="\n-------------\n")
+
+  print(merge(['AB', 'CB', 'DB']), end="\n-------------\n")
+
+  print(merge(['ABEF', 'CD', 'BEF']), end="\n-------------\n")
+
+  # Und der Diamond of death: 
+  try: 
+      print(merge(['AXYO', 'BYXO', 'AB']), end="\n-------------\n")
+  except InconsistentHierarchy:
+      print("inconsistent; as it should be", end="\n-------------\n")
+  
+
+#+END_SRC 
+
+#+RESULTS:
+
+
+
+** C3: Klassendiagramm-Beispiel 0: Keine überlappenden Oberklassen  
+
+#+CAPTION: Einfachstes Beispiel für C3-Linearisierung: Keine überlappenden Oberklassen
+#+ATTR_LaTeX: :width 0.2\linewidth
+#+NAME: fig:mor-1
+[[./uml/mro0-0.png]]
+
+#+BEGIN_SRC python :exports both :results output
+  class D(object): pass 
+  class E(object): pass 
+  class F(object): pass 
+  class G(object): pass 
+  class B(D,E): pass 
+  class C(F,G): pass
+  class A(B,C): pass
+  print(B.__mro__) 
+  print(C.__mro__) 
+  print(A.__mro__) 
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.B'>, <class '__main__.D'>, <class '__main__.E'>, <class 'object'>)
+: (<class '__main__.C'>, <class '__main__.F'>, <class '__main__.G'>, <class 'object'>)
+: (<class '__main__.A'>, <class '__main__.B'>, <class '__main__.D'>, <class '__main__.E'>, <class '__main__.C'>, <class '__main__.F'>, <class '__main__.G'>, <class 'object'>)
+
+
+
+*** Beobachtung 
+
+-  Keine überlappenden Oberklassen (außer ~object~)
+- Beobachtung: Tiefensuche!  
+
+
+
+
+** C3: Klassendiagramm-Beispiel 0  (2) 
+
+Linearisierung (O kurz für object): 
+- Trivial: Lin(D)=DO, Lin(E)=EO, Lin(F)=FO, Lin(G)=GO
+- Lin(B) = B + merge(DO, EO, DO) = B + D + merge(O, EO, O) = B + D +
+  E + merge(O, O, O) = BDEO
+- Lin(C) = CDGO entsprechend 
+- Lin(A) = A + merge(BDEO, CDGO, BC)
+  - = A + B + merge(DEO, CDGO, C)
+  - = A + B + D +  merge(EO, CDGO, C)
+    - Wir fangen beim nächsten merge-Schritt wieder mit dem ersten
+      Argument an, falls möglich
+    - Das führt zu Tiefensuche
+  - = A + B + D + E + merge(O, CDGO, C)
+    - O wird aufgeschoben, da es Oberklasse von C ist; Linearisierung 
+      von C muss erst eingebaut werden 
+  - = A + BDE + CDG + merge(O, O, []) = ABECDGO
+
+
+
+** C3: Klassendiagramm-Beispiel 0  (3) 
+
+
+Pfeil: Reihenfolge der Methodensuche ab ~A~ 
+
+#+CAPTION: Triviales Beispiel für C3-Linearisierung mit MRO
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:mor-1
+[[./uml/mro0-1.png]]
+
+
+
+** Beobachtung: Teilsequenz 
+
+- Die Linearisierungen von ~B~ und ~C~ sind als Teilsequenzen in der
+  Linearisierung von ~A~ enthalten
+- Ist das immer so? 
+
+Nein -- siehe folgende Beispiele! 
+
+
+** C3: Klassendiagramm-Beispiel 1 
+
+Ziffern: Reihenfolge der Oberklassen
+
+#+CAPTION: Erstes Beispiel für C3-Linearisierung 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:mor-1
+[[./uml/mro1-0.png]]
+
+
+#+BEGIN_SRC python :exports both :results output
+  class D(object): pass 
+  class E(object): pass 
+  class F(object): pass
+  class B(D,E): pass 
+  class C(D,F): pass
+  class A(B,C): pass
+  print(B.__mro__) 
+  print(C.__mro__) 
+  print(A.__mro__) 
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.B'>, <class '__main__.D'>, <class '__main__.E'>, <class 'object'>)
+: (<class '__main__.C'>, <class '__main__.D'>, <class '__main__.F'>, <class 'object'>)
+: (<class '__main__.A'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.D'>, <class '__main__.E'>, <class '__main__.F'>, <class 'object'>)
+
+
+** C3: Klassendiagramm-Beispiel 1  (2) 
+
+Linearisierung (O kurz für object): 
+- Trivial: Lin(D) = DO, Lin(E) = EO, Lin(F) = FO
+- Lin(B) = B + merge(DO, EO, DE) = B + D + merge(O, EO, E) = B + D +
+  E + merge(O, O, O) = BDEO
+- Lin(C) = CDFO (analog)
+
+*** Interessant: Lin(A) 					    :animate:
+
+- Lin(A) = A + merge(Lin(B), Lin(C), BC)
+  - = A + merge(BDEO, CDFO, BC)
+  - = A + B + merge(DEO, CDFO, C)
+  - = A + B + C + merge(DEO, DFO, [])
+  - = A + B + C + D + merge(EO, FO, [])
+  - = ABCDEFO
+
+
+** C3: Klassendiagramm-Beispiel 1  (3) 
+
+
+Grüner Pfeil: Reihenfolge der Methodensuche ab ~A~ 
+
+#+CAPTION: Erstes Beispiel für C3-Linearisierung mit MRO
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:mor-1
+[[./uml/mro1-1.png]]
+
+
+** C3: Klassendiagramm-Beispiel 2  
+
+Kleine Änderung: Reihenfolge bei Klasse ~B~ vertauscht 
+
+
+#+CAPTION: Zweites Beispiel für C3-Linearisierung 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:mor-1
+[[./uml/mro2-0.png]]
+
+
+#+BEGIN_SRC python :exports both :results output
+  class F(object): pass
+  class E(object): pass
+  class D(object): pass
+  class C(D,F): pass
+  class B(E,D): pass
+  class A(B,C): pass
+  print(B.__mro__) 
+  print(C.__mro__) 
+  print(A.__mro__) 
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.B'>, <class '__main__.E'>, <class '__main__.D'>, <class 'object'>)
+: (<class '__main__.C'>, <class '__main__.D'>, <class '__main__.F'>, <class 'object'>)
+: (<class '__main__.A'>, <class '__main__.B'>, <class '__main__.E'>, <class '__main__.C'>, <class '__main__.D'>, <class '__main__.F'>, <class 'object'>)
+
+** C3: Klassendiagramm-Beispiel 2  
+
+   
+
+
+#+CAPTION: Zweites Beispiel für C3-Linearisierung mit MRO für A, B, C 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:mro-2-1
+[[./uml/mro2-1.png]]
+
+
+** Praktische Konsequenz? 
+
+
+*** Reihenfolge der Oberklasse				       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Achten Sie auf Reihenfolge der Oberklassen!!
+
+Ein unachtsames Umdrehen führt zum Ausführen anderen Methoden -- in
+diesen Beispielen würde statt einer Methode ~D.m~ eine Methode
+gleichen Namens ~E.m~ ausgeführt! 
+
+** C3: Nicht-linearisierbare Hierarchie 
+
+Erinnerung: Dieses Beispiel nicht linearisierbar
+
+#+BEGIN_SRC python :exports code :results output
+  class X(object): pass
+  class Y(object): pass
+  class A(X,Y): pass
+  class B(Y,X): pass
+  class C(A, B): pass
+#+END_SRC 
+
+*** Verhalten von C3? 
+
+Lin(C) = C + merge(Lin(A), Lin(B), AB))
+- = C + merge(AXYO, BYXO, AB)
+- = C + A + merge(XYO, BYXO, B)
+- = C + A + B + merge(XYO, YXO, [])
+
+Abbruch, da weder X noch Y ein /good head/ sind -- zirkuläre Struktur 
+
+
+*** UEBUNG Die Beispiele sind legion
+
+Siehe z.B. https://www.python.org/download/releases/2.3/mro/ ; die
+hier nicht aufgebrauchten Beiospiele 
+
+* MRO, dependency injection  und super 
+
+
+
+** MRO und Methodenaufrufe in Oberklassen 
+
+
+Schauen wir uns dieses Beispiel genauer an (vereinfachte Version von
+Beispiel 2 oben): 
+
+#+BEGIN_SRC python :exports both :results output
+  class D: pass
+  class E:
+      def m(self):
+          print("m in E")
+  class B(D, E):
+      def f(self):
+          print("f in B, calling m")
+          self.m()
+
+  class C(E):
+      def m(self):
+          print("m in C")
+
+  class A(B, C): pass
+
+  # Ausgabe: m in D (klar)    
+  print(B.__mro__)
+  b = B()
+  b.f()
+
+  # Ausgabe hier?     
+  print(A.__mro__)
+  a = A()
+  a.f()
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.B'>, <class '__main__.D'>, <class '__main__.E'>, <class 'object'>)
+: f in B, calling m
+: m in E
+: (<class '__main__.A'>, <class '__main__.B'>, <class '__main__.D'>, <class '__main__.C'>, <class '__main__.E'>, <class 'object'>)
+: f in B, calling m
+: m in C
+
+** MRO und Methodenaufrufe in Oberklassen -- Veranschaulichung 
+
+#+CAPTION: Methodenaufrufe aus Oberklassen: MRO
+#+ATTR_LaTeX: :width 0.2\linewidth
+#+NAME: fig:dependinject
+[[./uml/depend-inject.png]]
+
+
+
+** MRO und Methodenaufrufe in Oberklassen -- Analyse ~b.f()~
+
+Was passiert bei den beiden Aufrufen von ~f~? 
+- Bei Aufruf ~b.f()~:
+  - ~b~ (referenziert unter dem Namen  ~self~ in den Methoden) ist ein Objekt der Klasse ~B~
+  - Also wird die MRO dieser Klasse benutzt, um das richtige ~f~ zu
+    finden
+  - MRO: BDEO
+  - Unter diesen Klassen gibt es ein ~f~ nur in Klasse ~B~; dieses ~f~  wird ausgeführt
+  - ~f~ ruft dann ~m~ auf
+  - Wieder wird MRO: BDEO benutzt
+  - Unter diesen Klassen gibt es ein ~m~ nur in Klasse ~E~; dieses ~m~  wird ausgeführt
+
+** MRO und Methodenaufrufe in Oberklassen -- Analyse ~a.f()~
+
+- Bei Aufruf ~a.f()~:
+  - ~a~ (referenziert unter dem Namen  ~self~ in den Methoden) ist ein Objekt der Klasse ~A~
+  - Also wird die MRO dieser Klasse benutzt, um das richtige ~f~ zu
+    finden
+  - MRO: ABDCEO
+  - Unter diesen Klassen gibt es ein ~f~ nur in Klasse ~B~; dieses ~f~ wird ausgeführt
+  - ~f~ ruft dann ~m~ auf
+  - Welches ~m~ ist jetzt gemeint?
+    - Es gibt ~m~ in ~E~ und ~C~
+  - *Entscheidender Punkt*: Bei der Suche nach ~m~ wird das MRO von
+    Klasse ~A~ benutzt!
+    - Obwohl ~f~ eine Methode der Klasse ~B~ ist
+    - Aber das ist egal -- es geht um die MRO der Klasse des
+      /Objektes/, nicht die MRO der Klasse der gerade ausgeführten
+      Methode 
+  - Also nach MRO: ABDCEO wird eine Methode ~m~ zuerst in ~C~ gefunden
+  - Also wird ~C.m~ ausgeführt! 
+
+
+*** Visualisierung						  :dropslide:
+
+
+Die beiden Abbildungen [[fig:depind-1a]] und [[fig:depind-1b]] zeigen den
+Zustand vor der Ausführung von Zeile 8. Der Unterschied ist subtil und
+im rechten Teil zu  sehen: ~self~ verweist auf Instanzen der Klassen
+~B~ bzw. ~A~. 
+
+#+CAPTION: Aufruf aus Methoden einer Oberklasse: ~b.f()~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:depind-1a
+[[./figures/pt-depind-1a.png]]
+
+
+
+#+CAPTION: Aufruf aus Methoden einer Oberklasse: ~a.f()~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:depind-1b
+[[./figures/pt-depind-1b.png]]
+
+
+
+
+
+** MRO: Klasse des Objektes entscheidend 
+
+*** Klasse des Objektes entscheidet über MRO		       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Bei einem Methodenaufruf entscheidet die Klasse des Objektes, welche
+MRO benutzt wird. Die Klasse der dabei gerade aufgeführten Methode ist
+egal. 
+
+
+** MRO: Nutzung von ~super~? 
+
+Was passiert, wenn in einer Methode die Funktion ~super~ aufgerufen
+wird? 
+- Beispiel: ~super().m()~
+- Bisherige Intention: ~super~ liefert die Oberklasse, ruft dort die
+  Methode ~m~ auf
+
+*** Intuition passt nicht!					    :animate:
+
+- Diese Intuition war korrekt im Fall der Einfachvererbung
+- Bei Mehrfachvererbung: /die/ Oberklasse ist nicht mehr eindeutig
+  bestimmt 
+- Wir brauchen präzisere Definition für ~super()~! 
+
+
+** ~super~ bei Mehrfachvererbung: MRO  
+
+- ~super~ sucht nach einer auszuführenden Methode
+- Für diese Suche haben wir ja die MRO definiert
+
+
+*** ~super~ und MRO					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Sei ~c~ ein Objekt einer Klasse ~C~, die Klasse ~B~ eine (direkte oder
+indirekte) Oberklasse von ~C~ (oder auch ~C~ selbst). 
+
+Wird die Funktion ~super~ bei der Ausführung einer Methode ~m1~ der
+Klasse ~B~ aufgerufen um eine Methode ~m2~ aufzurufen, so ~m2~ in der
+MRO *von ~C~* gesucht, *ab Klasse ~B~*! 
+
+
+
+** ~super~ und MRO: Beispiel 1 
+
+
+Achten Sie auf den Unterschied der Ausgabe in den beiden Aufrufen von
+~m~ in ~D.f~
+
+#+BEGIN_SRC python :exports both :results output
+  class B:
+      def m(self):
+          print("m in B")
+  class C:
+      def m(self):
+          print("m in C")
+
+  class D(C):
+      def f(self):
+          # Auf diesen Unterschied achten: 
+          print("f in D, calling m via super: ") 
+          super().m()
+          print("f in D, calling m via self: ") 
+          self.m()
+
+  class A(B, D): 
+      def f(self):
+          print("f in A, calling super")
+          super().f()
+
+  # Ausgabe hier?     
+  print(A.__mro__)
+  a = A()
+  a.f()
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.A'>, <class '__main__.B'>, <class '__main__.D'>, <class '__main__.C'>, <class 'object'>)
+: f in A, calling super
+: f in D, calling m via super: 
+: m in C
+: f in D, calling m via self: 
+: m in B
+
+
+
+
+
+
+
+
+** ~super~ und MRO: Beispiel 2 
+
+
+- MRO von ~A~: ABDCO
+- Aufruf von ~super().m()~ in ~B.m~ führt zum Aufruf einer /tieferen/
+  Klasse als ~B~ selbst!
+  - Keineswegs eine Oberklasse! 
+
+#+BEGIN_SRC python :exports both :results output
+  class O:
+      def m(self):
+          print("I am the ultimate m")
+  class B(O):
+      def m(self):
+          print("m in B")
+          super().m() 
+  class C(O):
+      def m(self):
+          print("m in C")
+          super().m() 
+
+  class D(C):
+      def m(self):
+          # Auf diesen Unterschied achten: 
+          print("f in D, calling super") 
+          super().m()
+
+  class A(B, D): 
+      def m(self):
+          print("m in A, calling super")
+          super().m()
+
+  # Ausgabe hier?     
+  print(A.__mro__)
+  a = A()
+  a.m()
+#+END_SRC 
+
+#+RESULTS:
+: (<class '__main__.A'>, <class '__main__.B'>, <class '__main__.D'>, <class '__main__.C'>, <class '__main__.O'>, <class 'object'>)
+: m in A, calling super
+: m in B
+: f in D, calling super
+: m in C
+: I am the ultimate m
+
+*** Anmerkung							  :dropslide:
+
+Wozu braucht man die Klasse ~O~ in diesem Beispiel? 
+
+
+** ~super~ und MRO: Beispiel  __init__
+
+Wie oft werden die Konstruktoren hier ausgeführt?
+- Warum? 
+-  Ist das so gewollt? 
+
+#+BEGIN_SRC python :exports both :results output
+  class O: 
+      def __init__(self):
+          print("O")
+          super().__init__()
+
+  class B(O):
+      def __init__(self):
+          print("B")
+          super().__init__()
+
+  class C(O):
+      def __init__(self):
+          print("C")
+          super().__init__()
+
+  class A(B,C):
+      def __init__(self):
+          print("C")
+          super().__init__()
+
+  a = A()
+#+END_SRC 
+
+#+RESULTS:
+: C
+: B
+: C
+: O
+
+
+** ~super~: Terminologie 
+
+
+- Angesichts dieser Beispiele (und Definition) ist der Name ~super~ unglücklich
+  - Es wird eben nicht zwangsläufig eine Oberklasse aufgerufen; es
+    kann zur Ausführung von Geschwisterklassen kommen
+- Besser wäre: ~next_method()~ oder ähnlich
+  - Auch, um Unterschied zu anderen OO-Sprachen deutlich zu machen,
+    die in der Tat nur ein /primitives/ super besitzen
+    - Und deswegen den Diamond of Death nicht vernünftig behandeln
+      können! 
+- Siehe auch  [[https://rhettinger.wordpress.com/2011/05/26/super-considered-super/][super considered super]]
+
+
+** Cooperative multiple inheritance 
+
+
+MRO und die konsistente Nutzung von ~super~ in einer Klassenhierarchie
+führen zu Python-typischen Programmiermodell: 
+- Explizite Referenzen auf Namen von Oberklassen sind nicht sinnvoll;
+  ~super~ nutzen 
+- Abgeleitete Klassen rufen (in aller Regel) in überschriebenen
+  Methoden die überschriebene Methode mit  ~super()~  auf
+  - Bis auf eine weit oben stehende Basisklasse, in der die
+    ~super~-Folge terminiert 
+- Argumente müssen übereinstimmen
+  - Typisches Beispiel: Konstruktoren
+  - Nutze ~*args~ und ~**kwargs~! 
+
+Insgesamt: Klassen sind auf den Aufruf durch ~super~ vorbereitet und
+geben ihn entsprechend weiter 
+- Sie kooperieren miteinander: /cooperative multiple inheritance/ 
+- (We are all adults...) 
+
+** Dependency injection
+
+
+- Cooperative multiple inheritance erlaubt /cool stuff/
+- Beispiel: dependency injection
+  - Wir ändern das Aufrufverhalten einer durch Ableiten! 
+
+
+
+** Dependency injection: Pizzeria-Beispiel 
+
+- Siehe: [[https://www.youtube.com/watch?v=EiOglTERPEo][Talk @ PyCon 2015, Youtube]]
+
+#+BEGIN_SRC python :exports both :results output
+  class Teigfabrik:
+      def get_teig(self):
+          print("Teig aus genamnipuliertem Weizen") 
+
+  class Pizzeria(Teigfabrik):
+      def order_pizza(self):
+          teig = super().get_teig()
+
+  Pizzeria().order_pizza()
+#+END_SRC 
+
+#+RESULTS:
+: Teig beschaffen
+: mit Tomaten und Käse belegen
+
+
+** Dependency injection: Pizzeria-Beispiel (2) 
+
+
+
+#+BEGIN_SRC python :exports both :results output
+  class Teigfabrik:
+      def get_teig(self):
+          print("Teig aus genamnipuliertem Weizen") 
+
+  class Pizzeria(Teigfabrik):
+      def order_pizza(self):
+          teig = super().get_teig()
+
+  class BioTeigfabrik(Teigfabrik):
+      def get_teig(self):
+          print("Biologischer Weizen führt zu Teig")
+
+  class BioPizzeria(Pizzeria, BioTeigfabrik): pass
+  
+  BioPizzeria().order_pizza()
+  print(BioPizzeria.__mro__)
+#+END_SRC 
+
+#+RESULTS:
+: Teig aus genamnipuliertem Weizen
+: (<class '__main__.BioPizzeria'>, <class '__main__.BioTeigfabrik'>, <class '__main__.Pizzeria'>, <class '__main__.Teigfabrik'>, <class 'object'>)
+
+
+** Dependency injection: Muster 
+
+- Pizzeria-Beispiel zeigt typisches Muster:
+  - Durch geschicktes Ableitung  von zwei Klassen wurde Funktionalität
+    vereinigt
+  - Und Funktionalität einer Oberklasse ersetzt!
+  - Leere Unterklasse: typisch! 
+- Kommt häufig in größeren Python-Programmen vor
+- Mächtig, flexibel, deterministisch
+  - MRO wurde für solche Zwecke gebaut!
+  - Aber auch mit Vorsicht zu benutzen! 
+
+** Einfachere Variante: Mixins 
+
+- Gleiche Grundidee, aber etwas einfacher: Mixin
+- Mixin: Prima für Reuse fertigen Codes gedacht, nicht zur Spezialisierung
+- Vorgehen:
+  - Mixin-Klasse stellt Methoden zur Verfügung
+  - Klasse erbt (u.a.) von einer Mixin-Klasse
+  - ... und nutzt die Methoden des Mixins,
+  - verändert diese aber typischerweise nicht 
+
+** Mixin: Muster 
+
+- Typische Muster für Mixins:
+  - Basisklasse und Mixin-Klasse(n) zusammen entworfen
+  - Basisklasse implementiert Methoden der Mixins als leere Methoden
+  - Eigentlich Klasse: erbe von Basisklasse und gewünschtem Mixin 
+- Beispiel
+  - Webframeworks ([[https://docs.djangoproject.com/en/1.10/topics/class-based-views/mixins/][Django]]):
+    - Code zum Anzeigen eines einzelnen Objekts oder
+      Liste von Objekte als Mixin
+    - Eigene View-Klasse erbt u.a. das gewünschte Mixin 
+
+
+* Zusammenfassung 
+
+** Zusammenfassung 
+
+- Mehrfachvererbung (multiple inheritance) ist ein mächtiger, nahezu
+  unverzichtbarer Bestandteil von OO
+- Es gibt leicht zu beherrschende Fälle: Oberklasse sind disjunkt
+- Es gibt Fälle, die Überlegung brauchen: Oberklassen definieren die
+  gleichen Methoden
+  - /Diamond of Death/
+  - Mit geeignetem Linearisierungsalgorithmus für MRO aber problemlos
+    zu lösen!
+- Python-spezifische Aspekte (Funktion von ~super~) erlauben
+  zusätzliche mächtige Ansätze wie dependency injection 
+
+
+
+

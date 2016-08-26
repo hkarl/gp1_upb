@@ -1,0 +1,42 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usepackage{forest}
+\usetikzlibrary{calc}
+
+\forestset{qtree edges/.style={for tree=
+    {parent anchor=south, child anchor=north}}}
+ 
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+
+
+
+
+\begin{forest}
+[ object, name=O 
+  [ B, name=B
+  ]
+  [ C, name=C
+   [D, name=D
+     [ A, name=A, before drawing tree={x-=1.3em}, green, edge label=
+     {node[shape=circle, green, draw, inner sep = 1pt,
+       midway, right, font=\scriptsize]{2}}]
+     ]
+  ]
+]
+  \draw (A.north) -- (B.south) node[shape=circle, green, draw, inner sep = 1pt,
+left, midway, font=\scriptsize]{1};
+\draw [->, green, very thick, rounded corners] (A.center) 
+-- ($ (B.center) + (0.2cm, 0) $) 
+-- ($ (D.center) + (0.05cm, -0.05cm) $)
+-- ($ (C.center) + (0, -0.0cm) $) --
+(O.center);
+\end{forest}
+
+\end{document}

@@ -1,0 +1,26 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+     \begin{tikzpicture}
+       \umlclass{Clock}{
+         second\\
+         ... \\
+       } {tick() \\}
+       \umlclass[x=4,y=0]{Calendar}{
+         day  \\
+         ... \\
+       } {next\_day() }
+       \umlclass[x=2,y=-3]{CalendarClock}{
+       } {}
+       % inheritances: 
+       \umlinherit[geometry=|-|]{CalendarClock}{Clock}
+       \umlinherit[geometry=|-|]{CalendarClock}{Calendar}
+     \end{tikzpicture}
+\end{document}

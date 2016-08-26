@@ -1,0 +1,74 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usepackage{forest}
+\usetikzlibrary{calc}
+
+\forestset{qtree edges/.style={for tree=
+    {parent anchor=south, child anchor=north}}}
+ 
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+
+
+
+\begin{forest}
+[ object  
+  [ E, name=E 
+  ]
+  [ D, name=D 
+   [B, red, name=B, edge label= {node[shape=circle, red, draw, inner sep = 1pt,
+       near end, right, font=\scriptsize]{1}}]
+   [C, blue, name=C, edge label= {node[shape=circle, blue, draw, inner sep = 1pt,
+       near start, right, font=\scriptsize]{1}} 
+     [ A, name=A, before drawing tree={x-=1.3em}, green, edge label=
+     {node[shape=circle, green, draw, inner sep = 1pt,
+       midway, right, font=\scriptsize]{2}}]
+     ]
+  ]
+  [ F, name=F
+  ]
+]
+  \draw (B.north) -- (E.south) node[shape=circle, red, draw, inner sep = 1pt,
+ left, near start, font=\scriptsize]{2};
+  \draw (C.north) -- (F.south) node[shape=circle, blue, draw, inner sep = 1pt,
+ right, near end, font=\scriptsize]{2};
+  \draw (A.north) -- (B.south) node[shape=circle, green, draw, inner sep = 1pt,
+left, midway, font=\scriptsize]{1};
+\end{forest}
+
+
+\begin{forest}
+[ object, name=O 
+  [ E, name=E 
+  ]
+  [ D, name=D 
+   [B, red, name=B, edge label= {node[shape=circle, red, draw, inner sep = 1pt,
+       near end, right, font=\scriptsize]{1}}]
+   [C, blue, name=C, edge label= {node[shape=circle, blue, draw, inner sep = 1pt,
+       near start, right, font=\scriptsize]{1}} 
+     [ A, name=A, before drawing tree={x-=1.3em}, green, edge label=
+     {node[shape=circle, green, draw, inner sep = 1pt,
+       midway, right, font=\scriptsize]{2}}]
+     ]
+  ]
+  [ F, name=F
+  ]
+]
+  \draw (B.north) -- (E.south) node[shape=circle, red, draw, inner sep = 1pt,
+ left, near start, font=\scriptsize]{2};
+  \draw (C.north) -- (F.south) node[shape=circle, blue, draw, inner sep = 1pt,
+ right, near end, font=\scriptsize]{2};
+  \draw (A.north) -- (B.south) node[shape=circle, green, draw, inner sep = 1pt,
+left, midway, font=\scriptsize]{1};
+\draw [->, green, very thick, rounded corners] (A.center) -- (B.center)
+-- (C.center) -- ($ (D.center) + (0, -0.05cm) $) -- (E.center) --  
+($ (D.center) + (0, +0.4cm) $)  -- (F.center) -- (O.center);
+\end{forest}
+
+\end{document}

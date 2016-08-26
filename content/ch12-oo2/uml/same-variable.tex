@@ -1,0 +1,33 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usetikzlibrary{calc} 
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+     \begin{tikzpicture}
+       \umlclass{A}{
+         x \\
+       } { \_\_init\_\_() \\}
+       \umlclass[x=4,y=0]{B}{
+         x  \\
+       } {\_\_init\_\_() }
+       \umlclass[x=2,y=-3]{C}{
+       } {\_\_init\_\_()}
+       % inheritances: 
+       \umlinherit[geometry=|-|]{C}{A}
+       \umlinherit[geometry=|-|]{C}{B}
+       \draw[->, very thick, red, rounded corners=8pt] 
+       ($ (C.center) - (-0.5cm, 0.5cm) $) -- 
+       ($ (A.center)  - (0, 0.75cm) $) -- 
+       ($ (B.center)  - (0, 0.75cm) $);
+       \draw[->, very thick, green, rounded corners=8pt] 
+       ($ (B.center) - (0cm, 0.45cm) $) -- 
+       ($ (A.center)  - (0.5, 0.45cm) $) -- 
+       ($ (C.center)  - (0.5cm, 0.45cm) $);
+     \end{tikzpicture}
+\end{document}

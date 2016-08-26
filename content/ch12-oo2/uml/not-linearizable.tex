@@ -1,0 +1,47 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usepackage{forest}
+\usetikzlibrary{calc}
+
+\forestset{qtree edges/.style={for tree=
+    {parent anchor=south, child anchor=north}}}
+ 
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+\begin{forest}
+[ object  
+  [X, name=X  
+     [A, red, l = 1.5cm, edge label={node[shape=circle, red, draw, inner sep = 1pt,
+       midway, left, font=\scriptsize]{1}},
+     name=A, before drawing tree={x-=0.5em} ]
+  ]
+  [ Y, name=Y 
+     [B, blue, l = 1.5cm, edge label={node[shape=circle, draw, blue, inner sep = 1pt,
+       midway, right, font=\scriptsize]{1}},
+     name=B, before drawing tree={x+=0.5em} 
+     [C, green, l = 1cm, edge label={node[shape=circle, draw, green, inner sep = 1pt,
+       midway, right, font=\scriptsize]{2}},
+     name=C, before drawing tree={x-=1.3em} ]
+     ]
+  ]
+]
+\draw (A.north) -- (Y.south) node[shape=circle, red, draw, inner sep = 1pt,
+right , near start, font=\scriptsize]{2};
+\draw (B.north) -- (X.south) node[shape=circle, blue, draw, inner sep = 1pt,
+      left, near start, font=\scriptsize]{2};
+\draw (C.north) -- (A.south) node[shape=circle, green, draw, inner sep = 1pt,
+      left, near start, font=\scriptsize]{1};
+% 
+%   [Y, for tree=draw
+% [Z ]
+% [X,name=X [A  [B ] [C, name=C ]]
+%    [A, name=A2  [, no edge ] [B ]]]]
+% \draw (A2.south) -- (C.north);
+\end{forest}
+\end{document}
