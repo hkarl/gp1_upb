@@ -1,0 +1,404 @@
+#+TITLE: Kapitel 13: Dateien, Module, Bibliotheken, IDEs 
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+
+** Was bisher geschah
+
+- Wir haben (fast) alle wesentlichen Sprachmerkmale einer modernen
+  Programmiersprache besprochen!
+- Wir haben wesentliche Programmiertechniken kennengelernt
+- Alles passierte bisher in Jupyter Notebooks 
+
+** Dieses Kapitel 
+
+- Wir verlassen den Schutz und Komfort von Jupyter Notebooks 
+- Wir lassen Python Skripte in einem Rechner aus einer Datei laufen 
+- Wir machen nutzen Module, um Skripte wiederverwendbar zu machen 
+- Wir schauen uns an
+  - die Python-Standardbibliothek
+  - Entwicklungsumgebungen 
+- [[https://docs.python.org/3.5/tutorial/modules.html][Details hierzu in Python Doc]]
+
+* Dateien und Interpreter  
+
+** Von Notebooks zu Dateien 
+
+- Bisher: All unser Code war in Notebooks abgelegt
+- Prima, aber doch eingeschränkt
+- Oft braucht man:
+  - Code wird in einer Datei abgelegt
+  - Von dort ausgeführt
+  - Ein /Skript/ 
+
+** Python-Dateien: Skripte (/scripts/) 
+
+Ein Skript ist: 
+- Eine Textdatei im Dateisystem eines Rechners
+  - Konvention: Endet mit ~.py~
+- Besteht aus einer Folge von Anweisungen oder Ausdrücken
+  - Definition von Funktionen, Klassen 
+  - Zuweisungen an Variablen
+  - Instantiieren von Klassen 
+  - Aufruf von Funktionen, Methoden
+  - ... 
+- Gehorcht den Syntax-Regeln von Python
+  - Insbes.: Einrückungen durch vier Leerzeichen 
+
+** Skript ausführen 
+
+- Eine Textdatei kann nicht direkt ausgeführt werden
+  - (Solange es keine Mikroprozessoren gibt, die Python benutzen :-)
+- Wir brauchen ein ausführbares Programm, dass dieses Skript
+  verarbeitet
+- Also: einen /Interpreter/ für Python
+
+** Interpreter 
+
+*** Interpreter						       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Ein /Interpeter/ ist ein direkt ausführbares Programm. Seine Aufgabe
+ist es, Anweisungen in einer Sprache entgegen zu nehmen (z.B. Skripte
+für Python) und zu verarbeiten. Das bedeutet, dass die Anweisungen
+Schritt für Schritt analysiert werden und der Semantik der Sprache in
+Aktionen umgesetzt werden (z.B. in Manipulation des Zustandes). 
+
+Interpeter sind in der Regel auf eine Eingabesprache festgelegt. Man
+spricht dann von einem /Python-Interpreter/, ein /Perl-Interpreter/,
+etc. 
+
+
+** Compiler   
+
+*** Compiler (im weiteren Sinne) 			       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein Compiler nimmt, ähnlich wie ein Interpreter, ein Programm in einer
+Sprache als Eingabe entgegen.  Er produziert daraus eine semantisch
+identische Repräsentation des Programms in einer anderen Sprache. Man
+sagt, das Programm wird /compiliert/. 
+
+
+
+*** Compiler (im engeren Sinne)			       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Im engeren Sinne spricht man von einem Compiler, wenn die
+Ausgabesprache des Compilers gleich der Maschinensprache eines
+Mikroprozessors ist. Solche Compiler produzieren durch einen Rechner
+direkt ausführbare Programme, die nicht mehr interpretiert werden
+müssen. 
+
+
+** Interpreter mit Zwischensprache 
+
+Häufige Technik: 
+- Interpreter übersetzt Programm zunächst in eine
+  kompakte, effizient ausführbare Zwischenrepräsentation
+  - Für also eine Compilation durch
+- Im zweiten Schritt wird dann diese Zwischenrepräsentation ausgeführt
+- Python-Interpreter nutzen in der Regal diese Technik 
+
+** Python-Interpreter 
+
+- Python-Interpreter für praktisch alle Betriebssysteme verfügbar
+- Namenskonvention
+  - ~python~ für eine ~default~-Version
+  - ~python2.6~, ~python3.5~, usw für spezifische Versionen
+  - Wir brauchen eine ~python3.3~ oder neuer! 
+
+** Python-Skript ausführen 
+
+- Angenommen, wir haben ein Python Skript ~skript.py~ in einem
+  Verzeichnis
+- Ausführung je nach Betriebssystem
+- Beispiel Linux/OS x:
+  - Kommandozeile: In einer /shell/ in das Verzeichnis wechseln
+    - ~$> python skript.py~
+    - Ausgabe erfolgt in die shell (sog. Standard-Ausgabe) 
+  - Grafisch: Je nach Konfiguration Doppelklick auf Skript in einem
+    Dateimanager
+    - Ausgabe: je nach Konfiguration :-( 
+- Beispiel Windows:  [[https://docs.python.org/3.3/using/windows.html][Viel Glück]]
+- Siehe auch [[https://docs.python.org/3.5/tutorial/index.html][Using the Python Interpreter]]
+
+
+** Python-Interpreter: Interaktiv
+
+Großer Vorteil einer interpretierten Sprache: Interaktive Nutzung!
+- Interpreter als Programm /ohne/ Skriptnamen starten
+- Interpreter erwartet als Eingabe eine Anweisung/Ausdruck
+  - Wird diese Ausführen
+  - Ergebnis ausgeben
+  - Auf nächste Anweisung/Ausdruck warten
+- Sog. *read/evaluate/print*-Schleife
+  - ~help()~ (mit Return) ist ein guter erster Schritt! 
+
+#+BEGIN_SRC python :exports both :results output
+(jupyter) ~/tmp> python
+Python 3.5.1 (v3.5.1:37a07cee5969, Dec  5 2015, 21:12:44)
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+#+END_SRC 
+
+
+* Module 
+
+** Code reuse? 
+
+Wenn ein Skript nützlichen Code enthält, kann man diesen Code von
+einem anderen Skript aus nutzen? 
+
+- Ohne den Code neu zu schreiben, ins neue Skript zu kopieren, ...
+
+
+** Importieren 
+
+Mechanismus: /Importieren/  von Code 
+- Syntax: ~import dateiname~
+  - OHNE ~.py~!
+- Semantik von ~import~:
+  - Führe die Anweisung in der importierten Datei aus
+  - Füge die dabei entstehenden Namen aber /nicht/ in den globalen
+    Namensraum ein
+  - Sondern in einen Namensraum, der dem Dateinamen entspricht 
+
+** Importieren: Beispiel 
+
+*** Datei ~bla.py~
+
+#+BEGIN_SRC python :exports code :results output
+  x = 42
+  def f():
+      print("f aus Datei bla")
+#+END_SRC 
+
+*** Import 
+
+#+BEGIN_SRC python :exports code :results output
+import bla 
+
+# es gibt kein globales x oder f; 
+# das hier würde zu Exceptions führen: 
+print(x) 
+f()
+
+# es gibt aber x und f im Namensraum bla
+# also Zugriff wie üblich bei Namensräumen: 
+print(bla.x)
+bla.f()
+#+END_SRC 
+
+** Terminologie: Module vs. Skript 
+
+Wird eine Datei:
+- ausgeführt (~python skript.py~): Ein Skript
+- importiert (~import skript~): Ein /Modul/
+
+Die gleiche Datei kann beides sein  (und in der Regel: ist!) 
+- Nutzung entscheidet! 
+
+** Modul als Skript? Skript als Modul? 
+
+Wenn die Nutzung entscheidet -- kann eine Datei sich
+ggf. unterschiedlich verhalten? 
+- Beispiele
+  - Testen:
+    - Datei ist eigentlich ein Modul; stellt Funktionen/Klassen
+      zur Verfügung
+    - Bei Aufruf als Skript: Testfunktionen laufen lassen
+  - Double-Use:
+    - Datei ist primär als Einsatz als Skript gedacht
+    - Hat aber Funktionen entwickelt, die auch allgemein nützlich sein
+      könnten 
+
+** Modul vs. Skript: ~__name__~ 
+
+Einfache Unterscheidung: Die (vordefinierte) Variable ~__name__~ hat
+unterschiedliche Werte: 
+- Als Skript: ~__name__~ referenziert die Zeichenkette ~__main__~
+- Als Modul, bei ~import~:  ~__name__~ referenziert den Dateinamen
+  (ohne ~.py~) 
+
+Häufiges Idiom: 
+
+#+BEGIN_SRC python :exports code :results output
+  # ... allgemeiner Code für Modul
+  # Klassen, Funktionen definiernen,
+  # allgemeine Variablen festlegen 
+
+  if __name__ = "__main__": 
+      # Code für Skript 
+      # Nutzt meist oben festgelegte Funktionen, ...
+      # Namensraum: global!
+#+END_SRC 
+
+
+
+** Nur bestimmte Namen importieren: ~from ... import~
+
+Manchmal sinnvoll: Nur einzelne Namen eines Moduls importieren 
+- Und diese dann in den ~global~-Namensraum integrieren 
+- Anweisung: ~from modulname import gewünschter Name~
+
+Beispiel (~sys~ ist ein vordefiniertes Modul, siehe unten): 
+#+BEGIN_SRC python :exports code :results output
+from sys import argv
+print(argv)
+#+END_SRC 
+
+** Welche Namen hat ein Modul? 
+
+Man kann ein Modul nach seinen Namen fragen:  ~dir(modulname)~
+- Nachdem es importiert wurde (dynamische Namen!) 
+
+#+BEGIN_SRC python :exports both :results output
+import sys, builtins
+print(dir(sys))
+print(dir(builtins))
+#+END_SRC 
+
+#+RESULTS:
+: ['__displayhook__', '__doc__', '__excepthook__', '__interactivehook__', '__loader__', '__name__', '__package__', '__spec__', '__stderr__', '__stdin__', '__stdout__', '_clear_type_cache', '_current_frames', '_debugmallocstats', '_getframe', '_home', '_mercurial', '_xoptions', 'abiflags', 'api_version', 'argv', 'base_exec_prefix', 'base_prefix', 'builtin_module_names', 'byteorder', 'call_tracing', 'callstats', 'copyright', 'displayhook', 'dont_write_bytecode', 'exc_info', 'excepthook', 'exec_prefix', 'executable', 'exit', 'flags', 'float_info', 'float_repr_style', 'get_coroutine_wrapper', 'getallocatedblocks', 'getcheckinterval', 'getdefaultencoding', 'getdlopenflags', 'getfilesystemencoding', 'getprofile', 'getrecursionlimit', 'getrefcount', 'getsizeof', 'getswitchinterval', 'gettrace', 'hash_info', 'hexversion', 'implementation', 'int_info', 'intern', 'is_finalizing', 'maxsize', 'maxunicode', 'meta_path', 'modules', 'path', 'path_hooks', 'path_importer_cache', 'platform', 'prefix', 'set_coroutine_wrapper', 'setcheckinterval', 'setdlopenflags', 'setprofile', 'setrecursionlimit', 'setswitchinterval', 'settrace', 'stderr', 'stdin', 'stdout', 'thread_info', 'version', 'version_info', 'warnoptions']
+: ['ArithmeticError', 'AssertionError', 'AttributeError', 'BaseException', 'BlockingIOError', 'BrokenPipeError', 'BufferError', 'BytesWarning', 'ChildProcessError', 'ConnectionAbortedError', 'ConnectionError', 'ConnectionRefusedError', 'ConnectionResetError', 'DeprecationWarning', 'EOFError', 'Ellipsis', 'EnvironmentError', 'Exception', 'False', 'FileExistsError', 'FileNotFoundError', 'FloatingPointError', 'FutureWarning', 'GeneratorExit', 'IOError', 'ImportError', 'ImportWarning', 'IndentationError', 'IndexError', 'InterruptedError', 'IsADirectoryError', 'KeyError', 'KeyboardInterrupt', 'LookupError', 'MemoryError', 'NameError', 'None', 'NotADirectoryError', 'NotImplemented', 'NotImplementedError', 'OSError', 'OverflowError', 'PendingDeprecationWarning', 'PermissionError', 'ProcessLookupError', 'RecursionError', 'ReferenceError', 'ResourceWarning', 'RuntimeError', 'RuntimeWarning', 'StopAsyncIteration', 'StopIteration', 'SyntaxError', 'SyntaxWarning', 'SystemError', 'SystemExit', 'TabError', 'TimeoutError', 'True', 'TypeError', 'UnboundLocalError', 'UnicodeDecodeError', 'UnicodeEncodeError', 'UnicodeError', 'UnicodeTranslateError', 'UnicodeWarning', 'UserWarning', 'ValueError', 'Warning', 'ZeroDivisionError', '__build_class__', '__debug__', '__doc__', '__import__', '__loader__', '__name__', '__package__', '__spec__', 'abs', 'all', 'any', 'ascii', 'bin', 'bool', 'bytearray', 'bytes', 'callable', 'chr', 'classmethod', 'compile', 'complex', 'copyright', 'credits', 'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'exec', 'exit', 'filter', 'float', 'format', 'frozenset', 'getattr', 'globals', 'hasattr', 'hash', 'help', 'hex', 'id', 'input', 'int', 'isinstance', 'issubclass', 'iter', 'len', 'license', 'list', 'locals', 'map', 'max', 'memoryview', 'min', 'next', 'object', 'oct', 'open', 'ord', 'pow', 'print', 'property', 'quit', 'range', 'repr', 'reversed', 'round', 'set', 'setattr', 'slice', 'sorted', 'staticmethod', 'str', 'sum', 'super', 'tuple', 'type', 'vars', 'zip']
+
+
+** Hilfe zu einem Modul 
+
+Umfangreiche Module bieten oft direkt Hilfe an: ~help~ eingebaute
+Funktion 
+
+#+BEGIN_SRC python :exports both :results output
+import sys
+help(sys)
+#+END_SRC 
+
+
+** Suchregeln  für Module
+
+Wo werden die Dateien für Module bei ~import~ gesucht? 
+1. Unter den eingebauten Namen (~builtins~)
+2. Suche in den Verzeichnissen, die in Variable ~sys.path~; defaults
+   dafür: 
+   1. Verzeichnis, aus dem das gerade laufende  Skript stammt
+   2. Verzeichnisse in der Umgebungsvariable ~PYTHONPATH~
+   3. Weitere defaults, je nach Installation
+
+** Packages 
+
+- Ein Modul fasst Code zu einer Datei zusammen; erlaubt
+  Wiederbenutzung
+- Muss ich dann allen Code für Wiederbenutzung in eine Datei packen?
+  - Zu groß?
+- Packages: Fassen mehrere Module zu einer wiederbenutzbaren Einheit
+  zusammen
+  - Insbes.: Packages haben eigenen Namensraum, analog zu Moulden
+- Siehe  [[https://docs.python.org/3.5/tutorial/modules.html#packages][Python  Doc zu Packages]] für Details 
+
+* Standard-Bibliothek 
+
+** Standard-Module 
+
+- Schon einige Beispiele vordefinierter Module: ~sys~, ~builtins~
+- Das sind ganz normale Module (oder Packages); sie sind nur schon in
+  einer Installation enthalten
+- Python zeichnet sich durch sehr umfangreichen Satz an
+  Standard-Modulen aus
+  - Motto: /Batteries included/
+- Hier einige Beispiele; siehe [[https://docs.python.org/3.5/tutorial/stdlib.html][Tutorial 1]], [[https://docs.python.org/3.5/tutorial/stdlib2.html][Tutorial 2]] und
+  [[https://docs.python.org/3.5/library/index.html][umfangreiche Referenz]] für Details 
+
+** Standard-Modul: ~os~, ~shutil~
+
+Interaktion mit Betriebssystem
+- ~os~: Arbeiten mit Dateien, Prozessen, ...
+- ~shutil~: Bildet typische Aktionen der Shell nach
+
+
+** Standard-Modul: Kommandozeilen-Argumente 
+
+Starten eines Skripts aus Kommandozeile einer Shell
+- Option:  Parameter an das Programm übergeben
+- Durch Modul ~sys~ in Variable ~sys.argv~ verfügbar 
+
+** Standard-Modul: Reguläre Ausdrücke
+
+Schweitzer Taschenmesser zur Textmanipulation: ~re~ 
+- Alternative für einfache Fälle: Methode der Klasse ~string~ benutzen  
+
+#+BEGIN_SRC python :exports both :results output
+import re
+print(re.findall(r'\bf[a-z]*', 'which foot or hand fell fastest'))
+print(re.sub(r'(\b[a-z]+) \1', r'\1', 'cat in the the hat'))
+print('tea for too'.replace('too', 'two'))
+#+END_SRC 
+
+#+RESULTS:
+: ['foot', 'fell', 'fastest']
+: cat in the hat
+: tea for two
+
+
+** Behold the power of regular expressions 
+
+#+CAPTION: Regular expressions golf
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:regular-golf
+[[./figures/xkcd-regex_golf.png]]
+
+
+** Weitere Standard-Module 
+
+- Datum und Zeit: ~datetime~, ~time~
+- Testing: ~doctest~, ~unittest~
+- Mathe: ~math~, ~random~, ~statistics~
+- Ausgabe: ~pprint~
+- Template, Multi-Threading, Logging, ... 
+
+
+*** UEBUNG Run a webserver in a single command line 
+
+python -m ... 
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Python-Programme in Dateien: als Skripte oder  Module nutzen 
+- Ausführung zweistufig:
+  - Übersetzung in Zwischensprache
+  - Interpretation dieser Sprache 
+- /Batteries included/: Umfangreiche, sehr nützliche Sammlung von
+  Standard-Modulen
+  - Plus zahlreiche weitere Module 
+

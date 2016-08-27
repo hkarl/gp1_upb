@@ -1,0 +1,408 @@
+#+TITLE: Kapitel 14: Python-Installation, Shell, Werkzeuge
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+** Was bisher geschah 
+
+- Wir haben Python-Programme bisher in zwei Kontexten entwickelt
+  bzw. ausgeführt :
+  - Im einem Jupyter-Notebook
+  - Im Pythontutor
+- Didaktisch (hoffentlich) wertvoll, aber für Produktiveinsatz nur
+  bedingt geeignet
+  - Jupyter-Notebooks: durchaus auch produktiv! 
+
+** Dieses Kapitel 
+
+- Installation von Python
+- Installation von Modulen
+- Werkzeuge:
+  - Editoren, Entwicklungsumgebungen
+  - Debugger
+- Debugging und Test-Techniken 
+
+
+
+* Python: Installation 
+
+** Installation 
+
+- [[https://www.python.org/downloads/][Webseite für Download]]
+- Ordentliches Betriebssystem: In der Regel vorhanden
+  - Falls bestimmte Version fehlt: Bordmittel (~apt-get install ...~
+    u.ä.)
+- Windows: [[https://www.python.org/downloads/windows/][Viel Glück!]]
+
+** Packages installieren 
+
+Standardwerkzeuge für weitere Packages ~pip~ 
+- [[https://pip.pypa.io/en/stable/quickstart/][Website]]
+- Übersicht lokal installierter Packages: ~pip list~
+- Details zu Package: ~pip show MODULNAME~
+- Suche nach Package: ~pip search MODU~
+- Referenz: [[https://pypi.python.org/pypi][Python Package Index]], mit 87310 Packages (August 2016)
+
+** Gekapselte Installation 
+
+- Standardinstallation: Neue Packages werden an vordefinierten Ort
+  gespeichert
+  - Erfordert in der Regel Adminstrator-Rechte
+  - Könnte andere Packages überschreiben
+  - Verhindert, unterschiedliche Versionen auszuprobieren
+  - Möglicherweise vertragen sich nicht alle Packages mit einandern
+  - Packages können unterschiedliche Anforderungen stellen 
+- Daher: Für Packages gekapselte Installationsorte bereitstellen
+  - /Virtual environments/ 
+- Werkzeug: [[https://virtualenv.pypa.io/en/stable/][Virtualenv]]
+
+** Virtualenv 
+
+- Erzeugt und verwaltet /virtuelle/ Python-Installationen
+  - Jede bekommt abgekapselten Installationsort
+  - Eigenen Satz der installierten Packages
+  - Ohne Adminstrator-Rechte möglich!
+- Nutzung: einfacher mit [[http://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html][virtualenvwrapper]]
+
+** Virtualenvwrapper 
+
+- ~$> pip install virtualenvwrapper~
+- ~$> mkvirtualenv jupyter~
+- ~$> workon jupyter~
+- ~(jupyter) $> pip install jupyter~
+- ~...~
+- ~(jupyter) $> deactivate~
+
+** Nützliche Non-Standard-Module 
+
+- [[https://github.com/bpython/bpython][bpython]]: Stark verbesserte interaktive Nutzung des Interpreters
+  - Z.B. mit Vorschläge verfügbarer Methoden bei Objekt, samt docstring
+- [[http://docs.python-requests.org/en/master/user/install/][requests]]: Package, um mit HTTP einfach umzugehen 
+
+#+BEGIN_SRC python :exports code :results output
+import requests
+r = requests.get("http://www.google.de")
+print(r.json)
+#+END_SRC 
+
+- Und viele mehr:  [[https://pythontips.com/2013/07/30/20-python-libraries-you-cant-live-without/][Liste 1]], [[https://wiki.python.org/moin/UsefulModules][Liste 2]],
+  [[http://blog.yhat.com/posts/11-python-libraries-you-might-not-know.html][Liste 3]]
+
+** Matplotlib 
+
+- [[Matplotlib][Matplotlib]]: Alle Arten von Plots 
+
+#+BEGIN_SRC python :exports code :results output
+%matplotlib notebook
+import matplotlib.pyplot as plt
+import math
+
+x = [xx/50 for xx in range(0, 600)]
+y = list(map(math.sin, x))
+
+plt.plot(x, y)
+#+END_SRC 
+
+
+* Editoren, IDEs
+
+**  Editoren mit Unterstützung für  Programmiersprachen 
+
+- Python-Dateien mit trivialen Editoren anfertigen? Notepad, textedit? 
+- Editor mit Unterstützung für Programmiersprachen
+  - Syntax: Formatierung, Highlighting, Einrückungen ...
+  - Semantik: Verfügbare Funktionen, Klassen, Methoden, ...
+    - Schwierig in dynamisch typisierten Sprachen
+  - Integration mit anderen Werkzeugen (Dokumentation, Debugger,
+    Tests, ...) 
+- Ideal: Plattformunabhängig 
+
+** Editoren, Beispiele -- Open-source Beispiele 
+
+- [[https://wiki.python.org/moin/Vim][VIM]]: kompakt, schnell, aber etwas kryptische Bedienung
+
+- [[https://atom.io][Atom]]: modern, Javascript-basiert und dadurch erweiterbar ; weniger mächtig als Emacs
+
+- [[https://notepad-plus-plus.org][Notepad++]]: Windows-only, aber angeblich trotzdem ganz gut 
+
+- [[https://www.gnu.org/software/emacs/][Emacs]]: DER Editor für Erwachsene
+
+  - Lisp-basiert, dadurch erweiterbar
+
+  - Umfangreiche Sammlung an Modulen für alles mögliche
+
+  - GP1 wurde durch Emacs möglich -- Org-mode
+
+  - Mit diversen Clones für unterschiedliche OS, z.B. [[http://aquamacs.org][Aquamacs]]
+
+
+** Emacs 
+
+#+CAPTION: Emacs thumbs
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:emacs-thumbs
+[[./figures/emacs-thumbs.png]]
+
+** Editoren, Beispiele -- Kommerzielle Beispiele 
+
+- [[https://www.sublimetext.com][SublimeText]]: OSX, aber recht bekannt 
+
+- [[https://www.peterborgapps.com/smultron/][Smultron]]: OSX, Neuauflage, vielleicht vielversprechend 
+
+Siehe auch: [[https://wiki.python.org/moin/PythonEditors][Übersicht Python-Editoren]]
+
+
+** Integrated Development Environment 
+
+- Mehr als ein Editor, vereint weitere Werkzeuge in einem User
+  Interface (nicht notwendigerweise in einem Programm)
+  - Aber Grenze ist fließend
+- IDEs typischerweise: sehr komplex, funktionsüberladen, komplizierter
+  Einstieg
+  - Sie sollen Programmier, nicht IDE-Bediener werden
+  - Hohe Einarbeitungsaufwand lohnt nur bei intensiver Nutzung 
+- Beispiele
+  - Kommerzielle: [[https://www.jetbrains.com/pycharm/][PyCharm]] (mit kostenloser Community Edition)
+  - Open-Source: [[http://www.pydev.org/download.html][Eclipse mit PyDev]]
+  - Weitere Beispiele: WingIDE, KommodoIDE, KDevelop, ... 
+
+ 
+
+* Debugging und Testing 
+
+** Fehlersuche mit ~print~? 
+
+- Kaum ein Programmer wird fehlerfrei erschaffen
+- Wie sucht man Fehler?
+  - Testfälle!
+    - Automatisiert testen?
+  - ~print~ -- überall
+  - Noch mehr ~print~
+
+** Aspekte der Fehlersuche 
+- Strukturiert Vorgehen?
+  - Leider wenig Literatur
+  - Aber Ideen hier und da; siehe   z.B. [[http://blog.codeunion.io/2014/09/03/teaching-novices-how-to-debug-code/][code:union blog]],
+    [[https://www.codementor.io/learn-programming/how-to-debug-code-efficiently-and-effectively][codementor blog]],  [[https://ericlippert.com/2014/03/05/how-to-debug-small-programs/][weitere  Blog]]
+- Werkzeug? 
+
+** Aufwand der Fehlerbeseitigung 
+
+#+CAPTION: Aufwand der Fehlerbeseitigung
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:dilbert-debugging
+[[./figures/dilbert-minivan.png]]
+
+
+** Vorgehen: Basics 
+
+*** Es passiert nichts unmögliches				    :B_quote:
+    :PROPERTIES:
+    :BEAMER_env: quote
+    :END:
+
+When you have eliminated the impossible, whatever remains, however
+improbable, must be the truth.
+
+Sherlock Holmes in /The Sign of the Four/
+
+** Vorgehen: Fragen stellen 
+
+/Es geht nicht/ ist nicht hilfreich
+  - Fragen an sich selbst:
+    - Warum gehe ich davon aus, dass der Code nicht funktioniert?
+    - Was habe ich eigentlich erwartet? Warum?
+      - Auf welcher Granularitätsebene sollte ich das beantworten?
+      - Vielleicht habe ich die Spezifikation falsch verstanden?
+    - Was ist stattdessen passiert? Woher weiß ich das? 
+  - Weitere Hilfsfragen: 
+    - Fehlerverhalten eingrenzbar? 
+    - Hat eine Änderung zu Fehlern geführt?
+
+** Vorgehen: Annahmen überprüfen 
+
+Annahmen überprüfen!
+  - Mein Code hat keine Schreibfehler; alle Variablen sind richtig geschrieben
+    - Typische Falle in dynamischen Sprachen!
+  - Verständnis der Schnittstelle benutzten Codes; insbesondere
+    defaults
+    - Beispiel: ~list.pop~ hat einen ungewöhnlichen Default-Wert!
+    - Beispiel: Werden alle Parameter einer Funktion korrekt
+      angegeben? Fehler kann viel später im Code manifestieren
+
+** Vorgehen: Reproduzieren 
+
+Was muss ich tun, um den Fehler zu reproduzieren? 
+- Gibt es unterschiedliche Eingaben, Zustände, die zu gleichem Fehler
+  führen? 
+- Entscheidend bei der Dokumentation von Fehlern!
+  - Testfälle dokumentieren 
+
+** Vorgehen: Erklären Sie Ihren Code!  
+
+- Erklären Sie, warum der Code funktioniert
+  - Und der Fehler eigentlich nicht auftreten kann
+- Einem Kommilitonen, der Großmutter, einer Quietscheente, einem Kaktus, ... 
+
+** Vorgehen: Grenze zwischen eigenem Code/Bibliotheken verstehen 
+
+- Die meisten Fehler macht man selbst :-(
+- Wo ist der Übergang von eigenem Code in Bibliotheken? Was passiert
+  an der Stelle?
+  - Hier helfen debugger; siehe unten 
+
+** Vorgehen: Annahmen sicherstellen (Assertions)
+
+- Sie denken, Ihre Annahmen stimmen?
+- Dann können Sie ja Test-Code einfügen, der das überprüft
+- Einfache Möglichkeit: Assertions
+  - Schlüsselwort: ~assert(boolescher Ausdruck)~
+  - Wenn Ausdruck wahr; weiter
+  - Wenn falsch, Exception 
+- Kann sehr schnell Fehler eingrenzen; insbesondere 
+  - An Grenze zu Bibliothekscode: Vor und nach Aufruf
+  - In eigenem Code: Zu Beginn jeder Methode (haben alle Parameter den
+    erwarteten Wert?) 
+
+** Vorgehen: Das Wissen der Alte 
+
+- Chancen stehen gut, dass man nicht der erste mit dem Problem ist
+  - Suchmaschine!
+  - StackOverflow!
+    - /I wrote this program for my assignment and it doesn’t work./
+  - (Richtiges Füttern von Suchmaschinen wird eine Kernkompetenz
+    werden...) 
+
+#+CAPTION: Wissen der Alten
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:wisdom-ancients
+[[./figures/wisdom_of_the_ancients.png]]
+
+
+
+** Vorgehen: Fixes 
+
+- Der Fehler ist gefunden
+- Die Lösung ist offensichtlich
+  - Nur leider falsch...
+- Mindestens: Die Testfälle wieder ausprobieren!
+  - Und noch mehr Tests
+
+** Vorgehen: Erfahrung 
+
+Debugging ist erlernt 
+- und braucht Übung
+- Noch viel mehr Übung als Programmieren
+
+
+** Ansätze: Was kann man tun? 
+
+Mit geeignetem Debugger: 
+
+- Programmablauf gezielt unterbrechen
+  - Programmzeile, Modul, Funktion 
+  - Beim Entstehen einer Exception 
+- Was sind Variablenwerte an kritischen Stellen?
+  - Variablen modifizieren?
+- Programm kontrolliert ausführen?
+  - In einzelnen Schritten?
+  - Bis zum nächsten Fehler?
+  - Zusätzliche Funktionen ausführen?
+  - Ablauf modifizieren? Monkey patching? 
+
+
+
+** Debugger für Python 
+
+
+*** Eigenständig 
+
+- [[https://docs.python.org/3/library/pdb.html][pdb]]: Eingebaut in Python selbst (Standard-Package)
+- [[https://pypi.python.org/pypi/ipdb][ipdb]]: Ähnlich zu pdb, aber bessere Shell
+- [[https://pypi.python.org/pypi/pudb][pudb]]: Übersichtlich ohne GUI! Terminal/curses-basiert; schnelle
+  Tastatur-basierte Navigation  
+- [[https://zapier.com/engineering/debugging-python-boss/][Netter Überblick]] in einem Blog 
+
+*** In Editoren/IDE integriert 
+
+Praktisch alle der oben genannten Editoren/IDEs können einen/mehrere
+dieser Debugger integrieren und ansteuern -- YMMV 
+
+** Good debuggers help
+
+#+CAPTION: Good debuggers help
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:phd-debugging
+[[./figures/phd-debugging.png]]
+
+
+
+
+* Testen
+
+** Testfälle 
+
+- Schon zur Fehlersuche besprochen: Überlegen Sie geeignete Testfälle
+  für ein Programm/Funktion/Klasse
+  - Übliche Eingaben
+  - Randfälle: Leere Eingaben, Sonderfälle, fehlerhafte Eingaben, ...
+- Dokumentieren Sie Testfälle! 
+
+** Automatisiert testen 
+
+- Von Hand testen: nützlich, aber beschränkt
+  - Menschen sind einfach zu faul dazu
+- Automatisiert testen!
+  - Testfälle in einem Testprogramm festlegen
+  - Bei Änderungen am entwickelten Programm: Tests laufen lassen
+- Das kennen Sie von den Hausaufgaben!
+  - Punkte werden durch ein solches automatisiertes Test-Framework
+    bestimmt 
+
+** Test-driven design 
+
+Professioneller Ansatz: 
+- Erst die Tests schreiben
+  - Die scheitern am Anfang natürlich alle
+- Nach und nach Funktion implementieren 
+  - Immer mehr Tests werden erfolgreich sein
+- Programm ist fertig, wenn Tests ok 
+
+
+
+
+
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Python: Installation des Interpreters und der Standard-Bibliothek
+  meist nicht schwer
+- Für produktives Arbeiten
+  - Editoren mit Sprachunterstützung
+  - Debugger und Debugging-Disziplin
+  - Test-Frameworks und Test-Disziplin 
+
