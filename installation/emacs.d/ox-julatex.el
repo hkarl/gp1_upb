@@ -112,7 +112,7 @@ STDERR with `org-babel-eval-error-notify'."
 (defun julatex-filter-notutor (backend)
   "Ensure that tutor magic markup is removed for Latex export."
   (when (org-export-derived-backend-p backend 'latex)
-    (replace-regexp "%%tutor.*\n" ""))
+    (replace-regexp "%%tutor.*\n *" ""))
   )
 
 (add-to-list 'org-export-before-processing-hook
