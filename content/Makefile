@@ -63,5 +63,7 @@ newch:
 	echo "this needs to be called make newch ch=bla"
 	mkdir $(ch)
 	mkdir $(ch)/figures
+	mkdir $(ch)/uml
 	cp template/template.org $(ch)/$(ch).org
 	ln -s ../template/Makefile $(ch)
+	ln -s ../../template/uml.Makefile $(ch)/uml/Makefile
