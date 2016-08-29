@@ -1,0 +1,498 @@
+#+TITLE: Kapitel 15: Von dynamischen zu statischen Typen 
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Setup 						  :skipslide:nolatex:
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+** Was bisher geschah 
+
+- Bisher haben wir mit Python ein Beispiel für eine /dynamisch und
+  stark/ typisierte angeschaut
+- Dies hatte erhebliche Vorteile: einfaches, elegantes Sprach-Design, 
+  kompakter Code, ...
+- Aber es hat auch Nachteile, insbes. kann es zur Laufzeit zu
+  unnötigen Fehler führen 
+
+** Dieses Kapitel 
+
+- Wir legen den Grundstein für statisch typisierte Sprachen
+- Vor- und Nachteil zwischen dynamischen und statischen Typen 
+- Wir nehmen hier Anlauf, um nicht in der unübersichtlichen Syntax von
+  Java den Blick für das Wesentliche zu verlieren 
+ 
+- Wesentliche Quellen:
+  [[http://tratt.net/laurie/research/pubs/html/tratt__dynamically_typed_languages/][L. Tratt, Dynamically  Typed Languages]]
+  und [[https://gist.github.com/non/ec48b0a7343db8291b92][Appeal of  dynamically-typed languages]]
+
+
+
+* Fehlerquellen in Python-Programmen 
+
+** Vergleich inkompatibler Typen 
+
+#+BEGIN_SRC python :exports code :results output
+  import random 
+  geheim = random.randint(1,11)
+  zahl = input("Rate meine geheime Zahl:")
+
+  if zahl == geheim:
+      print("Richtig")
+  elif zahl < geheim:
+      print("Zu klein!")
+  else:
+      print("Zu groß!")
+#+END_SRC 
+
+
+*** Fehlermeldung						  :dropslide:
+
+#+BEGIN_SRC python :exports code :results output
+Rate meine geheime Zahl:3
+Traceback (most recent call last):
+  File "bla.py", line 7, in <module>
+    elif zahl < geheim:
+TypeError: unorderable types: str() < int()
+#+END_SRC 
+
+
+** Operationen auf inkompatiblen Typen 
+
+#+BEGIN_SRC python :exports both :results output
+x = 5
+y = "3" 
+print(x-y)
+#+END_SRC 
+
+*** Fehlermeldung						  :dropslide:
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+TypeError: unsupported operand type(s) for -: 'int' and 'str'
+#+END_SRC 
+
+
+
+** Aufruf nicht vorhandener Methoden 
+
+#+BEGIN_SRC python :exports code :results output
+l = [1, 2, 3]
+print(l.no_such_method())
+#+END_SRC 
+
+*** Fehlermeldung						  :dropslide:
+
+#+BEGIN_SRC python :exports code :results output
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+AttributeError: 'list' object has no attribute 'no_such_method'
+#+END_SRC 
+
+
+** Aufruf von Methoden bei falschem Objekt 
+
+#+BEGIN_SRC python :exports code :results output
+  class C: pass
+  class D(C): 
+      def f(): pass
+
+  c = C()
+  c.f()            
+#+END_SRC 
+
+#+RESULTS:
+
+#+BEGIN_SRC python :exports both :results output
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+AttributeError: 'C' object has no attribute 'f'
+#+END_SRC 
+
+
+** Vermeidbar?
+
+- Wäre diese Fehler nicht vermeidbar gewesen?
+  - Mit einer besseren GP1-Vorlesung: vielleicht
+- Oder zumindest entdeckbar?
+  - Man muss ja nur den Programmcode anschauen um zu sehen, dass das
+    nicht funktionieren kann
+  - Damit muss man doch nicht bis zur Laufzeit waren? 
+
+** Allgemeiner: Fehler vor Laufzeit aufdecken? 
+
+- Kann man Fehler in einem Programm bereits vor dem Start entdecken?
+- Während der Übersetzung?
+- Während das Programm noch beim Entwickler ist?
+- Fehler zur Laufzeit riskant!
+  - In einem Atomkraftwerk: ~AttributeError: 'Reaktor' Object has no attribute shuddown~ 
+  - Millionen Tote wegen eines Tippfehlers (~shuddown~)?? 
+
+
+
+** Problem bei dynamischen Sprachen: Fehlende Information 
+
+Bei dynamischen Sprachen: Bei Übersetzung liegt noch nicht
+(zwangsläufig)  genügend Information vor! 
+
+- Beispiele oben: Ja, das könnte man fehlende Information finden 
+- Was ist mit diesem Beispiel -- Funktion in einem Modul definiert 
+
+#+BEGIN_SRC python :exports both :results output
+  def f(a, b):
+      return a + b
+#+END_SRC 
+
+
+
+* Erinnerung: Typsysteme 
+
+** Stark typisierte Sprachen 
+
+- Zu jedem Wert gibt es einen Typ
+- Typ bestimmt die Menge der darauf durchführbaren Operationen
+- Nicht alle Operationen auf beliebige Kombinationen von Typen anwendbar
+  - Beispiel: 4 + "5" oder 17 > "18"  scheitert 
+
+
+
+** Erinnerung (Kapitel 3): Dynamisch typisierte Sprachen 
+
+*** Dynamisch typisierte Programmiersprache		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine Programmiersprache ist */dynamisch typisiert/*, wenn
+Typen-Informationen für jeden Wert oder Ausdruck *zur Laufzeit* bekannt
+sind. Diese Typen-Information ist im Programm-Code nicht explizit
+repräsentiert und nicht  notwendigerweise aus ihm ableitbar. 
+
+
+Python ist ein Beispiel. 
+
+
+** Erinnerung (Kapitel 3): Statisch typisierte Sprache 
+
+*** Statisch typisierte Sprache				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine Programmiersprache ist */statisch typisiert/* wenn
+Typen-Informationen für */Variablen/* explizit im Programm-Code
+angegeben werden müssen. Aus der Betrachtung des Programm-Codes kann
+der Typ eines Wertes abgeleitet werden, bereits bevor das Programm
+selbst abläuft.
+
+Meist (aber nicht unbedingt) wird in einer solchen Sprache auf die
+explizite Repräsentation des Typs eines Wertes /zur Laufzeit/
+verzichtet, da ja alle Informationen bereits vorab bekannt sind. 
+
+Java ist ein Beispiel. 
+
+
+** Erinnerung: Compiler vs. Interpreter 
+
+- Ausführung: 
+  - Anweisung ausführen:
+    - Die Zustandsänderung bestimmen, die die
+      Anweisung bewirken soll
+    - Diese Zustandsänderung im Speicher durchführen
+  - Programm ausführen: Die Anweisungen des Programm ausführen 
+- Interpreter: ein Programm in einer gegebenen Sprache Anweisung für
+  Anweisung ausführen
+  - Ein Mikroprozessor ist ein Interpreter für Maschinensprache 
+- Compiler: Ein Programm in einer Sprache in ein semantisch
+  äquivalentes Programm in einer anderen Sprache überführen  
+
+
+
+** Erinnerung: Compiler vs. Interpreter 
+
+- Viele alle modernen Sprachen haben einen Compiler und einen
+  Interpreter
+  - Überführung in Zwischensprache
+  - Interpretation dieses Zwischensprache
+    - (Oder auch: weitere Compilationsschritte, Just-in-Time
+      Compilation)
+  - Beispiel: Java, Python, ...
+- Das ist orthogonal zu statisch vs. dynamisch typisiert! 
+
+
+* Statisch typisierte Sprachen -- Grundkonzepte 
+
+** Grundidee 
+
+- /Variablen/ bekommen einen Typ, nicht nur Werte
+- Damit ändert sich Interpretation:
+  - Eine Variable ist nicht mehr ein Namensschild an einem Wert
+  - Sondern: Eine Schachtel mit einer bestimmten Form
+- Der Typ des Werts muss mit dem Typ der Variable zusammenpassen
+  - Sozusagen: Wert muss in Form der Schachtel passen 
+
+** Zuweisungen an typisierte Variablen 
+
+- Also neu: auf der /linken/ Seite einer Zuweisung steht nun eine
+  Variable /mit Typ/
+- Bisher: links steht nur ein Name /ohne/ Typ
+- In beiden Fällen: rechts ein Ausdruck mit Typ
+
+*** Zuweisungsregel: Typgerecht					    :animate:
+
+Kernpunkt typisierter Sprachen: Zuweisungen müssen /typgerecht/
+erfolgen 
+- Beispiele siehe unten 
+
+** Schachteln mit Form 
+
+Visualisierung von Typen: 
+- Variablen als Typen
+- Werte als Boxen, Kreise
+- Werte müssen in Schachtel passen, sonst Zuweisung nicht erlaubt 
+
+
+** Zuweisung gleichen Typs 
+
+
+- Typ von Wert und Variable gleich: Kein Problem, Zuweisung erlaubt 
+
+#+CAPTION: Zuweisung von Wert an Variable gleichen Typs
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:boxshapes-1
+[[./uml/boxshapes-0.png]]
+
+** Zuweisung inkompatibler Typen 
+
+- Versucht man Wert an Variable mit nicht passendem Typ zuzuweisen:
+  Compiler erkennt das; Code mit nicht übersetzt 
+- Beispiel: An eine Variable mit Typ ~integer~ eine Zeichenkette
+  zuweisen 
+
+#+CAPTION: Zuweisung von Wert an Variable inkompatiblen Typs
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:boxshapes-inkompatibel
+[[./uml/boxshapes-1.png]]
+
+** Zuweisung inkompatibler Typen: Wert umbauen 
+
+- Aber wenn in der Zeichenkette eine Zahl enthalten ist?
+  - Wert umbauen in einen semantisch äquivalenten Wert eines anderen
+    Types?
+  - Typumwandlung (/type cast/)!
+  - Also: Aus Zeichenkette ~42~ (Buchstabe 4 und Buchstabe 2)  mache
+    die Zahl 42
+
+
+** Zuweisung inkompatibler Typen: Wert umbauen (2)
+
+#+CAPTION: Umwandlung eines Wertes in einen entsprechenden Wert eines anderen Typs 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:boxshapes-typecast
+[[./uml/boxshapes-2.png]]
+
+** Typumwandlung (type cast): Explizit oder implizit 
+
+Type casts können explizit oder implizit sein: 
+- /Explizite/ Type casts: Im Programm steht ausdrücklich, dass ein
+  Wert in einen anderen Wert umgewandelt werden soll
+- /Implizite/ Type casts:
+  - Rechts und links der Zuweisung gibt es (unterschiedliche) Typen
+  - Compiler sieht das bei Analyse des Programms
+  - Compiler versucht, selbst eine Funktion zur Umwandlung des
+    gegebenen Typs in den Wunschtyp zu finden
+  - Kann kompliziert, überraschend sein! 
+
+*** Implizite Type-Casts, Beispiel 
+
+Was sollte hier wie umgewandelt werden?
+
+#+BEGIN_SRC python :exports both :results output
+print("Hallo " + 1)
+#+END_SRC 
+
+
+
+*** Typumwandlung in Ausdrücken					    :animate:
+
+- Ausdrücken: Zerlegen in Teilausdrücke; wie Zuweisung vorstellen 
+
+** Type cast bei Python 
+
+*** Explizit 
+
+Explizite type casts gibt es  auch bei Python
+- Keine spezielle Eigenschaft einer statisch typisierten Sprache! 
+- Notation:
+  - Ziel-Typ als Konstruktor benutzen
+  - Ausgangswert als Parameter des Konstruktors
+- Geht natürlich nur bei passenden Werten!
+
+
+#+BEGIN_SRC python :exports code :results output
+x = 42 + int("42")
+y = 42 + int("abc")
+print("Hallo " + 1)
+#+END_SRC 
+
+*** Implizit 
+
+- Implizite Type casts haben allerdings kaum Sinn
+  - Lediglich bei numerischen Typen zwischen floats und ints 
+- Und generell: /explicit is better than implicit/ 
+
+#+BEGIN_SRC python :exports both :results output
+print(type(5 + 6.5))
+#+END_SRC 
+
+#+RESULTS:
+: <class 'float'>
+
+
+
+** Typen und Klassen? 
+
+- Klassen sind Typen! 
+- Für Werte und Variablen 
+
+
+** Typen, Klassen und Vererbung? 
+
+- Verhältnis von Klassenhierarchien und typisierten Variablen?
+- Insbesondere: Wie schlägt sich das ~is-a~-Prinzip nieder? 
+
+** Unterklasse und Oberklasse mit zusätzlicher Eigenschaft
+
+Zunächst: Visualisieren wir das Verhältnis von Ober- und Unterklasse 
+- Unterklasse ist Oberklasse mit zusätzlicher Eigenschaft  
+
+
+#+CAPTION: Verhältnis von Ober- und Unterklasse als Typen
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:boxshapes-ober-unter
+[[./uml/boxshapes-3.png]]
+
+
+** Wert einer Oberklasse an Variable vom Typ Unterklasse zuweisen 
+
+Was würde das bedeutet? 
+- Variable vom Unterklasse verspricht: Ich enthalte ein Objekt dieser
+  Unterklasse
+  - Alle Attribute (Methoden, Daten) der Unterklasse verfügbar
+- Ein Objekt der Oberklasse hat diese Attribute aber nicht!
+- Versprechen des Variablentyps würde gebrochen! 
+
+Also: So eine Zuweisung *darf nicht* gelingen! 
+
+#+CAPTION: Zuweisung Oberklasenobjekt an Unterklasse-Variable scheitert
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:boxshapes-ober-an-unter
+[[./uml/boxshapes-4.png]]
+
+
+** Wert einer Unterklasse an Variable vom Typ Oberklasse zuweisen 
+
+- Das Objekt der Unterklasse ~is-a~ Objekt der Oberklasse!
+  - Substitutionsprinzip: Objekte Unterklasse immer dort verwendbar,
+    wo auch Objekt Oberklasse verwendbar
+- Also sollte das gelingen!
+- Variable vom Typ Oberklasse macht schwächere Versprechen! 
+
+
+** Wert einer Unterklasse an Variable vom Typ Oberklasse zuweisen (2)
+
+#+CAPTION: Zuweisung Unterklassenobjekt an Oberklassen-Variable gelingt
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:boxshapes-unter-an-ober 
+[[./uml/boxshapes-5.png]]
+
+** Funktionsaufrufe: Parameter, Rückgabewerte 
+
+- Funktionen:
+  - Parameter bekommen einen Typ
+  - Rückgabewert bekommt Typ (ggf. den /leeren Typ/) 
+- Aufruf einer Funktion:
+  - Zuweisung von Werten an die formalen Parameter
+  - Rückgabewert wird an Variable zugewiesen
+  - Unterliegt obigen Regeln 
+- Und Methoden sind sowieso nur Funktionen 
+
+
+* Vergleich: Dynamisch vs. statisch typisierte Sprachen 
+
+
+
+** Vorteile statischer Typsysteme 
+
+Typische Vorteile: 
+- Fehlerdetektion: Compiler kann manche Fehler finden 
+- Dokumentation durch Typen 
+- Optimierung:
+  - Keine Prüfung der Typen zur Laufzeit nötig! 
+  - Compiler kann Information über Typen nutzen, um besseren Code zu
+    erzeugen
+- Werkzeuge:
+  - Können Typinformationen nutzen
+  - Beispiel IDE: die verfügbaren Methoden für eine Variable
+    vorschlagen 
+
+** Nachteile statischer Typsysteme 
+
+- Komplizierte Typspezifikation
+  - Eigentlich: eine zweite Sprache, um Datentypen zu beschreiben
+  - Kann extrem kompliziert werden (Java: geht so; C++: Alptraum)
+- Korrektheit nicht unbedingt klar
+  - Typsystem kann sinnlose Zuweisungen erlauben
+- /Ossification/ 
+
+Siehe [[http://tratt.net/laurie/research/pubs/html/tratt__dynamically_typed_languages/][Detail]]s
+
+** Beste zweier Welten? 
+
+- Kombinationen der Ansätze?
+- Eine dynamisch typisierten Sprache etwas mehr statische
+  Typinformation beibringen?
+  - [[https://www.python.org/dev/peps/pep-0484/][Ansätze dazu für Python]]
+- Eine statisch typisierte Sprache dynamischer machen?
+  - Schwierig
+  - In gewissem Sinne: Reflection 
+
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Dynamische und statisch typisierte Sprachen haben Berechtigung und
+  Einsatzgebiet 
+- Statisch typisiert in der Regel erheblich komplexere Syntax und
+  Semantik
+- Dafür unter Umständen bessere Garantien, Verlässlichkeit der
+  Programme 
+
+
+** Und nun? 
+
+#+CAPTION: Java is coming!
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+NAME: fig:java-coming
+[[./figures/java-coming.png]]
+

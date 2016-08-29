@@ -1,0 +1,25 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/hkarl/compnet/lehre/lectures/gp1/content/ch15-staticTypes/ch15-staticTypes.org
+
+
+* Problem bei dynamischen Sprachen: Fehlende Information 
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2016-08-29 Mon 14:34
+  :ARCHIVE_FILE: ~/compnet/lehre/lectures/gp1/content/ch15-staticTypes/ch15-staticTypes.org
+  :ARCHIVE_OLPATH: Fehlerquellen in Python-Programmen
+  :ARCHIVE_CATEGORY: ch15-staticTypes
+  :END:
+
+Bei dynamischen Sprachen: Bei Übersetzung liegt noch nicht
+(zwangsläufig)  genügend Information vor! 
+
+#+BEGIN_SRC python :exports both :results output
+choice = input("(Z)ahl oder (B)uchstabe?")
+if choice == "Z":
+
+#+END_SRC 
+
+
+
