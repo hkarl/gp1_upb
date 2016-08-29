@@ -117,7 +117,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - Lösen komplexerer Aufgaben
 - In Gruppenarbeit
-- Bonuspunkte für Klausur! 
+- Bonuspunkte und Zulassungsvorausetzung für Klausur! 
 
 *** Hausübungsblätter						      :notes:
 
@@ -281,11 +281,37 @@ durch den Tutor.
 - Zwei mögliche Termine
   - Voraussichtlich: Mitte-Ende Februar; Ende März 
 
+
+** Klausur -- Zulassungsvoraussetzung 
+
+Um an der Klausur teilnehmen zu dürfen, müssen Sie folgende
+Zulassungsvoraussetzungen erfüllen: 
+
+- 2x in Präsenzübung eine Aufgabe vorgerechnet
+- Auf *mindestens* 3/4 der Übungsblätter *jeweils mindestens* 20% der
+  erreichbaren Punkte erzielen
+  - Es genügt *nicht*,  in der Summe entsprechend viele Punkte zu
+    haben 
+- Siehe auch [[https://cs.uni-paderborn.de/cn/teaching/courses/grundlagen-der-programmierung-1-gp1/pruefung/][Webseite mit Prüfungsdetails]]
+
 ** Klausur -- Bonuspunkte 
 
 - 50% der Punkte aller Hausblätter: 1 Notenschritt 
 - 80% der Punkte aller Hausblätter: 2 Notenschritt 
 - Voraussetzung: Klausur bestanden 
+
+** Klausur -- Wie bestehen? 
+
+- Vorlesung alleine reicht nicht!
+- Übungen sind entscheidender Teil der Veranstaltung
+  - Die VL soll Sie in die Lage versetzen, die Übungen zu bewältigen
+  - Die Klausur prüft insbesondere auch den Inhalt der Übungen!
+
+
+#+CAPTION: Der Weg zu Klausur- und Studienerfolg
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:klausur-erfolg
+[[./uml/weg-zur-klausur.png]]
 
 
 ** Wo finden Sie was? 
