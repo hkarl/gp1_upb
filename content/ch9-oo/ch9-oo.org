@@ -1906,6 +1906,7 @@ Nächstes Kapitel: Exceptions!
 - Konvention für die Nutzen von Attributen (Property)
 - Reflection als erweiterte Möglichkeit 
 
+
 ** Spezialisierung und Generalisierung 
 
 #+CAPTION: Klassen erlauben auch eine Verallgemeinerung

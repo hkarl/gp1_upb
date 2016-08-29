@@ -1493,6 +1493,69 @@ Also: Referenzen zählen
 
 * Beispiele 
 
+
+** Vordefinierte Klasse: ~string~
+
+- Der Typ ~string~ für Zeichenketten ist als eine Klasse definiert 
+- Er stellt reichhaltige Methoden zur Verfügung; Beispiele: 
+  - ~count~: Anzahl Vorkommen eines Teilstrings
+  - ~find~: Teilstring finden
+  - ~format~: Siehe folgende Folie
+  - ~isnumeric~: Ist das eine Zahl?
+  - ~join~: Siehe folgende Folie
+  - ~endswith~, ~startswith~
+  - ~splitlines~: Zerteile den String in einzelne Zeilen; ergibt eine
+    Liste 
+- Siehe auch [[https://docs.python.org/3/library/string.html][Python Dokumentation zu string]]
+
+** Methoden von ~string~: ~format~
+
+- Ausgabe von Werte: Meist mit Text drum herum
+- Einfache Methode:
+  - In einer Zeichenkette {} für einzufügende Werte vorsehen
+  - Auf diesen Zeichenkette Methode ~format~ anwenden, mit einem
+    Parameter pro {}-Paar
+  - Ersetzt {} mit übergebenen Werten 
+- ~format~ kann Werte auch unterschiedlich formatieren
+  - Siehe [[https://docs.python.org/3/library/string.html#format-specification-mini-language][Dokumentation zu Formatting-Syntax]] und Übung 
+
+Beispiel: 
+#+BEGIN_SRC python :exports both :results output
+s = "Dies {} ein {} für {}!".format("ist", "Beispiel", "GP1")
+print(s)
+
+coord = (3.14, 2.71)
+s = "Der Punkt ist bei ({p[0]}, {p[1]})".format(p=coord)
+print(s)
+#+END_SRC 
+
+#+RESULTS:
+: Dies ist ein Beispiel für GP1!
+: Der Punkt ist bei (3.14, 2.71)
+
+*** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
+
+** Methoden von ~string~: ~join~
+
+- Nimmt eine Liste von Strings als Parameter, /verbindet/ die Liste
+  mit dem gegebenen String
+  - Nur zwischen Elementen, nicht vor erstem oder nach letztem Element
+    der Liste 
+- Sehr nützlich, um Listen kompakt auszugeben 
+
+#+BEGIN_SRC python :exports both :results output
+l = ["17", "42", "abc"]
+print(l)
+print(" -- ".join(l))
+#+END_SRC 
+
+#+RESULTS:
+: ['17', '42', 'abc']
+: 17 -- 42 -- abc
+
+
+*** UEBUNG Ganz viele Biepsiele zu string-Methoden denkbar 
+
 ** Stack 
 
 Ein /Stack/ ist ein /Last-In-First-Out/ (LiFo) Speicher:
@@ -2090,6 +2153,15 @@ Wie würde ein Klasse für eine Hotelverwaltung aussehen?
   - Oft sehr anschaulich: Student, Punkt, Ellipse, Hotel, Hotelzimmer, Buchung
   - Manchmal abstrakt: Binärer Suchbaum
 - Objekte entstehen durch Konstruktion (meist mit Initialisierung)
+
+
+** Begriffsüberblick: Klassen, Attribute
+
+
+#+CAPTION: Begriffsüberlick der wesentlichen Begriff zu Klassen
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+NAME: fig:begriffe-klassen
+[[./uml/oo-tree.png]]
 
 
 ** Wie gehts es weiter? 

@@ -1,0 +1,62 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usepackage{forest}
+\usetikzlibrary{calc}
+
+\forestset{
+  qtree/.style={
+    baseline,
+    for tree={
+      parent anchor=south,
+      child anchor=north,
+      align=center,
+      inner sep=1pt,
+    }}}
+ 
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+
+
+
+\begin{forest}, qtree
+[ Klasse
+  [ Elemente (Attribute), 
+    edge label={node[midway, right]{\emph{hat}}}
+    [ Datenelemente \\ (Variablen),  
+       edge label={node[midway, right, inner sep = 8ex]{\emph{sind }}}
+       [ Klassenvariable, 
+              edge label={node[midway, right, inner sep = 2ex]{\emph{sind }}}
+              ]
+       [ Objektvariable ]
+       ]
+    [ Methoden 
+     [ Konstruktor, name=constr ]
+     [ Klassenmethode, 
+              edge label={node[midway, right]{\emph{sind }}}
+              [\emph{haben }, name=haben,
+              edge=densely dotted, 
+              edge label={node[midway, right]{}}
+              [Parameter,
+              edge=densely  dotted]
+              [lokale \\Variablen,
+              edge=densely  dotted]
+              [Anweisungen,
+              edge=densely  dotted ]
+              ]
+              ]
+     [ Objektmethode, name=om ]
+     ]
+  ]
+] 
+\draw[densely  dotted] (constr.south) -- (haben.north);
+\draw[densely  dotted] (om.south) -- (haben.north);
+\end{forest}
+
+
+\end{document}

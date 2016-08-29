@@ -962,10 +962,13 @@ print(list(l2))
 l = [1, 2, 3, 4, 5]
 l2 = map(lambda x: x*x, l)
 print(list(l2))
+
+print(" -- ".join(map(str,l)))
 #+END_SRC 
 
 #+RESULTS:
 : [1, 4, 9, 16, 25]
+: 1 -- 2 -- 3 -- 4 -- 5
 
 *** Anmerkung
 
@@ -1635,6 +1638,12 @@ printer("Hallo GP1!")
 
 
 *** UEBUNG Memoization als Decortor 
+
+
+*** UEBUNG Closures als Klassen
+
+wie könnte man KLasse/Klassen definieren, die @star und @percent
+nachbauen? Vgl. Folien Wehrheim, Kapitel Klasse, Folie 470 folgende. 
 
 
 Mal was anspruchsvolleres: Ein decorator, um Ergebnisse zu cachen 
