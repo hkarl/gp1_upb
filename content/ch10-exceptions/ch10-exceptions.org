@@ -1007,6 +1007,21 @@ Zusammenfassend: Was sollte in einem ~try~-Block ausgeführt werden?
 
 
 
+** Coding Style: EAFP vs. LBYL  
+
+Sprachen mit Exceptions (nicht nur Python) führen oft zu einem Coding-Style, der diese
+umfassend benutzt: 
+- Der Normalfall wird in einem ~try~ aufgeschrieben 
+- Dann kommen ggf. viele ~except~ mit Reparatur-Code 
+- Zusammengefasst: /Easier to ask forgiveness than permission/ (EAFP)
+
+Alternative in Sprachen ohne Exceptions: Vor einer Aktion prüfen, ob
+die durchgeführt werden kann 
+- Durch viele, viele ~if~-Anweisungen charakterisiert
+- Zusammengefasst: /Look before you leap/ (LBYL) 
+
+
+
 * Exceptions in Python -- Advanced Features 
 
 ** Eigene Exceptions 
