@@ -677,7 +677,7 @@ Python ist ein Beispiel.
     :END:
 
 Eine Programmiersprache ist */statisch typisiert/* wenn
-Typen-Informationen explizit im Programm-Code angegeben werden
+Typen-Informationen für */Variablen/* explizit im Programm-Code angegeben werden
 müssen. Aus der Betrachtung des Programm-Codes kann der Typ eines
 Wertes abgeleitet werden, bereits bevor das Programm selbst abläuft. 
 
