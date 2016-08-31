@@ -796,6 +796,21 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 
 * Zusammenfassung 
 
+** Aber das kann ich doch alles 
+
+- Vorkenntnisse vorhanden? *Super*!
+- Keine? Auch gut! 
+- Selbsteinschätzung -- brauche ich die Vorlesung?
+  - Variablen: Referenztypen vs. normale Typen
+  - Statisch vs. dynamisch typisierte Sprachen
+  - Kontrollstrukturen: ~if~, ~while~, ~for~ mit Iteratoren
+  - Algorithmenentwurf mit rekursiven Funktionen
+  - Funktionen: Closures, Generatoren
+  - Objektorientierung
+    - Mehrfachvererbung, Method Resolution Order durch C3-Algorithmus
+    - Einfachvererbung: Abstrakte Klassen vs. Interfaces
+  - Debugging: Konzepte und Werkzeuge 
+
 ** Zusammenfassung 
 
 - Programmieren ist
