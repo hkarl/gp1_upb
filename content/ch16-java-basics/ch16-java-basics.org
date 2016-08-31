@@ -1,0 +1,1122 @@
+#+TITLE: Kapitel 16: Java basics
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Was bisher geschah 
+
+- Konzeptionell haben wir die Grundlagen für Programmierung allgemein
+  aus den Python-Kapiteln 
+- Das vorherige Kapitel hat die Konzepte statisch typisierter Sprachen
+  veranschaulicht 
+
+** Dieses Kapitel 
+
+- Wir schauen uns Java Grundlagen an
+- Aufteilung auf Dateien und das Ausführungsmodell 
+- Kontrollstrukturen 
+- Variablen als Schachtel statt als Schilder: Konsequenzen 
+- Syntax von Typdefinitionen 
+
+
+
+* Java: Dateien, Programmstruktur,  Ausführung   
+
+** Objektorientierung und Dateien 
+
+- Java ist sehr viel konsequenter objektorientiert als Python 
+- Eine Auswirkung: Verteilung eins Programms auf Dateien
+  - Regel: Eine Datei = eine Klasse 
+
+** Programmstruktur aus mehreren Dateien? 
+
+- Programm besteht aus einer oder mehreren Klassen 
+- Wo geht es los?
+  - Insbesondere: Zu Programmbeginn gibt es ja noch keine Objekte?
+  - Also kann man nur statische Methoden ausführen!
+  - Aber welche? 
+
+*** Statisches ~main~				       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Regel: *Genau eine* Klasse eines Programms muss eine *statische* Methode
+~main~ enthalten. Bei dieser Methode beginnt die Programmausführung.  
+
+Diese Datei darf andere Klassen (aus anderen Dateien)
+importieren. Typischerweise wird die Methode ~main~ Objekte dieser
+Klassen instanziieren und dort Methoden aufrufen. 
+
+
+** Dateiname entspricht Klassenname 
+
+- Dateinamen sind nicht frei wählbar
+- Muss vielmehr der in der Datei definierten Klasse entsprechen
+  - Um ~.java~ ergänzt
+  - Auf Groß-/Kleinschreibung achten! 
+
+** Übersetzen und Starten eines Programm 
+
+- Java unterscheidet die Übersetzung und die Ausführung eines
+  Programms 
+- Eine ~*.java~ ist nicht direkt ausführbar
+- Compiler: ~javac~
+  - Übersetzt von ~*.java~ nach ~*.class~
+  - ~*.class~ Binärdatei mit Zwischencode; nicht direkt für Menschen lesbar
+- Ausführung: ~java~
+  - Argument: der Name der Klasse, die die ~main~-Methode enthält
+    - /Nicht/ die ~.class~-Datei
+    - Die wird dann gesucht
+  - ~java~ interpretiert die ~class~-Datei 
+
+** Übersetzen und Starten eines Programm -- Beispiel 
+
+#+BEGIN_SRC java :exports code :results output :classname TestClass
+class TestClass {
+
+    public static void main(String [] args) {
+        System.out.println("Hello, world!");
+    }
+
+}
+#+END_SRC 
+
+#+BEGIN_SRC shell :exports code :results output
+javac TestClass.java
+java TestClass
+# das hier wäre falsch: 
+# java TestClass.class 
+#+END_SRC 
+
+
+** Anmerkung: Java  und Jupyterhub 
+
+- Jupyerhub ist nur bedingt auf die Ausführung von Java ausgelegt
+- Insbesondere ist der derzeitige Java Standard, Version 8, nicht zu
+  einer REPL in der Lage
+  - Das geht erst mit der Beta-Version, Java 9 
+- Wenn Sie die Beispiele hier auf einem eigenen Rechner nachvollziehen
+  wollen, so befolgen Sie die Anleitungen zur Installation eines
+  [[https://github.com/Bachmann1234/java9_kernel][Java-9 Kernels]] für Jupyterhub
+
+
+
+
+
+** Anmerkung: Java, Dateien, Editoren, IDE 
+
+- Da Java und Jupyterhub nicht so schön zusammenpassen: Sie brauchen
+  Editoren
+- Die Liste aus vorherigem Kapitel passt hier ebenfalls
+  - Jeder ordentliche Editor für Entwickler unterstützt viele Sprachen
+- IDE: Eclipse
+  - Aber tun Sie sich das nicht an!
+  - Lernaufwand *sehr* hoch 
+
+* Syntax
+
+** Syntax: Klammern, Klammern 
+
+- Syntax von Java offenbar anders als die von Python
+- Offensichtlichster Unterschied: die ganzen Klammern { } ? 
+- Java definiert Blöcke durch öffnende/schließende geschweifte
+  Klammern {, }
+  - Nicht durch Einrückung; die wird vom Compiler ignoriert 
+  - Aber: Einrückung zur Lesbarkeit empfohlen (und unerlässlich) 
+
+*** Konfusion: Klammer vs. Einrückung 
+
+Häufig Fehlerquelle! 
+- Klammern und Einrückungen stimmen nicht überein
+- Compiler schaut auf Klammer; Mensch auf Einrückung 
+
+** Syntax: Geschwätzig 
+
+- Zweiter Unterschied: Javas Syntax ist sehr weitschweifig 
+- Daumenregel für vergleichbare Programme: Java etwa viermal länger
+  als Python
+
+*** Lesbarkeit?							    :animate:
+  
+- Ja, eine Zeile Python kann schwerer lesbar sein als eine Zeile Java
+- Sie tut aber auch die Arbeit von 10 Zeilen Java 
+- Siehe auch: [[http://www.paulgraham.com/power.html][Succinctness is power]], [[http://page.mi.fu-berlin.de/prechelt/Biblio/jccpprtTR.pdf][Vergleich von Programmiersprachen]]
+
+
+** Syntax: Semikolon 
+
+- Das Semikolon ~;~ am Ende der Zeile mit ~println~?
+- Anweisungen müssen in Java mit Semikolon /beendet/ werden! 
+
+** Hello world aus zwei Welten 
+
+*** Python 
+
+#+BEGIN_SRC python :exports both :results output
+print("Hello World!")
+#+END_SRC 
+
+*** Java (in Datei: HelloWorld.java)
+
+#+BEGIN_SRC java :exports both :results output :classname HelloWorld
+class HelloWorld{
+    public static void main(String [] args) {
+        System.out.println("Hello, world!");
+    }
+}
+#+END_SRC 
+
+
+** Schlüsselwörter 
+
+- Anscheinend benutzt Java Schlüsselwörter
+- Im Beispiel:
+  - ~class~ ist vertraut
+    - Danach sieht das auf wie eine Methodendeklaration?
+    - Mit einer Methode ~main~? 
+  - ~static~ kann man raten
+    - ~static~: Eine Aussage über die Methode ~main~?
+      - Offenbar: als statische Klassenmethode festlegen 
+  - Aber was ist ~public~? 
+
+** Datentypen 
+
+
+*** Bei Parameter der Methode 
+
+- Die Methode ~main~ scheint ein Argument ~args~ zu bekommen
+- ~String~ ist wohl ein Hinweis auf einen Datentyp
+- Und das ~[]~-Paar? Irgendwas mit Liste? 
+
+
+*** Bei Methode 
+
+- Rückgabewert der Methode: ~void~
+  - Der /leere Typ/, also keine Rückgabe 
+- Durch die Angabe von Typen bei Parameter und Rückgabewert bekommt
+  die Methode selbst ein (Sammlung von) Typen
+  - Die /Signatur/ der Methode 
+
+
+** Kommentare 
+
+
+Java kennt zwei Arten von Kommentaren: 
+- Bis zum Ende der Zeile, mit zwei Strichen markiert: ~//~
+- Ein Kommentare über eine oder mehrere Zeilen, mit ~/*~ und ~*/~
+  eingerahmt 
+
+#+BEGIN_SRC java :exports code :results output 
+/* Dieser Programmcode demonstriert lediglich die Kommentare. 
+In dieser Zeile geht der Kommentar weiter */
+
+// das hier wäre ein Kommentar, der am Ende der Zeile zuende ist  
+#+END_SRC 
+
+
+* Datentypen 
+
+** Einfache Datentypen 
+
+Java unterschiedet verschiedene Arten von Datentypen 
+- Hier zunächst: /einfache Datentypen/
+- Zahlen
+  - Ganze Zahlen, unterschieden nach Speicherplatz
+    - ~byte~, 8 bits
+    - ~short~, 16 bits
+    - ~int~, 32 bits
+    - ~long~, 64 bits
+  - Fließkommazahlen
+    - ~float~, 32 bits
+    - ~double~, 64 bits 
+  - Mit üblichen arithmetischen Operationen und Vergleichen
+- Einzelne Zeichen ~char~: In Hochkomma angegeben: ~'a'~, ~'b'~
+
+*** UEBUNG Literale für Zahlen, insbes. Fließkommazahlen 
+
+** Zuweisungen zwischen Zahlen, implizite typecasts 
+
+- Ganze Zahlen und Fließkommazahlen: Kürzere Datentypen können an längere Datentypen zugewiesen werden
+  - Genauer: Ein Wert vom Typ eines kürzeren Datentyps kann an eine
+    Variable eines längeren Typs zugewiesen werden
+  - Ähnlich zu: Oberklasse/Unterklasse; aber es sind /keine/ Klassen;
+    Zahlen sind /keine/ Objekte 
+    - Anders als: /everything is an object/ in Python
+    - Grund: Effizienz
+- Zusätzlich:
+  - ~long~ darf an ~float~ zugewiesen werden
+  - ~char~ darf an ~int~ zugewiesen werden
+   
+*** UEBUNG Warum nicht schon an short oder byte? 
+
+*** UEBUNG Hier kann man in der Übung mal über Unicode reden. 
+
+** Implizite typecasts in Ausdrücken 
+
+Typecasts passieren auch bei der Auswertung von (arithmetischen) Ausdrücken: 
+- Der /kleinere/ Wert wird in den /größeren/ umgewandelt
+- Dann wird der arithmetische Ausdruck berechnet
+- Ergebnis hat dann den /größeren/ Typ 
+
+*** Beispiel 
+
+- Hier wird die Zahl ~int~ 42 zunächst in die entsprechende
+  ~double~ 42.0 umgewandelt
+- Dann passiert die Addition 
+- Ergebnis hat Wert ~double~ 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+(42 + 17.11)
+#+END_SRC 
+
+
+
+** Zusammengesetzte Datentypen: Array 
+
+- Java kennt -- als Teil der Sprache -- lediglich einen
+  zusammengesetzten Datentyp: das Array (Feld)
+  - Eine Folge von Elementen /identischen/ Typs
+  - Durch Index sind einzelne Elemente zugreifbar
+  - Elemente dürfen verändert werden 
+- Notation des Typs: Gewünschter Elementtyp, gefolgt von ~[]~
+- Initialisierung: Literale mit ~{}~ aufzählen
+  - ~int[] zahlen = {1, 2, 3, 4};~
+- Denken Sie sich ein Array als eine sehr limitierte Variante von
+  Pythons ~list~
+  - Z.B.: kein einfaches Slicing eines Arrays 
+
+** Mehrdimensionale Arrays 
+
+- Verallgemeinerung: Arrays dürfen mehrere Dimensionen haben 
+  - Also zweidimensional: Ein Array von Arrays eines bestimmten Typs 
+- Notation: Gewünschter Elementtyp, gefolgt von
+  - ~[][]~ für zweidimensionale Arrays 
+  - ~[][][]~ für dreidimensionale Arrays
+  - usw. 
+- Zugriff: Durch mehrfaches ~[]~
+
+
+** Spezialfall: String 
+
+- Zeichenketten: Array von Zeichen
+  - Also eigentlich: ~char[]~
+- Aber weil wichtiger Spezialfall, eigener Typ: ~String~
+- Konstanten: In /doppelte/ Hochkomma eingeschlossen ~"..."~
+  - Unterscheide: ~'x'~ und ~"x"~ !
+- Strings sind Objekte der Klasse ~String~
+  - Methodenbeispiele: ~length()~, ~charAt(i)~, ~indexOf(substring)~,
+    ~startsWith(substring)~, ...  
+- Strings sind unveränderlich, /immutable/
+
+
+** Klassen als Datentypen 
+
+- Klassen definierten Typen
+- Haben eigene, komplexe Syntax zur Definition
+- Siehe nächstes Kapitel 
+
+* Variablendeklarationen und Zuweisungen 
+
+
+** Variablendeklaration mit Typen  
+
+
+*** Vor Benutzung deklarieren				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+
+Eine Variable muss /*vor*/ der ersten Benutzung /deklariert/ (dem
+Compiler bekannt gemacht) werden:
+Ihr Namen und ihr Typ werden in einer Anweisung angegeben. 
+
+Die Benutzung einer nicht deklarierten Variable führt zu einem Fehler
+bei der Übersetzung.
+
+Bei der Deklaration kann eine Variable optional auch mit einem
+initialen Wert versehen werden. 
+
+
+** Variablendeklaration mit einfachen Typen: Beispiele  
+
+
+*** Ohne Initialisierung 
+
+Der Wert nicht initialisierter Variablen ist nicht definiert! 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+// Eine Anweisung zur Deklaration der Variable x: 
+int x;
+
+// Nach einem Typ dürfen mehrere Variablen stehen, durch Komma getrennt: 
+short y, z;
+char u;
+#+END_SRC 
+
+
+** Variablendeklaration mit einfachen Typen: Beispiele  
+
+*** Mit Initialisierung 
+
+Die initialisierenden Literale müssen von passendem Typ sein 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+int x = 42;
+short y = 17, z=11;
+char u = 'a';
+#+END_SRC 
+
+*** Fehler bei Initialisierung 
+
+Welche dieser drei Anweisungen scheitert/n? 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+int x = 'a';
+short y = 99999;
+char u = 65;
+#+END_SRC 
+
+
+
+** Anmerkung: Code-Fragmente
+
+Vorsicht, diese Code-Fragmente sind (mit einem Java8-Standard-Version)
+nicht unmittelbar ausführbar! 
+- Es fehlt die umgebende Klasse; es gibt keine Code ausserhalb einer Klasse
+- Sie brauchen dazu eine Java9-Beta-Version mit REPL
+- Oder Sie fügen es in eine Klasse ein (Datei fragment.java): 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class fragment{
+      public static void main(Strings [] args) {
+          // hier das Code-Fragment einfügen
+          // ...
+      }   
+  }
+#+END_SRC 
+
+
+** Zuweisungen, Fall 1: gleicher, einfacher Typ 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+int x = 42;
+int y; 
+
+y = x + 1;
+
+char u='a';
+char b;
+b = u;
+#+END_SRC 
+
+** Zuweisungen, Fall 2: kompatibler, einfacher Typ 
+
+Tatsächlich sind bereits die einfachen Beispiel von dieser Natur: 
+- Der Wert 17 ist eigentlich ein ~byte~
+- Aber da ~byte~ an ~short~ und ~short~ and ~int~ zugewiesen werden
+  darf, ist das kein Problem 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+int x; 
+x = 17;
+
+float a = 3.14;
+double b; 
+b = a;
+#+END_SRC 
+
+** Zuweisungen, Fall 3: nicht kompatibler, einfacher Typ 
+
+Was passiert, wenn die rechte Seite einen /zu großen/ Typ hat? 
+
+
+*** Fließkommazahlen 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+double a = 3.14;
+float b;
+b = a;
+#+END_SRC 
+
+**** Fehlermeldung						  :dropslide:
+
+Compiler lehnt das ab: 
+
+#+BEGIN_SRC java :exports code :results output
+|  Error:
+|  incompatible types: possible lossy conversion from double to float
+|  b = a;
+#+END_SRC 
+
+*** Ganze Zahlen 
+
+Aber das sollte doch gehen? 42 passt doch in ein ~short~? 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+int x = 42;
+short y;
+y = x;
+#+END_SRC 
+
+**** Fehlermeldung						  :dropslide:
+
+
+Nein! Der Compiler weiß nicht, wie der tatsächliche Wert aussieht und
+lehnt diese Zuweisung ab
+- (Ja, in diesem einfachen Beispiel könnte es der Compiler wissen -- im
+  allgemeinen nicht)
+
+#+BEGIN_SRC java :exports code :results output
+|  Error:
+|  incompatible types: possible lossy conversion from int to short
+|  b = a;
+#+END_SRC 
+
+** Zuweisung mit expliziten typecasts 
+
+Wie wandelt man Typen explizit in einander um? 
+- Aufforderung an den Compiler, den Verlust an Werten, Genauigkeit,
+  ... zu akzeptieren 
+- Notation: Den Zieltyp in Klammern vor den Ausdruck schreiben
+- Funktioniert auch in Teilausdrücken 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+int x; 
+double y = 42.17;
+x = (int) y;
+x = (int) (y + 0.0001);
+x = x + (int) 0.00001;
+#+END_SRC 
+
+
+** Zuweisungen einfacher Typen: Werte in Schachteln 
+
+- Erinnerung: Primär fassen wir Variablen hier als Schachteln auf, in
+  die Werte gelegt werden können 
+- Zuweisung?
+  - Bei einer Zuweisung wird der Wert von einer Schachtel in die
+    andere kopiert 
+- [[http://www.pythontutor.com/visualize.html#code=public%20class%20Zuweisung%20%7B%0A%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20//%20Zwei%20interger-Variablen%20zuweisen%3A%20%0A%20%20%20%20int%20x,%20y%3B%0A%20%20%20%20x%20%3D%2017%3B%0A%20%20%20%20y%20%3D%20x%3B%0A%20%20%7D%0A%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+public class Zuweisung {
+  public static void main(String[] args) {
+    // Zwei interger-Variablen zuweisen: 
+    int x, y;
+    x = 17;
+    y = x;
+  }
+}
+#+END_SRC 
+
+*** Visualisierung						  :dropslide:
+
+
+Das Verhalten ist hier wie erwartet (Abbildung [[fig:jt-assign-ints]]): In
+~x~ und ~y~ ist jeweils der Wert 17 abgelegt.
+
+#+CAPTION: Zuweisung von ~int~-Variablen
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:jt-assign-ints
+[[./figures/jt-assign-ints.png]]
+
+
+
+
+** Zuweisungen komplexer Typen 
+
+Was passiert bei Zuweisungen komplexer Typen? 
+- Bis jetzt: ~String~ und ~Array~ 
+- [[http://www.pythontutor.com/visualize.html#code=%20%20public%20class%20Zuweisung2%20%7B%0A%20%20%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20//%20Zwei%20Strings%20zuweisen%3A%20%0A%20%20%20%20%20%20String%20s1%20%3D%20%22Hallo%22%3B%0A%20%20%20%20%20%20String%20s2%3B%0A%20%20%20%20%20%20s2%20%3D%20s1%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  public class Zuweisung2 {
+    public static void main(String[] args) {
+      // Zwei Strings zuweisen: 
+      String s1 = "Hallo";
+      String s2;
+      s2 = s1;
+    }
+  }
+#+END_SRC 
+
+*** Zuweisung von Zeiger!					    :animate:
+
+- ~s1~ und ~s2~ speichern gar nicht den Wert! 
+- Sondern zeigen nur darauf? 
+
+*** Visualisierung 
+
+Offenbar speichern die Variablen ~s1~ und ~s2~ die Zeichenkette an
+sich gar nicht (Abbildung [[fig:jt-assign-strings]]). Vielmehr wird dort
+eine Referenz auf die Zeichenkette abgelegt. Bei der Zuweisung ~s2 =
+s1~ wird diese /Referenz kopiert/.
+
+#+CAPTION: Zuweisung von ~String~-Variablen
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:jt-assign-strings
+[[./figures/jt-assign-strings.png]]
+
+
+
+** Zuweisung komplexer Typen: Beispiel 2 (Strings verändern) 
+
+[[http://www.pythontutor.com/visualize.html#code=%20%20public%20class%20Zuweisung3%20%7B%0A%20%20%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20//%20Zwei%20Strings%20zuweisen%3A%20%0A%20%20%20%20%20%20String%20s1%20%3D%20%22Hallo%22%3B%0A%20%20%20%20%20%20String%20s2%3B%0A%20%20%20%20%20%20s2%20%3D%20s1%3B%0A%20%20%20%20%20%20s1%20%3D%20s1%20%2B%20%22%20GP1!%22%3B%0A%20%20%20%20%20%20System.out.println(s1%29%3B%0A%20%20%20%20%20%20System.out.println(s2%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
+
+#+BEGIN_SRC java :exports code :results output :classname Zuweisung3
+  public class Zuweisung3 {
+    public static void main(String[] args) {
+      // Zwei Strings zuweisen: 
+      String s1 = "Hallo";
+      String s2;
+      s2 = s1;
+      s1 = s1 + " GP1!";
+      System.out.println(s1);
+      System.out.println(s2);
+    }
+  }
+#+END_SRC 
+
+#+RESULTS:
+: Hallo GP1!
+: Hallo
+
+*** Visualisierung						  :dropslide:
+
+Vor der Zuweisung an ~s1~ zeigen beiden String-Variablen auf das
+gleiche Objekt. Mit dem Ausdruck s1 + GP1! entsteht ein neues
+Objekt. Die Variable ~s1~ zeigt dann auf dieses neue Objekt; ~s1~ behält die
+Referenz auf das alte Objekt bei.  (Also ganz ähnlich wie bei Python.)
+Siehe Abbildung [[fig:jt-assign-newstring]]. 
+
+#+CAPTION: Zuweisung an Strings: Erzeugen eines neuen Strings durch einen Ausdruck
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:jt-assign-newstring
+[[./figures/jt-assign-strings2.png]]
+
+
+
+
+
+** Zuweisung komplexer Typen: Beispiel 3 (array) 
+
+[[http://www.pythontutor.com/visualize.html#code=%20%20public%20class%20ZuweisungA%20%7B%0A%20%20%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20//%20Ein%20Array%20deklarieren%20und%20initialisieren%3A%20%0A%20%20%20%20%20%20int%5B%5D%20a1%20%3D%20%7B1,%202,%203%7D%3B%0A%20%20%20%20%20%20int%5B%5D%20a2%3B%0A%20%20%20%20%20%20a2%20%3D%20a1%3B%0A%20%20%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%20%20%20%20a1%5B1%5D%20%3D%2017%3B%0A%20%20%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
+
+#+BEGIN_SRC java :exports code :results output :classname ZuweisungA
+  public class ZuweisungA {
+    public static void main(String[] args) {
+      // Ein Array deklarieren und initialisieren: 
+      int[] a1 = {1, 2, 3};
+      int[] a2;
+      a2 = a1;
+      System.out.println(a2[1]);
+      a1[1] = 17;
+      System.out.println(a2[1]);
+    }
+  }
+#+END_SRC 
+
+#+RESULTS:
+: 2
+: 17
+
+*** Visualisierung						  :dropslide:
+
+Wie erwartet zeigen sowohl ~a1~ als auch ~a2~ auf das gleiche
+Array-Objekt. Nach Änderung des ersten Eintrags bei ~a1~ zeigt sich
+dieser neue Wert, auch wenn über die Variable ~a2~ darauf zugegriffen
+wird. Abbildung [[fig:jt-assign-arrays]] illustriert dies. 
+
+#+CAPTION: Zuweisung von Arrays und Manioulation eines Elementes
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:jt-assign-arrays
+[[./figures/jt-assign-arrays.png]]
+
+
+** Zeiger (Referenzen) 
+
+- Variablen eines komplexen Typs /speichern nicht den Wert selbst/
+- Vielmehr speichern sie einen Zeiger (eine /Referenz/) auf den Wert
+- Das ist ähnlich zur /Schild/-Vorstellung bei Python
+  - Allerdings nicht konsequent
+  - Z.B. gibt es keine Referenzen auf Funktionen/Methoden
+
+** Unterschiedliche Semantik von Variablen 
+
+Insgesamt also: 
+- Java benutzt unterschiedliche Semantik von Variablen 
+  - Einfach Variablen: Schachtel mit Wert
+    - Sog. /primitive types/
+    - ~byte~, ~short~, ~int~, ~long~, ~float~, ~double~, ~boolean~, ~char~
+  - Komplexe Typen: Schachtel mit Zeiger (Referenz) auf Wert
+    - Sog. /reference types/
+    - Alle anderen Typen: ~Array~ und insbes. alle Klassen 
+- Das ist ziemlich /bad news/ für einen Sprachentwurf :-( 
+
+Semantik der Zuweisung
+- Die ist konsistent: Wert in Schachtel kopieren
+- Konsequenz für Übergabe von Parametern an Methoden (siehe unten) 
+
+** Unterschiedliche Semantik: Warum? 
+
+- Unterscheidung zwischen primitive und reference types einer der
+  komplexeren Aspekte von Java
+- Warum macht man das? Effizienz!
+  - Man muss nicht alles als Objekt behandeln
+  - Primitive Typen viel einfacher zu handhaben für Zwischensprache
+- Nachteil: Signifikante Fehlerquelle
+  - Insbes. bei Methodenaufruf 
+
+
+** Kopie des  Werts einer Referenzvariable? 
+
+- Herstellen einer Kopie zur Zuweisung alleine nicht möglich!
+- Wir brauchen eine Methode, die das Kopieren übernimmt
+- Beispiel Array: Wir müssen jeden einzelnen Eintrag des Arrays
+  kopieren
+  - Arrays definieren Methode: ~clone~
+
+
+[[http://www.pythontutor.com/visualize.html#code=public%20class%20CopyArray%20%7B%0A%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20//%20Ein%20Array%20deklarieren%20und%20initialisieren%3A%20%0A%20%20%20%20int%5B%5D%20a1%20%3D%20%7B1,%202,%203%7D%3B%0A%20%20%20%20int%5B%5D%20a2%3B%0A%20%20%20%20a2%20%3D%20a1.clone(%29%3B%0A%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%20%20a1%5B1%5D%20%3D%2017%3B%0A%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%7D%0A%7D%0A&cumulative=false&curInstr=6&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]] 
+
+#+BEGIN_SRC java :exports code :results output :classname ZuweisungA
+  public class CopyArray {
+    public static void main(String[] args) {
+      // Ein Array deklarieren und initialisieren: 
+      int[] a1 = {1, 2, 3};
+      int[] a2;
+      a2 = a1.clone();
+      System.out.println(a2[1]);
+      a1[1] = 17;
+      System.out.println(a2[1]);
+    }
+  }
+#+END_SRC 
+
+#+RESULTS:
+: 2
+: 2
+
+*** Visualisierung 
+
+Nach Aufruf der Methode ~a1.clone()~ existiert ein zweites Array,
+dessen Element die gleichen Werte haben wie die von ~a1~ (Abbildung
+[[fig:jt-array-clone]]). Durch die Zuweisung ~a1[17]~ werden in diesem
+zweiten Array keine Einträge verändert; ~a1~ und ~a2~ referenzieren
+verschiedene Objekte.
+
+#+CAPTION: Ein Array durch ~clone~ kopieren
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:jt-array-clone
+[[./figures/jt-array-clone.png]]
+
+
+
+
+*** UEBUNG Deepcopy? Array of Array? 
+
+deep copy - Aspekte verstehen 
+
+#+BEGIN_SRC java :exports code :results output :classname DeepCopyArray 
+  public class DeepCopyArray {
+    public static void main(String[] args) {
+      // Ein Array deklarieren und initialisieren: 
+      int[][] a1 = {{1, 2, 3}, {4,5,6}};
+      int[][] a2;
+      a2 = a1.clone();
+      System.out.println(a2[1][1]);
+      a1[1][1] = 17;
+      System.out.println(a2[1][1]);
+    }
+  }
+#+END_SRC 
+
+#+RESULTS:
+: 5
+: 17
+
+* Kontrollstrukturen: Verzweigungen   
+
+** Verzweigungen: ~if~, ~else~ 
+
+- Normale Verzweigungen ganz ähnlich zu Python
+- Unterschiede:
+  - Bedingung /muss/  in Klammern stehen
+  - Einrückung hat kein Bedeutung
+  - Also Optionen nach Ausdruck oder nach ~else~:
+    - Genau /eine/ Anweisung (mit Semikolon abgeschlossen)
+    - Oder ein Block, in geschweifte Klammern eingeschlossen 
+
+** ~if~ mit einer Anweisung 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  if (Bedingung) 
+      // Anweisung für wahr-Fall:
+      ...;
+  else
+      // anweisung für falsch-Fall:
+      ...;
+#+END_SRC 
+
+*** Kompakt in einer Zeile
+
+Generell: Zeilenumbruch, Einrückungen sind /bedeutungslos/! 
+- Nur Hilfe für den Menschen; dem Compiler egal 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  if (Bedingung) ...; else ...;
+#+END_SRC 
+
+** ~if~ mit Blöcken 
+
+
+
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  if (Bedingung) {
+      // Anweisung für wahr-Fall:
+      ...;
+      ...;
+      ...;
+  } else {
+      // anweisung für falsch-Fall:
+      ...;
+      ...;
+      ...;
+  }
+#+END_SRC 
+
+
+
+** Dangling else 
+
+Ohne Klammern ist folgender Code nicht unmittelbar klar verständlich: 
+- Zu welchem ~if~ gehört das ~else~?
+- Ein sog. /dangling else/ 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  if (a > b) 
+      if (a > 0) max = a;
+  else
+      max = b;
+#+END_SRC 
+
+*** dangling else: Festlegung			       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Das /dangling else/ erfordert eine Festlegung. Java legt fest: Ein
+~else~ gehört zum unmittelbar davor stehenden ~if~ (es sei denn,
+geschweifte Klammern bilden Blöcke). 
+
+
+** Dangling else (2)
+
+*** Anmerkung: Einrückung					    :animate:
+
+Die Einrückung im obigen Beispiel legt eine andere Semantik nahe. Zur
+nochmaligen Betonung: Einrückung ist für den Java-Compiler irrelevant! 
+
+*** Anmerkung: dangling else in Python?				    :animate:
+
+Das Problem tritt in Python nicht auf; durch die Einrückungsstruktur
+kann es keine Mehrdeutigkeit geben. 
+
+
+** Dangling else: Äquivalenz 
+
+*** Ohne Klammer (und sinnvoll eingerückt)
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  if (...) 
+      if (...) 
+          ...;
+      else
+          ...;
+#+END_SRC 
+
+*** Äquivalent mit expliziten Klammern 				    :animate:
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  if (...) {
+      if (...) 
+          ...;
+      else
+          ...;
+  }       
+#+END_SRC 
+
+*** ~else~ zum äußeren ~if~: Erfordert Klammern			    :animate:
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  if (...) {
+      if (...) 
+          ...;
+  } else
+      ...;
+#+END_SRC 
+
+
+
+** Kein ~elif~
+
+- Java kennt keine Struktur die  ~elif~ entspricht
+- Im Zweifel durch ~else if~-Struktur nachbauen 
+
+** ~switch~: Mehrfachverzweigung 
+
+Java kennt eine Mehrfachverzweigung: ~switch~ 
+- ~switch~ vergleicht  einen Ausdruck vom Typ  ~int~, ~short~, ~byte~,
+  ~char~ oder ~String~ mit /konstanten/ Wert
+- Jedem konstanten Wert kann ein Block zugeordnet werden
+  - Wird ausgeführt, wenn Vergleich richtig ist 
+- Zusätzlich: ~default~- Zweig 
+
+** ~switch~: Beispiel 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  int month; 
+  switch (month) {
+  case 1, 2, 3, 4, 10, 11, 12:
+      System.out.println("Austern essen!");
+  case 5, 6, 7, 8, 9:
+      System.out.println("Austern vermeiden!");
+  default: 
+      System.out.println("Austern sind nicht das Hauptproblem in diesem Programm!");
+  }
+#+END_SRC 
+
+
+
+
+
+* Kontrollstrukturen: Schleifen   
+
+
+** ~while~-Schleifen 
+
+- Sehr ähnlich zu Python
+- Schleifenrumpf: Einrückung egal; durch ~{}~ markieren
+  - ~{}~ kann entfallen wenn nur eine Anweisung 
+- Bedingung in Klammern 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  while (Bedingung) {
+      ...;
+      ...;
+  }
+#+END_SRC 
+
+
+** Variante: ~do~- ~while~ -Schleife 
+
+- Schleifenrumpf auf jeden Fall einmal ausführen
+- Bedingung wird /am Ende/ des Rumpfs geprüft, nicht am Anfang 
+- Vorsicht: Nach Bedingung /muss/ ein Semikolon stehen! 
+
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  do {
+      ...;
+      ...;
+  }  while (Bedingung);
+#+END_SRC 
+
+
+** ~for~-Schleife 
+
+Java kennt eine klassische und eine moderne ~for~-Schleife 
+- Die klassische Variante unterscheidet sich deutlich von der
+  Python ~for~-Schleife
+  - Viel primitiver gestrickt 
+- Die moderne Variante ist dem  Python ~for~ viel ähnlicher
+  - Im Sinne von: Iteration über eine Aufzählung
+
+** Klassisches ~for~: Ersatz von ~while~-Muster 
+
+- Javas klassisches ~for~ ist eigentlich nur eine kompakte Notation
+  für eine ~while~-Schleife mit bestimmtem Muster 
+- Muster:
+  - Vor der Schleife werden Variablen initialisiert
+    - Z.B.: Zähler auf 0 setzen 
+  - Schleifenbedingung prüfen
+    - Z.B.: Zähler noch nicht zu groß?
+  - Schleifenrumpf ausführen
+  - Variablen verändern
+    - Z.B.: Zähler um eins erhöhen 
+
+** ~while~-Schleife: Beispiel für Muster 
+
+Addieren wir die ersten 10 Zahlen auf:
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  //Variable für Ergebnis: 
+  int summe=0;
+  // zaehler initialisieren: 
+  int zaehler=1;
+  while (zaehler <= 10) {
+      // Eigentliche Aktion: 
+      summe += zaehler;
+
+      // Zähler erhöhen
+      zaehler += 1;
+  }
+  System.out.println(summe);
+#+END_SRC 
+
+** Knapper: ~for~
+
+- Wie üblich: Häufige Muster verdienen Sprachunterstützung 
+- ~for~-Schleife: Spezialisiert auf dieses Muster
+- Vier Teile:
+  - Initialisierung von Variablen (auch mehrere) vor der Schleife
+  - Schleifenbedingung
+  - Schleifenrumpf (na klar...) 
+  - Manipulation der Variablen am Ende des Rumpfs 
+
+** ~for~-Schleife: Syntax 
+
+Vier Teile: 
+- Drei davon als (sozusagen) Parameter der Anweisung ~for~
+  - Durch Semikolon getrennt!
+  - In Klammer 
+- Schleifenrumpf analog zu ~while~-Schleife nach der Klammer 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  for ( ... /* Variablen initialisieren */ ; 
+        ... /* Schleifenbedingung */ ;
+        ... /* Variablen manipulieren */ )
+      ... ; /* Schleifenrumpf */
+#+END_SRC 
+
+
+*** Achtung							    :animate:
+
+Variablen müssen *vor* der Schleife schon deklariert sein!
+  - Behalten entsprechend auch den Wert
+  - Das sind ganz normale Variablen! 
+
+** Klassisches ~for~: Beispiel 
+
+Geben wir die Zahlen 1 bis 10 aus 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  int i;
+  for (i = 1;
+       i <= 10;
+       i++)
+      System.out.println(i);
+
+  // und zum Beweis: i hat auch nach der for-Schleife den letzten Wert 
+  System.out.println(i);
+#+END_SRC 
+
+*** Warum ist der Wert von i nach der Schleife 11? 		    :animate:
+
+- Beim letzten Durchlauf: 10 ausgeben
+- Danach wird die Anweisung ~i++~ ausgeführt
+  - Am Ende jeden Rumpfs!
+- Danach wird Schleifenbedingung geprüft: ~11 <= 10~
+  - Falsch, Schleifenende 
+
+** Beispiel: Multiplikationstabelle ausgeben 
+
+Geben wir eine Multiplikationstabelle für die Zahlen 1 bis 10 aus 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  int i, j;
+
+  // Kopfzeile der Tabelle
+  System.out.print("i\t")
+  for (j=1; j <= 10; j++)
+      System.out.print("|\t" + j);
+  Systme.out.println("\n---------------------------");
+
+  // die eigentliche Tabelle: 
+  for (i=1; i<=10; i++) {
+      System.out.print(i + "\t");
+      for (j=1; j<=10; j++) {
+          System.out.print("|\t");
+          System.out.printf("%4s", i*j);
+      }
+      System.out.println();
+  }
+#+END_SRC 
+
+
+** Modernes ~for~: Iterator 
+
+- Java kennt für Aufzählungen auch eine ~for~-Schleife mit einem Iterator
+  - Sehr ähnlich zu Pythons ~for~-Schleife
+  - Die Schleifenvariable wird hier in der ~for~-Anweisung samt
+    richtigem Typ deklariert 
+- Beispiel: 
+
+#+BEGIN_SRC java :exports both :results output :classname ForIterator
+    public class ForIterator {
+      public static void main(String[] args) {
+        // Ein Array deklarieren und initialisieren: 
+        int[] primzahlen = {2, 3, 5, 7, 11, 13};
+        for (int p: primzahlen)
+            System.out.print(p + " ");
+      }
+    }
+#+END_SRC 
+
+#+RESULTS:
+: 23571113
+
+
+*** UEBUNG Was passiert, wenn der Typ hier nicht passt? 
+
+int, short, long mischen? 
+
+*** Aufzählungen in Java?					    :animate:
+
+- Arrays sind Aufzählungen und haben einen Iterator
+- Weitere Aufzählungstypen: Siehe später 
+
+** Schleifenabbruch: ~break~ 
+
+- Java kennt ein ~break~ analog zu Python
+  - Bricht die innerste Schleife ab
+- Erweiterung: Man kann sogar umschliessende Schleifen abbrechen
+  - Durch Benennung der Schleifen
+  - Aber recht unübersichtlich -- vermeiden! 
+
+
+** Funktionen 
+
+- Funktionen außerhalb von Klassen gibt es nicht 
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Grundstruktur von Java-Programmen: Alles in einer Klasse
+  - Eine Klasse, eine Datei
+  - Programm kann aus mehrere Dateien, Klassen bestehen
+  - Per ~import~ zusammengefügt 
+- Einmal pro Programm: eine Klasse mit einer Methode ~static void main~
+- Statisch typisierte Sprache
+  - Für Variablen muss *vor* Benutzung der Typ deklariert werden
+  - Konsequenzen für Zuweisung und (implizite/explizite) typecasts 
+- Syntax:
+  - Semikolon nach Anweisungen 
+  - Keine Einrückungen sondern Klammern
+- Die Unterscheidung zwischen primitiven und Referenztypen macht die
+  Sprache komplex
+- Kontrollstrukturen wenig überraschend 
