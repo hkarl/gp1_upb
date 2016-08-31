@@ -565,6 +565,15 @@ Siehe auch Vorlesung Modellierung.
 
 Leichte Übung; xor gibt es nicht, nachbauen? 
 
+*** UEBUNG Lazy evaluation !
+
+Warum geht das hier: 
+
+#+BEGIN_SRC python :exports both :results output
+(5 <2 ) and (17/0 > 2)
+#+END_SRC 
+
+
 
 ** Vergleiche zwischen Werte 
 
