@@ -30,6 +30,8 @@ $(objects): %.ipynb: %.org
 	../../build/tangle.sh $< >> ../../build/log
 	# This is a dirty hack; tangle.sh ignores org-latex-classes
 	sed -i bak -e '1,/article/s/article/scrartcl/' *.tex
+	# This is another dirty hack: change to java notebooks if magic file exists
+	-[ -f javakernel ] && make java 
 	cp $@ ${OUTPUTDIR}
 	cp -r figures ${OUTPUTDIR}
 
@@ -45,6 +47,10 @@ $(pdfs): %.pdf: %.tex
 $(tgz): %.tgz: %.ipynb
 	tar cfz ${OUTPUTDIR}/$*.tgz $< figures
 
+java:
+	sed -i "" 's/"display_name": "Python 3"/"display_name": "Java 9"/' *ipynb
+	sed -i "" 's/"language": "python"/"languag": "java"/' *ipynb
+	sed -i "" 's/"name": "python3"/"name": "java"/' *ipynb
 clean:
 	-rm *.tgz
 	-rm *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc
