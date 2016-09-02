@@ -1,4 +1,4 @@
-#+TITLE: Kapitel X: Title? 
+#+TITLE: Kapitel 18: Java -- ein paar Kleinigkeiten zum Schluss 
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything
