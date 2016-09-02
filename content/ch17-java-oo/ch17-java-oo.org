@@ -522,6 +522,38 @@ Nicht das gleiche!
 - Konstruktoren können überladen werden 
 
 
+** getter und setter
+
+- getter und setter Methoden müssen von Anfang an da sein, wenn
+  benötigt 
+  - Java hat keinen Mechanismus wie ~@Property~ in Python
+  - Wesentlicher Grund: Funktionen sind nicht first-class citizens in
+    Java 
+- Manche IDEs: Erzeugen automatisch für alle Attribute getter / setter
+  - Unendliche lange, unübersichtliche Klassen 
+- (Die Existenz mächtiger IDEs ist ein Indiz für eine verkorkste
+  Sprache) 
+
+
+** Wrappers, Boxing 
+
+
+- Alle Klassen sind von ~Object~ abgeleitet
+  - Damit alle Objekte mit ~Object~ zuweisungskompatibel 
+- Einfache Typen sind aber keine Klassen
+  - ~int~, ~char~, ...
+- /Wrapper/-Klasse: eine normalen Wert in ein passendes Objekt
+  einwickeln
+  - ~Integer~ für ~int~, ~Boolean~ für ~boolean~, etc. 
+- Umständlich, deswegen weitgehend automatisch durch Compiler: Boxing
+  und Unboxing 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+Integer intObj = new Integer(42);
+int x = intObj.intValue();
+#+END_SRC 
+
+
 * Einfachvererbung 
 
 
