@@ -687,6 +687,11 @@ verzichtet, da ja alle Informationen bereits vorab bekannt sind.
 
 Java ist ein Beispiel. 
 
+*** Historie							  :dropslide:
+
+Eine nette Zusammenfassung der Geschichte dahinter findet sich in
+[[http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html][diesem Blog]]. 
+
 * Anmerkungen zu Syntax und Stil 
 
 ** Syntax 
