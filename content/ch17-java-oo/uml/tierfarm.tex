@@ -1,0 +1,30 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+     \begin{tikzpicture}
+       \umlclass{Tier}{
+       } {Boolean frisst(String food) \\
+         sprich()\\
+       }
+       \umlclass[x=-5,y=-3]{Hund}{
+       } {Boolean frisst(String food) \\
+         sprich()\\}
+       \umlclass[x=0,y=-3]{Katze}{
+       } {Boolean frisst(String food) \\
+         sprich()\\}
+       \umlclass[x=5,y=-3]{Maus}{
+       } {Boolean frisst(String food) \\
+         sprich()\\}
+       % inheritances: 
+       \umlinherit[geometry=|-|]{Hund}{Tier}
+       \umlinherit[geometry=|-|]{Katze}{Tier}
+       \umlinherit[geometry=|-|]{Maus}{Tier}
+     \end{tikzpicture}
+\end{document}

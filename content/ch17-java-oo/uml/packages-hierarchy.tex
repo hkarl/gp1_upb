@@ -1,0 +1,35 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{tikz-uml}
+\usetikzlibrary{calc} 
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+     \begin{tikzpicture}
+
+       \begin{umlpackage}[fill=blue!10]{utilities}
+       \begin{umlpackage}{graphics}
+         \umlclass{Circle}{
+           Daten 
+         } {Methoden  } 
+         %
+         \umlclass[x=3, y=0]{Rectangle}{
+           Daten 
+         } {Methoden  } 
+       \end{umlpackage}
+       \begin{umlpackage}[x=6, y=1]{dateien}
+         \umlclass{input}{
+           Daten 
+         } {Methoden  } 
+         %
+         \umlclass[x=3, y=0]{output}{
+           Daten 
+         } {Methoden  } 
+       \end{umlpackage}
+       \end{umlpackage}
+     \end{tikzpicture}
+\end{document}

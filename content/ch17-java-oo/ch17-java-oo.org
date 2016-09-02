@@ -1,0 +1,1378 @@
+#+TITLE: Kapitel 17: Objektorientierung in Java
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Was bisher geschah
+
+- Im vorherigen Kapitel haben wir uns die Grundlagen von Java
+  angeschaut
+  - Typisierte Variablendeklaration
+  - Art von Typen: primitive und reference 
+  - Kontrollstrukturen
+  - Syntax 
+
+
+** Dieses Kapitel 
+
+Objektorientierung in Java 
+- Anders strukturiertes Objektmodell
+  - Mistrauen-basiert 
+- Insbes. Vererbung funktioniert anders 
+- Erfordert komplizierte Umgehungskonstruktionen wie Interfaces und
+  abstrakte Klassen  
+
+* Klassen 
+
+** Objektorientierung 
+
+- Auf ersten Blick ist OO in Java nicht viel anders als in Python 
+- Gemeinsamkeiten: 
+  - Es gibt Klassen und Objekte
+  - Klassen haben Attribute: Daten und Methoden
+- Wenig überrasche Unterschiede
+  - Daten müssen mit Typ deklariert werden!
+  - Methoden: Parameter und Rückgabewert haben Typ
+- Unwichtige Unterschiede: Syntaxdetails, z.B. ~new~
+- Wesentliche Unterschiede: Das Vererbungskonzept! 
+
+
+** Klassen: Deklaration eines Typs 
+
+- Deklaration einer Klasse: ~class~
+  - Erschafft einen neuen Datentyp
+- Wesentlicher Punkt: Die Daten der Klassen werden deklariert, nicht
+  nur die Methoden 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Klassenname {
+      Variablendeklaration1;
+      Variablendeklaration2;
+      Variablendeklaration3;
+
+      Methodendeklaration1
+      Methodendeklaration2
+      Methodendeklaration3
+  }
+#+END_SRC 
+
+** Klassendeklaration: Beispiel Ellipse 
+
+Zunächst eine Klasse ohne Methode
+- Im Block der Klasse die Deklarationen der Daten-Attribute eines
+  Ellipse-Objektes 
+
+#+BEGIN_SRC java :exports code :results output :classname Ellipse
+  class Ellipse {
+      // Daten deklarieren: 
+      double x, y;
+      double achse1, achse2;
+  }
+#+END_SRC 
+
+
+** Ellipsenobjekt erzeugen 
+
+Zwei Aspekte: Deklaration und Erzeugung 
+
+*** Deklaration 
+
+Wir /deklarieren/ eine Variable vom Typ Ellipse
+  - Analogie: eine leere Schachtel anlegen
+  - Syntax entspricht Deklaration von ~int~, ~String~, etc. --
+    Ellipse /ist/ ein neuer Typ 
+
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+// Variable deklarieren; es gibt noch kein Objekt!
+Ellipse e;
+#+END_SRC 
+
+
+
+** Ellipsenobjekt erzeugen 
+
+Zwei Aspekte: Deklaration und Erzeugung 
+
+*** Erzeugung  
+
+- Wir /erzeugen/ ein Objekt vom Typ Ellipse
+  - Schlüsselwort: ~new~
+    - Mit Aufruf des Konstruktors (ggf. samt Parameter)
+  - Analogie: Wir erzeugen  Inhalt 
+- Wir lassen die deklarierte Variable darauf referenzieren
+  - Durch eine Zuweisung
+  - Analogie: Wir packen den Inhalt in die Schachtel 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+// Variable deklarieren; es gibt noch kein Objekt!
+Ellipse e;
+
+// Objekt erzeugen: Schlüsselwort new
+// aber das Objekt geht sofort verloren; wir müssen eine Referenz darauf aufheben 
+new Ellipse();
+
+// Also richtig: 
+e = new Ellipse();
+#+END_SRC 
+
+*** Anmerkung: Trennung von Deklaration und Erzeugung in Python?  :dropslide:
+
+Dieser zweischrittige Prozess kommt Ihnen -- der Python-Perspektive --
+sicherlich seltsam vor. Dort werden Variablen nicht deklariert
+(in einer dynamisch typisierten Sprache nicht notwendig); sie werden
+bei Bedarf im Moment der Zuweisung erschaffen. 
+
+** Zugriff auf Daten 
+
+Auf Daten eines Objekts kann wie gewohnt durch Punkt-Notation
+zugegriffen werden
+
+#+BEGIN_SRC java :exports code :results output :classname Ellipse
+  class Ellipse {
+      // Daten deklarieren: 
+      double x, y;
+      double achse1, achse2;
+  }
+
+  Ellipse e; 
+  e = new Ellipse();
+  e.x = 17.12;
+  System.out.println(2 * e.x);
+#+END_SRC 
+
+
+** Zuweisung zwischen Objektvariablen 
+
+Variablen vom Typ einer Klasse sind Referenzvariablen! 
+- Analog zu ~Array~, ~String~ 
+- Also Zuweisung: Kopie der Referenz! 
+
+#+BEGIN_SRC java :exports code :results output :classname Ellipse
+  class Ellipse {
+      // Daten deklarieren: 
+      double x, y;
+      double achse1, achse2;
+  }
+
+  Ellipse e1, e2; 
+  e1 = new Ellipse();
+  e2 = e1;
+  e1.x = 17.12;
+  System.out.println(e2.x);  
+#+END_SRC 
+
+*** UEBUNG Vergleiche: Was wird hier verglieche bei e1 = e2 ? 
+
+Pendant zu ~is~ vs. ~eq~
+
+Methoden isEqual ; aber keine vernünftige Unterstützung in der Sprache 
+
+** Arrays in Objekten, Arrays von Objekten 
+
+- Daten einer Klasse dürfen beliebigen Typ haben, also auch Arrays 
+- Beispiel 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Zeile {
+      int[] zahlen;
+  }
+
+  Zeile[] matrix;
+#+END_SRC 
+
+
+
+* Methoden 
+
+** Methoden einer Klasse 
+
+- Methoden-Attribute ähnlich zu Python ~def~  in Klasse
+- Syntax:
+  - Typ des Rückgabewerts der Methode
+    - Ggf. spezieller Typ ~void~ falls keine Rückgabe
+  - Name der Methode
+  - Parameterliste (auch leer)
+    - Mit Typen
+    - *Kein* ~self~ als formaler Parameter nötig! 
+  - Rumpf der Methode, in geschweiften Klammern als Block
+- In Methodenrumpf
+  - ~this~ entspricht ~self~ (Schlüsselwort) -- implizit statt
+    explizit vorhanden 
+- Aufruf: Punktnotation 
+
+** Klassendeklaration: Beispiel Ellipse mit Methode 
+
+
+#+BEGIN_SRC java :exports code :results output :classname Ellipse
+  class Ellipse {
+      // Daten deklarieren: 
+      double x, y;
+      double achse1, achse2;
+
+      void verschiebe(double deltax, double deltay) {
+          this.x += deltax;
+          this.y += deltay;
+      }
+  }
+
+  // verkürzte Notation: 
+  Ellipse e = new Ellipse();
+  e.x = 17.12;
+  e.verschiebe(5, -0.2);
+  System.out.println(e.x);
+#+END_SRC 
+
+** Signatur einer Methode 
+
+*** Signatur einer Methode				       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Die /Signatur/ einer Methode ist festgelegt durch 
+- den Namen der Methode 
+- die Anzahl und Typen der Parameter. 
+
+*** Anmerkung							  :dropslide:
+
+Der Typ des Rückgabewerts (ggf. ~void~) wird nicht als Teil der
+Signatur angesehen. Es gibt Programmiersprachen, bei denen auch das
+als Teil der Signatur aufgefasst wird. 
+
+
+** Überladene Methoden 
+
+- Zwei Methoden der gleichen Klasse müssen unterschiedliche Signatur haben
+- D.h., es kann zwei Methoden gleichen Namens aber unterschiedlicher
+  Parametertypen/-anzahl in einer Klasse geben!
+- Solche Methoden heißen /überladene Methoden/
+  - Präziser: Der Name der Methode ist überlappen; aber hier wird
+    meist schlampig formuliert 
+
+*** Aufruf überladener Methoden? 
+
+Wie wird beim Aufruf die richtige Methode ausgesucht? 
+- Die Typen der Aufrufparameter entscheidet 
+- Ggf. nach impliziten Typecasts
+  - Wähle Methode, die /am nächsten/ bei den Typen des Aufrufs liegt 
+
+** Überladene Methoden: Beispiele 
+
+- ~System.out.print~! 
+
+#+BEGIN_SRC java :exports code :results output :classname ZuweisungA
+  class UeberladeneMethoden {
+      void f(int a) { System.out.println("Variante 1"); }
+      void f(char a) { System.out.println("Variante 2"); }
+      void f(String a) { System.out.println("Variante 3"); }
+      void f(double a) { System.out.println("Variante 4"); } 
+  }
+
+  UeberladeneMethoden u = new UeberladeneMethoden();
+
+  u.f('a');
+  u.f(17);
+  u.f(4096);
+  u.f("Hallo");
+  u.f(42.17);
+
+#+END_SRC 
+
+** Aufrufsemantik: Parameter  
+
+*** Parameter ein /primitive type/
+  - Aktueller Wert wird dem formalen Parameter
+    zugewiesen
+    - Also: Kopiert! 
+  - Veränderung des formalen Parameters schlägt sich /nicht/ beim
+    Aufrufer nieder
+
+***  Parameter ein /reference type/				    :animate:
+  - Die /Referenz/ wird  dem formalen Parameter zugewiesen
+    - /Nicht/ das referenzierte Objekt!
+    - Dabei entsteht /keine/ Kopie! 
+  - Veränderung des formalen Parameters schlägt sich /nicht/ beim
+    Aufrufer nieder
+  - Wohl aber eine Veränderung des referenzierten Objekts!
+
+** Aufrufsemantik: Parameter  (2)
+*** Kompatibilitätsregeln 
+
+Wie bei allen Zuweisungen auch! 
+
+*** Insgesamt							    :animate:
+
+Im Endeffekt sehr ähnlich zu Python!
+
+** Aufrufsemantik: Rückgabewert 
+
+*** Rückgabetyp ~void~
+
+- Keine Rückgabe 
+- Funktionsaufruf  darf /nicht/ an eine Variable zugewiesen werden 
+
+*** Rückgabetyp /primitive type/				    :animate:
+
+- ~return~ der Methode muss ein Ausdruck des entsprechenden (oder
+  eines kompatiblen) Typs sein
+- Wert wird aus Methode an die Variable des Aufrufers kopiert 
+
+*** Rückgabewert /reference type/				    :animate:
+
+- ~return~ der Methode muss ein Ausdruck des entsprechenden (oder
+  eines kompatiblen) Typs sein
+- /Referenz/ auf Objekt wird kopiert 
+
+** Aufrufsemantik: Rückgabewert (2)
+*** Kompatibilitätsregeln					    :animate:
+
+Wie bei allen Zuweisungen auch! 
+
+*** Insgesamt							    :animate:
+
+Im Endeffekt sehr ähnlich zu Python!
+
+** Rückgabewert und kompatible Typen 
+
+Typ des ~return~ Ausdrucks muss zuweisungskompatibel zu Typ in Methodensignatur sein 
+
+*** Beispiel 1: Funktioniert 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Ellipse {
+      // (Daten weggelassen) 
+      double flaeche() {
+          return 3.1415 * self.achse1 * self.achse2; 
+      }
+  }
+#+END_SRC 
+
+** Rückgabewert und kompatible Typen 
+*** Beispiel 2: Funktioniert auch -- impliziter typecast	    :animate:
+
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Ellipse {
+      // (Daten weggelassen) 
+      double flaeche() {
+          return 3 * ((int) self.achse1) * ((int) self.achse2); 
+      }
+  }
+#+END_SRC 
+
+
+*** Beispiel 3: Scheitert -- keine implizite Umwandlung möglich	    :animate:
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Ellipse {
+      // (Daten weggelassen) 
+      int flaeche() {
+          return 3.1415 * self.achse1 * self.achse2; 
+      }
+  }
+#+END_SRC 
+
+
+** Mehrere Rückgabewerte 
+
+- Das kann Java nicht!
+- Lösung: Klassen definieren
+  - In Method Objekt erzeugen; mit Werten befüllen
+  - Referenz auf diese Klasse zurückgeben 
+- Komplexer Ansatz
+  - Führt zu vielen Pseudoklassen, nutzlose Namen, ... 
+
+** Lokale und globale Variablen 
+
+*** Lokale Variablen in Methoden 
+
+- Wie in Python: Methode darf am Anfang lokale Variable deklarieren
+- Verschwindet mit Ende der Methode
+
+*** Globale Variablen 
+
+- Gibt es im eigentlichen Sinne nicht, da nichts ausserhalb einer
+  Klasse existiert 
+- Es gibt Klassenattribute, also auch Klassenvariablen
+  - Wird mit Schlüsselwort ~static~ deklariert 
+- Zugriff darauf benötigt kein ~global~
+
+*** UEBUNG Warum ist es wenig sinnvoll, ein Schlüsselwort wie ~global~ in Java einzuführen?  
+
+Dient ja dazu, auf eine schon existierende Variable schreibend
+zuzugreifen. Das Problem entsteht ja nur, weil bei einem
+Schreibzugriff implizit eine Variable im eigenen Namensraum entsteht. 
+
+
+** Globale Variablen: Beispiel 
+
+
+#+BEGIN_SRC java :exports code :results output :classname  GlobalVariablesClass
+  class Ellipse {
+      // Daten deklarieren: 
+      double x, y;
+      double achse1, achse2;
+      static int magic = 3;
+    
+      double flaeche() {
+          return magic * this.achse1 * this.achse2;
+      }
+  }
+
+  Ellipse e = new Ellipse();; 
+  e.achse1 = 2.3;
+  e.achse2 = 4.5;
+  System.out.println(e.flaeche());
+#+END_SRC 
+
+
+*** UEBUNG Konstruktor für Klassenvariablen 
+
+Aufgabe, wie kann man das initialisieren 
+
+
+** Statische Methoden 
+
+Wenn es Klassenvariablen gibt, dann wohl auch Klassenmethoden? 
+
+- Ja, werden mit Schlüsselwort ~static~ deklariert 
+- Kennen wir ja schon von ~public static void main~! 
+
+
+** Statische und objektbezogene Attribute in Java 
+
+#+ATTR_LATEX: :align p{.25\textwidth}|p{.3\textwidth}|p{.3\textwidth}
+|                               | Objektbezogen                                               | Statisch                                     |
+|-------------------------------+-------------------------------------------------------------+----------------------------------------------|
+| Deklaration                   | ohne ~static~                                               | mit ~static~                                 |
+| Existenz                      | separat in jedem Objekt                                     | 1x pro Klasse                                |
+| Attribut wird angelegt        | bei Objekterzeugung (~new~)                                 | bei Laden der Klasse (meist: Programmanfang) |
+| Attribut wird vernichtet      | wenn Objekt vernichtet wird (keine Referenz mehr existiert) | ween Klasse entladen (meist: Programmende)   |
+| Konstruktur                   | bei Objekterzeugung (~new~)                                 | bei Laden der Klasse                         |
+| Zugriff auf Datenattribut ~d~ | ~obj.d~ oder ~this.d~                                       | ~Klassenname.d~                              |
+| Aufruf einer Methode ~d~      | ~obj.m()~ oder ~this.m()~                                   | ~Llassenname.m()~                            |
+
+
+** Sichtbarkeit 
+
+*** Sichtbarkeit einer Variablen in Java 		       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Die /Sichtbarkeit/ (oder der /Gültigkeitsbereich/)  einer Variable
+erstreckt sich von der Deklaration der Variable bis zum Ende des
+Blocks, in dem die Deklaration stattfand. 
+
+Beispielsweise ist die Sichtbarkeit einer Klassenvariable die
+Klasse. Für sie gilt zudem eine Ausnahme: Sie sind auch schon *vor*
+ihrer Deklaration in allen Methoden der Klasse sichtbar.
+
+Eine Variable kann durch eine gleichnamige Variable in einem
+enthaltenen Block überdeckt werden. Eine Methode kann eine Variable
+deklarieren, die eine Klassenvariable gleichen Namens überdeckt. (Ein
+normaler Block darf das nicht.)
+
+*** UEBUNG Beispiel: Klassenvariable NACH einer Methode deklarieren in der sie benutzt wird 
+
+** Lebensdauer 
+
+*** Lebensdauer einer Variable in Java			       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Die Lebensdauer einer Variable ist die Zeitspanne, in der die Variable
+einen gültigen Wert besitzt (der Wert kann eine Referenz auf ein
+Objekt sein). 
+
+*** Lebensdauer vs. Sichtbarkeit
+
+Nicht das gleiche! 
+- Lebendig, aber nicht sichtbar: Durch andere Variable überdeckt
+- Sichtbar, aber nicht lebendig: Deklariert, aber noch nicht mit Wert
+  versehen 
+
+** Sichtbarkeit und Lebensdauer: Vergleich 
+
+- Die Konzepte sind in Java und Python grundsätzlich sehr ähnlich 
+- Details unterscheiden sich natürlich 
+  - Python definiert Lebensdauer von Variablen über Existenz des
+    entsprechenden Namensraums
+  - Sonderfall von Klassenvariablen in Java
+  - ... 
+
+
+
+** Konstruktoren 
+
+- Konstruktoren im wesentlichen wie in Python 
+- Wir haben jeweils einen impliziten Konstruktor benutzt
+- Parameter für Konstruktoren wie bei Methoden
+  - Werte dafür: Parameter beim Klassennamen bei ~new~ 
+- Konstruktoren können überladen werden 
+
+
+* Einfachvererbung 
+
+
+** Konzept 
+
+Klassenhierarchie die nur Einfachvererbung nutzen unterscheiden sich
+kaum 
+- Marginale Syntaxunterschiede
+- Unterschiede bzgl. Zugriffsrechten 
+
+** Syntax 
+
+- ~class Unterklasse extends Oberklasse~
+  - Statt: ~class Unterklasse(Oberklasse):~ 
+- ~super~ in Java analog zu ~super~ bei Python
+  - Solange nur Einfachvererbung! 
+- Beispiel 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Book extends Article {
+      // ggf. neue Daten
+      String ISBN;
+      // ggf. neue Methoden oder Methoden überschreiben
+      void showInfo() {
+          // Aufruf der Methode der Oberklasse:
+          super.showInfo();
+          // und eigene Ausgabe
+          System.out.println("ISBN: " + this.ISBN);
+      }
+  }
+#+END_SRC 
+
+
+** Kompatibilität bei Zuweisung 
+
+
+- Einer Variable vom Typ Oberklasse darf ein Objekt einer Unterklasse
+  zugewiesen werden 
+- Umgekehrt: Nein! 
+- Beispiel: 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Article {
+      String artikelnummer;
+  }
+
+  class Book extends Article {
+      String ISBN;
+  }
+
+  // das ist erlaubt: 
+  Book b1 = new Book();
+  Article a1 = b1;
+
+  // das scheitert, ein Artikel ist kein Buch:
+  Article a2 = new Article();
+  Book b2 = a2;
+#+END_SRC 
+
+
+** Zugriff auf Felder nach Zuweisung zu Variable eines Oberklassentyps 
+
+- Kann man nach Zuweisung zu einer Oberklassentypisierten Variable
+  noch auf die Daten (oder Methoden) der Unterklasse zugreifen?
+  - Die sind in dem Objekt ja noch vorhanden
+  - Es wurde ja nur der Typ der /Referenz/ geändert; am Objekt selbst
+    ist nichts passiert! 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Article {
+      String artikelnummer;
+  }
+
+  class Book extends Article {
+      String ISBN;
+  }
+
+  // das ist erlaubt: 
+  Book b1 = new Book();
+  Article a1 = b1;
+  System.out.println(a1.ISBN);
+#+END_SRC 
+
+*** Fehlermeldung						  :dropslide:
+
+Nein! 
+- Der Compiler prüft schon, ob man über eine ~Article~-Referenz auf
+  ein Attribut ~ISBN~ zugreifen kann
+- Das gibt es in der ~Article~-Klasse aber nicht, also Fehlermeldung
+  - Der /Compiler/ weiß nicht, dass es sich in Wirklichkeit um ein
+    ~Book~ handelt
+  - Das könnte man erst zur Laufzeit feststellen 
+
+** Unterklasse zurückbekommen? Typecasts zwischen Objekten? 
+
+- Aber man könnte das doch typecasten? 
+- Wir zwingen den Compiler, eine Interpretation der Referenz als
+  ~Book~ zu akzeptieren!
+- (Vergleich Python: Keine Notwendigkeit für Typecasts zwischen
+  Klassen) 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Article {
+      String artikelnummer;
+  }
+
+  class Book extends Article {
+      String ISBN;
+  }
+
+  // das ist erlaubt: 
+  Book b1 = new Book();
+  Article a1 = b1;
+  Book b2 = (Book) a1;
+  System.out.println(b2.ISBN);
+#+END_SRC 
+
+** Typecast wenn falsches Objekt? 
+
+- Was passiert, wenn wir einen typecast (irrtümlich?) auf ein falsches
+  Objekt anwenden?
+- Beispiel: 
+
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Article {
+      String artikelnummer;
+  }
+
+  class Book extends Article {
+      String ISBN;
+  }
+
+  // das scheitert; b2 ist kein Book
+  Article a1 = new Article();
+  Book b2 = (Book) a1;
+  System.out.println(b2.ISBN);
+#+END_SRC 
+
+
+*** Fehlermeldung						  :dropslide:
+
+Auch das scheitert! 
+- Der Typecast ist nur die Anweisung einer anderen Interpretation
+- Dadurch entsteht keine ~Book~, keine ~ISBN~ aus dem Nichts!
+- Zur Laufzeit wird aber sehr wohl das Vorhandensein von ~ISBN~
+  überprüft, nicht gefunden
+- Führt zu Exception (~ClassCastException~) 
+
+** Vor einem Typecast nachschauen? Reflektion? 
+
+- Kann man bei einem Objekt nachschauen, ob es zu einer bestimmten
+  Klasse gehört? 
+- Schlüsselwort: ~instanceof~
+  - Pendant zu ~isinstance~-Funktion in Python 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Article {
+      String artikelnummer;
+  }
+
+  class Book extends Article {
+      String ISBN;
+  }
+
+  // das scheitert; b2 ist kein Book
+  Article a1 = new Article();
+  if (a1 instanceof Book) {
+      Book b2 = (Book) a1;
+      System.out.println(b2.ISBN);
+  } else {
+      System.out.println("Leider kein Buch!");
+  }
+#+END_SRC 
+
+** Dynamische Methodenbindung 
+
+Welche Methoden werden aufgerufen in einer Klassenhierarchie? 
+- Genauer: Liegt die Wahl der Methode am: 
+  - Typ des referenzierten Objektes oder 
+  - Typ der referenzierenden Variable?
+- Erwartungshaltung? Sinnvoll? 
+
+** Dynamische Methodenbindung: Beispiel
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Article {
+      void m() { System.out.println("m von Artikel"); }
+  }
+
+  class Book extends Article {
+      void m() { System.out.println("m von Buch"); }
+  }
+
+  Article a = new Article();
+  Book b = new Book();
+  // das hier ist ja klar:
+  a.m();
+  b.m();
+
+  // was passiert hier?
+  Article a1 = b;
+  a1.m();
+
+  Book b1 = (Book) a1;
+  b1.m();
+#+END_SRC 
+
+
+** Dynamische Methodenbindung:  Beobachtung 
+
+Wie zu erwarten (und erhofft): Der Typ des Objekts entscheidet! 
+- Java nutzt (wie Python und alle OO-Sprachen) /dynamische Bindung/
+  zur Methodenauswahl
+  - Dynamisch: Zur Laufzeit, nicht zum Zeitpunkt der Compilierung 
+- Der Typecast ~b1 = (Book) a1~ ist an dieser Stelle also /nicht/
+  notwendig, um die /richtige/ Methode aufzurufen 
+
+*** Bemerkung: Andere Sprachen					  :dropslide:
+
+- Dynamische Bindung ist ein unverzichtbares Merkmal von OO-Sprachen
+  - Es gibt Sprachen (wie C++), bei denen man das durch ein
+    Schlüsselwort bei der Methoden angeben muss -- aber es geht!
+- Hätte man keine dynamische Bindung, würde man auf lange Abfragen mit
+  ~instanceof~ verfallen
+- Und selbst das funktioniert nur für /schon bekannte/ Klassen
+  - Wird eine neue Klasse abgeleitet, würde trotzdem die falsche
+    Methode (die der Oberklasse) aufgerufen
+- Dynamische Bindung erlaubt das Aufrufen einer Methode, die zum
+  Zeitpunkt der Implementierung des Aufrufs noch gar nicht existierte! 
+
+
+** Sichtbarkeit zwischen Klassen 
+
+- Sichtbarkeit oben: Von Deklaration bis Ende des Blocks
+- Also eigentlich: In Oberklasse deklarierte Methode nicht in
+  Unterklasse sichtbar?
+  - Naja ... doch
+  - Aber ... je nachdem 
+
+*** Sicherbarkeit bei Vererbung					    :animate:
+
+- Java verfolgt ein Misstrauen-basiertes Sichtbarkeitsmodell zwischen
+  Ober- und Unterklassen
+- Attribute (Daten und Methoden) können mit Zugriffsregeln annotiert
+  werden 
+
+** Sichtbarkeit zwischen Klassen: Annotationen 
+
+- In Klasse selbst: Alle Attribute sichtbar (gemäß obiger Regeln)
+- Im Verhältnis zu anderen Klassen: Annotationen
+  - ~public~: Attribute darf von (Methoden von)  allen anderen Klassen
+    benutzt werden (lesen oder schreiben)
+  - ~protected~: Nur Objekte einer Unterklasse dürfen Attribut
+    benutzen
+  - ~private~: Nur Methoden der Klasse selbst dürfen Attribute
+    benutzen 
+
+** Sichtbarkeit zwischen Klassen: Zugriff von außen  
+
+Zugriff von außen/aus anderen Klassen: 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+class A {
+    private int u;
+    protected int v;
+    public int w;
+    int x;
+    
+    void m() {
+        this.u = 5;
+        this.v = 5;
+        this.w = 5;
+        this.x = 5;
+    }
+}
+
+// Zugriff von aussen: 
+A a = new A();
+a.u = 42;
+a.v = 42;
+a.w = 42;
+a.x = 42;
+
+// Zugriff auf Attribute aus eigener Methode: 
+a.m();
+#+END_SRC 
+
+*** Fehlermeldungen 
+
+- Zugriff ~a.u~ und ~a.v~ scheitert 
+
+** Sichtbarkeit zwischen Klassen: Zugriff von Unterklasse   
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class A {
+      private int u;
+      protected int v;
+      public int w;
+      int x;
+  }
+
+  class B extends A {    
+      void m() {
+          // Compiler detektiert das Problem,
+          // verweigert Übersetzung 
+          this.u = 5;
+          this.v = 5;
+          this.w = 5;
+          this.x = 5;
+      }
+  }
+
+  B a = new B();
+  b.m();
+#+END_SRC 
+
+*** Fehlermeldung 
+
+- Klasse ~B~ kann nicht erzeugt werden mit Zugriff auf ~this.u~ 
+
+
+** Sichtbarkeit zwischen Klassen: Zugriff von Unterklasse und ~super~  
+
+
+Das funktioniert: Methode ~A.m~ darf auf privates Attribut ~A.u~
+zugreifen 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class A {
+      private int u;
+      protected int v;
+      public int w;
+      int x;
+
+      void m() {
+          this.u = 5;
+      }
+  }
+
+  class B extends A {    
+      void m() {
+          super.m();
+          this.v = 5;
+          this.w = 5;
+          this.x = 5;
+      }
+  }
+
+  B b = new B();
+  b.m();
+#+END_SRC 
+
+** Sichtbarkeit zwischen Klassen: Übersicht 
+
+| Annotation     | Klasse selbst | Unterklasse | Andere Klasse/von aussen |
+|----------------+---------------+-------------+--------------------------|
+| ~public~       | Ja            | Ja          | Ja                       |
+| ~protected~    | Ja            | Ja          | Nein                     |
+| /keine Angabe/ | Ja            | Ja          | Nein                     |
+| ~private~      | Ja            | Nein        | Nein                     |
+
+
+** Sichtbarkeit zwischen Klassen: ~final~  
+
+
+- Man kann das Überschreiben von Methoden verbieten
+- Annotation: Schlüsselwort ~final~
+- Keiner weiß, wozu das gut sein soll
+  - Aber die Sprache sieht es vor 
+
+
+** Sichtbarkeit zwischen Klassen: Misstrauen 
+
+- Oracle Empfehlung: Misstraue Deinen Kindern
+  - Zitat:
+    - Use the most restrictive level that makes sense. Use
+      ~private~ unless you have a good reason not to.
+    - Avoid ~public~ fields. 
+- Daraus folgendes Muster
+  - Datenattribute in der Regel ~private~, ggf. ~protected~
+  - Mit ~getter~ und ~setter~ Methoden 
+
+
+** Vertrauen zwischen Klassen: ~final~  
+
+*** ~final~ für Methoden 
+
+- Man kann das Überschreiben von Methoden verbieten
+- Annotation: Schlüsselwort ~final~
+- Keiner weiß, wozu das gut sein soll
+  - Aber die Sprache sieht es vor
+  - (Man braucht das, um Closures nachzubauen, die Java eigentlich
+    nicht hat...) 
+
+*** ~final~ für Daten						    :animate:
+
+- Mit ~final~ markiertes Datenattribut: eine Konstante
+- Das kann natürlich sinnvoll sein 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Math {
+      public final double pi = 3.14159296;
+  }
+#+END_SRC 
+
+
+
+** Warum Misstrauen? 
+
+  - Avoid ~public~: Weil Java keinen Property-Mechanismus hat und
+    nicht nachträglich ~getter~ und ~setter~-Methoden einfügen kann
+  - Weil Java-Entwickler den Programmierern von Unterklassen nichts zutraut
+    - Vielleicht: aus Erfahrung geboren? 
+    - /It is for your own protection/
+    - Idee: /Information Hiding/ (Geheimnisprinzip)
+      - Verstecke Realisierung von Daten; erlaube Zugriff nur über
+        Methoden 
+  - Alternative: Python /we are all adults/
+  - [[http://steve-yegge.blogspot.de/2010/07/wikileaks-to-leak-5000-open-source-java.html][Stellen Sie sich den Skandal vor]]!!  
+
+
+
+* Mehrfachvererbung und Ersatz dafür 
+
+
+** Mehrfachvererbung in Java
+
+- Gibt es nicht 
+- Java-Entwickler: Damit sind Programmierer überfordert 
+
+#+CAPTION: Entwickler sind mit Mehrfachvererbung überfordert
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:doublepalm
+[[./figures/doublefacepalm.png]]
+
+** Gefahr Mehrfachvererbung in Java 
+
+- Tatsächlich: Durch die deklarierten Datenattribute in Java wäre eine
+  Mehrfachvererbung komplizierter zu definieren als in Python!
+- Also: Diamond of Death for Data! 
+- Problem: Zwei Oberklasse definieren beide ein Attribut ~int x~
+  - Oder: eine Oberklasse ~int x~, eine andere ~double x~?
+  - Welches ~x~ ist dann in der Unterklasse gemeint? Gibt es eins oder
+    zwei?
+
+
+*** Übliche Antwort						    :animate:
+
+- Es gibt zwei ~x~ in Unterklasse, Variablenname  ... (z.B. C++)
+- Variablenname mit Name der Oberklasse als Präfix
+
+
+** Ersatz: Abstrakte Klassen und Interfaces 
+
+- Aber man braucht natürlich schon die Möglichkeit, einer Klasse
+  unterschiedliche Eigenschaften, von mehreren Eltern, zu geben
+- Java macht dazu eine relative komplizierte Ersatzkonstruktion: /Interfaces/
+  - Die angeblich ganz einfach ist
+- Allerdings müssen wir dazu etwas Anlauf nehmen: /abstrakte Klassen/ 
+
+
+** Abstrakte Klassen: Tierfarm als Beispiel 
+
+- Nehmen wir an, wir wollen eine Tierfarm modellieren 
+  - (Vergleiche Kapitel 13, Mössenböck)
+- UML-Diagramm könnte wie folgt aussehen 
+
+#+CAPTION: UML-Diagramm einer einfachen Tierfarm
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:tierfarm-uml
+[[./uml/tierfarm.png]]
+
+** Implementierung von ~Tier~? 
+
+- Was soll man bei ~Tier~ als Methoden implementieren?
+  - Kein sinnvoller Inhalt
+- Die Methode weglassen ist aber auch keine Option
+  - Die Kasse soll ja die Gemeinsamkeiten aller Tiere beschreiben 
+
+** Lösung: Methode als Platzhalter markieren 
+
+- Schlüsselwort ~abstract~ vor Methodentyp
+  - Beispiel: ~public abstract void~, ~private abstract int~ 
+- Markiert die Methode als Platzhalter; keine Implementierung nötig
+  - /Kein/ ~{}~ nach dem Funktionskopf, /stattdessen/ ~;~
+- Klasse mit mindestens einer abstrakten Methode ist eine /abstrakte
+  Klasse/
+  - Weil das aber zu einfach wäre: auch die Klasse muss ~abstract~
+    markiert sein! 
+- Beispiel: 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  abstract class Tier {
+                boolean frisst (String food) { return false; }
+      abstract  void    sprich (); 
+  }
+#+END_SRC 
+
+
+** Objekte von abstrakten Klassen? 
+
+- ~Tier~ hat also eine Methode, die es geben muss
+- Die es aber nicht gibt!
+- ~Tier~ ist also unvollständig
+- Konsequenz: /Von abstrakten Klassen kann kein Objekt instantiiert
+  werden!/
+  - Was sollte man auch tun, wenn bei so einem Objekt die Methode
+    ~sprich~ aufgerufen würde? 
+
+
+** Unterklassen von abstrakten Klassen: Fehlende Methoden ergänzen 
+
+- Abstrakte Klasse in Unterklasse ableiten 
+- Dort die fehlende Methode(n) implementieren
+- Wenn alle abstrakten Methoden konkret geworden sind, kann man auch
+  Objekte instantiieren 
+- Beispiel: 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  abstract class Tier {
+                boolean frisst (String food) { return false; }
+      abstract  void    sprich (); 
+  }
+
+  class Hund extends Tier {
+      // Hunde sind Allesfresser: 
+      boolean frisst (String food) { return true; }
+      void    sprich () { System.out.println("woof!"); } 
+  }
+
+  Hund h = new Hund();
+  h.sprich();
+#+END_SRC 
+
+** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse 
+
+- Abstrakte Klasse instantiieren nicht möglich
+- Aber sehr wohl möglich: Referenz auf konkretes Objekt speichern
+- Und dort konkrete Methoden aufrufen
+- Wenig überraschend ... 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  abstract class Tier {
+                boolean frisst (String food) { return false; }
+      abstract  void    sprich (); 
+  }
+
+  class Hund extends Tier {
+      // Hunde sind Allesfresser: 
+      boolean frisst (String food) { return true; }
+      void    sprich () { System.out.println("woof!"); } 
+  }
+
+  Hund h = new Hund();
+  Tier t = h;
+  t.sprich();
+#+END_SRC 
+
+
+
+** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse  (2) 
+
+- Typisch: Abstrakte Klasse in Methodensignatur nutzen
+  - Konkrete Referenz bei Aufruf zuweisen
+  - Methoden kann dadurch mit allen Unterklassen arbeiten
+- Beispiel: Tierfarm tierunabängig realisiert
+
+** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse  (3) 
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  abstract class Tier {
+                boolean frisst (String food) { return false; }
+      abstract  void    sprich (); 
+  }
+
+  class Hund extends Tier {
+      // Hunde sind Allesfresser: 
+      boolean frisst (String food) { return true; }
+      void    sprich () { System.out.println("woof!"); } 
+  }
+
+  class Maus extends Tier {
+      // Mäuse fressen nur Käse: 
+      boolean frisst (String food) { return (food == "Käse"); }
+      void    sprich () { System.out.println("meep"); } 
+  }
+
+  class Tierfarm {
+      Tier [] meineTiere;
+      Tierfarm() { this.meineTiere = new Tier[0]; }
+      Tierfarm(Tier[] anfangstiere) { this.meineTiere = anfangstiere; }
+  
+      void konzert() { this.konzert(this.meineTiere); }   
+      void konzert(Tier [] andereTiere) { for (Tier t: andereTiere) t.sprich(); }   
+  }
+
+  Tierfarm farm = new Tierfarm(new Tier[] { new Hund(), new Maus()});
+  farm.konzert();
+  Tierfarm farm2 = new Tierfarm();
+  farm2.konzert( new Tier[] { new Maus(), new Hund ()});
+#+END_SRC 
+
+** Alle Methoden abstrakt
+
+- Natürlich können alle Methoden einer abstrakten Klasse abstrakt sein
+- Nennen wir so eine Klasse /vollständig abstrakt/
+  - Achtung, keine Standard-Terminologie! 
+
+** Datenattribute weglassen 
+
+- Man kann eine vollständig abstrakte Klasse ohne Datenattribute deklarieren
+  - Unüblich, aber warum nicht ... 
+- Nennen wir das eine /leere vollständig abstrakte/ Klasse (kur:
+  /LeVAK/) 
+  - Achtung, keine Standard-Terminologie! 
+
+** Mehrverfachererbung mit LeVAKs? 
+
+- Könnte man es riskieren (Programmierern zumuten), mit LeVAKs
+  Mehrfachvererbung zu erlauben?
+- Semantik klar? 
+  - Diamond of death für Datenattribute tritt nicht mehr auf
+  - Diamond of death für Methoden schon noch...
+    - Aber wäre das ein Problem?
+    - Die Methoden sind ja /*leer*/, ohne Implementierung!
+    - Es tritt also kein Problem mehrdeutiger /Implementierungen/ auf! 
+
+** Mehrverfachererbung mit LeVAKs -- Beispiel   
+
+
+Also könnte man folgendes schreiben? 
+- (Achtung, kein gültiges Java!)
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  abstract class A {
+      abstract a1 ();
+      abstract a2 ();
+      abstract a3 ();
+      ... 
+      abstract m(); 
+  }
+
+  abstract class B {
+      abstract b1 ();
+      abstract b2 ();
+      ... 
+      abstract m(); 
+  }
+
+  class C extends A, B {  /* hier Implementierung der Methoden */ }
+#+END_SRC 
+
+
+** Nutzen Mehrfachvererbung nur mit LeVAKs? 							   
+- Aber das ist nur bedingt nützlich: Keine einzige Implementierung
+  vorhanden
+- Vererbung eigentlich: Methode für Code Reuse!!
+- Klasse ~C~ müsste alle Methoden selbst implementieren
+  - Wenn Namen mehrfach auftritt (~m~) ist nicht schlimm: wird ohnehin
+    neu implementiert! 
+
+*** Schnittstelle!						    :animate:
+
+- Lediglich: Schnittstelle der Unterklasse spezifiziert
+- Nutzer eines ~C~-Objektes kann sich auf die Existenz
+  - der Methoden ~a1~, ~a2~, ~a3~, ... *und* ~b1~, ~b2~, ...
+  - sowie einer *eindeutig definierten* Methode ~m~ verlassen! 
+
+** Mehrverfachererbung: LeVAKs, und eine richtige Klasse? 
+
+- Vielleicht: /*eine*/ nicht-abstrakte Oberklasse, sonst nur LeVAKs?
+  - Sonst ja gar keine Funktionalität vorhanden... 
+- Semantik klar?
+  - Kein Diamond of Death for Data
+  - Diamond of Death for methods?
+    - Gleicher Methodenname zwischen LeVAKs: nicht schlimm, wie
+      oben
+    - Gleicher Methodenname zwischen LeVAKs und nicht-abstrakter
+      Oberklasse: nicht schlimm; die Implementierung ist ja eindeutig! 
+
+
+** Mehrverfachererbung: LeVAKs, und eine richtige Klasse --  Risiko?  Nutzen? 
+
+- Das ist lange nicht so nützlich wie /echte/ Mehrfachvererbung 
+- Aber möglicherweise traut das selbst Java den Programmierern zu? 
+
+** Javas Panik
+
+- Nein, nein, nein -- das ist immer noch zu kompliziert für
+  Programmierer!
+- Wir müssen Programmierer wenigstens warnen, wenn sie sowas machen
+  wollen 
+- Wir führen lieber neue Schlüsselwort ein! 
+
+#+CAPTION: Neue Schlüsselworte als Warnung! 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:doublepalm
+[[./figures/doublefacepalm.png]]
+
+** Interfaces statt LeVAKs, neue Schlüsselworte 
+
+- Ein LeVAK bekommt einen Namen: ~interface~
+  - Das ist plausibel
+  - Mehr als eine Beschreibung einer (noch zu realisierenden)
+    Schnittstelle ist das ja auch nicht 
+- Aber von einem ~interface~  kann man nicht erben (nicht ~extends~)
+  - Sondern nur implementieren: ~implement~ 
+
+** ~interface~ und ~extend~: Beispiel 
+
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  interface bla {
+      void bla();
+  }
+
+  interface blub {
+      void blub();
+  }
+
+  class A {
+      public void bla() { System.out.println("bla"); }
+  }
+
+  class B extends A implements bla, blub {
+      public void blub() { System.out.println("BLUB"); }
+  }
+
+  B b = new B();
+  b.bla();
+  b.blub();
+#+END_SRC 
+
+** ~interface~ und ~extend~
+
+- ~interface~ kann mit ~extend~ vererbt werden
+- Aber es ist /keine/ abstrakte Klasse, nein, nein! 
+
+
+** ~interface~ vs. LeVAK 
+
+- Eine leere, vollständig abstrakte Klasse
+  - Keine Daten
+  - Alle Methoden ~abstract~
+- Ein ~interface~
+  - Keine Daten
+  - Alle Methoden ~abstract~
+- Semantik bei inheritance *exakt* gleich! 
+  - Man muss ~interface~ und ~implements~ benutzen
+  - Siehe [[http://blog.cleancoder.com/uncle-bob/2015/01/08/InterfaceConsideredHarmful.htmln][Interface considered harmful]] 
+
+#+CAPTION: Unterschied zwischen abstract class und interface
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:abstract-vs-interface
+[[./figures/frey-interface.png]]
+
+** ~interface~: Die kleinen Details 
+
+*** public 
+
+- Alle Methoden eines Interfaces sind ~public~
+- Implementierende Methoden der Klasse sind zwangsläufig ebenfalls
+  ~public~  
+
+*** Konstanten 
+
+- Interfaces dürfen Konstanten festlegen (Daten mit ~final~) 
+- Aber damit: Deadly diamond of death für Konstanten! 
+- Lösung wie bei C++: Klassennamen voranstellen! :-) 
+
+
+** ~interface~ in Java 8 
+
+
+- Java 8 fügt einen neuen Aspekt zu ~interface~ hinzu:
+  ~default~-Implementierung
+  [[https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html][Java docs]]
+  - Java 8: Derzeit aktuelle Sprachversion (März 2014, mit laufenden
+    Updates) 
+  - ~interface~ darf eine Standard-Implementierung für eine Methode
+    vorsehen
+  - Wird benutzt, wenn implementierende Klasse diese Methode nicht
+    überschreibt 
+- Das ist natürlich /keine/ Mehrfachvererbung -- nein, nein 
+
+#+CAPTION: defaults in interfaces
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:kidding
+[[./figures/kidding-minion.png]]
+
+** ~interface~ in Java 8 
+
+- Beispiel siehe unten 
+- Argumentation in Java 8 für ~default~: ~interface~ soll sich
+  entwickeln dürfen
+  - Ohne Änderung der implementierenden Klassen zu erfordern 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX 
+  public interface vehicle {
+     default void print(){
+        System.out.println("I am a vehicle!");
+     }
+  }
+#+END_SRC 
+
+** ~interface~ in Java 8: Diamond of Death! 
+
+- Implementierende Klasse muss mehrdeutige Methoden überschreiben
+- Zugriff auf mehrdeutige Methode: Der Name des Interfaces /*muss*/
+  bei ~super~ vorangestellt werden
+- Anders formuliert: *Java 8 hat keine klar definierte Method Resolution Order!*
+- Genauer gesagt:
+  - Implementierungen in Klassen Vorrang über ~default~ in
+    Interface
+  - Spezifischeres Interface hat Vorrang
+  - Aber damit ist der Diamond of Death nicht aufgelöst!
+  - Compiler liefert Fehler 
+
+*** Grund?							    :animate:
+
+Grund für seltsame Struktur: Wunsch nach *Rückwärtskompatibilität* 
+
+
+** ~interface~ in Java 8: Diamond of Death! 
+
+
+Fehlermeldung bei Übersetzung: 
+~class D inherits unrelated defaults for hello() from types C and B~
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  interface A {  default void hello() { System.out.println("from A"); } }
+
+  interface B extends A {  default void hello() { System.out.println("from B"); } }
+  interface C extends A {  default void hello() { System.out.println("from C"); } }
+
+  class D implements C, B {  } 
+#+END_SRC 
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Javas Objektorientierung ist bei einfachen Klassenhierarchien recht
+  ähnlich zu Pythons Ansatz
+- Wesentliche Unterschied:
+  - Verzicht auf Mehrfachvererbung und Imitation durch Interfaces
+    - In neueren  Versionen gibt aber selbst Java zu, dass das Murks
+      ist
+  - Misstrauensmodell und feingranulare Zugriffskontrolle auf Daten,
+    Methoden, Klassen
+    - Bis hin zu ~private~ -- Nutzen stark strittig
+
