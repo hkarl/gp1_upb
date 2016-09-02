@@ -51,10 +51,12 @@ java:
 	sed -i "" 's/"display_name": "Python 3"/"display_name": "Java 9"/' *ipynb
 	sed -i "" 's/"language": "python"/"languag": "java"/' *ipynb
 	sed -i "" 's/"name": "python3"/"name": "java"/' *ipynb
+
 clean:
 	-rm *.tgz
-	-rm *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc
+	-rm *.tex *.tex~ *aux *fdb_latexmk *.fls *.log *.out *.toc *.lof *.loe
 	-rm *.ipynb *.ipynb~
 	-rm *.pdf
 	-rm -rf _minted-ch*
+	-rm *.java *.class
 
