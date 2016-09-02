@@ -150,6 +150,7 @@ Häufig Fehlerquelle!
 - Ja, eine Zeile Python kann schwerer lesbar sein als eine Zeile Java
 - Sie tut aber auch die Arbeit von 10 Zeilen Java 
 - Siehe auch: [[http://www.paulgraham.com/power.html][Succinctness is power]], [[http://page.mi.fu-berlin.de/prechelt/Biblio/jccpprtTR.pdf][Vergleich von Programmiersprachen]]
+  und in Python ~from __future__ import braces~ 
 
 
 ** Syntax: Semikolon 
