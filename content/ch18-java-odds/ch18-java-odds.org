@@ -1,0 +1,369 @@
+#+TITLE: Kapitel X: Title? 
+#+INCLUDE: "../template/header.org"
+
+#+STARTUP: showeverything
+# TODO states: looks like this has to go on main file and cannot be
+# included 
+#+TODO: TODO(t) | UEBUNG(u) DONE(d)
+#+OPTIONS: tasks:todo
+
+
+* Überblick 
+
+
+** Was bisher geschah 
+
+- Java Grundlagen 
+- Die wundersame Welt der Objektorientierung in Java 
+
+** Dieses Kapitel 
+
+- Fehlende Kleinigkeiten 
+- Betonung einiger Aspekte der aktuellen Java Version 8 
+
+
+
+* Exceptions
+
+** Exceptions 
+
+- Java hat einen Exception-Mechanismus sehr ähnlich zu Python
+  - Klassenbasiert; erweiterbar; ... 
+- Syntax leicht unterschiedlich
+  - Behandlung: ~try~ und ~catch~ (statt ~except~)
+  - Auslösen: ~throw~ statt ~raise~
+  - ~finally~ wie ~final~ 
+- Beispiel
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  try {
+      /* Anweisungen */
+  } catch (OverflowException | UnderflowException e) {
+      /* Anweisungen */
+  } catch (Exception e) {
+      /* Anweisungen */
+  } finally {
+      /* Anweisungen */
+  }
+#+END_SRC 
+
+
+** Exceptions im Methodenkopf 
+
+Besonderheit: Eine Methode kann Exceptions aufzählen, die sie nicht
+selbst behandelt 
+- Beispiel: Methode zum Datei öffnen kann ein ~File not found~ nicht
+  selbst sinnvoll behandeln 
+- Syntax: ~throws~ (das ~s~ ist wichtig!) als Teil der Signatur 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class X {
+      void m () throws ExceptionName1, ExcpetionName2, {
+          /* Anweisungen */
+          if (...) throw ExceptionName1; 
+      }
+  }
+#+END_SRC 
+
+** Nutzung solcher Methoden 					    
+
+- Angenommen, wir wollen dieses ~m~ in einer anderen Methode ~m1~
+  nutzen 
+- Dann muss alle von ~m~ (möglicherweise) geworfenen Exception-Klassen
+  - Bei einem Aufruf von ~m~ in einem ~catch~ behandelt werden oder
+  - ~m1~ muss eine nicht behandelte Exception-Klasse ihrerseits im
+    Methodenkopf als ~throws~ deklarieren 
+- Andernfalls: Compiler stellt fest, dass nicht alle Excpetions
+  behandelt werden
+  - Verweigert Übersetzung
+- Konsequenz: spätestens in ~main~ wird alles behandelt
+  - Ausnahme: System-Exceptions wie ~NullPointer~
+
+
+
+
+* Lambda-Ausdrücke 
+
+** Java 8: Lambda-Ausdrücke! 
+
+- Vor Java 8: Keine Lambda-Ausdrücke
+  - Mit extrem umständlichen Hilfskonstruktionen, z.B. anonyme
+    Klassen, um eine Vergleichsfunktion für Sortieren zu definieren
+- Aber auch die sind statisch typisiert!
+  - Man muss also die Signatur angeben (plus Rückgabewert)
+  - Dazu: Interface mit einer Methode deklarieren
+    - Darf anonym passieren; Interface braucht keinen Namen 
+- Lambda-Ausdruck dann bei Zuweisung an Funktionsvariable 
+
+** Java 8: Lambda-Ausdrücke -- Beispiel 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  // wir brauchen zunächst ein Interface als Typ
+  // hier: Integer auf Integer abbilden 
+  interface meinFunktionstyp {int exec (int x); }
+
+  // davon können wir eine Variable bauen:
+  meinFunktionstyp f;
+
+  // und an f einen Lambda-Ausdruck zuweisen:
+  f = x -> x * x;
+
+  // Test - Achtung, man muss die Methode aufrufen!
+  int y = f.exec(5);
+  System.out.println(y);
+#+END_SRC 
+
+
+** Java 8: Lambda vs. Closures 
+
+[[http://www.lambdafaq.org/lambdas-and-closures-whats-the-difference/][Zitat]]: A closure is a lambda expression paired with an environment
+that binds each of its free variables to a value. In Java, lambda
+expressions will be implemented by means of closures, so the two terms
+have come to be used interchangeably in the community. 
+
+Aber nur, weil die Java community den Unterschied nicht versteht! 
+
+
+
+* Generizität 
+
+** Generizität 
+
+- Bisher: Alle Methoden hatten feste Typen
+- Den gleichen Code immer wieder schreiben, nur weil sich ein Typ
+  ändert?
+  - Sortieralgorithmus für Zahlen, einen anderen für Strings, ... ?
+  - Sortieren ist immer gleich -- nur das Vergleichen und Kopieren
+    unterscheidet sich 
+- Optionen:
+  - Man fällt auf ~Object~ zurück (ggf. durch Boxing)
+    - Nachteil: Wie konvertiert man in eigentlichen Typ zurück? (Z.B. Element
+      aus Liste entnommen?)
+    - Nachteil: In eine Liste für Strings  können auch Zahlen abgelegt
+      werden
+  - Man erfindet /generische Typen/ 
+
+** Generische Typen 
+
+- Idee: Man lässt bei einer Klasse einen Typ als Parameter zu!
+  - Damit eigentlich eine Familie von Klassen definiert!
+- Beim Instatiieren eines Objekts: Konkreten Typ für den Parameter
+  nennen 
+- Beispiel: allgemeine Klasse für Liste, durch Typ parametriert 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  class Liste<T> {
+      T[] data;
+      void add (T x) { ... };
+      T remove() {...};
+      void sort() {... /* Vergleich von T Objekte */ ... }
+  }
+
+  Liste<String> textliste = new Liste<String>();
+  textliste.add("Hallo");
+
+  // das gibt Fehler: 
+  textliste.add(42);
+#+END_SRC 
+
+
+* Pakete 
+** Pakete 
+
+- Zusammenfassung von Klassen zu größeren Einheiten: Paketen
+- Zuordnung einer Klasse zu Paket /Paketname/:
+  - Anweisung ~package Paketname;~ im Kopf der ~.java~-Datei der
+    Klasse 
+- Beispiel UML 
+
+#+CAPTION: Beispiel einer UML-Darstellung eines einfachen Paketes mit zwei Klassen
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:uml-package
+[[./uml/packages.png]]
+
+
+** Pakete und Verzeichnisse 
+
+- Klassen: Dateien
+  - Klasse ~C~ in Datei ~C.java~
+- Pakete: Verzeichnisse!
+  - Klassen eines Paketes ~P~ in Verzeichnis ~P~
+  - Beispiel oben: In Verzeichnis ~graphics~ die Dateien ~Circle.java~
+    und ~Rectangle.java~
+
+
+** Pakete von Paketen, Verzeichnisse in Verzeichnissen 
+
+- Pakete zu Paketen zusammenfassen 
+- Dateien liegen in Unterverzeichnissen von Verzeichnissen 
+
+#+CAPTION: Pakete von Paketen;  UML-Darstellung
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:uml-package-hierarchy
+[[./uml/packages-hierarchy.png]]
+
+** Klassen, Pakete - wo gesucht? 
+
+- Suche beginnt ab aktuellem Verzeichnis
+- Angenommen, ~static void main~ ist ein ~MyApp.java~, was Teil des
+  Pakets ~graphics~ ist, was Teil des Pakets ~utilities~ ist
+- Dann Übersetzen (~javac~) bzw. Starten (~java~)
+  - Ab Verzeichnis *oberhalb* von Utilities
+  - ~javac utilities/graphics/MyApp.java~
+  - ~java utilities/graphics/MyApp~
+- Zustätzliche Suche ab Verzeichnissen in Umgebungsvariable
+  ~CLASSPATH~
+- Eine häufige Fehlerquelle! 
+
+
+** Explizites Importieren aus Paketen 
+
+- Tpyischerweise: Klassen aus Paketen importieren
+- Anweisung: ~import~
+  - Direkt nach Anweisung ~package~
+  - Folge der Paketnamene und Klassenname!
+  - Durch Punkt getrennt
+  - Fügt Klasse dem Namensraum hinzu 
+- Beispiel: ~import utilities.graphics.Circles~
+  - Dann: ~Circle c = new Circle()~
+
+** Implizites Importieren 
+
+- Klassen auch nutzbar durch Angabe des vollständig qualifizierten
+  Paketnamens
+  - *Ohne* ~import~
+- Beispiel:
+  - ~utilities.graphics.Circle c = new utilities.graphics.Circle()~
+
+
+
+
+*** UEBUNG Statische Methoden importieren 
+
+** Sichtbarkeit bzgl. Paketen 
+
+- Java ist ja bei der Sichtbarkeit von Methoden einer Klasse schon paranoid
+- Das ist bei Sichtbarkeit von Klassen in Paketen nicht anders
+  - Klassen können mit ~public~ etc. versehen werden
+  - Default: Package private -- Zugriff nur von innerhalb des Pakets
+  - Siehe auch [[http://stackoverflow.com/questions/215497/in-java-difference-between-default-public-protected-and-private][Stack Overflow Diskussion ]]
+- Wir präzisieren obige Tabelle:
+  - Die beiden Spalten /Paket/ und /Unterklasse (gleiches Paket)/ sind
+    natpürlich gleich; das soll nur Unterschied zu Unterklasse in
+    anderem Paket verdeutlichen 
+
+#+ATTR_LATEX: :align p{.125\textwidth}|p{.15\textwidth}|p{.15\textwidth}|p{.15\textwidth}|p{.15\textwidth}|p{.15\textwidth}
+| Annotation                                      | Klasse selbst | Paket | Unterklasse (gleiches Paket) | Unterklasse (anderes Paket) | Andere Klasse/von aussen |
+|-------------------------------------------------+---------------+-------+------------------------------+-----------------------------+--------------------------|
+| ~public~                                        | Ja            | Ja    | Ja                           | Ja                          | Ja                       |
+| ~protected~                                     | Ja            | Ja    | Ja                           | Ja                          | Nein                     |
+| /keine Angabe/ | Ja            | Ja    | Ja                           | Nein                        | Nein                     |
+| ~private~                                       | Ja            | Nein  | Nein                         | Nein                        | Nein                     |
+
+
+Anmerkung:  /keine Angabe/ entspricht einer Art /package/ --
+- Das gibt es aber nicht als Schlüsselwort 
+
+
+* Standardpakete 
+
+** Standardpakete 
+
+- java.lang: Standardklassen wie ~String~
+- java.io: Klassen für Ein-/Ausgabe in Dateien, Tastatur, ...
+- java.util: Hilfsklasse wie Random, Date, ... sowie die das
+  Collection Paket (siehe unten) 
+- javax.swing: Paket für graphische Benutzeroberfläche 
+
+** Standardpakete: java.util.Collection  
+
+- Wichtiges Paket für Standard-Datentypen: Listen, Mengen,
+  Dictionaries, ...
+  - Als generische Typen
+  - Samt Iteratoren 
+- Details z.B. Kapitel 23, Mössenböck
+- Kern: Interface ~Collection~
+  - Von den meisten Klassen dieses Pakets implementiert
+
+
+** Standardpakete: java.util.Collection -- Interface Collection  
+
+
+
+- Typische Methoden für alle Collections: 
+  - add
+  - remove
+  - clear
+  - contains 
+  - size 
+
+** Standardpakete: java.util.Collection -- Interface Iterator   
+
+- Iterator bietet Methoden:
+  - hasNext
+  - next
+  - remove (aus Sammlung entfernen) 
+- Generisch, passend zum Typ der in  Collection gespeichert ist 
+
+
+** Standardpakete: java.util.Collection -- Beispiel ~ArrayList~   
+
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  ArrayList<String> liste = new ArrayList<String>();
+
+  liste.add("Hallo");
+  liste.add("GP1");
+
+  // Mit for iterieren: 
+  for (String s: liste) System.out.println(s);
+
+  // Mit einem expliziten Itertor iterieren: 
+  Iterator<String> it = liste.iterator();
+  while (it.hasNext()) System.out.println(it.next());
+#+END_SRC 
+
+** Standardpakete: java.util.Collection -- Beispiel ~FileInputStream~   
+
+
+- Datenstrom: Abstraktion einer (potentiell unendlichen) Folge von
+  Daten
+  - Ein- oder Ausgabe
+  - Unterschiedlich granular: Bytes, ...
+  - Unterschiedliche Ziele: Dateien, ... 
+- Beispiel: Datei zeichenweise kopieren 
+
+#+BEGIN_SRC java :exports code :results output :classname XXX
+  import java.io.*;
+
+  class CharacterwiseCopying {
+      public static void main (String[] args) throws IOException {
+          Reader r = new FileReader(args[0]);
+          Writer w = new FileWriter(args[1]);
+          int ch = r.read();
+          while (ch >= 0) { w.write(ch); ch = re.read(); }
+          r.close();
+          w.closer();
+      }
+  }
+#+END_SRC 
+
+
+
+
+
+
+
+
+
+* Zusammenfassung
+
+** Zusammenfassung 
+
+- Mit Java 8 versucht die Sprache, Anschluss an sinnvolle Konzepte zu
+  halten
+- Für praktische Programmierung wichtige Konzepte vorhanden 
+  - Generizität
+  - Eine sinnvolle Sammlung von Standardpaketen 
+- Insgesamt: Java zahlt einen hohen Preis für die statische
+  Typisierung! 
