@@ -1,4 +1,4 @@
-#+TITLE: GP1 Kapitel 1: Zweck der Vorlesung GP1 
+#+TITLE: Kapitel 1: Zweck der Vorlesung GP1 
 #+INCLUDE: "../template/header.org" :minlevel 2
 
 #+STARTUP: showeverything
