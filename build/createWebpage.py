@@ -1,3 +1,4 @@
+
 """Create the webpage for all the released lectures
 
 Takes three arguments:
@@ -72,7 +73,11 @@ Version: {}
            entry['notebook'], entry['pdf'], entry['tgz'], entry['audio'])
 
 def format_page(entries):
-    body = ""
+    body = """
+<li>Alle Kapitel 
+<a href="book.pdf">PDF</a>
+</li>
+"""
     for e in entries:
         body += format_entry(e)
 

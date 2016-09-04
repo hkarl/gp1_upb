@@ -17,13 +17,16 @@ GP1SERVERDIR := jupyterhub@gp1test.cs.upb.de:output
 ACCOUNTDIRBASE := root@gp1test.cs.upb.de:/home
 
 
-all: buildall distribute 
+all: buildall book distribute
 
 buildall: makefiles
 	for d in ch* ; do \
 		echo $$d ;   \
 		make -C $$d build ; \
 	done
+
+book:
+	cd book ; ./make.sh
 
 cleanall: makefiles
 	for d in ch* ; do \

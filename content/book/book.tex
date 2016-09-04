@@ -1,0 +1,171 @@
+% Created 2016-09-03 Sat 10:23
+% \documentclass[a4paper,colorlinks=true,parskip=half]{scrartcl}
+\documentclass[a4paper,11pt]{memoir}
+
+% \usepackage{xltxtra}
+% \setmainfont{Charis SIL}
+
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Palatino as font: 
+% \usepackage{newpxtext,newpxmath}
+% \usepackage{fouriernc,tgschola,tgheros,tgcursor}
+
+\usepackage{paratype}
+
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\input{graphicspath}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage[colorlinks = true, linkcolor=blue, urlcolor=blue]{hyperref}
+\usepackage{forest}
+\usepackage{tikz}
+\usepackage[newfloat]{minted}
+\usepackage[ngerman, germanb]{babel}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep,nolistsep}
+\setlist[enumerate]{noitemsep,nolistsep}
+\usepackage{xcolor}
+\usepackage{forest}
+
+\usepackage{amsthm}
+\usepackage{thmtools}
+
+\declaretheoremstyle[
+  headfont=\normalfont\bfseries,
+  notefont=\mdseries, notebraces={(}{)},
+  bodyfont=\normalfont,
+  postheadspace=1em,
+  parent=chapter
+]{mystyle}
+
+\declaretheorem[style=mystyle,
+name=Satz,
+shaded={rulecolor={RGB}{200,188,221},
+  rulewidth=2pt, bgcolor={rgb}{1,1,1}}]
+{theorem}
+
+% \declaretheorem[name=Beweis,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{proof}
+
+\declaretheorem[style=mystyle,
+name=Beispiel,
+shaded={rulecolor={RGB}{153,209,156},
+  rulewidth=2pt, 
+  bgcolor={rgb}{1,1,1},
+  margin=8pt}]
+{example}
+
+\declaretheorem[style=mystyle,
+name=Bemerkung,
+shaded={rulecolor={RGB}{209,207,207}, 
+  rulewidth=2pt,
+  bgcolor={rgb}{1,1,1},
+  margin=8pt}]
+{note}
+
+\declaretheorem[style=mystyle, 
+name=Definition,
+shaded={rulecolor={RGB}{93,169,233}, 
+    rulewidth=2pt, 
+    bgcolor={rgb}{1,1,1},
+    margin=8pt}
+]{definition}
+
+% \declaretheorem[style=remark,name=Zitat,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{quote}
+
+\declaretheorem[
+style=mystyle, 
+name=Achtung,
+shaded={rulecolor={RGB}{249,105,0}, 
+  rulewidth=2pt, 
+  bgcolor={rgb}{1,1,1},
+  margin=8pt}]
+{alertblock}
+
+
+\hypersetup{
+ pdfauthor={Holger Karl},
+ pdftitle={Grundlagen der Programmierung 1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.4.51.2 (Org mode 8.3.4)}, 
+ pdflang={Germanb}}
+
+
+
+\chapterstyle{madsen}
+
+\setsecnumdepth{subsection}
+\setlength{\parskip}{6pt}
+
+% colored numbers: 
+% \setsecnumformat{\color{blue}\csname the#1\endcsname\quad}
+\hangsecnum
+ \newcommand{\ruledsec}[1]{%
+   \normalfont\Large\bfseries \sffamily\raggedright #1 \rule{\textwidth}{0.4pt}}
+
+\setaftersecskip{4ex plus 0.5ex}
+\setbeforesecskip{7.5ex plus 1ex minus .2ex}
+\setsecheadstyle{\ruledsec}
+\setsubsecheadstyle{\normalfont\large\bfseries}
+\setsubsubsecheadstyle{\normalfont\bfseries}
+% \setsubsecheadstyle{\normalfont\large\bfseries\sffamily}
+% \setsubsubsecheadstyle{\normalfont\bfseries\sffamily}
+
+\pagestyle{companion}
+\setcounter{tocdepth}{1}
+
+\setlength{\cftchapternumwidth}{8ex}
+\setlength{\cftsectionnumwidth}{8ex}
+\setlength{\cftsectionindent}{0mm}
+
+\setlength{\cftfigurenumwidth}{8ex}
+\setlength{\cfttablenumwidth}{8ex}
+
+\begin{document}
+
+
+\thispagestyle{empty}
+\pagenumbering{roman}
+\begin{titlingpage}
+  \centering 
+  \vspace*{5cm}
+  {\huge Grundlagen der Programmierung 1}
+  \\[2ex]
+  {\large Wintersemester 2016/2017}
+  \\[2ex]
+  {\large Holger Karl}
+  \vfill
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{upb-logo}
+  \end{center}
+\end{titlingpage}
+\pagestyle{companion}
+
+
+\cleardoublepage
+\tableofcontents
+
+\listoffigures
+\renewcommand{\listtheoremname}{Liste von Definitionen u.ä.}
+\listoftheorems 
+\newpage
+\pagenumbering{arabic}
+%\input{../ch0-org/chapter}
+% \input{../ch1-zweck/chapter}
+% \input{../ch2-python_interaktiv/chapter}
+
+\input{chapters}
+
+\end{document}

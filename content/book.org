@@ -1,8 +1,0 @@
-#+TITLE: GP1 
-
-
-* KApitel 1 
-#+INCLUDE: "ch0-org/ch0-org.org" :minlevel 0
-* KApitel 2
-#+INCLUDE: "ch1-zweck/ch1-intro.org" 
-
