@@ -396,11 +396,6 @@ Was man alles machen muss, wenn man keine vernünftige Sprache zur Hand hat
 - Rekursion, indirekt und direkt
 
 
-
-* Module 
-- Modules nutzen 
-
-
 * Klassen  und Objekte 
 
 ERste Idee: Dokumentation von Datenstruktur 
@@ -422,21 +417,46 @@ Namensraum nicht verschmiutzen!
 
 * Vererbung 
 
-* Funktionen III 
-
-- Nested Functions 
-- Closures 
-- nonlocal 
 
 * Exception 
 
 - evtl. recht früh? 
 
-* Python-specfics 
+* Funktionen III 
 
-- Generators
-  - yield
-- 
+- Nested Functions 
+- Closures
+  - decortores
+  - http://www.programiz.com/python-programming/decorator
+- nonlocal 
+- NACH Vererberung sinnvoll! 
+- Generators, yields 
+
+* Klassen Teil III 
+
+- Mehrfachvererberung 
+- @property shortcut 
+
+
+* Python in Dateien, Editoren -- beyond Jupyter 
+
+- Python in Dateien 
+
+
+
+* Module, Packages  
+- Modules nutzen 
+
+* Packages 
+
+* Python-Libraries 
+
+standard lib; batteries included 
+
+- Strings? 
+- Collection classes?
+- Iterators? 
+
 
 * Sonstiges 
 
@@ -445,9 +465,60 @@ Namensraum nicht verschmiutzen!
 http://python-notes.curiousefficiency.org/en/latest/python3/text_file_processing.html
 
 
+* Java: Basics 
+
+** Struktur eines Java-Programms 
+
+- Eine Klasse pro Datei , mit entsprechendem Namen 
+- static void main  in einer Klasse 
+
+** Übersetzen, Ausführen eines Java-Programms 
+- javac, java ... auf Kommandozeile 
+
+
+
+** Syntax 
+
+- braces 
+- Semikolon 
+
+
+** Einfache Datentypen 
+
+- Zeichen
+- Zahlen
+- Kompatibiiltätshierarchie 
+
+** Variablendeklarationen 
+
+
+
+** Kontrollstrukturen 
+
+
+* Java und Klassen 
+
+** OO basics 
+** Interfaces 
+** Abstrakte Klassen 
+
+* Java advanced und sonstiges 
+
+** Strings
+** Exceptions 
+** Generics 
+** Pakete 
+** Lambda-Ausdrücke 
+
 * Java-Vergleich 
 
+
+
+
 - from future import braces 
+
+- interface considered harmful:  http://blog.cleancoder.com/uncle-bob/2015/01/08/InterfaceConsideredHarmful.html
+
 
 
 * Klausur 
@@ -458,7 +529,11 @@ http://python-notes.curiousefficiency.org/en/latest/python3/text_file_processing
 
 
 
-** Referenzen 
+* Referenzen 
+   
 
 
+* Blogs 
+
+http://steve-yegge.blogspot.de/2010/07/wikileaks-to-leak-5000-open-source-java.html
 
