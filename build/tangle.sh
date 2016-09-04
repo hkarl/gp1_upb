@@ -37,6 +37,7 @@ done
      (require 'json-mode)
      (require 'ox-juslides)
      (require 'ox-julatex)
+     (require 'ob-java)
      ; setup package options
      (add-to-list 'org-latex-packages-alist '(\"newfloat\" \"minted\")) 
      (add-to-list 'org-latex-packages-alist '(\"\" \"tikz\")) 
@@ -57,6 +58,7 @@ done
         (ditaa . t)
         (dot . t)
         (latex . t)
+        (java . t)
         )
       )
      (mapc (lambda (file)
