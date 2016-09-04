@@ -12,13 +12,13 @@
 #+LATEX_HEADER: \usepackage{xcolor}
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{thmtools}
-#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{theorem}
-#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Beweis,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{proof}
-#+LATEX_HEADER: \declaretheorem[thmbox=S,style=remark,name=Beispiel,shaded={rulecolor={RGB}{153,209,156}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{example}
-#+LATEX_HEADER: \declaretheorem[thmbox=S,style=remark,name=Bemerkung,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{note}
-#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Definition,shaded={rulecolor={RGB}{93,169,233}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{definition}
-#+LATEX_HEADER: \declaretheorem[thmbox=S,style=remark,name=Zitat,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{quote}
-#+LATEX_HEADER: \declaretheorem[thmbox=S,name=Achtung,shaded={rulecolor={RGB}{249,105,0}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{alertblock}
+#+LATEX_HEADER: \declaretheorem[name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{theorem}
+#+LATEX_HEADER: \declaretheorem[name=Beweis,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{proof}
+#+LATEX_HEADER: \declaretheorem[style=remark,name=Beispiel,shaded={rulecolor={RGB}{153,209,156}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{example}
+#+LATEX_HEADER: \declaretheorem[style=remark,name=Bemerkung,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{note}
+#+LATEX_HEADER: \declaretheorem[name=Definition,shaded={rulecolor={RGB}{93,169,233}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{definition}
+#+LATEX_HEADER: \declaretheorem[style=remark,name=Zitat,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{quote}
+#+LATEX_HEADER: \declaretheorem[name=Achtung,shaded={rulecolor={RGB}{249,105,0}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{alertblock}
 #+LATEX_HEADER: \usepackage{forest}
 
 
