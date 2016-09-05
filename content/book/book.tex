@@ -7,6 +7,9 @@
 
 
 
+\usepackage{microtype}
+
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
@@ -133,7 +136,21 @@ shaded={rulecolor={RGB}{249,105,0},
 \setlength{\cftfigurenumwidth}{8ex}
 \setlength{\cfttablenumwidth}{8ex}
 
+
+% for the title page: 
+\usepackage[yyyymmdd,hhmmss]{datetime}
+
+% to start with chapter 0: 
+\setcounter{chapter}{-1}
+
 \begin{document}
+
+% From microtype manual, page 22: (not sure this is needed)
+% \renewcommand*\@makefnmark{\hbox{\@textsuperscript{\normalfont
+%    \microtypecontext{protrusion=footnote}\@thefnmark}}}
+% \let\m@mmf@prepare\relax
+% \let\m@mmf@check\relax
+
 
 
 \thispagestyle{empty}
@@ -150,6 +167,8 @@ shaded={rulecolor={RGB}{249,105,0},
   \begin{center}
     \includegraphics[width=0.6\textwidth]{upb-logo}
   \end{center}
+  \vspace{1cm}
+  Version: \today, \currenttime
 \end{titlingpage}
 \pagestyle{companion}
 
