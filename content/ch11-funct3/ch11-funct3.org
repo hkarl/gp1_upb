@@ -61,18 +61,18 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 Syntaktisch geht das natürlich -- Semantik? 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t 
-  def f():
-      print("f1") 
+%%tutor -t 
+def f():
+    print("f1") 
 
-      def g():
-          print("g!")
+    def g():
+        print("g!")
 
-      g()
-      print("f2") 
+    g()
+    print("f2") 
 
-  f()
-  print("nach f")
+f()
+print("nach f")
 #+END_SRC 
 
 #+RESULTS:
@@ -388,21 +388,21 @@ verändern
 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  def f():
-      x = 1 
-      def g():
-          x = 42
-          def h():
-              nonlocal x
-              x += 1
-              print("x in h:", x)
-          h()
-          print("x in g:", x)
-      g()
-      print("x in f:", x)
+%%tutor -t
+def f():
+    x = 1 
+    def g():
+        x = 42
+        def h():
+            nonlocal x
+            x += 1
+            print("x in h:", x)
+        h()
+        print("x in g:", x)
+    g()
+    print("x in f:", x)
 
-  f()
+f()
 #+END_SRC 
 
 #+RESULTS:
@@ -494,14 +494,14 @@ Kurz: Die Reihenfolge ist *LEGB*
   verwenden? 
 
 #+BEGIN_SRC python :exports code :results output
-  %%tutor -t
-  def f():
-      def g():
-          print("innere Funktion!")
-      return g
+%%tutor -t
+def f():
+    def g():
+        print("innere Funktion!")
+    return g
 
-  h = f()
-  h()
+h = f()
+h()
 #+END_SRC 
 
 #+RESULTS:
@@ -582,15 +582,15 @@ Spannender:
 Erwartetes Verhalten? 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  def f():
-      n = 5
-      def g(x):
-          print("innere Funktion!", x*n)
-      return g
+%%tutor -t
+def f():
+    n = 5
+    def g(x):
+        print("innere Funktion!", x*n)
+    return g
 
-  h = f()
-  h("Wert für x")
+h = f()
+h("Wert für x")
 #+END_SRC 
 
 #+RESULTS:
@@ -653,18 +653,18 @@ dass der Frame ~f1~ noch existiert.
 ** Beispiel -- Aufgeräumt 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  def vervielfacher_fabrik(n):
-      def vervielfacher(x):
-          return x*n
+%%tutor -t
+def vervielfacher_fabrik(n):
+    def vervielfacher(x):
+        return x*n
 
-      return vervielfacher
+    return vervielfacher
 
-  doppler = vervielfacher_fabrik(2)
-  fuenffacher = vervielfacher_fabrik(5) 
+doppler = vervielfacher_fabrik(2)
+fuenffacher = vervielfacher_fabrik(5) 
 
-  print(doppler("Mehrfach ausgeben! "))
-  print(fuenffacher("Mehrfach ausgeben! "))
+print(doppler("Mehrfach ausgeben! "))
+print(fuenffacher("Mehrfach ausgeben! "))
 #+END_SRC 
 
 #+RESULTS:

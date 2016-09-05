@@ -348,17 +348,17 @@ Das Ausführungsmodell ist ganz naheliegend
 ** Illustration 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor 
-  def f():
-      print("in f, vor g")
-      x = g()
-      print("in f, nach g", "x: ", x)
+%%tutor 
+def f():
+    print("in f, vor g")
+    x = g()
+    print("in f, nach g", "x: ", x)
 
-  def g():
-      y = 42
-      return y
+def g():
+    y = 42
+    return y
 
-  f()
+f()
 #+END_SRC 
 
 #+RESULTS:
@@ -416,12 +416,12 @@ Auf welche Variablen kann man in einer Funktion zugreifen?
 *** Beispiel 1: Variable vor Funktionsdefinition zugewiesen 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  x = 5
-  def f():
-      y = x 
-      print(x)
-  f()
+%%tutor -t
+x = 5
+def f():
+    y = x 
+    print(x)
+f()
 #+END_SRC 
 
 #+RESULTS:
@@ -540,20 +540,20 @@ Offenbar unterschiedliches Verhalten
 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  x = 99
+%%tutor -t
+x = 99
 
-  def f():
-      x = 17
-      print("x in f:", x)
-      g()
-      print("x in f:", x)
+def f():
+    x = 17
+    print("x in f:", x)
+    g()
+    print("x in f:", x)
 
-  def g():
-      x = 42
-      print("x in g:", x)
+def g():
+    x = 42
+    print("x in g:", x)
 
-  f()
+f()
 #+END_SRC 
 
 #+RESULTS:
@@ -584,19 +584,19 @@ Kontexten und haben daher nichts miteinander zu tun. Abbildung
 - Was gibt ~g~ aus? Erklärung? 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  x = 99
+%%tutor -t
+x = 99
 
-  def f():
-      x = 17
-      print("x in f:", x)
-      g()
-      print("x in f:", x)
+def f():
+    x = 17
+    print("x in f:", x)
+    g()
+    print("x in f:", x)
 
-  def g():
-      print("x in g:", x)
+def g():
+    print("x in g:", x)
 
-  f()
+f()
 #+END_SRC 
 
 #+RESULTS:
@@ -836,25 +836,25 @@ Schauen wir uns die Scopes bzw. Namensräume genauer an:
 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  def is_even(x):
-      print("is_even checks:", x)
-      if x == 0:
-          return True
-      else:
-          y = x - 1
-          return is_odd(y)
+%%tutor -t
+def is_even(x):
+    print("is_even checks:", x)
+    if x == 0:
+        return True
+    else:
+        y = x - 1
+        return is_odd(y)
 
-  def is_odd(x):
-      print("is_odd checks:", x)
-      if x == 0:
-          return False
-      else:
-          y = x - 1
-          return is_even(y)
+def is_odd(x):
+    print("is_odd checks:", x)
+    if x == 0:
+        return False
+    else:
+        y = x - 1
+        return is_even(y)
 
-  result = is_even(5)
-  print(result)
+result = is_even(5)
+print(result)
 #+END_SRC 
 
 
@@ -962,15 +962,15 @@ n \cdot \mathrm{fak}(n-1) & \mathrm{sonst.}
 ** Beispiel: Fakultät -- Code 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  def fak(n):
-      if n==1:
-          return 1
-      else:
-          return n*fak(n-1)
+%%tutor -t
+def fak(n):
+    if n==1:
+        return 1
+    else:
+        return n*fak(n-1)
 
-  res = fak(5)
-  print(res)
+res = fak(5)
+print(res)
 #+END_SRC 
 
 #+RESULTS:

@@ -1984,16 +1984,16 @@ Sog. *Selection Sort*
 ** Selection Sort: Code						   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  liste = [17, 1, 42, 99, 33]
-  for pos in range(len(liste)):
-      tausch = pos
-      for such in range(pos+1, len(liste)):
-          if liste[such] < liste[pos]:
-              tausch = such
-      liste[pos], liste[tausch] = liste[tausch], liste[pos]
+%%tutor -t
+liste = [17, 1, 42, 99, 33]
+for pos in range(len(liste)):
+    tausch = pos
+    for such in range(pos+1, len(liste)):
+        if liste[such] < liste[pos]:
+            tausch = such
+    liste[pos], liste[tausch] = liste[tausch], liste[pos]
 
-  print(liste)
+print(liste)
 #+END_SRC 
 
 #+RESULTS:

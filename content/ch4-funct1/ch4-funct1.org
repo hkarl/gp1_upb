@@ -222,21 +222,21 @@ Probieren Sie das in einem Notebook aus!
 ** Einrückung: Beispiel 
 
 #+BEGIN_SRC python
-  %%tutor 
-  def f():
-      x = 5
-      y = 17
-      # weitere Anweisungen
+%%tutor 
+def f():
+    x = 5
+    y = 17
+    # weitere Anweisungen
 
-  # Definition von f zu Ende!
+# Definition von f zu Ende!
 
-  def g():
-      a = 1
-      b = a+1
-      # usw
+def g():
+    a = 1
+    b = a+1
+    # usw
 
-  # Definition von g zu Ende!
-  z = 42
+# Definition von g zu Ende!
+z = 42
 #+END_SRC
 
 
@@ -327,15 +327,15 @@ Definition einer Variabler  oder eines Funktionsnamens liegt.
 - Beispiel: 
 
 #+BEGIN_SRC python
-  %%tutor -t 
-  def f():
-      x = 42
-      y = 17
+%%tutor -t 
+def f():
+    x = 42
+    y = 17
 
-  # hier wird aufgerufen
-  z = "vorher"
-  f()
-  z = "nachher"
+# hier wird aufgerufen
+z = "vorher"
+f()
+z = "nachher"
 #+END_SRC
 
 
@@ -479,16 +479,16 @@ sichtbar, werden aber nicht besonders als solche markiert.
 ** Scope/Frame: Beispiel 
 
 #+BEGIN_SRC python
-  %%tutor -t
-  def f():
-      x = 42
-      y = 17
+%%tutor -t
+def f():
+    x = 42
+    y = 17
 
-  z = "vorher"
-  f()
-  z = "dazwischen"
-  f()
-  z = "danach" 
+z = "vorher"
+f()
+z = "dazwischen"
+f()
+z = "danach" 
 #+END_SRC
 
 
@@ -573,14 +573,14 @@ In den einzelnen Schritten geschieht folgendes:
 Was ist der Wert von ~x~ am Ende? 
 
 #+BEGIN_SRC python
-  %%tutor
-  def f():
-      x = 42
+%%tutor
+def f():
+    x = 42
 
-  # rufe f auf:    
-  f()
-  # greife auf x zu:
-  x
+# rufe f auf:    
+f()
+# greife auf x zu:
+x
 #+END_SRC
 
 
@@ -637,11 +637,11 @@ Was ist der Wert von ~x~ am Ende?
 ** Funktion mit ~return~: Beispiel 
 
 #+BEGIN_SRC python
-  %%tutor -t
-  def pi():
-      return 3.14159296
+%%tutor -t
+def pi():
+    return 3.14159296
 
-  x = pi()
+x = pi()
 #+END_SRC
 
 
@@ -694,12 +694,12 @@ Abweichungen im Detail.
 Was passiert, wenn eine Funktion keine ~return~ Anweisung hat? 
 
 #+BEGIN_SRC python
-  %%tutor
-  def no_return():
-      x = 17
-      y = 42*x
+%%tutor
+def no_return():
+    x = 17
+    y = 42*x
 
-  z = no_return()
+z = no_return()
 #+END_SRC
 
 
@@ -726,13 +726,13 @@ Was passiert, wenn eine Funktion keine ~return~ Anweisung hat?
 Ein ~return~ ohne Ausdruck? 
 
 #+BEGIN_SRC python
-  %%tutor
-  def empty_return():
-      x = 17
-      y = 42*x
-      return 
+%%tutor
+def empty_return():
+    x = 17
+    y = 42*x
+    return 
 
-  z = empty_return()
+z = empty_return()
 #+END_SRC
 
 
@@ -798,11 +798,11 @@ Ein ~return~ ohne Ausdruck?
     der /actual parameter/
 
 #+BEGIN_SRC python
-  %%tutor
-  def f(a):
-      return a+1
+%%tutor
+def f(a):
+    return a+1
 
-  x = f(2)
+x = f(2)
 #+END_SRC
 
 
@@ -832,11 +832,11 @@ Abbildung [[fig:pt-fa-wert]] illustriert das.
 
 
 #+BEGIN_SRC python
-  %%tutor
-  def f(a):
-      return a+1
+%%tutor
+def f(a):
+    return a+1
 
-  x = f(2+2)
+x = f(2+2)
 #+END_SRC
 
 
@@ -860,12 +860,12 @@ Abbildung [[fig:pt-fa-ausdruck]].
 
 
 #+BEGIN_SRC python
-  %%tutor
-  def f(a):
-      return a+1
+%%tutor
+def f(a):
+    return a+1
 
-  y = 5
-  x = f(y)
+y = 5
+x = f(y)
 #+END_SRC
 
 
@@ -903,13 +903,13 @@ animieren lassen, erklären was passiert
   - Wert von ~y~ am Ende? 
 
 #+BEGIN_SRC python
-  %%tutor -t
-  def f(a):
-      a = a+1
-      return a
+%%tutor -t
+def f(a):
+    a = a+1
+    return a
 
-  y = 5
-  x = f(y)
+y = 5
+x = f(y)
 #+END_SRC
 
 *** Was immer geschieht!					    :animate:

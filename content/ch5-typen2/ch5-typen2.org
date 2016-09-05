@@ -1687,11 +1687,11 @@ Beispiel: Ein Verzeichnis, bestehend aus
 - und einer einzelnen Zahl 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  rec = {'name': {'first': 'Bob', 'last': 'Smith'},
-         'jobs': ['dev', 'mgr'],
-         'age':  40.5}
-  print(rec)
+%%tutor -t
+rec = {'name': {'first': 'Bob', 'last': 'Smith'},
+       'jobs': ['dev', 'mgr'],
+       'age':  40.5}
+print(rec)
 #+END_SRC 
 
 *** Visualisierung						  :dropslide:

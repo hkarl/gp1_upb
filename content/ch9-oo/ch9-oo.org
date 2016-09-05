@@ -922,36 +922,36 @@ everybody's time).
 Was wird hier ausgeben? Warum? 
 
 #+BEGIN_SRC python :exports code  :results output
-  %%tutor -t
-  class Artikel:
-      def __init__(self, artikelnummer, preis):
-          self.artikelnummer = artikelnummer
-          self.preis = preis
+%%tutor -t
+class Artikel:
+    def __init__(self, artikelnummer, preis):
+        self.artikelnummer = artikelnummer
+        self.preis = preis
 
-      def show_info(self):
-          return "Artikel {} zu {}€".format(self.artikelnummer,
-                                    self.preis)
+    def show_info(self):
+        return "Artikel {} zu {}€".format(self.artikelnummer,
+                                  self.preis)
 
-      def __str__(self):
-          return self.show_info()
+    def __str__(self):
+        return self.show_info()
 
-  class Werk(Artikel):
-      def __init__(self, ersteller, titel, *args, **kwargs):
-          # Oberklassen-Konstruktor aufrufen: 
-          super().__init__(*args, **kwargs)
-          self.ersteller = ersteller
-          self.titel = titel
+class Werk(Artikel):
+    def __init__(self, ersteller, titel, *args, **kwargs):
+        # Oberklassen-Konstruktor aufrufen: 
+        super().__init__(*args, **kwargs)
+        self.ersteller = ersteller
+        self.titel = titel
 
-      def show_info(self):
-          return "'{}' von {} ({})".format(
-              self.titel,
-              self.ersteller,
-	      super().show_info())
+    def show_info(self):
+        return "'{}' von {} ({})".format(
+            self.titel,
+            self.ersteller,
+            super().show_info())
 
-  # Ein Werk wird mit vier Parametern initialisert
-  w = Werk(artikelnummer="1234", preis=42.17,
-           ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
-  print(w)
+# Ein Werk wird mit vier Parametern initialisert
+w = Werk(artikelnummer="1234", preis=42.17,
+         ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
+print(w)
 #+END_SRC 
 
 #+RESULTS:

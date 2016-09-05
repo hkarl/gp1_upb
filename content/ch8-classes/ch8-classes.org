@@ -367,15 +367,15 @@ Was passiert also beim Erschaffen eines Objektes?
 ** Konstruktor -- Ablaufbeispiel 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor
-  class Ellipse:
-      def __init__(self, x, y, a1, a2):
-          self.x = x
-          self.y = y
-          self.achse1 = a1
-          self.achse2 = a2
+%%tutor
+class Ellipse:
+    def __init__(self, x, y, a1, a2):
+        self.x = x
+        self.y = y
+        self.achse1 = a1
+        self.achse2 = a2
 
-  e1 = Ellipse(1, 2, 17.5, 0.4)
+e1 = Ellipse(1, 2, 17.5, 0.4)
 #+END_SRC 
 
 
@@ -519,17 +519,17 @@ Endzustandes (inhaltlich äquivalent zu Abbildung
 - Instantiieren wir als Beispiel zwei weitere Instanzen der Klasse 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t 
-  class Ellipse:
-      def __init__(self, x, y, a1, a2):
-          self.x = x
-          self.y = y
-          self.achse1 = a1
-          self.achse2 = a2
+%%tutor -t 
+class Ellipse:
+    def __init__(self, x, y, a1, a2):
+        self.x = x
+        self.y = y
+        self.achse1 = a1
+        self.achse2 = a2
 
-  e1 = Ellipse(1, 2, 17.5, 0.4)
-  e2 = Ellipse(0, -5, 3, 1)
-  e3 = Ellipse(17, 18, 19, 20)
+e1 = Ellipse(1, 2, 17.5, 0.4)
+e2 = Ellipse(0, -5, 3, 1)
+e3 = Ellipse(17, 18, 19, 20)
 #+END_SRC 
 
 *** Visualisierung						  :dropslide:
@@ -576,18 +576,18 @@ Darstellung des gleichen Zustands.
 - Eine Ellipse mit nur einem Radius ist ein Kreis: 
 
 #+BEGIN_SRC python :exports code :results output
-  %%tutor -t
-  class Ellipse:
-      def __init__(self, x, y, a1, a2=None):
-          self.x = x
-          self.y = y
-          self.achse1 = a1
-          if a2:
-              self.achse2 = a2
-          else:
-              self.achse2 = a1
+%%tutor -t
+class Ellipse:
+    def __init__(self, x, y, a1, a2=None):
+        self.x = x
+        self.y = y
+        self.achse1 = a1
+        if a2:
+            self.achse2 = a2
+        else:
+            self.achse2 = a1
 
-  e1 = Ellipse(1, 2, 17.5)
+e1 = Ellipse(1, 2, 17.5)
 #+END_SRC 
 
 #+RESULTS:
@@ -911,35 +911,35 @@ Mit  ~__eq__~:
 
 
 #+BEGIN_SRC python :exports code :results output
-  %%tutor -t
-  class Ellipse:
-      def __init__(self, x, y, a1, a2):
-          self.x = x
-          self.y = y
-          self.achse1 = a1
-          self.achse2 = a2
+%%tutor -t
+class Ellipse:
+    def __init__(self, x, y, a1, a2):
+        self.x = x
+        self.y = y
+        self.achse1 = a1
+        self.achse2 = a2
 
-      def __eq__(self, otherEllipse):
-          return (
-              self.x == otherEllipse.x and
-              self.y == otherEllipse.y and
-              self.achse1 == otherEllipse.achse1 and
-              self.achse2 == otherEllipse.achse2
-              )
+    def __eq__(self, otherEllipse):
+        return (
+            self.x == otherEllipse.x and
+            self.y == otherEllipse.y and
+            self.achse1 == otherEllipse.achse1 and
+            self.achse2 == otherEllipse.achse2
+            )
 
-  e1 = Ellipse(0, 1, 2, 3)
-  e2 = e1
-  e3 = Ellipse(0, 1, 2, 3)
+e1 = Ellipse(0, 1, 2, 3)
+e2 = e1
+e3 = Ellipse(0, 1, 2, 3)
 
-  print("==:")
-  print(e1 == e2)
-  print(e1 == e3)
-  print(e2 == e3)
+print("==:")
+print(e1 == e2)
+print(e1 == e3)
+print(e2 == e3)
 
-  print("is:")
-  print(e1 is e2)
-  print(e1 is e3)
-  print(e2 is e3)
+print("is:")
+print(e1 is e2)
+print(e1 is e3)
+print(e2 is e3)
 #+END_SRC 
 
 #+RESULTS:
@@ -1160,11 +1160,11 @@ s.f()
 *** Ja!								    :animate:
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor
-  class C:
-      x = 1
+%%tutor
+class C:
+    x = 1
 
-  c1 = C()
+c1 = C()
 #+END_SRC 
 
 
@@ -1183,15 +1183,15 @@ auf, der den Namen ~x~ mit dem Wert 1 verbindet (Abbildung
 ** Daten im Namensraum der Klasse vs. eines Objektes 
 
 #+BEGIN_SRC python :exports code :results output
-  %%tutor
-  class C:
-      x = 1
+%%tutor
+class C:
+    x = 1
 
-      def __init__(self, y):
-          self.y = y
-    
-  c1 = C(17)
-  c2 = C(18)
+    def __init__(self, y):
+        self.y = y
+  
+c1 = C(17)
+c2 = C(18)
 #+END_SRC 
 
 *** Visualisierung						  :dropslide:
@@ -1663,28 +1663,28 @@ Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor
-  class Punkt:
-      def __init__(self, x, y):
-          self.x = x
-          self.y = y
+%%tutor
+class Punkt:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
-      def verschiebe(self, deltax, deltay):
-          self.x += deltax
-          self.y += deltay
+    def verschiebe(self, deltax, deltay):
+        self.x += deltax
+        self.y += deltay
 
-  class Ellipse:
-      def __init__(self, mittelpunkt, a1, a2):
-          self.mittelpunkt = mittelpunkt
-          self.achse1 = a1
-          self.achse2 = a2
+class Ellipse:
+    def __init__(self, mittelpunkt, a1, a2):
+        self.mittelpunkt = mittelpunkt
+        self.achse1 = a1
+        self.achse2 = a2
 
-      def verschiebe(self, deltax, deltay):
-          self.mittelpunkt.verschiebe(deltax, deltay)
+    def verschiebe(self, deltax, deltay):
+        self.mittelpunkt.verschiebe(deltax, deltay)
 
-  p = Punkt(1,2)
-  e1 = Ellipse(p, 3, 4)
-  e2 = Ellipse(Punkt(-2,3), 0.5, 7)
+p = Punkt(1,2)
+e1 = Ellipse(p, 3, 4)
+e2 = Ellipse(Punkt(-2,3), 0.5, 7)
 #+END_SRC 
 
 

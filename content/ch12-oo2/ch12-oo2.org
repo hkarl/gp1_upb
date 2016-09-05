@@ -184,21 +184,21 @@ Beispiel: ~__init__~ taucht in den meisten Klassen auf!
 - Vereinbaren von Daten? 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t
-  class A():
-      def __init__(self):
-          self.a = 17
-  
-  class B():
-      def __init__(self):
-          self.b = 42
+%%tutor -t
+class A():
+    def __init__(self):
+        self.a = 17
 
-  # erst A, dann B: 
-  class C(A, B): pass
+class B():
+    def __init__(self):
+        self.b = 42
 
-  c = C()
-  print(c.a)
-  print(c.b)
+# erst A, dann B: 
+class C(A, B): pass
+
+c = C()
+print(c.a)
+print(c.b)
 #+END_SRC 
 
 *** Fehlermeldung						  :dropslide:
@@ -235,23 +235,23 @@ Ist das Problem, dass wir in Klasse ~C~ keinen Konstruktor haben, der
 den Konstruktor der Oberklasse aufruft? 
 
 #+BEGIN_SRC python :exports code :results output
-  %%tutor -t 
-  class A():
-      def __init__(self):
-          self.a = 17
+%%tutor -t 
+class A():
+    def __init__(self):
+        self.a = 17
 
-  class B():
-      def __init__(self):
-          self.b = 42
+class B():
+    def __init__(self):
+        self.b = 42
 
-  # erst A, dann B: 
-  class C(A, B):
-      def __init__(self):
-          super().__init__() 
+# erst A, dann B: 
+class C(A, B):
+    def __init__(self):
+        super().__init__() 
 
-  c = C()
-  print(c.a)
-  print(c.b)
+c = C()
+print(c.a)
+print(c.b)
 #+END_SRC 
 
 *** Fehlermeldung 						  :dropslide:
@@ -369,27 +369,27 @@ Datenattribut?
 - Das ist plausibel, wird zur Laufzeit angelegt! 
 
 #+BEGIN_SRC python :exports both :results output
-  %%tutor -t 
-  class A():
-      def __init__(self):
-          print("A init") 
-          super().__init__() 
-          self.x = 17
+%%tutor -t 
+class A():
+    def __init__(self):
+        print("A init") 
+        super().__init__() 
+        self.x = 17
 
-  class B():
-      def __init__(self):
-          print("B init") 
-          super().__init__() 
-          self.x = 42
+class B():
+    def __init__(self):
+        print("B init") 
+        super().__init__() 
+        self.x = 42
 
-  # erst A, dann B: 
-  class C(A, B):
-      def __init__(self):
-          print("C init") 
-          super().__init__() 
+# erst A, dann B: 
+class C(A, B):
+    def __init__(self):
+        print("C init") 
+        super().__init__() 
 
-  c = C()
-  print(c.x)
+c = C()
+print(c.x)
 #+END_SRC 
 
 #+RESULTS:
