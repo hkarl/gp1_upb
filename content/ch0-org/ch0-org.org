@@ -144,27 +144,12 @@ und sinnvoll zu strukturieren.
 
 # slido?? 
 
-#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 1000
-#+header: :cache yes
-#+begin_src latex :exports results :results output raw :file figures/hausblattprozess.png :fit t
-  \usetikzlibrary{positioning}
-  \tikzstyle{box}=[draw, minimum size=2em]
-  \begin{tikzpicture}
-  \node (ausgabe) [box] {Ausgabe};
-  \node (loesen) [box,right=of ausgabe] {Lösen}
-  edge [<-] (ausgabe);
-  \node (korrektur) [box,right=of loesen] {Korrektur}
-  edge [<-] (loesen);
-  \node (besprech) [box,right=of korrektur] {Besprechung}
-  edge [<-] (korrektur);
-  \end{tikzpicture}
-#+end_src
 
 #+NAME: hausblattprozess 
 #+CAPTION: Hausblätter -- Der Prozess 
-#+ATTR_LATEX: :width 0.8\textwidth 
-#+RESULTS[412b247d20143ac87b8d8adafec8b3a350e6c0f2]:
-[[file:figures/hausblattprozess.png]]
+#+ATTR_LATEX: :width 0.75\textwidth 
+[[./uml/hausblatt.png]]
+
 
 ** TODO Hausübungen -- Termine					   :subslide:
 

@@ -59,6 +59,8 @@ Von allem ein bisschen, insbesondere:
   - Test
   - Werkzeuge 
 
+
+
 *** Programmierparadigmen					      :notes:
 
 Mit dem Begriff /Programmierparadigmen/ klassifiziert man
@@ -107,6 +109,7 @@ Die Studierenden sollen
 *** Wirklich? 							    :animate:
 
 #+CAPTION: One does not simply walk into programming 
+#+ATTR_LaTeX: :width 0.25\linewidth 
 #+NAME: fig:walk-programming
 [[./figures/simply-walk-programming.jpg]]
 

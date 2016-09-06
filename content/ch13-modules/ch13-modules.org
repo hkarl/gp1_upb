@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 13: Dateien, Module, Bibliotheken, IDEs 
+#+TITLE: Kapitel 13: Dateien, Module, Bibliotheken
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything

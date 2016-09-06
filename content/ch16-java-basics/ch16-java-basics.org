@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 16: Java basics
+#+TITLE: Kapitel 16: Java Grundlagen 
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything

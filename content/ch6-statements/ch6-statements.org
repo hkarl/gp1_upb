@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 6: Anweisungen -- Teil 1 
+#+TITLE: Kapitel 6: Anweisungen
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything

@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 4: Funktionen (Teil 1) 
+#+TITLE: Kapitel 4: Funktionen, Teil 1
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything

@@ -391,7 +391,7 @@ b = a
 
 ** Animationen von Programmen -- Quellcode 
 
-*** Kein %%tutor in normalen Programmen			       :B_alertblock:
+*** Kein tutor in normalen Programmen 			       :B_alertblock:
     :PROPERTIES:
     :BEAMER_env: alertblock
     :END:
