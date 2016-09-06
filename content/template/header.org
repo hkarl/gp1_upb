@@ -1,23 +1,58 @@
 #+SUBTITLE: Grundlagen der Programmierung 1 
 #+OPTIONS: tags:nil
 
-#+LATEX_CLASS_OPTIONS: [a4paper,colorlinks=true,parskip=half]
+#+LATEX_CLASS_OPTIONS: [a4paper,11pt, colorlinks = true, linkcolor=blue, urlcolor=blue]
 #+LANGUAGE: de
 #+OPTIONS: toc:1
-#+TAGS: theorem proof example note definition quote alertblock dropslide skipslide animate nolatex 
+#+TAGS: theorem beweis example note definition quotation alertblock dropslide skipslide animate nolatex  zitat 
 #+EMAIL: holger.karl@upb.de
+#+LATEX_HEADER: \usepackage{microtype}
+#+LATEX_HEADER: \usepackage{paratype}
 #+LATEX_HEADER: \usepackage[ngerman]{babel}
 #+LATEX_HEADER: \usepackage{enumitem}
 #+LATEX_HEADER: \setlist[itemize]{noitemsep,nolistsep}
+#+LATEX_HEADER: \setlist[enumerate]{noitemsep,nolistsep}
 #+LATEX_HEADER: \usepackage{xcolor}
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{thmtools}
-#+LATEX_HEADER: \declaretheorem[name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{theorem}
-#+LATEX_HEADER: \declaretheorem[style=remark,name=Beispiel,shaded={rulecolor={RGB}{153,209,156}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{example}
-#+LATEX_HEADER: \declaretheorem[style=remark,name=Bemerkung,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{note}
-#+LATEX_HEADER: \declaretheorem[name=Definition,shaded={rulecolor={RGB}{93,169,233}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{definition}
-#+LATEX_HEADER: \declaretheorem[name=Achtung,shaded={rulecolor={RGB}{249,105,0}, rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{alertblock}
+
+#+LATEX_HEADER: \declaretheoremstyle[  headfont=\normalfont\bfseries,  notefont=\mdseries, notebraces={(}{)},  bodyfont=\normalfont,  postheadspace=1em,  parent=chapter]{mystyle}
+#+LATEX_HEADER: \declaretheorem[style=mystyle, name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{theorem}
+#+LATEX_HEADER: \declaretheorem[style=mystyle,name=Beispiel,shaded={rulecolor={RGB}{153,209,156}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{example}
+#+LATEX_HEADER: \declaretheorem[style=mystyle,name=Bemerkung,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{note}
+#+LATEX_HEADER: \declaretheorem[style=mystyle, name=Definition,shaded={rulecolor={RGB}{93,169,233}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{definition}
+#+LATEX_HEADER: \declaretheorem[style=mystyle, name=Achtung,shaded={rulecolor={RGB}{249,105,0}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{alertblock}
+#+LATEX_HEADER: \declaretheorem[style=mystyle,name=Zitat,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{zitat}
+#+LATEX_HEADER: \declaretheorem[style=mystyle,name=Beweis,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{beweis}
+
+
+
 #+LATEX_HEADER: \usepackage{forest}
+
+
+
+#+LATEX_HEADER: \setlength{\parskip}{6pt}
+#+LATEX_HEADER: \chapterstyle{madsen}
+#+LATEX_HEADER: \setsecnumdepth{subsection}
+#+LATEX_HEADER: \hangsecnum
+#+LATEX_HEADER: \newcommand{\ruledsec}[1]{ \normalfont\Large\bfseries \sffamily\raggedright #1 \rule{\textwidth}{0.4pt}}
+
+#+LATEX_HEADER: \setaftersecskip{4ex plus 0.5ex}
+#+LATEX_HEADER: \setbeforesecskip{7.5ex plus 1ex minus .2ex}
+#+LATEX_HEADER: \setsecheadstyle{\ruledsec}
+#+LATEX_HEADER: \setsubsecheadstyle{\normalfont\large\bfseries}
+#+LATEX_HEADER: \setsubsubsecheadstyle{\normalfont\bfseries}
+
+#+LATEX_HEADER: \pagestyle{companion}
+#+LATEX_HEADER: \setcounter{tocdepth}{1}
+
+#+LATEX_HEADER: \setlength{\cftchapternumwidth}{8ex}
+#+LATEX_HEADER: \setlength{\cftsectionnumwidth}{8ex}
+#+LATEX_HEADER: \setlength{\cftsectionindent}{0mm}
+
+#+LATEX_HEADER: \setlength{\cftfigurenumwidth}{8ex}
+#+LATEX_HEADER: \setlength{\cfttablenumwidth}{8ex}
+
 
 
 #+DATE: Wintersemester 2016/2017

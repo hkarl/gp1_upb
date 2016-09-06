@@ -37,8 +37,11 @@ done
      (require 'json-mode)
      (require 'ox-juslides)
      (require 'ox-julatex)
+     (require 'ox-beamer)
      (require 'ob-java)
      ; setup package options
+     (add-to-list 'org-beamer-environments-extra '(\"zitat\" \"z\" \"\\begin{zitat}%a\" \"\\end{zitat}\"))
+     (add-to-list 'org-beamer-environments-extra '(\"beweis\" \"b\" \"\\begin{beweis}%a\" \"\\end{zitat}\"))
      (add-to-list 'org-latex-packages-alist '(\"newfloat\" \"minted\")) 
      (add-to-list 'org-latex-packages-alist '(\"\" \"tikz\")) 
      (add-to-list 'org-latex-packages-alist '(\"\" \"forest\")) 
