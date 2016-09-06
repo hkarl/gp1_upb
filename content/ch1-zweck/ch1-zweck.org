@@ -71,9 +71,9 @@ ebenfalls dazu
 ** GP1 im Modulhandbuch 
 
 
-*** GP1 laut Modulhandbuch					:B_quotation:
+*** GP1 laut Modulhandbuch					    :B_zitat:
     :PROPERTIES:
-    :BEAMER_env: quotation
+    :BEAMER_env: zitat
     :END:
 
 Die Studierenden sollen
