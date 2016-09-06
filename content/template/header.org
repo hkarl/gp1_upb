@@ -16,7 +16,7 @@
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{thmtools}
 
-#+LATEX_HEADER: \declaretheoremstyle[  headfont=\normalfont\bfseries,  notefont=\mdseries, notebraces={(}{)},  bodyfont=\normalfont,  postheadspace=1em,  parent=chapter]{mystyle}
+#+LATEX_HEADER: \declaretheoremstyle[headfont=\normalfont\bfseries,  notefont=\mdseries, notebraces={(}{)},  bodyfont=\normalfont,  postheadspace=1em,  parent=chapter]{mystyle}
 #+LATEX_HEADER: \declaretheorem[style=mystyle, name=Satz,shaded={rulecolor={RGB}{200,188,221}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{theorem}
 #+LATEX_HEADER: \declaretheorem[style=mystyle,name=Beispiel,shaded={rulecolor={RGB}{153,209,156}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{example}
 #+LATEX_HEADER: \declaretheorem[style=mystyle,name=Bemerkung,shaded={rulecolor={RGB}{209,207,207}, rulewidth=2pt, bgcolor={rgb}{1,1,1}, margin=8pt}]{note}
@@ -32,6 +32,7 @@
 
 
 #+LATEX_HEADER: \setlength{\parskip}{6pt}
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
 #+LATEX_HEADER: \chapterstyle{madsen}
 #+LATEX_HEADER: \setsecnumdepth{subsection}
 #+LATEX_HEADER: \hangsecnum
