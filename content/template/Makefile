@@ -22,14 +22,14 @@ outputdir:
 	echo "Ensuring ${OUTPUTDIR} exists"
 	mkdir -p ${OUTPUTDIR}
 
-$(objects): %.ipynb: %.org
+$(objects): %.ipynb: %.org ../template/header.org
 	mkdir -p output
 	# check whether there is an UML directory to build in
 	-[ -d uml ] && (cd uml ; make)
 	# building raw files 
 	../../build/tangle.sh $< >> ../../build/log
 	# This is a dirty hack; tangle.sh ignores org-latex-classes
-	sed -i bak -e '1,/article/s/article/scrartcl/' *.tex
+	sed -i bak -e '1,/article/s/article/memoir/' *.tex
 	# This is another dirty hack: change to java notebooks if magic file exists
 	-[ -f javakernel ] && make java 
 	cp $@ ${OUTPUTDIR}
