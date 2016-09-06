@@ -1,0 +1,22 @@
+% Created 2016-08-17 Wed 14:38
+\documentclass[tikz,convert]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usepackage{smartdiagram}
+\author{Holger Karl}
+\date{\today}
+\title{}
+\begin{document}
+ \smartdiagramset{
+  bubble node font=\sffamily, 
+  bubble center node font=\large\sffamily,
+  font=\sffamily, 
+   }
+ \smartdiagram[flow diagram:horizontal]
+{Aktuelle \\Anweisung \\ bestimmen,
+Anweisung \\ inter-\\pretieren, 
+Zustand \\gemäß \\ Anweisung \\ verändern,
+Nächste \\Anweisung \\ bestimmen
+ }
+\end{document}

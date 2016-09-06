@@ -36,14 +36,25 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 
 * GP1 im Studienverlauf 
+
+**  Was ist Programmierung? 
+
+#+CAPTION: Was ist Programmierung? 
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+NAME: fig:programmierung
+[[./uml/programmieren.png]]
+
+
   
-** Was ist Programmierung? 
+** COMMENT Was ist Programmierung? 
 - Denken in Algorithmen und Datenstrukturen 
 - Entwickeln von Ideen zur Lösung eines Problems
 - Ausdrücken in einen Formalismus
   - /Codierung/
 - Nutzung von Werkzeugen 
 - Finden und Nutzen von Teillösungen 
+
+
 
 ** Vorlesungsinhalt GP1 
 
@@ -135,7 +146,7 @@ Handlungsvorschrift zur Lösung eines Problems.
 
 
 *** Historisch
-- Erste Ideen, Abu Dscha'far Muhammad ibn Musa al-Chwarizmi, ca. 825 n.d.Z.
+- Erste Ideen, Abu Dscha'far Muhammad ibn Musa al-Chwarizmi, ca. 825 n.u.Z.
 - Ada Lovelace, 1843, Berechnung von Bernoullizahlen 
 
 *** Wie?							  
@@ -269,6 +280,16 @@ Folgezustand entstehen kann.
 - Die nächste auszuführende Anweisung kann von Vergleichen abhängen 
 - Vorstellung eines /Sprungs/ in der Folge der Anweisungen 
 
+** Ausführungsmodell 
+
+#+CAPTION: Einfaches Ausführungsmodell
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:ausfuehrung
+[[./uml/ausfuehrung.png]]
+
+
+
+
 ** Fertig? 
 
 - Im Prinzip wären wir jetzt mit der Vorlesung fertig:
@@ -281,7 +302,7 @@ Folgezustand entstehen kann.
 
 ** Programmieren 
 
-- Basteln bis es tut??
+- /Basteln/ bis es tut??
 - Gutes Programmieren
   - *Systematisches* Nachdenken, Entwurf, Planung, Verständnis
   - Auch: Ästhetik 
@@ -405,6 +426,23 @@ Sprachen eines Paradigmas gleichen sich in:
   - Variableninhalte? Variablen? Folge der Anweisungen?
   - Woher stammt Dynamik?
     - Eingaben? Zeitablauf? Ereignisse? Zufall? ...? 
+
+
+** Programmierparadigmen: Beispiele 
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadigemn, die wir hier kurz betrachten. 
+#+END_LaTeX
+
+
+#+CAPTION: Beispiele für Programmierparadigmen
+#+ATTR_LaTeX: :width 0.5\linewidth 
+#+ATTR_LaTeX: :caption \caption{Beispiele für Programmierparadigmen \label{fig:paradigmen-beispiele}}
+#+NAME: fig:paradigmen-beispiele
+[[./uml/paradigmen.png]]
+
+
+
 
 ** Programmierparadigma: Imperativ				   :subslide:
 
@@ -816,6 +854,13 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
     - Mehrfachvererbung, Method Resolution Order durch C3-Algorithmus
     - Einfachvererbung: Abstrakte Klassen vs. Interfaces
   - Debugging: Konzepte und Werkzeuge 
+
+** Übung auch bei Vorkenntnissen 
+
+- Sie *müssen* selbst bei perfekten Vorkenntnissen Übungsaufgaben
+  abgeben
+- Zulassungsvoraussetzung für Klausur!
+- Aber das ist dann ja kein Aufwand für Sie! 
 
 ** Zusammenfassung 
 
