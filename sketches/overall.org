@@ -537,3 +537,11 @@ http://python-notes.curiousefficiency.org/en/latest/python3/text_file_processing
 
 http://steve-yegge.blogspot.de/2010/07/wikileaks-to-leak-5000-open-source-java.html
 
+
+
+* emacs fonfig 
+
+make sure to set org-edit-src-content-indentation to 0! 
+
+else, automatic gerneation of PT links becomes a hassle; and it gives
+so many hiccups anyway. 
