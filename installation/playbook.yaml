@@ -475,32 +475,35 @@
     with_items:
       - "{{ groupaccounts }}"
 
-  # put a symbolic link to the uploaded content into each users home
-  # directory; to make it easier to access preconfigured content
-  # (force = yes because the linked-to directory does not yet exist)
-  - name: Create smybolic links to vorlesung content -- individual users 
-    file:
-      dest=/home/{{ item }}/vorlesung
-      src=/home/jupyterhub/output/vorlesung
-      owner=root
-      mode=755
-      state=link
-      force=yes 
-    with_items: 
-      - "{{ admin }}"
-      - "{{ grader }}"
-      - "{{ students }}"
+  # CHANGE: No symbolic link to vorlesung: That will be created
+  # by the distribution makefile!
+  
+  # # put a symbolic link to the uploaded content into each users home
+  # # directory; to make it easier to access preconfigured content
+  # # (force = yes because the linked-to directory does not yet exist)
+  # - name: Create smybolic links to vorlesung content -- individual users 
+  #   file:
+  #     dest=/home/{{ item }}/vorlesung
+  #     src=/home/jupyterhub/output/vorlesung
+  #     owner=root
+  #     mode=755
+  #     state=link
+  #     force=yes 
+  #   with_items: 
+  #     - "{{ admin }}"
+  #     - "{{ grader }}"
+  #     - "{{ students }}"
       
-  - name: Create symbolic links to vorlesung content -- groupusers 
-    file:
-      dest=/home/{{ item.acc }}/vorlesung
-      src=/home/jupyterhub/output/vorlesung
-      owner=root
-      mode=755
-      state=link
-      force=yes 
-    with_items: 
-      - "{{ groupaccounts }}"
+  # - name: Create symbolic links to vorlesung content -- groupusers 
+  #   file:
+  #     dest=/home/{{ item.acc }}/vorlesung
+  #     src=/home/jupyterhub/output/vorlesung
+  #     owner=root
+  #     mode=755
+  #     state=link
+  #     force=yes 
+  #   with_items: 
+  #     - "{{ groupaccounts }}"
     
   - name: Restart the service after nbgrader setup 
     service: name=jupyterhub state=restarted enabled=yes
