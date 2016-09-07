@@ -51,7 +51,7 @@ distribute:
 	# sync into the invidual directories; make sure to set permissions correclty
 
 	# intention: use distribute-notebook, but that is buggy 
-	# ssh root@gp1test.cs.upb.de /home/jupyterhub/gp1/build/distribute-notebooks.py
+	ssh root@gp1test.cs.upb.de "python3.4 /home/jupyterhub/gp1/build/user-setup.py -a"
 
 
 
