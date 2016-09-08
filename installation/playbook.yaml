@@ -76,6 +76,7 @@
         - build-essential
         - quota
         - mutt
+        - pandoc
     # the apt-get version of pip/pip3 is too old (as of mid-July 2016)
     # and breaks with requests module. Compare
     # http://stackoverflow.com/questions/27341064/how-do-i-fix-importerror-cannot-import-name-incompleteread
