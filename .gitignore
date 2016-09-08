@@ -51,3 +51,10 @@ content/ch16-java-basics/ForIterator.java
 content/ch16-java-basics/HelloWorld.class
 content/ch16-java-basics/HelloWorld.java
 type-hierachy.png
+sketches/_minted-workflow
+sketches/_minted-workflow/default-pyg-prefix.pygstyle
+sketches/_minted-workflow/default.pygstyle
+sketches/huml.png
+sketches/puml.png
+sketches/workflow.pyg
+sketches/workflow.tex

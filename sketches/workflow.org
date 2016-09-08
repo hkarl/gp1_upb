@@ -1,0 +1,130 @@
+#+TITLE: Workflow für GP1 
+#+LaTeX_CLASS_OPTIONS: [colorlinks=true]
+* Vorlesung
+
+- ~git push~
+- in ~gp1/content~: ~make distribute~
+  - kopiert Vorlesungsinhalte an entsprechende Stellen
+  - Konfiguration in ~content/Makefile~ (hauptsächlich) 
+
+* Präsenzübung 
+
+Siehe Abbildung [[pue-workflow]] 
+
+** Draft erstellen 
+
+- Tutor erstellt Draft auf GP1Test 
+- Draft in GIT commit, push
+- Reviewer (tutor oder wimi oder beides): ~git pull~ auf GP1Test, dort durchschauen, ausprobieren 
+- Release candidate  in ~git~
+
+** Freigabe release candidate 
+
+- WiMi: ~git pull~ in lokalem Rechner  
+- Per Skript:
+  - PUE-Verzeichnis nach ~jupyterhub@gp1:pue~ kopieren
+  - Von dort per Makefile/Skript in die Homes der Teilnehmer kopieren
+  - Skript: TODO 
+
+#+BEGIN_SRC plantuml :exports both :results output :file puml.png
+@startuml
+actor Tutor #blue
+actor WiMi #red
+participant GIT #yellow 
+participant GP1Test #yellow
+participant GP1 #yellow 
+actor Teilnehmer #green  
+group Design PUE
+' Create a PUE 
+Tutor -> GP1Test: Design draft in Jupyter frontend 
+GP1Test -> GIT: Push draft \n(triggered by Tutor)
+GIT -> GP1Test: Pull draft \n(into WiMi home, \ntriggered by WiMi)
+WiMi -> Tutor: Feedback
+GP1Test -> GIT: Push release candidate  of PUE \n(triggered by Tutor)
+end
+' Distribute 
+group Distribue 
+GIT -> WiMi: Pull final version \n(into local home, \ntriggered by WiMi)
+WiMi  -> GP1: Copy into Teilnehmer homes \n(triggered by WiMi,\nneeds root @ GP1)
+Teilnehmer -> GP1: Use PUE \nin Jupyter \nWeb frontend 
+end
+@enduml
+#+END_SRC 
+
+#+CAPTION: Workflow für Präsenzübungsblätter 
+#+NAME: pue-workflow 
+#+RESULTS:
+[[file:puml.png]]
+
+
+
+* Hausübung 
+
+Siehe Abbildung [[hue-workflow]], siehe auch  [[http://nbgrader-jhamrick.readthedocs.io/en/latest/index.html][NBgrader online docu]]
+
+
+** Draft erstellen  
+
+- wie bei PUE 
+  - Anforderung: AufGP1Test muss nbgrader laufen; assignments toolbar
+    sichtbar
+    - Ist das für alle Accounts der Fall?
+  - Siehe  [[http://nbgrader-jhamrick.readthedocs.io/en/latest/user_guide/02_developing_assignments.html][Devleoping Assignments]]
+- Rollen: WiMi erstellen; Tutoren reviewen 
+- Final: git push 
+
+
+** Draft freigeben 
+
+- ~git pull~ als ~jupyterhub@gp1~
+- ~nbgrader assign~ etc. 
+
+** TODO Things to check 
+
+- Welcher Ordner ist auf GP1Test sinnvoll? 
+- Welcher Ordner ist auf GP1 sinnvoll als Start für nbgrader?
+  - ~/home/jupyterhub/gp1/hue~ ? 
+- Tests laufen auf GP1Test? 
+
+
+#+BEGIN_SRC plantuml :exports both :results output :file huml.png
+@startuml
+actor Tutor #blue
+actor WiMi #red
+participant GIT #yellow 
+participant GP1Test #yellow
+participant GP1 #yellow 
+actor Teilnehmer #green  
+' Create a PUE 
+group Design HUE 
+WiMi -> GP1Test: Design draft in Jupyter frontend 
+GP1Test -> GIT: Push draft \n(triggered by WiMi)
+GIT -> GP1Test: Pull draft \n(into Tutor home, \ntriggered by Tutor)
+Tutor -> WiMi: Feedback
+GP1Test -> GIT: Push release candidate  of PUE \n(triggered by WiMi)
+end 
+' Release 
+group Distribute HUE 
+GIT -> GP1: Pull final version  \n(into jupyterhub home/hue, \ntriggered by WiMi)
+GP1  -> GP1: Copy into Teilnehmer homes \n(triggered by WiMi,\nvia nbgrader)
+Teilnehmer -> GP1: Solve HUE \nin Jupyter \nWeb frontend 
+Tutor -> GP1: Work on manual grading 
+WiMi -> GP1: Collect grading results\ndistribute feedback \nto Teilnehmer
+GP1 -> Teilnehmer: Send email with feedback \n(triggered by WiMi)
+end
+@enduml
+#+END_SRC 
+
+#+CAPTION: Workflow für Hausübungsblätter 
+#+NAME: hue-workflow 
+#+RESULTS:
+[[file:huml.png]]
+
+* Open issues
+
+- Brauchen wir PDFs für die Übungsblätter?
+  - Wegen Bugs im jupyterhub path handling kann man die nicht aus der
+    Webseite erzeugen, wenn Bilder enthalten sind
+  - Müsste man separat anfertigen und geeignet online stellen oder in
+    die homeverzeichnisse kopieren 
+
