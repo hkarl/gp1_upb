@@ -82,6 +82,16 @@ Verhalten des Interpreters:
 - Gib das Ergebnis aus (/print/)
 - Beginne wieder von vorne (Schleife, /loop/)
 
+#+CAPTION: Read-Evaluate-Print-Schleife
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{Read-Evaluate-Print-Schleife \label{fig:repl}}
+#+NAME: fig:repl
+[[./uml/repl.png]]
+
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:repl}  zeigt die Read-Evaluate-Print-Schleife eines Interpreters. Beachten Sie die Analogie zu einem Maschinenmodell: Ein Interpreter ist in gewissem Sinne eine (sehr abstrakte) Form eine Maschine.  
+#+END_LaTeX
 
 
 * Zahlen 
@@ -115,7 +125,7 @@ gezeigt. Schauen Sie sich an, wie man:
 Erklären Sie den Comic in Abbildung [[fig:base10]]!  
 
 #+CAPTION: Jedes Zahlensystem ist Basis 10
-#+ATTR_LaTeX: :width=0.25\linewidth 
+#+ATTR_LaTeX: :width 0.25\linewidth 
 #+LABEL: fig:base10
 [[./../fun/base10.png]]
 
@@ -136,7 +146,7 @@ Erklären Sie den Comic in Abbildung [[fig:base10]]!
 ~SyntaxError~: Eine Regel der Sprache wurde verletzt 
 
 #+CAPTION: Syntax-Fehler
-#+ATTR_LaTeX: :width=0.25\linewidth 
+#+ATTR_LaTeX: :width 0.25\linewidth 
 #+LABEL: fig:syntax-error
 [[./figures/doh.png]]
 
@@ -421,8 +431,8 @@ sowohl die Syntax als auch die Semantik dieser Verknüpfungen.
     :BEAMER_env: example
     :END:
 
-Ganze Zahlen haben den Wertebereich $ \{ -\infty, \ldots, -3, -2, -1,
-0, 1, 2, 3, \ldots + \infty \} $. Die Verknüpfungen ~+~, ~-~, ~*~
+Ganze Zahlen haben den Wertebereich { -\infty, \ldots, -3, -2, -1,
+0, 1, 2, 3, \ldots + \infty }. Die Verknüpfungen ~+~, ~-~, ~*~
 sind nach üblichen Rechenregeln erklärt. Die Verknüpfung ~/~ ist als
 ganzzahlige Division erklärt. 
 
@@ -529,9 +539,9 @@ Für längere Strings nütlzich? Aber eigentlich ein unwichtiger Aspekt
 
 ** Datentyp: ~bool~ 						   :subslide:
 
-*** Datentyp: bool					       :B_definition:
+*** Datentyp: bool						  :B_example:
     :PROPERTIES:
-    :BEAMER_env: definition
+    :BEAMER_env: example
     :END:
 
 Der Datentyp ~bool~ kennt nur die beiden Werte wahr und falsch,
@@ -591,8 +601,8 @@ Warum geht das hier:
     :BEAMER_env: example
     :END:
 
- Ganze Zahlen haben den Wertebereich $ \{ -\infty, \ldots, -3, -2, -1,
- 0, 1, 2, 3, \ldots + \infty \} $. Die Verknüpfungen ~+~, ~-~, ~*~
+ Ganze Zahlen haben den Wertebereich { -\infty, \ldots, -3, -2, -1,
+ 0, 1, 2, 3, \ldots + \infty }. Die Verknüpfungen ~+~, ~-~, ~*~
  sind nach üblichen Rechenregeln erklärt. Die Verknüpfung ~/~ ist als
  ganzzahlige Division erklärt. 
 
@@ -751,7 +761,7 @@ Man spricht dann von /Operator Overloading/.
 Infinite size of ints , keine unterschiedlichen Größen der intergers 
 
 
-* Typen
+* Typen in Programmiersprachen
 
 ** Typen in Python 3 
 
