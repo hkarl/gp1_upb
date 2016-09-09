@@ -222,7 +222,7 @@ if __name__ == "__main__":
 
     if args.all:
         for f in yamlfiles:
-            argsdict[filename] = f
+            argsdict["filename"] = f
             handle_file(**argsdict)
     elif args.filename:
         handle_file(**argsdict)
