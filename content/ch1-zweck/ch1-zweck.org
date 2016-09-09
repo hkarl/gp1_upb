@@ -255,13 +255,19 @@ Mit Speicher, CPU, Instruktionssatz ergibt sich ein
 - Dann wird nächste Anweisung ausgeführt 
 
 
+
+
+** Ausführungsmodell 
+
 *** Ausführungsmodell				       :B_definition:animate:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
 
 Ein *Ausführungsmodell* legt fest, wie aus einem Zustand ein
-Folgezustand entstehen kann. 
+Folgezustand entsteht. 
+
+
 
 ** Ausführung						      :skip:subslide:
 
