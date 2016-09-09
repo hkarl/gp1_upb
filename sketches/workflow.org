@@ -21,10 +21,11 @@ Siehe Abbildung [[pue-workflow]]
 ** Freigabe release candidate 
 
 - WiMi: ~git pull~ in lokalem Rechner  
-- Per Skript:
+- Per Skript ~build/release-pue.sh~
+  - Parameter: Name des Präsenzübungsblatt-Verzeichnisses 
   - PUE-Verzeichnis nach ~jupyterhub@gp1:pue~ kopieren
   - Von dort per Makefile/Skript in die Homes der Teilnehmer kopieren
-  - Skript: TODO 
+
 
 #+BEGIN_SRC plantuml :exports both :results output :file puml.png
 @startuml
