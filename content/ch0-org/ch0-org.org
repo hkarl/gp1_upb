@@ -303,10 +303,12 @@ Zulassungsvoraussetzungen erfüllen:
 
  - PAUL: Anmeldung zu Übungen und Klausur
  - [[https://cs.uni-paderborn.de/index.php?id=59215][Webseite zur Veranstaltung]]
-   - Links zu allem weiteren Material: Folien und PDF
-   - Links zu Vorlesungsmitschnitten (hoffentlich) 
- - [[http://groups.uni-paderborn.de/fg-karl/lehre/ss16/gp1/index.html][Vorlesungsmaterial]]
- - [[https://gp1.uni-paderborn.de][Übungen]]
+   - [[http://groups.uni-paderborn.de/fg-karl/lehre/ws1617/gp1/vorlesung/][Vorlesungsmaterial]]
+     - Notebooks: Folien der Vorlesung samt Code-Beispielen
+     - PDFs: Folien und zusätzliche Anmerkungen und Kommentare; als Skript
+       gedacht 
+   - [[https://gp1.uni-paderborn.de][Übungen]]
+   - Audio-Mitschnitte: Hoffentlich :-) 
 
 
 ** Wo finden Sie was? -- Webseite				    :nolatex:
