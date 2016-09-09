@@ -9,7 +9,7 @@ _minted*org
 content/*/*.tex
 *.toc
 *.pdf
-*.ipynb
+content/*/*.ipynb
 *.texbak
 playbook.retry
 content/toc
