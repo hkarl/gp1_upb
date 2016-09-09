@@ -187,6 +187,14 @@ Probieren Sie das in einem Notebook aus!
 
 
 
+** Namenskonvention für Funktionsnamen 
+
+- Syntaxregel für Funktionsname: Wie für Variablennamen 
+- Konvention: Wie für Variablennamen
+  - Kleinbuchstaben am Anfang
+  - Mehrere Worte durch ~_~ verbunden 
+
+
 ** Schlüsselwort: ~def~						   :subslide:
 
 - ~def~ hat offenbar Sonderrolle 
