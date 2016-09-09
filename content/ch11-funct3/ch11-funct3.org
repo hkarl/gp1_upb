@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 11: Funktionen, Teil 3: Verschachtelung und funktionale Programmierung 
+#+TITLE: Kapitel 11: Funktionen (Teil 3): Verschachtelung und funktionale Programmierung 
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything

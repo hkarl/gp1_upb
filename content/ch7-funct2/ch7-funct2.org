@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 7: Funktionen, Teil 2: Rekursion, Namensräume, Scopes
+#+TITLE: Kapitel 7: Funktionen (Teil 2): Rekursion, Namensräume, Scopes
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything
