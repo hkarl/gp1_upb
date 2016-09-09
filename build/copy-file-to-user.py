@@ -86,7 +86,8 @@ def handle_file(filename, *args, **kwargs):
 
     for a in accounts:
         print("user: ", a)
-        handle_user(user=a, *args, **kwargs)
+       	kwargs['user'] = a
+        handle_user(*args, **kwargs)
         
     return None
 
