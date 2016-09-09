@@ -35,7 +35,7 @@ $(objects): %.ipynb: %.org ../template/header.org
 	-[ -f javakernel ] && make java 
 	cp $@ ${OUTPUTDIR}
 	cp -r figures ${OUTPUTDIR}
-	cp uml/*png ${OUTPUTDIR}/uml
+	-cp uml/*png ${OUTPUTDIR}/uml
 
 $(pdfs): %.pdf: %.tex
 	pdflatex -shell-escape $<
