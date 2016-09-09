@@ -225,6 +225,7 @@ Variablenname.
 Jede Programmiersprache hat eine Liste von Schlüsselworten. 
 
 
+
 ** Python-Schlüsselworte bis jetzt 				   :subslide:
 
 - ~True~, ~False~
@@ -245,6 +246,29 @@ Ist ~a~ ein sinnvoller Variablenname?
     - Schlecht: ~ii2~, ~x_17_b~ 
 - Sie müssen Ihr Programm auch in drei Monaten noch selbst verstehen! 
 
+
+** Namenskonvention 
+
+
+
+
+*** Namenskonvention					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine *Namenskonvention* beschreibt übliche Vorgehensweisen zur Wahl
+von Namen. Sie schränkt die möglichen Namen auf die sinnvollen Namen
+ein, ist aber kein formaler Bestandteil der Sprache. 
+
+*** Namenskonvention für Variablen in Python		  :B_example:animate:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+- Kleinbuchstaben am Anfang
+- Variablennamen aus mehreren Worten werden durch Unterstrich getrennt 
+- Vermeide: kleines l, großes O und großes L -- Verwechselungsgefahr 
 
 ** Variable nutzen
 
