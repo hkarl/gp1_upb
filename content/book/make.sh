@@ -13,7 +13,7 @@ for c in $chapters ; do echo  "\input{../$c/chapter}" >> chapters ; done
 echo "% done chapter" >> chapters
 
 # and create the chapter tex files as such
-
+source ~/.venvs/jupyter/bin/activate;
 for c in $chapters ; do python makechapters.py $c ; done
 
 
