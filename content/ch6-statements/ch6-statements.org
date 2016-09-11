@@ -1036,7 +1036,9 @@ Also: Ja, das ist ok! Mit Verständnis!
 
 ** Stil: goto							   :subslide:
 
-Goto considered harmful 
+- In alten Sprachen (und in Maschinensprache): ~goto~
+  - Springe an beliebige Stelle im Programm 
+- Aber: Goto considered harmful 
 
 #+CAPTION: goto considered harmful 
 #+ATTR_LaTeX: :width 0.50\linewidth
