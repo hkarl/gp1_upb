@@ -470,6 +470,8 @@ print(l)
 #+RESULTS:
 : 5
 
+*** UEBUNG Was passiert bei (1,2,3,1,2,3).index(2) ? 
+
 ** Notation bei ~index~?					   :subslide:
 
 Eigentlich doch erwartet:  ~index(t, e)~ ? 
@@ -1446,7 +1448,7 @@ a[1]
 
 ** Aufzählen? 
 
-- Aufzählungen mit Reihenfolge (~list~, ~set~) ordern einer laufenden
+- Aufzählungen mit Reihenfolge (~list~, ~tuple~) ordnen einer laufenden
   Nummer (dem Index) ein Objekt zu 
 - Was, wenn ich mir ein Objekt
   - nicht für eine Nummer, sondern einen anderen Wert merken will?
@@ -1736,7 +1738,7 @@ werden gelegentlich auch diese kompakte Darstellung benutzen.
     - Tuple und Listen
     - Tuple und Sets
   - Zahlen und Strings: ~int("12")~
-    - Aber: ~int("12.34")~
+    - Aber: ~int("12.34")~ scheitert! 
 
 ** Konvertierung: Syntax 
 
@@ -1829,7 +1831,7 @@ Gemeinsamkeiten? Ordnung ins Chaos?
                      draw, align=center,
                      top color=white}
     [ Sonderfälle, for tree={bottom color=red!20} 
-      [ \texttt{None}  ]
+      [ \texttt{NoneType}  ]
     ]
     [ Unveränderlich\\ \emph{Immutable}, for tree={bottom color=green!20}  
       [ Zahlen 
