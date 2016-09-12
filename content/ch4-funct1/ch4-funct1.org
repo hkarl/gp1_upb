@@ -711,6 +711,30 @@ def no_return():
 z = no_return()
 #+END_SRC
 
+*** Visualisierung						  :dropslide:
+
+Auch wenn eine Funktion keine explizite ~return~-Anweisung enthält, so
+wird doch stets ein Wert zurückgegeben. Allerdings braucht es hier
+eine Vereinbarung, welcher Wert das sein soll (man könnte einen
+zufälligen Wert nehmen, aber das würde auch zu zufälligen Programmen
+führen). Eine gängige Festlegung ist hier (in Python wie in ähnlichen
+Sprachen), den speziellen Wert ~None~ vorzusehen, der das Fehlen eines
+eigentlich sinnvollen Wertes anzeigt. ~None~ ist keine Zahl, keine
+Zeichenkette, kein ... sondern gehört zu einem eigenen Datentyp. 
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:no-return} visualisiert das: Tatsächlich existiert der Rückgabewert \texttt{None} im Namensraum der Funktion \texttt{no_return}. 
+#+END_LaTeX
+
+
+#+CAPTION: ~None~ als Rückgabewert bei Fehlen von ~return~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{~None~ als Rückgabewert bei Fehlen von ~return~ \label{fig:no-return}}
+#+NAME: fig:no-return
+[[./figures/pt-no-return.png]]
+
+
+
 
 ** Aufruf einer Funktion: Semantik  
 
@@ -837,7 +861,8 @@ Abbildung [[fig:pt-fa-wert]] illustriert das.
 ** Funktion mit Parameter: Aufruf mit Ausdruck 
 
 - Vorheriges Beispiel: Fester Wert übergeben 
-- Geht das auch mit Ausdruck? 
+- Geht das auch mit Ausdruck?
+  - Erwartung? Wert übergeben? 
 
 
 #+BEGIN_SRC python
@@ -973,7 +998,7 @@ Was passiert bei:
 *** Nichts unerwartetes!					    :animate:
 
 Es gibt einfach zwei Namen ~x~. Die sind aber durch den jeweiligen
-Namensraum eindeutig zuordenbar und haben nichts mit einandern zu tun. 
+Namensraum eindeutig zuordenbar und haben nichts mit einander zu tun. 
 
 *** Details							  :dropslide:
 
@@ -1146,7 +1171,7 @@ Bei ~print~:
 *** Seiteneffekt und funktionale Sprachen 			  :dropslide:
 
 Mit dieser Definition läßt sich eine funktionale Programmiersprache
-einfach definieren: Eine Sprache, in der es keine Seiteneffekte
+einfach charakterisieren: Eine Sprache, in der es keine Seiteneffekte
 gibt. 
 
 Mehr dazu in VL GPS. 
@@ -1195,25 +1220,20 @@ print("Hallo", "GP", 1)
 
 ** Weitere Aspekte von ~print~: Benannter Parameter 
 
-- Beim Aufruf kann an ~print~ ein Parameter mit einem Namen versehen
+- Beim /Aufruf/ kann an ~print~ ein Parameter mit einem Namen versehen
   werden
   - (Das geht bei allen Funktionen, siehe späteres Kapitel) 
-  - Es gibt mehrere Namen
 
 *** Beispiel: ~end~						    :animate:
-- Wir brauchen zunächst: ~end~
+
+- Parameter von ~print~: ~end~
   - Gibt Zeichen an, mit dem ~print~ die Ausgabe abschliesst
-  - ~default~: Zeilenumbruch 
+  - Wird Parameter nicht angegeben, so macht ~print~ einen
+    Zeilenumbruch
+- Brauchen wir für Beispiele in folgenden Kapiteln 
 
-*** default					       :B_definition:animate:
-    :PROPERTIES:
-    :BEAMER_env: definition
-    :END:
 
-Ein ~default~-Wert für einen Parameter wird benutzt, wenn kein anderer
-Parameter explizit angegeben wird. 
-
-** Weitere Aspekte von ~print~: ~end~
+** Weitere Aspekte von ~print~: Benannter Parameter ~end~
 
 Vergleiche die beiden Code-Blöcke: 
 
@@ -1265,7 +1285,7 @@ Was wird hier ausgegeben?
 : 111
 
 
-*** UEBUNG Pingo? 
+*** TODO Pingo? 
 
 
 
@@ -1312,11 +1332,12 @@ max(1, 2, 3)
 
 
 
-** Funktionen und Stil 
+** Funktionen und Stil: Namenskonvention 
 
 Wie schreibt man Funktionen stilsicher?  (PEP8)
 
-- Namen: klein, mit ~_~
+- Namen: Kleinbuchstaben oder Unterstrich ~_~
+  - Beispiel: ~dies_ist_ein_langer_funktionsname~
   - Kein CamelCase
 - Leerzeichen:
   - Keine Leerzeichen zwischen ~funktionsname~ und ~(~
