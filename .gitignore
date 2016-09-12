@@ -58,3 +58,10 @@ sketches/huml.png
 sketches/puml.png
 sketches/workflow.pyg
 sketches/workflow.tex
+content/ch16-java-basics/ForVariable.class
+content/ch16-java-basics/ForVariable.java
+content/ch17-java-oo/CallSemantics.class
+content/ch17-java-oo/CallSemantics.java
+content/ch*/*.java
+content/ch*/*.class
+

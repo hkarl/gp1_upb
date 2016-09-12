@@ -696,7 +696,7 @@ print(fuenffacher("Mehrfach ausgeben! "))
 - Closure merken sich den relevanten Zustand -- ein /state retention/
   Ansatz 
 
-*** Closure						       :B_definition:
+*** Closure					       :B_definition:animate:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
@@ -725,6 +725,18 @@ von ~vervielfacher_fabrik~ erzeugt wurden.
 Je nach Literaturquelle wird aus das Programmiermuster selbst als
 Closure bezeichnet, nicht nur die Realisierungstechnik. Das macht
 letztlich keine großen Unterschied. 
+
+*** Anmerkung: Vorkommen von Closures 				  :dropslide:
+
+Closures kommen häufig in funktionalen Sprachen vor. Neben Python ist
+Javascript ein populäres Beispiel, bei dem häufig Closures benutzt
+werden, um die Reaktion auf Nutzereingaben oder Daten vom Server zu
+beschreiben. Auch in Sprachen wie Lisp oder Ruby sind Closures ein
+populäres, elegantes Sprachmittel. 
+
+Sprachen wie Java, C++, C# und Abkömmlinge stellen in der Regel nur
+vereinfachte Strukturen zur Verfügung und können das Konzept der
+Closures nicht vollständig abbilden.  
 
 ** Nutzen: Fabriken und Closures 
 

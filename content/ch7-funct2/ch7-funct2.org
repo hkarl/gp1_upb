@@ -277,28 +277,30 @@ der genau so scheitern würde.
 
 ** Zusammenfassung formale Parameter und Argumente -- Syntax 
 
-
-|--------------------+-----------------------------------------------|
-| Definitions-Syntax | Interpretation                                |
-|--------------------+-----------------------------------------------|
-| ~def f(a, b)~      | Positionsparameter                            |
-| ~def f(a=17)~      | Parameter mit default                         |
-| ~def f(*args)~     | Parameter für überzählige Positions-Argumente |
-| ~def f(**kwargs)~  | Parameter für überzählige benannte Argumente  |
-|--------------------+-----------------------------------------------|
-| Aufruf-Syntax      | Interpretation                                |
-|--------------------+-----------------------------------------------|
-| ~f(x, y)~          | Positionsparameter                            |
-| ~f(a=5)~           | Parameter benennen                            |
-| ~f(*l)~            | Siehe Übungsblatt                             |
-| ~f(**d)~           | d als Liste der benannten Argumente           |
-|--------------------+-----------------------------------------------|
+ #+ATTR_LATEX: :align l|p{0.\textwidth}
+|--------------------+-----------------------------------------------------------|
+| Definitions-Syntax | Interpretation                                            |
+|--------------------+-----------------------------------------------------------|
+| ~def f(a, b)~      | Positionsparameter                                        |
+| ~def f(a=17)~      | Parameter mit default                                     |
+| ~def f(*args)~     | Parameter für überzählige Positions-Argumente (als Tuple) |
+| ~def f(**kwargs)~  | Parameter für überzählige benannte Argumente (als Dict)   |
+|--------------------+-----------------------------------------------------------|
+| Aufruf-Syntax      | Interpretation                                            |
+|--------------------+-----------------------------------------------------------|
+| ~f(x, y)~          | Positionsparameter                                        |
+| ~f(a=5)~           | Parameter benennen                                        |
+| ~f(*l)~            | Siehe Übungsblatt                                         |
+| ~f(**d)~           | Dict d ist Liste der benannten Argumente                  |
+|--------------------+-----------------------------------------------------------|
 
 Bemerkung: Python 3 hat noch ein paar weitere Feinheiten; brauchen wir
 zunächst nicht 
 
 
 *** UEBUNG f(*l) mit l as iterable durchgehen
+
+*** UEBUNG Warum ist Aufruf f(**d) KEIN Aufruf als Dict!?
 
 ** Tuple als Rückgabewerte 
 
@@ -395,16 +397,31 @@ Beispiel: Zwei Funktionen, um eine Matix auszugeben
 : 10 11 12 13 
 
 
-** Beobachtung: Reihenfolge ~f~, ~g~
+** Beobachtung: Reihenfolge Definition und Aufruf 
 
-- Im Programmcode steht ein Aufruf von ~g~ bevor ~g~ definiert wurde
-- Offenbar unproblematisch
-  - Weil ~def~ eine Anweisung ist, die lediglich den Namen der
-    Funktion mit dem Programmcode verbindet
+- Im Programmcode steht ein Aufruf von ~print_zeile~ bevor
+  ~print_zeile~ definiert wurde 
+- Hier offenbar unproblematisch
+  - Weil ~def print_matrix~ eine Anweisung ist, die lediglich den
+    Namen der Funktion mit dem Programmcode verbindet
   - Dabei wird noch nichts ausgeführt!
+- Entscheidend ist der Zeitpunkt der Ausführung des Aufrufs!
+  - Dann muss der Funktionsname ~def~-iniert worden sein 
 
-Vorsicht, das kann in anderen Sprachen anders aufgefasst
-werden. Reihenfolge der Festlegung kann wichtig sein! 
+
+** Beobachtung: Reihenfolge Definition und Aufruf 
+
+Funktionsname vor Aufruf definiert -- das hier scheitert: 
+- Fehlermeldung: ~NameError: name 'f' is not defined~
+
+#+BEGIN_SRC python :exports code :results output
+f()
+
+def f():
+    print("Hallo")
+#+END_SRC 
+
+
 
 ** Variablen und Sichtbarkeit? 
 
@@ -439,7 +456,7 @@ f()
 #+RESULTS:
 : 5
 
-** Offenbar sichtbar!
+** Offenbar sichtbar! 
 
 - Bei Zugriff auf ~x~ stellt ~f~ fest, dass es kein ~x~ im eigenen
   Scope gibt
@@ -465,6 +482,22 @@ Variable ~y~ den Wert von ~x~ referenziert.
 [[./figures/pt-x-in-global.png]]
 
 
+** Offenbar sichtbar! -- Beispiel  
+
+
+Was wird hier ausgegeben? 
+
+#+BEGIN_SRC python :exports code  :results output
+x = 3
+def f():
+   y = x
+   print(y)
+x = 5
+f()
+x = 7
+#+END_SRC 
+
+*** TODO Pingo? 
 
 ** Sichtbarkeit bei schreibendem Zugriff? 
 
@@ -536,6 +569,7 @@ Offenbar unterschiedliches Verhalten
     - Genauer: Die Scopes der Namensräume der Funktionen... 
     - Gleicher Variablenname in unterschiedlichen Scopes:
       Unterschiedliche Variable!   
+
 
 ** Disjunkte local scopes -- Beispiel 
 

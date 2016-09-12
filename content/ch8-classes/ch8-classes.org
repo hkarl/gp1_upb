@@ -243,8 +243,8 @@ Die Begriffe Objekt und Instanz sind weitgehend austauschbar.
     :END:
 
 Ein Objekt oder eine Instanz ist /immer/ auf eine bestimmte Klasse
-bezogen. Es ist sinnlos, von einem Objekt ohne Bezug auf /seine/
-Klasse zu reden.
+bezogen. Es ist (streng genommen) sinnlos, von einem Objekt ohne Bezug
+auf /seine/ Klasse zu reden.
  
 
 ** Objekte/Instanzen: Graphische Notation 
@@ -390,13 +390,17 @@ Im ersten Schritt wird die Anweisung ~class~ ausgeführt. Es ist eine
 Anweisung ähnlich wie ~def~, d.h., sie vereinbart einen Namen (hier:
 ~Ellipse~) der auf eine Klasse zeigt. Diese Klasse ist in diesem
 Beispiel noch sehr bescheiden -- sie hat lediglich eine einzige
-Methode ~__init__~. Abbildung [[fig:instantiate-classname]] zeigt diesen
-Zustand. 
+Methode ~__init__~.  
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:instantiate-classname} zeigt diesen
+Zustand.
+#+END_LaTeX
 
 
-#+CAPTION: Anlegen der Klasse selsbt 
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:instantiate-classname
+#+ATTR_LaTeX: :caption \caption{Anlegen der Klasse selbst \label{fig:instantiate-classname}}
+#+CAPTION: Anlegen der Klasse selbst 
 [[./figures/pt-instantiate-classname.png]]
 
 **** Erzeugen des Objekts, Aufruf des Konstruktors 
@@ -422,11 +426,12 @@ entsprechenden Werte.
 
 **** Erzeugen des ersten Attributes 
 
-Sobald die Zeile 3 ausgeführt wurde (Abbildung ), wurde das erste
-Attribut (der Name ~x~) im Ellipse-Objekt angelegt. In ~Ellipse
-instance~ ist ein Pfeilpaar entstanden; der erste Pfeil weisst auf den
-String ~x~ -- den Namen des Attributes -- der zweite Pfeil auf den
-Wert 1.  Natürlich zeigt auch der Parameter ~x~ auf den Wert 1. 
+Sobald die Zeile 3 ausgeführt wurde (Abbildung
+[[fig:instantiate-first-attribute]]), wurde das erste Attribut (der Name
+~x~) im Ellipse-Objekt angelegt. In ~Ellipse instance~ ist ein
+Pfeilpaar entstanden; der erste Pfeil weisst auf den String ~x~ -- den
+Namen des Attributes -- der zweite Pfeil auf den Wert 1.  Natürlich
+zeigt auch der Parameter ~x~ auf den Wert 1.
 
 
 #+CAPTION: Instatiieren des Objekts; Anlegen des ersten Attriubtes
@@ -1238,7 +1243,7 @@ dem der Name ~y~ den Wert 18 referenziert.
 #+CAPTION: Statische vs. Objektattribute: Anlegen von c2
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-static-c2
-[[./figures/pt-static-c1defined.png]]
+[[./figures/pt-static-c2defined.png]]
 
 Der Namensraum der Klasse selbst hat nach wie vor unverändert den Namen
 ~x~, der den Wert 1 referenziert. 

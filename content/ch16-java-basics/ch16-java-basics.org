@@ -99,11 +99,29 @@ java TestClass
 #+END_SRC 
 
 
+** Mehrere Dateien zusammenfügen 
+
+*** Programmcode: ~import~ 
+
+- Möchte man andere Klassen nutzen, braucht man ~import~
+  - Sehr ähnlich zu Python 
+
+*** Übersetzung 
+
+- Alle Dateien mit ~javac~ übersetzen
+- Nur die Klasse/Datei mit ~public static void main~ mit ~java~
+  starten! 
+
+*** UEBUNG Details zu import und CLASSPATH 
+
+
+
 ** Anmerkung: Java  und Jupyterhub 
 
 - Jupyerhub ist nur bedingt auf die Ausführung von Java ausgelegt
 - Insbesondere ist der derzeitige Java Standard, Version 8, nicht zu
   einer REPL in der Lage
+  - Es gibt [[http://www.javarepl.com/console.html][Java REPL]], aber das ist ungetestet und nicht Standard 
   - Das geht erst mit der Beta-Version, Java 9 
 - Wenn Sie die Beispiele hier auf einem eigenen Rechner nachvollziehen
   wollen, so befolgen Sie die Anleitungen zur Installation eines
@@ -119,9 +137,11 @@ java TestClass
   Editoren
 - Die Liste aus vorherigem Kapitel passt hier ebenfalls
   - Jeder ordentliche Editor für Entwickler unterstützt viele Sprachen
-- IDE: Eclipse
-  - Aber tun Sie sich das nicht an!
+- IDEs: [[https://netbeans.org][NetBeans]],  [[https://eclipse.org/][Eclipse]], [[https://www.jetbrains.com/idea/][IntelliJ IDEA]], [[https://developer.android.com/studio/index.html][Android Studio]], [[http://www.bluej.org][BlueJ]] (zum Lernen
+  nicht schlecht, mit REPL), [[http://www.jedit.org][jEdit]] (spezialisierter Editor, praktisch eine IDE)
+  - Aber tun Sie sich das für GP1 nicht an!
   - Lernaufwand *sehr* hoch 
+  - Später ist eine IDE (nicht notwendig Eclipse) sinnvoll 
 
 * Syntax
 
@@ -312,7 +332,7 @@ Typecasts passieren auch bei der Auswertung von (arithmetischen) Ausdrücken:
 - Zeichenketten: Array von Zeichen
   - Also eigentlich: ~char[]~
 - Aber weil wichtiger Spezialfall, eigener Typ: ~String~
-- Konstanten: In /doppelte/ Hochkomma eingeschlossen ~"..."~
+- Konstanten: In Anführungszeichen eingeschlossen ~"..."~
   - Unterscheide: ~'x'~ und ~"x"~ !
 - Strings sind Objekte der Klasse ~String~
   - Methodenbeispiele: ~length()~, ~charAt(i)~, ~indexOf(substring)~,
@@ -1003,11 +1023,38 @@ Vier Teile:
 #+END_SRC 
 
 
-*** Achtung							    :animate:
+** ~for~-Schleife: Variablen 
 
-Variablen müssen *vor* der Schleife schon deklariert sein!
-  - Behalten entsprechend auch den Wert
-  - Das sind ganz normale Variablen! 
+Wo kommen Variablen für die Schleife her? 
+
+*** Option 1: Normale Variablen, vorher deklariert 
+
+- Behalten nach Schleife den Wert 
+- Ggf. sinnvoll, wenn Variable nach Schleife noch gebraucht wird 
+
+*** Option 2: Variable in Schleifenkopf deklarieren 
+
+- Damit eindeutig als Zählvariable für die Schleife markiert 
+- Verschwindet nach der Schleife aus dem Scope
+- Wenn nach Schleife Bedingung geprüft werden soll, dafür separate
+  Variable vorsehen!
+- Meist als besserer Stil angesehen 
+
+
+#+BEGIN_SRC java :exports code :results output :classname ForVariable
+public class ForVariable {
+  public static void main(String[] args) {
+      for (int i= 5; i<8; i++) System.out.print(i + ", ");
+
+  // Variable i out of scope, das geht nicht: 
+  // System.out.print(i);
+  }
+}
+#+END_SRC 
+
+#+RESULTS:
+: 5, 6, 7, 
+
 
 ** Klassisches ~for~: Beispiel 
 

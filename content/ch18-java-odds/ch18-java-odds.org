@@ -90,13 +90,11 @@ selbst behandelt
 - Vor Java 8: Keine Lambda-Ausdrücke
   - Mit extrem umständlichen Hilfskonstruktionen, z.B. anonyme
     Klassen, um eine Vergleichsfunktion für Sortieren zu definieren
-- Aber auch die sind statisch typisiert!
-  - Man muss also die Signatur angeben (plus Rückgabewert)
-  - Dazu: Interface mit einer Methode deklarieren
-    - Darf anonym passieren; Interface braucht keinen Namen 
-- Lambda-Ausdruck dann bei Zuweisung an Funktionsvariable 
+- Seit Java 8: Lambda-Ausdrücke; im Prinzip ähnlich zu Python 
+  - Mit anonymem Interface mit einer Methode
+  - Implizit, ohne ausdrückliches Interface 
 
-** Java 8: Lambda-Ausdrücke -- Beispiel 
+** Java 8: Lambda-Ausdrücke -- Beispiel  mit Interface 
 
 #+BEGIN_SRC java :exports code :results output :classname XXX
   // wir brauchen zunächst ein Interface als Typ
@@ -113,6 +111,49 @@ selbst behandelt
   int y = f.exec(5);
   System.out.println(y);
 #+END_SRC 
+
+
+** Java 8: Lambda-Ausdruck ohne Interface 
+
+- Zwei Lambda-Ausdrücke: Vergleich bei Filter, Ausdrucken
+  - Vorsicht, Seiteneffekt! 
+
+#+BEGIN_SRC java :exports code :results output :classname Lambda
+import java.util.stream.Stream;
+
+class Lambda {
+    public static void main (String[] args)  {
+        Stream.of(1954, 1974, 1990, 2014).filter(x -> x>1980).forEach(x -> System.out.println(x));
+    }
+}
+#+END_SRC 
+
+#+RESULTS:
+: 1990
+: 2014
+
+*** Stream 
+
+- Klasse, um funktionale Ansätze auf Folgen von Daten zu unterstützen 
+- Wichtige Methoden: ~filter~, ~forEach~, ~findAny~, ~map~, ~of~
+- Siehe [[https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html][Referenz]]
+
+*** UEBUNG Wie schreibt man das in Python auf? 
+
+Insbes.: Side effect von print auslösen. map gibt einen Iterator
+zurück! 
+
+#+BEGIN_SRC python :exports both :results output
+for x in filter(lambda x: x > 1980, [1954, 1974, 1990, 2014]): print(x) 
+for x in  [x for x in [1954, 1974, 1990, 2014] if x > 1980]: print(x)
+#+END_SRC 
+
+#+RESULTS:
+: 1990
+: 2014
+: 1990
+: 2014
+
 
 
 ** Java 8: Lambda vs. Closures 

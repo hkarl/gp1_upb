@@ -334,6 +334,7 @@ Abbildung \ref{fig:uml-inheritance} zeigt beispielhaft die Darstellung der Versc
 
 
 #+CAPTION: Klassenhierarchie für Artikel: Daten in UML
+#+ATTR_LaTeX: :caption \caption{Klassenhierarchie für Artikel: Daten in UML  \label{fig:artikel-uml-daten}}
 #+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:artikel-uml-daten
 [[./uml/artikel-data.png]]
@@ -341,9 +342,12 @@ Abbildung \ref{fig:uml-inheritance} zeigt beispielhaft die Darstellung der Versc
 
 *** Visualisierung						  :dropslide:
 
-Abbildung [[fig:artikel-uml-daten]] zeigt die UML-basierte Visualisierung
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:artikel-uml-daten} zeigt die UML-basierte Visualisierung
 dieser Idee. Beachten Sie, dass nur die hinzugefügten Daten notiert
 werden. 
+#+END_LaTeX
+
 
 Zustätzlich sind hier mehrere Unterklassen zu sehen. Diese zeigen
 jeweils auf die Oberklasse. Eine Anordnung horizontal nebeneinander
@@ -424,14 +428,17 @@ Warum nicht!
 
 #+CAPTION: Klassenhierarchie für Artikel: Neue Methoden 
 #+ATTR_LaTeX: :width 0.5\linewidth
+#+ATTR_LaTeX: :caption \caption{Klassenhierarchie für Artikel: Neue Methoden   \label{fig:artikel-new-methods}}
 #+NAME: fig:artikel-new-methods
 [[./uml/artikel-new-methods.png]]
 
 
 *** Visualisierung						  :dropslide:
 
-In Abbildung [[fig:artikel-new-methods]] werden die /zusätzlichen/
+#+BEGIN_LaTeX
+In Abbildung~\ref{fig:artikel-new-methods} werden die \emph{zusätzlichen}
 Methoden in den Unterklassen angegeben. 
+#+END_LaTeX
 
 
 ** Methoden an Klasse anpassen? 
@@ -549,6 +556,22 @@ wird.
     können die ohne Änderung mit verarbeitet werden 
 
 
+** ~is-a~, Kompatibilität -- Beispiel   
+
+Substitionsprinzip verletzt; Objekt ~a~ vom Typ ~A~ is-not-a ~B~ 
+
+
+#+BEGIN_SRC python :exports code :results output
+class A():
+    pass
+
+class B(A):
+    def f():
+        print("f in B")
+
+a = A()
+a.f()
+#+END_SRC 
 
 
 * Vererbung in Python
@@ -1109,7 +1132,7 @@ Mit einer ~__str()__~-Methode in ~A~:
 #+BEGIN_SRC python :exports both :results output
   class A:
       def __str__(self):
-          return "ich bin ein Objekt der Klasse {}; ".format(self.__class__.__name__)
+          return "Objekt von {}; ".format(self.__class__.__name__)
 
   class B(A): pass 
 
@@ -1133,14 +1156,14 @@ Mit einer ~__str()__~-Methode in ~A~:
 #+END_SRC 
 
 #+RESULTS:
-: ich bin ein Objekt der Klasse A; is-a A: True; is-a B: False; is-a C: False
-: ich bin ein Objekt der Klasse B; is-a A: True; is-a B: True; is-a C: False
-: ich bin ein Objekt der Klasse B1; is-a A: True; is-a B: True; is-a C: False
-: ich bin ein Objekt der Klasse B2; is-a A: True; is-a B: True; is-a C: False
-: ich bin ein Objekt der Klasse C; is-a A: True; is-a B: False; is-a C: True
-: ich bin ein Objekt der Klasse C1; is-a A: True; is-a B: False; is-a C: True
-: ich bin ein Objekt der Klasse C2; is-a A: True; is-a B: False; is-a C: True
-: ich bin ein Objekt der Klasse C3; is-a A: True; is-a B: False; is-a C: True
+: Objekt von A; is-a A: True; is-a B: False; is-a C: False
+: Objekt von B; is-a A: True; is-a B: True; is-a C: False
+: Objekt von B1; is-a A: True; is-a B: True; is-a C: False
+: Objekt von B2; is-a A: True; is-a B: True; is-a C: False
+: Objekt von C; is-a A: True; is-a B: False; is-a C: True
+: Objekt von C1; is-a A: True; is-a B: False; is-a C: True
+: Objekt von C2; is-a A: True; is-a B: False; is-a C: True
+: Objekt von C3; is-a A: True; is-a B: False; is-a C: True
 
 
 
@@ -1265,6 +1288,7 @@ Introspection steht in vielen objektorientierten Programmiersprachen
 zur Verfügung. Modification ist meist nur in dynamischen,
 interpretierten Sprachen vollständig vorhanden. 
 
+Mehr Details in VL GP2. 
 
 * Sichtbarkeit 
 

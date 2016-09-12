@@ -245,8 +245,8 @@ Die /Signatur/ einer Methode ist festgelegt durch
 
 *** Anmerkung							  :dropslide:
 
-Der Typ des Rückgabewerts (ggf. ~void~) wird nicht als Teil der
-Signatur angesehen. Es gibt Programmiersprachen, bei denen auch das
+Der Typ des Rückgabewerts (ggf. ~void~) wird in Java  nicht als Teil der
+Signatur angesehen [[https://docs.oracle.com/javase/tutorial/java/javaOO/methods.html][Signatur in Java]]. Es gibt Programmiersprachen, bei denen auch das
 als Teil der Signatur aufgefasst wird. 
 
 
@@ -304,6 +304,138 @@ Wie wird beim Aufruf die richtige Methode ausgesucht?
   - Veränderung des formalen Parameters schlägt sich /nicht/ beim
     Aufrufer nieder
   - Wohl aber eine Veränderung des referenzierten Objekts!
+
+** Aufrufsemantik: Beispiel für Aufruf mit Referenztypen 
+
+#+BEGIN_SRC java :exports code :results output :classname CallSemantics
+%%tutor -l java
+public class CallSemantics{
+    public static void f(String [] x) {
+        x[1] = "Neuer String";
+    }
+
+    public static void g(String [] x) {
+        x = new String[] {"lokaler", "Wert"};
+    }
+
+    public static void main(String [] args) {
+        String [] s = new String[2];
+        s[0]= "Hallo";
+        s[1] = "GP1";
+        System.out.println(s[1]); 
+
+        f(s);
+        System.out.println(s[1]); 
+
+        g(s);
+        System.out.println(s[1]); 
+    }
+}
+#+END_SRC 
+
+#+RESULTS:
+: GP1
+: Neuer String
+
+*** Visualisierung						  :dropslide:
+
+Um das Verhalten bei unterschiedlicher Nutzung eines
+Referenz-Parameters darzustellen, hier einige Illustrationen zu diesem
+Code-Beispiel. 
+
+**** Vor der Zuweisung in ~f~ 
+
+
+
+#+BEGIN_LaTeX  
+Betrachten wir den Zustand in 
+Abbildung~\ref{fig:jt-reference-f1}. Methode \texttt{f} wurde
+aufgerufen. Der Parameter \texttt{x} ist eine Referenz auf das gleiche
+Array, das in \texttt{main} angelegt wurde und dort mit der Variable
+\texttt{s} referenziert wird. 
+#+END_LaTeX
+
+
+
+
+#+CAPTION: Methodenaufruf mit Referenzparameter: Vor Zuweisung in ~f~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{Methodenaufruf mit Referenzparameter: Vor Zuweisung in ~f~ \label{fig:jt-reference-f1}}
+#+NAME: fig:jt-reference-f1
+[[./figures/jt-referencecall-before-assign.png]]
+
+
+
+
+**** Nach  der Zuweisung in ~f~ 
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:jt-reference-f2} ist der Zustand nach der Zuweisung
+an \texttt{x[1]} in Methode \texttt{f}. Die beiden Variablen
+\texttt{s} und \texttt{x} zeigen immer noch auf das gleiche
+Array-Objekt; bei diesem Array wurde der zweite Eintrag
+verändert. Diese Änderung ist dann auch in \texttt{main} unter
+\texttt{s} sichtbar und wird dann auch entsprechend ausgegeben. 
+#+END_LaTeX
+
+#+CAPTION: Methodenaufruf mit Referenzparameter: Nach Zuweisung in ~f~ 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{Methodenaufruf mit Referenzparameter: Nach Zuweisung in ~f~  \label{fig:jt-reference-f2}}
+#+NAME: fig:jt-reference-f2
+[[./figures/jt-referencecall-after-assign.png]]
+
+
+
+**** Vor der Zuweisung in ~g~ 
+
+
+
+
+#+BEGIN_LaTeX
+Der Zustand vor der Zuweisung in \texttt{g} ist in
+Abbildung~\ref{fig:jt-reference-g1}  zu sehen. Hier besteht zunächst
+kein Unterschied zur Situation beim Aufruf der Methode \texttt{f}. 
+#+END_LaTeX
+
+#+CAPTION: Methodenaufruf mit Referenzparameter: Vor Zuweisung in ~g~ 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{Methodenaufruf mit Referenzparameter: Vor Zuweisung in ~g~  \label{fig:jt-reference-g1}}
+#+NAME: fig:jt-reference-g1
+[[./figures/jt-referencecall-g1.png]]
+
+
+**** Nach  der Zuweisung in ~g~ 
+
+
+
+#+BEGIN_LaTeX
+Der interessante Teil ist natürlich nach der Zuweisung in \texttt{g} (Abbildung~\ref{fig:jt-reference-g2}). Der entscheidende Punkt ist, dass hier an die Variable \texttt{x} selbst die Zuweisung erfolgt (und nicht an eine Komponente des Arrays). Dadurch zeigt \texttt{x} jetzt auf ein \emph{neues Array}, das mit dem Array das durch \texttt{s} referenziert wird, nichts zu hat! Entsprechend verschwinden diese Werte nach der Rückkehr von \texttt{g}. 
+#+END_LaTeX
+
+
+#+CAPTION: Methodenaufruf mit Referenzparameter: Nach Zuweisung in ~g~ 
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{Methodenaufruf mit Referenzparameter: Nach Zuweisung in ~g~  \label{fig:jt-reference-g2}}
+#+NAME: fig:jt-reference-g2
+[[./figures/jt-referencecall-g2.png]]
+
+
+**** Nach Rückkehr aus ~g~ 
+
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:jt-reference-postg} bestätigt diese Erwartung: Nach
+Rückkehr der Methode \texttt{g} ist dieses neue Array (mit den Werten
+lokaler und Wert) verschwunden und \texttt{s} hat nach wie vor die
+vorherigen Werte. 
+#+END_LaTeX
+
+#+CAPTION: Nach Rückkehr aus ~g~
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{Nach Rückkehr aus ~g~ \label{fig:jt-reference-postg}}
+#+NAME: fig:jt-reference-postg
+[[./figures/jt-referencecall-postg.png]]
+
 
 ** Aufrufsemantik: Parameter  (2)
 *** Kompatibilitätsregeln 
@@ -474,9 +606,9 @@ Die /Sichtbarkeit/ (oder der /Gültigkeitsbereich/)  einer Variable
 erstreckt sich von der Deklaration der Variable bis zum Ende des
 Blocks, in dem die Deklaration stattfand. 
 
-Beispielsweise ist die Sichtbarkeit einer Klassenvariable die
-Klasse. Für sie gilt zudem eine Ausnahme: Sie sind auch schon *vor*
-ihrer Deklaration in allen Methoden der Klasse sichtbar.
+Beispielsweise ist die Sichtbarkeit einer Objekt- oder Klassenvariable
+die Klasse. Für sie gilt zudem eine Ausnahme: Sie sind auch schon
+*vor* ihrer Deklaration in allen Methoden der Klasse sichtbar.
 
 Eine Variable kann durch eine gleichnamige Variable in einem
 enthaltenen Block überdeckt werden. Eine Methode kann eine Variable
@@ -918,13 +1050,6 @@ zugreifen
 | ~private~      | Ja            | Nein        | Nein                     |
 
 
-** Sichtbarkeit zwischen Klassen: ~final~  
-
-
-- Man kann das Überschreiben von Methoden verbieten
-- Annotation: Schlüsselwort ~final~
-- Keiner weiß, wozu das gut sein soll
-  - Aber die Sprache sieht es vor 
 
 
 ** Sichtbarkeit zwischen Klassen: Misstrauen 
@@ -936,7 +1061,8 @@ zugreifen
     - Avoid ~public~ fields. 
 - Daraus folgendes Muster
   - Datenattribute in der Regel ~private~, ggf. ~protected~
-  - Mit ~getter~ und ~setter~ Methoden 
+  - Mit ~getter~ und ~setter~ Methoden
+- Aus Sprach-Praxis folgt Notwendigkeit für IDEs! 
 
 
 ** Vertrauen zwischen Klassen: ~final~  
@@ -945,14 +1071,15 @@ zugreifen
 
 - Man kann das Überschreiben von Methoden verbieten
 - Annotation: Schlüsselwort ~final~
-- Keiner weiß, wozu das gut sein soll
-  - Aber die Sprache sieht es vor
+- Nutzen der Konstruktion /hochgradig/ umstritten
+  - Siehe [[https://www.ibm.com/developerworks/library/j-jtp1029/][Gründe]] für ~final~ -- lesen Sie das kritisch durch! 
   - (Man braucht das, um Closures nachzubauen, die Java eigentlich
     nicht hat...) 
 
 *** ~final~ für Daten						    :animate:
 
-- Mit ~final~ markiertes Datenattribut: eine Konstante
+- Mit ~final~ markiertes Datenattribut: eine Konstante oder eine
+  Variable, die in der Methode nicht mehr verändert wird 
 - Das kann natürlich sinnvoll sein 
 
 #+BEGIN_SRC java :exports code :results output :classname XXX
@@ -1043,7 +1170,7 @@ zugreifen
   - /Kein/ ~{}~ nach dem Funktionskopf, /stattdessen/ ~;~
 - Klasse mit mindestens einer abstrakten Methode ist eine /abstrakte
   Klasse/
-  - Weil das aber zu einfach wäre: auch die Klasse muss ~abstract~
+  - Explizit machen: auch die Klasse muss ~abstract~
     markiert sein! 
 - Beispiel: 
 
@@ -1241,13 +1368,13 @@ Also könnte man folgendes schreiben?
 - Das ist lange nicht so nützlich wie /echte/ Mehrfachvererbung 
 - Aber möglicherweise traut das selbst Java den Programmierern zu? 
 
-** Javas Panik
+** Javas Einstellung
 
 - Nein, nein, nein -- das ist immer noch zu kompliziert für
   Programmierer!
 - Wir müssen Programmierer wenigstens warnen, wenn sie sowas machen
   wollen 
-- Wir führen lieber neue Schlüsselwort ein! 
+- Wir führen lieber neues Schlüsselwort ein! 
 
 #+CAPTION: Neue Schlüsselworte als Warnung! 
 #+ATTR_LaTeX: :width 0.25\linewidth
@@ -1393,19 +1520,69 @@ Fehlermeldung bei Übersetzung:
   class D implements C, B {  } 
 #+END_SRC 
 
+** Einfach- oder Mehrfachvererbung? 
 
+- Java: Mehrfachvererbung ist zu kompliziert; wir müssen das vermeiden
+  - Ziel: Diamond of Death vermeiden 
+  - Aber reine Einfachvererbung funktioniert in Praxis nicht
+  - Führen  wir zusätzliche Sprachkonstrukte ein
+  - Über mehrere Sprachversionen: Konzepte der Mehrfachvererbung
+    eingeschlichen
+  - Damit insgesamt: Komplizierte Mischform 
+- Python: Mehrfachvererbung kann man durchaus erklären
+  - Insgesamt bleibt die Sprache sauberer
+  - Erfodert aber ggf. mehr Nachdenken beim Programmieren 
 
-* Zusammenfassung
+* Zusammenfassung, Einordnung 
 
 ** Zusammenfassung 
 
 - Javas Objektorientierung ist bei einfachen Klassenhierarchien recht
   ähnlich zu Pythons Ansatz
-- Wesentliche Unterschied:
-  - Verzicht auf Mehrfachvererbung und Imitation durch Interfaces
-    - In neueren  Versionen gibt aber selbst Java zu, dass das Murks
-      ist
+- Wesentlicher Unterschied:
+  - Verzicht auf Mehrfachvererbung
+  - Imitation durch Interfaces
   - Misstrauensmodell und feingranulare Zugriffskontrolle auf Daten,
     Methoden, Klassen
-    - Bis hin zu ~private~ -- Nutzen stark strittig
+    - Bis hin zu ~private~ und ~final~ -- Nutzen stark strittig
+
+** Nichts ist umsonst! 
+
+- Java diente als Beispiel einer statisch typisierten Sprache
+  - Java ist nicht die einzige mögliche Sprache aus dieser Familie
+- Die unbestrittenen Vorteilen erkauft man sich durch
+  - erhöhte Komplexität der Syntax (Typdeklarationsteilsprache)
+  - komplizierteres Modell der Variablenhandhabung
+- Und diesen Abtausch gibt es im wesentlichen in allen statisch
+  typisierten Sprachen!
+  - Das ist kein Versagen von Java 
+
+** Sprachen sind auch nur ein Werkzeug! 
+
+- Alle Sprachen haben ihre Vor- und Nachteile
+  - Und: Persönliche Präferenzen, Stilfragen, Ästhetik, Commnunity,  ... 
+- Letztlich ist das nicht der entscheidende Punkt!
+  - Mit jeder Sprache kann man alles machen
+- Wichtig: Vertrautheit, Routine, Werkzeuge, Bibliotheken
+- Unwichtig: [[http://blog.cleancoder.com/uncle-bob/2016/07/27/TheChurn.html][Die neueste Mode]] 
+
+
+
+** Grenzen von Sprachen 
+
+
+*Meines* Erachtens mit großer Vorsicht zu geniessen: 
+
+*** Was kann man denken? 					:B_quotation:
+    :PROPERTIES:
+    :BEAMER_env: quotation
+    :END:
+
+ Language shapes the way we think, and determines what we can
+    think about. (B. L. Whorf)  
+
+ Die Grenzen meiner Sprache bedeuten die Grenzen meiner
+ Welt. (L. Wittgenstein) 
+
+
 

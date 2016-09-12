@@ -701,7 +701,7 @@ Was passiert, wenn
 *** Semantik: Exception in Funktionsaufrufen			  :dropslide:
 
 Tritt in einer Funktion eine Exception auf, so wird die Ausführung der
-Exception /abgebrochen/ und zum umgebenen ~try~-Block zurückgekehrt. 
+Funktion /abgebrochen/ und zum umgebenen ~try~-Block zurückgekehrt. 
 
 ** ~try~ -- Definition 
 
@@ -897,11 +897,46 @@ Egal, ob direkt geschachtelt oder in Funktionen -- gleiches Verhalten
 ** Typische Muster, wie Exceptions genutzt werden 
 
 - Bisher: Mechanik der Exceptions, mit ein paar Beispielen 
-- Schauen wir uns typische Muster an, wie Expcetions häufig eingesetzt
+- Schauen wir uns typische Muster an, wie Exceptions häufig eingesetzt
   werden
+  - Fehlerfälle behandeln 
+  - Programmfluss steuern 
 - Benutzen Sie das mit Vorsicht; nicht alles hier ist immer sinnvoll
   - Aber Sie müssen solche Muster zumindest wiedererkennen können 
 
+** Exceptions für Fehlerfälle im eigentlichen Sinne 
+
+Ziel kann nicht erreicht werden, wir brauchen Sonderbehandlung: 
+
+- Arithmetische Fehler: Division durch Null, ... 
+- Ein-/Ausgabe: Datei nicht vorhanden, keine Berechtigung, ...
+  - Unterschiedliche Fehler können gleich behandelt werden! 
+
+
+** Exceptions anstelle besonderer  Rückgabewerte 
+
+- Funktion, die
+  - bestimmtes Ereignis kommunizieren muss
+  - aber keinen besonderen Wert (/sentinel value/)  verwenden kann, weil alle Werte
+    vorkommen könnten
+- Beispiel: Suchfunktion 
+
+#+BEGIN_SRC python :exports both :results output
+class Found(Exception): pass
+
+def searcher():
+    if ...success...:
+        raise Found()            # Raise exceptions instead of returning flags
+    else:
+        return
+
+try:
+    searcher()
+except Found:                    # Exception if item was found
+    ...success...
+else:                            # else returned: not found
+    ...failure...
+#+END_SRC 
 
 ** Mehrere geschachtelte Schleifen abbrechen
 
@@ -948,32 +983,6 @@ Anmerkung: Zeigen Sie das keinem Software-Techniker :-)
       else:
           # hier nächste Zeile verarbeiten
           ... 
-#+END_SRC 
-
-
-** Exceptions anstelle besonderer  Rückgabewerte 
-
-- Funktion, die
-  - bestimmtes Ereignis kommunizieren muss
-  - aber keinen besonderen Wert (/sentinel value/)  verwenden kann, weil alle Werte
-    vorkommen könnten
-- Beispiel: Suchfunktion 
-
-#+BEGIN_SRC python :exports both :results output
-class Found(Exception): pass
-
-def searcher():
-    if ...success...:
-        raise Found()            # Raise exceptions instead of returning flags
-    else:
-        return
-
-try:
-    searcher()
-except Found:                    # Exception if item was found
-    ...success...
-else:                            # else returned: not found
-    ...failure...
 #+END_SRC 
 
 

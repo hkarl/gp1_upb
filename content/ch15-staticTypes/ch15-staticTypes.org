@@ -37,8 +37,8 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - Wir legen den Grundstein für statisch typisierte Sprachen
 - Vor- und Nachteil zwischen dynamischen und statischen Typen 
-- Wir nehmen hier Anlauf, um nicht in der unübersichtlichen Syntax von
-  Java den Blick für das Wesentliche zu verlieren 
+- Wir nehmen hier Anlauf, um nicht in der Diskussion  von
+  Java-Details den Blick für das Wesentliche zu verlieren 
  
 - Wesentliche Quellen:
   [[http://tratt.net/laurie/research/pubs/html/tratt__dynamically_typed_languages/][L. Tratt, Dynamically  Typed Languages]]

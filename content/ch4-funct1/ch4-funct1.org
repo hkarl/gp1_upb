@@ -289,7 +289,7 @@ Abbildung [[fig:zustand-f-g-z]] stellt den Zustand nach der Definition von
 Das hat letztlich pragmatische und auch Geschmacksgründe. Tatsächlich
 gibt es Programmiersprache (etwas Lisp), bei denen diese Analogie noch
 viel enger ist und auch in der Syntax kaum ein Unterschied in der
-Definition einer Variabler  oder eines Funktionsnamens liegt. 
+Definition einer Variablen  oder eines Funktionsnamens liegt. 
 
 ** Sprechweise: Objekt 
 

@@ -96,10 +96,11 @@ Idee:
 ** Neue Anweisung: ~if~
 
 - Die Anweisung ~if~ besteht aus zwei Teilen:
-  - Einem Ausdrucks, der auf wahr oder falsch ausgewertet wird
+  - Einem Ausdruck, der auf wahr oder falsch ausgewertet wird
   - Eine Folge von Anweisungen -- der so genannte /*block*/ 
 - Semantik: die angegebene Folge von Anweisungen nur ausführen, wenn
-  der Ausdruck den Wert wahr hat 
+  der Ausdruck /zum Zeitpunkt der Ausführung/ den Wert wahr hat
+  - Auswertung des Ausdrucks einmal /vor/ Ausführung des Blocks
 
 ** ~if~: Syntax 
 
@@ -805,11 +806,20 @@ Inspiration? Oder strukturiertes Vorgehen?
   - Oder: impliziert Zielbedingung? 
 
 
+#+BEGIN_SRC python :exports code :results output
+while SCHLEIFENBEDINGUNG == True: 
+    ...
+
+# Es gilt: ZIELBEDINGUNG == True
+#+END_SRC 
+
+
 ** Schleifenbedingungen finden? (2)				   :subslide:
 
 
 Oft praktisch: Schleifenbedingung konstruieren aus zwei Teilen
-- Die /Zielbedingung/ an sich
+- Die /Zielbedingung/ an sich: Was wollen wir nach der Schleife
+  erreicht haben? 
   - Oder eine stärkere Variante davon 
 - Eine /Invariante/: Gilt vor, während, nach der Schleife
   - Stellt sicher, dass alle Anweisungen innerhalb der Anweisung
@@ -817,8 +827,10 @@ Oft praktisch: Schleifenbedingung konstruieren aus zwei Teilen
   - Beispiel: Index für Listenzugriffe gültig 
 
 
+*** Schleifenbedingung zusammensetzen				    :animate:
+
 ~Schleifenbedingung = (not Zielbedingung) and Invariante~
-- ~Invariante~ kann oft entfallen 
+- ~Invariante~ kann oft entfallen, aber hilfreich zum Nachdenken 
 
 
 ** Schleifenbedingung finden? (3)				   :subslide:
@@ -846,6 +858,32 @@ Wenn also unklar ist, weswegen die Schleife beendet wurde
 Dann muss man ggf. nach der Schleife nachprüfen! 
 - *Häufiges Muster*: Zielbedingung durch Variable explizit darstellen 
 - Wie im Beispiel oben: ~gefunden~
+
+
+** Beispiel umformuliert 
+
+#+BEGIN_SRC python :exports both :results output
+# ist eine ungerade Zahl in L? 
+def ungerade_in_liste(L):
+    i = 0
+
+    ZIELBEDINGUNG = False
+    INVARIANTE = i < len(L)
+
+    while (not ZIELBEDINGUNG) and INVARIANTE:
+        ZIELBEDINGUNG = (L[i] % 2 == 1)
+        i = i + 1
+        INVARIANTE = i < len(L)
+
+    return ZIELBEDINGUNG
+
+print (ungerade_in_liste([2, 18, 6, 5, 9]))
+print (ungerade_in_liste([2, 18, 6, 10, 22]))
+#+END_SRC 
+
+#+RESULTS:
+: True
+: False
 
 
 ** Schleifen: Hilfskonstrukte 
@@ -1063,11 +1101,12 @@ Eine ~while~-Schleife besteht aus einem Ausdruck als /Test/
 /Schleifenkörper/). Beim Einreichen der ~while~-Anweisung wird der
 Test-Ausdruck ausgewertet und mit dem booleschen Wert ~True~
 verglichen. Ist der Test-Ausdruck wahr, wird der Rumpf einmal
-ausgeführt; die Veränderungen des Zustands durch die Anweisungen des
-Rumpfs sind (natürlich) wirksam. 
+ausgeführt. Das Testen des Ausdrucks und eine Ausführung des Rumpfes
+werden als /(Schleifen-)Iteration/ bezeichnet.  Die Veränderungen des
+Zustands durch die Anweisungen des Rumpfs sind (natürlich) wirksam.
 
 Danach wird wie beim Erreichen der ~while~-Anweisung verfahren: Der
-Test wird (aufgrund der neuen Variablen-Werte) ausgewertet und
+Test wird (mit den neuen Variablen-Werten) ausgewertet und
 ggf. der Rumpf ausgeführt. 
 
 
@@ -1355,11 +1394,10 @@ Beispiel: Liste von Tupeln
 
 
 #+BEGIN_SRC python :exports both :results output
-  L = [ (1,2), (3, 4), (5, 6)]
-  for a, b in L:
-      print(a, end=" ")
-      print(b)
-      print("---")
+L = [ (1,2), (3, 4), (5, 6)]
+for a, b in L:
+    print(a, b)
+    print("---")
 #+END_SRC 
 
 #+RESULTS:
@@ -1391,23 +1429,22 @@ Beispiel: Liste von Tupeln
 
 Wir bekommen eine Liste von Schlüssel-/Wert-Tuple eines ~dicts~ mit
 Aufruf  von ~items~
-- Mit implizitem unpacking der Tuple in separate Variablen ~k~ und
-  ~v~
+- Mit implizitem unpacking der Tuple in separate Variablen ~k~ (für
+  /key/)  und   ~v~ (für /value/)
 
 #+BEGIN_SRC python :exports both :results output
   D = {"a": 1, "b": 2, "c": 3, "d": "abc"}
-  for key, value in D.items():
-      print(key, end=" ")
-      print(value)
+  for k, v in D.items():
+      print(k, v)
       print("----")
 #+END_SRC 
 
 #+RESULTS:
-: b 2
+: a 1
 : ----
 : d abc
 : ----
-: a 1
+: b 2
 : ----
 : c 3
 : ----
@@ -1645,25 +1682,31 @@ Oder: Liste ausdrucken, nach jedem fünften Element neue Zeile?
 ** Erathostenes: Code						   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
-  n = 20
-  prim = n * [True]
-  for i in range(n):
-      if i==0 or i==1:
-          continue
-      if prim[i] == True:
-          for streich in range(2*i, n, i):
-              prim[streich] = False
+n = 20
+prim = n * [True]
+for i in range(n):
+    if i==0 or i==1:
+        prim[i] = False
+    elif prim[i] == True:
+        for streich in range(2*i, n, i):
+            prim[streich] = False
 
-  print(prim)
+print(prim)
 #+END_SRC 
 
 #+RESULTS:
-: [True, True, True, True, False, True, False, True, False, False, False, True, False, True, False, False, False, True, False, True]
+: [False, False, True, True, False, True, False, True, False, False, False, True, False, True, False, False, False, True, False, True]
+
+*** ~range~ mit drei Parametern 
+
+Parameter: Start, Stop, Schrittweite! 
+
+*** UEBUNG Erathostenes ohne range schreiben! 
 
 
 *** UEBUNG Schöner schreiben!
 
-mit ~enumerate~ die Ausgabe schäner machen! Und nur die Primzahlen
+mit ~enumerate~ die Ausgabe schöner machen! Und nur die Primzahlen
 ausgebnen, keine Liste. 
 
 ** ~while~ oder ~for~ ?
@@ -1937,6 +1980,24 @@ Berechne $\sum_{i=0}^{10} \sum_{j=0}^i i \cdot j$
 ** Beispiel mit geschachteltem ~range~ und list comprehension	   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
+  quadrate = [i*j
+               # aeußere Schleife: 
+               for i in range(11)
+               # innere Schleife: 
+               for j in range(i+1)
+               ]
+  print(quadrate)
+#+END_SRC 
+
+#+RESULTS:
+: [0, 0, 1, 0, 2, 4, 0, 3, 6, 9, 0, 4, 8, 12, 16, 0, 5, 10, 15, 20, 25, 0, 6, 12, 18, 24, 30, 36, 0, 7, 14, 21, 28, 35, 42, 49, 0, 8, 16, 24, 32, 40, 48, 56, 64, 0, 9, 18, 27, 36, 45, 54, 63, 72, 81, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+** Eingebaute Funktion: ~sum~
+
+
+Hilfsfunktion ~sum~: Addiere alle Elemente einer Aufzählung auf 
+
+#+BEGIN_SRC python :exports both :results output
   summe = sum([i*j
                # aeußere Schleife: 
                for i in range(11)
@@ -1949,10 +2010,7 @@ Berechne $\sum_{i=0}^{10} \sum_{j=0}^i i \cdot j$
 #+RESULTS:
 : 1705
 
-*** Eingebaute Funktion: ~sum~
 
-
-Hilfsfunktion ~sum~: Addiere alle Elemente einer Aufzählung auf 
 
 *** UEBUNG Geschachtelte for in list comprehensions 
 
@@ -1973,8 +2031,12 @@ ganz viele Übungen denkbar.
 - Schritt 2: Genauso, mit der Liste ab Position 2
 - Usw. 
 
-Sog. *Selection Sort* 
+*** Selection Sort						    :animate:
 
+Sog. *Selection Sort*
+- Achtung: Für Praxis ungeeignet; viel zu langsam
+- Aber schön einfach
+- Besser: siehe VL Datenstrukturen und Algorithmen 
 
 ** Selection Sort: Vorüberlegung				   :subslide:
 
@@ -2036,45 +2098,48 @@ Ablauf von Selection Sort.
 ** Mischen konventionell					   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
-  a = [1, 3, 6, 9, 12, 23]
-  b = [2, 4, 5, 10, 11, 17, 18]
-  r = []
+a = [1, 3, 6, 9, 12, 23, 27, 35]
+b = [2, 4, 5, 10, 11, 17, 18]
+r = []
 
-  aindex = 0
-  bindex = 0
+aindex = 0
+bindex = 0
 
-  while (aindex < len(a)) and (bindex < len(b)):
-      print(aindex, bindex)
-      if a[aindex] < b[bindex]:
-          r.append(a[aindex])
-          aindex += 1
-      else:
-          r.append(b[bindex])
-          bindex += 1
+while (aindex < len(a)) and (bindex < len(b)):
+    print("Index a und b:", aindex, bindex) 
+    if a[aindex] < b[bindex]:
+        r.append(a[aindex])
+        aindex += 1
+    else:
+        r.append(b[bindex])
+        bindex += 1
 
-  if aindex == 0:
-      r.extend(b[bindex:])
-  else:
-      r.extend(a[aindex:])
+print("Index a und b nach Schleife:", aindex, bindex) 
 
-  print("Resultat: ", r)
+if aindex == len(a):
+    r.extend(b[bindex:])
+else:
+    r.extend(a[aindex:])
+
+print("Resultat: ", r)
 #+END_SRC 
 
 #+RESULTS:
 #+begin_example
-0 0
-1 0
-1 1
-2 1
-2 2
-2 3
-3 3
-4 3
-4 4
-4 5
-5 5
-5 6
-Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23]
+Index a und b: 0 0
+Index a und b: 1 0
+Index a und b: 1 1
+Index a und b: 2 1
+Index a und b: 2 2
+Index a und b: 2 3
+Index a und b: 3 3
+Index a und b: 4 3
+Index a und b: 4 4
+Index a und b: 4 5
+Index a und b: 5 5
+Index a und b: 5 6
+Index a und b nach Schleife: 5 7
+Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23, 27, 35]
 #+end_example
 
 
@@ -2119,6 +2184,8 @@ Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23]
 Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23]
 #+end_example
 
+
+*** UEBUNG Was ist schneller? Konventionell oder Slicing? 
 
 ** Beispiel: Binäre Suche 
 
@@ -2184,7 +2251,7 @@ Wozu braucht man die Schleifenbedingung ~unten < len(l)~ ?
     Schleifenvariable einen Wert aus einer vorgegebenen Aufzählung an 
 - Schleifen erlauben Ausnahmen (~break~, ~continue~) und Code für
   reguläres Ende (~else~)
-- Zusammen mit ein paar Hilfsfunktionen (~range~, ~zip~) sind
+- Zusammen mit ein paar Hilfsfunktionen (vor allem ~range~) sind
   insbes. ~for~-Schleifen in Python extrem praktisch 
 
 
@@ -2240,3 +2307,5 @@ Testfall: Auch die leere Liste!!
 *** UEBUNG Wehrheim Folien 260 
 
 *** UEBUNG Pascalsches Dreieck
+
+*** UEBUNG Beispiele für zip in for SChleifen 
