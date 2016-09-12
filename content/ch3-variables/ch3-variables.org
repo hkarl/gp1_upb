@@ -189,7 +189,7 @@ besprechen.
 
   - Es darf keine Ziffer sein
 
-  - Unterstrich '_' als erstes Zeichen hat besondere Bedeutung
+  - Unterstrich ~_~ als erstes Zeichen hat besondere Bedeutung
     (später) 
 
 - Groß-/Kleinschreibung ist wichtig 
@@ -200,7 +200,7 @@ besprechen.
 
 - Gültig: ~hallo~, ~x1~, ~_a_b~
   - Gültig, aber unterschiedlich: ~a~, ~A~, ~var1~, ~Var1~ 
-- Ungültig: ~1x~, ~a#b~, ~x-y~
+- Ungültig: ~1x~, ~x-y~, Sonderzeichen in Variablennamen ($, # , ...) 
 
 
 
