@@ -723,7 +723,7 @@ eigentlich sinnvollen Wertes anzeigt. ~None~ ist keine Zahl, keine
 Zeichenkette, kein ... sondern gehört zu einem eigenen Datentyp. 
 
 #+BEGIN_LaTeX
-Abbildung~\ref{fig:no-return} visualisiert das: Tatsächlich existiert der Rückgabewert \texttt{None} im Namensraum der Funktion \texttt{no_return}. 
+Abbildung~\ref{fig:no-return} visualisiert das: Tatsächlich existiert der Rückgabewert \texttt{None} im Namensraum der Funktion \texttt{no\_return}. 
 #+END_LaTeX
 
 
