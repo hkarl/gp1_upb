@@ -74,3 +74,8 @@
 # colors: https://coolors.co/c8bcdd-5da9e9-d1cfcf-99d19c-f96900
 
 
+
+# Local Variables:
+# org-babel-java-compiler: "python3 ../../build/jshellc.py"
+# org-babel-java-command: "python3 ../../build/jshellr.py"
+# End:

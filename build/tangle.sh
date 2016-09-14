@@ -64,6 +64,9 @@ done
         (java . t)
         )
       )
+      ;; make sure  org-export works and uses the right exporter for Java source code
+     (setq org-babel-java-compiler \"python3 ../../build/jshellc.py\")
+     (setq org-babel-java-command \"python3 ../../build/jshellr.py\")
      (mapc (lambda (file)
             (find-file (expand-file-name file \"$DIR\"))
             (org-babel-tangle)

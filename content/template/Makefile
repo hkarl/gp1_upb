@@ -60,5 +60,5 @@ clean:
 	-rm *.ipynb *.ipynb~
 	-rm *.pdf
 	-rm -rf _minted-ch*
-	-rm *.java *.class
+	-rm *.java *.class *.java.exp *.java.exp.out
 
