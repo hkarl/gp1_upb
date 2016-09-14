@@ -1,0 +1,99 @@
+#+TITLE: Präsenzübungsblatt 1 (GP1)
+
+* Lernziele 
+
+- Sicherstellen: Accounts, Zugang zu Rechnern 
+- Erste Schritte mit der ~jupyterhub~-Webanwendung
+- Schreiben von Texten 
+
+* IMT-Account 
+
+** IMT 
+
+Was ist das IMT? (Organisation der Uni?) 
+
+** Account 
+
+Was ist ein Account? Wozu braucht man den ? 
+
+Passwort: geändert, nie wietergeben 
+
+
+** Haben Sie einen? 
+
+
+
+** Email-Adresse? 
+
+Die einzig relevant Adresse sind upb-Adressen. Alles andere werden wir direkt ignorieren. 
+
+Sie bekommen keine Punkte! 
+
+* Bilden einer Gruppe 
+
+** Gruppenabgabe - Warum? 
+
+** Bilden Sie eine Lerngruppe - Jetzt! 
+
+** Account für Gruppe 
+
+- An Tutor gebunden 
+
+- Passwort-Schnipsel ausgeben 
+
+* Anmelden auf dem  GP1-Server 
+
+** Anmelden mit eigenem Account 
+
+** Anmelden mit Gruppen-Account 
+
+Sie sehen andere Dateien! 
+
+
+
+* Öffnen des ersten Präsenzübungsblatts
+
+** Im Gruppenacocunt: P01 öffnen 
+
+und sie sehen das hier! 
+
+
+** 2x die gleiche Datei? 
+
+- original version 
+- mit -copy: editierbar , kopierbar, ... 
+
+* Schreiben von Markdown-Text 
+
+** Was ist Markdown? 
+
+Erklärung einfügen 
+
+
+- https://daringfireball.net/projects/markdown/
+- https://en.wikipedia.org/wiki/Markdown 
+
+** Markdown: Syntaxregeln 
+
+- https://daringfireball.net/projects/markdown/syntax 
+
+
+** Editieren in Jupterhub 
+
+- Plus-Button 
+- Dropdown für Feld-Typ 
+- Ctrl-Enter zum Rendern  des Feldes 
+- Doppelklick zum Editieren 
+
+** Speichern: Automatisch und manuell 
+
+- checkpoints, 
+
+** Kopie erstellen 
+
+- make a copy 
+
+** Beispiele! 
+
+- Ein paar Beispieltexte erstellen lassen 
+

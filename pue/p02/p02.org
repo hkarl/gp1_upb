@@ -1,0 +1,81 @@
+#+TITLE: Präsenzübungsblatt 2 (GP1)
+
+* Lernziele 
+
+- Ausführen und editieren einfacher Programme 
+- Das eingebaute Terminal von Jupyterhub nutzen 
+- Auf die Daten des GP1-Servers zugreifen: Kopieren in beide
+  Richtungen 
+- Weitere Markdown-Übungen 
+
+* Ausführen eines einfachen Python-Programms 
+
+** Ein Mini-Programm 
+
+Wie führt man das aus? 
+
+#+BEGIN_SRC python :exports both :results output
+print("Hallo Du da!")
+#+END_SRC 
+
+*** Ctrl-Enter! 
+
+** Verändern 
+
+Höflicher: Hallo Sie! 
+
+** Andere Mini-Änderungen 
+
+Bedenken: Die Leute werden hier noch GAR NIX können... 
+
+
+** Kernel beenden 
+
+Shutdown 
+- aus Notebook-Webseite 
+- aus Verzeichnis-Webseite 
+
+
+* Das eingebaute Terminal  
+
+
+
+** Was ist ein Terminal? 
+
+- Kurz für Computer Terminal 
+- https://en.wikipedia.org/wiki/Computer_terminal 
+
+** Wozu brauchen wir das? Allgemein? 
+
+- Direkter Zugriff auf Rechnerfunktionen 
+- Shell 
+- Automatisierung! 
+- Wollen Sie effizient mit einem Rechner arbeiten, brauchen Sie
+  Shell-Fertigkeiten 
+- (Machen wir im Laufe des Semester gelegnetlich mal Beispiele?) 
+
+** Wozu brauchen wir das?  GP1? 
+
+Dateizugriff
+
+- Jupyerhub ist toll, hat aber keine vernünftigen Funktionen zur
+  Dateiverwaltung 
+- Wenn man DAteien kopieren will, umbenennen, ... 
+
+
+
+* Zugriff auf Daten des GP1-Servers
+
+** Windows Share (Samba) 
+
+** ssh - Shell! 
+
+
+
+* Markdown (Teil 2) 
+
+- Formeln 
+- Verweise 
+- Bilder? 
+
+
