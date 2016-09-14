@@ -96,7 +96,7 @@ selbst behandelt
 
 ** Java 8: Lambda-Ausdrücke -- Beispiel  mit Interface 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   // wir brauchen zunächst ein Interface als Typ
   // hier: Integer auf Integer abbilden 
   interface meinFunktionstyp {int exec (int x); }
@@ -112,13 +112,19 @@ selbst behandelt
   System.out.println(y);
 #+END_SRC 
 
+#+RESULTS:
+: f ==> null
+: f ==> $Lambda$6/327177752@56ef9176
+: y ==> 25
+: 25
+
 
 ** Java 8: Lambda-Ausdruck ohne Interface 
 
 - Zwei Lambda-Ausdrücke: Vergleich bei Filter, Ausdrucken
   - Vorsicht, Seiteneffekt! 
 
-#+BEGIN_SRC java :exports code :results output :classname Lambda
+#+BEGIN_SRC java :exports both :results output :classname Lambda
 import java.util.stream.Stream;
 
 class Lambda {
@@ -129,6 +135,7 @@ class Lambda {
 #+END_SRC 
 
 #+RESULTS:
+: -> System.out.println(x));
 : 1990
 : 2014
 
@@ -351,7 +358,7 @@ Anmerkung:  /keine Angabe/ entspricht einer Art /package/ --
 ** Standardpakete: java.util.Collection -- Beispiel ~ArrayList~   
 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   ArrayList<String> liste = new ArrayList<String>();
 
   liste.add("Hallo");
@@ -364,6 +371,16 @@ Anmerkung:  /keine Angabe/ entspricht einer Art /package/ --
   Iterator<String> it = liste.iterator();
   while (it.hasNext()) System.out.println(it.next());
 #+END_SRC 
+
+#+RESULTS:
+: liste ==> []
+: $2 ==> true
+: $3 ==> true
+: Hallo
+: GP1
+: it ==> java.util.ArrayList$Itr@56ef9176
+: Hallo
+: GP1
 
 ** Standardpakete: java.util.Collection -- Beispiel ~FileInputStream~   
 
@@ -409,3 +426,9 @@ Anmerkung:  /keine Angabe/ entspricht einer Art /package/ --
   - Eine sinnvolle Sammlung von Standardpaketen 
 - Insgesamt: Java zahlt einen hohen Preis für die statische
   Typisierung! 
+
+
+# Local Variables:
+# org-babel-java-compiler: "python3 ../../build/jshellc.py"
+# org-babel-java-command: "python3 ../../build/jshellr.py"
+# End:

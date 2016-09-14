@@ -118,12 +118,14 @@ Zwei Aspekte: Deklaration und Erzeugung
 Ellipse e;
 
 // Objekt erzeugen: Schlüsselwort new
-// aber das Objekt geht sofort verloren; wir müssen eine Referenz darauf aufheben 
+// aber das Objekt geht sofort verloren; 
+// wir müssen eine Referenz darauf aufheben 
 new Ellipse();
 
 // Also richtig: 
 e = new Ellipse();
 #+END_SRC 
+
 
 *** Anmerkung: Trennung von Deklaration und Erzeugung in Python?  :dropslide:
 
@@ -137,7 +139,7 @@ bei Bedarf im Moment der Zuweisung erschaffen.
 Auf Daten eines Objekts kann wie gewohnt durch Punkt-Notation
 zugegriffen werden
 
-#+BEGIN_SRC java :exports code :results output :classname Ellipse
+#+BEGIN_SRC java :exports both :results output :classname Ellipse
   class Ellipse {
       // Daten deklarieren: 
       double x, y;
@@ -150,6 +152,12 @@ zugegriffen werden
   System.out.println(2 * e.x);
 #+END_SRC 
 
+#+RESULTS:
+: e ==> null
+: e ==> Ellipse@13805618
+: $4 ==> 17.12
+: 34.24
+
 
 ** Zuweisung zwischen Objektvariablen 
 
@@ -157,7 +165,7 @@ Variablen vom Typ einer Klasse sind Referenzvariablen!
 - Analog zu ~Array~, ~String~ 
 - Also Zuweisung: Kopie der Referenz! 
 
-#+BEGIN_SRC java :exports code :results output :classname Ellipse
+#+BEGIN_SRC java :exports both :results output :classname Ellipse
   class Ellipse {
       // Daten deklarieren: 
       double x, y;
@@ -170,6 +178,14 @@ Variablen vom Typ einer Klasse sind Referenzvariablen!
   e1.x = 17.12;
   System.out.println(e2.x);  
 #+END_SRC 
+
+#+RESULTS:
+: e1 ==> null
+: e2 ==> null
+: e1 ==> Ellipse@56ef9176
+: e2 ==> Ellipse@56ef9176
+: $6 ==> 17.12
+: 17.12
 
 *** UEBUNG Vergleiche: Was wird hier verglieche bei e1 = e2 ? 
 
@@ -213,7 +229,7 @@ Methoden isEqual ; aber keine vernünftige Unterstützung in der Sprache
 ** Klassendeklaration: Beispiel Ellipse mit Methode 
 
 
-#+BEGIN_SRC java :exports code :results output :classname Ellipse
+#+BEGIN_SRC java :exports both :results output :classname Ellipse
   class Ellipse {
       // Daten deklarieren: 
       double x, y;
@@ -231,6 +247,11 @@ Methoden isEqual ; aber keine vernünftige Unterstützung in der Sprache
   e.verschiebe(5, -0.2);
   System.out.println(e.x);
 #+END_SRC 
+
+#+RESULTS:
+: e ==> Ellipse@cb644e
+: $3 ==> 17.12
+: 22.12
 
 ** Signatur einer Methode 
 
@@ -270,7 +291,7 @@ Wie wird beim Aufruf die richtige Methode ausgesucht?
 
 - ~System.out.print~! 
 
-#+BEGIN_SRC java :exports code :results output :classname ZuweisungA
+#+BEGIN_SRC java :exports both :results output :classname ZuweisungA
   class UeberladeneMethoden {
       void f(int a) { System.out.println("Variante 1"); }
       void f(char a) { System.out.println("Variante 2"); }
@@ -285,8 +306,15 @@ Wie wird beim Aufruf die richtige Methode ausgesucht?
   u.f(4096);
   u.f("Hallo");
   u.f(42.17);
-
 #+END_SRC 
+
+#+RESULTS:
+: u ==> UeberladeneMethoden@cb644e
+: Variante 2
+: Variante 1
+: Variante 1
+: Variante 3
+: Variante 4
 
 ** Aufrufsemantik: Parameter  
 
@@ -307,7 +335,7 @@ Wie wird beim Aufruf die richtige Methode ausgesucht?
 
 ** Aufrufsemantik: Beispiel für Aufruf mit Referenztypen 
 
-#+BEGIN_SRC java :exports code :results output :classname CallSemantics
+#+BEGIN_SRC java :exports both :results output :classname CallSemantics
 %%tutor -l java
 public class CallSemantics{
     public static void f(String [] x) {
@@ -333,9 +361,6 @@ public class CallSemantics{
 }
 #+END_SRC 
 
-#+RESULTS:
-: GP1
-: Neuer String
 
 *** Visualisierung						  :dropslide:
 
@@ -549,7 +574,7 @@ Schreibzugriff implizit eine Variable im eigenen Namensraum entsteht.
 ** Globale Variablen: Beispiel 
 
 
-#+BEGIN_SRC java :exports code :results output :classname  GlobalVariablesClass
+#+BEGIN_SRC java :exports both :results output :classname  GlobalVariablesClass
   class Ellipse {
       // Daten deklarieren: 
       double x, y;
@@ -566,6 +591,12 @@ Schreibzugriff implizit eine Variable im eigenen Namensraum entsteht.
   e.achse2 = 4.5;
   System.out.println(e.flaeche());
 #+END_SRC 
+
+#+RESULTS:
+: e ==> Ellipse@59494225
+: $4 ==> 2.3
+: $5 ==> 4.5
+: 31.049999999999997
 
 
 *** UEBUNG Konstruktor für Klassenvariablen 
@@ -681,10 +712,14 @@ Nicht das gleiche!
 - Umständlich, deswegen weitgehend automatisch durch Compiler: Boxing
   und Unboxing 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
 Integer intObj = new Integer(42);
 int x = intObj.intValue();
 #+END_SRC 
+
+#+RESULTS:
+: intObj ==> 42
+: x ==> 42
 
 
 * Einfachvererbung 
@@ -728,7 +763,7 @@ kaum
 - Umgekehrt: Nein! 
 - Beispiel: 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   class Article {
       String artikelnummer;
   }
@@ -746,6 +781,11 @@ kaum
   Book b2 = a2;
 #+END_SRC 
 
+#+RESULTS:
+: b1 ==> Book@56ef9176
+: a1 ==> Book@56ef9176
+: a2 ==> Article@ff5b51f
+
 
 ** Zugriff auf Felder nach Zuweisung zu Variable eines Oberklassentyps 
 
@@ -755,7 +795,7 @@ kaum
   - Es wurde ja nur der Typ der /Referenz/ geändert; am Objekt selbst
     ist nichts passiert! 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   class Article {
       String artikelnummer;
   }
@@ -766,13 +806,24 @@ kaum
 
   // das ist erlaubt: 
   Book b1 = new Book();
+  b1.ISBN = "abc"; 
+  System.out.println(b1.ISBN); 
+
+  // Zuweisung an Oberklasse
   Article a1 = b1;
-  System.out.println(a1.ISBN);
+  // funktioniert das? 
+  System.out.println(a1.ISBN); 
 #+END_SRC 
+
+#+RESULTS:
+: b1 ==> Book@56ef9176
+: $4 ==> "abc"
+: abc
+: a1 ==> Book@56ef9176
 
 *** Fehlermeldung						  :dropslide:
 
-Nein! 
+*Nein!*
 - Der Compiler prüft schon, ob man über eine ~Article~-Referenz auf
   ein Attribut ~ISBN~ zugreifen kann
 - Das gibt es in der ~Article~-Klasse aber nicht, also Fehlermeldung
@@ -788,7 +839,7 @@ Nein!
 - (Vergleich Python: Keine Notwendigkeit für Typecasts zwischen
   Klassen) 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   class Article {
       String artikelnummer;
   }
@@ -799,10 +850,19 @@ Nein!
 
   // das ist erlaubt: 
   Book b1 = new Book();
+  b1.ISBN = "abc"; 
+
   Article a1 = b1;
   Book b2 = (Book) a1;
   System.out.println(b2.ISBN);
 #+END_SRC 
+
+#+RESULTS:
+: b1 ==> Book@56ef9176
+: $4 ==> "abc"
+: a1 ==> Book@56ef9176
+: b2 ==> Book@56ef9176
+: abc
 
 ** Typecast wenn falsches Objekt? 
 
@@ -811,7 +871,7 @@ Nein!
 - Beispiel: 
 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   class Article {
       String artikelnummer;
   }
@@ -820,11 +880,15 @@ Nein!
       String ISBN;
   }
 
-  // das scheitert; b2 ist kein Book
   Article a1 = new Article();
+
+  // das scheitert; a1 ist kein Book 
   Book b2 = (Book) a1;
   System.out.println(b2.ISBN);
 #+END_SRC 
+
+#+RESULTS:
+: a1 ==> Article@56ef9176
 
 
 *** Fehlermeldung						  :dropslide:
@@ -843,7 +907,7 @@ Auch das scheitert!
 - Schlüsselwort: ~instanceof~
   - Pendant zu ~isinstance~-Funktion in Python 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   class Article {
       String artikelnummer;
   }
@@ -862,6 +926,10 @@ Auch das scheitert!
   }
 #+END_SRC 
 
+#+RESULTS:
+: a1 ==> Article@56ef9176
+: Leider kein Buch!
+
 ** Dynamische Methodenbindung 
 
 Welche Methoden werden aufgerufen in einer Klassenhierarchie? 
@@ -872,7 +940,7 @@ Welche Methoden werden aufgerufen in einer Klassenhierarchie?
 
 ** Dynamische Methodenbindung: Beispiel
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   class Article {
       void m() { System.out.println("m von Artikel"); }
   }
@@ -894,6 +962,16 @@ Welche Methoden werden aufgerufen in einer Klassenhierarchie?
   Book b1 = (Book) a1;
   b1.m();
 #+END_SRC 
+
+#+RESULTS:
+: a ==> Article@56ef9176
+: b ==> Book@1ed4004b
+: m von Artikel
+: m von Buch
+: a1 ==> Book@1ed4004b
+: m von Buch
+: b1 ==> Book@1ed4004b
+: m von Buch
 
 
 ** Dynamische Methodenbindung:  Beobachtung 
@@ -949,7 +1027,7 @@ Wie zu erwarten (und erhofft): Der Typ des Objekts entscheidet!
 
 Zugriff von außen/aus anderen Klassen: 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
 class A {
     private int u;
     protected int v;
@@ -974,6 +1052,12 @@ a.x = 42;
 // Zugriff auf Attribute aus eigener Methode: 
 a.m();
 #+END_SRC 
+
+#+RESULTS:
+: a ==> A@cb644e
+: $3 ==> 42
+: $4 ==> 42
+: $5 ==> 42
 
 *** Fehlermeldungen 
 
@@ -1003,6 +1087,7 @@ a.m();
   B a = new B();
   b.m();
 #+END_SRC 
+
 
 *** Fehlermeldung 
 
@@ -1040,6 +1125,7 @@ zugreifen
   b.m();
 #+END_SRC 
 
+
 ** Sichtbarkeit zwischen Klassen: Übersicht 
 
 | Annotation     | Klasse selbst | Unterklasse | Andere Klasse/von aussen |
@@ -1050,7 +1136,10 @@ zugreifen
 | ~private~      | Ja            | Nein        | Nein                     |
 
 
+*** Anmerkung: Wozu ~protected~?				    :animate:
 
+Der Unterschied zwischen ~protected~ und keiner Angabe kommt im
+nächsten Kapitel. 
 
 ** Sichtbarkeit zwischen Klassen: Misstrauen 
 
@@ -1201,7 +1290,7 @@ zugreifen
   Objekte instantiieren 
 - Beispiel: 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   abstract class Tier {
                 boolean frisst (String food) { return false; }
       abstract  void    sprich (); 
@@ -1217,6 +1306,10 @@ zugreifen
   h.sprich();
 #+END_SRC 
 
+#+RESULTS:
+: h ==> Hund@56ef9176
+: woof!
+
 ** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse 
 
 - Abstrakte Klasse instantiieren nicht möglich
@@ -1224,7 +1317,7 @@ zugreifen
 - Und dort konkrete Methoden aufrufen
 - Wenig überraschend ... 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   abstract class Tier {
                 boolean frisst (String food) { return false; }
       abstract  void    sprich (); 
@@ -1241,6 +1334,11 @@ zugreifen
   t.sprich();
 #+END_SRC 
 
+#+RESULTS:
+: h ==> Hund@56ef9176
+: t ==> Hund@56ef9176
+: woof!
+
 
 
 ** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse  (2) 
@@ -1251,7 +1349,7 @@ zugreifen
 - Beispiel: Tierfarm tierunabängig realisiert
 
 ** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse  (3) 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   abstract class Tier {
                 boolean frisst (String food) { return false; }
       abstract  void    sprich (); 
@@ -1283,6 +1381,15 @@ zugreifen
   Tierfarm farm2 = new Tierfarm();
   farm2.konzert( new Tier[] { new Maus(), new Hund ()});
 #+END_SRC 
+
+#+RESULTS:
+: ch(); }
+: farm ==> Tierfarm@4566e5bd
+: woof!
+: meep
+: farm2 ==> Tierfarm@25bbe1b6
+: meep
+: woof!
 
 ** Alle Methoden abstrakt
 
@@ -1376,10 +1483,6 @@ Also könnte man folgendes schreiben?
   wollen 
 - Wir führen lieber neues Schlüsselwort ein! 
 
-#+CAPTION: Neue Schlüsselworte als Warnung! 
-#+ATTR_LaTeX: :width 0.25\linewidth
-#+NAME: fig:doublepalm
-[[./figures/doublefacepalm.png]]
 
 ** Interfaces statt LeVAKs, neue Schlüsselworte 
 
@@ -1393,27 +1496,32 @@ Also könnte man folgendes schreiben?
 ** ~interface~ und ~extend~: Beispiel 
 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
-  interface bla {
-      void bla();
+#+BEGIN_SRC java :exports both :results output :classname XXX
+  interface foo {
+      void foo();
   }
 
-  interface blub {
-      void blub();
+  interface bar {
+      void bar();
   }
 
   class A {
-      public void bla() { System.out.println("bla"); }
+      public void foo() { System.out.println("foo"); }
   }
 
-  class B extends A implements bla, blub {
-      public void blub() { System.out.println("BLUB"); }
+  class B extends A implements foo, bar {
+      public void bar() { System.out.println("BAR"); }
   }
 
   B b = new B();
-  b.bla();
-  b.blub();
+  b.foo();
+  b.bar();
 #+END_SRC 
+
+#+RESULTS:
+: b ==> B@25bbe1b6
+: foo
+: BAR
 
 ** ~interface~ und ~extend~
 
@@ -1573,9 +1681,9 @@ Fehlermeldung bei Übersetzung:
 
 *Meines* Erachtens mit großer Vorsicht zu geniessen: 
 
-*** Was kann man denken? 					:B_quotation:
+*** Was kann man denken?					    :B_quote:
     :PROPERTIES:
-    :BEAMER_env: quotation
+    :BEAMER_env: quote
     :END:
 
  Language shapes the way we think, and determines what we can
@@ -1586,3 +1694,8 @@ Fehlermeldung bei Übersetzung:
 
 
 
+
+# Local Variables:
+# org-babel-java-compiler: "python3 ../../build/jshellc.py"
+# org-babel-java-command: "python3 ../../build/jshellr.py"
+# End:

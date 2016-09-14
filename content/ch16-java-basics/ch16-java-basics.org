@@ -261,7 +261,7 @@ Java unterschiedet verschiedene Arten von Datentypen
     - ~float~, 32 bits
     - ~double~, 64 bits 
   - Mit üblichen arithmetischen Operationen und Vergleichen
-- Einzelne Zeichen ~char~: In Hochkomma angegeben: ~'a'~, ~'b'~
+- Einzelne Zeichen ~char~: In Hochkomma angegeben: 'a', 'b'
 
 *** UEBUNG Literale für Zahlen, insbes. Fließkommazahlen 
 
@@ -296,9 +296,21 @@ Typecasts passieren auch bei der Auswertung von (arithmetischen) Ausdrücken:
 - Dann passiert die Addition 
 - Ergebnis hat Wert ~double~ 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
 (42 + 17.11)
 #+END_SRC 
+
+#+RESULTS:
+: $1 ==> 59.11
+
+*** Anmerkung: Formatierung der Ausgabe 			  :dropslide:
+
+Die Darstellung der Ausgabe eines Code-Beispiels sieht bei Java ein
+bisschen anders als bei Python. Insbesondere werden Variablennamen mit
+angegeben oder, wenn es sich wie hier nur um einen einzelnen Ausdruck
+handelt, dann wird eine laufende Nummer vorangestellt. Tritt in einer
+Zuweisung ein Fehler auf, so produziert dies hier im Skript
+/keinerlei/ Ausgabe!
 
 
 
@@ -392,23 +404,36 @@ char u;
 
 Die initialisierenden Literale müssen von passendem Typ sein 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
 int x = 42;
 short y = 17, z=11;
 char u = 'a';
 #+END_SRC 
 
+#+RESULTS:
+: x ==> 42
+: y ==> 17
+: z ==> 11
+: u ==> 'a'
+
 *** Fehler bei Initialisierung 
 
 Welche dieser drei Anweisungen scheitert/n? 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
 int x = 'a';
 short y = 99999;
 char u = 65;
 #+END_SRC 
 
+#+RESULTS:
+: x ==> 97
+: u ==> 'A'
 
+*** Anmerkung: Formatierung der Ausgabe 			  :dropslide:
+
+
+Fehlermeldungen werden bei der Ausgabe unterdrückt! 
 
 ** Anmerkung: Code-Fragmente
 
@@ -428,9 +453,10 @@ nicht unmittelbar ausführbar!
 #+END_SRC 
 
 
+
 ** Zuweisungen, Fall 1: gleicher, einfacher Typ 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
 int x = 42;
 int y; 
 
@@ -441,6 +467,14 @@ char b;
 b = u;
 #+END_SRC 
 
+#+RESULTS:
+: x ==> 42
+: y ==> 0
+: y ==> 43
+: u ==> 'a'
+: b ==> ''
+: b ==> 'a'
+
 ** Zuweisungen, Fall 2: kompatibler, einfacher Typ 
 
 Tatsächlich sind bereits die einfachen Beispiel von dieser Natur: 
@@ -448,14 +482,31 @@ Tatsächlich sind bereits die einfachen Beispiel von dieser Natur:
 - Aber da ~byte~ an ~short~ und ~short~ and ~int~ zugewiesen werden
   darf, ist das kein Problem 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
 int x; 
 x = 17;
 
-float a = 3.14;
+float a = 3.14f;
 double b; 
 b = a;
 #+END_SRC 
+
+#+RESULTS:
+: x ==> 0
+: x ==> 17
+: a ==> 3.14
+: b ==> 0.0
+: b ==> 3.140000104904175
+
+
+*** Anmerkungen 
+
+- Um die Zahl 3.14 an eine ~float~-Variable zuweisen zu können, müssen
+  wir das Literal als solches markieren: wir stellen ein ~f~ der Zahl
+  nach
+- ~b~ hat nicht /exakt/ den Wert 3.14: Es kommt bei der Umwandlung zu
+  Fehlern und Ungenauigkeiten. Häufiges Problem bei
+  Fliesskommazahlen. 
 
 ** Zuweisungen, Fall 3: nicht kompatibler, einfacher Typ 
 
@@ -520,6 +571,13 @@ x = (int) (y + 0.0001);
 x = x + (int) 0.00001;
 #+END_SRC 
 
+#+RESULTS:
+: x ==> 0
+: y ==> 42.17
+: x ==> 42
+: x ==> 42
+: x ==> 42
+
 
 ** Zuweisungen einfacher Typen: Werte in Schachteln 
 
@@ -528,9 +586,9 @@ x = x + (int) 0.00001;
 - Zuweisung?
   - Bei einer Zuweisung wird der Wert von einer Schachtel in die
     andere kopiert 
-- [[http://www.pythontutor.com/visualize.html#code=public%20class%20Zuweisung%20%7B%0A%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20//%20Zwei%20interger-Variablen%20zuweisen%3A%20%0A%20%20%20%20int%20x,%20y%3B%0A%20%20%20%20x%20%3D%2017%3B%0A%20%20%20%20y%20%3D%20x%3B%0A%20%20%7D%0A%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
 
 #+BEGIN_SRC java :exports code :results output :classname XXX
+%% tutor -l java 
 public class Zuweisung {
   public static void main(String[] args) {
     // Zwei interger-Variablen zuweisen: 
@@ -559,9 +617,9 @@ Das Verhalten ist hier wie erwartet (Abbildung [[fig:jt-assign-ints]]): In
 
 Was passiert bei Zuweisungen komplexer Typen? 
 - Bis jetzt: ~String~ und ~Array~ 
-- [[http://www.pythontutor.com/visualize.html#code=%20%20public%20class%20Zuweisung2%20%7B%0A%20%20%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20//%20Zwei%20Strings%20zuweisen%3A%20%0A%20%20%20%20%20%20String%20s1%20%3D%20%22Hallo%22%3B%0A%20%20%20%20%20%20String%20s2%3B%0A%20%20%20%20%20%20s2%20%3D%20s1%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
 
 #+BEGIN_SRC java :exports code :results output :classname XXX
+  %%tutor -l java
   public class Zuweisung2 {
     public static void main(String[] args) {
       // Zwei Strings zuweisen: 
@@ -572,7 +630,7 @@ Was passiert bei Zuweisungen komplexer Typen?
   }
 #+END_SRC 
 
-*** Zuweisung von Zeiger!					    :animate:
+*** Zuweisung von Referenz! 					    :animate:
 
 - ~s1~ und ~s2~ speichern gar nicht den Wert! 
 - Sondern zeigen nur darauf? 
@@ -593,9 +651,9 @@ s1~ wird diese /Referenz kopiert/.
 
 ** Zuweisung komplexer Typen: Beispiel 2 (Strings verändern) 
 
-[[http://www.pythontutor.com/visualize.html#code=%20%20public%20class%20Zuweisung3%20%7B%0A%20%20%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20//%20Zwei%20Strings%20zuweisen%3A%20%0A%20%20%20%20%20%20String%20s1%20%3D%20%22Hallo%22%3B%0A%20%20%20%20%20%20String%20s2%3B%0A%20%20%20%20%20%20s2%20%3D%20s1%3B%0A%20%20%20%20%20%20s1%20%3D%20s1%20%2B%20%22%20GP1!%22%3B%0A%20%20%20%20%20%20System.out.println(s1%29%3B%0A%20%20%20%20%20%20System.out.println(s2%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
 
 #+BEGIN_SRC java :exports code :results output :classname Zuweisung3
+  %%tutor -l java
   public class Zuweisung3 {
     public static void main(String[] args) {
       // Zwei Strings zuweisen: 
@@ -608,10 +666,6 @@ s1~ wird diese /Referenz kopiert/.
     }
   }
 #+END_SRC 
-
-#+RESULTS:
-: Hallo GP1!
-: Hallo
 
 *** Visualisierung						  :dropslide:
 
@@ -632,9 +686,8 @@ Siehe Abbildung [[fig:jt-assign-newstring]].
 
 ** Zuweisung komplexer Typen: Beispiel 3 (array) 
 
-[[http://www.pythontutor.com/visualize.html#code=%20%20public%20class%20ZuweisungA%20%7B%0A%20%20%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20//%20Ein%20Array%20deklarieren%20und%20initialisieren%3A%20%0A%20%20%20%20%20%20int%5B%5D%20a1%20%3D%20%7B1,%202,%203%7D%3B%0A%20%20%20%20%20%20int%5B%5D%20a2%3B%0A%20%20%20%20%20%20a2%20%3D%20a1%3B%0A%20%20%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%20%20%20%20a1%5B1%5D%20%3D%2017%3B%0A%20%20%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%20%20%7D%0A%20%20%7D%0A&cumulative=false&curInstr=0&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]]
-
 #+BEGIN_SRC java :exports code :results output :classname ZuweisungA
+  %%tutor -l java
   public class ZuweisungA {
     public static void main(String[] args) {
       // Ein Array deklarieren und initialisieren: 
@@ -649,8 +702,7 @@ Siehe Abbildung [[fig:jt-assign-newstring]].
 #+END_SRC 
 
 #+RESULTS:
-: 2
-: 17
+: 
 
 *** Visualisierung						  :dropslide:
 
@@ -709,9 +761,8 @@ Semantik der Zuweisung
   - Arrays definieren Methode: ~clone~
 
 
-[[http://www.pythontutor.com/visualize.html#code=public%20class%20CopyArray%20%7B%0A%20%20public%20static%20void%20main(String%5B%5D%20args%29%20%7B%0A%20%20%20%20//%20Ein%20Array%20deklarieren%20und%20initialisieren%3A%20%0A%20%20%20%20int%5B%5D%20a1%20%3D%20%7B1,%202,%203%7D%3B%0A%20%20%20%20int%5B%5D%20a2%3B%0A%20%20%20%20a2%20%3D%20a1.clone(%29%3B%0A%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%20%20a1%5B1%5D%20%3D%2017%3B%0A%20%20%20%20System.out.println(a2%5B1%5D%29%3B%0A%20%20%7D%0A%7D%0A&cumulative=false&curInstr=6&heapPrimitives=true&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false][(PT link)]] 
-
 #+BEGIN_SRC java :exports code :results output :classname ZuweisungA
+  %%tutor -l java
   public class CopyArray {
     public static void main(String[] args) {
       // Ein Array deklarieren und initialisieren: 
@@ -982,7 +1033,7 @@ Java kennt eine klassische und eine moderne ~for~-Schleife
 
 Addieren wir die ersten 10 Zahlen auf:
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   //Variable für Ergebnis: 
   int summe=0;
   // zaehler initialisieren: 
@@ -996,6 +1047,11 @@ Addieren wir die ersten 10 Zahlen auf:
   }
   System.out.println(summe);
 #+END_SRC 
+
+#+RESULTS:
+: summe ==> 0
+: zaehler ==> 1
+: 55
 
 ** Knapper: ~for~
 
@@ -1060,7 +1116,7 @@ public class ForVariable {
 
 Geben wir die Zahlen 1 bis 10 aus 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   int i;
   for (i = 1;
        i <= 10;
@@ -1070,6 +1126,22 @@ Geben wir die Zahlen 1 bis 10 aus
   // und zum Beweis: i hat auch nach der for-Schleife den letzten Wert 
   System.out.println(i);
 #+END_SRC 
+
+#+RESULTS:
+#+begin_example
+i ==> 0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+#+end_example
 
 *** Warum ist der Wert von i nach der Schleife 11? 		    :animate:
 
@@ -1083,7 +1155,7 @@ Geben wir die Zahlen 1 bis 10 aus
 
 Geben wir eine Multiplikationstabelle für die Zahlen 1 bis 10 aus 
 
-#+BEGIN_SRC java :exports code :results output :classname XXX
+#+BEGIN_SRC java :exports both :results output :classname XXX
   int i, j;
 
   // Kopfzeile der Tabelle
@@ -1103,6 +1175,24 @@ Geben wir eine Multiplikationstabelle für die Zahlen 1 bis 10 aus
   }
 #+END_SRC 
 
+#+RESULTS:
+#+begin_example
+i ==> 0
+j ==> 0
+i	
+|	1|	2|	3|	4|	5|	6|	7|	8|	9|	10
+1	|	   1|	   2|	   3|	   4|	   5|	   6|	   7|	   8|	   9|	  10
+2	|	   2|	   4|	   6|	   8|	  10|	  12|	  14|	  16|	  18|	  20
+3	|	   3|	   6|	   9|	  12|	  15|	  18|	  21|	  24|	  27|	  30
+4	|	   4|	   8|	  12|	  16|	  20|	  24|	  28|	  32|	  36|	  40
+5	|	   5|	  10|	  15|	  20|	  25|	  30|	  35|	  40|	  45|	  50
+6	|	   6|	  12|	  18|	  24|	  30|	  36|	  42|	  48|	  54|	  60
+7	|	   7|	  14|	  21|	  28|	  35|	  42|	  49|	  56|	  63|	  70
+8	|	   8|	  16|	  24|	  32|	  40|	  48|	  56|	  64|	  72|	  80
+9	|	   9|	  18|	  27|	  36|	  45|	  54|	  63|	  72|	  81|	  90
+10	|	  10|	  20|	  30|	  40|	  50|	  60|	  70|	  80|	  90|	 100
+#+end_example
+
 
 ** Modernes ~for~: Iterator 
 
@@ -1113,18 +1203,15 @@ Geben wir eine Multiplikationstabelle für die Zahlen 1 bis 10 aus
 - Beispiel: 
 
 #+BEGIN_SRC java :exports both :results output :classname ForIterator
-    public class ForIterator {
-      public static void main(String[] args) {
-        // Ein Array deklarieren und initialisieren: 
-        int[] primzahlen = {2, 3, 5, 7, 11, 13};
-        for (int p: primzahlen)
-            System.out.print(p + " ");
-      }
-    }
+// Ein Array deklarieren und initialisieren: 
+int[] primzahlen = {2, 3, 5, 7, 11, 13};
+for (int p: primzahlen)
+    System.out.print(p + " ");
 #+END_SRC 
 
 #+RESULTS:
-: 23571113
+: primzahlen ==> [I@6e1567f1
+: 2 3 5 7 11 13 
 
 
 *** UEBUNG Was passiert, wenn der Typ hier nicht passt? 
@@ -1169,3 +1256,8 @@ int, short, long mischen?
 - Die Unterscheidung zwischen primitiven und Referenztypen macht die
   Sprache komplex
 - Kontrollstrukturen wenig überraschend 
+
+# Local Variables:
+# org-babel-java-compiler: "python3 ../../build/jshellc.py"
+# org-babel-java-command: "python3 ../../build/jshellr.py"
+# End:
