@@ -47,7 +47,7 @@ $(pdfs): %.pdf: %.tex
 	../../build/tangle.sh $< >> ../../build/log
 
 $(tgz): %.tgz: %.ipynb
-	tar cfz ${OUTPUTDIR}/$*.tgz $< figures
+	-tar cfz ${OUTPUTDIR}/$*.tgz $< figures uml/*.png
 
 java:
 	sed -i "" 's/"display_name": "Python 3"/"display_name": "Java 9"/' *ipynb
