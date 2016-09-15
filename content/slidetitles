@@ -1,0 +1,1320 @@
+0 ** Setup 						  :skipslide:nolatex:
+0 ** Herzlich Willkommen!
+0 ** Wer sind wir? 
+0 ** Wer sind wir?  -- Dozent					   :subslide:
+0 ** Wer sind wir? -- Mitarbeiter					   :subslide:
+0 ** Wo sind wir? -- Gebäude O 
+0 **python3 groupby.py 30 < slidetitles
+41
+=======================
+VL:  1
+0 ** Setup 						  :skipslide:nolatex:
+0 ** Herzlich Willkommen!
+0 ** Wer sind wir? 
+0 ** Wer sind wir?  -- Dozent					   :subslide:
+0 ** Wer sind wir? -- Mitarbeiter					   :subslide:
+0 ** Wo sind wir? -- Gebäude O 
+0 **python3 groupby.py 30 < slidetitles
+t eine Vorlesung? 
+0 ** Bestandteile GP1
+0 ** Vorlesung GP1						   :subslide:
+0 ** Vorlesung GP1 -- Termine					   :subslide:
+0 ** Hausübungen  -- Zweck 
+0 ** Hausübungen -- Prozess					   :subslide:
+0 ** Hausübungen -- Plagiate					   :subslide:
+0 ** Präsenzübungen 
+0 ** Präsenzübungen -- Termine					   :subslide:
+0 ** Präsenzübungen -- Ort					   :subslide:
+0 ** Präsenzübungen -- Anmeldung					   :subslide:
+0 ** Prüfung: Klausur 
+0 ** Klausur -- Zulassungsvoraussetzung 
+0 ** Klausur -- Bonuspunkte 
+0 ** Klausur -- Wie bestehen? 
+0 ** Wo finden Sie was? 
+0 ** Wo finden Sie was? -- Webseite				    :nolatex:
+0 ** Wo finden Sie was? -- Material				    :nolatex:
+0 ** Erwartungshaltung: Sie an uns 
+0 ** Erwartungshaltung: Wir an Sie 
+1 ** Dieses Kapitel 
+1 ** Setup 						  :skipslide:nolatex:
+1 **  Was ist Programmierung? 
+1 ** COMMENT Was ist Programmierung? 
+1 ** Vorlesungsinhalt GP1 
+1 ** GP1 im Modulhandbuch 
+1 ** Modul I.1.1 
+1 ** Programmieren? 
+1 ** Grobe Vorstellung
+1 ** Algorithmus
+1 ** Algorithmus 
+1 ** Datenstruktur 
+1 ** Datenstruktur 
+1 ** Algorithmus/Datenstrukturen in Isolation? 
+
+=======================
+VL:  2
+1 ** Maschinenmodell für GP1? 
+1 ** Speicher							   :subslide:
+1 ** Verarbeitungseinheit						   :subslide:
+1 ** Programm							   :subslide:
+1 ** Instruktionssatz: Beispiele 
+1 ** Ausführungsmodell 
+1 ** Ausführungsmodell 
+1 ** Ausführung						      :skip:subslide:
+1 ** Ausführungsmodell (2)					   :subslide:
+1 ** Ausführungsmodell 
+1 ** Fertig? 
+1 ** Programmieren 
+1 ** Programmiersprachen 
+1 ** Programmiersprache -- Definition			   :subslide:nolatex:
+1 ** Programmiersprache -- Definition				  :dropslide:
+1 ** Ausführung?							   :subslide:
+1 ** Gute Programmiersprachen? 
+1 ** Programmierparadigma 
+1 ** Programmierparadigmen: Beispiele 
+1 ** Programmierparadigma: Imperativ				   :subslide:
+1 ** Programmierparadigma: Objektorientiert			   :subslide:
+1 ** Programmierparadigma: Funktional				   :subslide:
+1 ** Programmierparadigma: Logisch				   :subslide:
+1 ** Welches Paradigma für GP1?
+1 ** Paradigma und Sprache? 
+1 ** Anforderungen 
+1 ** Auswahl? 
+1 ** C/C++ ?							   :subslide:
+1 ** Java?							   :subslide:
+1 ** Python?							   :subslide:
+1 ** Vergleich: TIOBE Index 
+1 ** Konsequenz? 
+1 ** Alle Sprachen? 
+1 ** Werkzeuge 
+1 ** Editor 
+1 ** Editor für GP1?						   :subslide:
+1 ** Debugger
+1 ** Profiler 
+1 ** Dokumentation 
+1 ** Versionsverwaltung 
+1 ** Werkzeuge für Versionsverwaltung				   :subslide:
+
+=======================
+VL:  3
+1 ** Integrierte Entwicklungsumgebung 
+1 ** Alles alleine? 
+1 ** Allgemein verfügbar: Bibliotheken 
+1 ** Technisch: Package management systems 
+1 ** Team-Arbeit: Versionsverwaltung 
+1 ** Hilfe finden 
+1 ** Hilfe finden (2) 
+1 ** Gute Programmierer
+1 ** Programmierung 
+1 ** Python 
+1 ** Python, Umgebungen 
+1 ** Java 
+1 ** Java, Umgebungen 
+1 ** Aber das kann ich doch alles 
+1 ** Übung auch bei Vorkenntnissen 
+1 ** Zusammenfassung 
+2 ** Dieses Kapitel 
+2 ** Setup 						  :skipslide:nolatex:
+2 ** Interaktiv? 
+2 ** Python als Interpreter 
+2 ** Read-Evaluate-Print (REP) 
+2 ** Eingaben? Zahlen 
+2 ** Ungültige Zahlen 
+2 ** Ungültige Zahlen						   :subslide:
+2 ** Ungültige Zahlen						   :subslide:
+2 ** Arithmetischer Ausdruck  -- Syntax 
+2 ** Arithmetischer Ausdruck  -- Syntax				   :subslide:
+2 ** Arithmetischer Ausdruck -- Semantik?				   :subslide:
+2 ** Arithmetischer Ausdruck -- Semantik				   :subslide:
+2 ** Eindeutigkeit?						   :subslide:
+2 ** Arithmetischer Ausdruck -- Definition			   :subslide:
+2 ** Nur Zahlen? Text? 
+2 ** Syntaxregel: Text als Zeichenkette
+2 ** Ausdrücke mit Zeichenketten? 				   :subslide:
+2 ** Andere Verknüpfungen für Zeichenketten 			   :subslide:
+2 ** Fehlermeldungen: ~TypeError~
+2 ** Datentypen 
+2 ** Datentyp: Ganze Zahlen 					   :subslide:
+2 ** Literale  für ganze Zahlen					   :subslide:
+2 ** Datentyp: Reelle Zahlen 					   :subslide:
+2 ** Datentypen: Zahlen in Rechnern				   :subslide:
+
+=======================
+VL:  4
+2 ** Zahldarstellung						   :subslide:
+2 ** Datentyp: ~str~ 						   :subslide:
+2 ** Datentyp: ~bool~ 						   :subslide:
+2 ** Datentyp: ~bool~ -- Semantik der Verknüpfungen 		   :subslide:
+2 ** Vergleiche zwischen Werte 
+2 ** Datentyp mit Vergleich					   :subslide:
+2 ** Beispiel: Vergleich arithmetischer Ausdrücke			   :subslide:
+2 ** Vereinfachen?						   :subslide:
+2 ** Zusammenfassung: Einfache Datentypen 
+2 ** Verknüpfungen unterschiedlicher Typen?
+2 ** Sinnvolle Verknüpfungen?					   :subslide:
+2 ** Zeichenkette und Zahl 					   :subslide:
+2 ** Operatoren: Verschiedene Semantik! 
+2 ** Arithmetik? ~int~ und ~float~ ?  
+2 ** Typen in Python 3 
+2 ** Typisierte Programmiersprache				   :subslide:
+2 ** Konvertierung zwischen Typen
+2 ** Bemerkung: Starke vs. schwache Typisierung 
+2 ** Bemerkung: Starke vs. schwache Typisierung (2)
+2 ** Ausdrücke und Zustand? 
+2 ** Zusammenfassung 
+3 ** Setup 						  :skipslide:nolatex:
+3 ** Dieses Kapitel 
+3 ** Ausdrücke sind vergesslich 
+3 ** Namen! 
+3 ** Namen -- Beispiel 
+3 ** Zuweisung (v1) 
+3 ** Zuweisung: Im Detail 
+3 ** Zuweisung: Namen sind Schilder an Werten 
+3 ** Gültige Namen? 
+3 ** Gültige und ungültige Namen: Beispiele 
+3 ** Reservierte Namen 
+3 ** Python-Schlüsselworte bis jetzt 				   :subslide:
+3 ** Sinnvolle Namen? 
+3 ** Namenskonvention 
+3 ** Variable nutzen
+3 ** Weitere Variable 
+3 ** Weitere Variable -- Beobachtungen 
+3 ** Weitere Zuweisung 
+3 ** Variablen an Variablen zuweisen 
+3 ** Animationen von Programmen 
+
+=======================
+VL:  5
+3 ** Animationen von Programmen -- Quellcode 
+3 ** FALSCH: Name auf Name 
+3 ** Eine Variablen verändern 
+3 ** Warum hat ~b~ den Wert 5?  
+3 ** Ausdrücke in Variablen 
+3 ** Beispiel: Wert von ~y~ am Ende? 
+3 ** Beispiel: Werte zweier Variablen vertauschen 
+3 ** Gleichzeitig Zuweisungen 
+3 ** Gleichzeitige Zuweisungen -- Semantik 
+3 ** Gleichzeitige Zuweisungen -- Beispiele 
+3 ** Zuweisung (v2) 
+3 ** Kurzschreibweisen bei Zuweisungen 
+3 ** Typen? 
+3 ** Variablentyp veränderlich? 
+3 ** Wo ist der Typ? 
+3 ** Problem? 
+3 ** Dynamisch typisierte Sprache 
+3 ** Statisch typisierte Sprache 
+3 ** Syntax 
+3 ** Syntax: Formalisierung 
+3 ** Stil 
+3 ** Schlechter Stil ist peinlich 
+3 ** Stilregeln Python 
+3 ** Stilregeln in Python: Beispiel Kommentare 
+3 ** Stilregeln in Python 
+3 ** Zusammenfassung 
+3 ** Rückblick 
+3 ** Gemeinsame Referenzen -- Gleichheit 
+4 ** Dieses Kapitel 
+4 ** Setup 						  :skipslide:nolatex:
+4 ** Wiederkehrende Anweisungen 
+4 ** Funktionen 
+4 ** Problem zerteilen: Kuchen backen 				   :subslide:
+4 ** Problem zerteilen: Kuchen backen 				   :subslide:
+4 ** Problem zerteilen: Programmiertechnik			   :subslide:
+4 ** Funktionen 
+4 ** Name für Folge von Anweisungen 
+4 ** Neue Anweisung: ~def~ 
+4 ** Beispiel für ~def~
+4 ** ~def~
+4 ** ~def~: Syntaxregel  (1) 
+
+=======================
+VL:  6
+4 ** Namenskonvention für Funktionsnamen 
+4 ** Schlüsselwort: ~def~						   :subslide:
+4 ** Python-Schlüsselworte bis jetzt 				   :subslide:
+4 ** Einrückung? 
+4 ** Visuelle Struktur 
+4 ** Einrückung: Beispiel 
+4 ** Visualisierung: Was passiert? 
+4 ** Starke Analogie: Variablename, Funktionsname 
+4 ** Sprechweise: Objekt 
+4 ** ~def~ definiert ein Objekt 
+4 ** Aufruf einer Funktion 
+4 ** Aufruf einer Funktion: Syntax 
+4 ** Aufruf einer Funktion: Semantik  
+4 ** Aufruf einer Funktion: Semantik  
+4 ** Variablen: Lebensdauer 
+4 ** Namensraum (Namespace) 
+4 ** Namensraum (Namespace) 
+4 ** Scope 
+4 ** Frame 
+4 ** Scope/Frame: Beispiel 
+4 ** Funktionen haben keinen Effekt? 
+4 ** Funktionen ohne Effekt: Beispiel 
+4 ** Rückgabewert 
+4 ** Neue Anweisung: ~return~
+4 ** Python-Schlüsselworte bis jetzt 				   :subslide:
+4 ** Aufruf einer Funktion: Semantik  
+4 ** Funktion mit ~return~: Beispiel 
+4 ** Funktion ohne ~return~? 
+4 ** Aufruf einer Funktion: Semantik  
+4 ** Funktion mit leerem ~return~
+4 ** Python-Schlüsselworte bis jetzt 				   :subslide:
+4 ** Funktionen bis jetzt: Langweilig
+4 ** Funktion mit Parameter: Idee 
+4 ** Funktion mit Parameter: Syntax der Definition 
+4 ** Funktion mit Parameter: Aufruf 
+4 ** Funktion mit Parameter: Semantik des Aufrufs 
+4 ** Funktion mit Parameter: Aufruf mit Ausdruck 
+4 ** Funktion mit Parameter: Aufruf mit Variable
+4 ** Zuweisung an formale Parameter? 
+4 ** Aufruf: Gleicher Name mehrfach? 
+4 ** Aufrufsemantik: Pass-by-assignment  
+
+=======================
+VL:  7
+4 ** Funktion mit mehreren Parametern: Syntax 
+4 ** Funktion mit Parametern: Syntax allgemein  
+4 ** Funktion mit mehreren Parametern: Semantik 
+4 ** Aufruf einer Funktion: Semantik  
+4 ** Besondere Funktionen: Beispiel ~print~
+4 ** ~print~: Seiteneffekt, Prozedur 
+4 ** Funktion oder Prozedur? 
+4 ** Seiteneffekt von ~print~ 
+4 ** Weitere Aspekte von ~print~: Mehrere Parameter 
+4 ** Weitere Aspekte von ~print~: Benannter Parameter 
+4 ** Weitere Aspekte von ~print~: Benannter Parameter ~end~
+4 ** Weitere Beispiele für Funktionen 
+4 ** Funktionen finden 
+4 ** Eingebaute Funktionen, weitere Beispiele 
+4 ** Funktionen und Stil: Namenskonvention 
+4 ** Kommentare 
+4 ** ~docstring~ 
+4 ** Nützliche Kommentare 
+4 ** ~docstring~: Beispiel 
+4 ** Kommentare sind Kommunikation 
+4 ** Zusammenfassung 
+4 ** Wiederverwendung -- Die hohe Schule 
+5 ** Setup 						  :skipslide:nolatex:
+5 ** Dieses Kapitel 
+5 ** Zeichenkette 
+5 ** Aufzählung: Wunschliste
+5 ** Aufzählungen von Aufzählungen? 
+5 ** Tuple 
+5 ** Tuples und Objekte: Visualisierung				   :subslide:
+5 ** Tuple und Objekte: Visualisierung (2)			   :subslide:
+5 ** Tuple und Objekte: Visualisierung (3)			   :subslide:
+5 ** Einfache Subskripts  
+5 ** Einfache Subskripts  -- Beispiele			  :subslide:subslide:
+5 ** Zugriff und Namen 
+5 ** Slicing 
+5 ** Slicing, Sonderfälle						   :subslide:
+5 ** Slicing, Sonderfälle						   :subslide:
+5 ** Komplexeres Beispiel 
+5 ** Verknüpfungen 
+5 ** Randfälle 
+5 ** Weitere Eigenschaften: Länge  
+
+=======================
+VL:  8
+5 ** Wo ist ein Element in Tuple?					   :subslide:
+5 ** Notation bei ~index~?					   :subslide:
+5 ** Wieviele Elemente mit bestimmtem Wert?			   :subslide:
+5 ** Zuweisung an Element? 
+5 ** Keine Zuweisung an Tuple-Elemente				   :subslide:
+5 ** Und Zeichenketten (~str~)? 
+5 ** Unveränderliche Datentypen 
+5 ** Tuple als Funktionsparameter 
+5 ** Definition Tuple 
+5 ** Liste 
+5 ** Syntax							   :subslide:
+5 ** Zugriff							   :subslide:
+5 ** Verknüpfungen und Funktionen à la Tuple 
+5 ** Veränderung von Listenelementen				   :subslide:
+5 ** Listen vergrößern 
+5 ** Listen vergrößern (2)					   :subslide:
+5 ** Listen verkleinern						   :subslide:
+5 ** Liste kopieren 
+5 ** Liste von Liste kopieren					   :subslide:
+5 ** Identität? 
+5 ** Identität: Zwei Vergleiche					   :subslide:
+5 ** Warum Liste und Tuple? 
+5 ** Definition Liste 
+5 ** Liste als Funktionsparameter
+5 ** Liste als Funktionsparameter -- Beobachtung?			   :subslide:
+5 ** Duck Typing 
+5 ** Duck Typing							   :subslide:
+5 ** Duck Typing -- Risiken					   :subslide:
+5 ** Liste als Funktionsparameter -- Veränderung? 
+5 ** Liste als Funktionsparameter -- Ergebnisse transportieren?	   :subslide:
+5 ** Ergebnisse transportieren -- Beispiel 
+5 ** Von Liste zu Tuple und umgekehrt 
+5 ** Menge -- ~set~ 
+5 **  Operationen auf Mengen 
+5 ** Zugriff ohne Index? 
+5 ** Aufzählen? 
+5 ** Aufzählen  oder abbilden?					   :subslide:
+5 ** Abbildung: Beispiele						   :subslide:
+5 ** Abbildung in Python: ~dict~ 
+5 ** ~dict~: Beispiel						   :subslide:
+5 ** ~dict~: Definition						   :subslide:
+
+=======================
+VL:  9
+5 ** ~dict~: Werte angeben, Kurznotation				   :subslide:
+5 ** ~dict~: Werte angeben					   :subslide:
+5 ** ~dict~: Fehlerfall						   :subslide:
+5 ** ~dict~: Test auf enthalten-sein				   :subslide:
+5 ** Operation auf ~dict~						   :subslide:
+5 ** Identität? 
+5 ** Verschachtelung 
+5 ** Konvertierung 
+5 ** Konvertierung: Syntax 
+5 ** Python-Keywords: Liste bis jetzt 
+5 ** Python: eingebaute Funktionen				   :subslide:
+5 ** Python-Syntax: Klammern					   :subslide:
+5 ** Python Datentypen						   :subslide:
+5 ** Python Datentypen -- Übersicht (bis jetzt)
+5 ** Zusammenfassung 
+6 ** Setup 						  :skipslide:nolatex:
+6 ** Was bisher geschah 
+6 ** Dieses Kapitel  
+6 ** Ein Programm 
+6 ** Anweisungen -- bis jetzt 
+6 ** Bedingte Folge von Anweisungen 
+6 ** Schleifen von Anweisungen 
+6 ** Neue Anweisung: ~if~
+6 ** ~if~: Syntax 
+6 ** ~if~: Syntax im Vergleich mit ~def~ 
+6 ** Warum Einrückung?
+6 ** Alternative: Wahr oder falsch? 
+6 ** Alternative: Semantik 
+6 ** ~if~: Beispiele  
+6 ** ~if~: Beispiel Betrag 
+6 ** Ausflug: Code testen
+6 ** Test-Anweisung: ~assert~					   :subslide:
+6 ** Tests für ~quersumme3~					   :subslide:
+6 ** Geschachtelte ~if/else~ 
+6 ** Geschachtelte ~if/else~: Allgemeiner Fall			   :subslide:
+6 ** Geschachtelte ~if/else~: Einfachere Fälle			   :subslide:
+6 ** Leerer Teilblock nach ~if~? 
+6 ** ~pass~: Beispiel 
+6 ** Anweisung: ~pass~						   :subslide:
+6 ** Eindeutigkeit von ~else~? 
+6 ** Häufiger Fall: Nach ~else~ wieder ein ~if~
+
+=======================
+VL:  10
+6 ** Allgemeine Form: ~if/elif/else~ 
+6 ** ~if/elif/else~: Beispiel 
+6 ** Definition: ~if/elif/else~ 
+6 ** Allgemeine Schleifen 
+6 ** ~while~: Flussdiagramm 
+6 ** ~while~: Beispiel Zählschleife 
+6 ** Beobachtung: Sichtbarkeit von Variablen 
+6 ** Beobachtung: Sichtbarkeit von Variablen (2)			   :subslide:
+6 ** Schleifen: Terminierung 
+6 ** Einfache Regeln für Terminierung 
+6 ** Terminierung ist kritisch!					   :subslide:
+6 ** Beispiel: GGT 
+6 ** ~while~: Schleife über Feld 
+6 ** ~while~: Beispiel Suchschleife 
+6 ** ~while~: Beispiel Suchschleife  (2)				   :subslide:
+6 ** ~while~: Beispiel Suchschleife  (2)				   :subslide:
+6 ** Schleifenbedingungen finden? 
+6 ** Schleifenbedingungen finden? (2)				   :subslide:
+6 ** Schleifenbedingung finden? (3)				   :subslide:
+6 ** Nach Schleife: Prüfen! 
+6 ** Beispiel umformuliert 
+6 ** Schleifen: Hilfskonstrukte 
+6 ** Schleifeniterationen nicht komplett durchlaufen		   :subslide:
+6 ** Schleifeniterationen nicht komplett durchlaufen: ~continue~	   :subslide:
+6 ** Schleife abbrechen						   :subslide:
+6 ** Schleife abbrechen: ~break~					   :subslide:
+6 ** Reguläre Beendigung vs. ~break~: Reaktion			   :subslide:
+6 ** ~else~ bei Schleifen
+6 ** ~else~ bei Schleifen (2)					   :subslide:
+6 ** ~while~: Suchschleife mit ~else~				   :subslide:
+6 ** Stil: ~continue~, ~break~ ? 
+6 ** Stil: goto							   :subslide:
+6 ** Definition: ~while~ 
+6 ** ~while~: Komplettes Flussdiagramm 
+6 ** Häufiger Fall: Schleife über Aufzählung 
+6 ** Häufige Fälle verdienen eigene Anweisung: ~for~
+6 ** ~for~: Definition 
+6 ** Zuweisung an Aufzählung? 
+6 ** Zuweisung an Aufzählung -- passiert gar nicht!		   :subslide:
+6 ** Zuweisung an Schleifenvariable				   :subslide:
+6 ** Schleifenvariable nach Schleifenende?			   :subslide:
+
+=======================
+VL:  11
+6 ** ~for~-Schleifen über andere Aufzählungen 
+6 ** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
+6 ** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
+6 ** ~for~-Schleife über verschachtelte Datentypen 
+6 ** ~for~-Schleife mit erweiterter Zuweisung? 
+6 ** ~for~-Schleife über ~dict~ ? 
+6 ** ~for~-Schleife über ~dict~ -- Key und Value?			   :subslide:
+6 ** ~for~ über Folge von Zahlen: ~range~ 
+6 ** ~range~: Beispiel						   :subslide:
+6 ** ~range~: Wie viele Durchläufe?				   :subslide:
+6 ** Terminierung von ~for~ und  ~range~				   :subslide:
+6 ** ~range~: Aufzählung verändern				   :subslide:
+6 ** ~range~: Aufzählung verändern				   :subslide:
+6 ** Aufzählung in ~for~ -- duck typing? 
+6 ** Beispiel: Sieb des Erathostenes 
+6 ** Eratostenes: Umsetzung					   :subslide:
+6 ** Erathostenes: Code						   :subslide:
+6 ** ~while~ oder ~for~ ?
+6 ** Listen in Schleife konstruieren 
+6 ** Listen in Schleife konstruieren -- Beispiel			   :subslide:
+6 ** Listen in Schleifen bedingt konstruieren 
+6 ** Listen in Schleifen bedingt konstruieren -- Beispiel		   :subslide:
+6 ** List comprehensions 
+6 ** List comprehension -- Beispiel 1				   :subslide:
+6 ** Beispiel 2							   :subslide:
+6 ** Geschachtelte Schleifen 
+6 ** Paarweise Operation 
+6 ** Paarweise Operation: Beispiel 1 -- Summe der Produkte	   :subslide:
+6 ** Paarweise Operation: Beispiel 2 -- Test auf enthalten	   :subslide:
+6 ** Beispiel mit geschachteltem ~range~ 
+6 ** Beispiel mit geschachteltem ~range~ und list comprehension	   :subslide:
+6 ** Eingebaute Funktion: ~sum~
+6 ** Beispiel: Sortieren 
+6 ** Selection Sort: Vorüberlegung				   :subslide:
+6 ** Selection Sort: Code						   :subslide:
+6 ** Sortieren in Python: Eingebaut				   :subslide:
+6 ** Beispiel: Mischen zweier Listen 
+6 ** Mischen: Vorüberlegung					   :subslide:
+6 ** Mischen konventionell					   :subslide:
+6 ** Mischen mit Slicing						   :subslide:
+6 ** Beispiel: Binäre Suche 
+
+=======================
+VL:  12
+6 ** Binäre Suche, Vorüberlegung					   :subslide:
+6 ** Binäre Suche, Code						   :subslide:
+6 ** Zusammenfassung 
+6 ** Python-Keywords: Liste bis jetzt 
+6 ** Python: eingebaute Funktionen 
+7 ** Setup 						  :skipslide:nolatex:
+7 ** Was bisher geschah 
+7 ** Dieses Kapitel 
+7 ** Erinnerung: Parameter von ~print~
+7 ** Erinnerung: Welche formale Parameter bekommen welchen Wert? 
+7 ** Variable Anzahl an Positionsparametern? 
+7 ** Variable Anzahl an Positionsparametern -- Beispiel 
+7 ** Formale Parameter mit vorbelegten Werten (/default/)
+7 ** Argument bei Aufruf benennen 
+7 ** ~dict~ als Schlüssel-/Wert-Paare übergeben
+7 ** ~dict~ als Schlüssel-/Wert-Paare übergeben -- Fehlende Schlüssel 
+7 ** ~dict~ als Schlüssel-/Wert-Paare übergeben -- Zu viele Schlüssel? 
+7 ** ~dict~ als Schlüssel-/Wert-Paare übergeben -- Optionale Schlüssel? 
+7 ** Zusammenfassung formale Parameter und Argumente -- Syntax 
+7 ** Tuple als Rückgabewerte 
+7 ** Funktionen rufen Funktionen auf 
+7 ** Ausführungsmodell 
+7 ** Illustration 
+7 ** Beispiel: Matrix ausgeben  
+7 ** Beobachtung: Reihenfolge Definition und Aufruf 
+7 ** Beobachtung: Reihenfolge Definition und Aufruf 
+7 ** Variablen und Sichtbarkeit? 
+7 ** Sichtbarkeit Variablen außerhalb der Funktion? 
+7 ** Offenbar sichtbar! 
+7 ** Offenbar sichtbar! -- Beispiel  
+7 ** Sichtbarkeit bei schreibendem Zugriff? 
+7 ** Scope durch Zuweisung 					 
+7 ** Sichtbarkeit von Variablen *zwischen* zwei Funktionen? 
+7 ** Unterschied der beiden Fälle? 
+7 ** Disjunkte local scopes -- Beispiel 
+7 ** Disjunkte local scopes -- Beispiel 2 
+7 ** Modifizierende Nutzung globaler Variablen 
+7 ** Modifikation einer globalen Variable 
+7 ** Modifikation einer globalen Variablen 
+7 ** Modifikation einer globalen Variablen 
+7 ** Die Gefahr globaler Variablen 
+
+=======================
+VL:  13
+7 ** Zusammenfassung: Scope von Variablen in Funktionen 
+7 ** Funktionen rufen sich gegenseitig auf  
+7 ** Wechselseitiger Aufruf: (Inkorrektes) Beispiel 
+7 ** Wechselseitiger Aufruf: Terminierung 
+7 ** Wechselseitiger Aufruf: Beispiel 
+7 ** Wechselseitiger Aufruf: Scopes und Namensräume 
+7 ** Wechselseitiger Aufruf: Animation 
+7 ** Zugriff auf Variablen in anderen Namensraum? 
+7 ** Rekursion und Namensraum  
+7 ** Direkte Rekursion 
+7 ** Rekursion in der Kunst 
+7 ** Rekursion in der Kunst 
+7 ** Beispiel: Fakultät 
+7 ** Beispiel: Fakultät -- Code 
+7 ** Randfälle? 
+7 ** Fakultät: Scope und Namensraum 
+7 ** Beispiel: String umdrehen 
+7 ** Beispiel: String umdrehen -- Code  
+7 ** Rekursion -- Muster 
+7 ** Rekursion -- Entwurf? 
+7 ** Entwurfsbeispiel: Türme von Hanoi
+7 ** Türme von Hanoi -- Start  
+7 ** Türme von Hanoi -- Ziel  
+7 ** Türme von Hanoi -- Möglicher Zwischenstand  
+7 ** Türme von Hanoi -- Fragen  
+7 ** Türme von Hanoi -- Code 					  :dropslide:
+7 ** Wie oft wird eine Scheibe bewegt? 
+7 ** Rekursion oder Iteration? 
+7 ** Rekursion zur Definition 
+7 ** Rekursion: Realisierung? 
+7 ** Wie nutzt man Funktionen sinnvoll? 
+7 ** Funktionen und Coupling 
+7 ** Funktionen und Coupling (2) 
+7 ** Funktionen und Kohesion 
+7 ** Funktionen und Größe 
+7 ** Zusammenfassung 
+8 ** Setup 						  :skipslide:nolatex:
+8 ** Was bisher geschah 
+8 ** Dieses Kapitel 
+8 ** Sammlung von Daten 
+8 ** Daten und Funktionen
+
+=======================
+VL:  14
+8 ** Spezifische Daten, spezifische Funktion 
+8 ** Frage: Zusammenhang? 
+8 ** Zusammenhang explizit? 
+8 ** Beispiel: Ellipse in einem Zeichenprogramm 
+8 ** Beispiel: Ellipse 
+8 ** Klassen 
+8 ** Kreis als Klasse: Graphische Notation 
+8 ** Klasse: Definition 
+8 ** Klassen -- Notation in Python 
+8 ** Konventionen 
+8 ** Klassen und Instanzen 
+8 ** Erzeugen eines Objektes 
+8 ** Objekte: Definition 
+8 ** Objekte/Instanzen: Graphische Notation 
+8 ** Objekt: Zugriff auf die eigenen Attribute?  
+8 ** Objekt: Notation 
+8 ** Konstruktur 
+8 ** Konstruktor -- Struktur
+8 ** Konstruktor -- Struktur (2)
+8 ** Instanziieren und Konstruktoraufruf 
+8 ** Klassen sind Typen 
+8 ** Nur vier Parameter?				
+8 ** Instanziieren und Konstruktoraufruf (2) 
+8 ** Konstruktor -- Ablaufbeispiel 
+8 ** Beobachtung: ~self~ ist eine Art Namensraum! 
+8 ** Instantiierung weiterer Objekte 
+8 ** Flexible Konstruktoren 
+8 ** Flexible Konstruktoren -- Beispiel Ellipse 
+8 ** Unterschiede zu anderen Sprachen: Dynamische Attribute	  :dropslide:
+8 ** Dokumentation einer Klasse: docstring 
+8 ** docstring für Klasse 
+8 ** Konvention: Paare von Unterstrichen 				  
+8 ** Beispiele für weitere vordefinierte Attribute
+8 ** Weitere Methoden 
+8 ** Weitere Methoden: Auf ~self~ achten! 
+8 ** Aufruf von Methoden 
+8 ** Aufruf von Methoden (2) 
+8 ** Methodenaufruf -- Sprechweise 
+8 ** Was passiert bei Aufruf? 
+8 ** Was passiert bei Aufruf? -- Kurzschreibweise! 
+8 ** Was passiert bei Aufruf? -- Kurzschreibweise auflösen  
+
+=======================
+VL:  15
+8 ** Konventionen für weitere Methoden 
+8 ** Gleichheit? 
+8 ** Gleichheit -- Beispiel ohne ~eq~ 
+8 ** Gleichheit -- Beispiel mit ~eq~ 
+8 ** Fallstricke bei ~eq~
+8 ** Ellipse -- mit ~str~
+8 ** Flexible Methoden
+8 ** Aufruf von Methoden bei Objekten 
+8 ** ~self~-lose Methoden 
+8 ** ~self~-lose Methoden 
+8 ** ~self~-lose Methoden -- Aufruf nur bei Klasse? 
+8 ** Daten für ~self~-lose Methoden? 
+8 ** Daten im Namensraum der Klasse -- Erzeugen 
+8 ** Daten im Namensraum der Klasse vs. eines Objektes 
+8 ** Daten im Namensraum der Klasse -- Zugriff 
+8 ** Daten im Namensraum der Klasse -- Optionen für Zugriff? 
+8 ** Expliziter Namensraum für Zugriff 
+8 ** ~self~ als Namensraum 
+8 ** Terminologie 
+8 ** Beispiel: Anzahl der erzeugten Objekte zählen 
+8 ** Beispiel: Anzahl der erzeugten Objekte zählen -- Code 
+8 ** Beispiel: MP3Player 
+8 ** Zusammenfassung: Dynamisch vs. statisch Attribute 
+8 ** Überrascht? 
+8 ** Principle of least astonishment 				  
+8 ** Analogien zwischen Klassen und Objekten? 
+8 ** Klasse als Objekt? 						 
+8 ** Klasse als Objekt! 
+8 ** Erinnerung: Typkonvertierung 
+8 ** Python: Everything is an Object 
+8 ** Wie verschwinden Objekte? 
+8 ** Zählen: Referenzen auf Objekte 
+8 ** Referenzen zählen 
+8 ** Garbage Collection 
+8 ** Vordefinierte Klasse: ~string~
+8 ** Methoden von ~string~: ~format~
+8 ** Methoden von ~string~: ~join~
+8 ** Stack 
+8 ** Stack -- UML							   :subslide:
+8 ** Stack -- Idee						   :subslide:
+8 ** Stack -- Code						   :subslide:
+
+=======================
+VL:  16
+8 ** Nochmal Ellipse 
+8 ** Punkt als Klasse						   :subslide:
+8 ** Ellipse nutzt Punkt						   :subslide:
+8 ** Delegation							   :subslide:
+8 ** Ellipse mit Punkt: Erzeugen					   :subslide:
+8 ** Punkt: Abstand bestimmen					   :subslide:
+8 ** Telefonbuch 
+8 ** Telefonbuch -- UML						   :subslide:
+8 ** Telefonbuch -- Code						   :subslide:
+8 ** Lineare Liste durchsuchen?					   :subslide:
+8 ** Binärer Suchbaum 
+8 ** Binärer Suchbaum -- Illustration				   :subslide:
+8 ** Binärer Suchbaum -- Operationen				   :subslide:
+8 ** Knoten eines Baums?						   :subslide:
+8 ** Binärer Suchbaum -- Klassen					   :subslide:
+8 ** Binärer Suchbaum -- UML					   :subslide:
+8 ** Klasse TreeNode						   :subslide:
+8 ** Binärbaum -- Grundgerüst					   :subslide:
+8 ** Suchen							   :subslide:
+8 ** Suchen -- Code						   :subslide:
+8 ** Python Konvention: Unterstrich				   :subslide:
+8 ** Einfügen -- Rekursives Vorgehen				   :subslide:
+8 ** Einfügen -- Spezialfall					   :subslide:
+8 ** Einfügen -- Illustration					   :subslide:
+8 ** Einfügen -- allgemeiner Fall					   :subslide:
+8 ** Löschen -- rekursiv						   :subslide:
+8 ** Löschen -- Spezialfall				:skipslide:dropslide:
+8 ** Hotel -- Entwurfsdiskussion 
+8 ** Zusammenfassung 
+8 ** Begriffsüberblick: Klassen, Attribute
+8 ** Wie gehts es weiter? 
+9 ** Setup 						  :skipslide:nolatex:
+9 ** Was bisher geschah 
+9 ** Dieses Kapitel 
+9 ** Programme reflektieren die Wirklichkeit 
+9 ** Ähnlich, allgemeiner, spezieller 
+9 ** Allgemeiner/spezieller und Hierarchien 
+9 ** Hierarchien: Beispiel Lebewesen 
+9 ** Hierarchien: Waren bei Online-Buchhändler 
+9 ** Hierarchien: Personen an einer Uni 
+9 ** Klassifikation: Gemeinsamkeiten
+
+=======================
+VL:  17
+9 ** Beispiel: Gemeinsamkeiten von Artikel, Werk, Buch, ... 
+9 ** Beispiel: Gemeinsamkeiten von Artikel, Werk, Buch, ... (2) 
+9 ** Gemeinsamkeiten in Klassen fassen 
+9 ** Gemeinsamkeiten in Klassen fassen (2)
+9 ** Gemeinsamkeiten -- Darstellung in UML 
+9 ** Gemeinsamkeiten -- Darstellung in UML allgemein 
+9 ** Gemeinsamkeiten -- Darstellung in UML für Artikel 
+9 ** Vererbung, ~is-a~-Beziehung 
+9 ** ~is-a~ -- Mengenbeziehung 
+9 ** Warum nur Daten? Methoden! 
+9 ** Neue, speziellere Methoden im Artikel-Beispiel 
+9 ** Allgemeinere Methoden im Artikel-Beispiel 
+9 ** Neue Methoden -- UML 
+9 ** Methoden an Klasse anpassen? 
+9 ** Methoden verändern? 
+9 ** Veränderte Methoden -- Aufruf 
+9 ** Veränderte Methoden -- UML 
+9 ** Terminologie 
+9 ** ~is-a~, Kompatibilität, Substition 
+9 ** ~is-a~, Kompatibilität (2)  
+9 ** ~is-a~, Kompatibilität -- Beispiel   
+9 ** Konkret: Vererbung in Python 
+9 ** Zunächst: Die Basisklasse ~Artikel~ 
+9 ** Unterklasse ~Werk~
+9 ** Unterklasse ~Werk~: Konstruktor 
+9 ** Unterklasse ~Werk~: Konstruktor (2)
+9 ** Fehler?? 
+9 ** Unterklasse ~Werk~: Konstruktor der Oberklasse aufrufen 
+9 ** Unterklasse ~Werk~: Konstruktor der Oberklasse mit ~super~ aufrufen  
+9 ** Unterklasse ~Werk~: Konstruktor der Oberklasse mit ~super~ aufrufen (2)   
+9 ** Unterklasse ~Werk~: Parameter des Oberklasse-Konstruktors merken? 
+9 ** Unterklasse ~Werk~: Parameter des Oberklasse-Konstruktors durchreichen 
+9 ** Unterklasse ~Werk~: Parameter des Oberklasse-Konstruktors durchreichen (2) 
+9 ** Unterklasse ~Werk~: ~show_info~
+9 ** Unterklasse ~Werk~: ~show_info~ -- Oberklasse mitbenutzen 
+9 ** Don't repeat yourself 
+9 ** str mitbenutzen? 
+9 ** Anmerkung: Dynamische Bindung 
+9 ** Beispiel: Dynamische Bindung in Klassenhierarchie 
+9 ** Veranschaulichung: ~isinstance~ und ~__class__~, ~__name__~
+9 ** Veranschaulichung: ~isinstance~ und ~__class__~, ~__name__~ -- Beispiel 
+
+=======================
+VL:  18
+9 ** Veranschaulichung: ~isinstance~ und ~__class__~, ~__name__~ -- Beispiel mit ~__str__~ 
+9 ** Beginn der Klassenhierarchie: ~object~ 
+9 ** Methoden, Attribute von ~object~ ? 
+9 ** ~dir~ einer Klasse, eines Objektes 
+9 ** Attribute inspizieren: ~getattr~
+9 ** Attribut hinzufügen: ~setattr~
+9 ** Insgesamt: Reflektion 
+9 ** Zugriff auf Attribute, Methoden? 
+9 ** Optionen? Öffentlich vs. privat  
+9 ** Python:  Hinweise an Nutzer durch Namenskonvention 
+9 ** With great power comes great responsibility
+9 ** Sichtbarkeit 
+9 ** Zugriff auf Attribute
+9 ** Zugriff auf Attribute: Beispiele 
+9 ** Naiver Ansatz: Nach Attribut-Zugriff, Methodenaufruf vorschreiben 
+9 ** Nötig: Attribute hinter Methoden verbergen 
+9 ** /getter/ und /setter/ -- Beispiel Student 
+9 ** /getter/ und /setter/ -- Beispiel Temperatur 
+9 ** /getter/ und /setter/ -- Beispiel Temperatur: Scheinattribute hinzufügen  
+9 ** Getter und Setter -- syntaktisch schöner? 
+9 ** Getter und Setter: /Property/ 
+9 ** Getter und Setter: /Property/ -- Beispiel Temperature 
+9 ** Weitere getter/setter: Celsius 
+9 ** Ablauf -- Verständnisfrage 
+9 ** Diskussion: Getter/setter vs. Property 
+9 ** Schnittstelle  (Interface) 
+9 ** Fehler in Methoden? 
+9 ** Fehler bei falschen Methoden? 
+9 ** Fehlermechanismus 
+9 ** Was gehört in eine Klasse? 
+9 ** Prinzip: Single Responsibility
+9 ** Prinzip: Open-Closed (Meyer, 1988) 
+9 ** Prinzip: Abhängigkeiten 
+9 ** Wie ererbt man? 
+9 ** Wie bereit man Klasse auf Ableitung vor? 
+9 ** Zusammenfassung 
+9 ** Spezialisierung und Generalisierung 
+10 ** Setup 						  :skipslide:nolatex:
+10 ** Was bisher geschah 
+10 ** Dieses Kapitel 
+10 ** Vorgehen bisher: Fehlercode 
+
+=======================
+VL:  19
+10 ** Probleme bei Fehlercodes 
+10 ** Probleme bei Fehlercodes -- Beispiel 
+10 ** Probleme bei Fehlercodes -- Analyse
+10 ** Anforderungen Fehlerbehandlung 
+10 ** Mechanismus: Ausnahmen 
+10 ** Was will man über eine Ausnahme wissen? 
+10 ** Ausnahmen als Objekte
+10 ** Ausnahmen und Ausführungsmodell 
+10 ** Ausnahmen: Objekte von ~Exception~
+10 ** Auftreten von Exceptions 
+10 ** Auftreten von Exceptions (2) 
+10 ** Unbehandelte Exceptions 
+10 ** Unbehandelte Exceptions an Halloween 
+10 ** Exceptions behandeln: geschützter Block 
+10 ** Semantik von ~try~ / ~except~, Fehlerfall  
+10 ** Nur Fehler bestimmten Typs behandeln 
+10 ** Nur Fehler bestimmten Typs behandeln (2) 
+10 ** Auf mehrere Fehlerklassen vorbereitet sein 
+10 ** Reihenfolge mehrerer ~except~ 
+10 ** Reihenfolge mehrerer ~except~ 
+10 ** Mehrere ~except~-Blöcke 
+10 ** Exception-Objekt: Aufbewahren und Auswerten 
+10 ** Exception-Objekt: Beispiel 
+10 ** Vorsicht: Exception-Objekt geht out of scope! 
+10 ** Fehlerfreier Fall: ~else~
+10 ** ~else~: Semantik? 
+10 ** ~else~: Typisches Muster 
+10 ** Und zum Abschluss eines Blocks: ~finally~ 
+10 ** ~finally~ und Exceptions 
+10 ** ~finally~ auch ohne ~except~ ausgeführt
+10 ** Exceptions auslösen 
+10 ** Exceptions in Funktionsaufrufen 
+10 ** ~try~ -- Definition 
+10 ** ~try~ in ~try~ ? 
+10 ** ~try~ in ~try~ ! 
+10 ** ~try~ in ~try~ : Beispiel
+10 ** ~try~, Funktionsaufruf, ~try~
+10 ** ~try~, Funktionsaufruf, ~try~  : Beispiel 
+10 ** Ein ~except~, alle ~finally~ 
+10 ** Ein ~except~, alle ~finally~ -- Beispiel 2 
+10 ** Geschachtelte ~try~: Realisierung 
+
+=======================
+VL:  20
+10 ** Typische Muster, wie Exceptions genutzt werden 
+10 ** Exceptions für Fehlerfälle im eigentlichen Sinne 
+10 ** Exceptions anstelle besonderer  Rückgabewerte 
+10 ** Mehrere geschachtelte Schleifen abbrechen
+10 ** Exceptions als Anzeichen für erwartetes Verhalten 
+10 ** Was gehört in ~try~? 
+10 ** Was abfangen? 
+10 ** Coding Style: EAFP vs. LBYL  
+10 ** Eigene Exceptions 
+10 ** Eigene Exception-Klassen 
+10 ** Eigene Exception-Klassen (2) 
+10 ** Exceptions in ~except~? 
+10 ** Exceptions in ~except~? -- Beispiel  
+10 ** Exceptions in ~except~  -- Vorsicht 
+10 ** ~sys.exc_info~ und Tracebacks 
+10 ** ~sys.exc_info~: Beispiel 
+10 ** Traceback 
+10 ** Traceback -- Beispiel 
+10 ** Aufräumarbeiten: Context managers 
+10 ** Aufräumarbeiten: Context managers 
+10 ** ~with ... as~ als Ersatz für ~try~-Muster 
+10 ** Zusammenfassung 
+11 ** Setup 						  :skipslide:nolatex:
+11 ** Was bisher geschah 
+11 ** Dieses Kapitel 
+11 ** Vorüberlegung: ~def~ ist eine Anweisung 
+11 ** ~def~ in Funktionsblock 
+11 ** ~def~ in Funktionsblock: Semantik 
+11 ** Verschachtelte Funktionen: Argumente, Rückgabewert 
+11 ** Verschachtelte Funktionen: Zugriff auf Variablen? 
+11 ** Zugriff auf globale Variablen, lesend
+11 ** Zugriff auf globale Variablen, schreiben 
+11 ** Zugriff auf Variablen der äußeren Funktion? ~global~? 
+11 ** Zugriff auf Variablen der äußeren Funktion? Direkt? 
+11 ** Zugriff auf Variablen der äußeren Funktion -- Reihenfolge? 
+11 ** Modifizierender Zugriff auf Variablen der äußeren Funktion? 
+11 ** Neues Schlüsselwort: ~nonlocal~ 				   
+11 ** Beispiel: Tiefere Verschachtelung (1)
+11 ** Beispiel: Tiefere Verschachtelung (2)
+11 ** Nachschlageregel: LEGB 
+11 ** Vorüberlegung: Referenzen auf Funktionen? 
+
+=======================
+VL:  21
+11 ** Vorüberlegung 2: Funktionsreferenzen als Rückgabewert? 
+11 ** Analogie: Normales Objekt als Rückgabewert
+11 ** Funktionen mit Parametern als Rückgabe? 
+11 ** Funktion mit Zugriff auf nichtlokale Variablen als Rückgabe 
+11 ** Nicht-lokale Variable selbst als Parameter 
+11 ** Beispiel -- Aufgeräumt 
+11 ** Muster: Fabrik (/Factory/)
+11 ** Realisierung: Closures 
+11 ** Nutzen: Fabriken und Closures 
+11 ** Funktionsdefinition bisher: ~def~
+11 ** Funktionsname in Factory: Nötig?
+11 ** Anonyme Funktionen: \lambda-Ausdrücke 
+11 ** \lambda-Ausdrücke -- Beispiele 
+11 ** \lambda-Ausdrücke -- Funktionen an Objekte übergeben 
+11 ** Beobachtung: Funktionen sind first-class citizens 
+11 ** Funktionale Programmierung -- Typische Merkmale 
+11 ** Beispiel: map, filter 
+11 ** Iterables 
+11 ** ~filter~ 
+11 ** ~map~
+11 ** Weitere Operationen auf iterables 
+11 ** \lambda-Ausdrücke und flexible Argumente 
+11 ** Vergleich: list comprehensions und map/filter 
+11 ** Evolution funktionaler Sprache: Großvater LISP 
+11 ** Rein funktionale Sprachen 
+11 ** Funktionen auf /große/ Listen anwenden? 
+11 ** Werte auf Aufforderung -- Skizze? 
+11 ** Werte auf Aufforderung -- Realisierung? 
+11 ** Werte auf Aufforderung -- Generatoren 
+11 ** Generator: Einfaches Beispiel 
+11 ** Generatoren: Nutzung 
+11 ** Generator: Einfaches Beispiel -- Nutzung 
+11 ** Generator: Nutzung in Schleife 
+11 ** Beispiel: Unendlicher Generator 
+11 ** Wesentlicher Punkt: Speicherverbrauch 
+11 ** Generators für List comprehensions 
+11 ** Ausgangspunkt 
+11 ** Überlegung 1: Wir können aus einer Funktion eine neue Funktion bauen 
+11 ** Eingerahmte Ausgabe -- Version 1 
+11 ** Eingerahmte Ausgabe -- Version 2 
+11 ** Eingerahmte Ausgabe -- Version 3 
+
+=======================
+VL:  22
+11 ** Eingerahmte Ausgabe -- Version 4 
+11 ** Muster
+11 ** Dekoration (/decorator/)
+11 ** Decorators: Anwendungen 
+11 ** Decorators für Methoden 
+11 ** Decorators: Syntaktischer Zucker 
+11 ** Decorators: Syntaktischer Zucker (2) 
+11 ** Decorator: kompakte Syntax -- Beispiel
+11 ** Decorator: kompakte Syntax -- Beispiel mit typischen Namen 
+11 ** Decorators: Syntaktischer Zucker (3) 
+11 ** @-Decorators: Beispiel Benchmarking 
+11 ** @-Decorator: Property 
+11 ** @-Decoratoren verketten? 
+11 ** Decorators: Ausblick 
+11 ** War doch gar nicht so schwer
+11 ** Zusammenfassung 
+11 ** Und nun? 
+12 ** Setup 						  :skipslide:nolatex:
+12 ** Was bisher geschah 
+12 ** Dieses Kapitel 
+12 ** Grundidee 
+12 ** Beispiel Uhr, Kalender 
+12 ** Beispiel: Uhr und Kalender? 
+12 ** Mehrfache Oberklassen! 
+12 ** Syntax? 
+12 ** Semantik? 
+12 ** Einfaches Beispiel  
+12 ** Gleiche Methodennamen in Oberklassen? 
+12 ** Gleiche Methodennamen in Oberklassen -- Reihenfolge! 
+12 ** Insbesondere: ~__init__~ ? 
+12 ** ~__init__~ typischerweise mit ~super~? 
+12 ** ~__init__~ ruft Konstruktoren explizit auf? 
+12 ** ~super~ im ~__init__~ der Oberklasse? 
+12 ** Beobachtung
+12 ** Gleiche Daten? 
+12 ** Reihenfolge der Methodenaufrufe 
+12 ** Suche nach auszuführender Methode, erste Ideen 
+12 ** Suche nach auszuführender Methode, Sonderfall Einzelvererbung 
+12 ** Linearisierung nötig für Suche 
+12 ** Zugriff auf MRO 
+12 ** Anforderungen an sinnvolle Linearisierung: Monotonie  
+
+=======================
+VL:  23
+12 ** Anforderungen an sinnvolle Linearisierung: Local precedence ordering 
+12 ** MRO: Erste Idee
+12 ** Darstellung: einfachere Klassendiagramme 
+12 ** Beispiel: Ein Klassendiamand 
+12 ** Problem: Nicht alle Fälle linearisierbar 
+12 ** Problem: Nicht alle Fälle linearisierbar  (2) 
+12 ** Uneinheitliche Reihenfolge
+12 ** Gesucht: Vorgehen für Linearisierung 
+12 ** Linearisierungsalgorithmus: C3 
+12 ** C3: Grundidee 
+12 ** C3: Merge 
+12 ** C3: Merge -- /good heads/
+12 ** C3: Merge -- Definition 
+12 ** Beispiele 
+12 ** C3 -- Pseudocode-Skizze					  :dropslide:
+12 ** C3: Klassendiagramm-Beispiel 0: Keine überlappenden Oberklassen  
+12 ** C3: Klassendiagramm-Beispiel 0  (2) 
+12 ** C3: Klassendiagramm-Beispiel 0  (3) 
+12 ** Beobachtung: Teilsequenz 
+12 ** C3: Klassendiagramm-Beispiel 1 
+12 ** C3: Klassendiagramm-Beispiel 1  (2) 
+12 ** C3: Klassendiagramm-Beispiel 1  (3) 
+12 ** C3: Klassendiagramm-Beispiel 2  
+12 ** C3: Klassendiagramm-Beispiel 2  
+12 ** Praktische Konsequenz? 
+12 ** C3: Nicht-linearisierbare Hierarchie 
+12 ** MRO und Methodenaufrufe in Oberklassen 
+12 ** MRO und Methodenaufrufe in Oberklassen -- Veranschaulichung 
+12 ** MRO und Methodenaufrufe in Oberklassen -- Analyse ~b.f()~
+12 ** MRO und Methodenaufrufe in Oberklassen -- Analyse ~a.f()~
+12 ** MRO: Klasse des Objektes entscheidend 
+12 ** MRO: Nutzung von ~super~? 
+12 ** ~super~ bei Mehrfachvererbung: MRO  
+12 ** ~super~ und MRO: Beispiel 1 
+12 ** ~super~ und MRO: Beispiel 2 
+12 ** ~super~ und MRO: Beispiel  __init__
+12 ** ~super~: Terminologie 
+12 ** Cooperative multiple inheritance 
+12 ** Dependency injection
+12 ** Dependency injection: Pizzeria-Beispiel 
+12 ** Dependency injection: Pizzeria-Beispiel (2) 
+
+=======================
+VL:  24
+12 ** Dependency injection: Muster 
+12 ** Einfachere Variante: Mixins 
+12 ** Mixin: Muster 
+12 ** Zusammenfassung 
+13 ** Setup 						  :skipslide:nolatex:
+13 ** Was bisher geschah
+13 ** Dieses Kapitel 
+13 ** Von Notebooks zu Dateien 
+13 ** Python-Dateien: Skripte (/scripts/) 
+13 ** Skript ausführen 
+13 ** Interpreter 
+13 ** Compiler   
+13 ** Interpreter mit Zwischensprache 
+13 ** Python-Interpreter 
+13 ** Python-Skript ausführen 
+13 ** Python-Interpreter: Interaktiv
+13 ** Code reuse? 
+13 ** Importieren 
+13 ** Importieren: Beispiel 
+13 ** Terminologie: Module vs. Skript 
+13 ** Modul als Skript? Skript als Modul? 
+13 ** Modul vs. Skript: ~__name__~ 
+13 ** Nur bestimmte Namen importieren: ~from ... import~
+13 ** Welche Namen hat ein Modul? 
+13 ** Hilfe zu einem Modul 
+13 ** Suchregeln  für Module
+13 ** Packages 
+13 ** Standard-Module 
+13 ** Standard-Modul: ~os~, ~shutil~
+13 ** Standard-Modul: Kommandozeilen-Argumente 
+13 ** Standard-Modul: Reguläre Ausdrücke
+13 ** Behold the power of regular expressions 
+13 ** Weitere Standard-Module 
+13 ** Zusammenfassung 
+14 ** Setup 						  :skipslide:nolatex:
+14 ** Was bisher geschah 
+14 ** Dieses Kapitel 
+14 ** Installation 
+14 ** Packages installieren 
+14 ** Gekapselte Installation 
+14 ** Virtualenv 
+
+=======================
+VL:  25
+14 ** Virtualenvwrapper 
+14 ** Nützliche Non-Standard-Module 
+14 ** Matplotlib 
+14 **  Editoren mit Unterstützung für  Programmiersprachen 
+14 ** Editoren, Beispiele -- Open-source Beispiele 
+14 ** Emacs 
+14 ** Editoren, Beispiele -- Kommerzielle Beispiele 
+14 ** Integrated Development Environment 
+14 ** Fehlersuche mit ~print~? 
+14 ** Aspekte der Fehlersuche 
+14 ** Aufwand der Fehlerbeseitigung 
+14 ** Vorgehen: Basics 
+14 ** Vorgehen: Fragen stellen 
+14 ** Vorgehen: Annahmen überprüfen 
+14 ** Vorgehen: Reproduzieren 
+14 ** Vorgehen: Erklären Sie Ihren Code!  
+14 ** Vorgehen: Grenze zwischen eigenem Code/Bibliotheken verstehen 
+14 ** Vorgehen: Annahmen sicherstellen (Assertions)
+14 ** Vorgehen: Das Wissen der Alte 
+14 ** Vorgehen: Fixes 
+14 ** Vorgehen: Erfahrung 
+14 ** Ansätze: Was kann man tun? 
+14 ** Debugger für Python 
+14 ** Good debuggers help
+14 ** Testfälle 
+14 ** Automatisiert testen 
+14 ** Test-driven design 
+14 ** Zusammenfassung 
+15 ** Setup 						  :skipslide:nolatex:
+15 ** Was bisher geschah 
+15 ** Dieses Kapitel 
+15 ** Vergleich inkompatibler Typen 
+15 ** Operationen auf inkompatiblen Typen 
+15 ** Aufruf nicht vorhandener Methoden 
+15 ** Aufruf von Methoden bei falschem Objekt 
+15 ** Vermeidbar?
+15 ** Allgemeiner: Fehler vor Laufzeit aufdecken? 
+15 ** Problem bei dynamischen Sprachen: Fehlende Information 
+15 ** Stark typisierte Sprachen 
+15 ** Erinnerung (Kapitel 3): Dynamisch typisierte Sprachen 
+15 ** Erinnerung (Kapitel 3): Statisch typisierte Sprache 
+
+=======================
+VL:  26
+15 ** Erinnerung: Compiler vs. Interpreter 
+15 ** Erinnerung: Compiler vs. Interpreter 
+15 ** Grundidee 
+15 ** Zuweisungen an typisierte Variablen 
+15 ** Schachteln mit Form 
+15 ** Zuweisung gleichen Typs 
+15 ** Zuweisung inkompatibler Typen 
+15 ** Zuweisung inkompatibler Typen: Größe 
+15 ** Zuweisung inkompatibler Typen: Wert umbauen 
+15 ** Zuweisung inkompatibler Typen: Wert umbauen (2)
+15 ** Typumwandlung (type cast): Explizit oder implizit 
+15 ** Type cast bei Python 
+15 ** Typen und Klassen? 
+15 ** Typen, Klassen und Vererbung? 
+15 ** Unterklasse und Oberklasse mit zusätzlicher Eigenschaft
+15 ** Wert einer Oberklasse an Variable vom Typ Unterklasse zuweisen 
+15 ** Wert einer Unterklasse an Variable vom Typ Oberklasse zuweisen 
+15 ** Wert einer Unterklasse an Variable vom Typ Oberklasse zuweisen (2)
+15 ** Funktionsaufrufe: Parameter, Rückgabewerte 
+15 ** Vorteile statischer Typsysteme 
+15 ** Nachteile statischer Typsysteme 
+15 ** Beste zweier Welten? 
+15 ** Zusammenfassung 
+15 ** Und nun? 
+16 ** Was bisher geschah 
+16 ** Dieses Kapitel 
+16 ** Objektorientierung und Dateien 
+16 ** Programmstruktur aus mehreren Dateien? 
+16 ** Dateiname entspricht Klassenname 
+16 ** Übersetzen und Starten eines Programm 
+16 ** Übersetzen und Starten eines Programm -- Beispiel 
+16 ** Mehrere Dateien zusammenfügen 
+16 ** Anmerkung: Java  und Jupyterhub 
+16 ** Anmerkung: Java, Dateien, Editoren, IDE 
+16 ** Syntax: Klammern, Klammern 
+16 ** Syntax: Geschwätzig 
+16 ** Syntax: Semikolon 
+16 ** Hello world aus zwei Welten 
+16 ** Schlüsselwörter 
+16 ** Datentypen 
+16 ** Kommentare 
+
+=======================
+VL:  27
+16 ** Einfache Datentypen 
+16 ** Zuweisungen zwischen Zahlen, implizite typecasts 
+16 ** Implizite typecasts in Ausdrücken 
+16 ** Zusammengesetzte Datentypen: Array 
+16 ** Mehrdimensionale Arrays 
+16 ** Spezialfall: String 
+16 ** Klassen als Datentypen 
+16 ** Variablendeklaration mit Typen  
+16 ** Variablendeklaration mit einfachen Typen: Beispiele  
+16 ** Variablendeklaration mit einfachen Typen: Beispiele  
+16 ** Anmerkung: Code-Fragmente
+16 ** Zuweisungen, Fall 1: gleicher, einfacher Typ 
+16 ** Zuweisungen, Fall 2: kompatibler, einfacher Typ 
+16 ** Zuweisungen, Fall 3: nicht kompatibler, einfacher Typ 
+16 ** Zuweisung mit expliziten typecasts 
+16 ** Zuweisungen einfacher Typen: Werte in Schachteln 
+16 ** Zuweisungen komplexer Typen 
+16 ** Zuweisung komplexer Typen: Beispiel 2 (Strings verändern) 
+16 ** Zuweisung komplexer Typen: Beispiel 3 (array) 
+16 ** Zeiger (Referenzen) 
+16 ** Unterschiedliche Semantik von Variablen 
+16 ** Unterschiedliche Semantik: Warum? 
+16 ** Kopie des  Werts einer Referenzvariable? 
+16 ** Verzweigungen: ~if~, ~else~ 
+16 ** ~if~ mit einer Anweisung 
+16 ** ~if~ mit Blöcken 
+16 ** Dangling else 
+16 ** Dangling else (2)
+16 ** Dangling else: Äquivalenz 
+16 ** Kein ~elif~
+16 ** ~switch~: Mehrfachverzweigung 
+16 ** ~switch~: Beispiel 
+16 ** ~while~-Schleifen 
+16 ** Variante: ~do~- ~while~ -Schleife 
+16 ** ~for~-Schleife 
+16 ** Klassisches ~for~: Ersatz von ~while~-Muster 
+16 ** ~while~-Schleife: Beispiel für Muster 
+16 ** Knapper: ~for~
+16 ** ~for~-Schleife: Syntax 
+16 ** ~for~-Schleife: Variablen 
+16 ** Klassisches ~for~: Beispiel 
+
+=======================
+VL:  28
+16 ** Beispiel: Multiplikationstabelle ausgeben 
+16 ** Modernes ~for~: Iterator 
+16 ** Schleifenabbruch: ~break~ 
+16 ** Funktionen 
+16 ** Zusammenfassung 
+17 ** Was bisher geschah
+17 ** Dieses Kapitel 
+17 ** Objektorientierung 
+17 ** Klassen: Deklaration eines Typs 
+17 ** Klassendeklaration: Beispiel Ellipse 
+17 ** Ellipsenobjekt erzeugen 
+17 ** Ellipsenobjekt erzeugen 
+17 ** Zugriff auf Daten 
+17 ** Zuweisung zwischen Objektvariablen 
+17 ** Arrays in Objekten, Arrays von Objekten 
+17 ** Methoden einer Klasse 
+17 ** Klassendeklaration: Beispiel Ellipse mit Methode 
+17 ** Signatur einer Methode 
+17 ** Überladene Methoden 
+17 ** Überladene Methoden: Beispiele 
+17 ** Aufrufsemantik: Parameter  
+17 ** Aufrufsemantik: Beispiel für Aufruf mit Referenztypen 
+17 ** Aufrufsemantik: Parameter  (2)
+17 ** Aufrufsemantik: Rückgabewert 
+17 ** Aufrufsemantik: Rückgabewert (2)
+17 ** Rückgabewert und kompatible Typen 
+17 ** Rückgabewert und kompatible Typen 
+17 ** Mehrere Rückgabewerte 
+17 ** Lokale und globale Variablen 
+17 ** Globale Variablen: Beispiel 
+17 ** Statische Methoden 
+17 ** Statische und objektbezogene Attribute in Java 
+17 ** Sichtbarkeit 
+17 ** Lebensdauer 
+17 ** Sichtbarkeit und Lebensdauer: Vergleich 
+17 ** Konstruktoren 
+17 ** getter und setter
+17 ** Wrappers, Boxing 
+17 ** Konzept 
+17 ** Syntax 
+17 ** Kompatibilität bei Zuweisung 
+
+=======================
+VL:  29
+17 ** Zugriff auf Felder nach Zuweisung zu Variable eines Oberklassentyps 
+17 ** Unterklasse zurückbekommen? Typecasts zwischen Objekten? 
+17 ** Typecast wenn falsches Objekt? 
+17 ** Vor einem Typecast nachschauen? Reflektion? 
+17 ** Dynamische Methodenbindung 
+17 ** Dynamische Methodenbindung: Beispiel
+17 ** Dynamische Methodenbindung:  Beobachtung 
+17 ** Sichtbarkeit zwischen Klassen 
+17 ** Sichtbarkeit zwischen Klassen: Annotationen 
+17 ** Sichtbarkeit zwischen Klassen: Zugriff von außen  
+17 ** Sichtbarkeit zwischen Klassen: Zugriff von Unterklasse   
+17 ** Sichtbarkeit zwischen Klassen: Zugriff von Unterklasse und ~super~  
+17 ** Sichtbarkeit zwischen Klassen: Übersicht 
+17 ** Sichtbarkeit zwischen Klassen: Misstrauen 
+17 ** Vertrauen zwischen Klassen: ~final~  
+17 ** Warum Misstrauen? 
+17 ** Mehrfachvererbung in Java
+17 ** Gefahr Mehrfachvererbung in Java 
+17 ** Ersatz: Abstrakte Klassen und Interfaces 
+17 ** Abstrakte Klassen: Tierfarm als Beispiel 
+17 ** Implementierung von ~Tier~? 
+17 ** Lösung: Methode als Platzhalter markieren 
+17 ** Objekte von abstrakten Klassen? 
+17 ** Unterklassen von abstrakten Klassen: Fehlende Methoden ergänzen 
+17 ** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse 
+17 ** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse  (2) 
+17 ** Variablen abstrakter Klassen speichern Referenz auf konkrete Unterklasse  (3) 
+17 ** Alle Methoden abstrakt
+17 ** Datenattribute weglassen 
+17 ** Mehrverfachererbung mit LeVAKs? 
+17 ** Mehrverfachererbung mit LeVAKs -- Beispiel   
+17 ** Nutzen Mehrfachvererbung nur mit LeVAKs? 							   
+17 ** Mehrverfachererbung: LeVAKs, und eine richtige Klasse? 
+17 ** Mehrverfachererbung: LeVAKs, und eine richtige Klasse --  Risiko?  Nutzen? 
+17 ** Javas Einstellung
+17 ** Interfaces statt LeVAKs, neue Schlüsselworte 
+17 ** ~interface~ und ~extend~: Beispiel 
+17 ** ~interface~ und ~extend~
+17 ** ~interface~ vs. LeVAK 
+17 ** ~interface~: Die kleinen Details 
+17 ** ~interface~ in Java 8 
+
+=======================
+VL:  30
+17 ** ~interface~ in Java 8 
+17 ** ~interface~ in Java 8: Diamond of Death! 
+17 ** ~interface~ in Java 8: Diamond of Death! 
+17 ** Einfach- oder Mehrfachvererbung? 
+17 ** Zusammenfassung 
+17 ** Nichts ist umsonst! 
+17 ** Sprachen sind auch nur ein Werkzeug! 
+17 ** Grenzen von Sprachen 
+18 ** Was bisher geschah 
+18 ** Dieses Kapitel 
+18 ** Exceptions 
+18 ** Exceptions im Methodenkopf 
+18 ** Nutzung solcher Methoden 					    
+18 ** Java 8: Lambda-Ausdrücke! 
+18 ** Java 8: Lambda-Ausdrücke -- Beispiel  mit Interface 
+18 ** Java 8: Lambda-Ausdruck ohne Interface 
+18 ** Java 8: Lambda vs. Closures 
+18 ** Generizität 
+18 ** Generische Typen 
+18 ** Pakete 
+18 ** Pakete und Verzeichnisse 
+18 ** Pakete von Paketen, Verzeichnisse in Verzeichnissen 
+18 ** Klassen, Pakete - wo gesucht? 
+18 ** Explizites Importieren aus Paketen 
+18 ** Implizites Importieren 
+18 ** Sichtbarkeit bzgl. Paketen 
+18 ** Standardpakete 
+18 ** Standardpakete: java.util.Collection  
+18 ** Standardpakete: java.util.Collection -- Interface Collection  
+18 ** Standardpakete: java.util.Collection -- Interface Iterator   
+18 ** Standardpakete: java.util.Collection -- Beispiel ~ArrayList~   
+18 ** Standardpakete: java.util.Collection -- Beispiel ~FileInputStream~   
+18 ** Zusammenfassung 
+
