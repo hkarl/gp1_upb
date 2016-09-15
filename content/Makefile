@@ -1,6 +1,6 @@
 # Top-level makefile
 
-.PHONY: makefiles distribute all cleanall newch
+.PHONY: makefiles distribute all cleanall newch  slidetitles
 
 # we need an up-to-date rsync to support the chown option (v 3.1 of rsync seems to do the job):
 # (on mac: brew install rsync; possibly with a brew tap first)
@@ -70,3 +70,8 @@ newch:
 	cp template/template.org $(ch)/$(ch).org
 	ln -s ../template/Makefile $(ch)
 	ln -s ../../template/uml.Makefile $(ch)/uml/Makefile
+
+
+slidetitles:
+	find . -name "*.org" |  xargs grep "^\*\* "  | grep  -v UEBUNG | grep -v TODO | grep -v tmp | grep -v "#+TODO:" | grep -v toc | grep -v template | sed s#\./.*/ch## | sed "s/-\(.*\)org:/ /" | sort -n -k1,1 -s > slidetitles
+	python3 groupby.py 30 < slidetitles
