@@ -310,7 +310,7 @@ Hallo
 ** Syntaxregel: Text als Zeichenkette
 
 - Text wird durch eine Kette von einzelnen Zeichen, kurz
-  /Zeichenkette/ dargestellt
+  /Zeichenkette/, dargestellt
 - Zeichenkette muss in Anführungszeichen eingeschlossen sein 
 
 
@@ -347,7 +347,7 @@ Zahlen kann man addieren - was ist mit Zeichenketten?  Erwartung?
 
 
 
-*** Semantik von  ~+~ bei  Zeichenketten 		       :B_definition:
+*** Semantik von  ~+~ bei  Zeichenketten	       :B_definition:animate:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
@@ -629,7 +629,7 @@ Was ist
  ((5+3*2) < 17-5) and ((1*1) > -1)
 #+END_SRC
 
-*** TODO slido/pingo? 
+*** TODO slido/pingo?					:dropslide:skipslide:
 
 ** Vereinfachen?						   :subslide:
    
@@ -666,7 +666,7 @@ lazy eval bei and und or erkunden, überlegen, ausprobieren
 
 ausprobieren, vorhersagen lassen was passiert, ... 
 
-*** Maximale Zahl ? 
+*** UEBUNG Maximale Zahl ? 
 
 
 
@@ -729,10 +729,14 @@ Man spricht dann von /Operator Overloading/.
  
 *** Beispiel: Multiplikation 
 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :exports both :results output
 3 * 5
-"Hallo" * 5
 #+END_SRC
+
+#+BEGIN_SRC python :exports both :results output
+"Hallo" * 5 
+#+END_SRC 
+
 
 ** Arithmetik? ~int~ und ~float~ ?  
 
@@ -826,7 +830,7 @@ können, ohne dass sie explizit konvertiert werden müssen.
 
 - Eine schwach typisierte Sprache würde 9 + '9' erlauben. 
 - Aber bedeutet das dann '99' oder 18? 
-- Sprache: Perl 
+- Sprache: Perl, C (alte Versionen) 
 
 ** Bemerkung: Starke vs. schwache Typisierung (2)
 

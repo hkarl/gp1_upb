@@ -1574,7 +1574,7 @@ Zaun mit Pfählen im Abstand von 10m?
 
 - ~for i in range(??)~
 
-*** pingo? 
+*** TODO pingo?						:dropslide:skipslide:
 
 
 ** Terminierung von ~for~ und  ~range~				   :subslide:

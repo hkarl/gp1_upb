@@ -47,7 +47,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 *** Aufheben?							    :animate:
 
 - Wie können wir den Wert eines Ausdrucks aufbewahren?
-- Wie können wir wieder benutzen? 
+- Wie können wir den Wert wieder benutzen? 
 
 ** Namen! 
 
@@ -103,7 +103,7 @@ Name *referenziert* den Wert; der Wert wird der Variable *zugewiesen*.
 - Eine Zuweisung ändert den Zustand des laufenden Programms 
 
 
-*** Wert erzeugen?						       :note:
+*** Wert erzeugen?						  :dropslide:
 
 Die Formulierung, einen Wert zu /erzeugen/, ist für das hier gewählte
 Beispiel ggf. missverständlich -- inwieweit kann oder muss die Zahl 42
@@ -157,7 +157,7 @@ a = 42
 
 
 
-*** Schilder an Werten oder Boxen mit Aufschrift?		       :note:
+*** Schilder an Werten oder Boxen mit Aufschrift?		  :dropslide:
 
 Wenn Sie schon mit anderen Programmiersprachen wie etwa Java vertraut
 sind, ist die Vorstellung, ein Variablenname ist eine Referenz auf
@@ -277,6 +277,7 @@ ein, ist aber kein formaler Bestandteil der Sprache.
 
 #+BEGIN_SRC python
 a = 5
+a + 17
 #+END_SRC
 
 
@@ -619,8 +620,8 @@ Wert; der Wert wird der Variable *zugewiesen*.
 *** Schreibweise 
 
 - Zuweisung wird durch ein Gleichheitszeichen angegeben
-- Links davon: der oder die Namen, durch Komma getrennt
-- Rechts davon: der oder die Werte, durch Komma getrennt 
+- Links davon: der oder die *Namen*, durch Komma getrennt
+- Rechts davon: der oder die *Werte*, durch Komma getrennt 
 
 
 
@@ -774,12 +775,12 @@ Einige aufgetauchte Syntaxregeln:
 
 - Auch: Empfehlungen zu Struktur der Kommentare 
 
-- Sinnlos: Offensichtliches 
+***  Sinnlos: Offensichtliches 
 #+BEGIN_SRC  python 
 x = x + 1   # Erhoehe x um 1 
 #+END_SRC
 
-- Sinnvoll: /Grund/ für die Anweisung 
+*** Sinnvoll: /Grund/ für die Anweisung 
 #+BEGIN_SRC python 
 x = x + 1   # Platz am Rand lassen 
 #+END_SRC

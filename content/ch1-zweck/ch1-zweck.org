@@ -259,7 +259,7 @@ Mit Speicher, CPU, Instruktionssatz ergibt sich ein
 
 ** Ausführungsmodell 
 
-*** Ausführungsmodell				       :B_definition:animate:
+*** Ausführungsmodell					       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:

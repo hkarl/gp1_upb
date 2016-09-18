@@ -110,8 +110,22 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 ** Vorlesung GP1 -- Termine					   :subslide:
 
+*** Regulär 
+
 - Di, 14:15 -- 15:45, Hörsaal L1 
 - Mi, 14:15 -- 15:45, Hörsaal L1 
+
+*** Ausfall							    :animate:
+
+- 1. November
+- 15. Dezember (und evtl. 14. Dezember) 
+
+*** Ersatz, jeweils ZWEI Vorlesungen!				    :animate:
+
+- *Samstag*, 22. Oktober,  9:00 - 12:30   (Punkt 9!) 
+- *Samstag*, 19. November,  9:00 - 12:30 (Punkt 9!) 
+
+
 
 ** Hausübungen  -- Zweck 
 
@@ -351,6 +365,7 @@ Zulassungsvoraussetzungen erfüllen:
 
 * Zusammenfassung 
 
+** Zusammenfassung 
 - Vorlesungen haben Organisationsaufwand :-) 
 
 

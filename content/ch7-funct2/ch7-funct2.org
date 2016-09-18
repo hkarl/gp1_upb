@@ -497,7 +497,7 @@ f()
 x = 7
 #+END_SRC 
 
-*** TODO Pingo? 
+*** TODO Pingo?						:dropslide:skipslide:
 
 ** Sichtbarkeit bei schreibendem Zugriff? 
 

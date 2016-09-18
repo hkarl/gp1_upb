@@ -62,7 +62,7 @@ Was hätten wir gerne?
 
 ** Tuple 
 
-- Wunschlist mit sog. /Tuples/ erfüllt 
+- Wunschliste mit sog. /Tuples/ erfüllt 
 
 
 
@@ -391,7 +391,7 @@ print(t[t[2][0:1][0]-1:t[2][1]])
 #+END_SRC 
 
 
-*** TODO pingo? 
+*** TODO pingo?						:dropslide:skipslide:
 
 
 ** Verknüpfungen 
@@ -742,7 +742,7 @@ print(L.index(2))
 : 1
 
 
-*** TODO pingo? 
+*** TODO pingo?						:dropslide:skipslide:
 
 ** Veränderung von Listenelementen				   :subslide:
 

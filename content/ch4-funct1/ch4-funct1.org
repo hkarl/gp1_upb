@@ -248,6 +248,7 @@ def g():
 z = 42
 #+END_SRC
 
+*** Wieviele Anweisungen hier ausgeführt?			    :animate:
 
 *** UEBUNG Leerzeichen? Tabs? 
 
@@ -1204,7 +1205,7 @@ Einrückung?
 
 ** Weitere Aspekte von ~print~: Mehrere Parameter 
 
-- ~print~ kann eine /beliebige Anzahl/ an Parameter verarbeiten
+- ~print~ kann eine /beliebige Anzahl/ an Parametern verarbeiten
   - Durch Komma
   - Werden nach einander ausgegeben 
   - (Das geht bei allen Funktionen, siehe späteres Kapitel) 
@@ -1285,7 +1286,7 @@ Was wird hier ausgegeben?
 : 111
 
 
-*** TODO Pingo? 
+*** TODO Pingo?						:dropslide:skipslide:
 
 
 
