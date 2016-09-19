@@ -1,6 +1,6 @@
 # Top-level makefile
 
-.PHONY: makefiles distribute all cleanall newch  slidetitles uebungen
+.PHONY: makefiles distribute all cleanall newch  slidetitles uebungen book
 
 # we need an up-to-date rsync to support the chown option (v 3.1 of rsync seems to do the job):
 # (on mac: brew install rsync; possibly with a brew tap first)
@@ -26,7 +26,7 @@ buildall: makefiles
 	done
 
 book:
-	cd book ; ./make.sh
+	cd book ; bash ./make.sh
 
 cleanall: makefiles
 	for d in ch* ; do \
