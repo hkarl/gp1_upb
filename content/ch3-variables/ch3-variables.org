@@ -412,7 +412,43 @@ b = a
 - Sie können das selbst nutzen
   - direkt auf Webseite von PythonTutor 
   - oder aus den Jupyter-Notebooks heraus: mit ~%%tutor~ in
-    der ersten Zeile 
+    der ersten Zeile
+  - aus dem Skript heraus: Links [[http://www.pythontutor.com][(PT link)]]
+
+*** Pythontutor links im Skript					  :dropslide:
+
+Wenn Sie im Skript (PDF-Datei) auf eine Code-Beispiel stossen, bei dem
+unter dem Quellcode (PT link) steht. Wenn Sie auf diesen Link klicken,
+sollte sich ein Browser-Fenster öffnen, das auf die Webseite von
+Pythontutor zeigt und wo das entsprechende Code-Beispiel bereits
+eingetragen ist. 
+
+Sie können dort das Code-Beispiel noch editieren oder direkt auf den
+Knopf "Visualize Execution" unterhalb des Editier-Fensters drücken
+(Abbildung [[fig:pt-edit]]).
+
+#+CAPTION: PythonTutor: Editier-Ansicht
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{PythonTutor: Editier-Ansicht \label{fig:pt-edit}}
+#+NAME: fig:pt-edit
+[[./figures/pt-edit-screen.png]]
+
+ 
+
+Danach kommen Sie zu einer zweiten Ansicht, in der Sie durch Forward
+und Backward das Programm in einzelnen Schritten ausführen können
+(Abbildung [[fig:pt-run]]). Links werden die jeweils auszuführenden
+bzw. gerade ausgeführte Anweisung durch rote bzw. grüne Pfeile
+angezeigt. Rechts sieht man die Belegungen von Variablen.
+
+#+CAPTION: PythonTutor: Ausführungs-Ansicht
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{PythonTutor: Ausführungs-Ansicht \label{fig:pt-run}}
+#+NAME: fig:pt-run
+[[./figures/pt-start-screen.png]]
+
+
+
 
 ** Animationen von Programmen -- Quellcode 
 
