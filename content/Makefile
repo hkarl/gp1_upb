@@ -49,8 +49,6 @@ distribute:
 	rsync -vazh ../output/ ${GP1SERVERDIR}
 
 	# sync into the invidual directories; make sure to set permissions correclty
-
-	# intention: use distribute-notebook, but that is buggy 
 	ssh root@gp1test.cs.upb.de "python3.4 /home/jupyterhub/gp1/build/copy-file-to-user.py -a -s /home/jupyterhub/output/vorlesung/ -t vorlesung -c ch -x .ipynb -x .tgz -x .pdf -d figures -d uml"
 
 
