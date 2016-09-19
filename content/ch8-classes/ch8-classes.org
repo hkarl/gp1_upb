@@ -86,7 +86,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
     werden können? 
 - Optionen?
   - Namenskonvention? Für die Funktionen?
-  - Im Programmcode "nahe beinander" aufschreiben? 
+  - Im Programmcode /nahe beinander/ aufschreiben? 
 - *Nicht überzeugend!*
 
 ** Zusammenhang explizit? 
@@ -163,6 +163,17 @@ Eine Klasse wird in UML als eine Box mit drei Teilen gezeichnet: Im ersten Teil 
 #+END_LaTeX
 
 
+*** UEBUNG Wietere Beispiele für Klassen ausdenken 
+
+
+- Fahrzeug 
+- Andere Typen in Malprorammen 
+- Buch 
+- Artikel in Webshop
+- usw. 
+
+(Nach keine Hierarchien, kommt später) 
+
 ** Klasse: Definition 
 
 *** Klasse						       :B_definition:
@@ -184,8 +195,8 @@ beschreibt in einer kompakten, zusammenhängenden Form
     Methoden und Daten aufgeführt werden
   - In diesem Block dürfen Anweisungen stehen
 - Einfachstes Beispiel: Eine Klasse ohne Daten, ohne Operationen  
-- Anmerkung: ~pass~ ist syntaktisch notwendig; es darf keinen leeren
-  Block geben. ~pass~ ist die Anweisung, die nichts tut.
+  - Anmerkung: ~pass~ ist syntaktisch notwendig; es darf keinen leeren
+    Block geben. ~pass~ ist die Anweisung, die nichts tut.
 
 #+BEGIN_SRC python :exports both :results output
   class Ellipse:
@@ -218,7 +229,7 @@ Namenskonventionen:
 - Diese Anfangswerte werden durch eine spezielle Methode der Klasse
   verarbeitet, den /Konstruktor/
   - In Python, per Konvention: ~__init__~ 
-- Der Konstruktur nimmt die Anfangswert und befüllt damit die
+- Der Konstruktur nimmt die Anfangswerte und befüllt damit die
   Attribute der Klasse 
 
 
@@ -259,6 +270,9 @@ Eine Instanz einer Klasse wird in UML ähnlich notiert wie eine Klasse -- Abbild
 #+ATTR_LaTeX: :caption \caption{Instanz der Ellipsen-Klassen \label{fig:uml-ellipse-instanz}} 
 #+NAME: fig:uml-ellipse-instanz
 [[./uml/ellipse-instanz.png]]
+
+
+*** UEBUNG Beispiel-Instanzen fpr die zuvor ausgedachten Klassen 
 
 ** Objekt: Zugriff auf die eigenen Attribute?  
 
@@ -308,13 +322,13 @@ Fangen wir mit dem Konstruktur der Klasse ~Ellipse~ an:
 ** Konstruktor -- Struktur (2)
 
 - Diese Methode hat fünf Parameter:
-  - Den besonderen Parameter ~self~
+  - Den besonderen Parameter ~self~: repräsentiert *das Objekt selbst*
   - ~x~ und ~y~ für den Mittelpunkt, ~a1~ und ~a2~ für die beiden
     Achsen einer Ellipse
 - Die Methode ~__init__~ kopiert die letzen vier Parameter in
   Attribute des Objektes
-  - Erkennbar durch das Voranstellen von ~self.~ (der Punkt ist wichtig)!
-  - Die Namen der Parameter under Attribute müssen nicht gleich sein
+  - Attribut des Objekts: Erkennbar durch das Voranstellen von ~self.~ (der Punkt ist wichtig)!
+  - Die Namen der Parameter und der Attribute müssen nicht gleich sein
   - Kann aber praktisch sein, ähnliche Namen zu nutzen --
     Dokumentation! 
 
@@ -347,9 +361,10 @@ e1 = Ellipse(1, 2, 17.5, 0.4)
   ~self~?
 - Überlegung: ~self~ kann man beim Erzeugen des Objekts gar nicht
   angeben; das Objekt gibt es ja noch nicht
-  - Also kann man das auch nicht "von Hand" an den Konstruktor
+  - Also kann man das auch nicht /von Hand/ an den Konstruktor
     übergeben
-  - Das muss die Programmiersprache von alleine erledigen! 
+  - Das muss die Programmiersprache (der Interpreter) von alleine
+    erledigen!
 
 ** Instanziieren und Konstruktoraufruf (2) 
 
@@ -405,7 +420,10 @@ Zustand.
 
 **** Erzeugen des Objekts, Aufruf des Konstruktors 
 
-Im nächsten Schritt (Abbildung [[fig:instantiate-before-constructor]]),
+Im nächsten Schritt 
+#+BEGIN_LaTeX
+(Abbildung~\ref{fig:instantiate-before-constructor}),
+#+END_LaTeX
 mit der Ausführung der Zeile 8, beginnt der 
 Aufruf des Konstruktors. Hier wurde bereits das Objekt an sich
 angelegt -- im rechten Teil als ~Ellipse instance~ zu
@@ -426,8 +444,11 @@ entsprechenden Werte.
 
 **** Erzeugen des ersten Attributes 
 
-Sobald die Zeile 3 ausgeführt wurde (Abbildung
-[[fig:instantiate-first-attribute]]), wurde das erste Attribut (der Name
+Sobald die Zeile 3 ausgeführt wurde
+#+BEGIN_LaTeX
+(Abbildung~\ref{fig:instantiate-first-attribute}),
+#+END_LaTeX
+wurde das erste Attribut (der Name
 ~x~) im Ellipse-Objekt angelegt. In ~Ellipse instance~ ist ein
 Pfeilpaar entstanden; der erste Pfeil weisst auf den String ~x~ -- den
 Namen des Attributes -- der zweite Pfeil auf den Wert 1.  Natürlich
@@ -465,8 +486,11 @@ anderen Sprachen. Sie sollten diesen notationellen Unterschied nicht
 
 **** Erzeugen aller Attriubute 
 
-Nachdem Zeile 6 ausgeführt wurde (Abbildung
-[[fig:pt-instantiate-constructor-done]]) sind die weiteren Attribute ~y~,
+Nachdem Zeile 6 ausgeführt wurde 
+#+BEGIN_LaTeX
+(Abbildung~\ref{fig:instantiate-constructor-done})
+#+END_LaTeX
+sind die weiteren Attribute ~y~,
 ~achse1~ und ~achse2~ im Namensraum ~self~ erzeugt worden.
 
 Beachten Sie hier den ~return~-Wert der ~__init__~-Methode: das ist
@@ -481,7 +505,11 @@ Beachten Sie hier den ~return~-Wert der ~__init__~-Methode: das ist
 
 Nachdem dem Ende des Konstruktors ~__init__~ zeigt der Name ~e1~ auf
 das gerade erzeugte und durch den Konstruktor mit Attributen befüllte
-Objekt (Abbildung [[fig:pt-instantiate-ready]]). 
+Objekt
+#+BEGIN_LaTeX
+ (Abbildung~\ref{fig:pt-instantiate-ready}). 
+#+END_LaTeX
+
 
 #+CAPTION: Instantiieren des Objektes: Nach Ende des Konstruktors
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -499,10 +527,16 @@ Sprachkonvention bei Python ist, bei einem Konstruktor *keine*
 Zuweisung des erzeugten Objektes an den Namen ~e1~ erfolgt implizit. 
 
 
-Zur besseren Übersichtlichkeit in Abbildung
-[[fig:pt-instantiate-ready-compact]] noch die kompakte Darstellung des
-Endzustandes (inhaltlich äquivalent zu Abbildung
-[[fig:pt-instantiate-ready]]).
+Zur besseren Übersichtlichkeit in
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:pt-instantiate-ready-compact}
+#+END_LaTeX
+noch die kompakte Darstellung des
+Endzustandes (inhaltlich äquivalent zu
+#+BEGIN_LaTeX
+ Abbildung~\ref{fig:pt-instantiate-ready}
+#+END_LaTeX
+).
 
 #+CAPTION: Instantiieren des Objektes: Nach Ende des Konstruktors, kompakte Darstellung
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -566,7 +600,7 @@ Darstellung des gleichen Zustands.
 [[./figures/pt-three-ellipses-compact.png]]
 
 
-
+*** UEBUNG Andere Klassen definieren , andere Objekte instantiieren 
 
 ** Flexible Konstruktoren 
 
@@ -631,9 +665,11 @@ def complex(real, imag):
 #+END_SRC
 
 
-*** Für Klassen? 
+***  Für Klassen? 
 
 - Dokumentation einer Klasse durch docstrings? 
+
+
 
 ** docstring für Klasse 
 
@@ -687,7 +723,9 @@ sollten nicht in eigenem Code definiert werden!
   - ~__dict__~ : Das ~dict~-Objekt, in dem die Attribute abgelegt sind 
 
 
+*** UEBUNG Das dict von Ellipse ausgeben lassen 
 
+*** UEBUNG Dem dict von Ellipse einen weiteren Wert hinzufügen 
 
 * Definition und Aufruf weiterer Methoden 
 
@@ -733,6 +771,7 @@ Namen mit den entsprechenden Funktionen verbunden.
 [[./figures/pt-class-attributes.png]]
 
 
+*** UEBUNG dict ausgeben lassen! 
 
 ** Weitere Methoden: Auf ~self~ achten! 
 
@@ -783,8 +822,7 @@ Namen mit den entsprechenden Funktionen verbunden.
 #+END_SRC 
 
 #+RESULTS:
-: <bound method Simple.f of <__main__.Simple object at 0x101178588>>
-: f aufgerufen
+: <bound method Simple.f of <__main__.Simple object at 0x1010355c0>>
 : f aufgerufen
 
 
@@ -819,8 +857,8 @@ Namen mit den entsprechenden Funktionen verbunden.
   - ~Simple.f(s)~
 - Das bedeutet:
   - Nimm die Klasse ~Simple~
-  - Davon die Funktion ~f~, die ja einen Parameter erwartet44
-  - Rufe diese Funktion auf, und Übergabe eine Referenz auf das Objekt
+  - Davon die Funktion ~f~, die ja einen Parameter erwartet
+  - Rufe diese Funktion auf und übergebe eine Referenz auf das Objekt
     ~s~ an den Parameter ~self~
 - Und damit ist das eigentlich *ein ganz normaler Funktionsaufruf*!!!
 
@@ -841,6 +879,8 @@ Namen mit den entsprechenden Funktionen verbunden.
 : f aufgerufen mit Objekt: <__main__.Simple object at 0x101278588>
 
 
+*** UEBUNG Was passiert, wenn mit mehreren Objekten aufgerufen wird? 
+
 ** Konventionen für weitere Methoden 
 
 - ~__init__~ ist eine Konvention für die Konstruktor-Methode 
@@ -858,16 +898,18 @@ Namen mit den entsprechenden Funktionen verbunden.
   3.3,  für Details 
 
 
+*** UEBUNG Für Ellipse lt implementieren? Erklären, warum das komisch ist? 
 
 ** Gleichheit? 
 
-- Gleichheit der Referenz: Zwei Namen referenzieren das gleiche Objekt 
+- Gleichheit der Referenz/Identität: Zwei Namen referenzieren das
+  identische Objekt
   - Durch ~is~ getestet
   - Auch durch ~==~ falls kein ~__eq__~
 - Inhaltliche Gleichheit: Eine Klasse kann beliebig definieren, wann
   zwei unterschiedliche Objekte als /gleich/ angesehen werden sollen
   - Hinreichend ähnlich, kongruent, ... je nach Anwendung
-  - Durch ~__eq__~ realisiert 
+  - Durch ~__eq__~ realisiert, durch ~==~ benutzt falls vorhanden 
 
 ** Gleichheit -- Beispiel ohne ~eq~ 
 
@@ -1072,8 +1114,8 @@ s.f()
 
 - Offenbar definiert also eine Klasse einen Namensraum, in dem
   Funktionsnamen zugreifbar sind
-- Bisher haben wir in diesem Namensraum nur Methoden vereinbart, die ~self~
-  als ersten Parameter haben 
+- Bisher haben wir in diesem Namensraum nur Methoden vereinbart, die
+  ~self~ als ersten Parameter haben
 - Was, wenn kein ~self~? 
 
 ** ~self~-lose Methoden 
@@ -1097,7 +1139,7 @@ s.f()
 - Offenbar kann so eine Klasse definiert und instanziiert werden
 - Aber was ist mit ~f~? Aufruf? 
 
-** ~self~-lose Methoden 
+** ~self~-lose Methoden: Aufruf  
 
 
 - Aufruf einer ~self~-losen Methode bei Objekt?
@@ -1115,7 +1157,7 @@ s.f()
 - Fehlermeldung: ~TypeError: f() takes 0 positional arguments but 1
   was given~
 - Das ist plausibel!
-  - Definition des Methodenaufrufs sagt da, dass ~c1.f()~ das gleiche
+  - Definition des Methodenaufrufs sagt ja, dass ~c1.f()~ das gleiche
     ist wie ~C.f(c1)~
   - Aber ~f~ nimmt keinen Parameter entgegen; das kann nicht gehen
 
@@ -1147,6 +1189,7 @@ s.f()
 
 - Methoden ohne ~self~ haben keinen Zugriff auf einen Namensraum eines
   Objekts
+  - Welches Objekts sollte das auch sein? Kann viele geben... 
 - Wir müssten also einen neuen Namensraum zur Verfügung stellen, der
   - ... nicht an ein spezifisches Objekt gebunden ist
   - ... aber mit der Klasse zu tun hat
@@ -1155,6 +1198,10 @@ s.f()
 - *Die Klasse selbst* bekommt ebenfalls einen Namensraum, in dem
   Daten abgelegt werden können
 - Und den haben wir ja schon! Das Attribute-~dict~ bietet sich an!
+
+
+*** UEBUNG Beiepiele: woezu braucht man Klassenattribute/methoden? 
+
 
 
 ** Daten im Namensraum der Klasse -- Erzeugen 
@@ -1312,6 +1359,8 @@ Erster Versuch:
 : f kennt Wert von x: 17
 : f kennt Wert von x: 18
 
+
+
 ** ~self~ als Namensraum 
 
 - Notation für Zugriff auf Namensraum also  ganz analog zu ~self~!!
@@ -1325,9 +1374,15 @@ Erster Versuch:
 
 Anmerkung: Python kennt noch sogenannte /class methods/ -- später. 
 
+
+*** UEBUNG @classmehotd vs. @staticmethod würde hier passen, aber wir haben noch keine Dekoratoen :-(
+
+das müssen wir später ggf. nachholen? oder überspringen? 
+
+
 ** Beispiel: Anzahl der erzeugten Objekte zählen 
 
-- Idee: statische Attribut als Zähler
+- Idee: statisches Attribut als Zähler
   - In Klasse mit 0 initialisieren 
   - In ~__init__~ hochzählen
   - Mit statischer Methode ausgeben 
@@ -1365,9 +1420,12 @@ Anmerkung: Python kennt noch sogenannte /class methods/ -- später.
 - Methoden: batterieLaden(), playSong(), lauter(), rueckruf(),
   chooseSong()
 
+*** UEBUNG Weitere Beispiele von Klassen mit statischen und dynamischen Attributen 
+
+
 ** Zusammenfassung: Dynamisch vs. statisch Attribute 
 
-#+ATTR_LATEX: :align l|p{0.4\textwidth}|p{0.4\textwidth}
+#+ATTR_LATEX: :align p{0.3\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}
 |                   | Dynamisches Attribute                               | Statische Attribute                                             |
 |-------------------+-----------------------------------------------------+-----------------------------------------------------------------|
 | Erzeugen          | Durch Zuweisung in Objekt-Methode (ins. ~__init__~)    | Durch Zuweisung in ~Class~ Block oder mit explizitem Namensraum |
@@ -1390,6 +1448,9 @@ Anmerkung: Python kennt noch sogenannte /class methods/ -- später.
   - Egal ob Namensraum der Klasse oder des Objekts
   - Man braucht nur einen Namen dafür: die Klasse, oder ~self~
 - Alles recht einheitlich; wie sollte es anders sein? 
+
+
+*** UEBUNG Das dict der Klasse (nicht eine objektes) anschauen
 
 ** Principle of least astonishment 				  
 
@@ -1452,7 +1513,7 @@ Ja!
 
 ** Wie verschwinden Objekte? 
 
-- Wir haben Objekte explizit erzeugt durch "Aufruf" des Klassennamens
+- Wir haben Objekte explizit erzeugt durch Aufruf des Klassennamens
   - Objekt samt seines Namensraums entsteht
   - Belegt Platz im Speicher
 - Wie verschwindet ein Objekt wieder?
@@ -1491,7 +1552,7 @@ Also: Referenzen zählen
 - Wenn ein Objekt keine Referenzen mehr hat, vernichten 
   - Das Objekt ist dann Müll (Garbage): Garbage Collection
 - Automatischer Prozess!
-  - Einer der /großen/ Vorteile moderner Programmiersprachen
+  - Einer der /großen/ Vorteile moderner Programmiersprachen bzw. Laufzeitsysteme
   - Vermeidet erhebliche Fehlerquellen 
 - Man kann auch Objekte explizit löschen (mit ~del~), aber selten
   notwendig 
@@ -1516,7 +1577,7 @@ Also: Referenzen zählen
 
 ** Methoden von ~string~: ~format~
 
-- Ausgabe von Werte: Meist mit Text drum herum
+- Ausgabe von Werten: Meist mit Text drum herum
 - Einfache Methode:
   - In einer Zeichenkette {} für einzufügende Werte vorsehen
   - Auf diesen Zeichenkette Methode ~format~ anwenden, mit einem
@@ -1614,6 +1675,8 @@ Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
 #+END_SRC 
 
 
+*** UEBUNG Heap, oder Queue, oder ... implementieren 
+
 ** Nochmal Ellipse 
 
 - Klasse Ellipse hat den Mittelpunkt explizit repräsentiert
@@ -1660,7 +1723,7 @@ Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
 ** Delegation							   :subslide:
 
 - Klasse Ellipse /delegiert/ Aufgaben an die Klasse Punkt 
-- Delegation erzielt wiederbenutzt von Funktionen
+- Delegation erzielt /Wiederverwendung/ von Funktionen
   - Eine Klasse Rechteck ist mit Klasse Punkt einfacher zu schreiben
     als ohne 
 
@@ -1727,6 +1790,8 @@ jeweils in unterschiedlichen Namensräumen referenziert werden und
 damit nicht mit einander in Konflikt stehen können. 
 
 
+*** UEBUNG REchteck Klasse definieren 
+
 ** Punkt: Abstand bestimmen					   :subslide:
 
 Abstand zwischen zwei Punkten bestimmen
@@ -1754,6 +1819,16 @@ Beispiel: Definition ähnlich; Benutzung unterschiedlich!
               (o1.y - o2.y)**2             
               )**0.5
 #+END_SRC 
+
+
+*** UEBUNG Abstand zweier Rechtecke bestimmen 
+
+*** UEBUNG Abstand einer Liste von Rechtecken bestimmen 
+
+*** UEBUNG Punktklassen umstruktureien: abstand benutzt abstand2, oder umgekehrt? 
+
+Was ist besser? 
+
 
 
 ** Telefonbuch 
@@ -1809,6 +1884,12 @@ Argumente: Mehr Informatione, komplexere suche, blabla...
 
 Gleichheit-Operator überladen? Oder zu weit hergeholt? 
 
+
+*** UEBUNG Studierendenverzeichnis 
+
+*** UEBUNG Vorlesungeverzeichnis 
+
+*** UEBUNG PAUL !!! 
 
 ** Lineare Liste durchsuchen?					   :subslide:
 
@@ -1935,7 +2016,7 @@ Der Konstruktor des Binärbaums ist auch einfach:
           self.size = 0
 
       def add(self, key, value):
-          """Füge eine Eintrag unter key an die richtige Stelle ein"""
+          """Füge einen Eintrag unter key an die richtige Stelle ein"""
           ???
 
       def search(self, key):
@@ -1999,6 +2080,10 @@ Der Konstruktor des Binärbaums ist auch einfach:
 - Aber Konvention: Vorangestellter Unterstrich ~_~ signalisiert, dass
   diese Methode eher zum internen Gebrauch der Klasse gedacht ist 
 - Siehe [[https://www.python.org/dev/peps/pep-0008/][PEP8]]
+
+*** UEBUNG Code umstrukturieren : Echte rekursive Struktur 
+
+Baum hat zwei Bäume als Kinder. Und dann Vort- Nachteile diskutieren  
 
 
 
@@ -2165,7 +2250,7 @@ Wie würde ein Klasse für eine Hotelverwaltung aussehen?
 
 
 #+CAPTION: Begriffsüberlick der wesentlichen Begriff zu Klassen
-#+ATTR_LaTeX: :width 0.5\linewidth
+#+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:begriffe-klassen
 [[./uml/oo-tree.png]]
 

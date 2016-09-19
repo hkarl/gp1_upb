@@ -104,6 +104,21 @@ weil Semantik nicht klar wäre
 #+END_SRC 
 
 #+RESULTS:
+#+begin_example
+a: 1 b: 2
+Anzahl weitere Parameter: 0
+weitere Parameter: ()
+-------------
+a: 3 b: 4
+Anzahl weitere Parameter: 1
+weitere Parameter: ('a',)
+-------------
+a: 5 b: 6
+Anzahl weitere Parameter: 3
+weitere Parameter: ('b', 17, 'c')
+-------------
+#+end_example
+
 
 ** Formale Parameter mit vorbelegten Werten (/default/)
 
@@ -127,11 +142,6 @@ weil Semantik nicht klar wäre
   f(2, 3)
 #+END_SRC 
 
-#+RESULTS:
-: a: 1, b: 42
-: a: 2, b: 3
-: a: 5, b: 4
-
 ** Argument bei Aufruf benennen 
 
 - Formale Parameter haben Namen 
@@ -154,11 +164,6 @@ weil Semantik nicht klar wäre
   # Bei Nennung der formalen Parameter Reihenfolge unwichtig:
   f(b=5, a=6)
 #+END_SRC 
-
-#+RESULTS:
-: a: 1, b: 2
-: a: 3, b: 4
-: a: 6, b: 5
 
 
 ** ~dict~ als Schlüssel-/Wert-Paare übergeben
@@ -191,6 +196,8 @@ Der Aufruf mit ~f(d)~ kann natürlich nicht funktionieren. Dabei würde
 Wert von ~d~ zugewiesen. Für die formalen Parameter ~b~ und ~c~ sind
 keine Argumente mehr übrig, es gibt keinen default-Wert, also
 scheitert der Funktionsaufruf. 
+
+*** UEBUNG Beispiele zu Aufruf von Funktion mit d vs. **d, Kombination mit defaults! 
 
 
 ** ~dict~ als Schlüssel-/Wert-Paare übergeben -- Fehlende Schlüssel 
@@ -271,13 +278,14 @@ der genau so scheitern würde.
   f(**d)
 #+END_SRC 
 
-#+RESULTS:
-: a: 17, kwargs: {'b': 42, 'c': 99, 'd': 1}
+*** UEBUNG Kombinationen der Aufrufvariaten: Was passt womit zusammen? 
 
+Mischen von keyowrds und postiionsparametern; warum geht das nicht in
+belibeiger Reihenfolge? 
 
 ** Zusammenfassung formale Parameter und Argumente -- Syntax 
 
- #+ATTR_LATEX: :align l|p{0.\textwidth}
+ #+ATTR_LATEX: :align l|p{0.8\textwidth}
 |--------------------+-----------------------------------------------------------|
 | Definitions-Syntax | Interpretation                                            |
 |--------------------+-----------------------------------------------------------|
@@ -288,8 +296,8 @@ der genau so scheitern würde.
 |--------------------+-----------------------------------------------------------|
 | Aufruf-Syntax      | Interpretation                                            |
 |--------------------+-----------------------------------------------------------|
-| ~f(x, y)~          | Positionsparameter                                        |
-| ~f(a=5)~           | Parameter benennen                                        |
+| ~f(x, y)~          | Positionsargument                                         |
+| ~f(a=5)~           | Argument explizit benennen                      |
 | ~f(*l)~            | Siehe Übungsblatt                                         |
 | ~f(**d)~           | Dict d ist Liste der benannten Argumente                  |
 |--------------------+-----------------------------------------------------------|
@@ -329,6 +337,11 @@ Eigentlich selbstverständlich: Tuple sind legale Rückgabewerte
 : a: 10 b: [1, 2, 3]
 
 
+*** UEBUNG Was, wenn keine Tuple als Rückgabewert möglich wären? 
+
+Idee: man müsste eine Referenz auf eine Liste übergeben, in die man
+dann die ergebnisse packen müsste. 
+
 * Funktionen rufen Funktionen auf  
 
 ** Funktionen rufen Funktionen auf 
@@ -364,9 +377,6 @@ def g():
 f()
 #+END_SRC 
 
-#+RESULTS:
-: in f, vor g
-: in f, nach g x:  42
 
 ** Beispiel: Matrix ausgeben  
 
@@ -442,7 +452,6 @@ def f():
 f()
 #+END_SRC 
 
-#+RESULTS:
 
 *** Beispiel 2: Variable *nach* Funktionsdefinition zugewiesen 
 #+BEGIN_SRC python :exports both :results output
@@ -533,6 +542,8 @@ Damit haben wir einen entscheidenen Punkt erarbeitet: Der Ort einer
 
 
 
+*** UEBUNG Ein paar analoge BEispiele bauen: Zuweisung an Variable bestimmt Scope 
+
 ** Sichtbarkeit von Variablen *zwischen* zwei Funktionen? 
 
 - Aufruf von ~g~ durch ~f~ oben hatte keine Variablen
@@ -591,10 +602,6 @@ def g():
 f()
 #+END_SRC 
 
-#+RESULTS:
-: x in f: 17
-: x in g: 42
-: x in f: 17
 
 *** Visualisierung						  :dropslide:
 
@@ -634,11 +641,6 @@ def g():
 f()
 #+END_SRC 
 
-#+RESULTS:
-: x in f: 17
-: x in g: 99
-: x in f: 17
-
 
 *** Visualisierung						  :dropslide:
 
@@ -657,6 +659,8 @@ Situation nach der Ausgabe des (globalen) ~x~ in ~g~.
 Beachten Sie, dass in ~f~ das globale ~x~ *verdeckt* ist durch die
 Zuweisung an die lokale Variable ~x~. 
 
+
+*** UEBUNG Analoge Beispiele fuer PUE 
 
 ** Modifizierende Nutzung globaler Variablen 
 
@@ -754,6 +758,12 @@ def func2():
     X = 77
 #+END_SRC 
 
+
+*** UEBUNG Beiepiele, bei denen wir die globale Variable zum zurückgeben von Funktionswerte benuten 
+
+Das ist etwas anderes, als eine Refernezvariable zu manipulieren!
+Unterschied zur Frage oben (was, wenn keine Tuple zurückgebbar?)
+klarmachen! 
 
 
 
@@ -947,6 +957,13 @@ Variablennamen in einem Namensraum haben nichts mit Variablennamen in einem
 anderen Namensraum zu tun, selbst wenn es sich um den gleichen Scope
 handeln sollte. 
 
+
+*** UEBUNG Beispielprogramme für indirekte Rekursion 
+
+- Teilbarkeit durch 3? Quersumme berechnen und teilbarkeit? 
+  - nicht ideal, aber immerhin
+- ...? 
+
 * Direkte Rekursion 
 
 ** Direkte Rekursion 
@@ -1007,9 +1024,6 @@ def fak(n):
 res = fak(5)
 print(res)
 #+END_SRC 
-
-#+RESULTS:
-: 120
 
 *** Visualisierung						  :dropslide:
 
@@ -1306,6 +1320,8 @@ Also:
   - Ordentliche Lösung?
   - Unordentlich? 
 
+*** UEBUNG Scheiben bewegen mitzählen 
+
 *** UEBUNG Beispiele für Übungen 
 
 - fibonacci 
@@ -1387,6 +1403,15 @@ Also:
 - Klar dokumentieren, wenn dies passiert!
 - Meist besser: Veränderte Werte mit ~return~ zurückgeben
   - Aufrufer entscheidet, was passiert 
+
+
+*** UEBUNG Beispiel: die gleiche Funktion einmal mit /ohne Veränderung  von Listen-ARgumenten 
+
+Warum ist die Version mit expliziter Rückgabe dann universeller
+einsatzbar? 
+Z.B. sortierern 
+
+
 
 ** Funktionen und Kohesion 
 
