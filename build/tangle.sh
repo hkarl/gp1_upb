@@ -46,6 +46,7 @@ done
      (add-to-list 'org-latex-packages-alist '(\"\" \"tikz\")) 
      (add-to-list 'org-latex-packages-alist '(\"\" \"forest\")) 
      (setq org-latex-listings 'minted)
+     (setq org-latex-prefer-user-labels t)
      (setq org-latex-minted-options
         '((\"frame\" \"lines\") (\"linenos=true\") (\"mathescape\" \"true\")))
      ; undecided: do I want automatic runnign of all code blocks? 
