@@ -1,0 +1,315 @@
+======================
+----------
+PUE 1 #: 0
+
+----------
+PUE 2 #: 0
+
+----------
+PUE 3 #: 5
+2 *** UEBUNG Andere Zahlen 					  :dropslide:
+2 *** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
+2 *** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
+2 *** UEBUNG Genaue Regeln für Semantik  arithmetischer Ausdrücke   :dropslide:
+2 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
+2 *** UEBUNG Umlaute und Sonderzeichen
+2 *** UEBUNG Unterschied zwischen str und byte
+----------
+PUE 4 #: 11
+2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
+2 *** UEBUNG Maximale Integer in python3?
+2 *** UEBUNG Verletzung der Rechenregeln
+2 *** UEBUNG Ganz viele Übungsaufgaben zu strings
+2 *** UEBUNG Strings durch hintereinander schreiben verküpfen
+2 *** UEBUNG Verknüpfung: ~or~, ~not~, ...
+2 *** UEBUNG Lazy evaluation !
+2 *** UEBUNG Vergleich bei Zeichenketten
+2 *** UEBUNG Vergleich bei bool
+2 *** UEBUNG Lazy evaluaiton
+2 *** UEBUNG Bitweise Operationen auf intergers
+2 *** UEBUNG Maximale Zahl ?
+2 *** UEBUNG Welche Eigenschaft von P3 macht implizite Umwandlungen problemlos?
+2 *** UEBUNG Regeln für Bestimmung des Typs eines Literals
+3 *** UEBUNG Lange Anweisung
+3 *** UEBUNG Variable tauschen ohne Hilfsvariable; xor
+----------
+PUE 5 #: 14
+3 *** UEBUNG Leerzeichen
+3 *** UEBUNG Leerzeichen in arithmetischen Ausdrücken
+3 *** UEBUNG Zeilenumbruch
+4 *** UEBUNG Eine Zeile für ~def~?
+4 *** UEBUNG Leerzeichen? Tabs?
+4 *** UEBUNG WArum sit das nur eine grobe Entsprechung
+4 *** UEBUNG Und f(y+2)
+4 *** UEBUNG Was passiert, wenn formaler Parameter und Argument gleichen Variabelennamen haben?
+4 *** UEBUNG Auswertungsreihenfolge? Macht das einen Unterschied? Wann würde es Unterschied machen?
+4 *** UEBUNG print bei strings mit escape sequenzen
+4 *** UEBUNG print von triple-quotes
+4 *** UEBUNG Beispiele fuer Ubeungen
+4 *** UEBUNG Beispoiele für docstrings schreiben lassen
+5 *** UEBUNG Unpacking von Tuples
+5 *** UEBUNG Nested unpacking
+5 *** UEBUNG Unterschied: Länge und Index des letzten Elements, wir fangen ja bei 0 an
+5 *** UEBUNG Was passiert bei (1,2,3,1,2,3).index(2) ?
+5 *** UEBUNG index(e, s) ausprobieren
+----------
+PUE 6 #: 14
+5 *** UEBUNG Tuple ändern durch slicing und ändern
+5 *** UEBUNG Falscher Aufruf  von quersumme
+5 *** UEBUNG Warum ist die Ferstlegung *vor* Position einfügen sinnvoll?
+5 *** UEBUNG andere pop-PArameter
+5 *** UEBUNG Manipulation von Listenelementen bei kopierten Listen
+5 *** UEBUNG Was passiert, wenn eine Liste von Listen kopiert wird?
+5 *** UEBUNG Zeilen einer Matrix vertauschen (als Liste von Listen)
+5 *** UEBUNG Identität von Listen von Listen, mit Zuweisungen, etc.
+5 *** UEBUNG Verdstöndnisfragen
+5 ** UEBUNG Weitere Aufgaben für Liste
+5 *** UEBUNG Slicing bei dicts?
+5 *** UEBUNG dicts mit Listen
+5 *** UEBUNG Test auf Identität
+5 *** UEBUNG Datenstruktur-Bild vorgeben, Code dafpr schreiben?
+6 *** UEBUNG Funktion max3 ohne else
+6 *** UEBUNG if else als Ausdruck
+----------
+PUE 7 #: 21
+6 *** UEBUNG Bedingung nach else?
+6 *** UEBUNG Auswertung Einfluss auf Bedingungsergebnis?
+6 *** UEBUNG switch nachbauen?
+6 *** UEBUNG groeser/gleich/kleiner definieren
+6 *** UEBUNG Warum diskret?
+6 *** UEBUNG Viele Schleifenbeispiele
+6 *** UEBUNG Weiter Beispiele
+6 *** UEBUNG continue bei geschachtelten Schleifen?
+6 *** UEBUNG break bei geschachtelten Schleifen?
+6 *** UEBUNG Warum // und nicht / ? Was ist Unterschied
+6 *** UEBUNG Ohne else umschreiben
+6 *** UEBUNG assert fuer is_prime
+6 *** UEBUNG while / else Beispiele
+6 *** UEBUNG WArum funktioniert dieser Pseudo-Code nicht direkt?
+6 *** UEBUNG Einfaches Beispiel: mit SChleife mit zwei Laufvariablen über dict.key, dict.values iterieren
+6 ** UEBUNG for-Schleife Übungen
+6 *** UEBUNG allgemeinere Version von range
+6 *** UEBUNG Vergleiche Iteration über SEquenz mit range, vs. natürlich
+6 *** UEBUNG Zeichenketten umkehren
+6 ** UEBUNG for loops und zip
+6 ** UEBUNG Nachtrag: zip und dict
+6 ** UEBUNG ~enumerate~ in ~for~
+6 *** UEBUNG Erathostenes ohne range schreiben!
+6 *** UEBUNG Schöner schreiben!
+6 ** UEBUNG List comprehesion, ändern der Liste?
+6 ** UEBUNG Liust comprehension als Aufzählung der for-Schleife
+6 *** UEBUNG DAs geht mit ~in~ viel einfacher
+6 *** UEBUNG Schnitt zweier Strings
+6 *** UEBUNG Geschachtelte for in list comprehensions
+6 *** UEBUNG Was ist schneller? Konventionell oder Slicing?
+6 *** UEBUNG Zulassungsvoraussetzungen für Klausur prüfen
+6 *** UEBUNG Wehrheim Folien 260
+6 *** UEBUNG Pascalsches Dreieck
+6 *** UEBUNG Beispiele für zip in for SChleifen
+7 *** UEBUNG WArum nicht mehrere Parameter mit Sternen?
+7 *** UEBUNG f(*l) mit l as iterable durchgehen
+7 *** UEBUNG Warum ist Aufruf f(**d) KEIN Aufruf als Dict!?
+----------
+PUE 8 #: 4
+7 *** UEBUNG Warum nutzt eine Deklaration wie global hier nichts?
+7 *** UEBUNG Beispiele fuer Rekursion
+7 *** UEBUNG Beispiele für Übungen
+8 *** UEBUNG Beispiele mit kwargs?
+----------
+PUE 9 #: 5
+8 *** UEBUNG Beispiele für unterschiedliche Gleichheiten und ungleichheiten
+8 *** UEBUNG Erklären, warum die folgenden Ausgaben entstehen
+8 *** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
+8 *** UEBUNG Ganz viele Biepsiele zu string-Methoden denkbar
+8 *** UEBUNG Einträge in eigene Klasse abspalten
+8 ** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum
+----------
+PUE 10 #: 2
+10 *** UEBUNG ~assert~ als Übung
+10 *** UEBUNG __enter__ als Teil des context manager protokolls
+----------
+PUE 11 #: 4
+11 *** UEBUNG In closures die gemerkte Variable verändern?
+11 *** UEBUNG Closures nutzen, um C static Variablen nachzubauen
+11 *** UEBUNG Weitere Closure-Beispiele?
+11 *** UEBUNG Standard-Programmierproblem mit lambda closures
+11 *** UEBUNG Ganz viele Beispiele hier denkbar
+11 *** UEBUNG Memoization als Decortor
+11 *** UEBUNG Closures als Klassen
+----------
+PUE 12 #: 2
+12 *** UEBUNG Die Beispiele sind legion
+13 *** UEBUNG Run a webserver in a single command line
+----------
+PUE 13 #: 6
+16 *** UEBUNG Details zu import und CLASSPATH
+16 *** UEBUNG Literale für Zahlen, insbes. Fließkommazahlen
+16 *** UEBUNG Warum nicht schon an short oder byte?
+16 *** UEBUNG Hier kann man in der Übung mal über Unicode reden.
+16 *** UEBUNG Deepcopy? Array of Array?
+16 *** UEBUNG Was passiert, wenn der Typ hier nicht passt?
+17 *** UEBUNG Vergleiche: Was wird hier verglieche bei e1 = e2 ?
+----------
+PUE 14 #: 5
+17 *** UEBUNG Warum ist es wenig sinnvoll, ein Schlüsselwort wie ~global~ in Java einzuführen?
+17 *** UEBUNG Konstruktor für Klassenvariablen
+17 *** UEBUNG Beispiel: Klassenvariable NACH einer Methode deklarieren in der sie benutzt wird
+18 *** UEBUNG Wie schreibt man das in Python auf?
+18 *** UEBUNG Statische Methoden importieren
+======================
+----------
+HUE 1 #: 5
+2 *** UEBUNG Andere Zahlen 					  :dropslide:
+2 *** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
+2 *** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
+2 *** UEBUNG Genaue Regeln für Semantik  arithmetischer Ausdrücke   :dropslide:
+2 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
+2 *** UEBUNG Umlaute und Sonderzeichen
+2 *** UEBUNG Unterschied zwischen str und byte
+----------
+HUE 2 #: 15
+2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
+2 *** UEBUNG Maximale Integer in python3?
+2 *** UEBUNG Verletzung der Rechenregeln
+2 *** UEBUNG Ganz viele Übungsaufgaben zu strings
+2 *** UEBUNG Strings durch hintereinander schreiben verküpfen
+2 *** UEBUNG Verknüpfung: ~or~, ~not~, ...
+2 *** UEBUNG Lazy evaluation !
+2 *** UEBUNG Vergleich bei Zeichenketten
+2 *** UEBUNG Vergleich bei bool
+2 *** UEBUNG Lazy evaluaiton
+2 *** UEBUNG Bitweise Operationen auf intergers
+2 *** UEBUNG Maximale Zahl ?
+2 *** UEBUNG Welche Eigenschaft von P3 macht implizite Umwandlungen problemlos?
+2 *** UEBUNG Regeln für Bestimmung des Typs eines Literals
+3 *** UEBUNG Lange Anweisung
+3 *** UEBUNG Variable tauschen ohne Hilfsvariable; xor
+3 *** UEBUNG Leerzeichen
+3 *** UEBUNG Leerzeichen in arithmetischen Ausdrücken
+3 *** UEBUNG Zeilenumbruch
+4 *** UEBUNG Eine Zeile für ~def~?
+4 *** UEBUNG Leerzeichen? Tabs?
+4 *** UEBUNG WArum sit das nur eine grobe Entsprechung
+----------
+HUE 3 #: 10
+4 *** UEBUNG Und f(y+2)
+4 *** UEBUNG Was passiert, wenn formaler Parameter und Argument gleichen Variabelennamen haben?
+4 *** UEBUNG Auswertungsreihenfolge? Macht das einen Unterschied? Wann würde es Unterschied machen?
+4 *** UEBUNG print bei strings mit escape sequenzen
+4 *** UEBUNG print von triple-quotes
+4 *** UEBUNG Beispiele fuer Ubeungen
+4 *** UEBUNG Beispoiele für docstrings schreiben lassen
+5 *** UEBUNG Unpacking von Tuples
+5 *** UEBUNG Nested unpacking
+5 *** UEBUNG Unterschied: Länge und Index des letzten Elements, wir fangen ja bei 0 an
+5 *** UEBUNG Was passiert bei (1,2,3,1,2,3).index(2) ?
+5 *** UEBUNG index(e, s) ausprobieren
+----------
+HUE 4 #: 21
+5 *** UEBUNG Tuple ändern durch slicing und ändern
+5 *** UEBUNG Falscher Aufruf  von quersumme
+5 *** UEBUNG Warum ist die Ferstlegung *vor* Position einfügen sinnvoll?
+5 *** UEBUNG andere pop-PArameter
+5 *** UEBUNG Manipulation von Listenelementen bei kopierten Listen
+5 *** UEBUNG Was passiert, wenn eine Liste von Listen kopiert wird?
+5 *** UEBUNG Zeilen einer Matrix vertauschen (als Liste von Listen)
+5 *** UEBUNG Identität von Listen von Listen, mit Zuweisungen, etc.
+5 *** UEBUNG Verdstöndnisfragen
+5 ** UEBUNG Weitere Aufgaben für Liste
+5 *** UEBUNG Slicing bei dicts?
+5 *** UEBUNG dicts mit Listen
+5 *** UEBUNG Test auf Identität
+5 *** UEBUNG Datenstruktur-Bild vorgeben, Code dafpr schreiben?
+6 *** UEBUNG Funktion max3 ohne else
+6 *** UEBUNG if else als Ausdruck
+6 *** UEBUNG Bedingung nach else?
+6 *** UEBUNG Auswertung Einfluss auf Bedingungsergebnis?
+6 *** UEBUNG switch nachbauen?
+6 *** UEBUNG groeser/gleich/kleiner definieren
+6 *** UEBUNG Warum diskret?
+6 *** UEBUNG Viele Schleifenbeispiele
+6 *** UEBUNG Weiter Beispiele
+6 *** UEBUNG continue bei geschachtelten Schleifen?
+6 *** UEBUNG break bei geschachtelten Schleifen?
+6 *** UEBUNG Warum // und nicht / ? Was ist Unterschied
+6 *** UEBUNG Ohne else umschreiben
+6 *** UEBUNG assert fuer is_prime
+6 *** UEBUNG while / else Beispiele
+----------
+HUE 5 #: 14
+6 *** UEBUNG WArum funktioniert dieser Pseudo-Code nicht direkt?
+6 *** UEBUNG Einfaches Beispiel: mit SChleife mit zwei Laufvariablen über dict.key, dict.values iterieren
+6 ** UEBUNG for-Schleife Übungen
+6 *** UEBUNG allgemeinere Version von range
+6 *** UEBUNG Vergleiche Iteration über SEquenz mit range, vs. natürlich
+6 *** UEBUNG Zeichenketten umkehren
+6 ** UEBUNG for loops und zip
+6 ** UEBUNG Nachtrag: zip und dict
+6 ** UEBUNG ~enumerate~ in ~for~
+6 *** UEBUNG Erathostenes ohne range schreiben!
+6 *** UEBUNG Schöner schreiben!
+6 ** UEBUNG List comprehesion, ändern der Liste?
+6 ** UEBUNG Liust comprehension als Aufzählung der for-Schleife
+6 *** UEBUNG DAs geht mit ~in~ viel einfacher
+6 *** UEBUNG Schnitt zweier Strings
+6 *** UEBUNG Geschachtelte for in list comprehensions
+6 *** UEBUNG Was ist schneller? Konventionell oder Slicing?
+6 *** UEBUNG Zulassungsvoraussetzungen für Klausur prüfen
+6 *** UEBUNG Wehrheim Folien 260
+6 *** UEBUNG Pascalsches Dreieck
+6 *** UEBUNG Beispiele für zip in for SChleifen
+7 *** UEBUNG WArum nicht mehrere Parameter mit Sternen?
+7 *** UEBUNG f(*l) mit l as iterable durchgehen
+7 *** UEBUNG Warum ist Aufruf f(**d) KEIN Aufruf als Dict!?
+----------
+HUE 6 #: 7
+7 *** UEBUNG Warum nutzt eine Deklaration wie global hier nichts?
+7 *** UEBUNG Beispiele fuer Rekursion
+7 *** UEBUNG Beispiele für Übungen
+8 *** UEBUNG Beispiele mit kwargs?
+8 *** UEBUNG Beispiele für unterschiedliche Gleichheiten und ungleichheiten
+8 *** UEBUNG Erklären, warum die folgenden Ausgaben entstehen
+8 *** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
+8 *** UEBUNG Ganz viele Biepsiele zu string-Methoden denkbar
+----------
+HUE 7 #: 2
+8 *** UEBUNG Einträge in eigene Klasse abspalten
+8 ** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum
+----------
+HUE 8 #: 4
+10 *** UEBUNG ~assert~ als Übung
+10 *** UEBUNG __enter__ als Teil des context manager protokolls
+11 *** UEBUNG In closures die gemerkte Variable verändern?
+11 *** UEBUNG Closures nutzen, um C static Variablen nachzubauen
+11 *** UEBUNG Weitere Closure-Beispiele?
+11 *** UEBUNG Standard-Programmierproblem mit lambda closures
+----------
+HUE 9 #: 2
+11 *** UEBUNG Ganz viele Beispiele hier denkbar
+11 *** UEBUNG Memoization als Decortor
+11 *** UEBUNG Closures als Klassen
+----------
+HUE 10 #: 2
+12 *** UEBUNG Die Beispiele sind legion
+13 *** UEBUNG Run a webserver in a single command line
+----------
+HUE 11 #: 4
+16 *** UEBUNG Details zu import und CLASSPATH
+16 *** UEBUNG Literale für Zahlen, insbes. Fließkommazahlen
+16 *** UEBUNG Warum nicht schon an short oder byte?
+16 *** UEBUNG Hier kann man in der Übung mal über Unicode reden.
+16 *** UEBUNG Deepcopy? Array of Array?
+----------
+HUE 12 #: 5
+16 *** UEBUNG Was passiert, wenn der Typ hier nicht passt?
+17 *** UEBUNG Vergleiche: Was wird hier verglieche bei e1 = e2 ?
+17 *** UEBUNG Warum ist es wenig sinnvoll, ein Schlüsselwort wie ~global~ in Java einzuführen?
+17 *** UEBUNG Konstruktor für Klassenvariablen
+17 *** UEBUNG Beispiel: Klassenvariable NACH einer Methode deklarieren in der sie benutzt wird
+----------
+HUE 13 #: 2
+18 *** UEBUNG Wie schreibt man das in Python auf?
+18 *** UEBUNG Statische Methoden importieren
+======================
+[   {'blaetter': [0, 0, 5, 11, 14, 14, 21, 4, 5, 2, 4, 2, 6, 5], 'kind': 'PUE'},
+    {'blaetter': [5, 15, 10, 21, 14, 7, 2, 4, 2, 2, 4, 5, 2], 'kind': 'HUE'}]
