@@ -301,13 +301,13 @@ Was ist mit ähnlichen Typen, die aber unterschiedlich groß sind?
 
 #+CAPTION: Kleinen Wert an große Variable zuweisen gelingt 
 #+ATTR_LaTeX: :width 0.25\linewidth
-#+NAME: fig:klein-an-groß
+#+NAME: fig:klein-an-gross
 [[./uml/boxshapes-6.png]]
 
 
-#+CAPTION: Groen Wert an kleine Variable zuweisen scheitert
+#+CAPTION: Großen Wert an kleine Variable zuweisen scheitert
 #+ATTR_LaTeX: :width 0.25\linewidth
-#+NAME: fig:klein-an-groß
+#+NAME: fig:gross-an-klein
 [[./uml/boxshapes-7.png]]
 
 ** Zuweisung inkompatibler Typen: Wert umbauen 
