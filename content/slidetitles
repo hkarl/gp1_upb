@@ -627,7 +627,7 @@ VL:  15
 8 ** Flexible Methoden
 8 ** Aufruf von Methoden bei Objekten 
 8 ** ~self~-lose Methoden 
-8 ** ~self~-lose Methoden 
+8 ** ~self~-lose Methoden: Aufruf  
 8 ** ~self~-lose Methoden -- Aufruf nur bei Klasse? 
 8 ** Daten für ~self~-lose Methoden? 
 8 ** Daten im Namensraum der Klasse -- Erzeugen 
@@ -785,14 +785,15 @@ VL:  18
 9 ** Prinzip: Abhängigkeiten 
 9 ** Wie ererbt man? 
 9 ** Wie bereit man Klasse auf Ableitung vor? 
+9 ** Erben oder Besitzen? ~is-a~ oder ~has-a~? 
 9 ** Zusammenfassung 
 9 ** Spezialisierung und Generalisierung 
 10 ** Setup 						  :skipslide:nolatex:
 10 ** Was bisher geschah 
-10 ** Dieses Kapitel 
 
 =======================
 VL:  19
+10 ** Dieses Kapitel 
 10 ** Vorgehen bisher: Fehlercode 
 10 ** Probleme bei Fehlercodes 
 10 ** Probleme bei Fehlercodes -- Beispiel 
@@ -833,10 +834,10 @@ VL:  19
 10 ** ~try~, Funktionsaufruf, ~try~
 10 ** ~try~, Funktionsaufruf, ~try~  : Beispiel 
 10 ** Ein ~except~, alle ~finally~ 
-10 ** Ein ~except~, alle ~finally~ -- Beispiel 2 
 
 =======================
 VL:  20
+10 ** Ein ~except~, alle ~finally~ -- Beispiel 2 
 10 ** Geschachtelte ~try~: Realisierung 
 10 ** Typische Muster, wie Exceptions genutzt werden 
 10 ** Exceptions für Fehlerfälle im eigentlichen Sinne 
@@ -877,10 +878,11 @@ VL:  20
 11 ** Neues Schlüsselwort: ~nonlocal~ 				   
 11 ** Beispiel: Tiefere Verschachtelung (1)
 11 ** Beispiel: Tiefere Verschachtelung (2)
-11 ** Nachschlageregel: LEGB 
 
 =======================
 VL:  21
+11 ** Nachschlageregel: LEGB 
+11 ** Nachschlageregel: LEGB -- Illustration  
 11 ** Vorüberlegung: Referenzen auf Funktionen? 
 11 ** Vorüberlegung 2: Funktionsreferenzen als Rückgabewert? 
 11 ** Analogie: Normales Objekt als Rückgabewert
@@ -920,11 +922,11 @@ VL:  21
 11 ** Generators für List comprehensions 
 11 ** Ausgangspunkt 
 11 ** Überlegung 1: Wir können aus einer Funktion eine neue Funktion bauen 
-11 ** Eingerahmte Ausgabe -- Version 1 
-11 ** Eingerahmte Ausgabe -- Version 2 
 
 =======================
 VL:  22
+11 ** Eingerahmte Ausgabe -- Version 1 
+11 ** Eingerahmte Ausgabe -- Version 2 
 11 ** Eingerahmte Ausgabe -- Version 3 
 11 ** Eingerahmte Ausgabe -- Version 4 
 11 ** Muster
@@ -964,11 +966,11 @@ VL:  22
 12 ** Reihenfolge der Methodenaufrufe 
 12 ** Suche nach auszuführender Methode, erste Ideen 
 12 ** Suche nach auszuführender Methode, Sonderfall Einzelvererbung 
-12 ** Linearisierung nötig für Suche 
-12 ** Zugriff auf MRO 
 
 =======================
 VL:  23
+12 ** Linearisierung nötig für Suche 
+12 ** Zugriff auf MRO 
 12 ** Anforderungen an sinnvolle Linearisierung: Monotonie  
 12 ** Anforderungen an sinnvolle Linearisierung: Local precedence ordering 
 12 ** MRO: Erste Idee
@@ -1008,11 +1010,11 @@ VL:  23
 12 ** ~super~ und MRO: Beispiel  __init__
 12 ** ~super~: Terminologie 
 12 ** Cooperative multiple inheritance 
-12 ** Dependency injection
-12 ** Dependency injection: Pizzeria-Beispiel 
 
 =======================
 VL:  24
+12 ** Dependency injection
+12 ** Dependency injection: Pizzeria-Beispiel 
 12 ** Dependency injection: Pizzeria-Beispiel (2) 
 12 ** Dependency injection: Muster 
 12 ** Einfachere Variante: Mixins 
@@ -1052,11 +1054,12 @@ VL:  24
 14 ** Was bisher geschah 
 14 ** Dieses Kapitel 
 14 ** Installation 
-14 ** Packages installieren 
-14 ** Gekapselte Installation 
 
 =======================
 VL:  25
+14 ** Python im Terminal 
+14 ** Packages installieren 
+14 ** Gekapselte Installation 
 14 ** Virtualenv 
 14 ** Virtualenvwrapper 
 14 ** Nützliche Non-Standard-Module 
@@ -1095,12 +1098,12 @@ VL:  25
 15 ** Aufruf von Methoden bei falschem Objekt 
 15 ** Vermeidbar?
 15 ** Allgemeiner: Fehler vor Laufzeit aufdecken? 
-15 ** Problem bei dynamischen Sprachen: Fehlende Information 
-15 ** Stark typisierte Sprachen 
-15 ** Erinnerung (Kapitel 3): Dynamisch typisierte Sprachen 
 
 =======================
 VL:  26
+15 ** Problem bei dynamischen Sprachen: Fehlende Information 
+15 ** Stark typisierte Sprachen 
+15 ** Erinnerung (Kapitel 3): Dynamisch typisierte Sprachen 
 15 ** Erinnerung (Kapitel 3): Statisch typisierte Sprache 
 15 ** Erinnerung: Compiler vs. Interpreter 
 15 ** Erinnerung: Compiler vs. Interpreter 
@@ -1139,12 +1142,12 @@ VL:  26
 16 ** Syntax: Klammern, Klammern 
 16 ** Syntax: Geschwätzig 
 16 ** Syntax: Semikolon 
-16 ** Hello world aus zwei Welten 
-16 ** Schlüsselwörter 
-16 ** Datentypen 
 
 =======================
 VL:  27
+16 ** Hello world aus zwei Welten 
+16 ** Schlüsselwörter 
+16 ** Datentypen 
 16 ** Kommentare 
 16 ** Einfache Datentypen 
 16 ** Zuweisungen zwischen Zahlen, implizite typecasts 
@@ -1183,12 +1186,12 @@ VL:  27
 16 ** ~for~-Schleife 
 16 ** Klassisches ~for~: Ersatz von ~while~-Muster 
 16 ** ~while~-Schleife: Beispiel für Muster 
-16 ** Knapper: ~for~
-16 ** ~for~-Schleife: Syntax 
-16 ** ~for~-Schleife: Variablen 
 
 =======================
 VL:  28
+16 ** Knapper: ~for~
+16 ** ~for~-Schleife: Syntax 
+16 ** ~for~-Schleife: Variablen 
 16 ** Klassisches ~for~: Beispiel 
 16 ** Beispiel: Multiplikationstabelle ausgeben 
 16 ** Modernes ~for~: Iterator 
@@ -1227,12 +1230,12 @@ VL:  28
 17 ** Sichtbarkeit und Lebensdauer: Vergleich 
 17 ** Konstruktoren 
 17 ** getter und setter
-17 ** Wrappers, Boxing 
-17 ** Konzept 
-17 ** Syntax 
 
 =======================
 VL:  29
+17 ** Wrappers, Boxing 
+17 ** Konzept 
+17 ** Syntax 
 17 ** Kompatibilität bei Zuweisung 
 17 ** Zugriff auf Felder nach Zuweisung zu Variable eines Oberklassentyps 
 17 ** Unterklasse zurückbekommen? Typecasts zwischen Objekten? 
@@ -1271,12 +1274,12 @@ VL:  29
 17 ** Javas Einstellung
 17 ** Interfaces statt LeVAKs, neue Schlüsselworte 
 17 ** ~interface~ und ~extend~: Beispiel 
-17 ** ~interface~ und ~extend~
-17 ** ~interface~ vs. LeVAK 
-17 ** ~interface~: Die kleinen Details 
 
 =======================
 VL:  30
+17 ** ~interface~ und ~extend~
+17 ** ~interface~ vs. LeVAK 
+17 ** ~interface~: Die kleinen Details 
 17 ** ~interface~ in Java 8 
 17 ** ~interface~ in Java 8 
 17 ** ~interface~ in Java 8: Diamond of Death! 

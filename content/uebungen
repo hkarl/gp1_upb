@@ -6,7 +6,7 @@ PUE 1 #: 0
 PUE 2 #: 0
 
 ----------
-PUE 3 #: 5
+PUE 3 #: 6
 2 *** UEBUNG Andere Zahlen 					  :dropslide:
 2 *** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
 2 *** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
@@ -14,9 +14,9 @@ PUE 3 #: 5
 2 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
 2 *** UEBUNG Umlaute und Sonderzeichen
 2 *** UEBUNG Unterschied zwischen str und byte
-----------
-PUE 4 #: 11
 2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
+----------
+PUE 4 #: 10
 2 *** UEBUNG Maximale Integer in python3?
 2 *** UEBUNG Verletzung der Rechenregeln
 2 *** UEBUNG Ganz viele Übungsaufgaben zu strings
@@ -33,7 +33,7 @@ PUE 4 #: 11
 3 *** UEBUNG Lange Anweisung
 3 *** UEBUNG Variable tauschen ohne Hilfsvariable; xor
 ----------
-PUE 5 #: 14
+PUE 5 #: 16
 3 *** UEBUNG Leerzeichen
 3 *** UEBUNG Leerzeichen in arithmetischen Ausdrücken
 3 *** UEBUNG Zeilenumbruch
@@ -52,10 +52,10 @@ PUE 5 #: 14
 5 *** UEBUNG Unterschied: Länge und Index des letzten Elements, wir fangen ja bei 0 an
 5 *** UEBUNG Was passiert bei (1,2,3,1,2,3).index(2) ?
 5 *** UEBUNG index(e, s) ausprobieren
-----------
-PUE 6 #: 14
 5 *** UEBUNG Tuple ändern durch slicing und ändern
 5 *** UEBUNG Falscher Aufruf  von quersumme
+----------
+PUE 6 #: 12
 5 *** UEBUNG Warum ist die Ferstlegung *vor* Position einfügen sinnvoll?
 5 *** UEBUNG andere pop-PArameter
 5 *** UEBUNG Manipulation von Listenelementen bei kopierten Listen
@@ -71,7 +71,7 @@ PUE 6 #: 14
 6 *** UEBUNG Funktion max3 ohne else
 6 *** UEBUNG if else als Ausdruck
 ----------
-PUE 7 #: 21
+PUE 7 #: 27
 6 *** UEBUNG Bedingung nach else?
 6 *** UEBUNG Auswertung Einfluss auf Bedingungsergebnis?
 6 *** UEBUNG switch nachbauen?
@@ -107,28 +107,75 @@ PUE 7 #: 21
 6 *** UEBUNG Pascalsches Dreieck
 6 *** UEBUNG Beispiele für zip in for SChleifen
 7 *** UEBUNG WArum nicht mehrere Parameter mit Sternen?
+7 *** UEBUNG Beispiele zu Aufruf von Funktion mit d vs. **d, Kombination mit defaults!
+7 *** UEBUNG Kombinationen der Aufrufvariaten: Was passt womit zusammen?
 7 *** UEBUNG f(*l) mit l as iterable durchgehen
 7 *** UEBUNG Warum ist Aufruf f(**d) KEIN Aufruf als Dict!?
+7 *** UEBUNG Was, wenn keine Tuple als Rückgabewert möglich wären?
+7 *** UEBUNG Ein paar analoge BEispiele bauen: Zuweisung an Variable bestimmt Scope
+7 *** UEBUNG Analoge Beispiele fuer PUE
+7 *** UEBUNG Beiepiele, bei denen wir die globale Variable zum zurückgeben von Funktionswerte benuten
 ----------
-PUE 8 #: 4
+PUE 8 #: 17
 7 *** UEBUNG Warum nutzt eine Deklaration wie global hier nichts?
+7 *** UEBUNG Beispielprogramme für indirekte Rekursion
 7 *** UEBUNG Beispiele fuer Rekursion
+7 *** UEBUNG Scheiben bewegen mitzählen
 7 *** UEBUNG Beispiele für Übungen
+7 *** UEBUNG Beispiel: die gleiche Funktion einmal mit /ohne Veränderung  von Listen-ARgumenten
+8 *** UEBUNG Wietere Beispiele für Klassen ausdenken
+8 *** UEBUNG Beispiel-Instanzen fpr die zuvor ausgedachten Klassen
+8 *** UEBUNG Banale Frage: muss Konstruktor explizit aufgerufen werden ?
+8 *** UEBUNG Was passiert, wenn man dem Konstruktur einen anderen Namen ghibt als __init__?
+8 *** UEBUNG Nicht trivial: was passiert, wenn man den Konstruktor von Hand tortzdem aufruft?
+8 *** UEBUNG Was passiert, wenn der erste Parameter nicht ~self~ heißt?
+8 *** UEBUNG Andere Klassen definieren , andere Objekte instantiieren
 8 *** UEBUNG Beispiele mit kwargs?
-----------
-PUE 9 #: 5
+8 *** UEBUNG Das dict von Ellipse ausgeben lassen
+8 *** UEBUNG Dem dict von Ellipse einen weiteren Wert hinzufügen
+8 *** UEBUNG dict ausgeben lassen!
+8 *** UEBUNG Was passiert, wenn mit mehreren Objekten aufgerufen wird?
+8 *** UEBUNG Für Ellipse lt implementieren? Erklären, warum das komisch ist?
+8 *** UEBUNG plus Operator überladen
+8 *** UEBUNG Was schweres? Einen Iterator auf einer Ellipse implementieren?
+8 *** UEBUNG Slicing einer Ellipse? Mit wInkeln?
 8 *** UEBUNG Beispiele für unterschiedliche Gleichheiten und ungleichheiten
 8 *** UEBUNG Erklären, warum die folgenden Ausgaben entstehen
+8 *** UEBUNG Was passiert hier und warum?
+----------
+PUE 9 #: 18
+8 *** UEBUNG Beiepiele: woezu braucht man Klassenattribute/methoden?
+8 *** UEBUNG Zusammenfassung: Wie können Attribute einer Instanz erzeuigt werden?
+8 *** UEBUNG Atrtibute der Instanz im Block der Klasse definieren?
+8 *** UEBUNG @classmehotd vs. @staticmethod würde hier passen, aber wir haben noch keine Dekoratoen :-(
+8 *** UEBUNG Weitere Beispiele von Klassen mit statischen und dynamischen Attributen
+8 *** UEBUNG Das dict der Klasse (nicht eine objektes) anschauen
+8 *** UEBUNG Was ist also der Unterschied zwischen einem Klassenobjekt und einem Instanzobjekt?
 8 *** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
 8 *** UEBUNG Ganz viele Biepsiele zu string-Methoden denkbar
+8 *** UEBUNG Heap, oder Queue, oder ... implementieren
+8 *** UEBUNG REchteck Klasse definieren
+8 *** UEBUNG Abstand zweier Rechtecke bestimmen
+8 *** UEBUNG Abstand einer Liste von Rechtecken bestimmen
+8 *** UEBUNG Punktklassen umstruktureien: abstand benutzt abstand2, oder umgekehrt?
 8 *** UEBUNG Einträge in eigene Klasse abspalten
+8 *** UEBUNG Studierendenverzeichnis
+8 *** UEBUNG Vorlesungeverzeichnis
+8 *** UEBUNG PAUL !!!
+8 *** UEBUNG Code umstrukturieren : Echte rekursive Struktur
 8 ** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum
+8 *** UEBUNG Größeres Beispiel: Eine Personendatenbank?
+8 *** UEBUNG Größeres Beispiel: PAUL?
+9 *** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren?
+9 *** UEBUNG Warum muss man den Konstruktor der Oberklasse überhaupt aufrufen? wird doch autoamtisch aufgerufen?
+9 *** UEBUNG DRY: Wie erweitern Sie eine Funktion der Oberklasse, ohne sie komplett ersetzen/neu schreiben zu müssen?
 ----------
-PUE 10 #: 2
+PUE 10 #: 3
+9 *** UEBUNG PAUL extended
 10 *** UEBUNG ~assert~ als Übung
 10 *** UEBUNG __enter__ als Teil des context manager protokolls
 ----------
-PUE 11 #: 4
+PUE 11 #: 5
 11 *** UEBUNG In closures die gemerkte Variable verändern?
 11 *** UEBUNG Closures nutzen, um C static Variablen nachzubauen
 11 *** UEBUNG Weitere Closure-Beispiele?
@@ -136,12 +183,18 @@ PUE 11 #: 4
 11 *** UEBUNG Ganz viele Beispiele hier denkbar
 11 *** UEBUNG Memoization als Decortor
 11 *** UEBUNG Closures als Klassen
-----------
-PUE 12 #: 2
 12 *** UEBUNG Die Beispiele sind legion
-13 *** UEBUNG Run a webserver in a single command line
 ----------
-PUE 13 #: 6
+PUE 12 #: 3
+13 *** UEBUNG Run a webserver in a single command line
+14 *** UEBUNG Was ist ein Terminal?
+14 *** UEBUNG Was macht man in einem Terminal
+14 *** UEBUNG Beispiele für Nutzung eines Terminal-Fensters
+14 *** UEBUNG Python im Terminal aufrufen
+14 *** UEBUNG Mit virtualenvwrapper ein virtualenv anlegen;  auf python 3 achten!
+14 *** UEBUNG darin irgendein Non-standardmoule installieren und nutzen
+----------
+PUE 13 #: 9
 16 *** UEBUNG Details zu import und CLASSPATH
 16 *** UEBUNG Literale für Zahlen, insbes. Fließkommazahlen
 16 *** UEBUNG Warum nicht schon an short oder byte?
@@ -149,16 +202,16 @@ PUE 13 #: 6
 16 *** UEBUNG Deepcopy? Array of Array?
 16 *** UEBUNG Was passiert, wenn der Typ hier nicht passt?
 17 *** UEBUNG Vergleiche: Was wird hier verglieche bei e1 = e2 ?
-----------
-PUE 14 #: 5
 17 *** UEBUNG Warum ist es wenig sinnvoll, ein Schlüsselwort wie ~global~ in Java einzuführen?
 17 *** UEBUNG Konstruktor für Klassenvariablen
 17 *** UEBUNG Beispiel: Klassenvariable NACH einer Methode deklarieren in der sie benutzt wird
+----------
+PUE 14 #: 2
 18 *** UEBUNG Wie schreibt man das in Python auf?
 18 *** UEBUNG Statische Methoden importieren
 ======================
 ----------
-HUE 1 #: 5
+HUE 1 #: 6
 2 *** UEBUNG Andere Zahlen 					  :dropslide:
 2 *** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
 2 *** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
@@ -166,9 +219,9 @@ HUE 1 #: 5
 2 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
 2 *** UEBUNG Umlaute und Sonderzeichen
 2 *** UEBUNG Unterschied zwischen str und byte
-----------
-HUE 2 #: 15
 2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
+----------
+HUE 2 #: 14
 2 *** UEBUNG Maximale Integer in python3?
 2 *** UEBUNG Verletzung der Rechenregeln
 2 *** UEBUNG Ganz viele Übungsaufgaben zu strings
@@ -191,7 +244,7 @@ HUE 2 #: 15
 4 *** UEBUNG Leerzeichen? Tabs?
 4 *** UEBUNG WArum sit das nur eine grobe Entsprechung
 ----------
-HUE 3 #: 10
+HUE 3 #: 12
 4 *** UEBUNG Und f(y+2)
 4 *** UEBUNG Was passiert, wenn formaler Parameter und Argument gleichen Variabelennamen haben?
 4 *** UEBUNG Auswertungsreihenfolge? Macht das einen Unterschied? Wann würde es Unterschied machen?
@@ -204,10 +257,10 @@ HUE 3 #: 10
 5 *** UEBUNG Unterschied: Länge und Index des letzten Elements, wir fangen ja bei 0 an
 5 *** UEBUNG Was passiert bei (1,2,3,1,2,3).index(2) ?
 5 *** UEBUNG index(e, s) ausprobieren
-----------
-HUE 4 #: 21
 5 *** UEBUNG Tuple ändern durch slicing und ändern
 5 *** UEBUNG Falscher Aufruf  von quersumme
+----------
+HUE 4 #: 21
 5 *** UEBUNG Warum ist die Ferstlegung *vor* Position einfügen sinnvoll?
 5 *** UEBUNG andere pop-PArameter
 5 *** UEBUNG Manipulation von Listenelementen bei kopierten Listen
@@ -235,10 +288,10 @@ HUE 4 #: 21
 6 *** UEBUNG Ohne else umschreiben
 6 *** UEBUNG assert fuer is_prime
 6 *** UEBUNG while / else Beispiele
-----------
-HUE 5 #: 14
 6 *** UEBUNG WArum funktioniert dieser Pseudo-Code nicht direkt?
 6 *** UEBUNG Einfaches Beispiel: mit SChleife mit zwei Laufvariablen über dict.key, dict.values iterieren
+----------
+HUE 5 #: 18
 6 ** UEBUNG for-Schleife Übungen
 6 *** UEBUNG allgemeinere Version von range
 6 *** UEBUNG Vergleiche Iteration über SEquenz mit range, vs. natürlich
@@ -259,49 +312,102 @@ HUE 5 #: 14
 6 *** UEBUNG Pascalsches Dreieck
 6 *** UEBUNG Beispiele für zip in for SChleifen
 7 *** UEBUNG WArum nicht mehrere Parameter mit Sternen?
+7 *** UEBUNG Beispiele zu Aufruf von Funktion mit d vs. **d, Kombination mit defaults!
+7 *** UEBUNG Kombinationen der Aufrufvariaten: Was passt womit zusammen?
 7 *** UEBUNG f(*l) mit l as iterable durchgehen
 7 *** UEBUNG Warum ist Aufruf f(**d) KEIN Aufruf als Dict!?
+7 *** UEBUNG Was, wenn keine Tuple als Rückgabewert möglich wären?
+7 *** UEBUNG Ein paar analoge BEispiele bauen: Zuweisung an Variable bestimmt Scope
+7 *** UEBUNG Analoge Beispiele fuer PUE
+7 *** UEBUNG Beiepiele, bei denen wir die globale Variable zum zurückgeben von Funktionswerte benuten
 ----------
-HUE 6 #: 7
+HUE 6 #: 29
 7 *** UEBUNG Warum nutzt eine Deklaration wie global hier nichts?
+7 *** UEBUNG Beispielprogramme für indirekte Rekursion
 7 *** UEBUNG Beispiele fuer Rekursion
+7 *** UEBUNG Scheiben bewegen mitzählen
 7 *** UEBUNG Beispiele für Übungen
+7 *** UEBUNG Beispiel: die gleiche Funktion einmal mit /ohne Veränderung  von Listen-ARgumenten
+8 *** UEBUNG Wietere Beispiele für Klassen ausdenken
+8 *** UEBUNG Beispiel-Instanzen fpr die zuvor ausgedachten Klassen
+8 *** UEBUNG Banale Frage: muss Konstruktor explizit aufgerufen werden ?
+8 *** UEBUNG Was passiert, wenn man dem Konstruktur einen anderen Namen ghibt als __init__?
+8 *** UEBUNG Nicht trivial: was passiert, wenn man den Konstruktor von Hand tortzdem aufruft?
+8 *** UEBUNG Was passiert, wenn der erste Parameter nicht ~self~ heißt?
+8 *** UEBUNG Andere Klassen definieren , andere Objekte instantiieren
 8 *** UEBUNG Beispiele mit kwargs?
+8 *** UEBUNG Das dict von Ellipse ausgeben lassen
+8 *** UEBUNG Dem dict von Ellipse einen weiteren Wert hinzufügen
+8 *** UEBUNG dict ausgeben lassen!
+8 *** UEBUNG Was passiert, wenn mit mehreren Objekten aufgerufen wird?
+8 *** UEBUNG Für Ellipse lt implementieren? Erklären, warum das komisch ist?
+8 *** UEBUNG plus Operator überladen
+8 *** UEBUNG Was schweres? Einen Iterator auf einer Ellipse implementieren?
+8 *** UEBUNG Slicing einer Ellipse? Mit wInkeln?
 8 *** UEBUNG Beispiele für unterschiedliche Gleichheiten und ungleichheiten
 8 *** UEBUNG Erklären, warum die folgenden Ausgaben entstehen
+8 *** UEBUNG Was passiert hier und warum?
+8 *** UEBUNG Beiepiele: woezu braucht man Klassenattribute/methoden?
+8 *** UEBUNG Zusammenfassung: Wie können Attribute einer Instanz erzeuigt werden?
+8 *** UEBUNG Atrtibute der Instanz im Block der Klasse definieren?
+8 *** UEBUNG @classmehotd vs. @staticmethod würde hier passen, aber wir haben noch keine Dekoratoen :-(
+8 *** UEBUNG Weitere Beispiele von Klassen mit statischen und dynamischen Attributen
+8 *** UEBUNG Das dict der Klasse (nicht eine objektes) anschauen
+8 *** UEBUNG Was ist also der Unterschied zwischen einem Klassenobjekt und einem Instanzobjekt?
 8 *** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
 8 *** UEBUNG Ganz viele Biepsiele zu string-Methoden denkbar
-----------
-HUE 7 #: 2
+8 *** UEBUNG Heap, oder Queue, oder ... implementieren
+8 *** UEBUNG REchteck Klasse definieren
+8 *** UEBUNG Abstand zweier Rechtecke bestimmen
+8 *** UEBUNG Abstand einer Liste von Rechtecken bestimmen
+8 *** UEBUNG Punktklassen umstruktureien: abstand benutzt abstand2, oder umgekehrt?
 8 *** UEBUNG Einträge in eigene Klasse abspalten
-8 ** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum
+8 *** UEBUNG Studierendenverzeichnis
+8 *** UEBUNG Vorlesungeverzeichnis
+8 *** UEBUNG PAUL !!!
 ----------
-HUE 8 #: 4
+HUE 7 #: 6
+8 *** UEBUNG Code umstrukturieren : Echte rekursive Struktur
+8 ** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum
+8 *** UEBUNG Größeres Beispiel: Eine Personendatenbank?
+8 *** UEBUNG Größeres Beispiel: PAUL?
+9 *** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren?
+9 *** UEBUNG Warum muss man den Konstruktor der Oberklasse überhaupt aufrufen? wird doch autoamtisch aufgerufen?
+9 *** UEBUNG DRY: Wie erweitern Sie eine Funktion der Oberklasse, ohne sie komplett ersetzen/neu schreiben zu müssen?
+----------
+HUE 8 #: 6
+9 *** UEBUNG PAUL extended
 10 *** UEBUNG ~assert~ als Übung
 10 *** UEBUNG __enter__ als Teil des context manager protokolls
 11 *** UEBUNG In closures die gemerkte Variable verändern?
 11 *** UEBUNG Closures nutzen, um C static Variablen nachzubauen
 11 *** UEBUNG Weitere Closure-Beispiele?
 11 *** UEBUNG Standard-Programmierproblem mit lambda closures
+11 *** UEBUNG Ganz viele Beispiele hier denkbar
 ----------
 HUE 9 #: 2
-11 *** UEBUNG Ganz viele Beispiele hier denkbar
 11 *** UEBUNG Memoization als Decortor
 11 *** UEBUNG Closures als Klassen
-----------
-HUE 10 #: 2
 12 *** UEBUNG Die Beispiele sind legion
-13 *** UEBUNG Run a webserver in a single command line
 ----------
-HUE 11 #: 4
+HUE 10 #: 3
+13 *** UEBUNG Run a webserver in a single command line
+14 *** UEBUNG Was ist ein Terminal?
+14 *** UEBUNG Was macht man in einem Terminal
+14 *** UEBUNG Beispiele für Nutzung eines Terminal-Fensters
+14 *** UEBUNG Python im Terminal aufrufen
+14 *** UEBUNG Mit virtualenvwrapper ein virtualenv anlegen;  auf python 3 achten!
+14 *** UEBUNG darin irgendein Non-standardmoule installieren und nutzen
+----------
+HUE 11 #: 5
 16 *** UEBUNG Details zu import und CLASSPATH
 16 *** UEBUNG Literale für Zahlen, insbes. Fließkommazahlen
 16 *** UEBUNG Warum nicht schon an short oder byte?
 16 *** UEBUNG Hier kann man in der Übung mal über Unicode reden.
 16 *** UEBUNG Deepcopy? Array of Array?
-----------
-HUE 12 #: 5
 16 *** UEBUNG Was passiert, wenn der Typ hier nicht passt?
+----------
+HUE 12 #: 4
 17 *** UEBUNG Vergleiche: Was wird hier verglieche bei e1 = e2 ?
 17 *** UEBUNG Warum ist es wenig sinnvoll, ein Schlüsselwort wie ~global~ in Java einzuführen?
 17 *** UEBUNG Konstruktor für Klassenvariablen
@@ -311,5 +417,6 @@ HUE 13 #: 2
 18 *** UEBUNG Wie schreibt man das in Python auf?
 18 *** UEBUNG Statische Methoden importieren
 ======================
-[   {'blaetter': [0, 0, 5, 11, 14, 14, 21, 4, 5, 2, 4, 2, 6, 5], 'kind': 'PUE'},
-    {'blaetter': [5, 15, 10, 21, 14, 7, 2, 4, 2, 2, 4, 5, 2], 'kind': 'HUE'}]
+[   {   'blaetter': [0, 0, 6, 10, 16, 12, 27, 17, 18, 3, 5, 3, 9, 2],
+        'kind': 'PUE'},
+    {'blaetter': [6, 14, 12, 21, 18, 29, 6, 6, 2, 3, 5, 4, 2], 'kind': 'HUE'}]
