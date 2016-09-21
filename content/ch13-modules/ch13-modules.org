@@ -404,3 +404,6 @@ python -m ...
   Standard-Modulen
   - Plus zahlreiche weitere Module 
 
+*** In welche Beziehung stehen Klassen und Module? 
+
+S. 815, Frage 1

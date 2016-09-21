@@ -55,6 +55,52 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
     u.ä.)
 - Windows: [[https://www.python.org/downloads/windows/][Viel Glück!]]
 
+** Python im Terminal 
+
+- Der Python-Interpreter kann direkt als Programm aufgerufen werden
+- Führt dann REPL aus 
+  - Read: Von Eingabe, Tastatur
+  - Print: Auf Ausgabe, Bildschirm
+- In Jupyterhub ganz einfach: New Terminal 
+
+
+#+CAPTION: Start eines Terminalfensters in Jupyterhub
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+ATTR_LaTeX: :caption \caption{Start eines Terminalfensters in Jupyterhub \label{fig:jh-new-terminal}}
+#+NAME: fig:jh-new-terminal
+[[./figures/jhub-terminal.png]]
+
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:jh-new-terminal} zeigt, wie Sie aus der Jupyterhub-Webseite einfach ein Terminal starten können. Die Übungen werden mehr Details zur Nutzung von Terminals, shells, etc. enthalten. 
+#+END_LaTeX
+
+*** UEBUNG Was ist ein Terminal? 
+
+Etwas historie; wikiseiten? 
+
+*** UEBUNG Was macht man in einem Terminal 
+
+Eine Shell ist auch nur eine Interpreter-REPL, mit spezialisiertem
+Befehlssatz. 
+
+Unterschied Terminal vs. der spezifischen Shell, die gerade benutzt
+wird.  
+
+Klarmachen: Und mit einer Shell.-Sprache kann man Programme (Skripte)
+schreiben und ausführen. Aber hier nicht der wesentliche Gegenstand. 
+
+*** UEBUNG Beispiele für Nutzung eines Terminal-Fensters 
+
+ls, mkdir, ln -s, etc - der übliche Standardkram. 
+
+*** UEBUNG Python im Terminal aufrufen
+
+python starten, einfache Befehle ausprobieren. 
+
+Version anschauen: Oh SChreck, das ist python 2.7!! 
+
+
 ** Packages installieren 
 
 Standardwerkzeuge für weitere Packages ~pip~ 
@@ -93,6 +139,15 @@ Standardwerkzeuge für weitere Packages ~pip~
 - ~(jupyter) $> pip install jupyter~
 - ~...~
 - ~(jupyter) $> deactivate~
+
+
+*** UEBUNG Mit virtualenvwrapper ein virtualenv anlegen;  auf python 3 achten! 
+
+default ist pyhton 2.7.9 so wie es aussieht? 
+
+*** UEBUNG darin irgendein Non-standardmoule installieren und nutzen
+
+Matplotlib? ODer sowas? requests? 
 
 ** Nützliche Non-Standard-Module 
 

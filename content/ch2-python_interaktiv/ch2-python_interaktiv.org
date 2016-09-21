@@ -762,7 +762,8 @@ Man spricht dann von /Operator Overloading/.
 
 *** UEBUNG Welche Eigenschaft von P3 macht implizite Umwandlungen problemlos? 
 
-Infinite size of ints , keine unterschiedlichen Größen der intergers 
+NAja, problemlos... Nur eine Größe für integers; nicht wie in anderen
+Sprachen. 
 
 
 * Typen in Programmiersprachen

@@ -458,6 +458,19 @@ Python sucht Namen in diesen Namensräumen, in dieser Reihenfolge:
 
 Kurz: Die Reihenfolge ist *LEGB* 
 
+** Nachschlageregel: LEGB -- Illustration  
+
+#+CAPTION: Nachschlageregel LEGB 
+#+ATTR_LaTeX: :width 0.5\linewidth
+#+ATTR_LaTeX: :caption \caption{Nachschlageregel LEGB  \label{fig:legb}}
+#+NAME: fig:legb
+[[./uml/legb.png]]
+
+
+#+BEGIN_LaTeX
+Abbildung~\ref{fig:legb} illustriert die Nachschlageregel LEGB: von innen nach aussen. 
+#+END_LaTeX
+
 
 
 * Closures 
@@ -484,7 +497,7 @@ Kurz: Die Reihenfolge ist *LEGB*
 - Die Anweisung ~g = f~ lässt den Namen ~g~ auf das gleiche Objekt
   referenzieren
 - Also wird der Aufruf ~g()~ auch die gleiche Funktion aufrufen
-  - Der Name der regenerierenden Variable ist /irrelevant/! 
+  - Der Name der referenzierenden Variable ist /irrelevant/! 
 
 
 

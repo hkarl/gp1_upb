@@ -343,6 +343,16 @@ Fangen wir mit dem Konstruktur der Klasse ~Ellipse~ an:
 e1 = Ellipse(1, 2, 17.5, 0.4)
 #+END_SRC 
 
+
+*** UEBUNG Banale Frage: muss Konstruktor explizit aufgerufen werden ? 
+
+*** UEBUNG Was passiert, wenn man dem Konstruktur einen anderen Namen ghibt als __init__? 
+
+*** UEBUNG Nicht trivial: was passiert, wenn man den Konstruktor von Hand tortzdem aufruft? 
+
+Das ist gar nicht so einfach; insbes. im folgenden Kapitel mit
+Vererbung wird das kompliziert. 
+
 ** Klassen sind Typen 
 
 - Die Notation zur Instatiierung ist vertraut
@@ -552,6 +562,9 @@ Endzustandes (inhaltlich äquivalent zu
     ~a2~ und insbesondere ~self~
   - Der durch ~self~ erreichbare Namensraum des Objekts
 
+*** UEBUNG Was passiert, wenn der erste Parameter nicht ~self~ heißt? 
+
+Aber: SEHR starke Konvention!! 
 
 
 ** Instantiierung weiterer Objekte 
@@ -900,6 +913,16 @@ Namen mit den entsprechenden Funktionen verbunden.
 
 *** UEBUNG Für Ellipse lt implementieren? Erklären, warum das komisch ist? 
 
+*** UEBUNG plus Operator überladen 
+
+zwei Ellipsen addieren?? oder ein Plausibles Beispiel? Schnitt? 
+
+*** UEBUNG Was schweres? Einen Iterator auf einer Ellipse implementieren? 
+
+Den Rand ablaufen? in vorgegeben Schrittweite? 
+
+*** UEBUNG Slicing einer Ellipse? Mit wInkeln? 
+
 ** Gleichheit? 
 
 - Gleichheit der Referenz/Identität: Zwei Namen referenzieren das
@@ -1097,6 +1120,22 @@ gibt es keine überladenen Methoden in Python.
 
 Wir kommen darauf bei der Besprechung von Java nochmals zurück.  
 
+
+*** UEBUNG Was passiert hier und warum? 
+
+#+BEGIN_SRC python :exports both :results output
+class C:
+    def m(self, a):
+        pass
+
+    def m(self, a, b):
+        pass
+
+c = C()
+c.m(17)
+#+END_SRC 
+
+
 * Statische Attribute und Methoden 
 
 
@@ -1227,10 +1266,28 @@ Wie erwartet taucht im Attribute- ~dict~ der Klasse ~C~ ein Eintrag
 auf, der den Namen ~x~ mit dem Wert 1 verbindet (Abbildung
 [[fig:x-inattributedict]]).  
 
-#+CAPTION: Erweiterung des Attriubte-dict um weitere Namen/Werte
+#+CAPTION: Erweiterung des Attribute-dict um weitere Namen/Werte
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:x-inattributedict
 [[./figures/pt-x-in-dict.png]]
+
+
+*** UEBUNG Zusammenfassung: Wie können Attribute einer Instanz erzeuigt werden? 
+
+Wichtig: geht von innerhalb des Scopes der Klasse wie auch sonst --
+immer wenn eine Referenz vorhanden ist 
+
+*** UEBUNG Atrtibute der Instanz im Block der Klasse definieren? 
+
+Erzeugt das hier ein Attirbut der Instanz? Warum? 
+
+#+BEGIN_SRC python :exports both :results output
+class C:
+    i = 5
+
+c = C()
+#+END_SRC 
+
 
 
 ** Daten im Namensraum der Klasse vs. eines Objektes 
@@ -1485,6 +1542,8 @@ Ja!
 - Damit: Jede Klasse ist ein Type
   - Wie ~int~, ~list~, etc. 
 
+
+*** UEBUNG Was ist also der Unterschied zwischen einem Klassenobjekt und einem Instanzobjekt? 
 
 ** Erinnerung: Typkonvertierung 
 
@@ -2217,7 +2276,7 @@ Wann ist Löschen eines Knoten einfach?
 
 ** Hotel -- Entwurfsdiskussion 
 
-Wie würde ein Klasse für eine Hotelverwaltung aussehen? 
+Wie würde eine Klasse für eine Hotelverwaltung aussehen? 
 - Welche weiteren Klassen würden Sie für Delegation nutzen?
 - Welche Variabeln, Methoden brauchen Sie 
 
@@ -2263,4 +2322,11 @@ Wie würde ein Klasse für eine Hotelverwaltung aussehen?
 - Aber was, wenn man nicht *genau* die richtige Klasse, aber eine
   ähnliche findet?
   - Adaptieren? 
+
+*** UEBUNG Größeres Beispiel: Eine Personendatenbank? 
+
+
+*** UEBUNG Größeres Beispiel: PAUL? 
+Eigentlich braucht das aber inheritance
+
 

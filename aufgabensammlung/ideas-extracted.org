@@ -1,0 +1,29 @@
+#+TITLE: Nützliche Ideen aus der umfangreichen Aufgabensammlung extrahiert 
+
+* Vorbemerkungen 
+
+Das heißt NICHT, dass wir genau diese Ideen auch übernehmen! Nur als Anregung! 
+
+Es heißt auch NICHT, dass diese Inhalte genau auf diese Blätter gemappt werden können. 
+
+
+* HUEs 
+
+** HUE 1 
+
+- LPs der GP1 in Wochenstunden und Gesamtstunden umrechnen 
+- Einfache Programme mit Synatx und banalen Fehlern; korrigieren lassen 
+- Einfache Ausdrücke ausrechnen lassen 
+- Bezeichner: gültig, ungültig
+- Auswertungsreihenfolge; Punkt vor STricht 
+- Boolesche Ausdrücke aus Textaufgabe bilden 
+- Mathematische Formeln umsetzen 
+
+** HUE 2
+
+- Zahldarstelungen (oktal etc.) - erst später 
+
+
+
+
+* PUEs 

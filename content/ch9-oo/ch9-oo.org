@@ -574,6 +574,10 @@ a.f()
 #+END_SRC 
 
 
+
+*** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren? 
+
+
 * Vererbung in Python
 
 ** Konkret: Vererbung in Python 
@@ -748,6 +752,12 @@ Wie kommen wir an Konstruktor von ~Artikel~?
   - Zum Aufruf der entsprechenden Methoden 
   - Nicht nur in ~__init__~ nützlich (siehe z.B. [[https://rhettinger.wordpress.com/2011/05/26/super-considered-super/][Blog post]])
 
+
+*** UEBUNG Warum muss man den Konstruktor der Oberklasse überhaupt aufrufen? wird doch autoamtisch aufgerufen? 
+
+Nein, nur der ERSTE Konstruktor-Aufruf passiert automatisch!
+~__init__~ der Klasse des Objekts selbst. Oberklasse konstruktoren
+werden nicht automatisch gerufen. 
 
 ** Unterklasse ~Werk~: Konstruktor der Oberklasse mit ~super~ aufrufen (2)   
 
@@ -940,6 +950,9 @@ Tests, Übersetzungssysteme, ...
 
 Gegensatz: Write everything twice (WET) (auch: we enjoy typing, waste
 everybody's time). 
+
+
+*** UEBUNG DRY: Wie erweitern Sie eine Funktion der Oberklasse, ohne sie komplett ersetzen/neu schreiben zu müssen? 
 
 ** str mitbenutzen? 
 
@@ -1618,7 +1631,7 @@ liefert diese Funktion ein Objekt der eingebauten Klasse ~property~).
 
 **** Ausführung des Konstruktors 
 
-Im Konstruktur wird in Zeile 4 auf die Property ~temperature~
+Im Konstruktor wird in Zeile 4 auf die Property ~temperature~
 schreibend zugegriffen. Vereinbarungsgemäß (per Anweisung in Zeile
 18, 19) wird dazu die Methode ~set_temperature~ aufgerufen. In Zeile
 15 wird dann dem gerade initialisierten Objekt (durch ~self~
@@ -1915,6 +1928,16 @@ Nächstes Kapitel: Exceptions!
 
 
 
+** Erben oder Besitzen? ~is-a~ oder ~has-a~? 
+
+- Vererben (~is-a~): Wiederbenutzung, Adaption von Spezialfälle
+- Komposition (~has-a~, Aggregation): Zusammenfügen unterschiedlicher
+  Objekte zu einem neuen Ganzen
+- Unterschiedliche Entwurfsaspekte!
+  - Ein Koch ist ein Spezialfall eines Angestellten
+  - Eine Pizzeria hat einen Koch (ein Koch ist keine Pizzeria) 
+
+
 * Zusammenfassung
 
 ** Zusammenfassung 
@@ -1939,3 +1962,6 @@ Nächstes Kapitel: Exceptions!
 #+NAME: fig:verallgemeinerung
 [[./figures/XKCD_The_General_Problem.png]]
 
+*** UEBUNG PAUL extended 
+
+Vererbung von Personen; polymorphism 
