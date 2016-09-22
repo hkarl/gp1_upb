@@ -19,6 +19,30 @@ animations.
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+
+import requests
+import webbrowser
+from IPython.core.magic import register_line_magic
+
+pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+
+# Test-Session: 
+pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+# Produktiv-Session: 
+# pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
+
+pingo_duration = '30'
+
+@register_line_magic
+def pingo(line):
+    params = {'survey_name': pingo_title, 
+              'predef_options': pingo_questions, 
+              'q_type': pingo_type,
+              'duration': pingo_duration, 
+              'auth_token': pingo_token}
+
+    r = requests.post(pingo_url, json=params)
+    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
 #+END_SRC
 
 
@@ -76,13 +100,29 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 - Computer Engineering? 
 - ...? 
 
-*** TODO Herkunft?						    :animate:
+
+** Wer sind Sie? 
+
+***  Herkunft? 	
  
 - Paderborn <20 km?
 - 20km < Paderborn < 50km? 
 - 50km < Paderborn? 
 
-# slido: ??? bingo??? 
+*** Pingo!						  :animate:dropslide:
+
+
+Klicken Sie auf http://pingo.upb.de/204051
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Wo sind Sie her?" 
+pingo_questions = ["Paderborn <20 km", "20km < Paderborn < 50km", "50km < Paderborn"]
+pingo_duration = "120"
+
+%pingo
+#+END_SRC 
+
+
 
 
 
@@ -368,9 +408,6 @@ Zulassungsvoraussetzungen erfüllen:
 ** Zusammenfassung 
 - Vorlesungen haben Organisationsaufwand :-) 
 
-
-
- 
 
 
 
