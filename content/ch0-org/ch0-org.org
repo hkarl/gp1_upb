@@ -101,18 +101,37 @@ def pingo(line):
 - ...? 
 
 
-** Wer sind Sie? 
 
-***  Herkunft? 	
+
+***  Herkunft?							    :animate:
  
 - Paderborn <20 km?
 - 20km < Paderborn < 50km? 
 - 50km < Paderborn? 
 
-*** Pingo!						  :animate:dropslide:
+** Pingo 
 
 
-Klicken Sie auf http://pingo.upb.de/204051
+
+Pingo: Plattform für Publikumsinteraktion 
+- Zücken Sie Smartphone oder Laptop 
+- Gehen Sie auf http://pingo.upb.de/204051
+
+
+*** QR-Code							    :nolatex:
+
+#+CAPTION: QR-Code für GP1 in Pingo
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+ATTR_LaTeX: :caption \caption{QR-Code für Pingo \label{fig:pingo}}
+#+NAME: fig:pingo
+[[./figures/pingo.png]]
+
+
+
+
+** Pingo praktisch						    :nolatex:
+
+
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Wo sind Sie her?" 
