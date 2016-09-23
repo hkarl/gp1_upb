@@ -543,7 +543,8 @@ referenziert wird.
 %%tutor  
 a = 5
 b = a
-a = a + 2 
+a = a + 2
+b 
 #+END_SRC
 
 ** Warum hat ~b~ den Wert 5?  
@@ -583,6 +584,17 @@ y = x
 x = 42 - y
 y = 2*x + 17
 #+END_SRC
+
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Wert von y?" 
+pingo_type = "single"
+pingo_questions = ["42", "0", "-42", "34"]
+pingo_duration = "60"
+
+%pingo
+#+END_SRC 
+
 
 ** Beispiel: Werte zweier Variablen vertauschen 
 

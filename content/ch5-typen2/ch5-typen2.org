@@ -21,6 +21,34 @@ animations.
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+
+
+import requests
+import webbrowser
+from IPython.core.magic import register_line_magic
+
+pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+
+# Test-Session: 
+pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+# Produktiv-Session: 
+# pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
+
+pingo_duration = '30'
+pingo_type = "single"
+
+
+@register_line_magic
+def pingo(line):
+    params = {'survey_name': pingo_title, 
+              'predef_options': pingo_questions, 
+              'q_type': pingo_type,
+              'duration': pingo_duration, 
+              'auth_token': pingo_token}
+
+    r = requests.post(pingo_url, json=params)
+    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
+
 #+END_SRC
 
 ** Dieses Kapitel 
@@ -390,8 +418,20 @@ t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) )
 print(t[t[2][0:1][0]-1:t[2][1]])
 #+END_SRC 
 
+#+RESULTS:
+: ('Hallo', 'GP1')
 
-*** TODO pingo?						:dropslide:skipslide:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Ausgabe von print(t[t[2][0:1][0]-1:t[2][1]])?" 
+pingo_type = "single"
+pingo_questions = ["'Hallo', 'GP1'", "('Hallo', 'GP1')", 
+                       "(1, 2, 3)", "('GP1', '1', '2')" ]
+pingo_duration = "60"
+
+%pingo
+#+END_SRC 
+
 
 
 ** Verknüpfungen 
@@ -742,7 +782,17 @@ print(L.index(2))
 : 1
 
 
-*** TODO pingo?						:dropslide:skipslide:
+*** Pingo 
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Was gibt print(L.index(2)) aus?" 
+pingo_type = "single"
+pingo_questions = ["1", "2", "3", "4"]
+pingo_duration = "30"
+
+%pingo
+#+END_SRC 
+
 
 ** Veränderung von Listenelementen				   :subslide:
 

@@ -32,6 +32,32 @@ animations.
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+
+import requests
+import webbrowser
+from IPython.core.magic import register_line_magic
+
+pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+
+# Test-Session: 
+pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+# Produktiv-Session: 
+# pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
+
+pingo_duration = '30'
+pingo_type = "single"
+
+
+@register_line_magic
+def pingo(line):
+    params = {'survey_name': pingo_title, 
+              'predef_options': pingo_questions, 
+              'q_type': pingo_type,
+              'duration': pingo_duration, 
+              'auth_token': pingo_token}
+
+    r = requests.post(pingo_url, json=params)
+    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
 #+END_SRC
 
 
@@ -231,7 +257,7 @@ Probieren Sie das in einem Notebook aus!
 ** Einrückung: Beispiel 
 
 #+BEGIN_SRC python
-%%tutor 
+%%tutor -t
 def f():
     x = 5
     y = 17
@@ -248,7 +274,18 @@ def g():
 z = 42
 #+END_SRC
 
-*** Wieviele Anweisungen hier ausgeführt?			    :animate:
+*** Wieviele Anweisungen hier ausgeführt?		    :animate:nolatex:
+
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Wieviele Anweisungen hier ausgeführt?" 
+pingo_type = "single"
+pingo_questions = ["1", "2", "3", "7"]
+pingo_duration = "30"
+
+%pingo
+#+END_SRC 
+
 
 *** UEBUNG Leerzeichen? Tabs? 
 
@@ -449,7 +486,7 @@ Programms; er entsteht /nicht/ zur Laufzeit.
 Ein Name kann an einer Stelle des Programms nicht sichtbar sein, aber
 durchaus zur Laufzeit existieren. Er heißt dann /out of scope/.
 
-Verkürzend sprechen wir von /Scope einer Variable/ und meinen damit den
+Verkürzend sprechen wir auch von /Scope einer Variable/ und meinen damit den
 Scope des Namensraum, zu dem der Name dieser Variable gehört. 
 
 ** Frame 
@@ -476,9 +513,9 @@ enthält u.a.
 Das stimmt nicht ganz. Wir werden diese Definition in folgenden
 Kapiteln noch verfeinern. 
 
-*** Anmerkung: Pythontutor			     :B_definition:dropslide:
+*** Anmerkung: Pythontutor				   :B_note:dropslide:
     :PROPERTIES:
-    :BEAMER_env: definition
+    :BEAMER_env: note
     :END:
 
 Pythontutor stellt den Ablauf eines Programms dar. Also werden dort
@@ -1125,7 +1162,7 @@ Aufruf einer /vordefinierten/ Funktion:
 #+BEGIN_SRC python
 print("Hallo GP1")
 x = 42
-print (x)
+print(x)
 #+END_SRC
 
 ** ~print~: Seiteneffekt, Prozedur 
@@ -1264,7 +1301,7 @@ print("GP1")
 
 
 
-** Weitere Beispiele für Funktionen 
+** Weiteres Beispiel für Funktionen 
 
 Was wird hier ausgegeben? 
 
@@ -1286,7 +1323,17 @@ Was wird hier ausgegeben?
 : 111
 
 
-*** TODO Pingo?						:dropslide:skipslide:
+***  Pingo							    :nolatex:
+
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Resultat?" 
+pingo_type = "single"
+pingo_questions = ["1 und 11", "0 und 100", "10 und 1000", "111 und 1111", "11 und 111"]
+pingo_duration = "120"
+
+%pingo
+#+END_SRC 
 
 
 
@@ -1375,7 +1422,7 @@ Konvention verletzt?
 ** Nützliche Kommentare 
 
 #+CAPTION: Nützliche Kommentare retten Zeit
-#+ATTR_LaTeX: :width 0.25\linewidth
+#+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:get_serial_number
 [[./figures/get_serial_number.png]]
 
