@@ -422,6 +422,7 @@ print(t[t[2][0:1][0]-1:t[2][1]])
 : ('Hallo', 'GP1')
 
 
+*** Pingo							    :nolatex:
 #+BEGIN_SRC python :exports code
 pingo_title = "Ausgabe von print(t[t[2][0:1][0]-1:t[2][1]])?" 
 pingo_type = "single"
@@ -516,8 +517,8 @@ print(l)
 
 Eigentlich doch erwartet:  ~index(t, e)~ ? 
 
-Kleine syntaktische Variation für Funktionsaufruf: ~t.count(e)~ 
-- Ziehe das erste Argument der Funktion aus der Klamme
+Kleine syntaktische Variation für Funktionsaufruf: ~t.index(e)~ 
+- Ziehe das erste Argument der Funktion aus der Klammer
 - Vor den Funktionsnamen
 - Verbinde mit Punkt ~.~ 
 
@@ -687,7 +688,8 @@ und das ist oft eine Quelle von Fehlern.
 Der Python-Interpreter, im Gegensatz dazu, folgt immer einer Referenz
 auf das eigentlich Objekt. Man kann in einem Python-Programm gar nicht
 über eine Referenz an sich reden oder darauf zugreifen -- man bekommt
-immer das referenzierte Objekt. 
+immer das referenzierte Objekt. Daher kann man sich hier eine kleine
+Schlampigkeit im Ausdruck erlauben. 
 
 
 * Veränderliche Aufzählungen: Listen 
@@ -728,8 +730,6 @@ Zugriff wie bei Tuple
 
 #+BEGIN_SRC python :exports both :results output
 %%tutor -t
-L = [1, 2, 42, 17]
-# eine geschachtelte Liste: 
 L = [1, 2, ["Hallo", "GP1"], (42, 17)]
 print("L: ", L)
 print("L[1]: ", L[1]) 
@@ -810,7 +810,7 @@ print(L)
 
 *** Tada!							    :animate:
 
-#+CAPTION: Tada: Access to list elements works 
+#+CAPTION: Tada: Write access to list elements works 
 #+ATTR_LaTeX: :width 0.25\linewidth
 #+NAME: fig:tada-listelement
 [[./figures/tada.png]]
@@ -905,6 +905,25 @@ print(L)
 
 Weil wir ja schon ein append haben... aber noch kein prepend 
 
+** Pingo: ~append~ oder ~extend~? 
+
+#+BEGIN_SRC python :exports both :results output
+L1 = [1, 2, 3]
+L2 = [4, 5, 6]
+L1.???(L2) 
+L1.???(7)
+# gewünschtes Ergenis: [1, 2, 3, 4, 5, 6, 7]
+#+END_SRC 
+
+#+BEGIN_SRC python :exports code
+pingo_title = "append oder extend?" 
+pingo_type = "single"
+pingo_questions = ["append und extend", "extend und append"]
+pingo_duration = "30"
+
+%pingo
+#+END_SRC 
+
 
 
 ** Listen verkleinern						   :subslide:
@@ -927,7 +946,7 @@ print("L nach pop: ", L)
 
 Beware: pop(0); was passiert bei anderen pop-Werten? 
 
-*** ~remove~: Erstes Auftragen eines Wertes entfernen		    :animate:
+*** ~remove~: Erstes Auftauchen eines Wertes entfernen 		    :animate:
 
 #+BEGIN_SRC python :exports both :results output
 L = [1, 2, 3, 1, 2, 3]
@@ -1009,10 +1028,39 @@ genau das gewünschte Ergebnis; es könnte aber auch unerwartet
 sein. Überlegen Sie sich, welche Alternative Struktur Sie
 möglicherweise erwarten könnten.
 
+Man spricht hier von einer sog. /flachen Kopie/ (shallow
+copy). Die Alternative wäre eine /tiefe Kopie/ (deep copy). Was würde
+das bedeutet? 
+
 #+CAPTION: Kopieren einer Liste von Liste
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-copy-list-of-list
 [[./figures/pt-copy-list-of-list.png]]
+
+
+** Pingo: Kopie einer Liste von Listen 
+
+Was wird hier ausgegeben? 
+
+#+BEGIN_SRC python :exports both :results output
+L = [1, [2, 3], 4]
+M = L.copy()
+L[1][1] = 17
+print(M)
+#+END_SRC 
+
+#+RESULTS:
+: [1, [2, 17], 4]
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Ausgabe nach Kopie einer Liste von Listen" 
+pingo_type = "single"
+pingo_questions = ["[1, [2, 3], 4]", "[17, [2, 3], 4]", "[1, [2, 17], 4]"]
+pingo_duration = "30"
+
+%pingo
+#+END_SRC 
+
 
 
 *** UEBUNG Manipulation von Listenelementen bei kopierten Listen 
@@ -1150,7 +1198,7 @@ Tests abprüfen
 
 ** Warum Liste und Tuple? 
 
-Tuple geben ein Versprechen: Unveränderlichkeit 
+Tuple geben ein Versprechen: *Unveränderlichkeit* 
 - Programmierer kann sich darauf verlassen 
 - Listen könnten irgendwie manipuliert werden -- z.B. durch
   Unterprogramm 
@@ -1249,7 +1297,7 @@ verhält
 ** Duck Typing -- Risiken					   :subslide:
 
 #+CAPTION: Auch Duck Typing bringt seine eigenen Risiken mit sich 
-#+ATTR_LaTeX: :width 0.25\linewidth :float nil
+#+ATTR_LaTeX: :width 0.5\linewidth :float nil
 #+NAME: fig:duck-typing
 [[./figures/duck-typing.png]]
 
@@ -1461,7 +1509,7 @@ L[1] = 17
 - Test auf enthalten-sein: ~in~
 
 #+BEGIN_SRC python :exports both :results output
-a = set( (1,2,3,4,3,2))
+a = set( (1,2,3,4,3,2) )
 print(a)
 print(2 in a)
 print(5 in a)
@@ -1475,7 +1523,7 @@ print(5 in a)
 ** Zugriff ohne Index? 
 
 #+BEGIN_SRC python :exports both :results output
-a = set( (1,2,3,4,3,2))
+a = set( (1,2,3,4,3,2) )
 a[1]
 #+END_SRC 
 
@@ -1552,7 +1600,7 @@ print(D)
 %%tutor -t
 D = {}
 D["name"] = "Holger"
-D["berufung"] = "GP1-Leser" 
+D["berufung"] = "GP1-Vorleser" 
 D["telefon"] = 605375
 D[1] = 17 
 D[42] = "GP1" 
@@ -1622,7 +1670,7 @@ zugeordneten Wert.
 
 ** ~dict~: Werte angeben					   :subslide:
 
-- Alternative: An Funktion ~dict~ eine Liste von 2-Tupeln übergeben 
+- Alternative: An Funktion ~dict~ eine /Liste von 2-Tupeln/ übergeben 
   - Jedes Tupel: Schlüssel, dann zugeordneter Wert
   - Liefert entsprechendes ~dict~
 - Diese Darstellung entspricht gut der internen Darstellung eines
@@ -1881,7 +1929,7 @@ Gemeinsamkeiten? Ordnung ins Chaos?
                      draw, align=center,
                      top color=white}
     [ Sonderfälle, for tree={bottom color=red!20} 
-      [ \texttt{NoneType}  ]
+      [ \texttt{None}  ]
     ]
     [ Unveränderlich\\ \emph{Immutable}, for tree={bottom color=green!20}  
       [ Zahlen 

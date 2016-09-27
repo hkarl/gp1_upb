@@ -215,8 +215,6 @@ und sinnvoll zu strukturieren.
   - Termin: Dienstag, 13:00 - 14:00 Uhr
   - s.t. oder c.t.? 
 
-# slido?? 
-
 
 #+NAME: hausblattprozess 
 #+CAPTION: Hausblätter -- Der Prozess 

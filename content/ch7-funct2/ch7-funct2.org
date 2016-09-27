@@ -506,7 +506,16 @@ f()
 x = 7
 #+END_SRC 
 
-*** TODO Pingo?						:dropslide:skipslide:
+*** Pingo							    :nolatex:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Ergebnis?" 
+pingo_type = "single"
+pingo_questions = ["3", "5", "7", "42"]
+pingo_duration = "30"
+
+%pingo
+#+END_SRC 
 
 ** Sichtbarkeit bei schreibendem Zugriff? 
 
