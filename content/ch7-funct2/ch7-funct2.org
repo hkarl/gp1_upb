@@ -22,6 +22,32 @@ animations.
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+
+import requests
+import webbrowser
+from IPython.core.magic import register_line_magic
+
+pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+
+# Test-Session: 
+pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+# Produktiv-Session: 
+# pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
+
+pingo_duration = '30'
+pingo_type = "single"
+
+
+@register_line_magic
+def pingo(line):
+    params = {'survey_name': pingo_title, 
+              'predef_options': pingo_questions, 
+              'q_type': pingo_type,
+              'duration': pingo_duration, 
+              'auth_token': pingo_token}
+
+    r = requests.post(pingo_url, json=params)
+    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
 #+END_SRC
 
 
@@ -41,6 +67,7 @@ Wir kehren noch einmal zu Funktionen zurück und betrachten:
 - Funktionen rufen andere Funktionen (oder sich selbst) auf
 - Funktionsdefinition innerhalb anderer Funktionen 
 - Die Regeln für Namensräume und  /Scopes/
+
 
 * Flexible Funktionsparameter und Rückgabewerte 
 
@@ -283,6 +310,35 @@ der genau so scheitern würde.
 Mischen von keyowrds und postiionsparametern; warum geht das nicht in
 belibeiger Reihenfolge? 
 
+
+** Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+def f(a, b, *args, **kwargs):
+    if 'x' in kwargs:
+        return args[1], kwargs['y']
+    else:
+        return str(len(args)) * kwargs['z'] 
+
+print(f("hallo", 3, 17, "gp1", **{'y': 17, 'z': 5}))
+#+END_SRC 
+
+#+RESULTS:
+: 222
+
+*** Pingo!						    :animate:nolatex:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Was gibt obiger Code aus?" 
+pingo_type = "single"
+pingo_questions = ["222", "hallo gp1", '("gp1", 17)', "1717"]
+pingo_duration = "60"
+
+%pingo
+#+END_SRC 
+
+
+
 ** Zusammenfassung formale Parameter und Argumente -- Syntax 
 
  #+ATTR_LATEX: :align l|p{0.8\textwidth}
@@ -448,7 +504,7 @@ Auf welche Variablen kann man in einer Funktion zugreifen?
 x = 5
 def f():
     y = x 
-    print(x)
+    print(y)
 f()
 #+END_SRC 
 
@@ -754,7 +810,8 @@ Das hier funktioniert:
   erschwert
 - Kernproblem: Programm ist nicht mehr verständlich, indem man nur den
   jeweiligen Ausschnitt betrachtet
-  - Beispiel: Welchen Wert hat ~X~? 
+ 
+*** Beispiel: Welchen Wert hat ~X~?				    :animate:
 
 #+BEGIN_SRC python :exports both :results output
 X = 99
@@ -765,6 +822,24 @@ def func1():
 def func2():
     global X
     X = 77
+
+func2()
+print(X)
+#+END_SRC 
+
+#+RESULTS:
+: 77
+
+
+*** Pingo						    :animate:nolatex:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Welcher Wert wird ausgegeben?" 
+pingo_type = "single"
+pingo_questions = ["77", "88", "99"]
+pingo_duration = "30"
+
+%pingo
 #+END_SRC 
 
 
@@ -830,8 +905,7 @@ Endlos, terminiert nicht!
 
 ** Wechselseitiger Aufruf: Terminierung 
 
-Ziel: Stelle sicher, dass die Folge von Aufrufen terminiert 
-
+- Ziel: Stelle sicher, dass die Folge von Aufrufen terminiert 
 - Idee: Ähnlich wie Terminierung von Schleifen 
   - Finde einen Ausdruck, der mit jedem Ausdruck streng monoton und
     diskret fällt 
@@ -942,8 +1016,8 @@ Namensraum der anderen Funktionen nichts zu tun hat.
 - Im oben Beispiel mit ~f~ und ~g~ gelang es nicht, auf eine Variable
   ~x~ in einem anderen Namensraum zuzugreifen
 - Geht das hier?
-  - Kann eine Funktion ~is_even~ auf eine Variable ~x~ "von sich
-    selbst" zugreifen? In einem anderen Namensraum von ~is_even~
+  - Kann eine Funktion ~is_even~ auf eine Variable ~x~ /von sich
+    selbst/ zugreifen? In einem anderen Namensraum von ~is_even~
     (allerdings im gleichen Scope)? 
   - *Nein!*
     - Man kann das nicht einmal hinschreiben
@@ -1329,9 +1403,9 @@ Also:
   - Ordentliche Lösung?
   - Unordentlich? 
 
-*** UEBUNG Scheiben bewegen mitzählen 
+*** UEBUNG !! Scheiben bewegen mitzählen 
 
-*** UEBUNG Beispiele für Übungen 
+*** UEBUNG !! Beispiele für Übungen 
 
 - fibonacci 
 - Wie oft durch zwei Teilen? 
@@ -1455,3 +1529,13 @@ Z.B. sortierern
     globale Scope besucht
 - Funktionen können direkte oder indirekte Rekursion nutzen
   - Jeweils mit eigenem Namensraum 
+
+** Python-Keywords: Liste bis jetzt 
+
+- Bis jetzt:
+  - ~True~, ~False~, ~and~, ~or~,  ~def~,  ~return~, ~None~
+  - ~in~
+  - ~if~, ~else~, ~pass~, ~elif~, ~while~, ~for~, ~break~, ~continue~, ~assert~
+- Neu:
+  - ~global~
+
