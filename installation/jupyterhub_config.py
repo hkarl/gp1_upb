@@ -273,7 +273,9 @@ c.JupyterHub.ssl_key = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/privke
 # 
 # This prevents any config in users' $HOME directories from having an effect on
 # their server.
-# c.Spawner.disable_user_config = False
+# UPB: although we do not run a single-user server, it can't hurt
+# to disable this option 
+c.Spawner.disable_user_config = True
 
 # Whitelist of environment variables for the subprocess to inherit
 # c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL']

@@ -607,7 +607,7 @@ Die Visualierung durch pythontutor ist in Abbildung
 Auch hier (Abbildung [[fig:pt-three-ellipses-compact]]) noch die kompakte
 Darstellung des gleichen Zustands.
 
-#+CAPTION: Dree Ellipsen-Objekte, kompakt
+#+CAPTION: Drei Ellipsen-Objekte, kompakt
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-three-ellipses-compact
 [[./figures/pt-three-ellipses-compact.png]]
@@ -726,11 +726,13 @@ Vordefinierte Namen sind durch ~__~-Paare markiert. Solche Namen
 sollten nicht in eigenem Code definiert werden! 
 
 
+
+
 ** Beispiele für weitere vordefinierte Attribute
 
 
-- Neben ~__doc__~ existieren weitere vordefinierte Attribute für
-  Klassen 
+- Neben ~__init__~, ~__doc__~ existieren weitere vordefinierte
+  Attribute für Klassen
 - Beispiele:
   - ~__name__~ : Der Name einer Funktion oder einer Klasse
   - ~__dict__~ : Das ~dict~-Objekt, in dem die Attribute abgelegt sind 
@@ -773,9 +775,9 @@ allerdings mehrere Dinge: Die Namen ~__init__~, ~verschiebe~ und
 ~istKreis~ für die drei Methoden werden erzeugt und mit den
 entsprechenden Funktionen verbunden.
 
-Diese drei Namen gehören zur Klasse und müssen im  Attribute-~dict~
+Diese drei Namen gehören zur Klasse und müssen im  Attribute- ~dict~
 der Klasse abgelegt werden. Abbildung [[fig:pt-class-attributes]]
-illustriert dies: Im Attribute-~dict~ der Klasse werden diese drei
+illustriert dies: Im Attribute- ~dict~ der Klasse werden diese drei
 Namen mit den entsprechenden Funktionen verbunden. 
 
 #+CAPTION: Attribute der Klasse: Methoden und docstring
@@ -1033,6 +1035,40 @@ print(e2 is e3)
 
 
 
+#+BEGIN_SRC python :exports both :results output
+class C2:
+    pass
+
+class C1:
+    def __init__(self):
+        self.x = 42
+        self.c2 = C2()
+
+    def __eq__(self, otherC1):
+        return ((self.x == otherC1.x) and
+                    (self.c2 == otherC1.c2))
+
+c1a = C1()
+c1b = C1()
+
+print(c1a is c1b)
+#+END_SRC 
+
+#+RESULTS:
+: False
+
+*** Pingo 
+
+#+BEGIN_SRC python :exports code
+pingo_title = "c1a is c1b? " 
+pingo_type = "single"
+pingo_questions = ["Wahr", "Falsch"]
+pingo_duration = "30"
+
+%pingo
+#+END_SRC 
+
+
 
 
 *** UEBUNG Beispiele für unterschiedliche Gleichheiten und ungleichheiten 
@@ -1072,19 +1108,14 @@ print(e2 is e3)
             self.x += deltax
             self.y += deltay
     
-        def istKreis(self):
-            return self.achse1 == self.achse2
-
     e = Ellipse(0, 1, 2, 3)
     print(e)
-    print(e.istKreis())
     e.verschiebe(-2, +5)
     print(e)
 #+END_SRC 
 
 #+RESULTS:
 : Ellipse at (0,1) with axes 2,3
-: False
 : Ellipse at (-2,6) with axes 2,3
 
 
@@ -1116,7 +1147,7 @@ an dieser Stelle möglicherweise eine Diskussion über überladene
 Methoden erwarten. Dies ist in einer dynamisch typisierten Sprache wie
 Python allerdings kein sinnvolles Konzept; man könnte lediglich auf
 die Anzahl der Parameter zurückgreifen, was wenig hilfreich ist. Daher
-gibt es keine überladenen Methoden in Python. 
+gibt es *keine überladenen Methoden in Python*. 
 
 Wir kommen darauf bei der Besprechung von Java nochmals zurück.  
 
@@ -1236,7 +1267,7 @@ s.f()
 *** Idee							    :animate:
 - *Die Klasse selbst* bekommt ebenfalls einen Namensraum, in dem
   Daten abgelegt werden können
-- Und den haben wir ja schon! Das Attribute-~dict~ bietet sich an!
+- Und den haben wir ja schon! Das ~dict~  für Attribute bietet sich an!
 
 
 *** UEBUNG Beiepiele: woezu braucht man Klassenattribute/methoden? 
@@ -1304,6 +1335,11 @@ c1 = C(17)
 c2 = C(18)
 #+END_SRC 
 
+*** Beobachtung 						    :animate:
+
+- ~class~ führt Anweisungen im Block direkt aus!
+- Anders als ~def~! 
+
 *** Visualisierung						  :dropslide:
 
 Gehen wir dieses kleine Beispiel Schritt für Schritt durch. 
@@ -1325,6 +1361,12 @@ die im Block von ~Class C~ stehen. Dies sind in diesem Beispiel zwei
 Anweisungen: 
 1. Die Zuweisung des Wertes 1 an den Namen ~x~
 2. Die Zuweisung einer Funktion an den Namen ~__init__~ 
+
+Bei aller Ähnlichkeit zwischen ~def~ und ~class~ ist dies ein
+entscheidender Unterschied! ~def~ als Anweisung führt *keine*
+Anweisungen des Blocks aus; es wird nur der Name der Funktion angelegt
+und mit dem Funktionscode verbunden. ~class~ andererseits führt die
+Anweisungen aus, die im Block der Klasse enthalten sind! 
 
 **** Anlegen des Objektes c1
 
@@ -1418,10 +1460,10 @@ Erster Versuch:
 
 
 
-** ~self~ als Namensraum 
+** Klassenname  als Namensraum 
 
-- Notation für Zugriff auf Namensraum also  ganz analog zu ~self~!!
-- Damit: ~self~ ist lediglich der Name eines Namensraums! 
+- Notation für Zugriff auf Namensraum also  ganz analog zu ~self~!
+- Damit: Klassenname ist ebenso der Name eines Namensraums! 
 
 
 ** Terminologie 
@@ -1429,7 +1471,8 @@ Erster Versuch:
 - Bei Objekten: *dynamische* Methoden und Attribute
 - Bei Klassen: *statische* Methoden und Attribute (/static methods/)
 
-Anmerkung: Python kennt noch sogenannte /class methods/ -- später. 
+Anmerkung: Python kennt noch sogenannte /class methods/ -- lassen wir
+hier weg. 
 
 
 *** UEBUNG @classmehotd vs. @staticmethod würde hier passen, aber wir haben noch keine Dekoratoen :-(
@@ -1606,6 +1649,42 @@ Also: Referenzen zählen
   - Funktion kehrt zurück
   - Ein anderes Objekt mit Referenz verschwindet
 
+
+
+** Referenzen zählen -- Beispiel 
+
+Wieviele Referenzen existieren auf das Objekt der Klasse ~C~ am Ende des Programms? 
+
+#+BEGIN_SRC python :exports code :results output
+import copy
+
+class C:
+    Clist = []
+    def __init__(self):
+        C.Clist.append(self)
+
+def f(obj):
+    newobj = copy.copy(obj)
+    objlink = obj 
+    return objlink
+
+c = C()
+c = f(c)
+#+END_SRC 
+
+*** Pingo						    :animate:nolatex:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Wieviele Referenzen?" 
+pingo_type = "single"
+pingo_questions = ["0", "1", "2", "3"]
+pingo_duration = "60"
+
+%pingo
+#+END_SRC 
+
+
+
 ** Garbage Collection 
 
 - Wenn ein Objekt keine Referenzen mehr hat, vernichten 
@@ -1659,7 +1738,16 @@ print(s)
 : Dies ist ein Beispiel für GP1!
 : Der Punkt ist bei (3.14, 2.71)
 
+
+
+
 *** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
+
+
+*** UEBUNG Wie würde man den Zugriff auf die Parameter machen, deren Namen im Foramt-String angegeben ist? 
+
+das macht man per kwargs! 
+
 
 ** Methoden von ~string~: ~join~
 
@@ -1779,7 +1867,7 @@ Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
 #+END_SRC 
 
 
-** Delegation							   :subslide:
+** Muster: Delegation 						   :subslide:
 
 - Klasse Ellipse /delegiert/ Aufgaben an die Klasse Punkt 
 - Delegation erzielt /Wiederverwendung/ von Funktionen
@@ -2328,5 +2416,16 @@ Wie würde eine Klasse für eine Hotelverwaltung aussehen?
 
 *** UEBUNG Größeres Beispiel: PAUL? 
 Eigentlich braucht das aber inheritance
+
+
+** Python-Keywords: Liste bis jetzt 
+
+- Bis jetzt:
+  - ~True~, ~False~, ~and~, ~or~,  ~def~,  ~return~, ~None~
+  - ~in~
+  - ~if~, ~else~, ~pass~, ~elif~, ~while~, ~for~, ~break~, ~continue~, ~assert~
+  - ~global~
+- Neu:
+  - ~class~
 
 
