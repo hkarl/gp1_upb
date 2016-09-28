@@ -367,7 +367,7 @@ ist üblich und deute eine Gschwister-artige Beziehung an.
 
 ** ~is-a~ -- Mengenbeziehung 
 
-Die spezielleren Objekte bilden eine Teilmenge der allgemeineren
+Die spezielleren /Objekte/ bilden eine Teilmenge der allgemeineren
 Objekte.
 #+BEGIN_LaTeX
 Abbilidung~\ref{fig:venn} illustriert das.  
@@ -449,9 +449,9 @@ Methoden in den Unterklassen angegeben.
   - ~show_info_werk()~ in der Klasse ~Werk~
   - ~show_info_geraet()~ in der Klasse ~Geraet~
 
-Nicht schön! 
+*** Nicht schön!						    :animate:
 - Wird schnell unübersichtlich
-- Eigentlich will doch auch von einem Gerät die Information
+- Eigentlich will man doch auch von einem Gerät die Information?
 
 
 ** Methoden verändern? 
@@ -464,9 +464,8 @@ Nicht schön!
   - D.h., die Namen der Methoden der verschiedenen Klassen existieren
     ohnehin in verschiedenen Namensräume
   - Also ist es kein Problem, mehrere Methoden mit gleichem
-    Namen in unterschiedlichen Klassen zu haben 
-
-Also eigentlich: langweilig! 
+    Namen in unterschiedlichen Klassen zu haben
+  - Also eigentlich: langweilig! 
 
 ** Veränderte Methoden -- Aufruf 
 
@@ -514,10 +513,10 @@ diese Methode explizit im UML-Diagramm gezeigt
   /abgeleitete Klasse/ (/derived class/)
 - Wird bei Vererbung eine Methode verändert, so sagt man die Methode
   wird /überschrieben/
-- Vererbung kann rekursiv erfolgen
+- Vererbung kann iterativ erfolgen
   - Eine Unterklasse kann Oberklasse einer weiteren Klasse sein
 
-** ~is-a~, Kompatibilität, Substition 
+** ~is-a~, Kompatibilität, Substitution 
 
 Zur Betonung: 
 
@@ -555,27 +554,6 @@ wird.
   - Kommen neue Artikelkategorie (Videospiele? Hausschuhe?) hinzu,
     können die ohne Änderung mit verarbeitet werden 
 
-
-** ~is-a~, Kompatibilität -- Beispiel   
-
-Substitionsprinzip verletzt; Objekt ~a~ vom Typ ~A~ is-not-a ~B~ 
-
-
-#+BEGIN_SRC python :exports code :results output
-class A():
-    pass
-
-class B(A):
-    def f():
-        print("f in B")
-
-a = A()
-a.f()
-#+END_SRC 
-
-
-
-*** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren? 
 
 
 * Vererbung in Python
@@ -762,7 +740,7 @@ werden nicht automatisch gerufen.
 ** Unterklasse ~Werk~: Konstruktor der Oberklasse mit ~super~ aufrufen (2)   
 
 #+BEGIN_SRC python :exports code  :results output
-  %% tutor -t 
+  %%tutor -t 
   class Artikel:
       def __init__(self, artikelnummer, preis):
           self.artikelnummer = artikelnummer
@@ -943,7 +921,9 @@ Oder noch schöner beim Instantiieren: Mit keyword-Argumenten
     :BEAMER_env: definition
     :END:
 
-Ein Prinzip der Software-Entwicklung: *Every piece of knowledge must have a single, unambiguous, authoritative representation within a system*. (Hunt & Thomas , Practical Programmer)
+Ein Prinzip der Software-Entwicklung: *Every piece of knowledge must
+have a single, unambiguous, authoritative representation within a
+system*. (Hunt & Thomas, Practical Programmer)
 
 Bezieht sich auf viele Arten von Dokumenten: Quellcode, Dokumentation,
 Tests, Übersetzungssysteme, ... 
@@ -1031,6 +1011,46 @@ Insgesamt ist also der Ablauf der Methodenaufrufe bei ~print(w)~:
    ~show_info~ sucht. 
 
 
+
+** Beispiel: ~is-a~, Kompatibilität
+
+
+Funktioniert das? 
+
+#+BEGIN_SRC python :exports code :results output
+class A():
+    pass
+
+class B(A):
+    def f():
+        print("f in B")
+
+a = A()
+a.f()
+#+END_SRC 
+
+
+*** Pingo!						    :animate:nolatex:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Funktioniert das?" 
+pingo_type = "single"
+pingo_questions = ["Ja", "Nein"]
+pingo_duration = "30"
+
+%pingo
+#+END_SRC 
+
+
+*** Nein!							  :dropslide:
+
+Substitionsprinzip verletzt; Objekt ~a~ vom Typ ~A~ is-not-a ~B~ 
+
+
+
+*** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren? 
+
+
 ** Anmerkung: Dynamische Bindung 
 
 - Vorherige Folie zeigt Beispiel, wie die richtige Methode
@@ -1043,6 +1063,8 @@ Insgesamt ist also der Ablauf der Methodenaufrufe bei ~print(w)~:
 
 
 ** Beispiel: Dynamische Bindung in Klassenhierarchie 
+
+Was ist die Ausgabe? 
 
 #+BEGIN_SRC python :exports both :results output
   class A:
@@ -1081,6 +1103,18 @@ Insgesamt ist also der Ablauf der Methodenaufrufe bei ~print(w)~:
 #+RESULTS:
 : A, A, B1, A, C, C1, C, C, 
 
+
+
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Was ist die Ausgabe?" 
+pingo_type = "single"
+pingo_questions = ["A, A, B1, A, C, C1, C, C, ", "A, B, B1, B2, C, C1, C2, C2, ", "A, A, B1, B2, C, C1, C1, C3, ",
+]
+pingo_duration = "120"
+
+%pingo
+#+END_SRC 
 
 
 * Reflektion 
@@ -1335,7 +1369,7 @@ Mehr Details in VL GP2.
 - Konvention: Führender Unterstrich
   - Methoden, Attribute mit ~_~ zu Beginn /sollten/ vom Nutzer einer
     Klasse nicht direkt aufgerufen, gelesen, verändert werden
-  - Aber der Nutzer /kann/ das schon, wenn er denkt, wer weiß was er
+  - Aber der Nutzer /kann/ das schon, wenn er denkt, er weiß was er
     tut ... 
 
 ** With great power comes great responsibility
@@ -1785,6 +1819,10 @@ Was passiert hier, warum?
 - Formal: Wir mussten die /Schnittstelle/ der Klasse nicht ändern und
   konnten trotzdem Funktionalität hinzufügen! 
 
+
+*** UEBUNG In einer existierende KLasse mit Nutzungscode eine Variable zu einer property ändern 
+
+
 ** Schnittstelle  (Interface) 
 
 Allgemeiner: Durch die Nutzung von Properties mussten wir die
@@ -1849,7 +1887,7 @@ Optionen?
 
 ** Fehlermechanismus 
 
-Wir brauchen eine leistungsfähigeren Mechanismus, um mit Fehlern
+Wir brauchen einen leistungsfähigeren Mechanismus, um mit Fehlern
 umzugehen! 
 
 Nächstes Kapitel: Exceptions! 
@@ -1857,7 +1895,7 @@ Nächstes Kapitel: Exceptions!
 
 
 
-* Gute Nutzung? Entwurf mit Klassen 
+* Gute Nutzung? Entwurf mit Klassen? 
 
 ** Was gehört in eine Klasse? 
 
@@ -1915,7 +1953,7 @@ Nächstes Kapitel: Exceptions!
   class C():
       def k(self):
           # does not do anything
-          # slot for subclasses to overrite
+          # slot for subclasses to overwrite
           return 
     
       def m(self):
