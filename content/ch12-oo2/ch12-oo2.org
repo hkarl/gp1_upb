@@ -300,7 +300,7 @@ Zur Erinnerung: Man kann Methoden der Klassen auch explizit aufrufen
 
 ** ~super~ im ~__init__~ der Oberklasse? 
 
-Was würde eigentlich passieren, wenn die Oberklasse im Konstruktur
+Was würde eigentlich passieren, wenn die Oberklasse im Konstruktur ebenfalls
 ~super~ benutzt? 
 - Sie könnte ja ihrerseits abgeleitet sein
 - (Und das ist sie auch -- alle Klassen sind Unterklassen von
@@ -346,7 +346,8 @@ Was würde eigentlich passieren, wenn die Oberklasse im Konstruktur
   zu sein
 - Das hängt offenbar mit der Reihenfolge von ~C(A,B)~ vs. ~C(B,A)~
   zusammen
-- Das müssen wir genauer anschauen! (Abschnitt [[Method Resolution Order]])  
+- Das müssen wir genauer anschauen! (Abschnitt Method Resolution
+  Order; siehe unten)  
 
 
 *** Visualisierung						  :dropslide:
@@ -438,6 +439,7 @@ hier gemeint sein könnte? Wir kommen bei der Diskussion von Java
 darauf noch zu zurück. 
 
 * Method Resolution Order 
+#+NAME: MRO 
 
 
 ** Reihenfolge der Methodenaufrufe 
@@ -469,7 +471,7 @@ Kommen wir auf dieses Beispiel zurück:
 : A init
 : B init
 
-*** Fragen: Reihenfolge 
+*** Fragen: Reihenfolge						    :animate:
 
 - In welcher Reihenfolge werden die Methoden hier aufgerufen?
 - Was wäre wünschenswert?
@@ -537,7 +539,8 @@ Angenommen:
 - Wir betrachten die Linearisierung einer Klasse ~C~ 
 - Darin kommt ~C1~ vor ~C2~
 - Wir leiten von ~C~ eine neue Klasse ~Cneu~ ab 
-- Was sollte dann für die Linearisierung von ~Cneu~ gelten? 
+- Was sollte dann in der Linearisierung von ~Cneu~ für die Reihenfolge
+  von ~C1~ und ~C2~ gelten? 
 
 *** Monotonie					       :B_definition:animate:
     :PROPERTIES:
@@ -573,8 +576,7 @@ verwundern.
 
 ** MRO: Erste Idee
 
-- Wir schauen von der Klasse nach oben (und sehen keinen Baum, sondern
-  einen allgemeinen Graph) 
+- Wir schauen von der Klasse nach oben
 - Wir suchen von links nach rechts in der Oberklassendeklaration 
 - Wir durchsuchen die Oberklassen
   - Option 1: Erst alle Eltern, dann die Großeltern, usw. (eine /Breitensuche/)
@@ -630,7 +632,7 @@ print(B.__mro__)
 ** Problem: Nicht alle Fälle linearisierbar 
 
 Es gibt Klassenhierarchien zu denen keine sinnvolle Linearsierung
-sinnvoll bestimmt werden kann
+ bestimmt werden kann
 - Beispiel: /Diamond of death/ 
 
 #+BEGIN_SRC python :exports code :results output
@@ -644,6 +646,8 @@ class C(A, B): pass
 #+RESULTS:
 
 *** Diagramm 
+
+
 
 #+CAPTION: Nicht linearisierbare Klassenhierarchie
 #+ATTR_LaTeX: :width 0.2\linewidth
@@ -682,7 +686,7 @@ Kern des Problems: Unterschiedliche Reihenfolgen von ~X~, ~Y~ bei ~A~,
 Was passiert bei: 
 - C.a(): Methode A.a() aufgerufen, die wird wohl X.m() aufrufen 
 - C.b(): Methode B.b() aufgerufen, die wird wohl Y.m() aufrufen
-  - Also inkonsistentes Verhalten der Klasse ~C~!
+  - Also inkonsistentes Verhalten der Klasse ~C~ bzgl. Aufruf von ~m~!
 - ~super~ in ~C~: Welches ~super.m~ nehmen? ~X.m~? ~Y.m~?
   - Unklar; beides ist plausibel wegen Verhalten bei ~C.a~, ~C.b~
 
@@ -706,11 +710,11 @@ order (MRO) for bases X, Y
 ** Gesucht: Vorgehen für Linearisierung 
 
 Wir brauchen also: 
-- Ein Verfahren, das eine Linearisierung bestimmt wenn möglich
-  - Im Einklang mit Monotonie und local precedence 
-- Oder einen Fehler mitteilt falls nicht existent 
+- Einen Algorithmus, der eine sinnvolle Linearisierung bestimmt wenn
+  möglich
+  - Also: Im Einklang mit Monotonie und local precedence
+- Oder einen Fehler mitteilt falls nicht möglich
 
-Aber zunächst: Noch ein paar Beispiele! 
 
 
 * Linearisierungsalgorithmus: C3 
@@ -1343,7 +1347,7 @@ Achten Sie auf den Unterschied der Ausgabe in den beiden Aufrufen von
 Wozu braucht man die Klasse ~O~ in diesem Beispiel? 
 
 
-** ~super~ und MRO: Beispiel  __init__
+** ~super~ und MRO: Beispiel ~__init__~
 
 Wie oft werden die Konstruktoren hier ausgeführt?
 - Warum? 
@@ -1398,7 +1402,7 @@ Wie oft werden die Konstruktoren hier ausgeführt?
 
 
 MRO und die konsistente Nutzung von ~super~ in einer Klassenhierarchie
-führen zu Python-typischen Programmiermodell: 
+führen zu Python-typischem Programmiermodell: 
 - Explizite Referenzen auf Namen von Oberklassen sind nicht sinnvoll;
   ~super~ nutzen 
 - Abgeleitete Klassen rufen (in aller Regel) in überschriebenen
