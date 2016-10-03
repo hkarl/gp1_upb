@@ -207,7 +207,7 @@ Schreibender Zugriff: Erfordert Deklaration mit ~global~
 
 ** Zugriff auf Variablen der äußeren Funktion? ~global~? 
 
-Spannend Punkt: Was ist mit Variable, die nicht global, aber in der
+Spannender Punkt: Was ist mit Variable, die nicht global, aber in der
 äußeren Funktion vereinbart ist? 
 
 
@@ -406,11 +406,6 @@ def f():
 f()
 #+END_SRC 
 
-#+RESULTS:
-: x in h: 43
-: x in g: 43
-: x in f: 1
-
 
 *** Anmerkung: ~x~ aus ~f~?					    :animate:
 
@@ -607,9 +602,6 @@ h = f()
 h("Wert für x")
 #+END_SRC 
 
-#+RESULTS:
-: innere Funktion! Wert für xWert für xWert für xWert für xWert für x
-
 *** Äußerer Parameter bleibt erhalten!				    :animate:
 
 - Offenbar behält die Funktion, die unter ~h~ im globalen Scope
@@ -681,9 +673,6 @@ print(doppler("Mehrfach ausgeben! "))
 print(fuenffacher("Mehrfach ausgeben! "))
 #+END_SRC 
 
-#+RESULTS:
-: Mehrfach ausgeben! Mehrfach ausgeben! 
-: Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! Mehrfach ausgeben! 
 
 ** Muster: Fabrik (/Factory/)
 
@@ -714,7 +703,7 @@ print(fuenffacher("Mehrfach ausgeben! "))
     :BEAMER_env: definition
     :END:
 
-Ein Closure ist eine Funktion, deren nicht-lokalen Namen an Objekte
+Ein Closure ist eine Funktion, deren nicht-lokale Namen an Objekte
 gebunden wurden. 
 
 *** Visualisierung						  :dropslide:
@@ -737,7 +726,7 @@ von ~vervielfacher_fabrik~ erzeugt wurden.
 
 Je nach Literaturquelle wird aus das Programmiermuster selbst als
 Closure bezeichnet, nicht nur die Realisierungstechnik. Das macht
-letztlich keine großen Unterschied. 
+letztlich keinen großen Unterschied. 
 
 *** Anmerkung: Vorkommen von Closures 				  :dropslide:
 
@@ -944,7 +933,7 @@ http://stackoverflow.com/questions/6076270/python-lambda-function-in-list-compre
 - Häufiger Stil in funktionalen Sprachen:
   - Daten in Listen ablegen
   - Listen filtern gemäß einer Filterfunktion
-  - Funktion auf jedes Element einer Liste anwenden
+  - Funktion auf jedes Element einer Aufzählung (iterable) anwenden
   - Liste zu einem einzelnen Wert reduzieren 
 - Sog. *map/filter/reduce*-Muster 
 
@@ -961,8 +950,9 @@ http://stackoverflow.com/questions/6076270/python-lambda-function-in-list-compre
 
 - ~filter~: eingebaute Funktion 
 - Signatur: ~map(function, iterable)~
-  - Wende die Funktion ~function~ auf jedes Element eines Objektes an
-  - Nimm Element in Resultat auf, wenn Funktionswert wahr ist     
+  - Wende die Funktion ~function~ auf jedes Element einer Aufzählung an
+  - Resultat: Aufzählung mit den Elementen, bei denen die Funktion
+    wahr ergab 
 - Beispiel: 
 
 #+BEGIN_SRC python :exports both :results output
@@ -981,7 +971,7 @@ print(list(l2))
 - Signatur: ~map(function, iterable)~
   - Wende die Funktion ~function~ auf jedes Element eines Objektes an,
     dass zu einer von ~iterable~ abgeleiteten Klasse gehört
-  - Produziere iterable mit den entsprechenden Funktionswerten 
+  - Resultat: Aufzählung der Funktionsergebnisse
 - Beispiel: 
 
 #+BEGIN_SRC python :exports both :results output
@@ -996,9 +986,10 @@ print(" -- ".join(map(str,l)))
 : [1, 4, 9, 16, 25]
 : 1 -- 2 -- 3 -- 4 -- 5
 
-*** Anmerkung
+*** Anmerkung							    :animate:
 
 Konvertierung in Liste nur nötig für ~print~
+
 
 
 ** Weitere Operationen auf iterables 
@@ -1190,37 +1181,76 @@ werden
 Produziere *alle* Vielfachen von 3 ab Startwert: 
 
 #+BEGIN_SRC python :exports code :results output
-  def gen(start):
-      # wir wollen alle Vielfache, also Endlosschleife: 
-      while True:
-          if start % 3 == 0:
-              yield start
-              print("Restarting with value: ", start)
-          start += 1
+def gen(start):
+    # wir wollen alle Vielfache, also Endlosschleife: 
+    while True:
+        if start % 3 == 0:
+            yield start
+            print("Restarting with value: ", start)
+        start += 1
 
-  # Variable i: Endlosschleife vermeiden
-  i = 0         
-  for v in gen(16):
-      print(v)
-      i += 1
-      if i > 5:
-          break
+for v, i in zip(gen(16), range(5)):
+    print("Wert: ", v)
 #+END_SRC 
 
 #+RESULTS:
 #+begin_example
-18
+Wert:  18
 Restarting with value:  18
-21
+Wert:  21
 Restarting with value:  21
-24
+Wert:  24
 Restarting with value:  24
-27
+Wert:  27
 Restarting with value:  27
-30
+Wert:  30
 Restarting with value:  30
-33
 #+end_example
+
+*** Verständnisfragen 						    :animate:
+
+- Wozu ~range~ und ~zip~ in Beispiel?
+- Wann werden Aufrufe von ~ge~ durchgeführt? 
+- Wieviele Schleifendurchläufe? 
+
+
+** Beispiel: Generator als Closure 
+
+#+BEGIN_SRC python :exports both :results output
+def gengen(multiplier):
+    def gen(start):
+        while True:
+            if start % multiplier == 0:
+                yield start
+            start += 1
+
+    return gen
+
+dreis = gengen(3)
+viers = gengen(4)
+
+for d, v, i in zip(dreis(10), viers(17), range(2)):
+    print (d, v)
+#+END_SRC 
+
+#+RESULTS:
+: 12 20
+: 15 24
+
+
+*** Ausgabe?							    :animate:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "WAs wird hier ausgebenen?" 
+pingo_type = "single"
+pingo_questions = ["12, 15 und 20, 24", "12, 20 und 15, 24", "10, 17 und 13, 21"]
+pingo_duration = "60"
+
+%pingo
+#+END_SRC 
+
+
+
 
 ** Wesentlicher Punkt: Speicherverbrauch 
 
@@ -1529,7 +1559,6 @@ weggelassen
     decorators finden
 - Nachteil: Parameter an dekorierende Funktion übergeben ist
   umständlich
-  - Siehe z.B. 
 
 ** @-Decorators: Beispiel Benchmarking 
 
