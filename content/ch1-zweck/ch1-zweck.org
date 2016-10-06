@@ -212,7 +212,7 @@ Kann man sich das beliebig ausdenken?
 
 *** Nein!							    :animate:
 
-- Hängt entscheidend von *Maschinenmodell* ab 
+- Hängt entscheidend vom *Maschinenmodell* ab 
 
 Beispiele: 
 - Normaler Rechner 
@@ -266,7 +266,7 @@ Speicherstellen des Rechners.
 
 Beispiele für Anweisungen: 
 - Übertrage Daten von beliebiger Stelle des  Speichers in CPU
-- Übertrage Daten von CPU in beliebige Stelle des  Speicher 
+- Übertrage Daten von CPU in beliebige Stelle des  Speichers 
 - Addiere zwei Daten
 - Vergleiche zwei Daten 
 
@@ -328,7 +328,7 @@ Folgezustand entsteht.
   - Instruktionssatz genau beschreiben
   - Details Ausführungsmodell genau beschreiben 
 - Praktikabel? Nein!
-  - Zu fein-granular
+  - Zu feingranular
   - Für Menschen schlecht verständliche Darstellung 
 - Wie programmieren?
 
@@ -342,7 +342,7 @@ Folgezustand entsteht.
 
 ** Programmiersprachen 
 
-- Heben des Abstraktionsniveaus
+- Heben das Abstraktionsniveau
   - Mächtigere Anweisungen
   - Einfacher für Menschen
 - Also: Definiere neuen Instruktionssatz, neue Vorstellung von
@@ -399,13 +399,13 @@ Eigentlich besteht (nahezu) jede Programmiersprache aus zwei Teilsprachen:
 
 In Praxis sind diese beiden Teile einer Sprache oft nicht
 unterscheidbar und eng mit einander verwoben. Es gibt aber durchaus
-Beispiele, in denen nur ein Aspekt auftritt, etwas bei
+Beispiele, in denen nur ein Aspekt auftritt, etwa bei
 Spezifikationssprachen für Typen. 
 
 
 *** Anmerkung: Syntax und Semantik				      :notes:
 
-Mit /Syntax/ werden genauer die Regeln bezeichnet, die ein Text
+Mit /Syntax/ werden die Regeln bezeichnet, die ein Text
 einhalten muss, um in einer gegebenen Programmiersprache als gültig
 angesehen zu werden -- man spricht dann von einem /syntaktisch
 korrektem Programm/. Die VL Modellierung (und im weiteren
@@ -423,7 +423,7 @@ auf intuitive Beschreibungen dieses Begriffs.
 
 ** Ausführung?							   :subslide:
 
-- Aber: Programme nicht mehr  direkt durch reale Maschinen ausführbar 
+- Aber: Programme sind nicht mehr  direkt durch reale Maschinen ausführbar 
 
 *** Das macht nichts!						    :animate:
 
@@ -445,7 +445,7 @@ auf intuitive Beschreibungen dieses Begriffs.
 
 *** Grundlegende Ideen						    :animate:
 
-- Ideen in /Programmierparadigmen/ beschrieben 
+- Ideen in /Programmierparadigmen/ beschreiben 
 - Gruppieren Programmiersprachen zu Familien 
 
 ** Programmierparadigma 
@@ -455,7 +455,7 @@ Sprachen eines Paradigmas gleichen sich in:
 - Was sind statische Aspekte der Sprache?
   - Konstanten? Daten? Typen? Code? Variablen? ...? 
 - Was sind dynamische Aspekte der Sprache?
-  - Variableninhalte? Variablen? Folge der Anweisungen?
+  - Variableninhalte? Variablen? Folge von Anweisungen?
   - Woher stammt Dynamik?
     - Eingaben? Zeitablauf? Ereignisse? Zufall? ...? 
 
@@ -481,7 +481,7 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 - Älteste Sprachfamilie 
 - Niedrige Abstraktionsebene
 - Sehr nahe am realen Maschinenmodell
-- Einfach zu erlernen, aber schlechte für große Anwendungen geeignet 
+- Einfach zu erlernen, aber schlecht für große Anwendungen geeignet 
 
 - Beispiele: BASIC, C, Pascal, ... 
 
@@ -500,7 +500,7 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 - Programm selbst kann zum Gegenstand des Programms werden
   - Schlagwort: /Functions as first-class citizens/
 - Vermeidung der Vorstellung eines /Zustands/
-  - Keine Seiteneffekt
+  - Keine Seiteneffekte
 
 - Beispiele: Lambda-Kalkül, Lisp, Haskell, F# 
 
@@ -573,7 +573,7 @@ verarbeiten, die für die alte Version erstellt wurden.
 Beispiel: Benzinmotoren sind rückwärtskompatibel zu einander, da sie
 alle Benzin verarbeiten. Mit der Einführung des Katalysators war dies
 aber nicht der Fall, da verbleites Benzin nicht mehr verarbeitet
-werden kann. 
+werden konnte. 
 
 ** Java?							   :subslide:
 
@@ -674,9 +674,9 @@ pingo_duration = "30"
 
 ** Editor für GP1?						   :subslide:
 
-- Prinzipiell: Nutzen Sie was Sie wollen
+- Prinzipiell: Nutzen Sie, was Sie wollen!
 - Abgaben durch Browser-basiertes System
-  - Jupyter [[http://jupyter.org][Jupyter Projekt Webseiten]]
+  - Jupyter,  [[http://jupyter.org][Projekt Webseiten]]
   - Insbesondere: Editor im Browser 
 
 
@@ -738,7 +738,7 @@ Versionsverwaltungswerkzeuge (voraussichtlich) verzichten.
 - Fasst viele Werkzeuge in einem Programm zusammen
 - Problem: Meist *sehr* komplex
   - Bedienung, Nutzung einer IDE zu lernen ist sehr zeitaufwändig
-- /IDE-Bedienung ist *nicht* Programmieren/!
+- /IDE-Bedienung ist *nicht* programmieren/!
 
 
 *** Empfehlung							    :animate:
@@ -806,8 +806,8 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
   - [[http://askubuntu.com][AskUbuntu]]
   - [[http://serverfault.com][System adminstration]]
   - [[http://tex.stackexchange.com][TeX/LaTex StackExchange]] --
-    Textverarbeitung für Erwachsene
-  - [[http://emacs.stackexchange.com][emacs]] -- Editor für Erwachsene 
+    Textverarbeitung für ernsthafte Textverarbeiter
+  - [[http://emacs.stackexchange.com][emacs]] -- Editor für ernsthafte Programmierer 
 
 ** Hilfe finden (2) 
 
@@ -908,8 +908,8 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 ** Zusammenfassung 
 
 - Programmieren ist
-  - ist mehr als zur /Coding/
-  - ist ein systematischer Prozess
+  - mehr als nur /Coding/
+  - ein systematischer Prozess
   - spielt sich in einem gewählten Paradigma ab
 - Gute Programmierer
   - sind analytisch und stilistisch sicher 

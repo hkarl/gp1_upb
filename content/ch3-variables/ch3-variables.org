@@ -28,7 +28,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 ** Dieses Kapitel 
 
-- Bisher nur Ausdrücke, die keine Zustandsänderung bewirkten 
+- Bisher nur Ausdrücke, die keine Zustandsänderung bewirken 
 - Dieses Kapitel: Konzept der /Variable/ -- das Bennen eines Werts
 - Erlaubt Weiterverwendung und Manipulation von Ergebnisses eines
   Ausdrucks 
@@ -415,16 +415,17 @@ b = a
     der ersten Zeile
   - aus dem Skript heraus: Links [[http://www.pythontutor.com][(PT link)]]
 
-*** Pythontutor links im Skript					  :dropslide:
+*** Pythontutor-Links im Skript 				  :dropslide:
 
-Wenn Sie im Skript (PDF-Datei) auf eine Code-Beispiel stossen, bei dem
-unter dem Quellcode (PT link) steht. Wenn Sie auf diesen Link klicken,
+Wenn Sie im Skript (PDF-Datei) auf ein Code-Beispiel stossen, bei dem
+unter dem Quellcode (PT link) steht, so ist dies ein Link auf ein das
+Beispiel in Pythontutor. Wenn Sie auf diesen Link klicken,
 sollte sich ein Browser-Fenster öffnen, das auf die Webseite von
 Pythontutor zeigt und wo das entsprechende Code-Beispiel bereits
 eingetragen ist. 
 
 Sie können dort das Code-Beispiel noch editieren oder direkt auf den
-Knopf "Visualize Execution" unterhalb des Editier-Fensters drücken
+Knopf /Visualize Execution/ unterhalb des Editier-Fensters drücken
 (Abbildung [[fig:pt-edit]]).
 
 #+CAPTION: PythonTutor: Editier-Ansicht
@@ -480,15 +481,15 @@ PythonTutor.
 
 - Auf der linken Seite wird das Programm angezeigt
   - Der rote Pfeil zeigt auf die Anweisung, die als nächstes
-    ausgeführt wird (sobald man auf den Forward-Knopf drückt)
+    ausgeführt wird (sobald man auf den Forward-Knopf drückt).
   - Der grüne Pfeil weist auf die Zeile hin, die gerade ausgeführt
-    wurde und die den momentan angezeigten Zustand erzeugt hat
+    wurde und die den momentan angezeigten Zustand erzeugt hat.
 - Auf der rechten Seite wird eben dieser Zustand angezeigt. Die rechte
   Seite hat zwei Spalten:
   - Links die sog. Frames; bis jetzt haben wir nur einen einzigen
-    (Details später). Hier sind die bisher bekannten Namen aufgeführt 
+    (Details später). Hier sind die bisher bekannten Namen aufgeführt. 
   - Rechts die Werte (hier als Objects bezeichnet; mehr dazu später).
-  - Pfeile zeigen von den Namen auf die referenzierten Werte 
+  - Pfeile zeigen von den Namen auf die referenzierten Werte.
 
 
 
@@ -689,7 +690,7 @@ Wert; der Wert wird der Variable *zugewiesen*.
 
 ** Typen? 
 
-- Werte, Ausdrücke haben Typen 
+- Werte und Ausdrücke haben Typen 
 - Variablen?
   - Variable ist nur eine Referenz auf einen Wert
 - Typ der Variable : Typ des zugewiesenen Werts

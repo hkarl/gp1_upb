@@ -116,7 +116,7 @@ Verhalten des Interpreters:
 
 
 #+BEGIN_LaTeX
-Abbildung~\ref{fig:repl}  zeigt die Read-Evaluate-Print-Schleife eines Interpreters. Beachten Sie die Analogie zu einem Maschinenmodell: Ein Interpreter ist in gewissem Sinne eine (sehr abstrakte) Form eine Maschine.  
+Abbildung~\ref{fig:repl}  zeigt die Read-Evaluate-Print-Schleife eines Interpreters. Beachten Sie die Analogie zu einem Maschinenmodell: Ein Interpreter ist in gewissem Sinne eine (sehr abstrakte) Form einer Maschine.  
 #+END_LaTeX
 
 
@@ -208,8 +208,8 @@ Erklären Sie den Comic in Abbildung [[fig:base10]]!
 ** Arithmetischer Ausdruck  -- Syntax 
 
 - Jede Zahl ist ein arithmetischer Ausdruck 
-- Verbindet man zwei arithmetische Ausrücke durch ~+~, ~-~,  ~*~ oder '/', so entsteht ein
-  arithmetischer Ausdruck 
+- Verbindet man zwei arithmetische Ausdrücke durch ~+~, ~-~, ~*~ oder
+  '/', so entsteht ein arithmetischer Ausdruck
 - Setzt man um einen arithmetischen Ausdruck ein Klammerpaar ~(~
   ... ~)~, so entsteht ein arithmetischer Ausdruck 
 
@@ -646,7 +646,7 @@ unterschiedliche Länge?
 
 Sinnvoll? Wie? Wozu? 
 
-** Beispiel: Vergleich arithmetischer Ausdrücke			   :subslide:
+** Beispiel: Vergleich arithmetischer Ausdrücke		 :dropslide:subslide:
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Was ist  ((5+3*2) < 17-5) and ((1*1) > -1)" 

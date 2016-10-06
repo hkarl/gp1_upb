@@ -51,7 +51,7 @@ def pingo(line):
 
 ** Herzlich Willkommen!
 
-- zur Universität Paderborn 
+- an der Universität Paderborn 
 - zum Studium der Informatik, des Computer Engineerings, ...
 - zur Vorlesung Grundlagen der Programmierung I 
 
@@ -67,7 +67,7 @@ def pingo(line):
 ** Wer sind wir?  -- Dozent					   :subslide:
 
 - Holger Karl 
-- Arbeitsgruppe Rechnernetze 
+- Fachgebiet Rechnernetze 
 - Büro: Pohlweg, O3.158
 - Email: holger.karl@upb.de
 - Web: http://www.upb.de/cs/cn
@@ -76,7 +76,7 @@ def pingo(line):
 ** Wer sind wir? -- Mitarbeiter					   :subslide:
 
 - Donald Parruca
-  - donald.parruca@upb.de , O3.xxx
+  - donald.parruca@upb.de , O3.167
 - Alexander Setzer
   - asetzer@mail.uni-paderborn.de, F2.403
 - Michael Feldmann
@@ -156,7 +156,7 @@ pingo_duration = "120"
 
 ** Bestandteile GP1
 
-- Vorlesung an sich
+- Vorlesung 
 - Präsenzübungen 
 - Hausübungen 
 - Klausur 
@@ -188,18 +188,18 @@ pingo_duration = "120"
 
 ** Hausübungen  -- Zweck 
 
-- Lösen komplexerer Aufgaben
+- Lösen komplexer Aufgaben
 - In Gruppenarbeit
 - Bonuspunkte und Zulassungsvorausetzung für Klausur! 
 
 *** Hausübungsblätter						      :notes:
 
 Hausübungsblätter stellen Aufgaben zusammen, die den Inhalt der
-Vorlesung wiederholen und vertiefen. Zusätzlich entsteht so
+Vorlesung wiederholen und vertiefen. Zusätzlich entsteht so 
 Gelegenheit zur praktischen Übung.  
 
 Der Schwierigkeitsgrad der Aufgaben auf Hausübungsblätter entspricht
-in etwa dem, was Sie in Klausuren erwarten können. Teilweise sind hier
+in etwa dem, was Sie in Klausuren erwarten können. Teilweise sind 
 aber auch komplexere Aufgaben dabei, die vom Zeitaufwand über das
 hinausgehen, was in einer Klausur realistisch ist. Dies ist sinnvoll,
 um Ihnen Gelegenheit zu geben, auch schwierigere Probleme anzugehen
@@ -209,7 +209,7 @@ und sinnvoll zu strukturieren.
 
 - Aufgaben werden ausgegeben
 - Sie lösen, gemeinsam in einer Gruppe 
-- Sie geben Lösung ab
+- Sie geben die Lösung ab
 - Wir korrigieren und verteilen Punkte 
 - Die Aufgaben werden in der *Zentralübung* besprochen
   - Termin: Dienstag, 13:00 - 14:00 Uhr
@@ -267,7 +267,7 @@ und sinnvoll zu strukturieren.
   - Üben!
   - Aktives Programmieren -- in der Gruppe, mit Tutor
 - Präsenzübungen
-  - Ergänzen Hausübungen 
+  - Ergänzen die Hausübungen 
   - Finden wöchentlich statt 
   - Werden durch Tutor betreut
 - Durch *Präsenzübungsblätter* strukturiert 
@@ -275,20 +275,20 @@ und sinnvoll zu strukturieren.
 *** Präsenzübungsblätter					      :notes:
 
 Präsenzübungsblätter dienen, ähnlich wie Hausübungsblätter, der
-Wiederholung und Vertiefung des Vorlesungsstoffes. Aufgaben hier haben
-sehr unterschiedlichen Schwierigkeitsgrad, von einfacher Wiederholung
+Wiederholung und Vertiefung des Vorlesungsstoffes. Die Aufgaben
+unterscheiden sich stark im  Schwierigkeitsgrad, von einfacher Wiederholung
 bis zu kniffligen Knobbelaufgaben. 
 
 Sinnvollerweise bereiten Sie die Aufgaben der Präsenzblätter vor,
-*bevor* Sie die Präsenzübung gehen. Sie müssen die Aufgaben nicht
+*bevor* Sie zur  Präsenzübung gehen. Sie müssen die Aufgaben nicht
 vollständig gelöst haben, sollten aber soweit damit vertraut sein,
-dass Sie einer Diskussion des Stoffes folgen können oder gezielt
-Fragen vorbereitet haben. 
+dass Sie einer Diskussion des Stoffes folgen können oder Fragen
+gezielt vorbereitet haben. 
 
 Zusätzlich handelt es sich ja um eine Programmiervorlesung -- Sie
-sollen also Programmieren lernen. Das geschieht am besten durch
-Programmieren. Sehen Sie also die Präsenzübungen als Gelegenheit zum
-gemeinsamen Programmieren an, mit Hilfestellung und Unterstützung
+sollen also programmieren lernen. Das lernen Sie am besten durch
+programmieren. Sehen Sie also die Präsenzübungen als Gelegenheit zum
+gemeinsamen programmieren an, mit Hilfestellung und Unterstützung
 durch den Tutor. 
 
 ** Präsenzübungen -- Termine					   :subslide:
@@ -408,13 +408,13 @@ Zulassungsvoraussetzungen erfüllen:
 
 ** Erwartungshaltung: Sie an uns 
 
-- ? 
+- ... ? 
 
 ** Erwartungshaltung: Wir an Sie 
 
 - Aktive Beteiligung
   - In Vorlesung, Übung, ...
-  - Fragen! Niemand ist Telepath!
+  - Fragen Sie! Niemand ist Telepath!
 - Vor- und Nacharbeit
 - Anwesenheit 
 - Üben! Üben! Üben!
