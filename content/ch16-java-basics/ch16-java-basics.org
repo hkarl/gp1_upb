@@ -588,7 +588,7 @@ x = x + (int) 0.00001;
     andere kopiert 
 
 #+BEGIN_SRC java :exports code :results output :classname XXX
-%% tutor -l java 
+%%tutor -l java 
 public class Zuweisung {
   public static void main(String[] args) {
     // Zwei interger-Variablen zuweisen: 

@@ -27,7 +27,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 ** Was bisher geschah 
 
 - Bisher haben wir mit Python ein Beispiel für eine /dynamisch und
-  stark/ typisierte angeschaut
+  stark/ typisierte Sprache angeschaut
 - Dies hatte erhebliche Vorteile: einfaches, elegantes Sprach-Design, 
   kompakter Code, ...
 - Aber es hat auch Nachteile, insbes. kann es zur Laufzeit zu
@@ -130,7 +130,7 @@ AttributeError: 'C' object has no attribute 'f'
 
 ** Vermeidbar?
 
-- Wäre diese Fehler nicht vermeidbar gewesen?
+- Wären diese Fehler nicht vermeidbar gewesen?
   - Mit einer besseren GP1-Vorlesung: vielleicht
 - Oder zumindest entdeckbar?
   - Man muss ja nur den Programmcode anschauen um zu sehen, dass das
@@ -143,8 +143,9 @@ AttributeError: 'C' object has no attribute 'f'
 - Während der Übersetzung?
 - Während das Programm noch beim Entwickler ist?
 - Fehler zur Laufzeit riskant!
-  - In einem Atomkraftwerk: ~AttributeError: 'Reaktor' Object has no attribute shuddown~ 
-  - Millionen Tote wegen eines Tippfehlers (~shuddown~)?? 
+  - In einem Atomkraftwerk: ~AttributeError: 'Reaktor' Object has no
+    attribute emergency_shuddown~  
+  - Millionen Tote wegen eines Tippfehlers (~shutdown~)?? 
 
 
 
@@ -170,7 +171,7 @@ Bei dynamischen Sprachen: Bei Übersetzung liegt noch nicht
 - Zu jedem Wert gibt es einen Typ
 - Typ bestimmt die Menge der darauf durchführbaren Operationen
 - Nicht alle Operationen auf beliebige Kombinationen von Typen anwendbar
-  - Beispiel: 4 + "5" oder 17 > "18"  scheitert 
+  - Beispiel: 4 + '5' oder 17 > '18'  scheitert 
 
 
 
@@ -299,13 +300,13 @@ Was ist mit ähnlichen Typen, die aber unterschiedlich groß sind?
 - Wesentliches Beispiel: Unterschiedliche Darstellungen von ganzen
   Zahlen 
 
-#+CAPTION: Kleinen Wert an große Variable zuweisen gelingt 
+#+CAPTION: Wert kleinen Typs an  Variable großen Typs zuweisen gelingt 
 #+ATTR_LaTeX: :width 0.25\linewidth
 #+NAME: fig:klein-an-gross
 [[./uml/boxshapes-6.png]]
 
 
-#+CAPTION: Großen Wert an kleine Variable zuweisen scheitert
+#+CAPTION: Wert großen Type an  Variable kleinen Typs zuweisen scheitert
 #+ATTR_LaTeX: :width 0.25\linewidth
 #+NAME: fig:gross-an-klein
 [[./uml/boxshapes-7.png]]
@@ -351,7 +352,7 @@ print("Hallo " + 1)
 
 *** Typumwandlung in Ausdrücken					    :animate:
 
-- Ausdrücken: Zerlegen in Teilausdrücke; wie Zuweisung vorstellen 
+- Ausdrücke: Zerlegen in Teilausdrücke; wie Zuweisung vorstellen 
 
 ** Type cast bei Python 
 

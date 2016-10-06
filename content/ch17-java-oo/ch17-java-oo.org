@@ -39,7 +39,7 @@ Objektorientierung in Java
 - Gemeinsamkeiten: 
   - Es gibt Klassen und Objekte
   - Klassen haben Attribute: Daten und Methoden
-- Wenig überrasche Unterschiede
+- Wenig überraschende Unterschiede
   - Daten müssen mit Typ deklariert werden!
   - Methoden: Parameter und Rückgabewert haben Typ
 - Unwichtige Unterschiede: Syntaxdetails, z.B. ~new~
@@ -129,7 +129,7 @@ e = new Ellipse();
 
 *** Anmerkung: Trennung von Deklaration und Erzeugung in Python?  :dropslide:
 
-Dieser zweischrittige Prozess kommt Ihnen -- der Python-Perspektive --
+Dieser zweischrittige Prozess kommt Ihnen -- aus der Python-Perspektive --
 sicherlich seltsam vor. Dort werden Variablen nicht deklariert
 (in einer dynamisch typisierten Sprache nicht notwendig); sie werden
 bei Bedarf im Moment der Zuweisung erschaffen. 
@@ -1681,12 +1681,12 @@ Fehlermeldung bei Übersetzung:
 
 *Meines* Erachtens mit großer Vorsicht zu geniessen: 
 
-*** Was kann man denken?					    :B_quote:
+*** Was kann man denken?					:B_quotation:
     :PROPERTIES:
-    :BEAMER_env: quote
+    :BEAMER_env: quotation
     :END:
 
- Language shapes the way we think, and determines what we can
+ Language shapes the way we think and determines what we can
     think about. (B. L. Whorf)  
 
  Die Grenzen meiner Sprache bedeuten die Grenzen meiner

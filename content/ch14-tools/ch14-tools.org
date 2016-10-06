@@ -272,9 +272,9 @@ Siehe auch: [[https://wiki.python.org/moin/PythonEditors][Übersicht Python-Edit
 
 ** Vorgehen: Basics 
 
-*** Es passiert nichts unmögliches				    :B_quote:
+*** Es passiert nichts unmögliches				:B_quotation:
     :PROPERTIES:
-    :BEAMER_env: quote
+    :BEAMER_env: quotation
     :END:
 
 When you have eliminated the impossible, whatever remains, however
