@@ -1,0 +1,95 @@
+Generell gilt: Bei Fragen wenden Sie sich bitte an Ihren Tutor.
+
+* Aufgabe 1
+
+** a) Login
+
+Loggen Sie sich über Ihren IMT-Account auf einem Rechner der IRB ein.
+
+* b) E-Mails
+
+Mit der Anmeldung Ihres IMT-Accounts haben Sie eine Uni-Mailadresse erhalten. 
+Diese setzt sich aus Ihrem Benutzernamen und einer Uni-Domain zusammen.
+Lautet ihr Benutzername z. B. /jondoe/, dann lautet Ihre E-Mail-Adresse jondoe@mail.uni-paderborn.de oder kurz jondoe@mail.upb.de.
+Bitte verwenden Sie für die Uni-interne Kommunikation ausschließlich Ihre Uni-Mailadresse. Sie können diese auch auf Ihrem Smartphone oder in Ihrem E-Mail-Programm abonnieren.
+E-Mails, die nicht von einer Uni-Mailadresse aus gesendet werden, weren von uns ignoriert.
+
+Öffnen Sie einen Webbrowser und rufen Sie auf http://webmail.upb.de Ihre E-Mails ab (loggen Sie sich dazu mit Ihrem IMT-Account ein).
+
+** c) Passwort ändern
+
+Rufen Sie http://benutzerverwaltung.upb.de auf und finden Sie heraus, wie man sein IMT-Passwort ändert.
+
+** d) Lerngruppe
+
+Die Heimübungsblätter für Grundlagen der Programmierung I dürfen Sie in Gruppen von bis zu 4 Personen bearbeiten.
+Hierzu geben Sie als Gruppe bitte gemeinsam /eine/ Lösung pro Übungsblatt ab.
+Um Heimübungsblätter abgeben zu können, müssen Sie Ihre Gruppe bei Ihrem Tutor registrieren. 
+Sie erhalten dann ein Gruppen-Passwort für die Abgabe der Übungsblätter.
+
+Bilden Sie (spätestens) jetzt eine Gruppe für die Abgabe der Heimübungsblätter und registrieren Sie diese bei Ihrem Tutor, indem Sie sich bei ihm in eine Liste eintragen und dafür das Passwort erhalten.
+
+* Aufgabe 2
+
+** a) Einloggen
+
+Melden Sie sich auf dem GP1-Server unter xyz zunächst mit Ihrem IMT-Account an.
+Melden Sie sich anschließend einmal mit Ihrem Gruppen-Account dort an und beschreiben Sie die Unterschiede.
+
+** b) Präsenzübungsblätter öffnen
+
+Öffnen Sie anschließend im Gruppen-Account das erste Präsenzübungsblatt.
+Wenn Sie alles richtig gemacht haben, sollen Sie dieses Dokument dort vorfinden.
+
+** c) Kopien
+
+Haben Sie sich gewundert, warum Sie dieses Präsenzübungsblatt zweimal vorfinden?
+Eine der beiden Dateien hat das Suffix -copy.
+Hierbei handelt es sich um eine Kopie, welche Sie editieren können.
+Probieren Sie dies einmal aus (durch Doppelklick auf ein Textelement) und beobachten Sie, was passiert, wenn Sie versuchen, etwas zu ändern.
+
+Erstellen Sie anschließend selbst eine zweite Kopie des originalen Präsenzübungsblattes.
+
+** d) Formatierungen
+
+Beim Versuch, die Kopie des Präsenzübungsblattes zu editieren, hat sich die Formatierung des aktuellen Feldes verändert. 
+Anstelle der Formatierung, wie Sie sie von Webseiten her gewöhnt sind, sehen Sie nun eine sogenannte Markdown-Formatierung.
+Um zur früheren Fassung zurückzukehren, drücken Sie Strg+Enter.
+Sie können so mit Doppelklick und Strg+Enter immer zwischen der Rohfassung (Markdown-formatiert, editierbar) und der Anzeige-Fassung (wie auf diesem Blatt formatiert, nicht editierbar) hin und herwechseln.
+Probieren Sie dies einmal aus.
+
+* Aufgabe 3
+
+** a) Was ist Markdown?
+
+Beschreiben Sie, worum es sich bei Markdown handelt.
+Falls Ihnen Markdown nicht geläufig ist, nutzen Sie dazu gängige Internet-Suchmaschinen.
+
+** b) Markdown-Syntax
+
+Lösen Sie die folgenden Aufgaben mithilfe des Internets.
+Testen Sie Ihre Lösungsvorschläge jeweils im Jupyternotebook.
+
+*** Kopfzeilen
+
+Beschreiben Sie eine Möglichkeit, um Kopfzeilen in Markdown zu formatieren.
+
+*** Aufzählungen
+
+Beschreiben Sie eine Möglichkeit, um eine unsortierte Aufzählung in Markdown zu schreiben.
+
+Beschreiben Sie eine Möglichkeit, um eine sortierte (nummerierte) Aufzählung in Markdown zu schreiben.
+
+*** Horizontale Linien
+
+Beschreiben Sie eine Möglichkeit, um eine unsortierte Aufzählung in Markdown zu schreiben.
+
+*** Weitere Jupyterhub-Funktionen
+
+Erzeugen Sie ein zweites Feld innerhalb desselben Notebooks (d.h. derselben Datei).
+Drücken Sie hierzu auf den Plus-Button.
+
+Stellen Sie sicher, dass für den Typ des aktuellen Feldes "Markdown" ausgewählt ist.
+Welche anderen Typen sind möglich?
+
+Erstellen Sie in dem neu erstellten Feld einen Beispieltext in Markdown und zeigen Sie diesen Ihrem Tutor.
