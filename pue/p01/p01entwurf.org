@@ -92,4 +92,9 @@ Drücken Sie hierzu auf den Plus-Button.
 Stellen Sie sicher, dass für den Typ des aktuellen Feldes "Markdown" ausgewählt ist.
 Welche anderen Typen sind möglich?
 
-Erstellen Sie in dem neu erstellten Feld einen Beispieltext in Markdown und zeigen Sie diesen Ihrem Tutor.
+Jupyterhub speichert Ihre Dateien automatisch alle 120 Sekunden.
+Sie können diese aber auch manuell speichern, indem Sie das Diskettensymbol anklicken.
+Hierbei wird ein Checkpoint erstellt.
+Speichern Sie Ihr Dokument einmal.
+
+Erstellen Sie nun in dem neu erstellten Feld einen Beispieltext in Markdown und speichern Sie abermals.
