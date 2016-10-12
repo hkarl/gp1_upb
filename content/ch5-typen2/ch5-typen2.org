@@ -184,7 +184,7 @@ fast das zusammen.
 
 ** Tuple und Objekte: Visualisierung (3)			   :subslide:
 
-Was passiert, wenn das gleiche Element mehrfach in Tuple enthalten ist? 
+Was passiert, wenn das gleiche Element mehrfach im Tuple enthalten ist? 
 
 #+BEGIN_SRC python 
 %%tutor -t
@@ -204,7 +204,7 @@ Sprechweise!).  Wozu sollte also diese Zahl mehrfach repräsentiert
 werden? Das ist ganz analog zur Diskussion in Kapitel 3; auch da waren
 mehrere Variablen Referenzen auf den gleichen Wert. 
 
-Aber natürlich werden mehrere Referenz auf die 1 bzw. die 2 gebraucht!
+Aber natürlich werden mehrere Referenzen auf die Zahl 1 bzw. die 2 gebraucht!
 Abbildung [[fig:pt-multiple-ones-tuple]] verdeutlich das: Jedes
 Element des Tuples ist eine Referenz; wenn die Zahl 1 im Tuple
 vorkommt, verweisen alle diese Tuple eben auf das eine Objekt /Zahl 1/
@@ -586,8 +586,8 @@ print(s[6:-1])
 
 - Bisher sind alle Datentypen (Zahlen, Zeichenketten, Tuple)
   unveränderlich 
-- Nützlich: Verlässlichkeit 
-- Aber manchmal Veränderung noch schön?
+  - Nützlich: Verlässlichkeit 
+- Aber manchmal Veränderung doch schön?
   - Muss ich ein komplett neues Tuple erzeugen, um einen Wert zu
     verändern??
   - Und wäre das wirklich der  gleiche Effekt???
@@ -659,7 +659,7 @@ späteres Kapitel?
 Objekte; verkürzt und vereinfachend sagt man auch /Aufzählung von
 Objekten/.
 
-- Tuple sind ein Datentyp 
+- Tuple ist  ein Datentyp 
 - Sie haben eine feste Reihenfolge
 - Auf Elemente kann durch die Angabe der Position (des Indexes)
   zugegriffen werden.
@@ -978,7 +978,7 @@ Was geschieht hier im Detail, was ist der Unterschied zwischen  den
 beiden Zuweisungen an L1 und L2? 
 
 1. Vor der Zuweisung an L1 existiert eine Liste mit drei Elementen,
-   die durch den Namen L referiert wird (Abbildung [[fig:pt-listcopy-1]])
+   die durch den Namen L referiert wird (Abbildung [[fig:pt-listcopy-1]]).
 2. Die Zuweisung an L1 bewirkt lediglich, dass L1 ein weiterer Name
    für die /identisch gleiche Liste/ ist (L1 referenziert das gleiche
    Listenobjekt) -- siehe Abbildung [[fig:pt-listcopy-2]]. 
@@ -1022,7 +1022,7 @@ print("L2: ", L2)
 
 *** Details							  :dropslide:
 
-Die sich nach diesem Beispiel einstellende Datenstruktur ist in
+Die sich nach diesem Beispiel einstellende Datenstruktur wird  in
 Abbildung [[fig:pt-copy-list-of-list]] gezeigt. Je nach Situation ist das
 genau das gewünschte Ergebnis; es könnte aber auch unerwartet
 sein. Überlegen Sie sich, welche Alternative Struktur Sie
@@ -1153,7 +1153,7 @@ print(L)
 Aber wann sind zwei Listen dann eigentlich gleich? 
 
 - Wenn die /Namen/ auf das gleiche Listenobjekt referenzieren? 
-- Oder wenn die Inhalt übereinstimmen, egal, welches Objekt das ist? 
+- Oder wenn die Inhalte übereinstimmen, egal, welches Objekt das ist? 
 
 *** Je nachdem!							    :animate:
 
@@ -1226,8 +1226,8 @@ Objekten/.
   unterschiedlicher Notation)
 - Sie können manipuliert werden, z.B. durch Löschen oder Einfügen 
   von Elementen; Referenzen in einer Liste können verändert werden
-- Liste werden syntaktisch geschrieben als eine durch Komma
-  getrennte Liste von Ausdrücken, in /eckige/ Klammern eingeschlossen
+- Listen werden syntaktisch geschrieben als eine durch Komma
+  getrennte Folge von Ausdrücken, in /eckige/ Klammern eingeschlossen
   - Am Ende darf ein Komma stehen 
 
 
@@ -1577,7 +1577,7 @@ usw.
 
 - ~dict~ für dictionary (Wörterbuch, Verzeichnis, Abbildung)
 - Ein ungeordneter, veränderlicher Aufzählungstyp
-- Ordnet /*Schlüsseln*/ (keys) zu Objekten  (Werten, values) zu
+- Ordnet /*Schlüsseln*/ (keys)  Objekten  (Werten, values) zu
   - Ein sog. /*key-value*/-Typ 
 
 
@@ -1852,7 +1852,7 @@ Syntax sieht aus wie ein Funktionsaufruf mit dem Typ als
 Funktionsname. 
 
 Je nach neuem Typ und gewünschtem Objekt kann die Konvertierung
-gelingen oder scheitern (was zu Fehlermeldung führt).
+gelingen oder scheitern (was zu einer Fehlermeldung führt).
 
 
 
@@ -1883,7 +1883,7 @@ gelingen oder scheitern (was zu Fehlermeldung führt).
 ** Python-Syntax: Klammern					   :subslide:
 
 - Runde Klammern ~(~ und ~)~
-  - In Ausrücken, um Vorrang auszudrücken
+  - In Ausdrücken, um Vorrang auszudrücken
   - Bei Definition und Aufruf von Funktionen
   - Bei /Definition/ von Tuplen, /nicht/ bei Zugriff
 - Eckige Klammern ~[~ und ~]~

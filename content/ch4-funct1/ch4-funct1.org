@@ -74,7 +74,7 @@ def pingo(line):
   auf 
   - Eventuell mit kleinen Variationen
 - Beispiele:
-  - Mathematische Funktionen ausrechen ($\sin$ etc.)
+  - Mathematische Funktionen ausrechnen ($\sin$ etc.)
   - Datei zeilenweise auslesen
   - ... 
 - Jedes Mal neu eintippen?
@@ -95,7 +95,7 @@ def pingo(line):
 - Mache den Teig
 - Mache den Belag 
 - Buttere die Form 
-- Stelle From in Ofen  
+- Stelle Form in Ofen  
 
 ** Problem zerteilen: Kuchen backen 				   :subslide:
 
@@ -110,7 +110,7 @@ def pingo(line):
 - Mache den Belag 
   - ... 
 - Buttere die Form 
-- Stelle From in Ofen  
+- Stelle Form in Ofen  
 
 ** Problem zerteilen: Programmiertechnik			   :subslide:
 
@@ -176,10 +176,10 @@ einer Folge von Anweisungen.
 
 *** Eine Anweisung zur Funktionsdefinition?			  :dropslide:
 
-Wenn Sie mit anderen Sprachen wir C oder Java vertraut sind, wird
+Wenn Sie mit anderen Sprachen wie C oder Java vertraut sind, wird
 Ihnen dies vielleicht seltsam vorkommen: Eine /Anweisung/ definiert
 eine Funktion? Eine Anweisung muss durch das Programm doch ausgeführt
-werden, damit sie einen Effekt? 
+werden, damit sie einen Effekt hat? 
 
 Das ist genau der Fall: die Anweisung ~def~ muss ausgeführt werden,
 sonst existiert die Funktion nicht. 
@@ -239,7 +239,7 @@ Probieren Sie das in einem Notebook aus!
 ** Einrückung? 
 
 - Durch die Einrückung sind die Anweisungen bestimmt, die mit dem
-  Funktionsname verbunden werden
+  Funktionsnamen verbunden werden
 - Ende der Einrückung: Ende der Funktionsdefinition 
 - Darauf folgt: Einrückungen wichtig für Struktur
   - Python: Willkürliches Ein-/Ausrücken fehlerhaft! 
@@ -398,7 +398,7 @@ Wir erweitern das Ausführungsmodell:
 - Aufruf der Funktion: Programm mit den Anweisungen der Funktion
   fortsetzen
   - Vorstellung: Der Aufruf der Funktion wird durch die Anweisungen
-    der Funktion ersetzt, und dann wird ausgeführt 
+    der Funktion ersetzt und wird dann ausgeführt 
 - Nach Ausführung der letzten Anweisung der Funktion: Mit der
   Anweisung nach dem Aufruf weitermachen 
 
@@ -555,7 +555,7 @@ In den einzelnen Schritten geschieht folgendes:
 
 1. Nach Definition von ~f~, vor dem ersten Aufruf (Abbildung
    [[fig:pt-vor-f1]]): hier sind lediglich die Namen ~z~ und ~f~
-   bekannt. Der Aufruf von ~f~ wird als nächstes ausgeführt werden.
+   bekannt. Der Aufruf von ~f~ wird als nächstes ausgeführt.
 #+CAPTION: Aufruf einer Funktion: Vor erstem Aufruf
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-vor-f1
@@ -718,7 +718,7 @@ wir drei Schritte:
 
 3. [@3] Aber der /*Wert*/ dieser scheinbaren Variable bleibt bei der
    Rückkehr aus der Funktion erhalten! Dieser Wert wird wie ein ganz
-   normaler Wert weiterverwendet (es /ist) ein ganz normaler
+   normaler Wert weiterverwendet (es /ist/ ein ganz normaler
    Wert). Dieser Wert /ersetzt/ den Aufruf von ~pi~ in dem Ausdruck,
    in dem der Ausdruck vorkam. 
 
@@ -959,7 +959,7 @@ deutlich: ~a~ und ~y~ sind beides Referenzen auf den gleichen Wert.
      :BEAMER_env: alertblock
      :END:
 
- Hier gilt ähnliches wie bei der Zuweisung: der formale Parameter ist
+ Hier gilt ähnliches wie bei der Zuweisung: Der formale Parameter ist
  ein Name für den /Wert/. Ein formaler Parameter kann kein Name für
  einen anderen Namen sein. 
 
@@ -1187,8 +1187,8 @@ Programms, die
     :END:
 
 Funktionen mit Seiteneffekten werden auch /Prozeduren/ genannt. Der
-Begriff wird insbesondere verwendet, wenn die Funktionen keinen
-Rückgabewert hat. 
+Begriff wird insbesondere verwendet, wenn  Funktionen keinen
+Rückgabewert haben. 
 
 ** Funktion oder Prozedur? 
 
@@ -1212,7 +1212,7 @@ Mit dieser Definition läßt sich eine funktionale Programmiersprache
 einfach charakterisieren: Eine Sprache, in der es keine Seiteneffekte
 gibt. 
 
-Mehr dazu in VL GPS. 
+Mehr dazu in der Vorlesung Grundlagen der Programmiersprachen. 
 
 
 *** UEBUNG print bei strings mit escape sequenzen 

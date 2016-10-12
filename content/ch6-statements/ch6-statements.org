@@ -100,7 +100,7 @@ Und die Folge von Anweisungen
 ** Bedingte Folge von Anweisungen 
 
 Idee: 
-- Die Fortsetzung des Programms nicht fest bei der nächsten Anweisung
+- Programms nicht immer  bei der nächsten Anweisung fortsetzen
 - Sondern die Wahl der nächsten /auszuführenden/ Anweisung von dem
   Wert eines Ausdrucks abhängig machen 
 - /Alternativen/ im Programm vorsehen 
@@ -558,7 +558,7 @@ aufruft?
 
 Die Anweisung ~if/elif/else~ ermöglichen die alternative Ausführung
 einer Folge von Anweisungen -- eines /*Blocks*/ -- in Abhängigkeit des
-Wahrheitswertes eine Ausdrucks (~if~) bzw. mehrerer Ausrücke (~if~ und
+Wahrheitswertes eines Ausdrucks (~if~) bzw. mehrerer Ausrücke (~if~ und
 folgende ~elif~ Ausdrücke). Dem ~if~ kann optional ein oder mehrere
 ~elif~ und optional höchstens ein ~else~-Teil folgen. 
 
@@ -801,7 +801,7 @@ Idee:
   - Nein, nach erstem Finden aufhören? 
  
 
-** ~while~: Beispiel Suchschleife  (2)				   :subslide:
+** ~while~: Beispiel Suchschleife  (3) 				   :subslide:
 
 
 Zusätzliches Abbruchkriterium: ~not gefunden~
@@ -1856,7 +1856,7 @@ Verdopple Eintrag nur wenn gerade Zahl:
 Wie üblich: Häufige Muster verdienen eigene Syntax! 
 
 List comprehension: 
-- Konstruieren eine Liste aus einer anderen Liste
+- Konstruieren einer Liste aus einer anderen Liste
 - mit einer kompakten ~for~-Formulierung 
 
 #+BEGIN_SRC python :exports code :results output
@@ -1960,7 +1960,7 @@ for i in [3*x for x in range(5)]:
 
 ** Paarweise Operation 
 
-- Angenommen, wir wollen Elemente zweiter Listen paarweise miteinander
+- Angenommen, wir wollen Elemente zweier Listen paarweise miteinander
   vergleichen 
   - Schleife 1 (/äußere/ Schleife): Iteriere über eine Liste
   - Schleife 2 (/innere/ Schleife): In jeder Iteration der äußteren
@@ -1996,7 +1996,7 @@ Element von Liste 2
 
 ** Paarweise Operation: Beispiel 2 -- Test auf enthalten	   :subslide:
 
-Welche des Element von ~tests~ sind in der Liste ~items~? 
+Welche  Elemente von ~tests~ sind in der Liste ~items~? 
 - Innere Schleife abbrechen wenn Ergebnis feststeht 
 
 
@@ -2109,7 +2109,7 @@ ganz viele Übungen denkbar.
 
 *** Idee: Suche die kleinste Zahl aus Restliste 
 
-- Schritt 1: Suche die kleinste Zahl aus der ganze Liste
+- Schritt 1: Suche die kleinste Zahl aus der ganzen Liste
   - Vertausche mit Element am Anfang
 - Schritt 2: Genauso, mit der Liste ab Position 2
 - Usw. 
@@ -2280,7 +2280,7 @@ Resultat:  [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 17, 18, 23]
 - Liste linear absuchen?
   - Funktioniert, aber wir können Sortierung ausnutzen!
 - Idee:
-  - Prüfe Wert in der Mitte der
+  - Prüfe Wert in der Mitte der Liste
     - Falls gefunden: fertig
     - Wenn größer: Suche oben; wenn kleiner: suche unten
   - Wenn kein Wert mehr übrig, fertig 
