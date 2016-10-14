@@ -68,3 +68,5 @@ content/ch*/*.java.exp.out
 content/ch*/*.class
 
 
+uebungen/pue/pue*
+uebungen/hue/hue*
