@@ -27,7 +27,7 @@ Siehe Abbildung [[pue-workflow]]
   - Von dort per Makefile/Skript in die Homes der Teilnehmer kopieren
 
 
-#+BEGIN_SRC plantuml :exports both :results output :file puml.png
+#+BEGIN_SRC plantuml :exports result :results output :file puml.png
 @startuml
 actor Tutor #blue
 actor WiMi #red
