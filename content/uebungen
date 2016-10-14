@@ -6,7 +6,7 @@ PUE 1 #: 0
 PUE 2 #: 0
 
 ----------
-PUE 3 #: 6
+PUE 3 #: 5
 2 *** UEBUNG Andere Zahlen 					  :dropslide:
 2 *** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
 2 *** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
@@ -14,9 +14,9 @@ PUE 3 #: 6
 2 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
 2 *** UEBUNG Umlaute und Sonderzeichen
 2 *** UEBUNG Unterschied zwischen str und byte
-2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
 ----------
-PUE 4 #: 10
+PUE 4 #: 11
+2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
 2 *** UEBUNG Maximale Integer in python3?
 2 *** UEBUNG Verletzung der Rechenregeln
 2 *** UEBUNG Ganz viele Übungsaufgaben zu strings
@@ -71,7 +71,7 @@ PUE 6 #: 12
 6 *** UEBUNG Funktion max3 ohne else
 6 *** UEBUNG if else als Ausdruck
 ----------
-PUE 7 #: 27
+PUE 7 #: 29
 6 *** UEBUNG Bedingung nach else?
 6 *** UEBUNG Auswertung Einfluss auf Bedingungsergebnis?
 6 *** UEBUNG switch nachbauen?
@@ -79,6 +79,7 @@ PUE 7 #: 27
 6 *** UEBUNG Warum diskret?
 6 *** UEBUNG Viele Schleifenbeispiele
 6 *** UEBUNG Weiter Beispiele
+6 *** UEBUNG Beispiele für Invarianten und Zielbedingung
 6 *** UEBUNG continue bei geschachtelten Schleifen?
 6 *** UEBUNG break bei geschachtelten Schleifen?
 6 *** UEBUNG Warum // und nicht / ? Was ist Unterschied
@@ -87,6 +88,7 @@ PUE 7 #: 27
 6 *** UEBUNG while / else Beispiele
 6 *** UEBUNG WArum funktioniert dieser Pseudo-Code nicht direkt?
 6 *** UEBUNG Einfaches Beispiel: mit SChleife mit zwei Laufvariablen über dict.key, dict.values iterieren
+6 *** UEBUNG Variationen davon als Übungsaufgabe?
 6 ** UEBUNG for-Schleife Übungen
 6 *** UEBUNG allgemeinere Version von range
 6 *** UEBUNG Vergleiche Iteration über SEquenz mit range, vs. natürlich
@@ -120,8 +122,8 @@ PUE 8 #: 17
 7 *** UEBUNG Warum nutzt eine Deklaration wie global hier nichts?
 7 *** UEBUNG Beispielprogramme für indirekte Rekursion
 7 *** UEBUNG Beispiele fuer Rekursion
-7 *** UEBUNG Scheiben bewegen mitzählen
-7 *** UEBUNG Beispiele für Übungen
+7 *** UEBUNG !! Scheiben bewegen mitzählen
+7 *** UEBUNG !! Beispiele für Übungen
 7 *** UEBUNG Beispiel: die gleiche Funktion einmal mit /ohne Veränderung  von Listen-ARgumenten
 8 *** UEBUNG Wietere Beispiele für Klassen ausdenken
 8 *** UEBUNG Beispiel-Instanzen fpr die zuvor ausgedachten Klassen
@@ -143,7 +145,7 @@ PUE 8 #: 17
 8 *** UEBUNG Erklären, warum die folgenden Ausgaben entstehen
 8 *** UEBUNG Was passiert hier und warum?
 ----------
-PUE 9 #: 18
+PUE 9 #: 19
 8 *** UEBUNG Beiepiele: woezu braucht man Klassenattribute/methoden?
 8 *** UEBUNG Zusammenfassung: Wie können Attribute einer Instanz erzeuigt werden?
 8 *** UEBUNG Atrtibute der Instanz im Block der Klasse definieren?
@@ -152,6 +154,7 @@ PUE 9 #: 18
 8 *** UEBUNG Das dict der Klasse (nicht eine objektes) anschauen
 8 *** UEBUNG Was ist also der Unterschied zwischen einem Klassenobjekt und einem Instanzobjekt?
 8 *** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
+8 *** UEBUNG Wie würde man den Zugriff auf die Parameter machen, deren Namen im Foramt-String angegeben ist?
 8 *** UEBUNG Ganz viele Biepsiele zu string-Methoden denkbar
 8 *** UEBUNG Heap, oder Queue, oder ... implementieren
 8 *** UEBUNG REchteck Klasse definieren
@@ -166,9 +169,10 @@ PUE 9 #: 18
 8 ** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum
 8 *** UEBUNG Größeres Beispiel: Eine Personendatenbank?
 8 *** UEBUNG Größeres Beispiel: PAUL?
-9 *** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren?
 9 *** UEBUNG Warum muss man den Konstruktor der Oberklasse überhaupt aufrufen? wird doch autoamtisch aufgerufen?
 9 *** UEBUNG DRY: Wie erweitern Sie eine Funktion der Oberklasse, ohne sie komplett ersetzen/neu schreiben zu müssen?
+9 *** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren?
+9 *** UEBUNG In einer existierende KLasse mit Nutzungscode eine Variable zu einer property ändern
 ----------
 PUE 10 #: 3
 9 *** UEBUNG PAUL extended
@@ -211,7 +215,7 @@ PUE 14 #: 2
 18 *** UEBUNG Statische Methoden importieren
 ======================
 ----------
-HUE 1 #: 6
+HUE 1 #: 5
 2 *** UEBUNG Andere Zahlen 					  :dropslide:
 2 *** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
 2 *** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
@@ -219,9 +223,9 @@ HUE 1 #: 6
 2 *** UEBUNG Andere Anführungszeichen 				  :dropslide:
 2 *** UEBUNG Umlaute und Sonderzeichen
 2 *** UEBUNG Unterschied zwischen str und byte
-2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
 ----------
-HUE 2 #: 14
+HUE 2 #: 15
+2 *** UEBUNG Division, Rest in python3 nachschauen		   :subslide:
 2 *** UEBUNG Maximale Integer in python3?
 2 *** UEBUNG Verletzung der Rechenregeln
 2 *** UEBUNG Ganz viele Übungsaufgaben zu strings
@@ -260,7 +264,7 @@ HUE 3 #: 12
 5 *** UEBUNG Tuple ändern durch slicing und ändern
 5 *** UEBUNG Falscher Aufruf  von quersumme
 ----------
-HUE 4 #: 21
+HUE 4 #: 22
 5 *** UEBUNG Warum ist die Ferstlegung *vor* Position einfügen sinnvoll?
 5 *** UEBUNG andere pop-PArameter
 5 *** UEBUNG Manipulation von Listenelementen bei kopierten Listen
@@ -282,6 +286,7 @@ HUE 4 #: 21
 6 *** UEBUNG Warum diskret?
 6 *** UEBUNG Viele Schleifenbeispiele
 6 *** UEBUNG Weiter Beispiele
+6 *** UEBUNG Beispiele für Invarianten und Zielbedingung
 6 *** UEBUNG continue bei geschachtelten Schleifen?
 6 *** UEBUNG break bei geschachtelten Schleifen?
 6 *** UEBUNG Warum // und nicht / ? Was ist Unterschied
@@ -291,7 +296,8 @@ HUE 4 #: 21
 6 *** UEBUNG WArum funktioniert dieser Pseudo-Code nicht direkt?
 6 *** UEBUNG Einfaches Beispiel: mit SChleife mit zwei Laufvariablen über dict.key, dict.values iterieren
 ----------
-HUE 5 #: 18
+HUE 5 #: 19
+6 *** UEBUNG Variationen davon als Übungsaufgabe?
 6 ** UEBUNG for-Schleife Übungen
 6 *** UEBUNG allgemeinere Version von range
 6 *** UEBUNG Vergleiche Iteration über SEquenz mit range, vs. natürlich
@@ -325,8 +331,8 @@ HUE 6 #: 29
 7 *** UEBUNG Warum nutzt eine Deklaration wie global hier nichts?
 7 *** UEBUNG Beispielprogramme für indirekte Rekursion
 7 *** UEBUNG Beispiele fuer Rekursion
-7 *** UEBUNG Scheiben bewegen mitzählen
-7 *** UEBUNG Beispiele für Übungen
+7 *** UEBUNG !! Scheiben bewegen mitzählen
+7 *** UEBUNG !! Beispiele für Übungen
 7 *** UEBUNG Beispiel: die gleiche Funktion einmal mit /ohne Veränderung  von Listen-ARgumenten
 8 *** UEBUNG Wietere Beispiele für Klassen ausdenken
 8 *** UEBUNG Beispiel-Instanzen fpr die zuvor ausgedachten Klassen
@@ -355,6 +361,7 @@ HUE 6 #: 29
 8 *** UEBUNG Das dict der Klasse (nicht eine objektes) anschauen
 8 *** UEBUNG Was ist also der Unterschied zwischen einem Klassenobjekt und einem Instanzobjekt?
 8 *** UEBUNG Beispiele zu formatting Syntax und escapeing von {}
+8 *** UEBUNG Wie würde man den Zugriff auf die Parameter machen, deren Namen im Foramt-String angegeben ist?
 8 *** UEBUNG Ganz viele Biepsiele zu string-Methoden denkbar
 8 *** UEBUNG Heap, oder Queue, oder ... implementieren
 8 *** UEBUNG REchteck Klasse definieren
@@ -366,14 +373,15 @@ HUE 6 #: 29
 8 *** UEBUNG Vorlesungeverzeichnis
 8 *** UEBUNG PAUL !!!
 ----------
-HUE 7 #: 6
+HUE 7 #: 7
 8 *** UEBUNG Code umstrukturieren : Echte rekursive Struktur
 8 ** UEBUNG Erweiertungen zu Telefonbuch, Binärerbaum
 8 *** UEBUNG Größeres Beispiel: Eine Personendatenbank?
 8 *** UEBUNG Größeres Beispiel: PAUL?
-9 *** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren?
 9 *** UEBUNG Warum muss man den Konstruktor der Oberklasse überhaupt aufrufen? wird doch autoamtisch aufgerufen?
 9 *** UEBUNG DRY: Wie erweitern Sie eine Funktion der Oberklasse, ohne sie komplett ersetzen/neu schreiben zu müssen?
+9 *** UEBUNG Warum vererben und überschreiben; warum nicht einfach code kopieren?
+9 *** UEBUNG In einer existierende KLasse mit Nutzungscode eine Variable zu einer property ändern
 ----------
 HUE 8 #: 6
 9 *** UEBUNG PAUL extended
@@ -417,6 +425,6 @@ HUE 13 #: 2
 18 *** UEBUNG Wie schreibt man das in Python auf?
 18 *** UEBUNG Statische Methoden importieren
 ======================
-[   {   'blaetter': [0, 0, 6, 10, 16, 12, 27, 17, 18, 3, 5, 3, 9, 2],
+[   {   'blaetter': [0, 0, 5, 11, 16, 12, 29, 17, 19, 3, 5, 3, 9, 2],
         'kind': 'PUE'},
-    {'blaetter': [6, 14, 12, 21, 18, 29, 6, 6, 2, 3, 5, 4, 2], 'kind': 'HUE'}]
+    {'blaetter': [5, 15, 12, 22, 19, 29, 7, 6, 2, 3, 5, 4, 2], 'kind': 'HUE'}]
