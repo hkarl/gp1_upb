@@ -79,8 +79,7 @@ def handle_file(filename, *args, **kwargs):
         accounts = cfg['students']
     elif "admin" in cfg:
         accounts = cfg['admin']
-    elif "grader" in cfg:
-        accounts = cfg['grader']
+        accounts += cfg['grader']
     else:
         accounts = []
 
