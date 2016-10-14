@@ -20,11 +20,14 @@ Siehe Abbildung [[pue-workflow]]
 
 ** Freigabe release candidate 
 
-- WiMi: ~git pull~ in lokalem Rechner  
-- Per Skript ~build/release-pue.sh~
-  - Parameter: Name des Präsenzübungsblatt-Verzeichnisses 
-  - PUE-Verzeichnis nach ~jupyterhub@gp1:pue~ kopieren
-  - Von dort per Makefile/Skript in die Homes der Teilnehmer kopieren
+- Das fertige ipynb muss im GIT liegen, unter uebungen/pue/pueXX
+- Im Verzeichnis uebungen dann folgendes ausführen:
+
+#+BEGIN_SRC shell :exports code 
+make puerelease ch=pue05 
+#+END_SRC 
+
+Und damit sollte alles passiert sein. 
 
 
 #+BEGIN_SRC plantuml :exports result :results output :file puml.png
