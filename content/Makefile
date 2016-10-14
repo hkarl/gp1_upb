@@ -33,8 +33,12 @@ cleanall: makefiles
 		make -C $$d clean ; \
 	done
 
+depingo:
+	# depingo: remove the pingo headers from the generated ipynb
+	ipynbs=`find ../output/vorlesung -name "*ipynb"`; for d in $$ipynbs ; do echo $$d ; python depingo.py $$d > pingotmp ; mv pingotmp $$d  ; done 
 
-distribute: 
+distribute: depingo
+
 	# generate the file list ; maybe that has to be constructed from indiviaul parts?
 	# sourcing: we need a few modules :-( ; note that this has be done in ONE shell invocation!
 	source ~/.venvs/ansible/bin/activate; \
