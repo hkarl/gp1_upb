@@ -73,10 +73,13 @@
         - git 
         - python3-dev
         # - python3-pip
+        - python3-setuptools
         - build-essential
         - quota
         - mutt
         - pandoc
+        - python-enchant
+
     # the apt-get version of pip/pip3 is too old (as of mid-July 2016)
     # and breaks with requests module. Compare
     # http://stackoverflow.com/questions/27341064/how-do-i-fix-importerror-cannot-import-name-incompleteread
@@ -84,20 +87,21 @@
     # annoying :-(
     - name: install pip3 via easy_install
       easy_install: name=pip state=latest executable=easy_install3
-    - name: Add jessie backports (for certbot)
-      copy: src=jessie-backports.list dest=/etc/apt/sources.list.d/jessie-backports.list owner=root mode=0644
+    # - name: Add jessie backports (for certbot)
+    #   copy: src=jessie-backports.list dest=/etc/apt/sources.list.d/jessie-backports.list owner=root mode=0644
+
     # TODO: the installation from backports seems to fail via ansible
     # it worked on command line ? 
     # - name: install certbot
     #   apt: name=certbot state=latest default_release=jessie-backports update_cache=yes
     #
-    - name: Turn on quotas on /home
-      lineinfile:
-        dest=/etc/fstab
-        regexp="  LABEL=root    /               ext4        errors=remount-ro 0       1"
-        line="  LABEL=root    /               ext4        errors=remount-ro,usrjquota=aquota.user,jqfmt=vfsv1 0       1"
-    - name: remount to enable quotas
-      shell: mount -o remount /
+    # - name: Turn on quotas on /home
+    #   lineinfile:
+    #     dest=/etc/fstab
+    #     regexp="  LABEL=root    /               ext4        errors=remount-ro 0       1"
+    #     line="  LABEL=root    /               ext4        errors=remount-ro,usrjquota=aquota.user,jqfmt=vfsv1 0       1"
+    # - name: remount to enable quotas
+    #   shell: mount -o remount /
     # TODO: this needs figuring out - make sure to only run once, with filesystem unmounted
     # - name: create quota index
     #   command: quotacheck -vgum /
@@ -144,210 +148,7 @@
   # the skeleton yet? do it later?)
   
   tags: user
-  
 
-- name: Set up certificates 
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-    # TODO: obtain the certificate from letsencrypt, setup cron job for renewal
-    # See: https://galaxy.ansible.com/telusdigital/certbot/ ??
-    #     
-  # Certbot certificate need to be readable to jupyterhub user
-    - name: Add ACL for certificate directory
-      acl: name=/etc/letsencrypt/live entity=jupyterhub etype=user permissions="rx" state=present
-    - name: Add ACL for certificate directory
-      acl: name=/etc/letsencrypt/archive entity=jupyterhub etype=user permissions="rx" state=present
-    - name: Add ACL for certificate file
-      acl: name=/etc/letsencrypt/archive/gp1test.cs.uni-paderborn.de/privkey1.pem entity=jupyterhub etype=user permissions="r" state=present
-    - name: Add ACL for certificate file
-      acl: name=/etc/letsencrypt/archive/gp1test.cs.uni-paderborn.de/fullchain1.pem entity=jupyterhub etype=user permissions="r" state=present
-  tags: certify
-
-# Single-user notebook:
-- name: JupyterNotebook
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  - name: Install Jupyter standalone notebook
-    pip: name=jupyter executable=pip3 state=latest
-  - name: Install Tutormagic extension 
-    pip: name=tutormagic executable=pip3 state=latest
-  tags: jupyter 
-
-
-# Compare: https://github.com/jupyterhub/jupyterhub
-- name: Install software for jupyterhub 
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  - name: Install npm
-    apt: name=npm state=installed
-  - name: Install nodejs-legacy
-    apt: name=nodejs-legacy state=installed
-  - name: install the proxy
-    npm: name=configurable-http-proxy global=yes
-  - name: install jupyterhub itself
-    pip: name=jupyterhub executable=pip3
-  - name: install sudospawner
-    pip: name=git+https://github.com/jupyter/sudospawner executable=pip3
-    ignore_errors: yes
-    # this needs checking - does it work despite error message? almost looks like it! TODO! 
-  tags: jupyter 
-
-
-# Set the sudoers file for the jupyterhub user
-# compare: https://github.com/jupyterhub/jupyterhub/wiki/Using-sudo-to-run-JupyterHub-without-root-privileges
-- name: Manipulate sudoers file
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  - name: Copy prepared sudoers file
-    copy: src=sudoers.jupyterhub dest=/etc/sudoers.d/jupyterhub owner=root group=root mode=0440
-  tags: sudo
-
-
- 
-# Configure Jupyterhub and start it as a service
-- name: Config Jupyterhub as a service 
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  - name: Copy jupyterhub configuration file 
-    copy: src=jupyterhub_config.py dest=/home/jupyterhub owner=jupyterhub group=user mode=0644
-  - name: Copy service description file 
-    copy: src=jupyterhub.service dest=/lib/systemd/system/jupyterhub.service owner=root mode=0644
-  - name: Start the service
-    service: name=jupyterhub state=started enabled=yes
-  tags: service
-
-
-# Nbgrader
-- name: Install nbgrader 
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  # TODO  ATTENTION!
-  # Regular setup: 
-  # - name: Install nbgrader
-  #   pip: name=nbgrader executable=pip3 state=present
-
-  # But until the extension for hidden tests is pushed back upstream,
-  # we need to run from a local version
-  - name: Install a local version of nbgrader 
-    git:
-      repo=https://github.com/CN-UPB/nbgrader.git
-      dest=/home/jupyterhub/nbgrader
-    become_user: jupyterhub
-    become: true 
-  - name: Add read/execute rights to the loal nbgrader directory
-    acl: name=/home/jupyterhub/nbgrader permissions="rx" state=present etype=group entity={{ item }}
-    with_items:
-      - jupadmin
-      - jupgrader
-      - jupgroups
-  - name: make sure /var/log/nbgrader exists
-    file: path=/var/log/nbgrader/ state={{item}} owner=jupyterhub group=root mode=0755
-    with_items:
-      - directory
-      - touch
-  - name: make sure /srv/nbgrader/exchange exists
-    file: path=/srv/nbgrader/exchange/ state={{item}} owner=jupyterhub group=root mode=0777
-    with_items:
-      - directory
-      - touch
-  - name: install the nbgrader extension
-    command: nbgrader extension install 
-  - name: activate the nbgrader extension 
-    command: nbgrader extension activate
-    become_user: jupyterhub
-    become: true 
-  - name: put configuration file gp1test in place
-    copy: src=nbgrader_config.py dest=/home/jupyterhub/notebooks/gp1test/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
-  # and a course
-  # - name: quickstart an gp1test course
-  #   command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
-  #   become_user: jupyterhub
-  #   become: true
-  tags: nbgrader 
-
-
-- name: Install formgrader 
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  - name: put CONFIGPROXY_AUTH_TOKEN into environment
-    lineinfile:
-      dest=/home/jupyterhub/.bashrc 
-      insertafter=EOF
-      line="export CONFIGPROXY_AUTH_TOKEN=\"3487d889ae9e718440a3455222849665eae234fa7d4d6e1f6ef8578323ed27f7\" "
-      state=present
-      # note: same value as in c.JupyterHub.proxy_auth_token of
-      # jupyterhub_config.py
-
-  # # second approach: an alias that always gets a new token first
-  # - name: alias for formgrade
-  #   lineinfile:
-  #     dest=/home/jupyterhub/.bashrc
-  #     insertafter=EOF
-  #     line="alias formgrader=\"export JPY_API_TOKEN=$(jupyterhub token --db=sqlite:///../../jupyterhub.sqlite -f ~/jupyterhub_config  jupyterhub ) ; nbgrader formgrade \""
-  #     state=present
-      
-  # third approach: run formgrader as a service; this apparently
-  # works, but so far just for one lecture (which is ok for now)
-  - name: Copy formgrader service description file 
-    copy: src=formgrader.service dest=/lib/systemd/system/formgrader.service owner=root mode=0644
-  - name: Start the service
-    service: name=formgrader state=restarted enabled=yes
-
-  tags: formgrader
-
-- name: Ensure JPY_API_TOKEN is in environment
-  hosts: gp1hub
-  remote_user: jupyterhub
-  tasks:
-  # file is generated by formgrader startup script
-  - name: Source JPY_API_TOKEN file; TODO move to better place
-    lineinfile:
-      dest=/home/jupyterhub/.bashrc 
-      insertafter=EOF
-      line="export `cat /home/jupyterhub/notebooks/gp1test/token_from_service`"
-      state=present
-  tags: jupyterhub
-
-#
-# Setup for distribution of content
-#
-
-- name: DistributeContent
-  hosts: gp1hub
-  remote_user: root
-  tasks:
-  - name: install emacs
-    apt: name={{ item }} state=installed
-    with_items:
-      - emacs24
-      - texlive-latex-base
-      - texlive-latex-extra
-      - texlive-lang-german
-  - name: install deployment key to access git.cs.upb.de
-    copy: src=key/ dest=/home/jupyterhub/.ssh mode=0600
-    become_user: jupyterhub
-    become: true
-  # TODO: copy skeleton to /etc/skel
-  - name: Pull repository
-    git:
-      repo=irb-git@git.cs.upb.de:holger.karl/gp1-jupyter.git
-      dest=/home/jupyterhub/gp1
-      update=yes
-    become_user: jupyterhub
-    become: true
-  - name: Symbolic link to emacs.d
-    file:
-      state=link
-      src=/home/jupyterhub/gp1/installation/emacs.d
-      dest=/home/jupyterhub/.emacs.d
-  tags: content 
 
 - name: Create actual student accounts
   hosts: gp1hub
@@ -434,7 +235,267 @@
   # This REALLY needs change in the production setup
   - name: Add 755 to /home/jupyterhub; just to allow to run local version of nbgrader. This MUST change!
     file: path=/home/jupyterhub mode=0755 state=touch
+  
+  tags: user
 
+
+    
+- name: Set up certificates 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+    # TODO: obtain the certificate from letsencrypt, setup cron job for renewal
+    # See: https://galaxy.ansible.com/telusdigital/certbot/ ??
+    #     
+  # Certbot certificate need to be readable to jupyterhub user
+    - name: Add ACL for certificate directory
+      acl: name=/etc/letsencrypt/live entity=jupyterhub etype=user permissions="rx" state=present
+
+    # gp1 does not use letsencrapt directly; we just mimig the
+    # structure here ; TODO: fix in separate files. 
+    # - name: Add ACL for certificate directory
+    #   acl: name=/etc/letsencrypt/archive entity=jupyterhub etype=user permissions="rx" state=present
+    # - name: Add ACL for certificate file
+    #   acl: name=/etc/letsencrypt/archive/gp1test.cs.uni-paderborn.de/privkey1.pem entity=jupyterhub etype=user permissions="r" state=present
+    # - name: Add ACL for certificate file
+    #   acl: name=/etc/letsencrypt/archive/gp1test.cs.uni-paderborn.de/fullchain1.pem entity=jupyterhub etype=user permissions="r" state=present
+  tags: certify
+
+# Single-user notebook:
+- name: JupyterNotebook
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Install Jupyter standalone notebook
+    pip: name=jupyter executable=pip3 state=latest
+  - name: Install Tutormagic extension 
+    pip: name=tutormagic executable=pip3 state=latest
+  tags: jupyter 
+
+
+# Compare: https://github.com/jupyterhub/jupyterhub
+- name: Install software for jupyterhub 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Install npm
+    apt: name=npm state=installed
+  - name: Install nodejs-legacy
+    apt: name=nodejs-legacy state=installed
+  - name: install the proxy
+    npm: name=configurable-http-proxy global=yes
+  - name: install jupyterhub itself
+    pip: name=jupyterhub executable=pip3
+  - name: install sudospawner
+    pip: name=git+https://github.com/jupyter/sudospawner executable=pip3
+    ignore_errors: yes
+    # this needs checking - does it work despite error message? almost looks like it! TODO!
+    # no it does NOT work. Needs to check for  #egg=Package
+  tags: jupyter 
+
+
+# Set the sudoers file for the jupyterhub user
+# compare: https://github.com/jupyterhub/jupyterhub/wiki/Using-sudo-to-run-JupyterHub-without-root-privileges
+- name: Manipulate sudoers file
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Copy prepared sudoers file
+    copy: src=sudoers.jupyterhub dest=/etc/sudoers.d/jupyterhub owner=root group=root mode=0440
+  tags: sudo
+
+
+# copy the account files
+- name: Copy account files
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Ensure directory gp1 
+    file: path=/home/jupyterhub/gp1 state=directory owner=jupyterhub mode=0700
+  - name: Ensure directory gp1/installation 
+    file: path=/home/jupyterhub/gp1/installation state=directory owner=jupyterhub mode=0700
+  - name: Ensure directory gp1/installation/accounts 
+    file: path=/home/jupyterhub/gp1/installation/accounts state=directory owner=jupyterhub mode=0700
+  - name: Copy account files
+    copy: src=accounts/{{ item }}  dest=/home/jupyterhub/gp1/installation/accounts
+    with_items:
+      - accounts.yaml
+      - groupaccounts.yaml
+      - students.yaml
+  tags: accounts
+ 
+# Configure Jupyterhub and start it as a service
+- name: Config Jupyterhub as a service 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: Copy jupyterhub configuration file 
+    copy: src=jupyterhub_config.py dest=/home/jupyterhub owner=jupyterhub group=user mode=0644
+  - name: Copy service description file 
+    copy: src=jupyterhub.service dest=/lib/systemd/system/jupyterhub.service owner=root mode=0644
+  - name: Start the service
+    service: name=jupyterhub state=started enabled=yes
+  tags: service
+
+
+
+  
+# Nbgrader
+- name: Install nbgrader 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  # TODO  ATTENTION!
+  # Regular setup: 
+  # - name: Install nbgrader
+  #   pip: name=nbgrader executable=pip3 state=present
+
+  # But until the extension for hidden tests is pushed back upstream,
+  # we need to run from a local version
+  - name: Install a local version of nbgrader 
+    git:
+      repo=https://github.com/CN-UPB/nbgrader.git
+      dest=/home/jupyterhub/nbgrader
+    become_user: jupyterhub
+    become: true 
+  - name: Add read/execute rights to the loal nbgrader directory
+    acl: name=/home/jupyterhub/nbgrader permissions="rx" state=present etype=group entity={{ item }}
+    with_items:
+      - jupadmin
+      - jupgrader
+      - jupgroups
+  - name: make sure /var/log/nbgrader exists
+    file: path=/var/log/nbgrader/ state={{item}} owner=jupyterhub group=root mode=0755
+    with_items:
+      - directory
+      - touch
+  - name: make sure /srv/nbgrader/exchange exists
+    file: path=/srv/nbgrader/exchange/ state={{item}} owner=jupyterhub group=root mode=0777
+    with_items:
+      - directory
+      - touch
+  - name: Build nbgrader in repository version
+    command: pip3 install -r dev-requirements.txt -e .
+    args:
+      chdir: /home/jupyterhub/nbgrader
+  - name: install the nbgrader extension
+    command: nbgrader extension install --symlink
+    args:
+      chdir: /home/jupyterhub/nbgrader 
+  - name: activate the nbgrader extension 
+    command: nbgrader extension activate
+    args:
+      chdir: /home/jupyterhub/nbgrader 
+    become_user: jupyterhub
+    become: true    
+  # - name: put configuration file gp1test in place
+  #   copy: src=nbgrader_config.py dest=/home/jupyterhub/notebooks/gp1test/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
+  - name: Ensure that gp1 directory exists
+    file: path=/home/jupyterhub/gp1/ state=directory
+  - name: put configuration file gp1 in place
+    copy: src=nbgrader_config.py dest=/home/jupyterhub/gp1/nbgrader_config.py  owner=jupyterhub group=jupyterhub mode=0644
+  # and a course
+  # - name: quickstart an gp1test course
+  #   command: jupyterhub nbgrader quickstart gp1test chdir=/home/jupyterhub creates=/home/jupyterhub/gp1test
+  #   become_user: jupyterhub
+  #   become: true
+  tags: nbgrader 
+
+  
+- name: Install formgrader 
+  hosts: gp1hub
+  remote_user: root
+  tasks:
+  - name: put CONFIGPROXY_AUTH_TOKEN into environment
+    lineinfile:
+      dest=/home/jupyterhub/.bashrc 
+      insertafter=EOF
+      line="export CONFIGPROXY_AUTH_TOKEN=\"3487d889ae9e718440a3455222849665eae234fa7d4d6e1f6ef8578323ed27f7\" "
+      state=present
+      # note: same value as in c.JupyterHub.proxy_auth_token of
+      # jupyterhub_config.py
+
+  # # second approach: an alias that always gets a new token first
+  # - name: alias for formgrade
+  #   lineinfile:
+  #     dest=/home/jupyterhub/.bashrc
+  #     insertafter=EOF
+  #     line="alias formgrader=\"export JPY_API_TOKEN=$(jupyterhub token --db=sqlite:///../../jupyterhub.sqlite -f ~/jupyterhub_config  jupyterhub ) ; nbgrader formgrade \""
+  #     state=present
+      
+  # third approach: run formgrader as a service; this apparently
+  # works, but so far just for one lecture (which is ok for now)
+  - name: Copy formgrader service description file 
+    copy: src=formgrader.service dest=/lib/systemd/system/formgrader.service owner=root mode=0644
+  - name: Ensure that the formrgader environment file exists (file name in script)
+    file: path=/home/jupyterhub/gp1/token_from_service state=touch
+  - name: Start the service
+    service: name=formgrader state=restarted enabled=yes
+
+  tags: formgrader
+
+- name: Ensure JPY_API_TOKEN is in environment
+  hosts: gp1hub
+  remote_user: jupyterhub
+  tasks:
+  # file is generated by formgrader startup script
+  - name: Source JPY_API_TOKEN file; TODO move to better place
+    lineinfile:
+      dest=/home/jupyterhub/.bashrc 
+      insertafter=EOF
+      line="export `cat /home/jupyterhub/gp1/token_from_service`"
+      state=present
+  tags: jupyterhub
+
+
+- name: Put helper binaries in place
+  hosts: gp1hub
+  remote_user: jupyterhub
+  tasks:
+  - name: Create bin directory
+    file: path=/home/jupyterhub/bin mode=0700 state=directory
+  - name: content distribute binary
+    copy: src=../build/copy-file-to-user.py dest=/home/jupyterhub/bin mode=700
+  tags: binaries
+  
+#
+# Setup for distribution of content
+#
+
+# - name: DistributeContent
+#   hosts: gp1hub
+#   remote_user: root
+#   tasks:
+#   - name: install emacs
+#     apt: name={{ item }} state=installed
+#     with_items:
+#       - emacs24
+#       - texlive-latex-base
+#       - texlive-latex-extra
+#       - texlive-lang-german
+#   - name: install deployment key to access git.cs.upb.de
+#     copy: src=key/ dest=/home/jupyterhub/.ssh mode=0600
+#     become_user: jupyterhub
+#     become: true
+#   # TODO: copy skeleton to /etc/skel
+#   - name: Pull repository
+#     git:
+#       repo=irb-git@git.cs.upb.de:holger.karl/gp1-jupyter.git
+#       dest=/home/jupyterhub/gp1
+#       update=yes
+#     become_user: jupyterhub
+#     become: true
+#   - name: Symbolic link to emacs.d
+#     file:
+#       state=link
+#       src=/home/jupyterhub/gp1/installation/emacs.d
+#       dest=/home/jupyterhub/.emacs.d
+#   tags: content 
+
+- name: Create actual student accounts
+  hosts: gp1hub
+  remote_user: root
+  tasks:
     
   # activate nbgrader for relevant users, i.e., NOT for individual student accounts! :
   - name: activate nbgrader
