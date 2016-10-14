@@ -68,5 +68,7 @@ content/ch*/*.java.exp.out
 content/ch*/*.class
 
 
-uebungen/pue/pue*
-uebungen/hue/hue*
+uebungen/pue/pue*/*.html
+uebungen/pue/pue*/*.pdf
+uebungen/hue/hue*/*.html
+uebungen/hue/hue*/*.pdf
