@@ -13,3 +13,9 @@ Todos:
 
 * Better list of students?
 
+== Print accounts ==
+
+split -l 20 groupsaccounts.yaml
+ a2ps  -f 24   x* -o pw.ps ; open pw.ps
+ 
+ 

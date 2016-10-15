@@ -7,7 +7,7 @@ import pwgen
 from passlib.hash import sha512_crypt
 import yaml
 
-num = 10
+num = 400
 fstr = "gp1_16_{i:02d}"
 
 ga = []

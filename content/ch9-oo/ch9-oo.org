@@ -921,9 +921,9 @@ Oder noch schöner beim Instantiieren: Mit keyword-Argumenten
     :BEAMER_env: definition
     :END:
 
-Ein Prinzip der Software-Entwicklung: *Every piece of knowledge must
+Ein Prinzip der Software-Entwicklung: Every piece of knowledge must
 have a single, unambiguous, authoritative representation within a
-system*. (Hunt & Thomas, Practical Programmer)
+system. (Hunt & Thomas, Practical Programmer)
 
 Bezieht sich auf viele Arten von Dokumenten: Quellcode, Dokumentation,
 Tests, Übersetzungssysteme, ... 

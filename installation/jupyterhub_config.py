@@ -205,12 +205,18 @@ c.JupyterHub.spawner_class = 'sudospawner.SudoSpawner'
 # Path to SSL certificate file for the public facing interface of the proxy
 # 
 # Use with ssl_key
-c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/fullchain.pem'
+# test maschine: 
+# c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/fullchain.pem'
+# production:
+c.JupyterHub.ssl_cert = '/home/jupyterhub/gp1.cs.uni-paderborn.de.pem'
 
 # Path to SSL key file for the public facing interface of the proxy
 # 
 # Use with ssl_cert
-c.JupyterHub.ssl_key = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/privkey.pem'
+# test maschine: 
+# c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/gp1test.cs.uni-paderborn.de/privkey.pem'
+# production:
+c.JupyterHub.ssl_key = '/home/jupyterhub/gp1.cs.uni-paderborn.de.key'
 
 # Host to send statds metrics to
 # c.JupyterHub.statsd_host = ''

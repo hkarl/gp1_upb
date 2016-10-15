@@ -6,7 +6,7 @@ c = get_config()
 
 # You only need this if you are running nbgrader on a shared
 # server set up.
-c.NbGrader.course_id = "gp1test"
+c.NbGrader.course_id = "gp1"
 
 # Update this list with other assignments you want
 c.NbGrader.db_assignments = [dict(name="ps1")]
@@ -236,7 +236,7 @@ c.HubAuth.hubapi_token = os.environ['JPY_API_TOKEN']
 # see https://groups.google.com/forum/m/#!topic/jupyter/oTRM4XuRUew
 # TODO: still have to roll the formgrader into a service;
 # might be the easiest way to get tokens right... 
-c.HubAuth.hub_base_url = "https://gp1test.cs.upb.de:8000"
+c.HubAuth.hub_base_url = "https://gp1.cs.upb.de:8000"
 
 # end of https://nbgrader.readthedocs.io/en/stable/configuration/jupyterhub_config.html
 #---------------------------------------------------------------

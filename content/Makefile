@@ -11,7 +11,8 @@ WEBSERVERDIR := /Volumes/groups/fg-karl/public/http/lehre/ws1617/gp1
 # NOTE: resulting URL is: http://groups.uni-paderborn.de/fg-karl/lehre/ws1617/gp1/index.html
 
 # rsync into this directory; this will serve as reference version, with a symbolic link
-GP1SERVERDIR := jupyterhub@gp1test.cs.upb.de:output
+# GP1SERVERDIR := jupyterhub@gp1test.cs.upb.de:output
+GP1SERVERDIR := jupyterhub@gp1.cs.upb.de:output
 
 # use this to ssh in a root
 ACCOUNTDIRBASE := root@gp1test.cs.upb.de:/home
@@ -33,8 +34,12 @@ cleanall: makefiles
 		make -C $$d clean ; \
 	done
 
+depingo:
+	# depingo: remove the pingo headers from the generated ipynb
+	ipynbs=`find ../output/vorlesung -name "*ipynb"`; for d in $$ipynbs ; do echo $$d ; python depingo.py $$d > pingotmp ; mv pingotmp $$d  ; done 
 
-distribute: 
+distribute: depingo
+
 	# generate the file list ; maybe that has to be constructed from indiviaul parts?
 	# sourcing: we need a few modules :-( ; note that this has be done in ONE shell invocation!
 	source ~/.venvs/ansible/bin/activate; \
@@ -49,7 +54,7 @@ distribute:
 	rsync -vazh ../output/ ${GP1SERVERDIR}
 
 	# sync into the invidual directories; make sure to set permissions correclty
-	ssh root@gp1test.cs.upb.de "python3.4 /home/jupyterhub/gp1/build/copy-file-to-user.py -a -s /home/jupyterhub/output/vorlesung/ -t vorlesung -c ch -x .ipynb -x .tgz -x .pdf -d figures -d uml"
+	ssh root@gp1.cs.upb.de "python3.4 /home/jupyterhub/bin/copy-file-to-user.py -a -s /home/jupyterhub/output/vorlesung/ -t vorlesung -c ch -x .ipynb -x .tgz -x .pdf -d figures -d uml"
 
 
 
