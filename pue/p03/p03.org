@@ -1,0 +1,53 @@
+#+TITLE: Präsenzübungsblatt 3 (GP1)
+
+* Lernziele 
+
+- Aufbau von Zahlen in Python verstehen
+- Syntax Arithmetischer Ausdrücke und Unterschiede dieser zu Zahlen verstehen 
+- Semantik Arithmetischer Ausdrücke und wichtige Vorrangregeln verstehen
+- Anführungszeichen, Umlaute, Sonderzeichen in Zeichenketten unterbringen 
+- Unterschied zwischen str Datentyp und byte Datentyp verstehen
+
+
+
+** SyntaxError 
+
+- Fehlerhafte Zahlen/Ausdrücke in Python erstellen/erkennen/korrigeren + Angabe ob es sich um eine Zahl( und damit implizit Ausdruck ) handelt oder lediglich Ausdruck.
+
+- Gegebene Zahlen als Arithmetische Ausdrücke darstellen mit verschieden Restriktionen/Vorgaben ( nur durch Multiplikation, Division? ) 
+
+ 
+
+** Arithmetische Ausdrücke verwenden
+
+- Einlesen von Werten mit input und diese in Variablen speichern. Dann mithilfe arithmetischer Ausdrücke diese Variablen addieren/subtrahieren usw. Ergebnis ausgeben. 
+
+- Kleine Aufgabe mit (sinnvollen) Berechnungen. Z.B. "Benzin kostet 1,20/l. Sie wollen 30l tanken. Schreiben Sie ein     Programm das die beiden Werte einliest speichert und mithilfe eines arithmetischen Ausdrucks den zu zahlenden Betrag berechnet und ausgibt."
+
+
+
+** Zeichenketten verwenden
+
+- Liste von (z.T. fehlerhaften) Strings gegeben. Richtige Strings sollen gefunden werden, bei Falschen soll angegeben werden weshalb der String fehlerhaft ist. 
+
+- Gegebene Beispielstrings einlesen und speichern / in Variablen speichern. Diese ausgeben. Hierbei Verwendung von Anführungszeichen, Umlaute usw beachten! Bei Problemen kann auf eigene Faust recherchiert werden oder gefragt werden.
+
+
+** Selbstrecherche im Internet
+
+- Selbst herausfinden was byte von str unterscheidet und das dann in eigenen Worten wiedergeben. Danach vermuten warum.
+
+
+- "Erklären Sie, worin der Unterschied zwischen dem Datentyp str und dem Datentyp byte besteht. Begründen Sie, warum beide Typen benötigt werden."
+
+
+** Extra Aufgabe falls noch Zeit übrig 
+
+- "Entwickeln Sie ein Programm, das zunächst ein Wort und dann eine (ganze) Zahl n einliest und dieses Wort dann n mal ausgibt."
+- "Jetzt soll nach jeder Ausgabe des Wortes ein eine neue Zeile gewechselt werden. Ändern Sie das Programm entsprechend."
+- "Nach der Ausgabe des Wortes soll nun n ganzzahlig durch 3 geteilt werden und danach potenziert. Das Wort wird danach erneut n mal ausgegeben und trennt diesmal mit je einem Tab."
+ 
+
+
+
+
