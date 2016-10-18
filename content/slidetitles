@@ -16,6 +16,8 @@ VL:  1
 0 ** Vorlesung GP1 -- Termine					   :subslide:
 0 ** Hausübungen  -- Zweck 
 0 ** Hausübungen -- Prozess					   :subslide:
+0 ** Hausübungen -- Termine					   :subslide:
+0 **  Hausübungen -- Abgabe					   :subslide:
 0 ** Hausübungen -- Plagiate					   :subslide:
 0 ** Präsenzübungen 
 0 ** Präsenzübungen -- Termine					   :subslide:
@@ -41,11 +43,11 @@ VL:  1
 1 ** Programmieren? 
 1 ** Grobe Vorstellung
 1 ** Algorithmus
-1 ** Algorithmus 
-1 ** Datenstruktur 
 
 =======================
 VL:  2
+1 ** Algorithmus 
+1 ** Datenstruktur 
 1 ** Datenstruktur 
 1 ** Algorithmus/Datenstrukturen in Isolation? 
 1 ** Maschinenmodell für GP1? 
@@ -86,11 +88,11 @@ VL:  2
 1 ** Editor 
 1 ** Editor für GP1?						   :subslide:
 1 ** Debugger
-1 ** Profiler 
-1 ** Dokumentation 
 
 =======================
 VL:  3
+1 ** Profiler 
+1 ** Dokumentation 
 1 ** Versionsverwaltung 
 1 ** Werkzeuge für Versionsverwaltung				   :subslide:
 1 ** Integrierte Entwicklungsumgebung 
@@ -131,11 +133,11 @@ VL:  3
 2 ** Fehlermeldungen: ~TypeError~
 2 ** Datentypen 
 2 ** Datentyp: Ganze Zahlen 					   :subslide:
-2 ** Literale  für ganze Zahlen					   :subslide:
-2 ** Datentyp: Reelle Zahlen 					   :subslide:
 
 =======================
 VL:  4
+2 ** Literale  für ganze Zahlen					   :subslide:
+2 ** Datentyp: Reelle Zahlen 					   :subslide:
 2 ** Datentypen: Zahlen in Rechnern				   :subslide:
 2 ** Zahldarstellung						   :subslide:
 2 ** Datentyp: ~str~ 						   :subslide:
@@ -176,11 +178,11 @@ VL:  4
 3 ** Weitere Variable 
 3 ** Weitere Variable -- Beobachtungen 
 3 ** Weitere Zuweisung 
-3 ** Variablen an Variablen zuweisen 
-3 ** Animationen von Programmen 
 
 =======================
 VL:  5
+3 ** Variablen an Variablen zuweisen 
+3 ** Animationen von Programmen 
 3 ** Animationen von Programmen -- Quellcode 
 3 ** FALSCH: Name auf Name 
 3 ** Eine Variablen verändern 
@@ -221,11 +223,11 @@ VL:  5
 4 ** Neue Anweisung: ~def~ 
 4 ** Beispiel für ~def~
 4 ** ~def~
-4 ** ~def~: Syntaxregel  (1) 
-4 ** Namenskonvention für Funktionsnamen 
 
 =======================
 VL:  6
+4 ** ~def~: Syntaxregel  (1) 
+4 ** Namenskonvention für Funktionsnamen 
 4 ** Schlüsselwort: ~def~						   :subslide:
 4 ** Python-Schlüsselworte bis jetzt 				   :subslide:
 4 ** Einrückung? 
@@ -266,11 +268,11 @@ VL:  6
 4 ** Zuweisung an formale Parameter? 
 4 ** Aufruf: Gleicher Name mehrfach? 
 4 ** Aufrufsemantik: Pass-by-assignment  
-4 ** Funktion mit mehreren Parametern: Syntax 
-4 ** Funktion mit Parametern: Syntax allgemein  
 
 =======================
 VL:  7
+4 ** Funktion mit mehreren Parametern: Syntax 
+4 ** Funktion mit Parametern: Syntax allgemein  
 4 ** Funktion mit mehreren Parametern: Semantik 
 4 ** Aufruf einer Funktion: Semantik  
 4 ** Besondere Funktionen: Beispiel ~print~
@@ -311,11 +313,11 @@ VL:  7
 5 ** Randfälle 
 5 ** Weitere Eigenschaften: Länge  
 5 ** Wo ist ein Element in Tuple?					   :subslide:
-5 ** Notation bei ~index~?					   :subslide:
-5 ** Wieviele Elemente mit bestimmtem Wert?			   :subslide:
 
 =======================
 VL:  8
+5 ** Notation bei ~index~?					   :subslide:
+5 ** Wieviele Elemente mit bestimmtem Wert?			   :subslide:
 5 ** Zuweisung an Element? 
 5 ** Keine Zuweisung an Tuple-Elemente				   :subslide:
 5 ** Und Zeichenketten (~str~)? 
@@ -356,11 +358,11 @@ VL:  8
 5 ** Abbildung in Python: ~dict~ 
 5 ** ~dict~: Beispiel						   :subslide:
 5 ** ~dict~: Definition						   :subslide:
-5 ** ~dict~: Werte angeben, Kurznotation				   :subslide:
-5 ** ~dict~: Werte angeben					   :subslide:
 
 =======================
 VL:  9
+5 ** ~dict~: Werte angeben, Kurznotation				   :subslide:
+5 ** ~dict~: Werte angeben					   :subslide:
 5 ** ~dict~: Fehlerfall						   :subslide:
 5 ** ~dict~: Test auf enthalten-sein				   :subslide:
 5 ** Operation auf ~dict~						   :subslide:
@@ -401,11 +403,11 @@ VL:  9
 6 ** Eindeutigkeit von ~else~? 
 6 ** Häufiger Fall: Nach ~else~ wieder ein ~if~
 6 ** Allgemeine Form: ~if/elif/else~ 
-6 ** ~if/elif/else~: Beispiel 
-6 ** Definition: ~if/elif/else~ 
 
 =======================
 VL:  10
+6 ** ~if/elif/else~: Beispiel 
+6 ** Definition: ~if/elif/else~ 
 6 ** Allgemeine Schleifen 
 6 ** ~while~: Flussdiagramm 
 6 ** ~while~: Beispiel Zählschleife 
@@ -418,7 +420,7 @@ VL:  10
 6 ** ~while~: Schleife über Feld 
 6 ** ~while~: Beispiel Suchschleife 
 6 ** ~while~: Beispiel Suchschleife  (2)				   :subslide:
-6 ** ~while~: Beispiel Suchschleife  (2)				   :subslide:
+6 ** ~while~: Beispiel Suchschleife  (3) 				   :subslide:
 6 ** Schleifenbedingungen finden? 
 6 ** Schleifenbedingungen finden? (2)				   :subslide:
 6 ** Schleifenbedingung finden? (3)				   :subslide:
@@ -446,11 +448,11 @@ VL:  10
 6 ** Zuweisung an Schleifenvariable				   :subslide:
 6 ** Schleifenvariable nach Schleifenende?			   :subslide:
 6 ** ~for~-Schleifen über andere Aufzählungen 
-6 ** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
-6 ** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
 
 =======================
 VL:  11
+6 ** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
+6 ** ~for~-Schleifen über andere Aufzählungen -- Beispiele	   :subslide:
 6 ** ~for~-Schleife über verschachtelte Datentypen 
 6 ** ~for~-Schleife mit erweiterter Zuweisung? 
 6 ** ~for~-Schleife über ~dict~ ? 
@@ -491,11 +493,11 @@ VL:  11
 6 ** Beispiel: Binäre Suche 
 6 ** Binäre Suche, Vorüberlegung					   :subslide:
 6 ** Binäre Suche, Code						   :subslide:
-6 ** Zusammenfassung 
-6 ** Python-Keywords: Liste bis jetzt 
 
 =======================
 VL:  12
+6 ** Zusammenfassung 
+6 ** Python-Keywords: Liste bis jetzt 
 6 ** Python: eingebaute Funktionen 
 7 ** Setup 						  :skipslide:nolatex:
 7 ** Was bisher geschah 
@@ -536,11 +538,11 @@ VL:  12
 7 ** Die Gefahr globaler Variablen 
 7 ** Zusammenfassung: Scope von Variablen in Funktionen 
 7 ** Funktionen rufen sich gegenseitig auf  
-7 ** Wechselseitiger Aufruf: (Inkorrektes) Beispiel 
-7 ** Wechselseitiger Aufruf: Terminierung 
 
 =======================
 VL:  13
+7 ** Wechselseitiger Aufruf: (Inkorrektes) Beispiel 
+7 ** Wechselseitiger Aufruf: Terminierung 
 7 ** Wechselseitiger Aufruf: Beispiel 
 7 ** Wechselseitiger Aufruf: Scopes und Namensräume 
 7 ** Wechselseitiger Aufruf: Animation 
@@ -581,11 +583,11 @@ VL:  13
 8 ** Daten und Funktionen
 8 ** Spezifische Daten, spezifische Funktion 
 8 ** Frage: Zusammenhang? 
-8 ** Zusammenhang explizit? 
-8 ** Beispiel: Ellipse in einem Zeichenprogramm 
 
 =======================
 VL:  14
+8 ** Zusammenhang explizit? 
+8 ** Beispiel: Ellipse in einem Zeichenprogramm 
 8 ** Beispiel: Ellipse 
 8 ** Klassen 
 8 ** Kreis als Klasse: Graphische Notation 
@@ -626,11 +628,11 @@ VL:  14
 8 ** Konventionen für weitere Methoden 
 8 ** Gleichheit? 
 8 ** Gleichheit -- Beispiel ohne ~eq~ 
-8 ** Gleichheit -- Beispiel mit ~eq~ 
-8 ** Fallstricke bei ~eq~
 
 =======================
 VL:  15
+8 ** Gleichheit -- Beispiel mit ~eq~ 
+8 ** Fallstricke bei ~eq~
 8 ** Ellipse -- mit ~str~
 8 ** Flexible Methoden
 8 ** Aufruf von Methoden bei Objekten 
@@ -671,11 +673,11 @@ VL:  15
 8 ** Nochmal Ellipse 
 8 ** Punkt als Klasse						   :subslide:
 8 ** Ellipse nutzt Punkt						   :subslide:
-8 ** Muster: Delegation 						   :subslide:
-8 ** Ellipse mit Punkt: Erzeugen					   :subslide:
 
 =======================
 VL:  16
+8 ** Muster: Delegation 						   :subslide:
+8 ** Ellipse mit Punkt: Erzeugen					   :subslide:
 8 ** Punkt: Abstand bestimmen					   :subslide:
 8 ** Telefonbuch 
 8 ** Telefonbuch -- UML						   :subslide:
@@ -716,11 +718,11 @@ VL:  16
 9 ** Beispiel: Gemeinsamkeiten von Artikel, Werk, Buch, ... 
 9 ** Beispiel: Gemeinsamkeiten von Artikel, Werk, Buch, ... (2) 
 9 ** Gemeinsamkeiten in Klassen fassen 
-9 ** Gemeinsamkeiten in Klassen fassen (2)
-9 ** Gemeinsamkeiten -- Darstellung in UML 
 
 =======================
 VL:  17
+9 ** Gemeinsamkeiten in Klassen fassen (2)
+9 ** Gemeinsamkeiten -- Darstellung in UML 
 9 ** Gemeinsamkeiten -- Darstellung in UML allgemein 
 9 ** Gemeinsamkeiten -- Darstellung in UML für Artikel 
 9 ** Vererbung, ~is-a~-Beziehung 
@@ -761,11 +763,11 @@ VL:  17
 9 ** Beginn der Klassenhierarchie: ~object~ 
 9 ** Methoden, Attribute von ~object~ ? 
 9 ** ~dir~ einer Klasse, eines Objektes 
-9 ** Attribute inspizieren: ~getattr~
-9 ** Attribut hinzufügen: ~setattr~
 
 =======================
 VL:  18
+9 ** Attribute inspizieren: ~getattr~
+9 ** Attribut hinzufügen: ~setattr~
 9 ** Insgesamt: Reflektion 
 9 ** Zugriff auf Attribute, Methoden? 
 9 ** Optionen? Öffentlich vs. privat  
@@ -806,11 +808,11 @@ VL:  18
 10 ** Probleme bei Fehlercodes -- Beispiel 
 10 ** Probleme bei Fehlercodes -- Analyse
 10 ** Anforderungen Fehlerbehandlung 
-10 ** Mechanismus: Ausnahmen 
-10 ** Was will man über eine Ausnahme wissen? 
 
 =======================
 VL:  19
+10 ** Mechanismus: Ausnahmen 
+10 ** Was will man über eine Ausnahme wissen? 
 10 ** Ausnahmen als Objekte
 10 ** Ausnahmen und Ausführungsmodell 
 10 ** Ausnahmen: Objekte von ~Exception~
@@ -851,11 +853,11 @@ VL:  19
 10 ** Exceptions anstelle besonderer  Rückgabewerte 
 10 ** Mehrere geschachtelte Schleifen abbrechen
 10 ** Exceptions als Anzeichen für erwartetes Verhalten 
-10 ** Was gehört in ~try~? 
-10 ** Was abfangen? 
 
 =======================
 VL:  20
+10 ** Was gehört in ~try~? 
+10 ** Was abfangen? 
 10 ** Coding Style: EAFP vs. LBYL  
 10 ** Eigene Exceptions 
 10 ** Eigene Exception-Klassen 
@@ -896,11 +898,11 @@ VL:  20
 11 ** Funktionen mit Parametern als Rückgabe? 
 11 ** Funktion mit Zugriff auf nichtlokale Variablen als Rückgabe 
 11 ** Nicht-lokale Variable selbst als Parameter 
-11 ** Beispiel -- Aufgeräumt 
-11 ** Muster: Fabrik (/Factory/)
 
 =======================
 VL:  21
+11 ** Beispiel -- Aufgeräumt 
+11 ** Muster: Fabrik (/Factory/)
 11 ** Realisierung: Closures 
 11 ** Nutzen: Fabriken und Closures 
 11 ** Funktionsdefinition bisher: ~def~
@@ -941,11 +943,11 @@ VL:  21
 11 ** Dekoration (/decorator/)
 11 ** Decorators: Anwendungen 
 11 ** Decorators für Methoden 
-11 ** Decorators: Syntaktischer Zucker 
-11 ** Decorators: Syntaktischer Zucker (2) 
 
 =======================
 VL:  22
+11 ** Decorators: Syntaktischer Zucker 
+11 ** Decorators: Syntaktischer Zucker (2) 
 11 ** Decorator: kompakte Syntax -- Beispiel
 11 ** Decorator: kompakte Syntax -- Beispiel mit typischen Namen 
 11 ** Decorators: Syntaktischer Zucker (3) 
@@ -986,11 +988,11 @@ VL:  22
 12 ** Beispiel: Ein Klassendiamand 
 12 ** Problem: Nicht alle Fälle linearisierbar 
 12 ** Problem: Nicht alle Fälle linearisierbar  (2) 
-12 ** Uneinheitliche Reihenfolge
-12 ** Gesucht: Vorgehen für Linearisierung 
 
 =======================
 VL:  23
+12 ** Uneinheitliche Reihenfolge
+12 ** Gesucht: Vorgehen für Linearisierung 
 12 ** Linearisierungsalgorithmus: C3 
 12 ** C3: Grundidee 
 12 ** C3: Merge 
@@ -1031,11 +1033,11 @@ VL:  23
 13 ** Setup 						  :skipslide:nolatex:
 13 ** Was bisher geschah
 13 ** Dieses Kapitel 
-13 ** Von Notebooks zu Dateien 
-13 ** Python-Dateien: Skripte (/scripts/) 
 
 =======================
 VL:  24
+13 ** Von Notebooks zu Dateien 
+13 ** Python-Dateien: Skripte (/scripts/) 
 13 ** Skript ausführen 
 13 ** Interpreter 
 13 ** Compiler   
@@ -1076,11 +1078,11 @@ VL:  24
 14 ** Editoren, Beispiele -- Open-source Beispiele 
 14 ** Emacs 
 14 ** Editoren, Beispiele -- Kommerzielle Beispiele 
-14 ** Integrated Development Environment 
-14 ** Fehlersuche mit ~print~? 
 
 =======================
 VL:  25
+14 ** Integrated Development Environment 
+14 ** Fehlersuche mit ~print~? 
 14 ** Aspekte der Fehlersuche 
 14 ** Aufwand der Fehlerbeseitigung 
 14 ** Vorgehen: Basics 
@@ -1121,11 +1123,11 @@ VL:  25
 15 ** Zuweisung gleichen Typs 
 15 ** Zuweisung inkompatibler Typen 
 15 ** Zuweisung inkompatibler Typen: Größe 
-15 ** Zuweisung inkompatibler Typen: Wert umbauen 
-15 ** Zuweisung inkompatibler Typen: Wert umbauen (2)
 
 =======================
 VL:  26
+15 ** Zuweisung inkompatibler Typen: Wert umbauen 
+15 ** Zuweisung inkompatibler Typen: Wert umbauen (2)
 15 ** Typumwandlung (type cast): Explizit oder implizit 
 15 ** Type cast bei Python 
 15 ** Typen und Klassen? 
@@ -1166,11 +1168,11 @@ VL:  26
 16 ** Klassen als Datentypen 
 16 ** Variablendeklaration mit Typen  
 16 ** Variablendeklaration mit einfachen Typen: Beispiele  
-16 ** Variablendeklaration mit einfachen Typen: Beispiele  
-16 ** Anmerkung: Code-Fragmente
 
 =======================
 VL:  27
+16 ** Variablendeklaration mit einfachen Typen: Beispiele  
+16 ** Anmerkung: Code-Fragmente
 16 ** Zuweisungen, Fall 1: gleicher, einfacher Typ 
 16 ** Zuweisungen, Fall 2: kompatibler, einfacher Typ 
 16 ** Zuweisungen, Fall 3: nicht kompatibler, einfacher Typ 
@@ -1211,11 +1213,11 @@ VL:  27
 17 ** Objektorientierung 
 17 ** Klassen: Deklaration eines Typs 
 17 ** Klassendeklaration: Beispiel Ellipse 
-17 ** Ellipsenobjekt erzeugen 
-17 ** Ellipsenobjekt erzeugen 
 
 =======================
 VL:  28
+17 ** Ellipsenobjekt erzeugen 
+17 ** Ellipsenobjekt erzeugen 
 17 ** Zugriff auf Daten 
 17 ** Zuweisung zwischen Objektvariablen 
 17 ** Arrays in Objekten, Arrays von Objekten 
@@ -1256,11 +1258,11 @@ VL:  28
 17 ** Sichtbarkeit zwischen Klassen: Annotationen 
 17 ** Sichtbarkeit zwischen Klassen: Zugriff von außen  
 17 ** Sichtbarkeit zwischen Klassen: Zugriff von Unterklasse   
-17 ** Sichtbarkeit zwischen Klassen: Zugriff von Unterklasse und ~super~  
-17 ** Sichtbarkeit zwischen Klassen: Übersicht 
 
 =======================
 VL:  29
+17 ** Sichtbarkeit zwischen Klassen: Zugriff von Unterklasse und ~super~  
+17 ** Sichtbarkeit zwischen Klassen: Übersicht 
 17 ** Sichtbarkeit zwischen Klassen: Misstrauen 
 17 ** Vertrauen zwischen Klassen: ~final~  
 17 ** Warum Misstrauen? 
@@ -1301,11 +1303,11 @@ VL:  29
 18 ** Dieses Kapitel 
 18 ** Exceptions 
 18 ** Exceptions im Methodenkopf 
-18 ** Nutzung solcher Methoden 					    
-18 ** Java 8: Lambda-Ausdrücke! 
 
 =======================
 VL:  30
+18 ** Nutzung solcher Methoden 					    
+18 ** Java 8: Lambda-Ausdrücke! 
 18 ** Java 8: Lambda-Ausdrücke -- Beispiel  mit Interface 
 18 ** Java 8: Lambda-Ausdruck ohne Interface 
 18 ** Java 8: Lambda vs. Closures 
