@@ -49,7 +49,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
   Rückgabewert zurück -- einen /Fehlercode/ 
   - Den String ~Error~, die Zahl -1, ...
   - Je nach Funktion; hoffentlich ordentlich dokumentiert
-- Der Aufrufer muss dieser Fehlercode abfragen und entsprechend
+- Der Aufrufer muss diesen Fehlercode abfragen und entsprechend
   weitermachen 
 
 ** Probleme bei Fehlercodes 
@@ -60,7 +60,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
     - Geht nicht in allen Programmiersprachen
 - Fehlerbehandlung im Aufrufer bei aufeinander folgenden Aufrufen?
 - Was, wenn der Aufrufer nicht alle Fehler selbst behandeln kann,
-  sondern an seinen Aufurufer nach oben weitergeben muss? 
+  sondern an seinen Aufrufer nach oben weitergeben muss? 
 
 
 ** Probleme bei Fehlercodes -- Beispiel 
@@ -139,7 +139,7 @@ Idee: Wir führen eine neue Art von Blocks ein
 ** Was will man über eine Ausnahme wissen? 
 
 - Wäre es nicht nützlich zu wissen: 
-  - Welche Fehler vorlag? 
+  - Welcher Fehler vorlag? 
   - Wo der Fehler auftrat? 
 - Und beim Behandeln der Ausnahme dieses Wissen zu benutzen?
 - Ggf. Ähnlichkeiten zwischen Fehler auszunutzen?
@@ -168,8 +168,8 @@ Eine Ausnahme ist eine Repräsentation eines Fehlerzustands in einem
 Objekt einer geeigneten Klasse. 
 
 Eine eintretende Ausnahme /verändert das Ausführungsmodell/: Es wird
-nicht die nächste Anweisung ausgeführt sondern die Folge der
-Anweisungen abgebrochen und der zugehörige Ausnahmebehandler (xception
+nicht die nächste Anweisung ausgeführt, sondern die Folge der
+Anweisungen abgebrochen und der zugehörige Ausnahmebehandler (exception
 handler) zur Ausführung gebracht. 
 
 
@@ -1006,7 +1006,7 @@ Zusammenfassend: Was sollte in einem ~try~-Block ausgeführt werden?
 
 - Nicht zu viel: Klasse nicht zu allgemein 
   - Ein bloßes ~except:~ ohne Klasse ist gefährlich; behandelt auch
-    Fehler, die eigentlich nicht behandelt werden soll an dieser
+    Fehler, die eigentlich nicht behandelt werden sollen an dieser
     Stelle
     - Z.B. Programmabbruch
     - Fehler die weiter außen sinnvoller behandelt werden können
@@ -1028,7 +1028,7 @@ umfassend benutzt:
 - Zusammengefasst: /Easier to ask forgiveness than permission/ (EAFP)
 
 Alternative in Sprachen ohne Exceptions: Vor einer Aktion prüfen, ob
-die durchgeführt werden kann 
+diese durchgeführt werden kann 
 - Durch viele, viele ~if~-Anweisungen charakterisiert
 - Zusammengefasst: /Look before you leap/ (LBYL) 
 
@@ -1210,7 +1210,7 @@ Obwohl wir nur nach ~Exception~ fragen, bekommen wir über
 
 Häufiges Muster bei ~finally~: Aufräumarbeiten durchführen 
 - Datei schließen und ähnliches 
-- Auch oft: Aufräumarbeiten hängen von einem bestimmten Objekt an, das
+- Auch oft: Aufräumarbeiten hängen von einem bestimmten Objekt ab, das
   in ~try~ benutzt wird
   - Und sind immer die gleichen, egal was sonst passiert
 

@@ -48,7 +48,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
   
 ** Programme reflektieren die Wirklichkeit 
 
-- Viele Programmen haben etwas mit der Wirklichkeit zu tun
+- Viele Programme haben etwas mit der Wirklichkeit zu tun
   - Be-/verarbeiten Daten, die /tatsächliche Dinge/ beschreiben
 - Tatsächliche Dinge sind oft klassifizierbar
   - Möglicherweise mit verschiedenen Sichtweisen
@@ -62,7 +62,7 @@ Vorüberlegungen:
 - Zwei Dinge sind ähnlich wenn sie
   - ähnliche Daten haben; mit gleicher Struktur
   - ähnlich verarbeitet werden können
-- Ein Ding ist spezieller als ein anderes Ding wenn
+- Ein Ding ist spezieller als ein anderes Ding, wenn
   - mehr Wissen über das speziellere Ding gibt
   - besondere Verarbeitung möglich ist
   - besondere Fähigkeiten vorliegen 
@@ -295,7 +295,7 @@ Bisher wäre möglich:
   aufschreiben 
 
 Nicht schön! Redundant! Fehleranfällig! 
-- Besser: Gemeinsamkeiten zur einmal aufschreiben! 
+- Besser: Gemeinsamkeiten nur einmal aufschreiben! 
 
 
 ** Gemeinsamkeiten in Klassen fassen (2)
@@ -351,7 +351,7 @@ werden.
 
 Zustätzlich sind hier mehrere Unterklassen zu sehen. Diese zeigen
 jeweils auf die Oberklasse. Eine Anordnung horizontal nebeneinander
-ist üblich und deute eine Gschwister-artige Beziehung an. 
+ist üblich und deute eine Geschwister-artige Beziehung an. 
 
 ** Vererbung, ~is-a~-Beziehung 
 
@@ -370,7 +370,7 @@ ist üblich und deute eine Gschwister-artige Beziehung an.
 Die spezielleren /Objekte/ bilden eine Teilmenge der allgemeineren
 Objekte.
 #+BEGIN_LaTeX
-Abbilidung~\ref{fig:venn} illustriert das.  
+Abbildung~\ref{fig:venn} illustriert das.  
 #+END_LaTeX
 
    #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 600 
@@ -444,7 +444,7 @@ Methoden in den Unterklassen angegeben.
 ** Methoden an Klasse anpassen? 
 
 - Die Information für ein Werk sollte den Titel enthalten? Für ein
-  Geräte den Hersteller? 
+  Gerät den Hersteller? 
 - Das könnte man mit neuen Methoden machen:
   - ~show_info_werk()~ in der Klasse ~Werk~
   - ~show_info_geraet()~ in der Klasse ~Geraet~
@@ -462,7 +462,7 @@ Methoden in den Unterklassen angegeben.
   - Eine abgewandelte Version der Methode, mit *gleichem Namen* angeben?
 - Klassen (nicht nur Objekte) bilden Namensräume!
   - D.h., die Namen der Methoden der verschiedenen Klassen existieren
-    ohnehin in verschiedenen Namensräume
+    ohnehin in verschiedenen Namensräumen
   - Also ist es kein Problem, mehrere Methoden mit gleichem
     Namen in unterschiedlichen Klassen zu haben
   - Also eigentlich: langweilig! 
@@ -504,7 +504,7 @@ diese Methode explizit im UML-Diagramm gezeigt
     :BEAMER_env: definition
     :END:
 
-- Eine Klasse /vererbt/ Daten oder Methoden eine andere Klasse
+- Eine Klasse /vererbt/ Daten oder Methoden an eine andere Klasse
   - Daten, Methoden stehen in Objekten der erbenden Klasse zur
     Verfügung 
 - Die vererbende Klasse heißt /Oberklasse/ (/super class/) oder
@@ -538,8 +538,8 @@ durch Überschreiben von Methoden kann trotzdem Funktionalität
 angepasst werden.
 
 Umgekehrt funktioniert dies in der Regel nicht! Ein allgemeineres
-Objekt kann i.a. nicht benutzt werden, wenn ein spezielleres erwartet
-wird.
+Objekt kann im allgemeinen nicht benutzt werden, wenn ein spezielleres
+erwartet wird.
 
 ** ~is-a~, Kompatibilität (2)  
 
@@ -551,7 +551,7 @@ wird.
   hinzugefügt werden, ohne dass der Rest des Programms geändert werden
   muss 
 - Beispiel:
-  - Kommen neue Artikelkategorie (Videospiele? Hausschuhe?) hinzu,
+  - Kommen neue Artikelkategorien (Videospiele? Hausschuhe?) hinzu,
     können die ohne Änderung mit verarbeitet werden 
 
 
@@ -623,7 +623,7 @@ Eine ganz normale Klasse:
           self.ersteller = ersteller
           self.titel = titel
 
-  # Ein Werk wird mit vier Parametern initiatlisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk("1234", 42.17, "Peter Müller", "Zur Bedeutung von GP1")
 #+END_SRC 
 
@@ -655,7 +655,7 @@ Fix: Parameter hinzufügen
           self.ersteller = ersteller
           self.titel = titel
 
-  # Ein Werk wird mit vier Parametern initiatlisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk("1234", 42.17, "Peter Müller", "Zur Bedeutung von GP1")
   print(w.show_info())
 #+END_SRC 
@@ -706,7 +706,7 @@ Wie kommen wir an Konstruktor von ~Artikel~?
           self.ersteller = ersteller
           self.titel = titel
 
-  # Ein Werk wird mit vier Parametern initiatlisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk("1234", 42.17, "Peter Müller", "Zur Bedeutung von GP1")
   print(w.show_info())
 #+END_SRC 
@@ -757,7 +757,7 @@ werden nicht automatisch gerufen.
           self.ersteller = ersteller
           self.titel = titel
 
-  # Ein Werk wird mit vier Parametern initiatlisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk("Peter Müller", "Zur Bedeutung von GP1", "1234", 42.17)
   print(w.show_info())
 #+END_SRC 
@@ -795,7 +795,7 @@ werden nicht automatisch gerufen.
           self.ersteller = ersteller
           self.titel = titel
 
-  # Ein Werk wird mit vier Parametern initialisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk("Peter Müller", "Zur Bedeutung von GP1", "1234", 42.17, )
   print(w.show_info())
 #+END_SRC 
@@ -825,7 +825,7 @@ Oder noch schöner beim Instantiieren: Mit keyword-Argumenten
           self.ersteller = ersteller
           self.titel = titel
 
-  # Ein Werk wird mit vier Parametern initialisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk(artikelnummer="1234", preis=42.17,
            ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
   print(w.show_info())
@@ -866,7 +866,7 @@ Oder noch schöner beim Instantiieren: Mit keyword-Argumenten
               self.artikelnummer,
               self.preis)
 
-  # Ein Werk wird mit vier Parametern initialisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk(artikelnummer="1234", preis=42.17,
            ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
   print(w.show_info())
@@ -904,7 +904,7 @@ Oder noch schöner beim Instantiieren: Mit keyword-Argumenten
               self.ersteller,
 	      super().show_info())
 
-  # Ein Werk wird mit vier Parametern initialisert
+  # Ein Werk wird mit vier Parametern initialisiert
   w = Werk(artikelnummer="1234", preis=42.17,
            ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
   print(w.show_info())
@@ -965,7 +965,7 @@ class Werk(Artikel):
             self.ersteller,
             super().show_info())
 
-# Ein Werk wird mit vier Parametern initialisert
+# Ein Werk wird mit vier Parametern initialisiert
 w = Werk(artikelnummer="1234", preis=42.17,
          ersteller="Peter Mueller", titel="Zur Bedeutung von GP1",)
 print(w)
@@ -997,7 +997,7 @@ Methode ~show_info~ gesucht. Die gibt es, also wird diese Methode
 
 Als Teil dieser Ausführung von ~Werk.show_info()~ wird dann noch
 ~super.show_info()~ aufgerufen. Hier passiert dann das gleiche wie
-beim Aufruf des Kosntruktors: ~super~ bestimmt die Oberklasse und
+beim Aufruf des Konstruktors: ~super~ bestimmt die Oberklasse und
 sucht *dort* nach einer Methode ~show_info~, die dann zur Ausführung
 kommt. ~super~ ist also nicht auf den Konstruktor beschränkt. 
 
@@ -1122,7 +1122,7 @@ pingo_duration = "120"
 ** Veranschaulichung: ~isinstance~ und ~__class__~, ~__name__~
 
 Zur Veranschalichung und Fehlersuche: 
-- Eingebaute Funktion ~isstance~
+- Eingebaute Funktion ~isinstance~
   - Argumente: Objekt und Klasse
   - Wahr, wenn Objekt ein Objekt der Klasse ist oder einer seiner
     Unterklassen 
@@ -1216,7 +1216,7 @@ Mit einer ~__str()__~-Methode in ~A~:
 
 ** Beginn der Klassenhierarchie: ~object~ 
 
-Wo kommen eigentlich die Methoden wie ~__str__~, ~__eq__~ etc. her? 
+Wo kommen  die Methoden wie ~__str__~, ~__eq__~ etc. her? 
 - Waren bei jedem Objekt verfügbar
 - Müssten die nicht aus einer Oberklasse kommen? 
 
@@ -1314,7 +1314,7 @@ hinzufügen:
 
 ** Insgesamt: Reflektion 
 
-Hier betrachte Funktionen, Attribute sind Beispiele für /Reflektion/ 
+Hier betrachtete Funktionen, Attribute sind Beispiele für /Reflektion/ 
 
 *** Reflektion	(/Reflection/) 				       :B_definition:
     :PROPERTIES:
@@ -1328,7 +1328,7 @@ modifizieren (/modification/).
 
 Reflektion wird häufig zur Fehlersuche, Testen, Bewertung der
 Leistungsfähgikeit, Integration ungünstig entworfener
-Klassenhierachien, oder automatische Dokumentationserstellung
+Klassenhierachien, oder automatischer Dokumentationserstellung
 benutzt. 
 
 Introspection steht in vielen objektorientierten Programmiersprachen
@@ -1347,7 +1347,7 @@ Mehr Details in VL GP2.
   - Sollte jeder Nutzer einer Klasse beliebig Daten ändern?
 - Beispiel: Binärbaum
   - Nicht-triviale Struktur
-  - Vertrauen wir dem Nutzer des Binärbaum, die Struktur richtig zu
+  - Vertrauen wir dem Nutzer des Binärbaums, die Struktur richtig zu
     behandeln? 
 
 ** Optionen? Öffentlich vs. privat  
@@ -1422,7 +1422,7 @@ einer Klasse nicht unmittelbar nützlich  sind?
 
 - Beispiel: Klasse Studenten
   - Attribut Matrikelnummer (neben Name, Vorname, ...)
-  - Matrikelnummer hat Prüfziffer -- nur korrekt Matrikelnummer
+  - Matrikelnummer hat Prüfziffer -- nur korrekte Matrikelnummer
     akzeptieren
 - Beispiel: Klasse Datum
   - Attribute: Tag, Monat, Jahr
@@ -1843,9 +1843,9 @@ Konvention ~_~  abgeraten.
 
 *** Anmerkung: Interfaces in anderen Sprachen			  :dropslide:
 
-In Sprachen wir Java ist der Begriff des Interfaces von wesentlich
+In Sprachen wie Java ist der Begriff des Interfaces von wesentlich
 größerer Bedeutung als in Python. Dies liegt insbesondere daran, dass
-Java kein mutliple inheritance beherrscht und versucht, dies über den
+Java kein multiple inheritance beherrscht und versucht, dies über den
 Interface-Mechanismus nachzubilden. Wir werden dies in folgenden
 Kapiteln noch genauer untersuchen. 
 
@@ -1879,7 +1879,7 @@ Anderes Fehlerszenario:  Eine nicht vorhandene Methode wird aufgerufen
 
 Optionen? 
 - Ignorieren -- denkbar, aber gefährlich
-  - Viel Spaß bei Fehlersuche!
+  - Viel Spaß bei Fählersuche!
 - Rückgabewert mit Fehlercode?
   - Aber wie sollte die Rückgabe aussehen?
   - Was, wenn der Aufrufer den zurückgegebenen Wert gar nicht
@@ -1915,7 +1915,7 @@ Nächstes Kapitel: Exceptions!
   - Genauer: Es sollte nur einen Aspekt geben, dessen Veränderung eine
     Veränderung der Klasse erfordern könnte
 - Wenn nein: Teile die Klasse in Teilklassen auf
-- Beispiel: Ein Spiel, mit Regel für Spielzüge und Regeln für Punkte
+- Beispiel: Ein Spiel, mit Regeln für Spielzüge und Regeln für Punkte
   - Option 1: Eine Klasse, die beides macht
   - Option 2:
     - Eine Klasse für Zustand des Spiels und Züge
@@ -1923,7 +1923,7 @@ Nächstes Kapitel: Exceptions!
 
 ** Prinzip: Open-Closed (Meyer, 1988) 
 
-- Eine Klasse sollte offen für Erweiterungen sein aber abgeschlossen
+- Eine Klasse sollte offen für Erweiterungen sein, aber abgeschlossen
   gegenüber Veränderungen
   - Grund: Eine Veränderung im Code einer Basisklasse könnte eine Kaskade
     an Änderungen in abgeleiteten Klassen erfordern 
@@ -1942,7 +1942,7 @@ Nächstes Kapitel: Exceptions!
 - Sorgfältig überlegen, wo Methoden der Oberklasse aufgerufen werden
   sollen/müssen 
 
-** Wie bereit man Klasse auf Ableitung vor? 
+** Wie bereitet man Klasse auf Ableitung vor? 
 
 - Geeignete Methoden zum Überschreiben vorsehen
   - Komplexe Methoden in Teilmethoden aufbrechen
@@ -1968,7 +1968,7 @@ Nächstes Kapitel: Exceptions!
 
 ** Erben oder Besitzen? ~is-a~ oder ~has-a~? 
 
-- Vererben (~is-a~): Wiederbenutzung, Adaption von Spezialfälle
+- Vererben (~is-a~): Wiederbenutzung, Adaption von Spezialfällen
 - Komposition (~has-a~, Aggregation): Zusammenfügen unterschiedlicher
   Objekte zu einem neuen Ganzen
 - Unterschiedliche Entwurfsaspekte!

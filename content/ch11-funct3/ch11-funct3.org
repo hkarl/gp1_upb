@@ -84,7 +84,7 @@ print("nach f")
 Bei geschachtelter Funktionsdefinition: 
 - Der Name der inneren Funktion ist im Namensraum der äußeren Funktion
   nach Ausführung der inneren ~def~-Anweisung bekannt
-- Dieser Name kann -- wie jede andere Funktionsname auch -- zum Aufruf
+- Dieser Name kann -- wie jeder andere Funktionsname auch -- zum Aufruf
   benutzt werden
 - Nach Rückkehr der äußeren Funktion verschwindet der Name ~g~
   - Im Beispiel: damit ist diese Funktion auch nicht aufrufbar! 
@@ -98,7 +98,7 @@ Mit Ausführung der ~def~-Anweisung in Zeile 1 wird das Objekt für die
 Funktion ~f~ angelegt und der Name ~f~ (im globalen Namensraum)
 referenziert es. Abbildung [[fig:pt-nested1-1]] zeigt diesen Zustand. 
 
-#+CAPTION: Verschachtelte Funtionen, Anlegen der äußeren Funktion
+#+CAPTION: Verschachtelte Funktionen, Anlegen der äußeren Funktion
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-nested1-1
 [[./figures/pt-nested1-1.png]]
@@ -126,7 +126,7 @@ Frame 1, nicht für Funktion ~f~).
 **** Aufruf von ~g~ aus ~f~ heraus 
 
 Der eigentlich Aufruf von ~g~ aus ~f~ heraus (Zeile 7) ist dann ein
-ganz normaler Funktionsaufruf; hier passiert nichts außergewöhnliche
+ganz normaler Funktionsaufruf; hier passiert nichts außergewöhnliches
 (Abbildung [[fig:pt-nested1-3]]). Dass es sich um eine Funktion handelt,
 die in ~f~ vereinbart wurde und dass der Name ~g~ nur im lokalen
 Namensraum bekannt ist, spielt dabei keine Rolle.
@@ -409,7 +409,7 @@ f()
 
 *** Anmerkung: ~x~ aus ~f~?					    :animate:
 
-Es gibt keine Möglichkeit, von ~h~ aus auf das von ~f~ angelegt ~x~
+Es gibt keine Möglichkeit, von ~h~ aus auf das von ~f~ angelegte ~x~
 zuzugreifen. Dieses ~x~ wird durch das ~x~ von ~g~ verdeckt! 
 
 
@@ -447,7 +447,7 @@ Addition in ~h~, Zeile 7. Dabei fällt auf, dass es
 
 Python sucht Namen in diesen Namensräumen, in dieser Reihenfolge: 
 1. dem lokalen Namensraum (einer Funktion): *L*
-2. dem Namensraum umgebendenr (/enclosing/) Funktionen: *E*
+2. dem Namensraum umgebender (/enclosing/) Funktionen: *E*
 3. dem globalen Namensraum: *G*
 4. dem Namensraum eingebauter (vordefinierter) Namen (build-in): *B*
 
@@ -473,7 +473,7 @@ Abbildung~\ref{fig:legb} illustriert die Nachschlageregel LEGB: von innen nach a
 ** Vorüberlegung: Referenzen auf Funktionen? 
 
 - Kann man Funktionsnamen wie normale Namen behandeln? 
-- Kann man die kopieren, und trotzdem noch aufrufen? 
+- Kann man diese kopieren, und trotzdem noch aufrufen? 
 
 #+BEGIN_SRC python :exports both :results output
   def f():
@@ -532,7 +532,7 @@ innerhalb einer Funktion erzeugt wurde, ist genauso viel oder wenig
 relevant wie das bei einem normalen Objekt der Fall wäre.
 
 
-#+CAPTION: Aufruf eines Funktion, die als Funktionsergebnis bekannt wurde
+#+CAPTION: Aufruf einer Funktion, die als Funktionsergebnis bekannt wurde
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-closure-h
 [[./figures/pt-closure-h.png]]
@@ -584,7 +584,7 @@ Dann hat die Funktion natürlich einen Parameter
 ** Funktion mit Zugriff auf nichtlokale Variablen als Rückgabe 
 
 Spannender: 
-- Innere Funktion greif auf Parameter der äußeren Funktion zu
+- Innere Funktion greift auf Parameter der äußeren Funktion zu
 - Innere Funktion wird zurückgeben 
 - und dann aufgerufen 
 
@@ -617,7 +617,7 @@ schön das angelegte Funktionsobjekt für ~g~ (mit dem Parameter ~x~)
 und den Namen ~n~ für die Zahl 5. 
 
 
-#+CAPTION: Zurückgegeben Funktion mit Parameter: Vor Aufruf
+#+CAPTION: Zurückgegebene Funktion mit Parameter: Vor Aufruf
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-closure2-1
 [[./figures/pt-closure2-1.png]]
@@ -724,7 +724,7 @@ von ~vervielfacher_fabrik~ erzeugt wurden.
 
 *** Anmerkung: Terminologie					  :dropslide:
 
-Je nach Literaturquelle wird aus das Programmiermuster selbst als
+Je nach Literaturquelle wird auch das Programmiermuster selbst als
 Closure bezeichnet, nicht nur die Realisierungstechnik. Das macht
 letztlich keinen großen Unterschied. 
 
@@ -834,7 +834,7 @@ Beispiel oben: Name ~vervielfacher~ eigentlich nicht sehr nützlich
   - Präziser: der ein Funktionsobjekt erzeugt und eine Referenz auf
     dieses Objekt zurückgibt
 - Eigenschaften
-  - Anonyme Funktion darf beliebige viele Parameter haben
+  - Anonyme Funktion darf beliebig viele Parameter haben
   - Aber die Funktion darf nur aus einem /Ausdruck/ bestehen; sie darf
     /keine Anweisungen/ nutzen
 - Syntax:
@@ -1105,7 +1105,7 @@ Syntaktischer Zucker: Generatoren
 
 ** Generator: Einfaches Beispiel 
 
-Generator wird die Werte 1, 2, 3. Danach nichts. 
+Generator wird die Werte 1, 2, 3 liefern. Danach nichts. 
 
 #+BEGIN_SRC python :exports both :results output
   def gen():
@@ -1120,7 +1120,7 @@ Generator wird die Werte 1, 2, 3. Danach nichts.
 - Aufruf: Unterscheidung erster und folgende Aufrufe notwendig
   - Erster Aufruf: normaler Funktionsaufruf, initialisiert
     - Gibt ein Generator-Objekt 
-  - Folgende Aufruf: Funktion ~next~ auf dieses Generator-Objekt
+  - Folgender Aufruf: Funktion ~next~ auf dieses Generator-Objekt
     anwenden 
 
 
@@ -1300,10 +1300,10 @@ for i in (x for x in range(17, 40) if x % 3 == 0):
 
 Wir haben folgende Eigenschaften kennengelernt: 
 - Funktionen sind first-class citizens in Python
-- Fuktionsnamen sind eigentlich auch nur Variablen, die  ein
+- Funktionsnamen sind eigentlich auch nur Variablen, die  ein
   Funktionsobjekt referenzieren 
 - Solche Referenzen können aus Funktionen zurückgegeben werden 
-- Und Referenzen können können an Funktionsnamen zugewiesen werden 
+- Und Referenzen können  Funktionsnamen zugewiesen werden 
 
 Was kann man damit anstellen? 
 
@@ -1420,7 +1420,7 @@ Den einrahmenden Text kann man auch zum Parameter machen
 
 ** Eingerahmte Ausgabe -- Version 4 
 
-Brauchen wir die ursprünglich Version von ~f~ noch? Nein? 
+Brauchen wir die ursprüngliche Version von ~f~ noch? Nein? 
 - Dann brauchen wir auch keinen neuen Namen! 
 
 #+BEGIN_SRC python :exports both :results output
@@ -1449,7 +1449,7 @@ Brauchen wir die ursprünglich Version von ~f~ noch? Nein?
 ** Muster
 
 Dieses Muster tritt häufig auf, ist extrem nützlich 
-- Einer Funktion wird neues Verhalten hinzugefügt, ohne dass für einen
+- Einer Funktion wird neues Verhalten hinzugefügt, ohne dass dies für einen
   Nutzer der Funktion sichtbar ist!
 - Die Signatur der Funktion verändert sich nicht; nicht einmal der Name
 - Nützlich, um vorhandenen Code anzupassen 

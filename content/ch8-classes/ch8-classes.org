@@ -157,9 +157,9 @@ Abbilidung~\ref{fig:ellipse} zeigt eine gefärbte, gedrehte und verschobene Elli
 
 
 #+BEGIN_LaTeX
-Abbildung~\ref{fig:uml-ellipse} zeigt ein sog. UML-Diagramm für eine Klassen. UML steht für Unified Modelling Language und ist eine Standard-Notation für Klassen (und Objektorientierung im allgemeinen; siehe später). 
+Abbildung~\ref{fig:uml-ellipse} zeigt ein sog. UML-Diagramm für eine Klasse. UML steht für Unified Modelling Language und ist eine Standard-Notation für Klassen (und Objektorientierung im allgemeinen; siehe später). 
 
-Eine Klasse wird in UML als eine Box mit drei Teilen gezeichnet: Im ersten Teil der Name der Klasse. Dann eine Auflistung der Daten, die zu der Klasse gehörten. Im dritten Teil die Funktionen, die diese Daten manipulieren. 
+Eine Klasse wird in UML als eine Box mit drei Teilen gezeichnet: Im ersten Teil der Name der Klasse, dann eine Auflistung der Daten, die zu der Klasse gehörten. Im dritten Teil die Funktionen, die diese Daten manipulieren. 
 #+END_LaTeX
 
 
@@ -243,8 +243,8 @@ Namenskonventionen:
 
 Ein /Objekt/ (oder /Instanz/) einer Klasse ist eine konkrete
 Ausprägung des durch eine Klasse vorgegebenen Bauplans. Ein Objekt
-enthält bestimmte Werte. Ein Objekt führt Code nur auf Aufforderung
-auf. 
+enthält bestimmte Werte. Ein Objekt führt den Code nur auf Aufforderung
+aus. 
 
 Die Begriffe Objekt und Instanz sind weitgehend austauschbar. 
 
@@ -465,7 +465,7 @@ Namen des Attributes -- der zweite Pfeil auf den Wert 1.  Natürlich
 zeigt auch der Parameter ~x~ auf den Wert 1.
 
 
-#+CAPTION: Instatiieren des Objekts; Anlegen des ersten Attriubtes
+#+CAPTION: Instatiieren des Objekts; Anlegen des ersten Attributes
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:instantiate-first-attribute
 [[./figures/pt-instantiate-first-attribute.png]]
@@ -490,7 +490,7 @@ hauptsächlich durch die Notation:
 - Bei einem Objekt, das durch ~self~ referenziert wird, reicht die
   einfachere Notation ~self.x~ 
 
-Dies hat vor allem historische Gründe und Gründe in der Analgoie zu
+Dies hat vor allem historische Gründe und Gründe in der Analogie zu
 anderen Sprachen. Sie sollten diesen notationellen Unterschied nicht
 überbewerten; das muss man sich einfach merken. 
 
@@ -526,7 +526,7 @@ Objekt
 #+NAME: fig:pt-instantiate-ready
 [[./figures/pt-instantiate-ready.png]]
 
-Das ist eigentlich etwas selstam: Der Konstruktor hatte doch ~None~
+Das ist eigentlich etwas seltsam: Der Konstruktor hatte doch ~None~
 als Rückgabewert? Wäre es nicht plausibler, hier ein ~return self~ am
 Ende des Konstruktors zu fordern? 
 
@@ -592,7 +592,7 @@ Die Visualierung durch pythontutor ist in Abbildung
 - Drei Namen ~e1~, ~e2~, ~e3~ referenzieren drei Objekte der Klasse
   ~Ellipse~
 - Diese drei Objekte haben jeweils die gleichen Attribute; diese
-  Attributname referenzieren jeweils die gleiche Werte
+  Attributnamen referenzieren jeweils die gleiche Werte
 - Die Attributwerte hingegen sind je nach Objekt unterschiedlich 
 
 #+CAPTION: Drei Ellipsen-Objekte 
@@ -654,7 +654,7 @@ fuellfarbe etc.? ?
 ** Unterschiede zu anderen Sprachen: Dynamische Attribute	  :dropslide:
 
 Wenn Sie mit anderen Sprachen (wie Java o.ä.) vertraut sind, wird
-Ihnen vielleicht seltsam vorkommen, dass wir keine Attribute an sich
+es Ihnen vielleicht seltsam vorkommen, dass wir keine Attribute an sich
 vereinbaren mussten bei der Definition der Klasse.  Das stimmt -- in
 Python werden Attribute dynamisch festgelegt. Das funktioniert auch
 ausserhalb eines Konstruktors. 
@@ -723,7 +723,7 @@ def complex(real, imag):
     :END:
 
 Vordefinierte Namen sind durch ~__~-Paare markiert. Solche Namen
-sollten nicht in eigenem Code definiert werden! 
+sollten nicht im eigenem Code definiert werden! 
 
 
 
@@ -843,14 +843,14 @@ Namen mit den entsprechenden Funktionen verbunden.
 
 ** Methodenaufruf -- Sprechweise 
 
-- Eine Vorstellung (bisher benutzt): Methoden sind Funktion, die
+- Eine Vorstellung (bisher benutzt): Methoden sind Funktionen, die
   aufgerufen werden können
 - Andere Vorstellung:
   - An ein Objekt können /Nachrichten geschickt/ werden
   - Nachrichten haben Namen (und tragen ggf. Daten)
   - Die Namen der Nachrichten entsprechen den Methodennamen
   - Empfängt ein Objekt eine Nachricht, so wird diese durch den Code
-    entsprechenden Methode verarbeitet
+    entsprechender Methode verarbeitet
   - Nachrichten mit unbekanntem Namen werden ignoriert
 - Weitgehend äquivalente Vorstellungen
   - Historie Nachrichten: Smalltalk 
@@ -905,7 +905,7 @@ Namen mit den entsprechenden Funktionen verbunden.
     - Wird automatisch aufgerufen, wenn ein String gebraucht wird,
       z.B. für ~print~
   - Methode ~__eq__(self, other)~ vergleicht das Objekt self mit einem
-    anderen Objekt ~other~ der gleichen Klassen und entscheidet, ob
+    anderen Objekt ~other~ der gleichen Klasse und entscheidet, ob
     die beiden Objekte gleich sind
     - Inhaltliche Gleichheit; nicht Identität
   - Analog: ~__lt__~, ~__le__~, usw.
@@ -1127,7 +1127,7 @@ pingo_duration = "30"
 ** Flexible Methoden
 
 - Ähnlich zu Konstruktoren: Wie gehen wir mit Methoden um, die
-  eigentlich das gleiche tun, aber unterschiedliche Anzahl Parameter
+  eigentlich das gleiche tun, aber eine unterschiedliche Anzahl Parameter
   haben?
 - Optionen:
   - Mehrere Methoden mit gleichem Namen definieren, mit
@@ -1394,7 +1394,7 @@ dem der Name ~y~ den Wert 18 referenziert.
 Der Namensraum der Klasse selbst hat nach wie vor unverändert den Namen
 ~x~, der den Wert 1 referenziert. 
 
-Anmerkung: die Zeichenkette ~y~ für das Attribut der beiden Objekt
+Anmerkung: die Zeichenkette ~y~ für das Attribut der beiden Objekte
 muss nur einmal repräsentiert werden! 
 
 
@@ -1628,7 +1628,8 @@ Ja!
   benutzen /kann/
 - Um es zu benutzen, muss man darauf zeigen können -- es muss einen
   Namen geben, der das Objekt referenziert
-- Wenn es keinen referenzierenden Namen mehr gibt, es das Objekt verloren
+- Wenn es keinen referenzierenden Namen mehr gibt, ist das Objekt
+  verloren 
 - Dann kann man es vernichten 
 
 Also: Referenzen zählen 
@@ -1776,7 +1777,7 @@ Ein /Stack/ ist ein /Last-In-First-Out/ (LiFo) Speicher:
 - Beliebige viele Objekte können gespeichert werden
 - Man kann ein Objekt /von oben/ auf den Stack legen: ein ~push~
 - Man kann ein Objekt /von oben/ wieder entnehmen: ein ~pop~
-- Man kann nach der Anzahl der Objekt fragen 
+- Man kann nach der Anzahl der Objekte fragen 
 - Man kann /nicht/ irgendein Objekt von unten oder aus der Mitte
   entnehmen 
 
@@ -1911,7 +1912,7 @@ unübersichtlich) bzw. Abbildung [[fig:pt-ellipse-punkt-compact]] (kompakt,
 aber weniger präzise), wie sich die Delegation der Repräsentation des
 Mittelpunktes an eine Punkt-Klasse auswirkt. Es gibt natürlich zwei
 Ellipsen-Objekte, referenziert durch ~e1~ und ~e2~. Zusätzlich gibt es
-zwei Punkt-Objekte. Das erste es ebenfalls durch den Namen ~p~ (im
+zwei Punkt-Objekte. Das erste wird ebenfalls durch den Namen ~p~ (im
 globalen Scope) referenziert. Das zweite hat keinen eigenen globalen
 Namen; es wird aber durch das Attribut ~mittelpunkt~ des durch ~e2~
 referenzierten Objektes referenziert.
@@ -2222,7 +2223,7 @@ Der Konstruktor des Binärbaums ist auch einfach:
 ** Python Konvention: Unterstrich				   :subslide:
 
 - Die Methode ~_search~ ist eine ganz normale Methode 
-- Der Nutzer der Klasse kann die genauso gut aufrufen wie die Methode
+- Der Nutzer der Klasse kann diese genauso gut aufrufen wie die Methode
   ~search~; daran ist nicht falsch
 - Aber Konvention: Vorangestellter Unterstrich ~_~ signalisiert, dass
   diese Methode eher zum internen Gebrauch der Klasse gedacht ist 
@@ -2341,7 +2342,7 @@ Abbildung~\ref{fig:binary-tree} illustriert das Einfügen der Zahl 39 (in blau) 
 
 Wann ist Löschen eines Knoten einfach? 
 - Wenn keine Kinder! 
-- Wurzel brauch allerdings Sonderbehandlung, wenn keine Kinder 
+- Wurzel braucht allerdings Sonderbehandlung, wenn keine Kinder 
 
 #+BEGIN_SRC python :exports both :results output
   class BinaryTree:
@@ -2386,7 +2387,7 @@ Wie würde eine Klasse für eine Hotelverwaltung aussehen?
 - Klassen
   - sind ein Bauplan für Objekte
   - beschreiben Daten und Methoden für diese Daten /an einer
-    Stellen/ 
+    Stelle/ 
 - Objekte repräsentieren Dinge aus dem Kontext der Anschauung
   - Oft sehr anschaulich: Student, Punkt, Ellipse, Hotel, Hotelzimmer, Buchung
   - Manchmal abstrakt: Binärer Suchbaum
@@ -2404,7 +2405,7 @@ Wie würde eine Klasse für eine Hotelverwaltung aussehen?
 
 ** Wie gehts es weiter? 
 
-- Klassen und Objekt in bisheriger Form sind schon recht nützlich 
+- Klassen und Objekte in bisheriger Form sind schon recht nützlich 
   - Kapseln Daten und Methoden zusammen an einer Stelle
   - Können direkt von anderem Code benutzt werden
 - Aber was, wenn man nicht *genau* die richtige Klasse, aber eine
