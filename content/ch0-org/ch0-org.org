@@ -32,6 +32,7 @@ pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
 pingo_duration = '30'
+pingo_type = "single"
 
 @register_line_magic
 def pingo(line):
@@ -222,21 +223,23 @@ und sinnvoll zu strukturieren.
 [[./uml/hausblatt.png]]
 
 
-** TODO Hausübungen -- Termine					   :subslide:
+** Hausübungen -- Termine					   :subslide:
 
-- Ausgabe: ??? 
-- Abgabe: ??? 
-- Besprechung: ab
+- Ausgabe erstes Blatt: 28.10.2016
+- Abgabe: 6.11.2016, 23:59 
+- Besprechung erstes Blatt: 8.11.2016
   - Dienstag, 13:00 -- 14:00, L1
   - (mit 15 oder 30 Minuten Pause?) 
 
-** TODO Hausübungen -- Abgabe					   :subslide:
+**  Hausübungen -- Abgabe					   :subslide:
 
 - Nur web-basierte Abgabe der Lösungen 
-  - Siehe: https://gp1.cs.uni-paderborn.de
+  - Siehe: https://gp1.cs.uni-paderborn.de:8000
 - Eine Abgabe pro Gruppe
+  - Mit Account gp1...
 - Details zum System: später
-  - Einführung: Erste Zentralübung  (Date: TODO) 
+  - Einführung: Erste Zentralübung (25.10.2016) und erstes
+    Präsenzblatt 
 
 *** Hausübungen -- Abgabesystem					      :notes:
 
@@ -343,7 +346,6 @@ durch den Tutor.
 Um an der Klausur teilnehmen zu dürfen, müssen Sie folgende
 Zulassungsvoraussetzungen erfüllen: 
 
-- 2x in Präsenzübung eine Aufgabe vorgerechnet
 - Auf *mindestens* 3/4 der Übungsblätter *jeweils mindestens* 20% der
   erreichbaren Punkte erzielen
   - Es genügt *nicht*,  in der Summe entsprechend viele Punkte zu
