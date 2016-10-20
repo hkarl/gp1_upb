@@ -12,8 +12,10 @@ WEBSERVERDIR := /Volumes/groups/fg-karl/public/http/lehre/ws1617/gp1
 
 pueoutput:
 	git pull
-	source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb
-	source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb --to pdf
+	#source ~/.venvs/jupyter/bin/activate; 
+	cd pue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb
+	#source ~/.venvs/jupyter/bin/activate; 
+	cd pue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb --to pdf
 
 # puealloutput:
 # 	for d in pue/p* ; do make pueoutput ch=`basename $$d` ; done 
@@ -21,8 +23,8 @@ pueoutput:
 hueoutput:
 	echo "this needs to be called make hueoutput ch=bla"
 	git pull
-	source ~/.venvs/jupyter/bin/activate; cd hue/$(ch) ; jupyter nbconvert *.ipynb
-	source ~/.venvs/jupyter/bin/activate; cd hue/$(ch) ; jupyter nbconvert *.ipynb --to pdf
+	source ~/.venvs/jupyter/bin/activate; cd hue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb
+	source ~/.venvs/jupyter/bin/activate; cd hue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb --to pdf
 
 # huealloutput:
 # 	for d in hue/h* ; do make hueoutput ch=`basename $$d` ; done 
@@ -37,7 +39,7 @@ puerelease:
 	make pueoutput ch=$(ch)
 	sed -i"" -e "s/<\\!-- $(ch)/<\\!-- $(ch) -->/" pue/index.html
 	sed -i"" -e "s/^ *$(ch) -->/  <\\!-- $(ch) -->/" pue/index.html
-	make distribute
+	#make distribute
 	ssh root@gp1.cs.upb.de "python3.4 /home/jupyterhub/bin/copy-file-to-user.py -a  -s /home/jupyterhub/uebungen/pue/ -t pue -c $(ch) -x .ipynb -x .html -x .pdf -d figures"
 
 huerelease:
