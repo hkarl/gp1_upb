@@ -70,11 +70,11 @@ selbst behandelt
 
 - Angenommen, wir wollen dieses ~m~ in einer anderen Methode ~m1~
   nutzen 
-- Dann muss alle von ~m~ (möglicherweise) geworfenen Exception-Klassen
+- Dann müssen alle von ~m~ (möglicherweise) geworfenen Exceptions entweder
   - Bei einem Aufruf von ~m~ in einem ~catch~ behandelt werden oder
   - ~m1~ muss eine nicht behandelte Exception-Klasse ihrerseits im
     Methodenkopf als ~throws~ deklarieren 
-- Andernfalls: Compiler stellt fest, dass nicht alle Excpetions
+- Andernfalls: Compiler stellt fest, dass nicht alle Exceptions
   behandelt werden
   - Verweigert Übersetzung
 - Konsequenz: spätestens in ~main~ wird alles behandelt
@@ -270,7 +270,7 @@ Aber nur, weil die Java community den Unterschied nicht versteht!
 - Tpyischerweise: Klassen aus Paketen importieren
 - Anweisung: ~import~
   - Direkt nach Anweisung ~package~
-  - Folge der Paketnamene und Klassenname!
+  - Folge der Paketnamen und Klassenname!
   - Durch Punkt getrennt
   - Fügt Klasse dem Namensraum hinzu 
 - Beispiel: ~import utilities.graphics.Circles~
@@ -298,8 +298,8 @@ Aber nur, weil die Java community den Unterschied nicht versteht!
   - Siehe auch [[http://stackoverflow.com/questions/215497/in-java-difference-between-default-public-protected-and-private][Stack Overflow Diskussion ]]
 - Wir präzisieren obige Tabelle:
   - Die beiden Spalten /Paket/ und /Unterklasse (gleiches Paket)/ sind
-    natpürlich gleich; das soll nur Unterschied zu Unterklasse in
-    anderem Paket verdeutlichen 
+    natpürlich gleich; das soll nur Unterschied zu /Unterklasse in
+    anderem Paket/ verdeutlichen 
 
 #+ATTR_LATEX: :align p{.125\textwidth}|p{.15\textwidth}|p{.15\textwidth}|p{.15\textwidth}|p{.15\textwidth}|p{.15\textwidth}
 | Annotation                                      | Klasse selbst | Paket | Unterklasse (gleiches Paket) | Unterklasse (anderes Paket) | Andere Klasse/von aussen |

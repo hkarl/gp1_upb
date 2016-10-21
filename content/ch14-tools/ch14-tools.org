@@ -112,12 +112,12 @@ Standardwerkzeuge für weitere Packages ~pip~
 
 ** Gekapselte Installation 
 
-- Standardinstallation: Neue Packages werden an vordefinierten Ort
+- Standardinstallation: Neue Packages werden an vordefiniertem Ort
   gespeichert
   - Erfordert in der Regel Adminstrator-Rechte
   - Könnte andere Packages überschreiben
   - Verhindert, unterschiedliche Versionen auszuprobieren
-  - Möglicherweise vertragen sich nicht alle Packages mit einandern
+  - Möglicherweise vertragen sich nicht alle Packages mit einander
   - Packages können unterschiedliche Anforderungen stellen 
 - Daher: Für Packages gekapselte Installationsorte bereitstellen
   - /Virtual environments/ 
@@ -152,7 +152,7 @@ Matplotlib? ODer sowas? requests?
 ** Nützliche Non-Standard-Module 
 
 - [[https://github.com/bpython/bpython][bpython]]: Stark verbesserte interaktive Nutzung des Interpreters
-  - Z.B. mit Vorschläge verfügbarer Methoden bei Objekt, samt docstring
+  - Z.B. mit Vorschlägen verfügbarer Methoden bei Objekt, samt docstring
 - [[http://docs.python-requests.org/en/master/user/install/][requests]]: Package, um mit HTTP einfach umzugehen 
 
 #+BEGIN_SRC python :exports code :results output
@@ -215,7 +215,7 @@ plt.plot(x, y)
 ** Emacs 
 
 #+CAPTION: Emacs thumbs
-#+ATTR_LaTeX: :width 0.25\linewidth
+#+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:emacs-thumbs
 [[./figures/emacs-thumbs.png]]
 
@@ -236,7 +236,7 @@ Siehe auch: [[https://wiki.python.org/moin/PythonEditors][Übersicht Python-Edit
 - IDEs typischerweise: sehr komplex, funktionsüberladen, komplizierter
   Einstieg
   - Sie sollen Programmier, nicht IDE-Bediener werden
-  - Hohe Einarbeitungsaufwand lohnt nur bei intensiver Nutzung 
+  - Hoher Einarbeitungsaufwand lohnt nur bei intensiver Nutzung 
 - Beispiele
   - Kommerzielle: [[https://www.jetbrains.com/pycharm/][PyCharm]] (mit kostenloser Community Edition)
   - Open-Source: [[http://www.pydev.org/download.html][Eclipse mit PyDev]]
@@ -248,7 +248,7 @@ Siehe auch: [[https://wiki.python.org/moin/PythonEditors][Übersicht Python-Edit
 
 ** Fehlersuche mit ~print~? 
 
-- Kaum ein Programmer wird fehlerfrei erschaffen
+- Kaum ein Programm wird fehlerfrei erschaffen
 - Wie sucht man Fehler?
   - Testfälle!
     - Automatisiert testen?
@@ -309,7 +309,7 @@ Annahmen überprüfen!
 ** Vorgehen: Reproduzieren 
 
 Was muss ich tun, um den Fehler zu reproduzieren? 
-- Gibt es unterschiedliche Eingaben, Zustände, die zu gleichem Fehler
+- Gibt es unterschiedliche Eingaben, Zustände, die zum gleichen Fehler
   führen? 
 - Entscheidend bei der Dokumentation von Fehlern!
   - Testfälle dokumentieren 
@@ -340,7 +340,7 @@ Was muss ich tun, um den Fehler zu reproduzieren?
   - In eigenem Code: Zu Beginn jeder Methode (haben alle Parameter den
     erwarteten Wert?) 
 
-** Vorgehen: Das Wissen der Alte 
+** Vorgehen: Das Wissen der Alten 
 
 - Chancen stehen gut, dass man nicht der erste mit dem Problem ist
   - Suchmaschine!

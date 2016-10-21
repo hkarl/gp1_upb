@@ -37,7 +37,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - Wir verlassen den Schutz und Komfort von Jupyter Notebooks 
 - Wir lassen Python Skripte in einem Rechner aus einer Datei laufen 
-- Wir machen nutzen Module, um Skripte wiederverwendbar zu machen 
+- Wir  nutzen Module, um Skripte wiederverwendbar zu machen 
 - Wir schauen uns an
   - die Python-Standardbibliothek
   - Entwicklungsumgebungen 
@@ -84,13 +84,13 @@ Ein Skript ist:
     :END:
 
 
-Ein /Interpeter/ ist ein direkt ausführbares Programm. Seine Aufgabe
+Ein /Interpreter/ ist ein direkt ausführbares Programm. Seine Aufgabe
 ist es, Anweisungen in einer Sprache entgegen zu nehmen (z.B. Skripte
 für Python) und zu verarbeiten. Das bedeutet, dass die Anweisungen
 Schritt für Schritt analysiert werden und der Semantik der Sprache in
 Aktionen umgesetzt werden (z.B. in Manipulation des Zustandes). 
 
-Interpeter sind in der Regel auf eine Eingabesprache festgelegt. Man
+Interpreter sind in der Regel auf eine Eingabesprache festgelegt. Man
 spricht dann von einem /Python-Interpreter/, ein /Perl-Interpreter/,
 etc. 
 
@@ -126,7 +126,7 @@ müssen.
 Häufige Technik: 
 - Interpreter übersetzt Programm zunächst in eine
   kompakte, effizient ausführbare Zwischenrepräsentation
-  - Für also eine Compilation durch
+  - Führt also eine Compilation durch
 - Im zweiten Schritt wird dann diese Zwischenrepräsentation ausgeführt
 - Python-Interpreter nutzen in der Regal diese Technik 
 
@@ -239,7 +239,7 @@ ggf. unterschiedlich verhalten?
       zur Verfügung
     - Bei Aufruf als Skript: Testfunktionen laufen lassen
   - Double-Use:
-    - Datei ist primär als Einsatz als Skript gedacht
+    - Datei ist primär zum Einsatz  als Skript gedacht
     - Hat aber Funktionen entwickelt, die auch allgemein nützlich sein
       könnten 
 
@@ -373,7 +373,7 @@ print('tea for too'.replace('too', 'two'))
 ** Behold the power of regular expressions 
 
 #+CAPTION: Regular expressions golf
-#+ATTR_LaTeX: :width 0.25\linewidth
+#+ATTR_LaTeX: :width 0.5\linewidth
 #+NAME: fig:regular-golf
 [[./figures/xkcd-regex_golf.png]]
 
@@ -404,6 +404,6 @@ python -m ...
   Standard-Modulen
   - Plus zahlreiche weitere Module 
 
-*** In welche Beziehung stehen Klassen und Module? 
+*** UEBUNG In welcher Beziehung stehen Klassen und Module? 
 
 S. 815, Frage 1

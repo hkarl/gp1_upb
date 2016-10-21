@@ -65,7 +65,7 @@ Klassen instanziieren und dort Methoden aufrufen.
   - Um ~.java~ ergänzt
   - Auf Groß-/Kleinschreibung achten! 
 
-** Übersetzen und Starten eines Programm 
+** Übersetzen und Starten eines Programms
 
 - Java unterscheidet die Übersetzung und die Ausführung eines
   Programms 
@@ -79,7 +79,7 @@ Klassen instanziieren und dort Methoden aufrufen.
     - Die wird dann gesucht
   - ~java~ interpretiert die ~class~-Datei 
 
-** Übersetzen und Starten eines Programm -- Beispiel 
+** Übersetzen und Starten eines Programms -- Beispiel 
 
 #+BEGIN_SRC java :exports code :results output :classname TestClass
 class TestClass {
@@ -118,7 +118,7 @@ java TestClass
 
 ** Anmerkung: Java  und Jupyterhub 
 
-- Jupyerhub ist nur bedingt auf die Ausführung von Java ausgelegt
+- Jupyterhub ist nur bedingt auf die Ausführung von Java ausgelegt
 - Insbesondere ist der derzeitige Java Standard, Version 8, nicht zu
   einer REPL in der Lage
   - Es gibt [[http://www.javarepl.com/console.html][Java REPL]], aber das ist ungetestet und nicht Standard 
@@ -203,7 +203,7 @@ class HelloWorld{
 - Anscheinend benutzt Java Schlüsselwörter
 - Im Beispiel:
   - ~class~ ist vertraut
-    - Danach sieht das auf wie eine Methodendeklaration?
+    - Danach sieht das aus wie eine Methodendeklaration?
     - Mit einer Methode ~main~? 
   - ~static~ kann man raten
     - ~static~: Eine Aussage über die Methode ~main~?
@@ -225,7 +225,7 @@ class HelloWorld{
 - Rückgabewert der Methode: ~void~
   - Der /leere Typ/, also keine Rückgabe 
 - Durch die Angabe von Typen bei Parameter und Rückgabewert bekommt
-  die Methode selbst ein (Sammlung von) Typen
+  die Methode selbst eine (Sammlung von) Typen
   - Die /Signatur/ der Methode 
 
 
@@ -234,7 +234,7 @@ class HelloWorld{
 
 Java kennt zwei Arten von Kommentaren: 
 - Bis zum Ende der Zeile, mit zwei Strichen markiert: ~//~
-- Ein Kommentare über eine oder mehrere Zeilen, mit ~/*~ und ~*/~
+- Ein Kommentar über eine oder mehrere Zeilen, mit ~/*~ und ~*/~
   eingerahmt 
 
 #+BEGIN_SRC java :exports code :results output 
@@ -372,7 +372,7 @@ Zuweisung ein Fehler auf, so produziert dies hier im Skript
 
 Eine Variable muss /*vor*/ der ersten Benutzung /deklariert/ (dem
 Compiler bekannt gemacht) werden:
-Ihr Namen und ihr Typ werden in einer Anweisung angegeben. 
+Ihr Name und ihr Typ werden in einer Anweisung angegeben. 
 
 Die Benutzung einer nicht deklarierten Variable führt zu einem Fehler
 bei der Übersetzung.
@@ -439,7 +439,8 @@ Fehlermeldungen werden bei der Ausgabe unterdrückt!
 
 Vorsicht, diese Code-Fragmente sind (mit einem Java8-Standard-Version)
 nicht unmittelbar ausführbar! 
-- Es fehlt die umgebende Klasse; es gibt keine Code ausserhalb einer Klasse
+- Es fehlt die umgebende Klasse; es gibt keinen Code ausserhalb einer
+  Klasse 
 - Sie brauchen dazu eine Java9-Beta-Version mit REPL
 - Oder Sie fügen es in eine Klasse ein (Datei fragment.java): 
 
@@ -477,7 +478,7 @@ b = u;
 
 ** Zuweisungen, Fall 2: kompatibler, einfacher Typ 
 
-Tatsächlich sind bereits die einfachen Beispiel von dieser Natur: 
+Tatsächlich sind bereits die einfachen Beispiele von dieser Natur: 
 - Der Wert 17 ist eigentlich ein ~byte~
 - Aber da ~byte~ an ~short~ und ~short~ and ~int~ zugewiesen werden
   darf, ist das kein Problem 
@@ -729,10 +730,10 @@ wird. Abbildung [[fig:jt-assign-arrays]] illustriert dies.
 
 Insgesamt also: 
 - Java benutzt unterschiedliche Semantik von Variablen 
-  - Einfach Variablen: Schachtel mit Wert
+  - Einfache Variablen: Schachtel mit Wert
     - Sog. /primitive types/
     - ~byte~, ~short~, ~int~, ~long~, ~float~, ~double~, ~boolean~, ~char~
-  - Komplexe Typen: Schachtel mit Zeiger (Referenz) auf Wert
+  - Variablen komplexer Typen: Schachtel mit Zeiger (Referenz) auf Wert
     - Sog. /reference types/
     - Alle anderen Typen: ~Array~ und insbes. alle Klassen 
 - Das ist ziemlich /bad news/ für einen Sprachentwurf :-( 
@@ -953,7 +954,7 @@ Java kennt eine Mehrfachverzweigung: ~switch~
 - ~switch~ vergleicht  einen Ausdruck vom Typ  ~int~, ~short~, ~byte~,
   ~char~ oder ~String~ mit /konstanten/ Wert
 - Jedem konstanten Wert kann ein Block zugeordnet werden
-  - Wird ausgeführt, wenn Vergleich richtig ist 
+  - Wird ausgeführt, wenn der Vergleich richtig ist 
 - Zusätzlich: ~default~- Zweig 
 
 ** ~switch~: Beispiel 
@@ -1244,7 +1245,7 @@ int, short, long mischen?
 
 - Grundstruktur von Java-Programmen: Alles in einer Klasse
   - Eine Klasse, eine Datei
-  - Programm kann aus mehrere Dateien, Klassen bestehen
+  - Programm kann aus mehreren Dateien, Klassen bestehen
   - Per ~import~ zusammengefügt 
 - Einmal pro Programm: eine Klasse mit einer Methode ~static void main~
 - Statisch typisierte Sprache

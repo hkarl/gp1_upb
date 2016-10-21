@@ -131,7 +131,7 @@ AttributeError: 'C' object has no attribute 'f'
 ** Vermeidbar?
 
 - Wären diese Fehler nicht vermeidbar gewesen?
-  - Mit einer besseren GP1-Vorlesung: vielleicht
+  - Mit einer besseren GP1-Vorlesung: Vielleicht!
 - Oder zumindest entdeckbar?
   - Man muss ja nur den Programmcode anschauen um zu sehen, dass das
     nicht funktionieren kann
@@ -229,10 +229,10 @@ Java ist ein Beispiel.
 
 ** Erinnerung: Compiler vs. Interpreter 
 
-- Viele alle modernen Sprachen haben einen Compiler und einen
+- Viele modernen Sprachen haben einen Compiler und einen
   Interpreter
   - Überführung in Zwischensprache
-  - Interpretation dieses Zwischensprache
+  - Interpretation dieser Zwischensprache
     - (Oder auch: weitere Compilationsschritte, Just-in-Time
       Compilation)
   - Beispiel: Java, Python, ...
@@ -285,7 +285,7 @@ Visualisierung von Typen:
 ** Zuweisung inkompatibler Typen 
 
 - Versucht man Wert an Variable mit nicht passendem Typ zuzuweisen:
-  Compiler erkennt das; Code mit nicht übersetzt 
+  Compiler erkennt das; Code wird nicht übersetzt 
 - Beispiel: An eine Variable mit Typ ~integer~ eine Zeichenkette
   zuweisen 
 
@@ -306,7 +306,7 @@ Was ist mit ähnlichen Typen, die aber unterschiedlich groß sind?
 [[./uml/boxshapes-6.png]]
 
 
-#+CAPTION: Wert großen Type an  Variable kleinen Typs zuweisen scheitert
+#+CAPTION: Wert großen Typs an  Variable kleinen Typs zuweisen scheitert
 #+ATTR_LaTeX: :width 0.25\linewidth
 #+NAME: fig:gross-an-klein
 [[./uml/boxshapes-7.png]]
@@ -315,7 +315,7 @@ Was ist mit ähnlichen Typen, die aber unterschiedlich groß sind?
 
 - Aber wenn in der Zeichenkette eine Zahl enthalten ist?
   - Wert umbauen in einen semantisch äquivalenten Wert eines anderen
-    Types?
+    Typs?
   - Typumwandlung (/type cast/)!
   - Also: Aus Zeichenkette ~42~ (Buchstabe 4 und Buchstabe 2)  mache
     die Zahl 42
@@ -413,7 +413,7 @@ Zunächst: Visualisieren wir das Verhältnis von Ober- und Unterklasse
 ** Wert einer Oberklasse an Variable vom Typ Unterklasse zuweisen 
 
 Was würde das bedeutet? 
-- Variable vom Unterklasse verspricht: Ich enthalte ein Objekt dieser
+- Variable vom Typ Unterklasse verspricht: Ich enthalte ein Objekt dieser
   Unterklasse
   - Alle Attribute (Methoden, Daten) der Unterklasse verfügbar
 - Ein Objekt der Oberklasse hat diese Attribute aber nicht!
@@ -484,10 +484,10 @@ Typische Vorteile:
 
 Siehe [[http://tratt.net/laurie/research/pubs/html/tratt__dynamically_typed_languages/][Detail]]s
 
-** Beste zweier Welten? 
+** Das Beste zweier Welten? 
 
 - Kombinationen der Ansätze?
-- Eine dynamisch typisierten Sprache etwas mehr statische
+- Einer dynamisch typisierten Sprache etwas mehr statische
   Typinformation beibringen?
   - [[https://www.python.org/dev/peps/pep-0484/][Ansätze dazu für Python]]
 - Eine statisch typisierte Sprache dynamischer machen?

@@ -88,7 +88,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 ** Mehrfache Oberklassen! 
 
-- Natürlich Idee: Wir erben von zwei Klassen statt nur einer
+- Natürliche Idee: Wir erben von zwei Klassen statt nur einer
   - Können auf die Methoden dieser Klassen zugreifen, überschreiben, ... 
 
 #+CAPTION: Mehrere Oberklassen: Clock und Calendar
@@ -112,7 +112,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 In diesem einfachen Beispiel ist die Semantik klar: 
 - Methodenaufruf: eindeutig zuzuordnen 
-  - Methodennamen der Oberklassen unterschieden sich!
+  - Methodennamen der Oberklassen unterscheiden sich!
 - Datenzugriff: Passiert sowieso im Namensraum des Objekts
 
 ** Einfaches Beispiel  
@@ -174,7 +174,8 @@ Offenbar ist die Reihenfolge der Oberklassen wichtig
 
 - Vermutung: Methoden werden in den Oberklassen gesucht
   - Liste von links nach rechts gelesen
-- Regel: Die Methode der zuerst angebenen Klasse überdeckt die Methode der später angebenen Klasse
+- Regel: Die Methode der zuerst angegebenen Klasse überdeckt die
+  Methode der später angegebenen Klasse 
   - (Da fehlen noch Details!) 
 
 
@@ -401,7 +402,7 @@ print(c.x)
 Abbildung [[fig:same-variable-Bwrites]] zeigt den Zustand des Objektes
 ~self~, nachdem der Konstruktor der Klasse ~B~ die Anweisung ~self.x =
 42~ ausgeführt hat. Dieser Zustand ist nicht überraschend und mit
-allen bisherigen Regel in direktem Einklang. 
+allen bisherigen Regeln in direktem Einklang. 
 
 
 #+CAPTION: Gleiche Variable in mehreren Oberklassen -- Schreiben durch den ersten Konstruktor
@@ -426,7 +427,7 @@ normale Zuweisung durchgeführt.
 
 Anmerkung zur Darstellung: Pythontutor beschreibt in diesen
 Abbildungen die Klasse ~C~ auf der rechten Seite als ~extends A,
-B~. Diese Termoinologie ist bei Java entlehnt und bedeutet lediglich,
+B~. Diese Terminologie ist bei Java entlehnt und bedeutet lediglich,
 dass A und B Oberklassen der Klasse ~C~ sind.   
 
 *** Anmerkung: Gleiche Daten in anderen Sprachen		  :dropslide:
@@ -484,7 +485,7 @@ Kommen wir auf dieses Beispiel zurück:
 ** Suche nach auszuführender Methode, erste Ideen 
 
 - Finde Attribute spezialisierterer Klassen vor denen allgemeinerer Klassen 
-- Zwischen gleichrangigen Klasse, lass den Programmierer der
+- Zwischen gleichrangigen Klassen, lass den Programmierer der
   Unterklasse bestimmen
   - Durch Angabe der Reihenfolge der Oberklasse für direkt Vorgänger
     schon erfüllt 
@@ -594,12 +595,12 @@ Beispiele?
   Platz) 
 - Zwei äquivalente Darstellungen von  ~class C(A,B)~
 
-#+CAPTION: Zwei äquivalent Darstellungen von ~class C(A,B)~: UML 
+#+CAPTION: Zwei äquivalente Darstellungen von ~class C(A,B)~: UML 
 #+ATTR_LaTeX: :width 0.25\linewidth
 #+NAME: fig:simpler-diagrams
 [[./uml/simpler-graph-0.png]]
 
-#+CAPTION: Zwei äquivalent Darstellungen von ~class C(A,B)~: Vereinfachtes Diagramm; Ziffern geben Reihenfolge der Oberklassen an
+#+CAPTION: Zwei äquivalente Darstellungen von ~class C(A,B)~: Vereinfachtes Diagramm; Ziffern geben Reihenfolge der Oberklassen an 
 #+ATTR_LaTeX: :width 0.15\linewidth
 #+NAME: fig:simpler-diagrams
 [[./uml/simpler-graph-1.png]]
@@ -1057,7 +1058,7 @@ Kleine Änderung: Reihenfolge bei Klasse ~B~ vertauscht
 
 Achten Sie auf Reihenfolge der Oberklassen!!
 
-Ein unachtsames Umdrehen führt zum Ausführen anderen Methoden -- in
+Ein unachtsames Umdrehen führt zum Ausführen anderer Methoden -- in
 diesen Beispielen würde statt einer Methode ~D.m~ eine Methode
 gleichen Namens ~E.m~ ausgeführt! 
 
@@ -1423,7 +1424,7 @@ geben ihn entsprechend weiter
 
 - Cooperative multiple inheritance erlaubt /cool stuff/
 - Beispiel: dependency injection
-  - Wir ändern das Aufrufverhalten einer durch Ableiten! 
+  - Wir ändern das Aufrufverhalten  durch Ableiten! 
 
 
 
@@ -1434,7 +1435,7 @@ geben ihn entsprechend weiter
 #+BEGIN_SRC python :exports both :results output
   class Teigfabrik:
       def get_teig(self):
-          print("Teig aus genamnipuliertem Weizen") 
+          print("Teig aus genmanipuliertem Weizen") 
 
   class Pizzeria(Teigfabrik):
       def order_pizza(self):
@@ -1455,7 +1456,7 @@ geben ihn entsprechend weiter
 #+BEGIN_SRC python :exports both :results output
   class Teigfabrik:
       def get_teig(self):
-          print("Teig aus genamnipuliertem Weizen") 
+          print("Teig aus genmanipuliertem Weizen") 
 
   class Pizzeria(Teigfabrik):
       def order_pizza(self):
@@ -1472,14 +1473,14 @@ geben ihn entsprechend weiter
 #+END_SRC 
 
 #+RESULTS:
-: Teig aus genamnipuliertem Weizen
+: Teig aus genmanipuliertem Weizen
 : (<class '__main__.BioPizzeria'>, <class '__main__.BioTeigfabrik'>, <class '__main__.Pizzeria'>, <class '__main__.Teigfabrik'>, <class 'object'>)
 
 
 ** Dependency injection: Muster 
 
 - Pizzeria-Beispiel zeigt typisches Muster:
-  - Durch geschicktes Ableitung  von zwei Klassen wurde Funktionalität
+  - Durch geschicktes Ableiten  von zwei Klassen wurde Funktionalität
     vereinigt
   - Und Funktionalität einer Oberklasse ersetzt!
   - Leere Unterklasse: typisch! 
@@ -1491,7 +1492,7 @@ geben ihn entsprechend weiter
 ** Einfachere Variante: Mixins 
 
 - Gleiche Grundidee, aber etwas einfacher: Mixin
-- Mixin: Prima für Reuse fertigen Codes gedacht, nicht zur Spezialisierung
+- Mixin: Prima für Reuse fertigen Codes, nicht zur Spezialisierung
 - Vorgehen:
   - Mixin-Klasse stellt Methoden zur Verfügung
   - Klasse erbt (u.a.) von einer Mixin-Klasse
@@ -1507,7 +1508,7 @@ geben ihn entsprechend weiter
 - Beispiel
   - Webframeworks ([[https://docs.djangoproject.com/en/1.10/topics/class-based-views/mixins/][Django]]):
     - Code zum Anzeigen eines einzelnen Objekts oder
-      Liste von Objekte als Mixin
+      Liste von Objekten als Mixin
     - Eigene View-Klasse erbt u.a. das gewünschte Mixin 
 
 
@@ -1517,7 +1518,7 @@ geben ihn entsprechend weiter
 
 - Mehrfachvererbung (multiple inheritance) ist ein mächtiger, nahezu
   unverzichtbarer Bestandteil von OO
-- Es gibt leicht zu beherrschende Fälle: Oberklasse sind disjunkt
+- Es gibt leicht zu beherrschende Fälle: Oberklassen sind disjunkt
 - Es gibt Fälle, die Überlegung brauchen: Oberklassen definieren die
   gleichen Methoden
   - /Diamond of Death/

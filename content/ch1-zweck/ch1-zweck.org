@@ -562,9 +562,9 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 - (Nahezu) keine funktionalen Aspekte  
 
 
-*** Rückwärtskompatibilität					       :note:
+*** Rückwärtskompatibilität					  :note:skip:
 
-Mit /Rückwärtskompatibilität/ ist eine Eigenschaft, die bei neuen
+/Rückwärtskompatibilität/ ist eine Eigenschaft, die bei neuen
 Versionen eines Systems -- hier: einer Programmiersprache --
 auftritt. Rückwärtskompatibilität liegt vor, wenn die neue Version in
 der Lage ist, Eingaben (hier: Programme) korrekt und unverändert zu

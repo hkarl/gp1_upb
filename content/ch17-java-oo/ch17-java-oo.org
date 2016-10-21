@@ -277,13 +277,13 @@ als Teil der Signatur aufgefasst wird.
 - D.h., es kann zwei Methoden gleichen Namens aber unterschiedlicher
   Parametertypen/-anzahl in einer Klasse geben!
 - Solche Methoden heißen /überladene Methoden/
-  - Präziser: Der Name der Methode ist überlappen; aber hier wird
+  - Präziser: Der /Name/ der Methode ist überladen; aber hier wird
     meist schlampig formuliert 
 
 *** Aufruf überladener Methoden? 
 
 Wie wird beim Aufruf die richtige Methode ausgesucht? 
-- Die Typen der Aufrufparameter entscheidet 
+- Die Typen der Aufrufparameter sind entscheident
 - Ggf. nach impliziten Typecasts
   - Wähle Methode, die /am nächsten/ bei den Typen des Aufrufs liegt 
 
@@ -451,7 +451,7 @@ Der interessante Teil ist natürlich nach der Zuweisung in \texttt{g} (Abbildung
 #+BEGIN_LaTeX
 Abbildung~\ref{fig:jt-reference-postg} bestätigt diese Erwartung: Nach
 Rückkehr der Methode \texttt{g} ist dieses neue Array (mit den Werten
-lokaler und Wert) verschwunden und \texttt{s} hat nach wie vor die
+\emph{lokaler} und \emph{Wert}) verschwunden und \texttt{s} hat nach wie vor die
 vorherigen Werte. 
 #+END_LaTeX
 
@@ -620,7 +620,7 @@ Wenn es Klassenvariablen gibt, dann wohl auch Klassenmethoden?
 | Deklaration                   | ohne ~static~                                               | mit ~static~                                 |
 | Existenz                      | separat in jedem Objekt                                     | 1x pro Klasse                                |
 | Attribut wird angelegt        | bei Objekterzeugung (~new~)                                 | bei Laden der Klasse (meist: Programmanfang) |
-| Attribut wird vernichtet      | wenn Objekt vernichtet wird (keine Referenz mehr existiert) | ween Klasse entladen (meist: Programmende)   |
+| Attribut wird vernichtet      | wenn Objekt vernichtet wird (keine Referenz mehr existiert) | wenn Klasse entladen (meist: Programmende)   |
 | Konstruktur                   | bei Objekterzeugung (~new~)                                 | bei Laden der Klasse                         |
 | Zugriff auf Datenattribut ~d~ | ~obj.d~ oder ~this.d~                                       | ~Klassenname.d~                              |
 | Aufruf einer Methode ~d~      | ~obj.m()~ oder ~this.m()~                                   | ~Llassenname.m()~                            |
@@ -706,7 +706,7 @@ Nicht das gleiche!
   - Damit alle Objekte mit ~Object~ zuweisungskompatibel 
 - Einfache Typen sind aber keine Klassen
   - ~int~, ~char~, ...
-- /Wrapper/-Klasse: eine normalen Wert in ein passendes Objekt
+- /Wrapper/-Klasse: einen normalen Wert in ein passendes Objekt
   einwickeln
   - ~Integer~ für ~int~, ~Boolean~ für ~boolean~, etc. 
 - Umständlich, deswegen weitgehend automatisch durch Compiler: Boxing
@@ -895,7 +895,7 @@ kaum
 
 Auch das scheitert! 
 - Der Typecast ist nur die Anweisung einer anderen Interpretation
-- Dadurch entsteht keine ~Book~, keine ~ISBN~ aus dem Nichts!
+- Dadurch entsteht kein ~Book~, keine ~ISBN~ aus dem Nichts!
 - Zur Laufzeit wird aber sehr wohl das Vorhandensein von ~ISBN~
   überprüft, nicht gefunden
 - Führt zu Exception (~ClassCastException~) 
@@ -1212,7 +1212,7 @@ nächsten Kapitel.
 - Tatsächlich: Durch die deklarierten Datenattribute in Java wäre eine
   Mehrfachvererbung komplizierter zu definieren als in Python!
 - Also: Diamond of Death for Data! 
-- Problem: Zwei Oberklasse definieren beide ein Attribut ~int x~
+- Problem: Zwei Oberklassen definieren beide ein Attribut ~int x~
   - Oder: eine Oberklasse ~int x~, eine andere ~double x~?
   - Welches ~x~ ist dann in der Unterklasse gemeint? Gibt es eins oder
     zwei?
@@ -1447,7 +1447,7 @@ Also könnte man folgendes schreiben?
   vorhanden
 - Vererbung eigentlich: Methode für Code Reuse!!
 - Klasse ~C~ müsste alle Methoden selbst implementieren
-  - Wenn Namen mehrfach auftritt (~m~) ist nicht schlimm: wird ohnehin
+  - Wenn Name mehrfach auftritt (~m~) ist nicht schlimm: wird ohnehin
     neu implementiert! 
 
 *** Schnittstelle!						    :animate:
@@ -1658,7 +1658,7 @@ Fehlermeldung bei Übersetzung:
 
 - Java diente als Beispiel einer statisch typisierten Sprache
   - Java ist nicht die einzige mögliche Sprache aus dieser Familie
-- Die unbestrittenen Vorteilen erkauft man sich durch
+- Die unbestrittenen Vorteile erkauft man sich durch
   - erhöhte Komplexität der Syntax (Typdeklarationsteilsprache)
   - komplizierteres Modell der Variablenhandhabung
 - Und diesen Abtausch gibt es im wesentlichen in allen statisch
