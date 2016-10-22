@@ -271,7 +271,7 @@ Bis jetzt: Nur Syntax, aber keine Bedeutung der Ausdrücke
 
 - Klar für Zahlen: Der Wert einer Zahl ist die Zahl
 - Klar für binäre Ausdrücke
-  - Sind $a_1=5$ und $a_2$ arithmetische Ausdrücke und besteht der
+  - Sind $a_1$ und $a_2$ arithmetische Ausdrücke und besteht der
     arithmetische Ausdruck $a$ aus $a_1 + a_2$, so ist der Wert von
     $a$ die Summe der Werte von $a_1$ und $a_2$.
   - Und analog für ~-~, ~*~, ~/~

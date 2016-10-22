@@ -12,8 +12,11 @@ WEBSERVERDIR := /Volumes/groups/fg-karl/public/http/lehre/ws1617/gp1
 
 pueoutput:
 	git pull
-	source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb
-	source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb --to pdf
+	# source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb
+	cd pue/$(ch) ; if [ -x ~/anaconda3/bin/jupyter ] ; then  ~/anaconda3/bin/jupyter nbconvert *.ipynb ; else  source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb --to pdf ; fi 
+	# cd pue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb
+	# source ~/.venvs/jupyter/bin/activate; 	cd pue/$(ch) ; jupyter nbconvert *.ipynb --to pdf
+	# cd pue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb --to pdf
 
 # puealloutput:
 # 	for d in pue/p* ; do make pueoutput ch=`basename $$d` ; done 

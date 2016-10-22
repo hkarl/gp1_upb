@@ -65,7 +65,6 @@ Version: {}
 <li><a href="{}">Notebook</a></li>
 <li><a href="{}">PDF</a></li>
 <li><a href="{}">TGZ</a></li>
-<li><a href="{}">Audio-Mitschnitt</a></li>
 </ul>
 </li>
 

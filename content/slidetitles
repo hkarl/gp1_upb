@@ -796,7 +796,7 @@ VL:  18
 9 ** Prinzip: Open-Closed (Meyer, 1988) 
 9 ** Prinzip: Abhängigkeiten 
 9 ** Wie ererbt man? 
-9 ** Wie bereit man Klasse auf Ableitung vor? 
+9 ** Wie bereitet man Klasse auf Ableitung vor? 
 9 ** Erben oder Besitzen? ~is-a~ oder ~has-a~? 
 9 ** Zusammenfassung 
 9 ** Spezialisierung und Generalisierung 
@@ -1092,7 +1092,7 @@ VL:  25
 14 ** Vorgehen: Erklären Sie Ihren Code!  
 14 ** Vorgehen: Grenze zwischen eigenem Code/Bibliotheken verstehen 
 14 ** Vorgehen: Annahmen sicherstellen (Assertions)
-14 ** Vorgehen: Das Wissen der Alte 
+14 ** Vorgehen: Das Wissen der Alten 
 14 ** Vorgehen: Fixes 
 14 ** Vorgehen: Erfahrung 
 14 ** Ansätze: Was kann man tun? 
@@ -1139,7 +1139,7 @@ VL:  26
 15 ** Funktionsaufrufe: Parameter, Rückgabewerte 
 15 ** Vorteile statischer Typsysteme 
 15 ** Nachteile statischer Typsysteme 
-15 ** Beste zweier Welten? 
+15 ** Das Beste zweier Welten? 
 15 ** Zusammenfassung 
 15 ** Und nun? 
 16 ** Was bisher geschah 
@@ -1147,8 +1147,8 @@ VL:  26
 16 ** Objektorientierung und Dateien 
 16 ** Programmstruktur aus mehreren Dateien? 
 16 ** Dateiname entspricht Klassenname 
-16 ** Übersetzen und Starten eines Programm 
-16 ** Übersetzen und Starten eines Programm -- Beispiel 
+16 ** Übersetzen und Starten eines Programms
+16 ** Übersetzen und Starten eines Programms -- Beispiel 
 16 ** Mehrere Dateien zusammenfügen 
 16 ** Anmerkung: Java  und Jupyterhub 
 16 ** Anmerkung: Java, Dateien, Editoren, IDE 

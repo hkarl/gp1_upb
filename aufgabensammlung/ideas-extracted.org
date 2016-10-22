@@ -6,6 +6,33 @@ Das heißt NICHT, dass wir genau diese Ideen auch übernehmen! Nur als Anregung!
 
 Es heißt auch NICHT, dass diese Inhalte genau auf diese Blätter gemappt werden können. 
 
+Die Reihenfolge ist bei Wehrheim et al. eine ganz andere; das müssen wir entsprechend anpassen. 
+
+Vorteil: Wir können die Leute schon auf dem zwiten Blatt Funktionen schreiben lassen! 
+
+Nachteil: Wir können erst ab dem vierten Blatt Schleifen, Ifs  benutzen 
+
+Vorteil: Wir können sehr früh komplexe Datenstrukturen nutzen (dicts, tuples, lists, sets) 
+
+
+* Typen von Aufgaben 
+
+** Was ist die Aufgabe von <Programmschnipsel> ? 
+
+Das macht nicht so schrecklich viel Sinn - das probiert man im notebook einfach aus... 
+
+** Schön schreiben 
+
+Programmcode schön einrücken etc. - sinnlos. Das geht in Python ja sonst gar nicht. 
+(und ist ohnehin albern; die Leute sollen gleich ordentlich schreiben) 
+
+** Manches wird banal 
+
+Es gibt viele Übungen a la:  Summe  Quadartzahlen der ungeraden Zahlen etc. 
+
+Das wird ein Einzeiler als List comprhension - aber warum nicht? Kompakt ist gut. 
+
+
 
 * HUEs 
 
@@ -22,7 +49,31 @@ Es heißt auch NICHT, dass diese Inhalte genau auf diese Blätter gemappt werden
 ** HUE 2
 
 - Zahldarstelungen (oktal etc.) - erst später 
+- Einfacher Mini-algorihtmus:
+  - Gesamtnote ausrechnen.
+  - Gleichseitges Dreieck test
+  - Voter bei TMR
+  - Drei Zahlen sortieren
+  - Echten Teiler (also: [x for x in range(n) if n//x == 0] ) 
+  - Notebooks: Belegungen von Variablen aus vorherigen Zellen bleiben erhalten; das kann man als Eingabevariable nutzen 
+- Variablen mit Umlauten? 
 
+** HUE 3
+
+- Einfache Schleifen
+  - Summe der geraden Zahlen
+  - Potenzen
+  - diskreter Logarithmus?
+  - Wurzel ?
+  - Arithmetischer Operatoren nachbauen: * , //, ^
+  - min, max, druchscnitt auf Array
+  - Bestehen von Klausur, Prozentsatz
+  - Quersumme
+- Geschachtelte Schleifen
+  - MAtrix spiegeln
+  - Stadttheater auf feasiblity des programms testen 
+- POrogrammstruktur
+  - If-Kaskaden vereinfachen 
 
 
 

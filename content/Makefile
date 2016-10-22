@@ -1,6 +1,6 @@
 # Top-level makefile
 
-.PHONY: makefiles distribute all cleanall newch  slidetitles uebungen book
+.PHONY: makefiles distribute all cleanall newch  slidetitles uebungen book webserver
 
 # we need an up-to-date rsync to support the chown option (v 3.1 of rsync seems to do the job):
 # (on mac: brew install rsync; possibly with a brew tap first)
@@ -38,6 +38,11 @@ depingo:
 	# depingo: remove the pingo headers from the generated ipynb
 	ipynbs=`find ../output/vorlesung -name "*ipynb"`; for d in $$ipynbs ; do echo $$d ; python depingo.py $$d > pingotmp ; mv pingotmp $$d  ; done 
 
+webserver:
+	# rsync into the webserver
+	rsync -vah ../output/ ${WEBSERVERDIR}
+
+
 distribute: depingo
 
 	# generate the file list ; maybe that has to be constructed from indiviaul parts?
@@ -45,10 +50,7 @@ distribute: depingo
 	source ~/.venvs/ansible/bin/activate; \
 	python ../build/createWebpage.py --org . --released ./released.yaml --html ../output/vorlesung/index.html
 
-	# how to deal with audio files?
-
-	# rsync into the webserver
-	rsync -vah ../output/ ${WEBSERVERDIR}
+	make webserver
 
 	# rsync into gp1 server jupyerhub account; referenced by symbolic links 
 	rsync -vazh ../output/ ${GP1SERVERDIR}
@@ -78,7 +80,7 @@ newch:
 slidetitles: 
 	find . -name "*.org" |  xargs grep "^\*\* "  | grep  -v UEBUNG | grep -v TODO | grep -v tmp | grep -v "#+TODO:" | grep -v toc | grep -v template | sed s#\./.*/ch## | sed "s/-\(.*\)org:/ /" | sort -n -k1,1 -s > slidetitles.tmp
 	python3 groupby.py 30 "" < slidetitles.tmp > slidetitles
-	python3 groupby.py 29 "1 ** Fertig" < slidetitles.tmp > remainingslides
+	python3 groupby.py 26 "3 ** Zusammenfassung" < slidetitles.tmp > remainingslides
 
 
 uebungen: slidetitles 
