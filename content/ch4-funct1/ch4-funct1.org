@@ -122,7 +122,7 @@ def pingo(line):
   - Bis handhabbar 
 - Schließlich: Setze die Lösung aus den Einzelteilen zusammen 
 
-Sog. */prodzedurale Dekomposition/*
+Sog. */prozedurale Dekomposition/*
 
 ** Funktionen 
 
@@ -146,7 +146,7 @@ Also:
 
 ** Neue Anweisung: ~def~ 
 
-Wir brauche eine neue Anweisung: ~def~
+Wir brauchen eine neue Anweisung: ~def~
 - Unsere zweite Anweisung nach ~=~
 - Ähnlich: Name, Wert 
 
@@ -172,7 +172,7 @@ einer Folge von Anweisungen.
 
 - Der Name /referenziert/ diese Anweisungsfolge. 
 - Durch die Schaffung dieses Namens wird der Programmzustand geändert. 
-- Namen für Funktionen folgen den Syntaxregeln der Namen für Variable. 
+- Namen für Funktionen folgen den Syntaxregeln der Namen für Variablen. 
 
 *** Eine Anweisung zur Funktionsdefinition?			  :dropslide:
 
@@ -215,7 +215,7 @@ Probieren Sie das in einem Notebook aus!
 
 ** Namenskonvention für Funktionsnamen 
 
-- Syntaxregel für Funktionsname: Wie für Variablennamen 
+- Syntaxregel für Funktionsnamen: Wie für Variablennamen 
 - Konvention: Wie für Variablennamen
   - Kleinbuchstaben am Anfang
   - Mehrere Worte durch ~_~ verbunden 
@@ -314,7 +314,7 @@ Abbildung [[fig:zustand-f-g-z]] stellt den Zustand nach der Definition von
 [[./figures/frame-f-g-z.png]]
 
 
-** Starke Analogie: Variablename, Funktionsname 
+** Starke Analogie: Variablenname, Funktionsname 
 
 - Die Analogie zwischen Zuweisung und Funktionsdefinition ist sehr eng! 
 
@@ -325,7 +325,7 @@ Abbildung [[fig:zustand-f-g-z]] stellt den Zustand nach der Definition von
 *** Unterschiedliche Notation für Variablen und Funktionen?	  :dropslide:
 
 Das hat letztlich pragmatische und auch Geschmacksgründe. Tatsächlich
-gibt es Programmiersprache (etwas Lisp), bei denen diese Analogie noch
+gibt es Programmiersprachen (etwas Lisp), bei denen diese Analogie noch
 viel enger ist und auch in der Syntax kaum ein Unterschied in der
 Definition einer Variablen  oder eines Funktionsnamens liegt. 
 
@@ -362,10 +362,10 @@ Definition einer Variablen  oder eines Funktionsnamens liegt.
 ** Aufruf einer Funktion 
 
 - Funktionsfolgen mit Namen versehen: Toll!
-- Aber wie Nutzen? 
+- Aber wie nutzen? 
 - Genauer: Wie dafür sorgen, dass die Anweisungen einer Funktion an
   einer Stelle im Programm ausgeführt werden?
-  - Ein /Funktionsaufruf/ durchführen 
+  - Einen /Funktionsaufruf/ durchführen 
 
 ** Aufruf einer Funktion: Syntax 
 
@@ -461,7 +461,7 @@ werden und auf unterschiedliche Objekte verweisen.
 - Ein Funktionsaufruf erzeugt einen Namensraum für
   diese Funktion. Dieser Namensraum verschwindet wenn die Funktion
   zurückkehrt. 
-- Alle vordefinierten Funktionen existieren in einem eignen Namensraum
+- Alle vordefinierten Funktionen existieren in einem eigenen Namensraum
   (mit Namen ~builtins~). 
 - Alle globalen Namen existieren in einem eigenen Namensraum.
 - Namensräume können sich während der Laufzeit verändern (und tun das

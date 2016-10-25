@@ -1,0 +1,26 @@
+#+TITLE: Präsenzübungsblatt 4 (GP1)
+
+* Lernziele 
+
+- Aufbau von Funktionen verstehen
+- Funktionen schreiben üben (Syntax)
+- Anwendung von Funktionen verstehen
+- Funktionen mit/ohne return
+- Lebensdauer von Variablen
+
+
+
+** Funktionen verstehen
+
+- Es wird eine Funktion gegeben, es soll erkannt werden, was diese macht
+- Die gegeben Funktion soll verandert werden
+
+- Es werden zwei Funktionen gegeben, eine mit print() eine mit return und externem print() aufruf, der Unterschied soll erklärt werden
+
+** Funktionen schreiben/anwenden
+
+- Eine Funktion soll geschrieben und aufgerufen werden (keine Vorlage gegeben)
+
+** Lebensdauer
+
+- Eine komplexere Funktion wird gegeben, der Student soll herausfinden was passiert (hängt stark davon ab, wo welche Variable gilt!)

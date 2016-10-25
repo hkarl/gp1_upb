@@ -65,7 +65,7 @@
 
 #+BEGIN_LaTeX
 \listoffigures
-\renewcommand{\listtheoremname}{Liste von Definition u.ä.}
+\renewcommand{\listtheoremname}{Liste von Definitionen u.ä.}
 \listoftheorems 
 \newpage
 #+END_LaTeX

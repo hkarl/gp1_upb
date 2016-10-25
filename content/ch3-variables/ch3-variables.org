@@ -56,7 +56,7 @@ def pingo(line):
 ** Dieses Kapitel 
 
 - Bisher nur Ausdrücke, die keine Zustandsänderung bewirken 
-- Dieses Kapitel: Konzept der /Variable/ -- das Bennen eines Werts
+- Dieses Kapitel: Konzept der /Variable/ -- das Benennen eines Werts
 - Erlaubt Weiterverwendung und Manipulation von Ergebnissen eines
   Ausdrucks 
 
@@ -246,7 +246,7 @@ besprechen.
 
 Ein /Schlüsselwort/ (reserviertes Wort, reservierter Name, key word) ist ein Bezeichner,
 der in einer Programmiersprache eine Sonderrolle einnimmt. Ein
-Schlüsselwort darf /nicht/ für andere Zwecke benutzte werden, z.B. als
+Schlüsselwort darf /nicht/ für andere Zwecke benutzt werden, z.B. als
 Variablenname. 
 
 Jede Programmiersprache hat eine Liste von Schlüsselworten. 
@@ -444,7 +444,7 @@ b = a
 
 *** Pythontutor-Links im Skript 				  :dropslide:
 
-Wenn Sie im Skript (PDF-Datei) auf ein Code-Beispiel stossen, bei dem
+Wenn Sie im Skript (PDF-Datei) auf ein Code-Beispiel stoßen, bei dem
 unter dem Quellcode (PT link) steht, so ist dies ein Link auf ein das
 Beispiel in Pythontutor. Wenn Sie auf diesen Link klicken,
 sollte sich ein Browser-Fenster öffnen, das auf die Webseite von
@@ -562,7 +562,7 @@ referenziert wird.
 [[file:figures/wrongLabels.png]]
 
 
-** Eine Variablen verändern 
+** Eine Variable verändern 
 
 - Genauer: Eine Variable referenziert einen neuen Wert 
 - Wert von ~b~? 
@@ -869,7 +869,7 @@ x = x + 1   # Platz am Rand lassen
 
 ** Stilregeln in Python 
 
-- Aber: es sind Regel -- keine Regel ohne Ausnahme 
+- Aber: es sind Regeln -- keine Regel ohne Ausnahme 
 
 - Selbst nachdenken, nachfragen, eigenes Urteil 
 
