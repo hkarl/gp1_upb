@@ -1077,7 +1077,7 @@ gleiche Objekt.
 
 - Formal ist die Aufrufsemantik von Python ein
   sog. /Pass-by-assignment/ 
-  - Den formale Parametern werden Werte der Argumente zugewiesen 
+  - Den formalen Parametern werden Werte der Argumente zugewiesen 
 
 *** Unterschied zu anderen Sprachen			   :B_note:dropslide:
     :PROPERTIES:
