@@ -112,6 +112,7 @@
       with_items:
         - PyYAML
         - bpython
+        - nose
   tags: software 
 
 
