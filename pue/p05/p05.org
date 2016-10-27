@@ -1,0 +1,44 @@
+#+TITLE: Präsenzübungsblatt 5 (GP1)
+
+* Foliensätze
+
+- Kapitel 5
+
+* Lernziele 
+
+- Tupel verstehen, erstellen und ausgeben
+- Slicing nutzen
+- Kombination des neuen Wissens mit dem vorherigen Übungsblatt (Funktionen)
+- Den Unterschied zwischen Tupeln und Listen kennenlernen
+- Sets verstehen
+- Dict verstehen
+
+** Tupel verstehen
+
+- Ein verschachteltes Tupel ist gegeben; Student soll erklären, welche Teile des Ausdrucks jeweils Tupel sind und diese mit Hilfe eines Print-Befehls ausgeben
+- Was unterscheidet ein Tupel von einem String?
+
+** Slicing
+
+- Ein umfangreiches Tupel ist gegeben; Student soll bestimmte Teile des Tupels mit einem möglichst kurzen Slicing-Befehl ausgeben
+- Slicing-Befehle für bestimmte Sonderfälle sind gegeben (negative Zahlen, fehlende Zahlen, "zu hohe" Zahlen); Student soll raten und ausprobieren, was passiert und sich fragen, ob das Ergebnis seiner Intuition entspricht
+
+** Tupel und Slicing mit Funktionen
+
+- Der Student soll eine Funktion schreiben, um bestimmtes Slicing durchzuführen (z.B. den letzten Wert aus dem Tupel entfernen, den Index des entfernten Wertes zusammen mit dem Wert ausgeben, und das neu erzeugte Tupel zurückgeben)
+- Der Student soll eine Funktion schreiben, um Tupel zu addieren oder zu multiplizieren
+
+** Listen
+
+- Der Student soll eine Funktion schreiben, mit der er Elemente einer Liste ändern oder anhängen kann und erklären, ob diese Funktion auch für Tupel funktioniert bzw. wie die Funktion für Tupel aussehen müsste
+- Was ist der Unterschied zwischen Pop und Remove?
+- Was ist der Unterschied zwischen L1 = L und L1 = L.copy()?
+
+** Sets
+
+- Was passiert, wenn ein Wert mehrfach im Set auftaucht?
+- Wofür könnte man Sets gebrauchen?
+
+** Dict
+
+- Der Student soll ein Dict mit einem kurzen Steckbrief zu sich selbst erstellen und Funktionen zum Auslesen bestimmter Daten (aber nur, wenn vorhanden!)
