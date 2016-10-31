@@ -393,7 +393,7 @@ print(t[-2:])
 
 *** Slicing mit einem Wert: [:n]				    :animate:
 
-Von gegebenem Wert bis zum Ende 
+Vom Anfang bis zu gegebenem Wert
 
 #+BEGIN_SRC python :exports both :results output
 t = ('a', 'b', 'c', 'd', 'e', 'f')
@@ -665,7 +665,7 @@ Objekten/.
   zugegriffen werden.
 - Sie unterstützen das sog. /Slicing/
 - Sie unterstützen Verknüpfungen wie Addition, Multiplikation mit
-  Skala und die Funktionen ~len~, ~count~, ~index~ (mit leicht
+  Skalar und die Funktionen ~len~, ~count~, ~index~ (mit leicht
   unterschiedlicher Notation)
 - Tuple werden syntaktisch geschrieben als eine durch Komma
   getrennte Liste von Ausdrücken, in /runde/ Klammern eingeschlossen
@@ -1030,7 +1030,7 @@ möglicherweise erwarten könnten.
 
 Man spricht hier von einer sog. /flachen Kopie/ (shallow
 copy). Die Alternative wäre eine /tiefe Kopie/ (deep copy). Was würde
-das bedeutet? 
+das bedeuten? 
 
 #+CAPTION: Kopieren einer Liste von Liste
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -1212,7 +1212,7 @@ Tuple geben ein Versprechen: *Unveränderlichkeit*
     :BEAMER_env: definition
     :END:
 
-/Liste/ sind /*veränderliche*/ Aufzählungen von Referenzen auf beliebige
+/Listen/ sind /*veränderliche*/ Aufzählungen von Referenzen auf beliebige
 Objekte; verkürzt und vereinfachend sagt man auch /Aufzählung von
 Objekten/. 
 
@@ -1222,7 +1222,7 @@ Objekten/.
   zugegriffen werden.
 - Sie unterstützen das sog. /Slicing/
 - Sie unterstützen Verknüpfungen wie Addition, Multiplikation mit
-  Skala und die Funktionen ~len~, ~count~, ~index~ (mit leicht
+  Skalar und die Funktionen ~len~, ~count~, ~index~ (mit leicht
   unterschiedlicher Notation)
 - Sie können manipuliert werden, z.B. durch Löschen oder Einfügen 
   von Elementen; Referenzen in einer Liste können verändert werden
@@ -1384,8 +1384,8 @@ das Verhalten dieses Beispiels ganz naheliegend sein.
 
 Wenn also eine Funktion den /Inhalt/ einer Liste manipulieren kann, 
 
-ist das dann ein geeigneter Weg, um Ergebnisse von Funktion an
-Aufrufen zu transportieren? 
+ist das dann ein geeigneter Weg, um Ergebnisse von Funktionen an
+Aufrufer zu transportieren? 
 
 - Im Prinzip geht das
 - Manchmal sinnvoll und auch angewandt
@@ -1577,7 +1577,7 @@ usw.
 
 - ~dict~ für dictionary (Wörterbuch, Verzeichnis, Abbildung)
 - Ein ungeordneter, veränderlicher Aufzählungstyp
-- Ordnet /*Schlüsseln*/ (keys)  Objekten  (Werten, values) zu
+- Ordnet /*Schlüsseln*/ (keys)  Objekte  (Werte, values) zu
   - Ein sog. /*key-value*/-Typ 
 
 
@@ -1640,7 +1640,7 @@ Warum ist das sinnlos?
 
 Da ~dict~ sehr häufig  vorkommen gibt es eine Kurznotation,
 ähnlich zur Definition von Mengen
-- In geschweiften Klammern, die Schlüssel/Wert-Paaren aufzählen, mit
+- In geschweiften Klammern, die Schlüssel/Wert-Paare aufzählen, mit
   Komma getrennt 
 - Schlüssel und Wert durch Doppelpunkt getrennt
 - Entspricht der Ausgabe eines ~dict~ durch ~print~
@@ -1656,7 +1656,7 @@ print(D)
 
 *** Visualisierung von ~dict~					  :dropslide:
 
-Zur Veranschaulichung hier noch eine Visualierung eines ~dict~:
+Zur Veranschaulichung hier noch eine Visualisierung eines ~dict~:
 Variable ~D~ referenziert die Datenstruktur des ~dict~ (Abbildung
 [[fig:pt-dict]]). Dieses besteht aus einer Reihe von Paaren von
 Referenzen, jeweils eine Referenz auf den Schlüssel und eine auf den
@@ -1891,7 +1891,7 @@ gelingen oder scheitern (was zu einer Fehlermeldung führt).
   - Mit einfachem Index
   - Zusätzlich mit  Slicing bei geordneten Aufzählungen 
 - Geschweifte Klammern ~{~ und ~}~
-  - Defintion von ~set~ oder ~dict~
+  - Definition von ~set~ oder ~dict~
 - Klammern dürfen sich über mehrere Zeilen erstrecken
   - Zeilenumbruch empfohlen nach Komma oder Operatoren
 
