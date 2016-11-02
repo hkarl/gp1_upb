@@ -560,7 +560,7 @@ t[2] = 17
 ** Keine Zuweisung an Tuple-Elemente				   :subslide:
 
 - Offenbar keine Zuweisungen erlaubt!
-- Tuple sind /*unverändlich*/ : Einmal definiert zweigen die Elemente
+- Tuple sind /*unverändlich*/ : Einmal definiert zeigen die Elemente
   des Tuples immer auf die gleichen Objekte 
 
 
