@@ -11,7 +11,6 @@
 - Kombination des neuen Wissens mit dem vorherigen Übungsblatt (Funktionen)
 - Den Unterschied zwischen Tupeln und Listen kennenlernen
 - Sets verstehen
-- Dict verstehen
 
 ** Tupel verstehen
 
@@ -38,7 +37,3 @@
 
 - Was passiert, wenn ein Wert mehrfach im Set auftaucht?
 - Wofür könnte man Sets gebrauchen?
-
-** Dict
-
-- Der Student soll ein Dict mit einem kurzen Steckbrief zu sich selbst erstellen und Funktionen zum Auslesen bestimmter Daten (aber nur, wenn vorhanden!)
