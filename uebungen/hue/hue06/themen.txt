@@ -1,0 +1,18 @@
+- Kleinere Aufgaben, welche leicht mit Methoden der Klasse String gelöst werden können:
+	- str.join()
+	- str.find()
+	- str.lower()
+	- str.title()
+	
+- Implementierung einer Vektorklasse mit Methoden index, add, substract, dot, norm
+
+- Zwei vorgegebene Funktionen implementieren: 
+	a) Funktion implementieren, welche für eine gegebene Zahl 
+		- "King" zurückgibt, falls die Zahl durch 3 teilbar ist oder die Ziffer 3 enthält
+		- "Kong" zurückgibt, falls die Zahl durch 7 teilbar ist oder die Ziffer 7 enthält
+		- "KingKong" zurückgibt, falls die Zahl die beiden oberen Bedingungen erfüllt
+		- Ansonsten die Zahl selber zurückgibt
+	b) Funktion implementieren, welche für ein gegebenes n eine liste der ersten n Zahlen zurückgibt, für welche die Funktion aus Teil a) aufgerufen wurde.
+		Bsp (n=10): [1,2,"King",4,5,"King","Kong",8,"King",10]
+		
+- Türme von Hanoi: Funktion anpassen, sodass die Anzahl der Scheiben, die bewegt werden mitgezählt wird (wobei ein simples "return 2**n-1" nicht erlaubt ist).
