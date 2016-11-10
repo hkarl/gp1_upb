@@ -1,0 +1,48 @@
+#+TITLE: Präsenzübungsblatt 6 (GP1)
+
+* Foliensätze
+
+- Kapitel 6
+
+* Lernziele 
+
+- IF
+- ELSE
+- ELIF
+- WHILE
+- ASSERT
+- PASS
+- BREAK
+- CONTINUE
+
+
+** IF
+
+- Funktion: 3 Parameter, alle zahlen ausgeben, die durch 5 teilbar sind
+
+** IF/ELSE
+
+- Funktion: bekommt eine Zahl übergeben. Soll ausgeben, ob die Zahl durch 5 teilbar ist.
+
+** ELIF
+
+- Funktion: größer/kleiner/gleich
+
+** WHILE
+
+- Berechne Teiler und Rest mit Assition/Subtraktion und WHILE
+- Berechne Fakultät mit WHILE
+- Funktion: Summe aller Teiler von 3 und 5 der Zahlen 1 bis Parameter berechnen. (nicht pythonic)
+
+** ASSERT
+
+- Funktion: bekommt Liste mit positiven Zahlen übergeben, soll die Summe der Zahlen zurückgeben und einen Fehler werfen, wenn eine Zahl nicht positiv ist.
+
+** BREAK
+
+- Funktion schreiben: 2 Parameter, davon eine Liste. "Enthällt die Liste das Element?"
+
+** CONTINUE/PASS
+
+- Funktion: Bekommt Liste übergeben, soll bei allen ganzen Zahlen die Fakultät berechnen und ausgeben, bei allen anderen nichts machen
+- Ferhällt sich PASS bzw CONTINUE in diesem Fall anders?
