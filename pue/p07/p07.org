@@ -1,0 +1,36 @@
+#+TITLE: Präsenzübungsblatt 5 (GP1)
+
+* Foliensätze
+
+- Kapitel 7
+
+* Lernziele 
+
+- Funktionen mit variabler Parameteranzahl
+- Funktionen mit vorbelegten Werten
+- Scopes
+- Funktionen rufen Funktionen auf
+- Rekursion
+
+** Funktionen mit variabler Parameteranzahl
+
+- Funktion schreiben mit variabler Parameteranzahl
+- Woher weiß die Funktion, wie sie die optionalen Parameter behandeln soll? (Als str, als int, als Liste?)
+- Was passiert, wenn "*arguments" nicht am Ende, sondern am Anfang oder in der Mitte der Funktionsdefinition steht? Warum?
+
+** Funktion mit vorbelegten Werten
+
+- Funktion mit default-Werten schreiben
+- Können mehrere Parameter default-Werte haben? Müssen diese am Ende stehen oder ist es beliebig?
+- Wofür können default-Werte nützlich sein?
+- Ist die Reihenfolge der Funktionsparameter beim Aufruf wichtig? kann ich auch die Reihenfolge selbst bestimmen? Was muss ich dazu wissen? Wann kann das nützlich sein?
+
+** Scopes
+
+- Programm gegeben mit lokalen und globalen Variablen; Studenten sollen raten, welche Werte ausgegeben werden und erklären, wie es dazu kommt. Welche Variable ist in welchen Zeilen wie belegt?
+- Falls das zu verwirrend ist, worauf sollte man achten, um sich selbst und andere nicht zu verwirren? (Variablen so lokal wie möglich; globale nur wenn notwendig)
+
+** Funktionen rufen Funktionen auf & Rekursion
+
+- Verschiedene Funktionen und rekursive Aufrufe untereinander sind gegeben. Die Studenten sollen erkennen, welche ausführbar sind und welche zu Fehlern/Endlos-Programmen führen.
+- "Profi-Aufgabe": Liste mit Bubblesort-ähnlichem Algorithmus sortieren: Schreibe drei Funktionen -> Prüfen, Sortieren, Tauschen; Prüfen überprüft, ob die Liste sortiert ist. Sortieren geht alle Elemente durch und tauscht die, wo der Nachgänger kleiner ist. Tauschen tauscht zwei benachbarte Elemente. Falls Prüfen nach einem Durchlauf fehlschlägt, wird erneut Sortieren aufgerufen. Aus dem Programm heraus soll nur "Sortieren" aufgerufen werden und am Ende die fertige Liste ausgegeben werden.
