@@ -3,6 +3,8 @@
 	- str.find()
 	- str.lower()
 	- str.title()
+	- str.split()
+	- str.partition()
 	
 - Leichte Aufgabe zu Rekursion: Gegeben ist eine rekursive Funktion f(x,k), welche x**k rekursiv berechnet
 	--> Funktion in Python implementieren
