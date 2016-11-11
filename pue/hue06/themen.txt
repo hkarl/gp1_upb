@@ -4,7 +4,9 @@
 	- str.lower()
 	- str.title()
 	
-- Leichte Aufgabe zu Rekursion, z.B. eine rekursive Formel implementieren
+- Leichte Aufgabe zu Rekursion: Gegeben ist eine rekursive Funktion f(x,k), welche x**k rekursiv berechnet
+	--> Funktion in Python implementieren
+	--> Was berechnet die Funktion?
 	
 - Zwei vorgegebene Funktionen implementieren: 
 	a) Funktion implementieren, welche für eine gegebene Zahl 
