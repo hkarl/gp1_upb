@@ -4,8 +4,8 @@
 	- str.lower()
 	- str.title()
 	
-- Implementierung einer Vektorklasse mit Methoden index, add, substract, dot, norm
-
+- Leichte Aufgabe zu Rekursion, z.B. eine rekursive Formel implementieren
+	
 - Zwei vorgegebene Funktionen implementieren: 
 	a) Funktion implementieren, welche für eine gegebene Zahl 
 		- "King" zurückgibt, falls die Zahl durch 3 teilbar ist oder die Ziffer 3 enthält
