@@ -5,12 +5,13 @@
 	- str.title()
 	- str.split()
 	- str.partition()
-	
-- Leichte Aufgabe zu Rekursion: Gegeben ist eine rekursive Funktion f(x,k), welche x**k rekursiv berechnet
-	--> Funktion in Python implementieren
-	--> Was berechnet die Funktion?
 
-- Eigene rekursive Funktion entwerfen
+- Rekursion:
+	- Indirekte Rekursion: Folge der Funktionsaufrufe + Ausgabe für ein gegebenes Programm angegeben
+	- Rekursives Programm schreiben, welches die Anzahl der Ziffern einer übergebenen Zahl ausgibt
+	- Gegeben ist eine rekursive Funktion f(x,k), welche x**k rekursiv berechnet
+		--> Funktion in Python implementieren
+		--> Was berechnet die Funktion?
 
 - Aufgabe zu Scopes:
 	- Anhand einer einfachen Funktion den Scope von einer Variablen beschreiben
