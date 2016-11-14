@@ -5,18 +5,23 @@
 	- str.title()
 	- str.split()
 	- str.partition()
-
+	(6 Punkte)
+	
 - Rekursion:
 	- Indirekte Rekursion: Folge der Funktionsaufrufe + Ausgabe für ein gegebenes Programm angegeben
 	- Rekursives Programm schreiben, welches die Anzahl der Ziffern einer übergebenen Zahl ausgibt
 	- Gegeben ist eine rekursive Funktion f(x,k), welche x**k rekursiv berechnet
 		--> Funktion in Python implementieren
 		--> Was berechnet die Funktion?
-
+	- Türme von Hanoi: Funktion anpassen, sodass die Anzahl der Scheiben, die bewegt werden mitgezählt wird (wobei ein simples "return 2**n-1" nicht erlaubt ist).
+	(8 Punkte)
+	
 - Aufgabe zu Scopes:
 	- Anhand einer einfachen Funktion den Scope von einer Variablen beschreiben
 	- Begründen, warum ein gegebenes Programm einen UnboundLocalError wirft
 	- Programm mit lokaler Funktion: Was wird ausgegeben? (inklusive Begründung)
 	- Gleiche Variablennamen in unterschiedlichen Funktionen benutzen, die sich gegenseitig aufrufen. Erkläraufgabe, warum das das gewünschte Verhalten hat.
+	(4 Punkte)
 	
-- Türme von Hanoi: Funktion anpassen, sodass die Anzahl der Scheiben, die bewegt werden mitgezählt wird (wobei ein simples "return 2**n-1" nicht erlaubt ist).
+- Aufrufkonventionen: Für ein gegebenes Programm den Unterschied zwischen dem Aufruf f(**d) und f(*l) beschreiben
+	(2 Punkte)
