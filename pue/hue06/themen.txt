@@ -20,8 +20,7 @@
 	- Anhand einer einfachen Funktion den Scope von einer Variablen beschreiben
 	- Begründen, warum ein gegebenes Programm einen UnboundLocalError wirft
 	- Programm mit lokaler Funktion: Was wird ausgegeben? (inklusive Begründung)
-	- Gleiche Variablennamen in unterschiedlichen Funktionen benutzen, die sich gegenseitig aufrufen. Erkläraufgabe, warum das das gewünschte Verhalten hat.
-	(4 Punkte)
+	(3 Punkte)
 	
 - Aufrufkonventionen: Für ein gegebenes Programm den Unterschied zwischen dem Aufruf f(**d) und f(*l) beschreiben
-	(2 Punkte)
+	(3 Punkte)
