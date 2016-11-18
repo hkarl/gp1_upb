@@ -1,0 +1,24 @@
+- Kleinere Aufgaben, welche leicht mit Methoden der Klasse String gelöst werden können --> Dokumentation lesen:
+	- str.join()
+	- str.find()
+	- str.lower()
+	(3 Punkte)
+
+- Implementierung einer Klasse Vektor mit Methoden index, add, substract, dot, norm
+	(5 Punkte)
+			
+- kleinere Spielereien mit Klassen/Objekten anhand einer gegebenen Klasse Patient:
+	- Referenzen auf Objekte: '==' vs. 'is' --> Methode __eq__ implementieren
+	- Ändern einer Klassenvariablen von einem Objekt aus --> Fehler erklären
+	- Konstruktoren: Erklären was passiert, wenn kein Konstruktor erstellt wurde:
+		--> p = Patient() # funktioniert
+			print(p.get_name()) # fehler
+	- Erster Parameter heißt nicht self: Erklären anhand get_alter(s) der Klasse Patient. Warum funktioniert das und was passiert, wenn man den Parameter s entfernen würde?
+	(4-6 (?) Punkte)
+
+- Implementierung einer (anwendungsbezogenen) Queue am Beispiel eines Systems zur Verwaltung von Patienten im Wartezimmer einer Arztpraxis. Die Klasse Patient aus der vorherigen Aufgabe wird hier verwendet.
+	- Implementierung der Klasse Arztpraxis:
+		- Patienten können das Wartezimmer betreten
+		- Sobald das Zimmer des Arztes frei ist, wird der Patient mit der längsten Wartezeit aus dem Wartezimmer geholt und ins Zimmer des Arztes geschickt
+	- Implementierung einer weiteren Arztpraxis, welche zwischen normalen Patienten/Privatpatienten unterscheidet und Privatpatienten bevorzugt behandelt
+	(6-8 (?) Punkte)
