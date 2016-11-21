@@ -1,11 +1,5 @@
-- Kleinere Aufgaben, welche leicht mit Methoden der Klasse String gelöst werden können --> Dokumentation lesen:
-	- str.join()
-	- str.find()
-	- str.lower()
-	- str.title()
-	- str.split()
-	- str.partition()
-	(6 Punkte)
+- Umwandeln einer rekursiven Funktion, welche eine Zahl auf ihre Teilbarkeit durch 3 überprüft, in eine iterative
+	(3 Punkte)
 	
 - Rekursion:
 	- Indirekte Rekursion: Folge der Funktionsaufrufe + Ausgabe für ein gegebenes Programm angegeben
@@ -14,13 +8,13 @@
 		--> Funktion in Python implementieren
 		--> Was berechnet die Funktion?
 	- Türme von Hanoi: Funktion anpassen, sodass die Anzahl der Scheiben, die bewegt werden mitgezählt wird (wobei ein simples "return 2**n-1" nicht erlaubt ist).
-	(8 Punkte)
+	(9 Punkte)
 	
 - Aufgabe zu Scopes:
 	- Anhand einer einfachen Funktion den Scope von einer Variablen beschreiben
 	- Begründen, warum ein gegebenes Programm einen UnboundLocalError wirft
 	- Programm mit lokaler Funktion: Was wird ausgegeben? (inklusive Begründung)
-	(3 Punkte)
+	(5 Punkte)
 	
 - Aufrufkonventionen: Für ein gegebenes Programm den Unterschied zwischen dem Aufruf f(**d) und f(*l) beschreiben
 	(3 Punkte)
