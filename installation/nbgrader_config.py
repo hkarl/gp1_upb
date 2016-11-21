@@ -9,7 +9,7 @@ c = get_config()
 c.NbGrader.course_id = "gp1"
 
 # Update this list with other assignments you want
-c.NbGrader.db_assignments = [dict(name="ps1")]
+c.NbGrader.db_assignments = [dict(name="hue01")]
 
 # Change the students in this list with that actual students in
 # your course
@@ -18,10 +18,26 @@ c.NbGrader.db_students = [
 #    dict(id="hacker", first_name="Alyssa", last_name="Hacker"),
 #    dict(id="reasoner", first_name="Louis", last_name="Reasoner")
     dict(id="hkarl", first_name="Peter", last_name="Pan"),
-    dict(id="studa", first_name="aa", last_name="AA"),
-    dict(id="studb", first_name="bb", last_name="BB"),
-    dict(id="studc", first_name="bb", last_name="CC"),    
+    dict(id="jrossel", first_name="Jost", last_name="Rossel"),
+    dict(id="thomask2", first_name="Thomas", last_name="Kentner"),
+    dict(id="moritzt", first_name="Moritz", last_name="Thiele"),
+    dict(id="boerding", first_name="Boerding", last_name="B"),
+    dict(id="mfeldma2", first_name="Michael", last_name="Feldmann"),
+    dict(id="asetzer", first_name="Alexander", last_name="Setzer"),
+    dict(id="jharbig", first_name="Jonas", last_name="Harbig"),
+    dict(id="parrucad", first_name="Donald", last_name="Parruca"),
 ]
+
+for i in range(20):
+    for j in range(20):
+        c.NbGrader.db_students.append(dict(id="gp1_16_{i:02d}".format(i=i*20+j),
+                          first_name="gp1_16_{i:02d}".format(i=i*20+j),
+                          last_name="Tutorium {}".format(i+1),
+                          ))
+
+
+
+
 
 ###############################################################################
 # End additions by nbgrader quickstart
