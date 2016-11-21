@@ -1240,12 +1240,12 @@ print(reverse("Hallo GP1"))
 
 Wie entwirft man rekursive Algorithmen? 
 
-- Suche einfache Grenzfälle: Für welche Eingaben kann man das Ergebnis
+- Suche einfache *Grenzfälle*: Für welche Eingaben kann man das Ergebnis
   direkt angeben?
-- Suche Zerteilung: Wie kann man kompliziertere Eingaben in einfachere
+- Suche *Zerteilung*: Wie kann man kompliziertere Eingaben in einfachere
   Eingaben zerteilen, komplexe Probleme in einfachere Teilprobleme
   zerlegen?
-- Suche Zusammensetzung: Wie kann man Lösungen der Teilprobleme zur
+- Suche *Zusammensetzung*: Wie kann man Lösungen der Teilprobleme zur
   Lösung des Gesamtproblems zusammensetzen? 
 
 ** Entwurfsbeispiel: Türme von Hanoi
@@ -1373,7 +1373,7 @@ Also:
 - Zerteilung?
 - Zusammensetzung? 
 
-** Türme von Hanoi -- Code 					  :dropslide:
+** Türme von Hanoi -- Code					   :subslide:
 
 #+BEGIN_SRC python :exports both :results output
   def hanoi(hoehe, von, nach, ablage):
@@ -1441,10 +1441,10 @@ Also:
 - Jeder Aufruf einer Funktion -- sei es normal, durch indirekte oder
   direkte Rekursion -- hat also einen eigenen Namensraum, eigene Version
   des Zustands der Funktion
-  - Zustand: werte der Parameter, der lokalen Variablen, des Rückgabewertes
+  - Zustand: Werte der Parameter, der lokalen Variablen, des Rückgabewertes
 - Konzeptionell schön, aber wie wird das realisiert?
 - Kernidee: Ein /Stapel/ von /Frames/
-  - Datenstruktur, auf der andere Daten angelegt werden können
+  - Datenstruktur, auf der andere Daten abgelegt werden können
   - Kann wachsen und schrumpfen
   - Stellt Platz für die Namensräume bereit
   - Details: VL GPS 
@@ -1463,11 +1463,11 @@ Also:
 
 ** Funktionen und Coupling 
 
-*** Eingabe mit Argumente, Ausgabe mit return  
+*** Eingabe mit Argumenten, Ausgabe mit return  
 
 - Funktionen sollten Eingaben nur durch die Argumente erhalten
 - Resultate nur durch ~return~ 
-- Unabhängig von Werte um die Funktion herum 
+- Unabhängig von Werten um die Funktion herum 
 - /Isolation/ der Funktion erhöht Wiederverwendbarkeit 
 
 *** Globale Variablen nur wenn nicht anders möglich		    :animate:
@@ -1481,7 +1481,7 @@ Also:
 *** Veränderbare Argumente nicht verändern
 
 - Bekommt eine Funktion veränderbare Typen (Listen, Mengen, Dicts) als
-  Argumente, so sollte sich diese typischerweise nicht verändern
+  Argumente, so sollte sie  diese typischerweise nicht verändern
 - Nur, wenn dies der Aufrufer offensichtlich erwarten muss 
 - Klar dokumentieren, wenn dies passiert!
 - Meist besser: Veränderte Werte mit ~return~ zurückgeben

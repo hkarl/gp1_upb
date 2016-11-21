@@ -80,7 +80,7 @@ newch:
 slidetitles: 
 	find . -name "*.org" |  xargs grep "^\*\* "  | grep  -v UEBUNG | grep -v TODO | grep -v tmp | grep -v "#+TODO:" | grep -v toc | grep -v template | sed s#\./.*/ch## | sed "s/-\(.*\)org:/ /" | sort -n -k1,1 -s > slidetitles.tmp
 	python3 groupby.py 30 "" < slidetitles.tmp > slidetitles
-	python3 groupby.py 26 "3 ** Zusammenfassung" < slidetitles.tmp > remainingslides
+	python3 groupby.py 17 "8 ** Expliziter Namensraum" < slidetitles.tmp > remainingslides
 
 
 uebungen: slidetitles 

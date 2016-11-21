@@ -961,7 +961,7 @@ Typisches Muster:  Umständlich
 #+BEGIN_SRC python :exports code :results output
   while (not Abbruchsbedingung) and WeitereBedingung:
       Anweisungen
-      if Abbruchsbedingungen:
+      if Abbruchsbedingung:
           pass
       else:
           Restliche Anweisungen
@@ -976,7 +976,7 @@ Gleich, aber knapper:
 #+BEGIN_SRC python :exports code :results output
   while WeitereBedingung:
       Anweisungen
-      if Abbruchsbedingungen:
+      if Abbruchsbedingung:
           break
       Restliche Anweisungen
 #+END_SRC 
@@ -1206,7 +1206,7 @@ Skizze:
   L = [1, 2, 3, 4, 5]
   while L is not []:
       aktuellesElement = L[0]
-      # mache etwas mir aktuellem Element
+      # mache etwas mit aktuellem Element
       # ...
       # betrachte die restlichte Liste: 
       L = L[1:]
@@ -1232,11 +1232,17 @@ WICHTIGE Übung!
 Schleifen über Aufzählungen vereinfacht schreiben
 
 #+BEGIN_SRC python :exports both :results output
-  # Sei A ein Aufzählungsdatentyp
-  for element in A:
-      Anweisung1
-      Anweisung2
-      ... 
+# Sei A eine Referenz auf 
+# ein Objekt eines Aufzählungsdatentyp
+for element in A:
+    Anweisung1
+    Anweisung2
+    ...
+    
+# Beispiel: 
+L = [1, 2, 3]
+for l in L:
+    print(l, end=" ")    
 #+END_SRC 
 
 ** ~for~: Definition 
@@ -1248,7 +1254,7 @@ Schleifen über Aufzählungen vereinfacht schreiben
 
 - Mit jeder Iteration einer ~for~ Schleife wird das jeweils nächste
   Element der gegeben Aufzählung der /Schleifenvariable/ (auch
-  /Laufvariable/)zugewiesen
+  /Laufvariable/) zugewiesen
   (im Beispiel: ~element~; Name ist frei wählbar)
 - Nach Bearbeitung des letzten Elements der Aufzählung wird die
   Schleife verlassen
@@ -1304,7 +1310,7 @@ wenig.
 [[./figures/pt-zuweisung-for.png]]
 
 
-** Zuweisung an Aufzählung -- deep oder shallow copy? 
+** Zuweisung an Elemente der Aufzählung? 
 
 Was passiert also hier? 
 
@@ -1963,7 +1969,7 @@ for i in [3*x for x in range(5)]:
 - Angenommen, wir wollen Elemente zweier Listen paarweise miteinander
   vergleichen 
   - Schleife 1 (/äußere/ Schleife): Iteriere über eine Liste
-  - Schleife 2 (/innere/ Schleife): In jeder Iteration der äußteren
+  - Schleife 2 (/innere/ Schleife): In jeder Iteration der äußeren
     Schleife, iteriere über die zweite Schleife
     - Führe Operation durch 
 
@@ -2136,14 +2142,14 @@ liste = [17, 1, 42, 99, 33]
 for pos in range(len(liste)):
     tausch = pos
     for such in range(pos+1, len(liste)):
-        if liste[such] < liste[pos]:
+        if liste[such] < liste[tausch]:
             tausch = such
     liste[pos], liste[tausch] = liste[tausch], liste[pos]
 
 print(liste)
 #+END_SRC 
 
-*** Visualisierung						    :animate:
+*** Visualisierung						  :dropslide:
 
 Abbildung [[fig:selection-sort]] visualisiert einen Zwischenstand beim
 Ablauf von Selection Sort. 

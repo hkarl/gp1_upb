@@ -93,7 +93,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - Übliches Argument: Häufiger Fall verdient Unterstützung durch
   Programmiersprache!
-- Wunschvorstellung: Ein Konstrukt dass erlaubt:
+- Wunschvorstellung: Ein Konstrukt, das erlaubt:
   - Datenstruktur zu beschreiben
   - Zugehörige Funktionen zu definieren
     - Funktionen, die diese Daten be-/verarbeiten können 

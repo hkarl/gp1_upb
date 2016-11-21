@@ -185,7 +185,7 @@ VL:  5
 3 ** Animationen von Programmen 
 3 ** Animationen von Programmen -- Quellcode 
 3 ** FALSCH: Name auf Name 
-3 ** Eine Variablen verändern 
+3 ** Eine Variable verändern 
 3 ** Warum hat ~b~ den Wert 5?  
 3 ** Ausdrücke in Variablen 
 3 ** Beispiel: Wert von ~y~ am Ende? 
@@ -234,7 +234,7 @@ VL:  6
 4 ** Visuelle Struktur 
 4 ** Einrückung: Beispiel 
 4 ** Visualisierung: Was passiert? 
-4 ** Starke Analogie: Variablename, Funktionsname 
+4 ** Starke Analogie: Variablenname, Funktionsname 
 4 ** Sprechweise: Objekt 
 4 ** ~def~ definiert ein Objekt 
 4 ** Aufruf einer Funktion 
@@ -444,7 +444,7 @@ VL:  10
 6 ** ~for~: Definition 
 6 ** Zuweisung an Aufzählung? 
 6 ** Zuweisung an Aufzählung -- es passiert gar nicht! 		   :subslide:
-6 ** Zuweisung an Aufzählung -- deep oder shallow copy? 
+6 ** Zuweisung an Elemente der Aufzählung? 
 6 ** Zuweisung an Schleifenvariable				   :subslide:
 6 ** Schleifenvariable nach Schleifenende?			   :subslide:
 6 ** ~for~-Schleifen über andere Aufzählungen 
@@ -564,7 +564,7 @@ VL:  13
 7 ** Türme von Hanoi -- Ziel  
 7 ** Türme von Hanoi -- Möglicher Zwischenstand  
 7 ** Türme von Hanoi -- Fragen  
-7 ** Türme von Hanoi -- Code 					  :dropslide:
+7 ** Türme von Hanoi -- Code					   :subslide:
 7 ** Wie oft wird eine Scheibe bewegt? 
 7 ** Rekursion oder Iteration? 
 7 ** Rekursion zur Definition 
