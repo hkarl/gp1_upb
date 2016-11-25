@@ -10,8 +10,8 @@
 - Binärbaum
 	- Traversieren (autograding via __str__) (2 Pkt.)
 	- Löschen (siehe Mail von HK)
-		- Was ist beim rekursivem Entwurf von Löschen der einfache Basisfall? (1 Pkt.)
-		- Welche Zustandsinformation muss man sich in den rekursiven Aufrufen merken? (1 Pkt.)
+		- Was ist beim rekursivem Entwurf von Löschen der einfache Basisfall? Welche Zustandsinformation muss man sich in den rekursiven Aufrufen merken?
+			(1 Pkt.)
 		- Implementieren der Methode (3 Pkt.)
 	(6 Punkte)
 	
