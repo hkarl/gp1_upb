@@ -1,3 +1,27 @@
 ---
 grades:
+- matrikel: 7095490
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: jr
+  - blatt: 2
+    punkte: 20
+    tutor: jr
+- matrikel: 7009657
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: jr
+  - blatt: 2
+    punkte: 20
+    tutor: jr
+- matrikel: 7086548
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: jr
+  - blatt: 2
+    punkte: 20
+    tutor: jr
 ...
