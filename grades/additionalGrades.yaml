@@ -24,4 +24,64 @@ grades:
   - blatt: 2
     punkte: 20
     tutor: jr
+- matrikel: 7012090
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: mt
+- matrikel: 7095487
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: mt
+- matrikel: 7042663
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: mt
+- matrikel: 7054596
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: mt
+- matrikel: 7072400
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mt
+- matrikel: 7067787
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mt
+- matrikel: 7072031
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mt
+- matrikel: 7057386
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mt
+- matrikel: 7072811
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mt
+- matrikel: 7070761
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mt
+- matrikel: 7070062
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mt
+- matrikel: 7070428
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mt
 ...
