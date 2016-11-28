@@ -84,4 +84,19 @@ grades:
   - blatt: 1
     punkte: 19
     tutor: mt
+- matrikel: 7071139
+  punkte:
+  - blatt: 1
+    punkte: 18
+    tutor: as
+- matrikel: 7091562
+  punkte:
+  - blatt: 1
+    punkte: 18
+    tutor: as
+- matrikel: 7080337
+  punkte:
+  - blatt: 1
+    punkte: 18
+    tutor: as
 ...
