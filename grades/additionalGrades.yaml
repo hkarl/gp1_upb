@@ -99,4 +99,52 @@ grades:
   - blatt: 1
     punkte: 18
     tutor: as
+- matrikel: 6786670
+  punkte:
+  - blatt: 2
+    punkte: 18
+    tutor: mf
+  - blatt: 3
+    punkte: 15
+    tutor: mf
+- matrikel: 6761392
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mf
+- matrikel: 6786703
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mf
+- matrikel: 6786560
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mf
+- matrikel: 6786791
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: mf
+- matrikel: 7068618
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mf
+- matrikel: 7043235
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mf
+- matrikel: 7046753
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mf
+- matrikel: 7045411
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: mf
 ...
