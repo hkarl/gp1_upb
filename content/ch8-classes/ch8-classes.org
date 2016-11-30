@@ -1808,17 +1808,17 @@ Abbildung~\ref{fig:uml-stack} zeigt die UML-Darstellung einer Stack-Klasse.
       def __init__(self):
           self.daten=[]
 
-      def push(d):
+      def push(self, d):
           self.daten.append(d)
 
-      def pop():
+      def pop(self):
           if len(self.daten) > 0:
               r, self.daten = self.daten[-1], self.daten[:-1]
           else:
               r = None
           return r
 
-      def len():
+      def len(self):
           return len(self.daten)
 #+END_SRC 
 
