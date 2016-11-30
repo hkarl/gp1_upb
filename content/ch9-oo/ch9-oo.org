@@ -264,7 +264,7 @@ Abbildung~\ref{fig:personen-tree}
 - Alle Werke haben /zusätzlich/ zu Artikel: 
   - Ersteller
   - Titel 
-- Aller Bücher haben  /zusätzlich/ zu Werk: 
+- Alle Bücher haben  /zusätzlich/ zu Werk: 
   - Autor
   - Verlag
   - ISBN    
@@ -355,7 +355,7 @@ ist üblich und deute eine Geschwister-artige Beziehung an.
 
 ** Vererbung, ~is-a~-Beziehung 
 
-- Terminologie: *Verberbung*
+- Terminologie: *Vererbung*
   - Die allgemeinere Klasse *vererbt* ihre Daten und Methoden an die
     *speziellere* Klasse
 - Weil Objekte der spezielleren Klasse alle Attribute der
