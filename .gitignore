@@ -75,3 +75,5 @@ uebungen/hue/hue*/*.pdf
 /content/remainingslides
 /content/slidetitles.tmp
 /content/slidetitles2.tmp
+tmp
+nbgrader/gp1local
