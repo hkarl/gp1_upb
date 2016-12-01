@@ -11,7 +11,8 @@
 	- Löschen (siehe Mail von HK)
 		- Was ist beim rekursivem Entwurf von Löschen der einfache Basisfall? Welche Zustandsinformation muss man sich in den rekursiven Aufrufen merken?
 			(2 Pkt.)
-		- Implementieren der Methode (4 Pkt.)
+		- Implementieren der Methode 
+			(4 Pkt.)
 	(6 Punkte)
 	
 - Implementierung einer (anwendungsbezogenen) Queue am Beispiel eines Systems zur Verwaltung von Patienten im Wartezimmer einer Arztpraxis. Die Klasse Patient aus der vorherigen Aufgabe wird hier verwendet.
