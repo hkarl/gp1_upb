@@ -1,0 +1,27 @@
+- Exceptions:
+	- Ausgabe eines gegebenen Programms, das Exceptionhandling beinhaltet, ermitteln und begründen
+		(1 Punkt)
+	- Dasselbe, aber nun für ein komplexeres Programm (geschachteltes try?)
+		(2 Punkte)
+	- Etwas kompliziertes: Überprüfen, ob eine gegebene Funktion aufgerufen wurde. --> Mittels Exceptions und Löschen von Funktionen aus Namensräumen
+		(2 Punkte)
+	- Exception erstellen, Programm schreiben, was diese in einem bestimmten Fall wirft, Exception via try auffangen
+		(3 Punkte)
+	(8 Punkte)
+	
+- Eine Aufgabe zu Properties: "Gekünstelte" Klasse Komplexe_Zahl schreiben, dass Objekte via '+' addiert werden können
+	(3 Punkte)
+		
+- Funktionale Programmierung
+	- Programm mit lokaler Funktion: Was wird ausgegeben? (inklusive Begründung)
+	- Entfernen aller negativen Elemente aus einer Liste mithilfe der Funktion filter
+	- Berechnung des minimalen Elements einer Liste mithilfe der Funktion reduce
+	(4 Punkte)
+
+- Eine Aufgabe zu Decorators (ganz nett, aber zugegebenermaßen aus dem Internet geklaut, siehe http://www.python-kurs.eu/python3_memoisation.php): 
+	- Dekorator schreiben, welcher sich bei Berechnung der Fakultätsfunktion die Ergebnisse merkt und bei erneuter Berechnung wieder abrufen kann.
+	- Dekorator schreiben, welcher die Anzahl der Aufrufe einer Funktion zählen kann
+	(4 Punkte)
+	
+- Doku
+	(1 Punkt)
