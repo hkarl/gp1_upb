@@ -63,7 +63,12 @@ import sys
 from collections import defaultdict
 from pprint import pprint as pp
 from jinja2 import Template
-import sys 
+import sys
+from openpyxl import Workbook
+import matplotlib.pyplot as plt
+
+
+
 
 ############
 
@@ -110,6 +115,13 @@ def getFormgrades(gradefile):
             aa['manual'] = 0
             
     return grades
+
+############
+def cleanup(formgrades):
+    fg = filter(lambda x: x['matrikelnr'].isnumeric(),
+                    formgrades
+                    )
+    return list(fg)
 
 ############
 
@@ -174,6 +186,8 @@ def output(formgrades):
 
     template = Template(r"""
 \documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 \begin{document}
 \section{Punkteübersicht}
 \begin{description}
@@ -184,7 +198,6 @@ def output(formgrades):
 \item[Hausblatt {{ a.assignment }}: ]
 \begin{description}
 \item[Gruppe:] {{ a.group }}
-\item[email:] {{ a.mail }}
 \item[Punkte regulär:] {{ a.point }}
 \item[Punkte manuell:] {{ a.manual }}
 \item[Punkte gesamt:] {{ a.total }}
@@ -193,11 +206,121 @@ def output(formgrades):
 \end{description}
 {% endfor %}
 \end{description}
+
+\section{Statistiken}
+
+Statistiken über Matrikelnummern, nicht über Gruppen! 
+
+\subsection{Hausblatt 1}
+\includegraphics[width=0.8\textwidth]{h1.pdf}
+\subsection{Hausblatt 2}
+\includegraphics[width=0.8\textwidth]{h2.pdf}
+\subsection{Hausblatt 3}
+\includegraphics[width=0.8\textwidth]{h3.pdf}
+\subsection{Hausblatt 4}
+\includegraphics[width=0.8\textwidth]{h4.pdf}
+\subsection{Hausblatt 5}
+\includegraphics[width=0.8\textwidth]{h5.pdf}
+\subsection{Hausblatt 6}
+\includegraphics[width=0.8\textwidth]{h6.pdf}
+\subsection{Hausblatt 7}
+\includegraphics[width=0.8\textwidth]{h7.pdf}
+\subsection{Hausblatt 8}
+\includegraphics[width=0.8\textwidth]{h8.pdf}
+\subsection{Hausblatt 9}
+\includegraphics[width=0.8\textwidth]{h9.pdf}
+\subsection{Hausblatt 10}
+\includegraphics[width=0.8\textwidth]{h10.pdf}
+\subsection{Hausblatt 11}
+\includegraphics[width=0.8\textwidth]{h11.pdf}
+\subsection{Hausblatt 12}
+\includegraphics[width=0.8\textwidth]{h12.pdf}
+\subsection{Hausblatt 13}
+\includegraphics[width=0.8\textwidth]{h13.pdf}
 \end{document}
 """)
 
     out = template.render(grades=formgrades)
-    print(out)
+    return out 
+
+############
+
+def problems(grades, needs_to_achieve, assigned):
+    """Print students who have achieved 
+    only achieved many out of thei frist assigned ones"""
+
+    failedpoints = 4
+    failed = []
+    for g in grades:
+        a_over_threshold = sum([a['total'] > failedpoints
+                            for a
+                            in g['assignments'][:assigned]])
+        # print(g['matrikelnr'], a_over_threshold)
+        if a_over_threshold <= needs_to_achieve:
+            failed.append((g['matrikelnr'], a_over_threshold,
+                               g['assignments'][0]['mail'] ))
+
+            pp(g)
+        
+    return failed
+
+############
+
+def histogram(grades):
+    data = [[], [], [], [],[], [],[], [],[], [],[], [],[], [],] 
+
+    for g in grades:
+        for a in g['assignments']:
+            # print(a['assignment'], a['total'])
+            data[a['assignment']].append(a['total'])
+
+    for i, d in enumerate(data[1:]):
+        f = plt.figure()
+        n, bins, patches = plt.hist(d, bins=21, range=(0,21))
+        # print(n, bins)
+        plt.xlabel('Punkte')
+        plt.ylabel('Anzahl Blätter')
+        plt.grid(True)
+        plt.title('Hausblatt {}'.format(i+1))
+        # plt.show()
+        f.savefig('h{}.pdf'.format(i+1))
+
+    
+############
+
+def create_excel(grades):
+    wb = Workbook()
+    ws = wb.active
+
+    # Create column heads:
+    ws['A2'] = 'Matrikelnummer'
+    ws['B2'] = 'Gesamtpunkte'
+    ws['C2'] = '#H > Threshold'
+    for i in range(13):
+        ws.cell(column=4*i+4, row=1, value="HUE {}".format(i+1))
+        ws.cell(column=4*i+4, row=2, value="Autograded")
+        ws.cell(column=4*i+5, row=2, value="Manual")
+        ws.cell(column=4*i+6, row=2, value="Total")
+        ws.cell(column=4*i+7, row=2, value="email")
+
+    for r, g in enumerate(grades):
+        ws.cell(column=1, row=r+3, value=g['matrikelnr'])
+        ws.cell(column=2, row=r+3,
+                    value=sum([int(a['total'])
+                                   for a in g['assignments']]))
+        ws.cell(column=3, row=r+3,
+                    value=sum([int(int(a['total']) > 4)
+                                   for a in g['assignments']]))
+        for c, a in enumerate(g['assignments']):
+            ws.cell(column=4*c+4, row=r+3, value=a['point'])
+            ws.cell(column=4*c+5, row=r+3, value=a['manual'])
+            ws.cell(column=4*c+6, row=r+3, value=a['total'])
+            ws.cell(column=4*c+7, row=r+3, value=a['mail'])
+            
+
+        
+    wb.save('grades.xlsx')    
+    
 
 ############
 
@@ -206,7 +329,17 @@ def output(formgrades):
 if __name__ == "__main__":
     manualgrades = getManual(sys.argv[1])
     formgrades = getFormgrades(sys.argv[2])
+    formgrades = cleanup(formgrades)
     merge(formgrades, manualgrades)
-    # pp(formgrades)
+    ## pp(formgrades)
     escape(formgrades, ['group', 'mail'])
-    output(formgrades)
+    with open('grades.tex', 'w') as gf:
+        gf.write(output(formgrades))
+
+    # check for problem students:
+    # probstudents = problems(formgrades, 0, 4)
+    # pp(probstudents)
+
+    # create_excel(formgrades)
+
+    histogram(formgrades)
