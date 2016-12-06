@@ -1,0 +1,41 @@
+Präsenzblatt 10
+
+- Verschachtelte Funktionsdefinitionen
+	- global/nonlocal
+
+-- gegeben eine Funktion f, die verschiedene Variablen speichert sowie ein paar globale Variablen
+-- Student soll innere Funktion basteln, die mit den Werten arbeitet (erst lesend, dann schreibend)
+-- Student soll Verschachtelung konstruieren, in der mindestens 1 Variable nicht mehr sichtbar gemacht werden kann.
+
+
+- Closures
+ 	- Funktionen zurückgeben (Decorator/Factory)
+
+-- Gegeben eine Factory (für triviales Problem, z.b modulo) mit konstantem Wert, Student soll erklären was geschieht.
+-- Student soll Factory erweitern, sodass variabler Wert möglich ist.
+-- Programmierung eines Decorators, um zum Ergebnis einer Funktion 1 zu addieren.
+
+
+- Lambda
+	- Kombination mit Factory
+	- Die Funktionen filter & map VS list comprehension
+
+-- Einfache Funktionen schreiben ohne def
+-- Aufruf einer Factory mit Lambda-Ausdruck
+-- Verwendung von Iterables innerhalb von Lambda-Ausdrücken
+-- Gegeben mehrere Funktionen. Student soll entscheiden, ob und wie diese als Lambda-Ausdruck umsetzbar ist.
+
+
+- Generatoren
+	- mit Closures
+
+-- Funktion schreiben, die einen String mit allen natürlichen Zahlen mutlipliziert, alle Strings zurückgibt
+-- Studenten sollen 2 Generator-Objekte abwechselnd verwenden. (Beide jeweils aus selber Factory, unterschiedlich im Closure)
+
+
+- Mehrfachvererbung
+	- Beispiel Uhr/Kalender aus der VL
+
+-- Studenten sollen sich überlegen, welche Methoden in Calendarclock überschrieben werden müssen und welche nicht?
+-- Implementierung der 3 Klassen
+-- Umbenennung von nextDay() in tick(). Was muss jetzt beachtet werden?
