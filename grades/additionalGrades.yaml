@@ -152,4 +152,14 @@ grades:
   - blatt: 4
     punkte: 17
     tutor: mt
+- matrikel: 7027400
+  punkte:
+  - blatt: 2
+    punkte: 19
+    tutor: pb
+- matrikel: 6787143
+  punkte:
+  - blatt: 2
+    punkte: 19
+    tutor: pb
 ...
