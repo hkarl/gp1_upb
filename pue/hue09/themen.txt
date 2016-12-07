@@ -2,22 +2,22 @@
 	- Ausgabe eines gegebenen Programms, das Exceptionhandling beinhaltet, ermitteln und begründen
 		(1 Punkt)
 	- Dasselbe, aber nun für ein komplexeres Programm (geschachteltes try?)
-		(1 Punkte)
+		(1 Punkt)
 	- Die richtige Exception-Klasse für ein Problem herausfinden lassen (Lernziel: doku lesen...) https://docs.python.org/3/library/exceptions.html 
-		(2 Punkte)
+		(1 Punkt)
 	- Ein Programm, dass mehrere elif-Fälle betrachtet umschreiben mittels try/except/else
 		(2 Punkte)
 	- Etwas kompliziertes: Überprüfen, ob eine gegebene Funktion aufgerufen wurde. --> Mittels Exceptions und Löschen von Funktionen aus Namensräumen
 		(2 Punkte)
 	- Exception erstellen, Programm schreiben, was diese in einem bestimmten Fall wirft, Exception via try auffangen
 		(3 Punkte)
-	(11 Punkte)
+	(10 Punkte)
 
 - Objektorientierung (Wiederholung): Schachbrett implementieren
 	- Die Klassen Feld und Figur sind gegeben
 	- Die Klasse Schachbrett muss vervollständigt werden, indem im Konstruktor ein 8x8 Array aus Feldern angelegt wird
-	- Klassen König und Springer als Erweiterung von Figur erstellen, auf ein Feld setzen und die möglichen Züge berechnen (mit zusätzlichen Annahmen zur Vereinfachung)
-	(5 Punkte)
+	- Klassen König und Turm als Erweiterung von Figur erstellen, auf ein Feld setzen und die möglichen Züge berechnen (mit zusätzlichen Annahmen zur Vereinfachung)
+	(6 Punkte)
 	
 - Eine Aufgabe zu Properties: "Gekünstelte" Klasse Komplexe_Zahl schreiben, dass Objekte via '+' addiert werden können
 	(3 Punkte)
