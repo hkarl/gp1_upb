@@ -162,4 +162,19 @@ grades:
   - blatt: 2
     punkte: 19
     tutor: pb
+- matrikel: 7080227
+  punkte:
+  - blatt: 3
+    punkte: 20
+    tutor: as
+- matrikel: 7070897
+  punkte:
+  - blatt: 3
+    punkte: 20
+    tutor: as
+- matrikel: 7071197
+  punkte:
+  - blatt: 3
+    punkte: 20
+    tutor: as
 ...
