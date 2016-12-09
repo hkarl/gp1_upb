@@ -177,4 +177,26 @@ grades:
   - blatt: 3
     punkte: 20
     tutor: as
+- matrikel: 7070884
+  punkte:
+  - blatt: 1
+    punkte: 16
+    tutor: mf
+  - blatt: 2
+    punkte: 20
+    tutor: mf
+  - blatt: 3
+    punkte: 17
+    tutor: mf
+- matrikel: 7033520
+  punkte:
+  - blatt: 1
+    punkte: 16
+    tutor: mf
+  - blatt: 2
+    punkte: 20
+    tutor: mf
+  - blatt: 3
+    punkte: 17
+    tutor: mf
 ...
