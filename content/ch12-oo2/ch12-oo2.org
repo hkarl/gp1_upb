@@ -917,17 +917,17 @@ Linearisierung (O kurz für object):
 - Trivial: Lin(D)=DO, Lin(E)=EO, Lin(F)=FO, Lin(G)=GO
 - Lin(B) = B + merge(DO, EO, DO) = B + D + merge(O, EO, O) = B + D +
   E + merge(O, O, O) = BDEO
-- Lin(C) = CDGO entsprechend 
-- Lin(A) = A + merge(BDEO, CDGO, BC)
-  - = A + B + merge(DEO, CDGO, C)
-  - = A + B + D +  merge(EO, CDGO, C)
+- Lin(C) = CFGO entsprechend 
+- Lin(A) = A + merge(BDEO, CFGO, BC)
+  - = A + B + merge(DEO, CFGO, C)
+  - = A + B + D +  merge(EO, CFGO, C)
     - Wir fangen beim nächsten merge-Schritt wieder mit dem ersten
       Argument an, falls möglich
     - Das führt zu Tiefensuche
-  - = A + B + D + E + merge(O, CDGO, C)
-    - O wird aufgeschoben, da es Oberklasse von C ist; Linearisierung 
+  - = A + B + D + E + merge(O, CFGO, C)
+    - O wird aufgeschoben (nicht good), da es Oberklasse von C ist; Linearisierung 
       von C muss erst eingebaut werden 
-  - = A + BDE + CDG + merge(O, O, []) = ABECDGO
+  - = A + BDE + CFG + merge(O, O, []) = ABDECFGO
 
 
 
@@ -1244,7 +1244,7 @@ Sei ~c~ ein Objekt einer Klasse ~C~, die Klasse ~B~ eine (direkte oder
 indirekte) Oberklasse von ~C~ (oder auch ~C~ selbst). 
 
 Wird die Funktion ~super~ bei der Ausführung einer Methode ~m1~ der
-Klasse ~B~ aufgerufen um eine Methode ~m2~ aufzurufen, so ~m2~ in der
+Klasse ~B~ aufgerufen um eine Methode ~m2~ aufzurufen, so wird ~m2~ in der
 MRO *von ~C~* gesucht, *ab Klasse ~B~*! 
 
 
