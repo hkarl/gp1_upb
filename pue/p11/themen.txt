@@ -1,0 +1,24 @@
+Präsenzblatt 11
+
+- Mehrfachvererbung (Sollte erst auf Pue10)
+	- Beispiel Uhr/Kalender aus der VL
+
+-- Studenten sollen sich überlegen, welche Methoden in Calendarclock überschrieben werden müssen und welche nicht?
+-- Implementierung der 3 Klassen
+-- Umbenennung von nextDay() in tick(). Was muss jetzt beachtet werden?
+
+
+- Linearisierung/MRO
+
+-- UML-Diagramme anschauen, entscheiden ob linearisierbar. Falls ja, wie sieht Linearisierung aus.
+-- Klassenstruktur aus einem der Diagramme gegeben. Aufgabe zur Aufrufkette der Konstruktoren.
+-- Zwei einfache Klassen gegeben. Student soll dependency injection durchführen.
+
+
+- Module/Skripte
+
+-- Recherche nach Standardmodulen (Vorlesung, Gedächtnis, Internet)
+-- Import und verwendung
+   (Frage: Haben die Poolraum-Rechner Python installiert?)
+-- Selbst eigenes Skript schreiben und ausführen
+-- Selbst eigenes Modul schreiben und in Skript importieren
