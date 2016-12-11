@@ -13,4 +13,3 @@ put:
 	scp grades.pdf jupyterhub@gp1.cs.upb.de:
 
 
-

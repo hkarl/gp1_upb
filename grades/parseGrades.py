@@ -34,25 +34,38 @@ very little sense to have duplicates inserted. So watch out what you are doing!
 
 These points are ADDED to anything that comes out of the studentresult app.  
 
-Formgrade yaml output produces a list of dicts of the following structure: 
+studentresult yaml output produces a  dict of the following structure: 
+a dict over matrikelnummer, value a dict over hue0x, value a dict of group, mail, point 
 
-
-   {
-    'matrikelnr': '',
-    'assignments': [
-        {'point': 18.0,
-        'group': 'gp1_16_244',
-        'assignment': 1,
-        'mail': 'None'},
-        {'point': 20.0,
-        'group': 'gp1_16_291',
-        'assignment': 2, 'mail': 'None'},
-        {'point': 18.0, 'group': 'gp1_16_83', 'assignment': 3, 'mai
-l': 'None'},
-        {'point': 0, 'group': 'None', 'assignment': 4, 'mail': 'None'}, {'point': 0, 'group': 'None', 'assignment':
- 5, 'mail': 'None'}
-        ]
-    }
+'6501154':
+  hue01:
+    group: gp1_16_243
+    mail: alexander.isaak@gmx.de
+    point: 18.0
+  hue02:
+    group: gp1_16_243
+    mail: alis@mail.uni-paderborn.de
+    point: 20.0
+  hue03:
+    group: gp1_16_243
+    mail: alis@mail.uni-paderborn.de
+    point: 18.0
+  hue04:
+    group: gp1_16_243
+    mail: alis@mail.uni-paderborn.de
+    point: 17.0
+  hue05:
+    group: gp1_16_243
+    mail: alis@mail.uni-paderborn.de
+    point: 16.0
+  hue06:
+    group: null
+    mail: ''
+    point: 0
+  hue07:
+    group: null
+    mail: ''
+    point: 0
 
 
 """
@@ -103,20 +116,30 @@ def getFormgrades(gradefile):
     with open(gradefile) as y:
         grades = yaml.load(y)
 
-    grades = grades['submit_details']
-
     # sanitize the assignment names to match the manual format
-    for tmp in grades:
-        matrikel = tmp['matrikelnr']
-        a = tmp['assignments']
-        for aa in a:
-            # print(aa)
-            aa['assignment'] = int(aa['assignment'][3:])
-            aa['manual'] = 0
-            
-    return grades
+    r = {}
+    
+    for matrikel, assignment in grades.items():
+        # for aa in assignments:
+        #     # print(aa)
+        #     aa['assignment'] = int(aa['assignment'][3:])
+        #     aa['manual'] = 0
+
+        try:
+            m = int(matrikel)
+            r[m] = {}
+        except Exception as e:
+            print("formgrade: matrikel not integer: ", e, matrikel)
+        else:
+            for a, v in assignment.items():
+                v['manual'] = 0
+                r[m][int(a[3:])] = v
+
+    # pp(r)
+    return r
 
 ############
+# probably no longer needed: 
 def cleanup(formgrades):
     fg = filter(lambda x: x['matrikelnr'].isnumeric(),
                     formgrades
@@ -127,9 +150,9 @@ def cleanup(formgrades):
 
 def merge(formgrades, manualgrades):
 
-    for student in formgrades:
-        matrikel = student['matrikelnr']
-        assignments = student['assignments']
+    for matrikel, assignments  in formgrades.items():
+        # matrikel = student['matrikelnr']
+        # assignments = student['assignments']
         try:
             matrikelint = int(matrikel)
         except Exception:
@@ -144,40 +167,45 @@ def merge(formgrades, manualgrades):
                     except Exception:
                         pass
 
-        for aa in assignments:
-            aa['total'] = aa['manual']  + aa['point']
+        for aa, values in assignments.items():
+            values['total'] = values['manual']  + values['point']
 
+    # pp(formgrades)
                 
 ############
 
 def texescape(s):
-    tex_replacements = [
-        ('{', r'\{'),
-        ('}', r'\}'),
-        ('[', r'{[}'),
-        (']', r'{]}'),
-        ('\\', r'\textbackslash{}'),
-        ('$', r'\$'),
-        ('%', r'\%'),
-        ('&', r'\&'),
-        ('#', r'\#'),
-        ('_', r'\_'),
-        ('~', r'\textasciitilde{}'),
-        ('^', r'\textasciicircum{}'),
-        ]
-    mapping = dict((ord(char), rep) for char, rep in tex_replacements)
-    s = s.translate(mapping)
+    if s:
+        
+        tex_replacements = [
+            ('{', r'\{'),
+            ('}', r'\}'),
+            ('[', r'{[}'),
+            (']', r'{]}'),
+            ('\\', r'\textbackslash{}'),
+            ('$', r'\$'),
+            ('%', r'\%'),
+            ('&', r'\&'),
+            ('#', r'\#'),
+            ('_', r'\_'),
+            ('~', r'\textasciitilde{}'),
+            ('^', r'\textasciicircum{}'),
+            ]
+
+        mapping = dict((ord(char), rep) for char, rep in tex_replacements)
+
+        s = s.translate(mapping)
     return s
         
 def escape(formgrades, fields):
     """Latex-escape text in fields of assignments"""
 
-    for student in formgrades:
-        student['matrikelnr'] = texescape(student['matrikelnr'])
-        assignments = student['assignments']
-        for aa in assignments:
+    for matrikel, assignments in formgrades.items():
+        # student['matrikelnr'] = texescape(student['matrikelnr'])
+        # assignments = student['assignments']
+        for aa, values in assignments.items():
             for f in fields:
-                aa[f] = texescape(aa[f])
+                values[f] = texescape(values[f])
             
 
 ############
@@ -191,16 +219,17 @@ def output(formgrades):
 \begin{document}
 \section{Punkteübersicht}
 \begin{description}
-{% for g in grades %} 
-\item[Matrikelnummer {{ g.matrikelnr }} ]~\\
+{% for matrikelnr, assignments in grades.items() %} 
+\item[Matrikelnummer {{ matrikelnr }} ]~\\
+Anzahl Blätter über Schwellwert für KLlausurzulassung: 
 \begin{description}
-{% for a in g.assignments %}
-\item[Hausblatt {{ a.assignment }}: ]
+{% for a, v in assignments.items() %}
+\item[Hausblatt {{ a }}: ]
 \begin{description}
-\item[Gruppe:] {{ a.group }}
-\item[Punkte regulär:] {{ a.point }}
-\item[Punkte manuell:] {{ a.manual }}
-\item[Punkte gesamt:] {{ a.total }}
+\item[Gruppe:] {{ v.group }}
+\item[Punkte regulär:] {{ v.point }}
+\item[Punkte manuell:] {{ v.manual }}
+\item[Punkte gesamt:] {{ v.total }}
 \end{description}
 {% endfor %}
 \end{description}
@@ -245,22 +274,25 @@ Statistiken über Matrikelnummern, nicht über Gruppen!
 
 ############
 
-def problems(grades, needs_to_achieve, assigned):
-    """Print students who have achieved 
-    only achieved many out of thei frist assigned ones"""
+def problems(grades, needs_to_achieve):
+    """Return  students who have achieved 
+    less than needs_to_achieve assignments 
+    at or above the needs_to_achieve 
+    threshold. """
+
 
     failedpoints = 4
     failed = []
-    for g in grades:
-        a_over_threshold = sum([a['total'] > failedpoints
-                            for a
-                            in g['assignments'][:assigned]])
+    for matrikel, assignments in grades.items():
+        a_over_threshold = sum([a['total'] >= failedpoints
+                            for k, a
+                            in assignments.items()])
         # print(g['matrikelnr'], a_over_threshold)
-        if a_over_threshold <= needs_to_achieve:
-            failed.append((g['matrikelnr'], a_over_threshold,
-                               g['assignments'][0]['mail'] ))
+        if a_over_threshold < needs_to_achieve:
+            failed.append((matrikel,
+                           a_over_threshold,
+                           assignments[1]['mail'] ))
 
-            pp(g)
         
     return failed
 
@@ -269,10 +301,10 @@ def problems(grades, needs_to_achieve, assigned):
 def histogram(grades):
     data = [[], [], [], [],[], [],[], [],[], [],[], [],[], [],] 
 
-    for g in grades:
-        for a in g['assignments']:
+    for matrikel, assignments in grades.items():
+        for anr, a in assignments.items():
             # print(a['assignment'], a['total'])
-            data[a['assignment']].append(a['total'])
+            data[anr].append(a['total'])
 
     for i, d in enumerate(data[1:]):
         f = plt.figure()
@@ -303,15 +335,17 @@ def create_excel(grades):
         ws.cell(column=4*i+6, row=2, value="Total")
         ws.cell(column=4*i+7, row=2, value="email")
 
-    for r, g in enumerate(grades):
-        ws.cell(column=1, row=r+3, value=g['matrikelnr'])
+    for r, matrikel in enumerate(grades):
+        ws.cell(column=1, row=r+3, value=matrikel)
+
         ws.cell(column=2, row=r+3,
                     value=sum([int(a['total'])
-                                   for a in g['assignments']]))
+                                   for k, a in grades[matrikel].items()]))
         ws.cell(column=3, row=r+3,
                     value=sum([int(int(a['total']) > 4)
-                                   for a in g['assignments']]))
-        for c, a in enumerate(g['assignments']):
+                                   for k, a in grades[matrikel].items()]))
+        for c, akey in enumerate(grades[matrikel]):
+            a = grades[matrikel][akey]
             ws.cell(column=4*c+4, row=r+3, value=a['point'])
             ws.cell(column=4*c+5, row=r+3, value=a['manual'])
             ws.cell(column=4*c+6, row=r+3, value=a['total'])
@@ -329,7 +363,7 @@ def create_excel(grades):
 if __name__ == "__main__":
     manualgrades = getManual(sys.argv[1])
     formgrades = getFormgrades(sys.argv[2])
-    formgrades = cleanup(formgrades)
+    # formgrades = cleanup(formgrades)
     merge(formgrades, manualgrades)
     ## pp(formgrades)
     escape(formgrades, ['group', 'mail'])
@@ -337,9 +371,9 @@ if __name__ == "__main__":
         gf.write(output(formgrades))
 
     # check for problem students:
-    # probstudents = problems(formgrades, 0, 4)
-    # pp(probstudents)
+    probstudents = problems(formgrades, 1)
+    pp(probstudents)
 
-    # create_excel(formgrades)
+    create_excel(formgrades)
 
     histogram(formgrades)
