@@ -189,7 +189,7 @@ grades:
     punkte: 17
     tutor: mf
 - matrikel: 7033520
-  punkte:
+  punkte: 
   - blatt: 1
     punkte: 16
     tutor: mf
@@ -200,14 +200,17 @@ grades:
     punkte: 17
     tutor: mf
 - matrikel: 6563095
+  punkte: 
   - blatt: 1
     punkte: 18
     tutor: ps
 - matrikel: 7009780
+  punkte: 
   - blatt: 1
     punkte: 18
     tutor: ps
 - matrikel: 7074301
+  punkte: 
   - blatt: 1
     punkte: 5
     tutor: ps
@@ -218,6 +221,7 @@ grades:
     punkte: 5
     tutor: ps
 - matrikel: 7077450
+  punkte: 
   - blatt: 1
     punkte: 5
     tutor: ps
@@ -225,6 +229,7 @@ grades:
     punkte: 5
     tutor: ps
 - matrikel: 7066364
+  punkte: 
   - blatt: 1
     punkte: 5
     tutor: ps
