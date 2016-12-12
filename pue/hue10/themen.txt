@@ -65,3 +65,8 @@ print(fib_new(36))
 Schlagen Sie dazu in der Referenz die Dokumentation von functools.lru_cache nach.
 
 - In welchen Fällen ist eine Verwendung der o.g. Bibliothek ratsam? Wann ist davon abzuraten?
+- Aufgabe aus Anhang von Mail vom 12.12. 15:46 Uhr
+
+- Decorator schreiben, der ein HTML-Tag (welches, ist Parameter des Decorators) um einen String schreibt. (wie hier: http://thecodeship.com/patterns/guide-to-python-function-decorators/)
+
+- Decorator schreiben, der zählt, wie oft eine Methode aufgerufen wurde und diesen auf eine Methode anwenden. Der Decorator soll auf Funktionen mit beliebigen Parametern anwendbar sein. (-> *args, **kwargs)
