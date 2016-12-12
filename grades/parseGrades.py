@@ -266,6 +266,12 @@ Statistiken über Matrikelnummern, nicht über Gruppen!
 \includegraphics[width=0.8\textwidth]{h12.pdf}
 \subsection{Hausblatt 13}
 \includegraphics[width=0.8\textwidth]{h13.pdf}
+\subsection{Statistik über Übungsblätter}
+\subsubsection{Boxplot}
+\includegraphics[width=0.8\textwidth]{box.pdf}
+\subsubsection{Violinplot}
+\includegraphics[width=0.8\textwidth]{violin.pdf}
+
 \end{document}
 """)
 
@@ -317,6 +323,19 @@ def histogram(grades):
         # plt.show()
         f.savefig('h{}.pdf'.format(i+1))
 
+    # let's try a violin plot:
+    # filter out zeros; they distort the plot
+    no_zeros = list(map (lambda d: list(filter(lambda x: x> 0, d)), data)) 
+    f = plt.figure()
+    plt.violinplot(no_zeros[1:6])
+    f.savefig('violin.pdf')
+
+    # and a conventional boxplot
+    f = plt.figure()
+    plt.boxplot(no_zeros[1:6])
+    f.savefig('box.pdf')
+
+    
     
 ############
 
