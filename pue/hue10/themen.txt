@@ -1,14 +1,18 @@
+Aufgabe 1
+a) List Comprehension mit Liste und List Comprehension mit Generator gegeben: Unterschied zwischen den beiden erläutern.
+b) Wann würden Sie die Verwendung einer Liste der eines Generators vorziehen?
+c) In welchen Situationen müssen Sie einen Generator anstelle einer Liste verwenden?
 
+Aufgabe 2
+a) (Aufgabe aus Mail vom 11.12., 14:04 Uhr): Angenommen, wir haben in Variable data eine Liste von Listen von Zahlen. Aufgabe: produziere eine neue Liste von Listen von Zahlen, bei denen alle 0 ausgefiltert wurden; ansonsten gleich.
+b) Schreiben Sie eine Funktion mit zwei Parametern s1 und s2, die zurückgibt, wie oft der String s2 im String s1 enthalten ist.
+c) Gegeben: Dict von Note als Float zu Note als String (z. B. 1.7 -> "voll gut"). Außerdem dict mit Matrnr -> Floatnoten. Aufgabe: Neues Dict zurückgeben, welches Matrnr. -> Stringnoten enthält. Dazu map benutzen.
+d) Gleiches Matrnr.->Floatnoten-Dict aus vorheriger Aufgabe - Funktion besserAls mit Parameter note  schreiben, die einem einen Generator zurückliefert, welcher für ein übergebenes dict die Matrikelnummern zurückgibt, deren Noten besser als note sind. Hinweis: Verwenden Sie die Funktion filter.
+e) Klasse Konto schreiben. Die Klasse hat ein Attribut kontostand_in_euro und drei Properties: kontostand_in_euro, kontostand_in_dollar und kontostand_in_bitcoin. Dabei sollen folgende Umrechungsfaktoren verwendet werden (...). Stellen Sie sicher, dass man auf den Kontostand in jeder der drei Währungen korrekt lesend und schreibend zugreifen kann.
 
-- List Comprehension mit Liste und List Comprehension mit Generator gegeben: Unterschied zwischen den beiden erläutern.
-- Wann würden Sie die Verwendung einer der Liste der eines Generators vorziehen?
-- In welchen Situationen müssen Sie einen Generator anstelle einer Liste verwenden?
-
-- (Aufgabe aus Mail vom 11.12., 14:04 Uhr): Angenommen, wir haben in Variable data eine Liste von Listen von Zahlen. Aufgabe: produziere eine neue Liste von Listen von Zahlen, bei denen alle 0 ausgefiltert wurden; ansonsten gleich.
-
-- Code gegeben mit überflüssigen Funktionsnamen - ersetzen durch Lambdas wo möglich
-
-- Closures: Schreiben Sie eine Funktion briefgenerator, so dass folgender Code:
+Aufgabe 3:
+a) Code gegeben mit überflüssigen Funktionsnamen - ersetzen durch Lambdas wo möglich
+b) Closures: Schreiben Sie eine Funktion briefgenerator, so dass folgender Code:
   brief_max = briefgenerator("Dies ist der Kopfteil", "Dies ist der Fußteil")("Max Mustermann")
   brief1 = brief_max("Dies ist ein Betreff", "Dies ist ein Brieftext")
   print(brief1)
@@ -23,16 +27,17 @@ folgendes ausgibt:
  
   Dies ist der Fußteil"
 
-- das Gleiche nochmal mit Decorators
-- anschließend: welche der beiden Lösungen würden Sie bevorzugen? Warum?
-
-- Gegeben: Dict von Note als Float zu Note als String (z. B. 1.7 -> "voll gut"). Außerdem dict mit Matrnr -> Floatnoten. Aufgabe: Neues Dict zurückgeben, welches Matrnr. -> Stringnoten enthält. Dazu map benutzen.
-- Gleiches Matrnr.->Floatnoten-Dict aus vorheriger Aufgabe - Funktion besserAls mit Parameter note  schreiben, die einem einen Generator zurückliefert, welcher für ein übergebenes dict die Matrikelnummern zurückgibt, deren Noten besser als note sind. Hinweis: Verwenden Sie die Funktion filter.
-- Schreiben Sie eine Funktion mit zwei Parametern s1 und s2, die zurückgibt, wie oft der String s2 im String s1 enthalten ist.
+c) das Gleiche nochmal mit Decorators
+d) anschließend: welche der beiden Lösungen würden Sie bevorzugen? Warum?
  
-- Klasse Konto schreiben. Die Klasse hat ein Attribut kontostand_in_euro und drei Properties: kontostand_in_euro, kontostand_in_dollar und kontostand_in_bitcoin. Dabei sollen folgende Umrechungsfaktoren verwendet werden (...). Stellen Sie sicher, dass man auf den Kontostand in jeder der drei Währungen korrekt lesend und schreibend zugreifen kann.
 
-- Gegeben: Funktion benchmark() aus Vorlesung. Sowie:
+Aufgabe 4:
+a) Decorator schreiben, der ein HTML-Tag (welches, ist Parameter des Decorators) um einen String schreibt. (wie hier: http://thecodeship.com/patterns/guide-to-python-function-decorators/)
+
+b) Decorator schreiben, der zählt, wie oft eine Methode aufgerufen wurde und diesen auf eine Methode anwenden. Der Decorator soll auf Funktionen mit beliebigen Parametern anwendbar sein. (-> *args, **kwargs)
+
+Aufgabe 5:
+a) Gegeben: Funktion benchmark() aus Vorlesung. Sowie:
 
 def _fib_old(num):
     if num < 2:
@@ -64,9 +69,6 @@ print(fib_new(36))
 
 Schlagen Sie dazu in der Referenz die Dokumentation von functools.lru_cache nach.
 
-- In welchen Fällen ist eine Verwendung der o.g. Bibliothek ratsam? Wann ist davon abzuraten?
-- Aufgabe aus Anhang von Mail vom 12.12. 15:46 Uhr
+b) In welchen Fällen ist eine Verwendung der o.g. Bibliothek ratsam? Wann ist davon abzuraten?
+c) Aufgabe aus Anhang von Mail vom 12.12. 15:46 Uhr [Verhalten erklären, das durch Änderung der Reihenfolge entsteht)
 
-- Decorator schreiben, der ein HTML-Tag (welches, ist Parameter des Decorators) um einen String schreibt. (wie hier: http://thecodeship.com/patterns/guide-to-python-function-decorators/)
-
-- Decorator schreiben, der zählt, wie oft eine Methode aufgerufen wurde und diesen auf eine Methode anwenden. Der Decorator soll auf Funktionen mit beliebigen Parametern anwendbar sein. (-> *args, **kwargs)
