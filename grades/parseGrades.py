@@ -150,26 +150,34 @@ def cleanup(formgrades):
 
 def merge(formgrades, manualgrades):
 
-    for matrikel, assignments  in formgrades.items():
-        # matrikel = student['matrikelnr']
-        # assignments = student['assignments']
-        try:
-            matrikelint = int(matrikel)
-        except Exception:
-            sys.stderr.write("non-integer matrikelnummer {}".format(matrikel))
-        else:
-            if int(matrikel) in manualgrades:
-                mangrade = manualgrades[int(matrikel)]
-                # print('adding {}:  {}'.format(matrikel, mangrade))
-                for aa in assignments:
-                    try:
-                        aa['manual'] = mangrade[aa['assignment']]
-                    except Exception:
-                        pass
+    # pp(formgrades)
 
+    # Add manually graded points into formgrade structure 
+    for matrikel, blaetter in manualgrades.items():
+        # print("=====")
+        # print(matrikel, blaetter)
+        if matrikel not in formgrades:
+            formgrades[matrikel] = {}
+        fgmatrikel = formgrades[matrikel]
+        # pp(fgmatrikel)
+        
+        for blatt, punkte in blaetter.items():
+            if blatt not in fgmatrikel:
+                fgmatrikel[blatt] = {'group': "manually added",
+                                     'mail': 'N/A',
+                                         'manual': 0,
+                                         'point': 0}
+            fgmatrikel[blatt]['manual'] = punkte
+
+        # pp(fgmatrikel)
+
+
+    # add manual and automatic points together: 
+    for matrikel, assignments  in formgrades.items():
         for aa, values in assignments.items():
             values['total'] = values['manual']  + values['point']
 
+    
     # pp(formgrades)
                 
 ############
@@ -221,7 +229,7 @@ def output(formgrades):
 \begin{description}
 {% for matrikelnr, assignments in grades.items() %} 
 \item[Matrikelnummer {{ matrikelnr }} ]~\\
-Anzahl Blätter über Schwellwert für KLlausurzulassung: 
+% Anzahl Blätter über Schwellwert für KLlausurzulassung: 
 \begin{description}
 {% for a, v in assignments.items() %}
 \item[Hausblatt {{ a }}: ]
@@ -382,9 +390,9 @@ def create_excel(grades):
 if __name__ == "__main__":
     manualgrades = getManual(sys.argv[1])
     formgrades = getFormgrades(sys.argv[2])
-    # formgrades = cleanup(formgrades)
+
     merge(formgrades, manualgrades)
-    ## pp(formgrades)
+
     escape(formgrades, ['group', 'mail'])
     with open('grades.tex', 'w') as gf:
         gf.write(output(formgrades))
