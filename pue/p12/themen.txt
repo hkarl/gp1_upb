@@ -1,0 +1,31 @@
+Präsenzblatt 12
+
+- Bedienung des Terminals
+	- Grundbefehle (z.B. pip)
+	- Verwendung des Python-Interpreters
+
+-- Eingabe einiger Befehle wie pip
+-- Navigation durch die Verzeichnisstruktur
+-- Starten des Interpreters und schreiben eines kurzen Programms
+
+
+- Verwendung einer IDE oder eines Editors
+
+-- Ein Programm mittels IDE oder Editor schreiben (nicht im Notebook, py-Datei)
+-- Programm ausführen
+
+
+- Installation eines Non-Standard-Moduls (keine Ahnung ob das im Jupyterhub technisch möglich ist)
+
+
+- Debugging/Testen
+
+-- Fehlerhaftes Programm mit gewisser Komplexität gegeben. Student soll Fehler finden und fixen, damit Programm
+   fehlerfrei das tut, was im Docstring steht.
+-- Schreiben eigener Tests
+
+
+- Nutzung des Internets für Erkenntnisgewinn
+
+-- Verwendung von built-in Funktionen, die in Vorlesung nicht besprochen wurden.
+-- Lösen eines sehr schwierigen Problems, für das es ein built-in oder ein Modul gibt.
