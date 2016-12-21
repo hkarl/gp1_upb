@@ -284,4 +284,19 @@ grades:
   - blatt:5
     punkte: 20
     tutor: mf
+- matrikel: 7067716
+  punkte:
+  - blatt:6
+    punkte: 18
+    tutor: ps
+- matrikel: 7078831
+  punkte:
+  - blatt:6
+    punkte: 18
+    tutor: ps
+- matrikel: 7066348
+  punkte:
+  - blatt:6
+    punkte: 18
+    tutor: ps
 ...
