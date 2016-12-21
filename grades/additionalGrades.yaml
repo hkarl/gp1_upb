@@ -344,4 +344,34 @@ grades:
   - blatt:5
     punkte: 15
     tutor: as
+- matrikel: 7070790
+  punkte:
+  - blatt:1
+    punkte: 12
+    tutor: as
+- matrikel: 7092529
+  punkte:
+  - blatt:1
+    punkte: 12
+    tutor: as
+- matrikel: 7092561
+  punkte:
+  - blatt:2
+    punkte: 18
+    tutor: as
+- matrikel: 7092529
+  punkte:
+  - blatt:2
+    punkte: 18
+    tutor: as
+- matrikel: 7070790
+  punkte:
+  - blatt:3
+    punkte: 3
+    tutor: as
+- matrikel: 7092529
+  punkte:
+  - blatt:3
+    punkte: 3
+    tutor: as
 ...
