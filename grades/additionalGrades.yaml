@@ -299,4 +299,49 @@ grades:
   - blatt:6
     punkte: 18
     tutor: ps
+- matrikel: 7095283
+  punkte:
+  - blatt:3
+    punkte: 17
+    tutor: as
+- matrikel: 7066911
+  punkte:
+  - blatt:3
+    punkte: 17
+    tutor: as
+- matrikel: 7095717
+  punkte:
+  - blatt:3
+    punkte: 17
+    tutor: as
+- matrikel: 7095283
+  punkte:
+  - blatt:4
+    punkte: 17
+    tutor: as
+- matrikel: 7066911
+  punkte:
+  - blatt:4
+    punkte: 17
+    tutor: as
+- matrikel: 7095717
+  punkte:
+  - blatt:4
+    punkte: 17
+    tutor: as
+- matrikel: 7095283
+  punkte:
+  - blatt:5
+    punkte: 15
+    tutor: as
+- matrikel: 7066911
+  punkte:
+  - blatt:5
+    punkte: 15
+    tutor: as
+- matrikel: 7095717
+  punkte:
+  - blatt:5
+    punkte: 15
+    tutor: as
 ...
