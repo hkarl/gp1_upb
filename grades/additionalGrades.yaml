@@ -284,4 +284,94 @@ grades:
   - blatt:5
     punkte: 20
     tutor: mf
+- matrikel: 7067716
+  punkte:
+  - blatt:6
+    punkte: 18
+    tutor: ps
+- matrikel: 7078831
+  punkte:
+  - blatt:6
+    punkte: 18
+    tutor: ps
+- matrikel: 7066348
+  punkte:
+  - blatt:6
+    punkte: 18
+    tutor: ps
+- matrikel: 7095283
+  punkte:
+  - blatt:3
+    punkte: 17
+    tutor: as
+- matrikel: 7066911
+  punkte:
+  - blatt:3
+    punkte: 17
+    tutor: as
+- matrikel: 7095717
+  punkte:
+  - blatt:3
+    punkte: 17
+    tutor: as
+- matrikel: 7095283
+  punkte:
+  - blatt:4
+    punkte: 17
+    tutor: as
+- matrikel: 7066911
+  punkte:
+  - blatt:4
+    punkte: 17
+    tutor: as
+- matrikel: 7095717
+  punkte:
+  - blatt:4
+    punkte: 17
+    tutor: as
+- matrikel: 7095283
+  punkte:
+  - blatt:5
+    punkte: 15
+    tutor: as
+- matrikel: 7066911
+  punkte:
+  - blatt:5
+    punkte: 15
+    tutor: as
+- matrikel: 7095717
+  punkte:
+  - blatt:5
+    punkte: 15
+    tutor: as
+- matrikel: 7070790
+  punkte:
+  - blatt:1
+    punkte: 12
+    tutor: as
+- matrikel: 7092529
+  punkte:
+  - blatt:1
+    punkte: 12
+    tutor: as
+- matrikel: 7092561
+  punkte:
+  - blatt:2
+    punkte: 18
+    tutor: as
+- matrikel: 7092529
+  punkte:
+  - blatt:2
+    punkte: 18
+    tutor: as
+- matrikel: 7070790
+  punkte:
+  - blatt:3
+    punkte: 3
+    tutor: as
+- matrikel: 7092529
+  punkte:
+  - blatt:3
+    punkte: 3
+    tutor: as
 ...
