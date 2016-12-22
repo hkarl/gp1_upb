@@ -367,11 +367,71 @@ grades:
 - matrikel: 7070790
   punkte:
   - blatt:3
-    punkte: 3
+	punkte: 3
     tutor: as
 - matrikel: 7092529
   punkte:
   - blatt:3
     punkte: 3
     tutor: as
+- matrikel: 7066351
+  punkte:
+  - blatt:2
+    punkte: 20
+    tutor: dp
+- matrikel: 7066351
+  punkte:
+  - blatt:3
+    punkte: 20
+    tutor: dp
+- matrikel: 7066351
+  punkte:
+  - blatt:4
+    punkte: 6
+    tutor: as
+- matrikel: 7066351
+  punkte:
+  - blatt:5
+    punkte: 5
+    tutor: dp
+- matrikel: 7096732
+  punkte:
+  - blatt:2
+    punkte: 20
+    tutor: dp
+- matrikel: 7096732
+  punkte:
+  - blatt:3
+    punkte: 20
+    tutor: dp
+- matrikel: 7096732
+  punkte:
+  - blatt:4
+    punkte: 6
+    tutor: dp
+- matrikel: 7096732
+  punkte:
+  - blatt:5
+    punkte: 5
+    tutor: dp
+- matrikel: 7002092
+  punkte:
+  - blatt:2
+    punkte: 20
+    tutor: dp
+- matrikel: 7002092
+  punkte:
+  - blatt:3
+    punkte: 20
+    tutor: dp
+- matrikel: 7002092
+  punkte:
+  - blatt:4
+    punkte: 6
+    tutor: dp
+- matrikel: 7002092
+  punkte:
+  - blatt:5
+    punkte: 5
+    tutor: dp
 ...
