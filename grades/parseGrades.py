@@ -176,7 +176,7 @@ def merge(formgrades, manualgrades):
     for matrikel, assignments  in formgrades.items():
         for aa, values in assignments.items():
             if values['manual']>0 and  values['point']>0:
-                print("both manual and automatic: ", matrikel)
+                print("both manual and automatic: ", matrikel, aa, values)
                 
             values['total'] = max(values['manual'], values['point'])
 
