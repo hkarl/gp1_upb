@@ -77,3 +77,8 @@ uebungen/hue/hue*/*.pdf
 /content/slidetitles2.tmp
 tmp
 nbgrader/gp1local
+grades/__pycache__
+grades/fg-beispiel.yaml
+grades/formgrade.yaml
+grades/grades.tex
+grades/grades.xlsx

@@ -76,12 +76,15 @@ import sys
 from collections import defaultdict
 from pprint import pprint as pp
 from jinja2 import Template
-import sys
 from openpyxl import Workbook
 import matplotlib.pyplot as plt
+import argparse
+
+############
 
 
-
+# how many assignments are there? 
+max_num_assignments = 13
 
 ############
 
@@ -127,10 +130,12 @@ def getFormgrades(gradefile):
 
         try:
             m = int(matrikel)
-            r[m] = {}
+            assert(m> 1000000)
         except Exception as e:
-            print("formgrade: matrikel not integer: ", e, matrikel)
+            # print("formgrade: matrikel not integer: ", e, matrikel)
+            pass 
         else:
+            r[m] = {}
             for a, v in assignment.items():
                 v['manual'] = 0
                 r[m][int(a[3:])] = v
@@ -291,31 +296,42 @@ Statistiken über Matrikelnummern, nicht über Gruppen!
 
 ############
 
-def problems(grades, needs_to_achieve):
+def problems(grades, done_assigments):
     """Return  students who have achieved 
     less than needs_to_achieve assignments 
     at or above the needs_to_achieve 
     threshold. """
 
+    needs_to_achieve = int(3/4*max_num_assignments)
+    still_achieveable = max_num_assignments - done_assignments
+    needs_to_have_achieved = max(needs_to_achieve - still_achieveable, 0)
 
+    print("###", done_assignments, needs_to_achieve,
+              still_achieveable, needs_to_have_achieved)
+    
     failedpoints = 4
     failed = []
+    endangered = []
     for matrikel, assignments in grades.items():
         a_over_threshold = sum([a['total'] >= failedpoints
                             for k, a
                             in assignments.items()])
         # print(g['matrikelnr'], a_over_threshold)
-        if a_over_threshold < needs_to_achieve:
+        if a_over_threshold < needs_to_have_achieved:
             failed.append((matrikel,
+                           a_over_threshold,
+                           assignments[1]['mail'] ))
+        if a_over_threshold == needs_to_have_achieved:
+            endangered.append((matrikel,
                            a_over_threshold,
                            assignments[1]['mail'] ))
 
         
-    return failed
+    return failed, endangered
 
 ############
 
-def histogram(grades):
+def histogram(grades, done_assignments):
     data = [[], [], [], [],[], [],[], [],[], [],[], [],[], [],] 
 
     for matrikel, assignments in grades.items():
@@ -338,12 +354,12 @@ def histogram(grades):
     # filter out zeros; they distort the plot
     no_zeros = list(map (lambda d: list(filter(lambda x: x> 0, d)), data)) 
     f = plt.figure()
-    plt.violinplot(no_zeros[1:7])
+    plt.violinplot(no_zeros[1:done_assignments+1])
     f.savefig('violin.pdf')
 
     # and a conventional boxplot
     f = plt.figure()
-    plt.boxplot(no_zeros[1:7])
+    plt.boxplot(no_zeros[1:done_assignments+1])
     f.savefig('box.pdf')
 
     
@@ -388,9 +404,24 @@ def create_excel(grades):
 
 ############
 
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("manual", )
+    args = parser.parse_args()
+    return args
+    
+
+############
+
 # Main: 
 
 if __name__ == "__main__":
+
+    try:
+        done_assignments = int(sys.argv[3])
+    except Exception:
+        done_assignments = 0
+    
     manualgrades = getManual(sys.argv[1])
     formgrades = getFormgrades(sys.argv[2])
 
@@ -401,9 +432,14 @@ if __name__ == "__main__":
         gf.write(output(formgrades))
 
     # check for problem students:
-    probstudents = problems(formgrades, 4)
-    pp(probstudents)
+    
+    failedstudents, endangeredstudents = problems(formgrades,
+                            done_assignments)
+    print("Student without Exam admission:")
+    pp(failedstudents)
+    print("Student with endangered Exam admission:")
+    pp(endangeredstudents)
 
     create_excel(formgrades)
 
-    histogram(formgrades)
+    histogram(formgrades, done_assignments)
