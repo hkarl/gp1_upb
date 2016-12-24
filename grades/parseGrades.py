@@ -175,7 +175,10 @@ def merge(formgrades, manualgrades):
     # add manual and automatic points together: 
     for matrikel, assignments  in formgrades.items():
         for aa, values in assignments.items():
-            values['total'] = values['manual']  + values['point']
+            if values['manual']>0 and  values['point']>0:
+                print("both manual and automatic: ", matrikel)
+                
+            values['total'] = max(values['manual'], values['point'])
 
     
     # pp(formgrades)
@@ -335,12 +338,12 @@ def histogram(grades):
     # filter out zeros; they distort the plot
     no_zeros = list(map (lambda d: list(filter(lambda x: x> 0, d)), data)) 
     f = plt.figure()
-    plt.violinplot(no_zeros[1:6])
+    plt.violinplot(no_zeros[1:7])
     f.savefig('violin.pdf')
 
     # and a conventional boxplot
     f = plt.figure()
-    plt.boxplot(no_zeros[1:6])
+    plt.boxplot(no_zeros[1:7])
     f.savefig('box.pdf')
 
     
@@ -398,7 +401,7 @@ if __name__ == "__main__":
         gf.write(output(formgrades))
 
     # check for problem students:
-    probstudents = problems(formgrades, 1)
+    probstudents = problems(formgrades, 4)
     pp(probstudents)
 
     create_excel(formgrades)
