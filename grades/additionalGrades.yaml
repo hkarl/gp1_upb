@@ -276,162 +276,162 @@ grades:
     tutor: tk
 - matrikel: 7057247
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 20
     tutor: mf
 - matrikel: 7045408
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 20
     tutor: mf
 - matrikel: 7067716
   punkte:
-  - blatt:6
+  - blatt: 6
     punkte: 18
     tutor: ps
 - matrikel: 7078831
   punkte:
-  - blatt:6
+  - blatt: 6
     punkte: 18
     tutor: ps
 - matrikel: 7066348
   punkte:
-  - blatt:6
+  - blatt: 6
     punkte: 18
     tutor: ps
 - matrikel: 7095283
   punkte:
-  - blatt:3
+  - blatt: 3
     punkte: 17
     tutor: as
 - matrikel: 7066911
   punkte:
-  - blatt:3
+  - blatt: 3
     punkte: 17
     tutor: as
 - matrikel: 7095717
   punkte:
-  - blatt:3
+  - blatt: 3
     punkte: 17
     tutor: as
 - matrikel: 7095283
   punkte:
-  - blatt:4
+  - blatt: 4
     punkte: 17
     tutor: as
 - matrikel: 7066911
   punkte:
-  - blatt:4
+  - blatt: 4
     punkte: 17
     tutor: as
 - matrikel: 7095717
   punkte:
-  - blatt:4
+  - blatt: 4
     punkte: 17
     tutor: as
 - matrikel: 7095283
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 15
     tutor: as
 - matrikel: 7066911
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 15
     tutor: as
 - matrikel: 7095717
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 15
     tutor: as
 - matrikel: 7070790
   punkte:
-  - blatt:1
+  - blatt: 1
     punkte: 12
     tutor: as
 - matrikel: 7092529
   punkte:
-  - blatt:1
+  - blatt: 1
     punkte: 12
     tutor: as
 - matrikel: 7092561
   punkte:
-  - blatt:2
+  - blatt: 2
     punkte: 18
     tutor: as
 - matrikel: 7092529
   punkte:
-  - blatt:2
+  - blatt: 2
     punkte: 18
     tutor: as
 - matrikel: 7070790
   punkte:
-  - blatt:3
-	punkte: 3
+  - blatt: 3
+    punkte: 3
     tutor: as
 - matrikel: 7092529
   punkte:
-  - blatt:3
+  - blatt: 3
     punkte: 3
     tutor: as
 - matrikel: 7066351
   punkte:
-  - blatt:2
+  - blatt: 2
     punkte: 20
     tutor: dp
 - matrikel: 7066351
   punkte:
-  - blatt:3
+  - blatt: 3
     punkte: 20
     tutor: dp
 - matrikel: 7066351
   punkte:
-  - blatt:4
+  - blatt: 4
     punkte: 6
     tutor: as
 - matrikel: 7066351
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 5
     tutor: dp
 - matrikel: 7096732
   punkte:
-  - blatt:2
+  - blatt: 2
     punkte: 20
     tutor: dp
 - matrikel: 7096732
   punkte:
-  - blatt:3
+  - blatt: 3
     punkte: 20
     tutor: dp
 - matrikel: 7096732
   punkte:
-  - blatt:4
+  - blatt: 4
     punkte: 6
     tutor: dp
 - matrikel: 7096732
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 5
     tutor: dp
 - matrikel: 7002092
   punkte:
-  - blatt:2
+  - blatt: 2
     punkte: 20
     tutor: dp
 - matrikel: 7002092
   punkte:
-  - blatt:3
+  - blatt: 3
     punkte: 20
     tutor: dp
 - matrikel: 7002092
   punkte:
-  - blatt:4
+  - blatt: 4
     punkte: 6
     tutor: dp
 - matrikel: 7002092
   punkte:
-  - blatt:5
+  - blatt: 5
     punkte: 5
     tutor: dp
 ...
