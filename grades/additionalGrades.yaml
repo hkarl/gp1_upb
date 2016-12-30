@@ -434,4 +434,14 @@ grades:
   - blatt: 5
     punkte: 5
     tutor: dp
+- matrikel: 7079487
+  punkte:
+  - blatt: 2
+    punkte: 19
+    tutor: tk
+- matrikel: 7074246
+  punkte:
+  - blatt: 2
+    punkte: 19
+    tutor: tk
 ...
