@@ -1,16 +1,16 @@
 Heimübung 11
 
 Kapitel 12: 
-- einfaches Beispiel mit mehreren Oberklassen gegeben - erklären, welche Funktion aufgerufen wird und warum
-- komplexeres Beispiel - das gleiche
+- einfaches Beispiel mit mehreren Oberklassen gegeben (Fledermaus-Beispiel) - erklären, welche Funktion aufgerufen wird und warum
+- komplexeres Beispiel (Button / Clickable) - das gleiche
 - fehlerhaften Code: gewünschte Ausgabe wird nicht erzeugt (erkannt werden soll: fehlender super()-Aufruf)
 - Klassenhierarchie gegeben: MRO benennen und erklären
-- Klassenhierarchie gegeben: linearisierbar? Wenn ja, wie lautet die Linearisierung. Wenn nein, waru nicht? (Antwort natürlich: nein)
+- Klassenhierarchie gegeben: linearisierbar? Wenn ja, wie lautet die Linearisierung? Wenn nein, warum nicht? (Antwort natürlich: nein)
 - Beispiel ähnlich 12.5.4 - dazu Frage: Warum wird C.self aufgerufen (und nicht E.self)? (oder ähnlich)
-- Dependency injection einmal ausführen
+- [Dependency injection einmal ausführen (evtl.)]
 
 Kapitel 13:
 - ein praktisches Beispiel, aufgeteilt in mehrere Teile (die möglichst einzeln lösbar sein sollten)
-  - Werte aus Textdatei einlesen
+  - Werte aus CSV-Datei einlesen (mit der Python-CSV-Library)
   - mit matplotlib plotten
-  - evtl. Werte als .csv-Datei abspeichern (möglicherweise nachbearbeitete)
+  - das Ganze sollte als Modul verwendbar sein, aber auch als Skript (für letzteres sollen Kommandozeilenparamter übergebbar sein, wofür argsparse genutzt werden soll)
