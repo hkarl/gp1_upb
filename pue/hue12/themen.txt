@@ -1,0 +1,11 @@
+Heimübung 12
+
+- fehlerhaften Java-Code gegeben, benennen, was alles falsch daran ist (Semikolon vergessen, Typen passen nicht oder fehlen, Klammer zu schließen vergessen) (jeweils einen halben Punkt, bei der Bewertung wird abgerundet, insgesamt 4 Punkte)
+- Datentyp byte, Beispiel zu Überlauf (z. B.: Code, der einen Überlauf produziert - Studierende sollen erklären, wie das zustande kommt) (2 Punkt)
+- implizite und explizite Typkonversion durchführen (Beispiel: lossy conversion) (3 Punkte)
+- zweidimensionales Array deklarieren und per for-Schleife bearbeiten (3 Punkte)
+- Beispiel zu switch, inkl. default (2 Punkte)
+- einmal print, einmal println und einmal printf benutzen [irgendwo bei den anderen Aufgaben]
+- if-Anweisung, while-Schleife, do-while-Schleife (jeweils Python-Code in Java umformen) (insgesamt 3 Punkte)
+- weitere Beispiele zu for-Schleife (einmal klassisch, einmal mit Iterator) (insgesamt 2 Punkte)
+- Python-Code gegeben: Liste mit Werten unterschiedlicher Typen. Ließe sich das leicht in Java umsetzen? Wenn ja, wie? Wenn nein, was ist das Problem?

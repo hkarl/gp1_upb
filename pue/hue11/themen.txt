@@ -13,6 +13,6 @@ Kapitel 13:
 - ein praktisches Beispiel, aufgeteilt in mehrere Teile (die möglichst einzeln lösbar sein sollten)
   X Werte aus CSV-Datei einlesen (mit der Python-CSV-Library)
   X mit matplotlib plotten
-  - das Ganze sollte als Modul verwendbar sein, aber auch als Skript (für letzteres sollen Kommandozeilenparamter übergebbar sein, wofür argsparse genutzt werden soll)
+  X das Ganze sollte als Modul verwendbar sein, aber auch als Skript (für letzteres sollen Kommandozeilenparamter übergebbar sein, wofür argparse genutzt werden soll)
 
 - evtl. noch numpy für Durchschnitt und Standardabweichung?
