@@ -41,7 +41,7 @@ puerelease:
 	# sed -i"" -e "s/<\\!-- $(ch)/<\\!-- $(ch) -->/" pue/index.html
 	# sed -i"" -e "s/^ *$(ch) -->/  <\\!-- $(ch) -->/" pue/index.html
 	make distribute
-	ssh root@gp1.cs.upb.de "python3.4 /home/jupyterhub/bin/copy-file-to-user.py -a  -s /home/jupyterhub/uebungen/pue/ -t pue -c $(ch) -x .ipynb -x .html -x .pdf -d figures"
+	ssh root@gp1.cs.upb.de "python3.4 /home/jupyterhub/bin/copy-file-to-user.py -a  -s /home/jupyterhub/uebungen/pue/ -t pue -c $(ch) -x .ipynb -x .html -x .pdf -x .csv -x .png -d figures"
 
 huerelease:
 	rsync -vazh --exclude "notes" --exclude Makefile ../uebungen/ ${GP1SERVERDIR}
