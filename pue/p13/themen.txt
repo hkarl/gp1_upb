@@ -1,0 +1,35 @@
+Aufgabe 1: Gewöhnung an den Workflow
+* Öffnen eines Terminals
+* Navigieren zu mitgeliefertem Programm
+* Kompilieren und ausführen
+* (Zusatzaufgabe: mithilfe von javap -c Bytecode betrachten)
+
+Aufgabe 2: Klammern
+* Einzeiliges Java Programm in ein mehrzeiliges umwandeln (mit sinnvoller Einrückung)
+
+Aufgabe 3: Fehler in einem "Pythonartigen" Pogramm lösen
+* Programm enthält:
+** undefinierte Variablen
+** (korrekte) implizite Typkonversion
+*** Verständnisfrage: Warum ist das erlaubt? Was passiert da? Unter welchen Umständen ist es nicht erlaubt?
+** Zuweisung von Werten falschen Typs
+** Ein paar Konstrukte in Python-Syntax
+
+Aufgabe 4: Datentypen + Schleifen
+* Programm schreiben, dass nur mit + Operator zwei Zahlen miteinander multipliziert und am Ende ausgibt
+* Programm erweitern, sodass alle Zwischenergebnisse in einem Array gespeichert werden
+* ggf. noch eine "coole" Aufgabe in der Variablen verschiedener Datentypen definiert und benutzt werden müssen.
+
+Aufgabe 5: Referenzen
+* Programmcode betrachten, der String-Objekte und Referenzen hin und her kopiert
+* Was wird ausgegeben?
+
+Aufgabe 6: If Verzweigunen
+* Programm gegeben, dass den Benutzer einen Wert eingeben lässt
+* Teilaufgabe: Wert mit else/else if auf Korrektheit prüfen
+* Teilaufgabe: s.o. mit switch
+
+Aufgabe 7: einfache Objektorientierung
+* bis ausschließlich Vererbung
+* Aufgabenstellung ähnlich wie PÜ8 Aufgabe 1 (Einfaches Zeichenprogramm mit zwei Klassen)
+** ggf. Erweiterung wie in PÜ8 Aufgabe 2 (einfache Vererbung)
