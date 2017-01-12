@@ -1,0 +1,72 @@
+Heimübung 13
+- Klasse mit Attributen und Objekten sowie Sichtbarkeiten schreiben lassen (z. B. Klasse Kreis aus früherem Jahrgang, s.u. - man könnte die benötigte Klasse Punkt in der Präsenzübung schreiben lassen) [7-12 Punkte]
+- Klasse gegeben mit zwei Variablen, eine global, eine nicht, beide werden gleich behandelt. Aufgabe: Erklären Sie, wieso (nach einem gegebenen Programmfragment) die zwei Variablen unterschiedliche Werte haben [2 Punkte]
+- Klassenhierarchie (mit Vererbung) als UML-Diagramm gegeben: als Java-Code umsetzen [3-6 Punkte]
+- Code mit Vererbung gegeben, wo dynamische Methodenbindung vorkommt: Ausgabe erklären [1 Punkt]
+  zusätzlich: expliziter Typecast zu Oberklasse. Wieso ändert sich die Ausgabe nicht? [1 Punkt]
+- Sichtbarkeit: Code (mit Vererbung) gegeben: Auf welche Attribute darf xy zugreifen und warum? [1 Punkt]
+- Abstrakte Klasse (mit Attribut) und ein Interface implementieren, erben bzw. implementieren lassen [2-4 Punkte]
+- Abgesehen von der Syntax: Was sind die Unterschiede zwischen Interface und Abstrakter Klasse? Welches der beiden Konstrukte ist "mächtiger", d.h. kann man mehr mit machen? [1 Punkt]
+
+
+
+
+
+
+/** Ein Kreis. 
+
+	Die Klasse beschreibt Kreise, die durch einen Mittelpunkt sowie 
+	einen Radius charakterisiert sind. 
+	
+	@author Heike Wehrheim
+	@version 1.2 
+*/
+public class Circle4 {
+	/** Ein Objekt der Klasse Punkt als Mittelpunkt. */
+	private Punkt mittelpunkt;
+	
+	/** Radius des Kreises. */
+	private double radius;
+	
+	/** Konstruktor. 
+		@param punkt Das Punktobjekt für den Mittelpunkt. 
+		@param ir Der Radius. 
+	*/ 
+	public Circle4 (Punkt punkt, double ir) 
+   	{ mittelpunkt = punkt; radius = ir; }
+   	
+   	/** Ein Getter für den X-Wert des Mittelpunktes. 
+   		@return X Wert. 
+   	*/ 
+   	public int getX () { return mittelpunkt.getX(); } 
+   	
+   	/** Ein Getter für den Y-Wert des Mittelpunktes. 
+   		@return Y Wert. 
+   	*/ 
+   	public int getY () { return mittelpunkt.getY(); }
+   	
+   	/** Ein Getter für den Radius. 
+   		@return Der Radius. 
+   	*/
+   	public double getRadius () { return radius; }
+
+	/** Veraenderung des Radius. 
+		@param dr Der Wert, um den der Radius veraendert wird.
+	*/
+  	public void grow (double dr) { radius += dr; }
+  	
+  	/** Bewegung des Kreises. 
+  		@param dx Der X Wert, um den verschoben wird. 
+  		@param dy Der Y Wert, um den verschoben wird. 
+  	*/ 
+   	public void move (int dx, int dy) { mittelpunkt.move(dx,dy); }
+   	
+   	/** toString Methode fuer Kreise.  
+   		@return Eine Zeichenkette, die den Kreis beschreibt. 
+   	*/ 
+   	public String toString () {
+   		return "Ich bin ein Kreis mit Mittelpunkt " + "(" + 
+   				mittelpunkt.getX() + " , " + 
+   		        mittelpunkt.getY() + ")"+ " und Radius " + radius; 
+   	}
+} 
