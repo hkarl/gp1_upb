@@ -1,8 +1,8 @@
 Aufgabe 1: Gewöhnung an den Workflow
 * Öffnen eines Terminals
-* Navigieren zu mitgeliefertem Programm
-* Kompilieren und ausführen
-* (Zusatzaufgabe: mithilfe von javap -c Bytecode betrachten)
+* Navigieren zu mitgeliefertem Programm ("z.B. Hello world")
+* Kompilieren und ausführen (`javac`, `java`)
+* Zusatzaufgabe: mithilfe von javap -c Bytecode betrachten + Erklärung was das ist (der übersetzte und für die VM verständliche Quellcode)
 
 Aufgabe 2: Klammern
 * Einzeiliges Java Programm in ein mehrzeiliges umwandeln (mit sinnvoller Einrückung)
