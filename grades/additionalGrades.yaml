@@ -459,8 +459,34 @@ grades:
   - blatt: 7
     punkte: 18
     tutor: dp
-
-
-
-
+- matrikel: 7037199
+  punkte:
+  - blatt: 3
+    punkte: 19
+    tutor: dp
+- matrikel: 7037199
+  punkte:
+  - blatt: 5 
+    punkte: 11
+    tutor: dp
+- matrikel: 7037199
+  punkte:
+  - blatt: 6
+    punkte: 17
+    tutor: dp
+- matrikel: 7028166
+  punkte:
+  - blatt: 3
+    punkte: 19
+    tutor: dp
+- matrikel: 7028166
+  punkte: 
+  - blatt: 5 
+    punkte: 11
+    tutor: dp
+- matrikel: 7028166
+  punkte:
+  - blatt: 6
+    punkte: 17
+    tutor: dp
 ...
