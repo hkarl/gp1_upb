@@ -313,6 +313,7 @@ def problems(grades, done_assigments):
     failed = []
     endangered = []
     for matrikel, assignments in grades.items():
+        # print(matrikel, assignments)
         a_over_threshold = sum([a['total'] >= failedpoints
                             for k, a
                             in assignments.items()])
@@ -320,11 +321,19 @@ def problems(grades, done_assigments):
         if a_over_threshold < needs_to_have_achieved:
             failed.append((matrikel,
                            a_over_threshold,
-                           assignments[1]['mail'] ))
+                           # assignments[1]['mail']
+                           # we just need to grab any mail,
+                           # hopefully, they are all the same: 
+                           next(iter (assignments.values()))['mail']
+                               ))
         if a_over_threshold == needs_to_have_achieved:
             endangered.append((matrikel,
                            a_over_threshold,
-                           assignments[1]['mail'] ))
+                           # assignments[1]['mail']
+                           # we just need to grab any mail,
+                           # hopefully, they are all the same: 
+                           next(iter (assignments.values()))['mail']
+                                   ))
 
         
     return failed, endangered
@@ -437,8 +446,12 @@ if __name__ == "__main__":
                             done_assignments)
     print("Student without Exam admission:")
     pp(failedstudents)
+
+    emaillister = lambda students: ', '.join([x[2] for x in students if len(x[2]) > 0])
+    print(emaillister(failedstudents))
     print("Student with endangered Exam admission:")
     pp(endangeredstudents)
+    print(emaillister(endangeredstudents))
 
     create_excel(formgrades)
 

@@ -531,4 +531,18 @@ grades:
   - blatt: 8
     punkte: 2
     tutor: ps
+- matrikel: 7079445
+  punkte:
+  - blatt: 5
+    punkte: 11
+    tutor: jr
+  - blatt: 6
+    punkte: 19
+    tutor: jr
+  - blatt: 7
+    punkte: 13
+    tutor: jr
+  - blatt: 8
+    punkte: 10
+    tutor: jr
 ...
