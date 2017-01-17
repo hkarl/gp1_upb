@@ -548,6 +548,6 @@ grades:
 - matrikel: 6460366
   punkte:
   - blatt: 7
-    punkte: 5
+    punkte: 10
     tutor: mf
 ...
