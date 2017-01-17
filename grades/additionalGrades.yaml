@@ -489,6 +489,48 @@ grades:
   - blatt: 6
     punkte: 17
     tutor: dp
+- matrikel: 6811552
+  punkte:
+  - blatt: 5
+    punkte: 12
+    tutor: ps
+  - blatt: 6
+    punkte: 10
+    tutor: ps
+  - blatt: 7
+    punkte: 7
+    tutor: ps
+  - blatt: 8
+    punkte: 2
+    tutor: ps
+- matrikel: 6754803
+  punkte:
+  - blatt: 5
+    punkte: 12
+    tutor: ps
+  - blatt: 6
+    punkte: 10
+    tutor: ps
+  - blatt: 7
+    punkte: 7
+    tutor: ps
+  - blatt: 8
+    punkte: 2
+    tutor: ps
+- matrikel: 7029369
+  punkte:
+  - blatt: 5
+    punkte: 12
+    tutor: ps
+  - blatt: 6
+    punkte: 10
+    tutor: ps
+  - blatt: 7
+    punkte: 7
+    tutor: ps
+  - blatt: 8
+    punkte: 2
+    tutor: ps
 - matrikel: 7079445
   punkte:
   - blatt: 5
