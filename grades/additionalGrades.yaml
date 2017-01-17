@@ -550,4 +550,9 @@ grades:
   - blatt: 7
     punkte: 10
     tutor: mf
+- matrikel: 7070033
+  punkte:
+  - blatt: 8
+    punkte: 15
+    tutor: mt
 ...
