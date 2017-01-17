@@ -545,4 +545,9 @@ grades:
   - blatt: 8
     punkte: 10
     tutor: jr
+- matrikel: 6460366
+  punkte:
+  - blatt: 7
+    punkte: 5
+    tutor: mf
 ...
