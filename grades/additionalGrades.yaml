@@ -503,6 +503,9 @@ grades:
   - blatt: 8
     punkte: 2
     tutor: ps
+  - blatt: 9
+    punkte: 12
+    tutor: pb
 - matrikel: 6754803
   punkte:
   - blatt: 5
@@ -517,6 +520,9 @@ grades:
   - blatt: 8
     punkte: 2
     tutor: ps
+  - blatt: 9
+    punkte: 12
+    tutor: pb
 - matrikel: 7029369
   punkte:
   - blatt: 5
@@ -531,6 +537,9 @@ grades:
   - blatt: 8
     punkte: 2
     tutor: ps
+  - blatt: 9
+    punkte: 12
+    tutor: pb
 - matrikel: 7079445
   punkte:
   - blatt: 5
