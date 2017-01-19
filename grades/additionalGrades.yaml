@@ -609,4 +609,34 @@ grades:
   - blatt: 4
     punkte: 14
     tutor: tk
+- matrikel: 7091203
+  punkte:
+  - blatt: 1
+    punkte: 14
+    tutor: mf
+  - blatt: 2
+    punkte: 17
+    tutor: mf
+  - blatt: 7
+    punkte: 4
+    tutor: mf
+- matrikel: 7098594
+  punkte:
+  - blatt: 1
+    punkte: 14
+    tutor: mf
+  - blatt: 2
+    punkte: 17
+    tutor: mf
+  - blatt: 7
+    punkte: 4
+    tutor: mf
+- matrikel: 7065983
+  punkte:
+  - blatt: 7
+    punkte: 13
+    tutor: mf
+  - blatt: 8
+    punkte: 7
+    tutor: mf
 ...
