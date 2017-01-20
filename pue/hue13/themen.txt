@@ -1,12 +1,12 @@
 Heimübung 13
-- Klasse mit Attributen und Objekten sowie Sichtbarkeiten schreiben lassen (z. B. Klasse Kreis aus früherem Jahrgang, s.u. - man könnte die benötigte Klasse Punkt in der Präsenzübung schreiben lassen) [7-12 Punkte]
-- Klasse gegeben mit zwei Variablen, eine global, eine nicht, beide werden gleich behandelt. Aufgabe: Erklären Sie, wieso (nach einem gegebenen Programmfragment) die zwei Variablen unterschiedliche Werte haben [2 Punkte]
-- Klassenhierarchie (mit Vererbung) als UML-Diagramm gegeben: als Java-Code umsetzen [3-6 Punkte]
-- Code mit Vererbung gegeben, wo dynamische Methodenbindung vorkommt: Ausgabe erklären [1 Punkt]
+1. Klasse mit Attributen und Objekten sowie Sichtbarkeiten schreiben lassen (Klasse Ellipse aus Python-Teil), Wahl der Typen begründen [7-12 Punkte]
+2. a) Klasse gegeben mit zwei Variablen, eine global, eine nicht, beide werden gleich behandelt. Aufgabe: Erklären Sie, wieso (nach einem gegebenen Programmfragment) die zwei Variablen unterschiedliche Werte haben [2 Punkte]
+! Klassenhierarchie (mit Vererbung) als UML-Diagramm gegeben: als Java-Code umsetzen [3-6 Punkte]
+b) Code mit Vererbung gegeben, wo dynamische Methodenbindung vorkommt: Ausgabe erklären [1 Punkt]
   zusätzlich: expliziter Typecast zu Oberklasse. Wieso ändert sich die Ausgabe nicht? [1 Punkt]
-- Sichtbarkeit: Code (mit Vererbung) gegeben: Auf welche Attribute darf xy zugreifen und warum? [1 Punkt]
-- Abstrakte Klasse (mit Attribut) und ein Interface implementieren, erben bzw. implementieren lassen [2-4 Punkte]
-- Abgesehen von der Syntax: Was sind die Unterschiede zwischen Interface und Abstrakter Klasse? Welches der beiden Konstrukte ist "mächtiger", d.h. kann man mehr mit machen? [1 Punkt]
+c) Sichtbarkeit: Code (mit Vererbung) gegeben: Auf welche Attribute darf xy zugreifen und warum? [1 Punkt]
+3. a) Abstrakte Klasse (mit Attribut) und ein Interface implementieren, erben bzw. implementieren lassen [2-4 Punkte]
+3. b) Abgesehen von der Syntax: Was sind die Unterschiede zwischen Interface und Abstrakter Klasse? [1 Punkt]
 
 
 
