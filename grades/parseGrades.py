@@ -226,13 +226,18 @@ def escape(formgrades, fields):
 
 ############
 
-def output(formgrades):
+def output(formgrades, succeeded=None):
 
     template = Template(r"""
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[ngerman]{babel}
 \begin{document}
+\title{Übersicht erzielte Punkte, GP1, WS 16/17, UPB}
+\maketitle
+\tableofcontents
 \section{Punkteübersicht}
 \begin{description}
 {% for matrikelnr, assignments in grades.items() %} 
@@ -251,6 +256,17 @@ def output(formgrades):
 \end{description}
 {% endfor %}
 \end{description}
+
+\section{Klausurzulassung}
+
+Achtung, ohne Gewähr! 
+
+\begin{itemize}
+{% for matrikel, punkte in succeeded %} 
+\item {{ matrikel }} , Gesamtpunkte: {{ punkte }}
+{% endfor %}
+\end{itemize}
+
 
 \section{Statistiken}
 
@@ -288,10 +304,20 @@ Statistiken über Matrikelnummern, nicht über Gruppen!
 \subsubsection{Violinplot}
 \includegraphics[width=0.8\textwidth]{violin.pdf}
 
+\subsection{Gesamtstatistik über alle Studierenden}
+
+\subsubsection{Histogramm}
+\includegraphics[width=0.8\textwidth]{totalpoints.pdf}
+
+\subsubsection{Empirische Verteilungsfunktion}
+\includegraphics[width=0.8\textwidth]{totalcumulative.pdf}
+
+
 \end{document}
 """)
 
-    out = template.render(grades=formgrades)
+    out = template.render(grades=formgrades,
+                          succeeded=sorted(succeeded))
     return out 
 
 ############
@@ -312,9 +338,13 @@ def problems(grades, done_assigments):
     failedpoints = 4
     failed = []
     endangered = []
+    succeeded = [] # list of tuples (matrikel, bonus steps) 
     for matrikel, assignments in grades.items():
         # print(matrikel, assignments)
         a_over_threshold = sum([a['total'] >= failedpoints
+                            for k, a
+                            in assignments.items()])
+        total_points = sum([a['total'] 
                             for k, a
                             in assignments.items()])
         # print(g['matrikelnr'], a_over_threshold)
@@ -324,7 +354,8 @@ def problems(grades, done_assigments):
                            # assignments[1]['mail']
                            # we just need to grab any mail,
                            # hopefully, they are all the same: 
-                           next(iter (assignments.values()))['mail']
+                           next(iter (assignments.values()))['mail'],
+                           total_points
                                ))
         if a_over_threshold == needs_to_have_achieved:
             endangered.append((matrikel,
@@ -332,17 +363,23 @@ def problems(grades, done_assigments):
                            # assignments[1]['mail']
                            # we just need to grab any mail,
                            # hopefully, they are all the same: 
-                           next(iter (assignments.values()))['mail']
+                           next(iter (assignments.values()))['mail'],
+                           total_points
                                    ))
 
+        if a_over_threshold >= needs_to_achieve:
+            succeeded.append((matrikel, total_points))
         
-    return failed, endangered
+    return failed, endangered, succeeded 
+
+
+    
 
 ############
 
 def histogram(grades, done_assignments):
     data = [[], [], [], [],[], [],[], [],[], [],[], [],[], [],] 
-
+    
     for matrikel, assignments in grades.items():
         for anr, a in assignments.items():
             # print(a['assignment'], a['total'])
@@ -371,6 +408,33 @@ def histogram(grades, done_assignments):
     plt.boxplot(no_zeros[1:done_assignments+1])
     f.savefig('box.pdf')
 
+def total_histogram(f, e, s):
+
+    total_points = ([x[3] for x in f] + 
+                    [x[3] for x in e] +
+                    [x[1] for x in s] )
+
+    # pp(total_points)
+
+
+    f = plt.figure()
+    n, bins, patches = plt.hist(total_points, bins=20*13+1, range=(0,20*13+1))
+    plt.xlabel('Punkte')
+    plt.ylabel('Anzahl Studierende')
+    plt.title('Verteilung der Gesamtpunkte auf Studierende -- Histogram')
+    plt.grid(True)
+    f.savefig('totalpoints.pdf')
+    
+    f = plt.figure()
+    n, bins, patches = plt.hist(total_points, bins=20*13+1, range=(0,20*13+1),
+                                    cumulative=True,
+                                    histtype='step',
+                                    normed=1)
+    plt.xlabel('Punkte')
+    plt.ylabel('Anteil Studierende mit dieser Gesamtpunktzahl')
+    plt.title('Verteilung der Gesamtpunkte auf Studierende -- ECDF')
+    plt.grid(True)
+    f.savefig('totalcumulative.pdf')
     
     
 ############
@@ -437,22 +501,33 @@ if __name__ == "__main__":
     merge(formgrades, manualgrades)
 
     escape(formgrades, ['group', 'mail'])
-    with open('grades.tex', 'w') as gf:
-        gf.write(output(formgrades))
-
     # check for problem students:
     
-    failedstudents, endangeredstudents = problems(formgrades,
+    failedstudents, endangeredstudents, succeeededstudents = problems(formgrades,
                             done_assignments)
+    print("-------------------------------------------------------")
     print("Student without Exam admission:")
     pp(failedstudents)
 
     emaillister = lambda students: ', '.join([x[2] for x in students if len(x[2]) > 0])
     print(emaillister(failedstudents))
+    print("-------------------------------------------------------")
     print("Student with endangered Exam admission:")
     pp(endangeredstudents)
     print(emaillister(endangeredstudents))
 
+    print("-------------------------------------------------------")
+    print("Admitted students with points") 
+    pp(succeeededstudents)
+
+    with open('grades.tex', 'w') as gf:
+        gf.write(output(formgrades, succeeededstudents))
+
     create_excel(formgrades)
 
     histogram(formgrades, done_assignments)
+
+    total_histogram(failedstudents, endangeredstudents, succeeededstudents)
+    
+    # admitted = admitted_bonus(formgrades, done_assignments)
+    

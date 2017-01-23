@@ -648,4 +648,146 @@ grades:
   - blatt: 8
     punkte: 7
     tutor: mf
+- matrikel: 7070431
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+  - blatt: 2
+    punkte: 15
+    tutor: jh
+  - blatt: 3
+    punkte: 19
+    tutor: jh
+  - blatt: 4
+    punkte: 3
+    tutor: jh
+  - blatt: 5
+    punkte: 3
+    tutor: jh
+- matrikel: 7073797
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+  - blatt: 3
+    punkte: 19
+    tutor: jh
+- matrikel: 7074356
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+  - blatt: 3
+    punkte: 19
+    tutor: jh
+- matrikel: 7042430
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+  - blatt: 3
+    punkte: 19
+    tutor: jh
+- matrikel: 7006881
+  punkte:
+  - blatt: 4
+    punkte: 13
+    tutor: jh
+- matrikel: 7066005
+  punkte:
+  - blatt: 4
+    punkte: 13
+    tutor: jh
+- matrikel: 7048382
+  punkte:
+  - blatt: 4
+    punkte: 13
+    tutor: jh
+- matrikel: 7042595
+  punkte:
+  - blatt: 4
+    punkte: 13
+    tutor: jh
+- matrikel: 7052048
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+  - blatt: 2
+    punkte: 18
+    tutor: jh
+  - blatt: 3
+    punkte: 19
+    tutor: jh
+  - blatt: 4
+    punkte: 0
+    tutor: jh
+  - blatt: 5
+    punkte: 16
+    tutor: jh
+- matrikel: 7033517
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+  - blatt: 2
+    punkte: 18
+    tutor: jh
+  - blatt: 3
+    punkte: 19
+    tutor: jh
+  - blatt: 4
+    punkte: 15
+    tutor: jh
+- matrikel: 7044991
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: jh
+- matrikel: 7070826
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: jh
+- matrikel: 7070473
+  punkte:
+  - blatt: 1
+    punkte: 15
+    tutor: jh
+- matrikel: 6787913
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+- matrikel: 6682819
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+- matrikel: 7048366
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+- matrikel: 7074738
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: jh
+- matrikel: 6811343
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: jh
+- matrikel: 7070457
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: jh
+- matrikel: 7075261
+  punkte:
+  - blatt: 1
+    punkte: 20
+    tutor: jh
 ...
