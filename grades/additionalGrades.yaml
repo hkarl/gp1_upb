@@ -790,4 +790,12 @@ grades:
   - blatt: 1
     punkte: 20
     tutor: jh
+- matrikel: 7072390
+  punkte:
+  - blatt: 7
+    punkte: 13
+    tutor: mf
+  - blatt: 8
+    punkte: 7
+    tutor: mf
 ...
