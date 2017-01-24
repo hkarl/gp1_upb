@@ -790,4 +790,27 @@ grades:
   - blatt: 1
     punkte: 20
     tutor: jh
+- matrikel: 7072390
+  punkte:
+  - blatt: 7
+    punkte: 13
+    tutor: mf
+  - blatt: 8
+    punkte: 7
+    tutor: mf
+- matrikel: 7037911
+  punkte:
+  - blatt: 1
+    punkte: 19
+    tutor: jh
+- matrikel: 7066306
+  punkte:
+  - blatt: 5
+    punkte: 19
+    tutor: jr
+- matrikel: 7070787
+  punkte:
+  - blatt: 5
+    punkte: 19
+    tutor: jr
 ...
