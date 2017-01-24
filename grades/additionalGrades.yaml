@@ -803,4 +803,14 @@ grades:
   - blatt: 1
     punkte: 19
     tutor: jh
+- matrikel: 7066306
+  punkte:
+  - blatt: 5
+    punkte: 19
+    tutor: jr
+- matrikel: 7070787
+  punkte:
+  - blatt: 5
+    punkte: 19
+    tutor: jr
 ...
