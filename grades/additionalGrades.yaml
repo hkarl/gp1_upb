@@ -813,4 +813,14 @@ grades:
   - blatt: 5
     punkte: 19
     tutor: jr
+- matrikel: 6786880
+  punkte:
+  - blatt: 3
+    punkte: 16
+    tutor: tk
+- matrikel: 6786967
+  punkte:
+  - blatt: 3
+    punkte: 16
+    tutor: tk
 ...
