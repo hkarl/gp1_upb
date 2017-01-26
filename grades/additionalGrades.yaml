@@ -845,4 +845,18 @@ grades:
   - blatt: 6
     punkte: 16
     tutor: mf
+- matrikel: 7087673
+  punkte:
+  - blatt: 3
+    punkte: 20
+    tutor: mf
+  - blatt: 4
+    punkte: 11
+    tutor: mf
+  - blatt: 5
+    punkte: 16
+    tutor: mf
+  - blatt: 6
+    punkte: 16
+    tutor: mf
 ...
