@@ -823,4 +823,26 @@ grades:
   - blatt: 3
     punkte: 16
     tutor: tk
+- matrikel: 7072471
+  punkte:
+  - blatt: 7
+    punkte: 13
+    tutor: mf
+  - blatt: 8
+    punkte: 7
+    tutor: mf
+- matrikel: 7096224
+  punkte:
+  - blatt: 3
+    punkte: 20
+    tutor: mf
+  - blatt: 4
+    punkte: 11
+    tutor: mf
+  - blatt: 5
+    punkte: 16
+    tutor: mf
+  - blatt: 6
+    punkte: 16
+    tutor: mf
 ...
