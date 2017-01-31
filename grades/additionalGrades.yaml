@@ -117,15 +117,24 @@ grades:
   - blatt: 1
     punkte: 19
     tutor: mf
+  - blatt: 7
+    punkte: 8
+    tutor: mf
 - matrikel: 6786560
   punkte:
   - blatt: 1
     punkte: 19
     tutor: mf
+  - blatt: 7
+    punkte: 8
+    tutor: mf
 - matrikel: 6786791
   punkte:
   - blatt: 1
     punkte: 19
+    tutor: mf
+  - blatt: 7
+    punkte: 8
     tutor: mf
 - matrikel: 7068618
   punkte:
