@@ -914,4 +914,92 @@ grades:
   - blatt: 4
     punkte: 14
     tutor: tk
+- matrikel: 7047354
+  - blatt: 5
+    punkte: 12
+    tutor: ps
+  - blatt: 6
+    punkte: 20
+    tutor: ps
+  - blatt: 7
+    punkte: 20
+    tutor: ps
+  - blatt: 8
+    punkte: 11
+    tutor: ps
+  - blatt: 9
+    punkte: 18
+    tutor: ps
+  - blatt: 10
+    punkte: 14
+    tutor: ps
+  - blatt: 11
+    punkte: 18
+    tutor: ps
+- matrikel: 7033436
+  - blatt: 5
+    punkte: 12
+    tutor: ps
+  - blatt: 6
+    punkte: 20
+    tutor: ps
+  - blatt: 7
+    punkte: 20
+    tutor: ps
+  - blatt: 8
+    punkte: 11
+    tutor: ps
+  - blatt: 9
+    punkte: 18
+    tutor: ps
+  - blatt: 10
+    punkte: 14
+    tutor: ps
+  - blatt: 11
+    punkte: 18
+    tutor: ps
+- matrikel: 7040306
+  - blatt: 5
+    punkte: 12
+    tutor: ps
+  - blatt: 6
+    punkte: 20
+    tutor: ps
+  - blatt: 7
+    punkte: 20
+    tutor: ps
+  - blatt: 8
+    punkte: 11
+    tutor: ps
+  - blatt: 9
+    punkte: 18
+    tutor: ps
+  - blatt: 10
+    punkte: 14
+    tutor: ps
+  - blatt: 11
+    punkte: 18
+    tutor: ps
+- matrikel: 7070800
+  - blatt: 5
+    punkte: 12
+    tutor: ps
+  - blatt: 6
+    punkte: 20
+    tutor: ps
+  - blatt: 7
+    punkte: 20
+    tutor: ps
+  - blatt: 8
+    punkte: 11
+    tutor: ps
+  - blatt: 9
+    punkte: 18
+    tutor: ps
+  - blatt: 10
+    punkte: 14
+    tutor: ps
+  - blatt: 11
+    punkte: 18
+    tutor: ps
 ...
