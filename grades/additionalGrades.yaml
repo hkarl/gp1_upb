@@ -1002,4 +1002,12 @@ grades:
   - blatt: 11
     punkte: 18
     tutor: ps
+- matrikel: 7092736
+  - blatt: 5
+    punkte: 13
+    tutor: dp
+- matrikel: 7092736
+  - blatt: 6
+    punkte: 11
+    tutor: dp
 ...
