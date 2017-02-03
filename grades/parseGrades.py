@@ -242,7 +242,7 @@ def output(formgrades, succeeded=None):
 \begin{description}
 {% for matrikelnr, assignments in grades.items() %} 
 \item[Matrikelnummer {{ matrikelnr }} ]~\\
-% Anzahl Blätter über Schwellwert für KLlausurzulassung: 
+% Anzahl Blätter über Schwellwert für Klausurzulassung: 
 \begin{description}
 {% for a, v in assignments.items() %}
 \item[Hausblatt {{ a }}: ]
@@ -436,6 +436,10 @@ def total_histogram(f, e, s):
     plt.grid(True)
     f.savefig('totalcumulative.pdf')
     
+    from scipy.stats import normaltest
+
+    s, p = normaltest(total_points)
+    print("normality:", s, p)
     
 ############
 
