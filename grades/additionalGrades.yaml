@@ -161,6 +161,9 @@ grades:
   - blatt: 4
     punkte: 17
     tutor: mt
+  - blatt: 5
+    punkte: 14
+    tutor: mt
 - matrikel: 7027400
   punkte:
   - blatt: 2
@@ -1042,4 +1045,19 @@ grades:
   - blatt: 2
     punkte: 14
     tutor: mf
+- matrikel: 7043109
+  punkte:
+  - blatt: 1
+    punkte: 14
+    tutor: mt
+- matrikel: 7095348
+  punkte:
+  - blatt: 1
+    punkte: 14
+    tutor: mt
+- matrikel: 7070392
+  punkte:
+  - blatt: 1
+    punkte: 14
+    tutor: mt
 ...
