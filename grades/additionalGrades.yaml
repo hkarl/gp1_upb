@@ -1034,4 +1034,12 @@ grades:
   - blatt: 8
     punkte: 19
     tutor: tk
+- matrikel: 6786373
+  punkte:
+  - blatt: 1
+    punkte: 13
+    tutor: mf
+  - blatt: 2
+    punkte: 14
+    tutor: mf
 ...
