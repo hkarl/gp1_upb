@@ -276,23 +276,6 @@ grades:
   - blatt: 1
     punkte: 14
     tutor: tk
-- matrikel: 7070800
-  punkte:
-  - blatt: 1
-    punkte: 14
-    tutor: tk
-  - blatt: 5
-    punkte: 12
-    tutor: tk
-  - blatt: 6
-    punkte: 20
-    tutor: tk
-  - blatt: 7
-    punkte: 20
-    tutor: tk
-  - blatt: 8
-    punkte: 11
-    tutor: tk
 - matrikel: 7047354
   punkte:
   - blatt: 1
@@ -992,6 +975,9 @@ grades:
     tutor: ps
 - matrikel: 7070800
   punkte:
+  - blatt: 1
+    punkte: 14
+    tutor: tk
   - blatt: 5
     punkte: 12
     tutor: ps
