@@ -32,7 +32,7 @@ grades:
 This script tries to cleanup and collect duplicates, but obvisouly it makes 
 very little sense to have duplicates inserted. So watch out what you are doing! 
 
-These points are ADDED to anything that comes out of the studentresult app.  
+These points are MAXED with anything that comes out of the studentresult app.  
 
 studentresult yaml output produces a  dict of the following structure: 
 a dict over matrikelnummer, value a dict over hue0x, value a dict of group, mail, point 
@@ -172,6 +172,7 @@ def merge(formgrades, manualgrades):
                                      'mail': 'N/A',
                                          'manual': 0,
                                          'point': 0}
+                
             fgmatrikel[blatt]['manual'] = punkte
 
         # pp(fgmatrikel)
@@ -396,6 +397,8 @@ def histogram(grades, done_assignments):
         # plt.show()
         f.savefig('h{}.pdf'.format(i+1))
 
+        
+
     # let's try a violin plot:
     # filter out zeros; they distort the plot
     no_zeros = list(map (lambda d: list(filter(lambda x: x> 0, d)), data)) 
@@ -408,6 +411,7 @@ def histogram(grades, done_assignments):
     plt.boxplot(no_zeros[1:done_assignments+1])
     f.savefig('box.pdf')
 
+    
 def total_histogram(f, e, s):
 
     total_points = ([x[3] for x in f] + 
@@ -440,6 +444,14 @@ def total_histogram(f, e, s):
 
     s, p = normaltest(total_points)
     print("normality:", s, p)
+
+
+    # let's write out a total points statistic: (buggy, needs fixing)
+    # with open('totalpoints.txt', 'w') as f:
+    #     f.write('\n'.join(['{},{}'.format(x[0], x[3])
+    #                            for x in f
+    #                            ]))
+
     
 ############
 
@@ -505,6 +517,13 @@ if __name__ == "__main__":
     merge(formgrades, manualgrades)
 
     escape(formgrades, ['group', 'mail'])
+
+    # sanity check:
+    for matrikel, assignments in formgrades.items():
+        for aa, blatt in assignments.items():
+            if blatt['total'] > 20:
+                print("PROBLEM: ", matrikel, aa, blatt)
+                
     # check for problem students:
     
     failedstudents, endangeredstudents, succeeededstudents = problems(formgrades,
@@ -524,6 +543,13 @@ if __name__ == "__main__":
     print("Admitted students with points") 
     pp(succeeededstudents)
 
+    # this one is only true at the very end: 
+    with open('admitted-matrikel.txt', 'w') as af:
+        admitted = '\n'.join(
+            sorted([str(x[0]) for x in succeeededstudents] ))
+        
+        af.write(admitted)
+    
     with open('grades.tex', 'w') as gf:
         gf.write(output(formgrades, succeeededstudents))
 
@@ -532,6 +558,6 @@ if __name__ == "__main__":
     histogram(formgrades, done_assignments)
 
     total_histogram(failedstudents, endangeredstudents, succeeededstudents)
-    
+
     # admitted = admitted_bonus(formgrades, done_assignments)
-    
+

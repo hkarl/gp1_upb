@@ -16,7 +16,7 @@ get:
 	ssh jupyterhub@gp1.cs.upb.de "cd gp1 ; ./getgrades.sh" > formgrade.yaml
 
 view:
-	python parseGrades.py additionalGrades.yaml formgrade.yaml 9
+	python parseGrades.py additionalGrades.yaml formgrade.yaml 13
 
 pdf:
 	pdflatex grades.tex
