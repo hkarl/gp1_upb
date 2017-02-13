@@ -686,6 +686,85 @@ Nicht das gleiche!
 - Konstruktoren können überladen werden 
 
 
+** Konstruktoren und Vererbung 
+
+Funktioniert das? 
+
+#+BEGIN_SRC java :exports both :results output :classname XXX
+class Artikel {
+    String artikelnummer;
+    public Artikel(String _an) {
+        this.artikelnummer = _an;
+    }
+}
+
+class Book extends Artikel {
+    String ISBN;
+    public Book(String _an, String _isbn) {
+        // das hier verletzt DRY:
+        this.artikelnummer = _an;
+
+        this.ISBN = _isbn;
+    }
+
+    public String toString() {
+        return this.artikelnummer + " -- "  + this.ISBN;
+    }
+}
+
+Book b = new Book ("1234", "abc");
+System.out.println(b);
+#+END_SRC
+
+** Nein! Konstruktor von Article? 
+
+- Es gibt keinen default-Konstruktor für Artikel
+- Unklar, wie der existierende Konstruktor mit Parametern versorgt
+  werden muss! 
+
+
+** Konstruktor explizit aufrufen? 
+
+#+BEGIN_SRC java :exports both :results output :classname XXX
+class Article {
+    String artikelnummer;
+    public Article() { 
+        this.artikelnummer = "Kein sinnvoller Wert";    }
+    public Article(String _an) {
+        this.artikelnummer = _an;
+    }
+}
+
+class Book extends Article {
+    String ISBN;
+    public Book(String _an, String _isbn) {
+        super(_an); 
+        this.ISBN = _isbn;
+    }
+
+    public String toString() {
+        return this.artikelnummer + " -- "  + this.ISBN;
+    }
+}
+
+Book b = new Book ("1234", "abc");
+System.out.println(b);
+#+END_SRC
+
+*** Erläuterung							  :dropslide:
+
+- Verfügt die Oberklasse über einen default-Konstruktor (= ohne
+  Parameter aufrufbar), so wird dieser benutzt
+  - Unterklasse muss den default-Konstruktur nicht explizit aufrufen 
+- Gibt es keinen solchen default-Konstruktor in der Oberklasse, so muss
+  der Konstruktor  der Unterklasse einen passenden
+  Oberklasse-Konstruktor explizit aufrufen
+  - Mit Schlüsselwort ~super~ Zugriff auf Methode der Oberklasse
+  - Konvention: Aufruf *muss* erste Anweisung im Konstruktor der
+    Unterklasse sein
+  - Passend: Nach Regeln für überladene Operatoren ausgewählt 
+
+
 ** getter und setter
 
 - getter und setter Methoden müssen von Anfang an da sein, wenn
