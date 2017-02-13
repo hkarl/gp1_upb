@@ -82,3 +82,12 @@ grades/fg-beispiel.yaml
 grades/formgrade.yaml
 grades/grades.tex
 grades/grades.xlsx
+grades/_additionalGrades.yaml
+grades/admitted-matrikel.txt
+grades/angemeldet-matrikel.txt
+grades/angemeldet.csv
+grades/angemeldet.txt
+grades/angemeldet.xlsx
+not-admitted-matrikel.csv
+specialCases
+kulla--20160928005844.jar
