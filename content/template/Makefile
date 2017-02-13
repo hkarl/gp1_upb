@@ -62,3 +62,5 @@ clean:
 	-rm -rf _minted-ch*
 	-rm *.java *.class *.java.exp *.java.exp.out
 
+copy:
+	cp ch*.ipynb ch*.pdf ${OUTPUTDIR}
