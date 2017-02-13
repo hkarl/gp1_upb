@@ -43,7 +43,7 @@ class JavaKernel(Kernel):
         sig = signal.signal(signal.SIGINT, signal.SIG_DFL)
         try:
             self.javawrapper = replwrap.REPLWrapper(
-                "{} -jar {}".format(
+                "{} -jar {} -q".format(
                     self._JAVA_COMMAND,
                     self._KULLA_LOCATION
                 ),
