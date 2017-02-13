@@ -1,0 +1,3 @@
+
+%jupgrader /sbin/reboot
+%jupgrader "/user/sbin/service jupyterhub restart"
