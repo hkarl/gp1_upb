@@ -1,6 +1,6 @@
 # Top-level makefile
 
-.PHONY: makefiles distribute all cleanall newch  slidetitles uebungen book webserver
+.PHONY: makefiles distribute all cleanall newch  slidetitles uebungen book webserver copyall
 
 # we need an up-to-date rsync to support the chown option (v 3.1 of rsync seems to do the job):
 # (on mac: brew install rsync; possibly with a brew tap first)
@@ -34,6 +34,12 @@ cleanall: makefiles
 		make -C $$d clean ; \
 	done
 
+copyall: makefiles
+	for d in ch* ; do \
+		make -C $$d copy ; \
+	done
+
+
 depingo:
 	# depingo: remove the pingo headers from the generated ipynb
 	ipynbs=`find ../output/vorlesung -name "*ipynb"`; for d in $$ipynbs ; do echo $$d ; python depingo.py $$d > pingotmp ; mv pingotmp $$d  ; done 
@@ -47,8 +53,8 @@ distribute: depingo
 
 	# generate the file list ; maybe that has to be constructed from indiviaul parts?
 	# sourcing: we need a few modules :-( ; note that this has be done in ONE shell invocation!
-	source ~/.venvs/ansible/bin/activate; \
-	python ../build/createWebpage.py --org . --released ./released.yaml --html ../output/vorlesung/index.html
+	# source ~/.venvs/ansible/bin/activate; \
+	# python ../build/createWebpage.py --org . --released ./released.yaml --html ../output/vorlesung/index.html
 
 	make webserver
 
@@ -80,10 +86,12 @@ newch:
 slidetitles: 
 	find . -name "*.org" |  xargs grep "^\*\* "  | grep  -v UEBUNG | grep -v TODO | grep -v tmp | grep -v "#+TODO:" | grep -v toc | grep -v template | sed s#\./.*/ch## | sed "s/-\(.*\)org:/ /" | sort -n -k1,1 -s > slidetitles.tmp
 	python3 groupby.py 30 "" < slidetitles.tmp > slidetitles
-	python3 groupby.py 17 "8 ** Expliziter Namensraum" < slidetitles.tmp > remainingslides
+	python3 groupby.py 2 "17 ** Alle Methoden" < slidetitles.tmp > remainingslides
 
 
 uebungen: slidetitles 
 	find . -name "*.org" |  xargs grep "^\*\*\*\? "  | grep -v TODO | grep -v tmp | grep -v "#+TODO:" | grep -v toc | grep -v template | sed s#\./.*/ch## | sed "s/-\(.*\)org:/ /" | sort -n -k1,1 -s > uebungen.tmp
 	python uebungen.py 30 < uebungen.tmp > uebungen
 	rm uebungen.tmp
+
+
