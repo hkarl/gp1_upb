@@ -13,7 +13,8 @@ WEBSERVERDIR := /Volumes/groups/fg-karl/public/http/lehre/ws1617/gp1
 pueoutput:
 	git pull
 	# source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb
-	cd pue/$(ch) ; if [ -x ~/anaconda3/bin/jupyter ] ; then  ~/anaconda3/bin/jupyter nbconvert *.ipynb ; else  source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb ; jupyter nbconvert *.ipynb --to pdf ; fi 
+	# cd pue/$(ch) ; if [ -x ~/anaconda3/bin/jupyter ] ; then  ~/anaconda3/bin/jupyter nbconvert *.ipynb ; else  source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb ; jupyter nbconvert *.ipynb --to pdf ; fi 
+	cd pue/$(ch) ; if [ -x ~/anaconda3/bin/jupyter ] ; then  ~/anaconda3/bin/jupyter nbconvert *.ipynb ; else  source ~/.venvs/jupyter/bin/activate; cd pue/$(ch) ; jupyter nbconvert *.ipynb ;  fi 
 	# cd pue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb
 	# source ~/.venvs/jupyter/bin/activate; 	cd pue/$(ch) ; jupyter nbconvert *.ipynb --to pdf
 	# cd pue/$(ch) ; ~/anaconda3/bin/jupyter nbconvert *.ipynb --to pdf
@@ -37,7 +38,7 @@ distribute:
 	rsync -vazh --exclude "notes" --exclude Makefile ../uebungen/pue ${GP1SERVERDIR}
 
 puerelease: 
-	make pueoutput ch=$(ch)
+ 	make pueoutput ch=$(ch)
 	# sed -i"" -e "s/<\\!-- $(ch)/<\\!-- $(ch) -->/" pue/index.html
 	# sed -i"" -e "s/^ *$(ch) -->/  <\\!-- $(ch) -->/" pue/index.html
 	make distribute
