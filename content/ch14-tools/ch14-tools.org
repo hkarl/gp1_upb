@@ -154,6 +154,8 @@ Matplotlib? ODer sowas? requests?
 - [[https://github.com/bpython/bpython][bpython]]: Stark verbesserte interaktive Nutzung des Interpreters
   - Z.B. mit Vorschlägen verfügbarer Methoden bei Objekt, samt docstring
 - [[http://docs.python-requests.org/en/master/user/install/][requests]]: Package, um mit HTTP einfach umzugehen 
+- Und viele mehr:  [[https://pythontips.com/2013/07/30/20-python-libraries-you-cant-live-without/][Liste 1]], [[https://wiki.python.org/moin/UsefulModules][Liste 2]],
+  [[http://blog.yhat.com/posts/11-python-libraries-you-might-not-know.html][Liste 3]]
 
 #+BEGIN_SRC python :exports code :results output
 import requests
@@ -161,8 +163,6 @@ r = requests.get("http://www.google.de")
 print(r.json)
 #+END_SRC 
 
-- Und viele mehr:  [[https://pythontips.com/2013/07/30/20-python-libraries-you-cant-live-without/][Liste 1]], [[https://wiki.python.org/moin/UsefulModules][Liste 2]],
-  [[http://blog.yhat.com/posts/11-python-libraries-you-might-not-know.html][Liste 3]]
 
 ** Matplotlib 
 

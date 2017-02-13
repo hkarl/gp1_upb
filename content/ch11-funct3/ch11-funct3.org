@@ -40,7 +40,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - Wir erweitern die Möglichkeiten, wie man mit Funktionen arbeiten
   kann
-  - Insbes.. die Vorstellung, dass eine Funktion ein Objekt ist, auf
+  - Insbes. die Vorstellung, dass eine Funktion ein Objekt ist, auf
     das man eine Referenz erzeugen und herumreichen kann 
 - Darauf aufbauend erarbeiten wir typische Programmiertechniken zur
   /funktionalen Programmierung/ 
@@ -605,8 +605,8 @@ h("Wert für x")
 *** Äußerer Parameter bleibt erhalten!				    :animate:
 
 - Offenbar behält die Funktion, die unter ~h~ im globalen Scope
-  bekannt ist, Zugriff auf die Variable ~x~
-- Erstaunlich! ~x~ im Namensraum von ~f~, aber ~f~ schon beendet!?
+  bekannt ist, Zugriff auf die Variable ~n~
+- Erstaunlich! ~n~ im Namensraum von ~f~, aber ~f~ schon beendet!?
 
 
 *** Visualisierung						  :dropslide:
@@ -949,7 +949,7 @@ http://stackoverflow.com/questions/6076270/python-lambda-function-in-list-compre
 ** ~filter~ 
 
 - ~filter~: eingebaute Funktion 
-- Signatur: ~map(function, iterable)~
+- Signatur: ~filter(function, iterable)~
   - Wende die Funktion ~function~ auf jedes Element einer Aufzählung an
   - Resultat: Aufzählung mit den Elementen, bei denen die Funktion
     wahr ergab 
@@ -1210,7 +1210,7 @@ Restarting with value:  30
 *** Verständnisfragen 						    :animate:
 
 - Wozu ~range~ und ~zip~ in Beispiel?
-- Wann werden Aufrufe von ~ge~ durchgeführt? 
+- Wann werden Aufrufe von ~gen~ durchgeführt? 
 - Wieviele Schleifendurchläufe? 
 
 
@@ -1468,7 +1468,7 @@ Funktion oder den nutzenden Code zu verändern.
 
 ** Decorators: Anwendungen 
 
-- Vorhanden Code verändern, patchen 
+- Vorhandenen Code verändern, patchen 
 - Fehlersuche, Leistungsmessung 
 - Komplexere Code-Strukturen
   - GUI-Frameworks
@@ -1567,37 +1567,39 @@ Wie bestimmt man Zeitverbrauch einer Funktion?
   auf die Uhr! 
 
 #+BEGIN_SRC python :exports both :results output
-  import time
+import time
 
-  def benchmark(fct):
-      def _benchmark(*args, **kwargs):
-          tstart = time.time()
-          fct(*args, **kwargs)
-          tend = time.time()
+def benchmark(fct):
+    def _benchmark(*args, **kwargs):
+        tstart = time.time()
+        r = fct(*args, **kwargs)
+        tend = time.time()
 
-          print("{} ({}, {}) verbrauchte {} Sekunden".format(
-              fct.__name__, args, kwargs, tend-tstart))
+        print("{} (args: {}, kwargs: {}) verbrauchte {} Sekunden".format(
+            fct.__name__, args, kwargs, tend-tstart))
 
-      return _benchmark
+        return r 
 
-  @benchmark 
-  def f1(s):
-      print("Anfang f1")
-      time.sleep(s)
-      print("Ende f1")
+    return _benchmark
+
+@benchmark 
+def f1(s):
+    print("Anfang f1")
+    time.sleep(s)
+    print("Ende f1")
 
 
-  f1(0.2)
-  f1(0.6)
+f1(0.2)
+f1(0.6)
 #+END_SRC 
 
 #+RESULTS:
 : Anfang f1
 : Ende f1
-: f1 ((0.2,), {}) verbrauchte 0.2000889778137207 Sekunden
+: f1 (args: (0.2,), kwargs: {}) verbrauchte 0.20515108108520508 Sekunden
 : Anfang f1
 : Ende f1
-: f1 ((0.6,), {}) verbrauchte 0.6030921936035156 Sekunden
+: f1 (args: (0.6,), kwargs: {}) verbrauchte 0.603410005569458 Sekunden
 
 ** @-Decorator: Property 
 
@@ -1649,6 +1651,7 @@ geht doch angeblich nicht?
 
 ** @-Decoratoren verketten? 
 
+Siehe auch: [[http://www.programiz.com/python-programming/decorator][Quelle des Beispiels]]
 
 #+BEGIN_SRC python :exports both :results output
 def star(func):
@@ -1680,7 +1683,7 @@ printer("Hallo GP1!")
 : %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 : ******************************
 
-[[http://www.programiz.com/python-programming/decorator][Quelle des Beispiels]]
+
 
 
 ** Decorators: Ausblick 

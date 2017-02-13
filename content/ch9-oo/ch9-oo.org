@@ -805,7 +805,7 @@ werden nicht automatisch gerufen.
 
 ** Unterklasse ~Werk~: Parameter des Oberklasse-Konstruktors durchreichen (2) 
 
-Oder noch schöner beim Instantiieren: Mit keyword-Argumenten 
+Oder noch schöner beim Instanziieren: Mit keyword-Argumenten 
 - Dann ist Reihenfolge egal! 
 
 #+BEGIN_SRC python :exports code  :results output
@@ -1225,7 +1225,7 @@ Wo kommen  die Methoden wie ~__str__~, ~__eq__~ etc. her?
 Ja! 
 - Jede Klasse hat eine Oberklasse ~object~
 - Es muss nicht explizit von dieser ererbt werden
-  - (Explicit is besser than implicit... ??)
+  - (Explicit is better than implicit... ??)
 - Damit: ~isinstance(o, object) == True~ für jedes Objekt 
 
 ** Methoden, Attribute von ~object~ ? 
@@ -1327,7 +1327,7 @@ und die Struktur seiner Daten zur Laufzeit zu untersuchen
 modifizieren (/modification/). 
 
 Reflektion wird häufig zur Fehlersuche, Testen, Bewertung der
-Leistungsfähgikeit, Integration ungünstig entworfener
+Leistungsfähigkeit, Integration ungünstig entworfener
 Klassenhierachien, oder automatischer Dokumentationserstellung
 benutzt. 
 
@@ -1586,7 +1586,9 @@ Temperatur-Beispiel folgt grob  [[http://www.programiz.com/python-programming/pr
 - Aber für Klassennutzer nicht schön zu benutzen
   - Eigentlich will man die Attribute wie gewohnt nutzen *ohne*
     Methoden aufzurufen 
-  - Beispiel: ~t1.temperature = 17~ , ~print(t1.temperature)~
+  - Beispiel:
+    - ~t1.temperature = 17~
+    - ~print(t1.temperature)~
 - Wie üblich: wichtige Sonderfälle verdienen Unterstützung durch
   Sprache 
 
@@ -1838,7 +1840,7 @@ zugreifbaren Methoden (samt ihrer Signaturen) und Datenattribute der
 Klasse.  Dies beinhaltet die Methoden/Daten evtl. benutzter
 Oberklassen. 
 
-Allgemein zugreifbar heißt hier: vom Zugreif wird nicht durch die
+Allgemein zugreifbar heißt hier: vom Zugriff wird nicht durch die
 Konvention ~_~  abgeraten. 
 
 *** Anmerkung: Interfaces in anderen Sprachen			  :dropslide:

@@ -56,7 +56,7 @@ warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPytho
 
 - Uhr: Klasse, die Uhrzeit bereit hält und auf ~tick~ eine Sekunde weiterzählt
   - Um Mitternach auf 0:00:00 zurückspringt 
-- Kalender: Klasse, die Datum bereit hält und auf ~tick~ einen Tag weiterzählt
+- Kalender: Klasse, die Datum bereit hält und auf ~next_day~ einen Tag weiterzählt
 - Siehe [[http://www.python-course.eu/python3_multiple_inheritance.php][Details]]
 
 #+BEGIN_SRC python :exports code :results output
