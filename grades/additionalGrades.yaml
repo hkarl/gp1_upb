@@ -271,15 +271,33 @@ grades:
   - blatt: 1
     punkte: 14
     tutor: tk
+  - blatt: 9
+    punkte: 19
+    tutor: tk
+  - blatt: 13
+    punkte: 19
+    tutor: tk
 - matrikel: 7040306
   punkte:
   - blatt: 1
     punkte: 14
     tutor: tk
+  - blatt: 9
+    punkte: 19
+    tutor: tk
+  - blatt: 13
+    punkte: 19
+    tutor: tk
 - matrikel: 7047354
   punkte:
   - blatt: 1
     punkte: 14
+    tutor: tk
+  - blatt: 9
+    punkte: 19
+    tutor: tk
+  - blatt: 13
+    punkte: 19
     tutor: tk
 - matrikel: 7057247
   punkte:
@@ -991,14 +1009,17 @@ grades:
     punkte: 11
     tutor: ps
   - blatt: 9
-    punkte: 18
-    tutor: ps
+    punkte: 19
+    tutor: tk
   - blatt: 10
     punkte: 14
     tutor: ps
   - blatt: 11
     punkte: 18
     tutor: ps
+  - blatt: 13
+    punkte: 19
+    tutor: tk
 - matrikel: 7092736
   punkte:
   - blatt: 5
@@ -1071,4 +1092,17 @@ grades:
   - blatt: 9
     punkte: 18
     tutor: ps
+- matrikel: 6523737
+  punkte:
+  - blatt: 3
+    punkte: 15
+    tutor: tk
+  - blatt: 4
+    punkte: 14
+    tutor: tk
+- matrikel: 7012337
+  punkte:
+  - blatt: 13
+    punkte: 16
+    tutor: tk
 ...
