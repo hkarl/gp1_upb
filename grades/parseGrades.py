@@ -470,14 +470,14 @@ def create_excel(grades):
         ws.cell(column=4*i+6, row=2, value="Total")
         ws.cell(column=4*i+7, row=2, value="email")
 
-    for r, matrikel in enumerate(grades):
+    for r, matrikel in enumerate(sorted(grades)):
         ws.cell(column=1, row=r+3, value=matrikel)
 
         ws.cell(column=2, row=r+3,
                     value=sum([int(a['total'])
                                    for k, a in grades[matrikel].items()]))
         ws.cell(column=3, row=r+3,
-                    value=sum([int(int(a['total']) > 4)
+                    value=sum([int(int(a['total']) >= 4)
                                    for k, a in grades[matrikel].items()]))
         for c, akey in enumerate(grades[matrikel]):
             a = grades[matrikel][akey]
