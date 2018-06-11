@@ -53,6 +53,15 @@ done
      ; or manual control in the buffer? currently, left in buffer
      (setq org-export-babel-evaluate t)
      (setq org-confirm-babel-evaluate nil)
+     (add-to-list 'org-latex-classes
+              '(\"memoir\"
+                \"\\\\documentclass{memoir}\"
+                (\"\\\\section{%s}\" . \"\\\\section*{%s}\")
+                (\"\\\\subsection{%s}\" . \"\\\\subsection*{%s}\")
+                (\"\\\\subsubsection{%s}\" . \"\\\\subsubsection*{%s}\")
+		(\"\\\\paragraph{%s}\" . \"\\\\paragraph*{%s}\")
+		(\"\\\\subparagraph{%s}\" . \"\\\\subparagraph*{%s}\"))
+              )
      ;; active Org-babel languages
      (org-babel-do-load-languages
       'org-babel-load-languages
