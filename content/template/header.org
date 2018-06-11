@@ -1,6 +1,7 @@
 #+SUBTITLE: Grundlagen der Programmierung 1 
 #+OPTIONS: tags:nil
 
+#+LATEX_CLASS: memoir 
 #+LATEX_CLASS_OPTIONS: [a4paper,11pt, colorlinks = true, linkcolor=blue, urlcolor=blue]
 #+LANGUAGE: de
 #+OPTIONS: toc:1
