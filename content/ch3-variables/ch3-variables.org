@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 3: Variablen
+#+TITLE: Kapitel 3: Werte, Namen, Bezeichner
 #+INCLUDE: "../template/header.org"
 
 #+STARTUP: showeverything
@@ -56,12 +56,12 @@ def pingo(line):
 ** Dieses Kapitel 
 
 - Bisher nur Ausdrücke, die keine Zustandsänderung bewirken 
-- Dieses Kapitel: Konzept der /Variable/ -- das Benennen eines Werts
+- Dieses Kapitel: Konzept von /Namen/ und /Bezeichnern/ -- das Benennen eines Werts
 - Erlaubt Weiterverwendung und Manipulation von Ergebnissen eines
   Ausdrucks 
 
 
-* Variablen 
+* Namen, Bezeichner  
 
 
 ** Ausdrücke sind vergesslich 
@@ -108,8 +108,9 @@ a = 42
     :BEAMER_env: definition
     :END:
 
-Bei einer Zuweisung wird ein *Name* mit einem Wert verbunden.  Der
-Name *referenziert* den Wert; der Wert wird der Variable *zugewiesen*.
+Bei einer *Zuweisung* wird ein *Name* mit einem Wert verbunden; ein
+solcher Name ist ein *Bezeichner*.  Der Bezeichner ist gebunden an den
+Wert.
 
 *** Schreibweise 
 
@@ -123,7 +124,8 @@ Name *referenziert* den Wert; der Wert wird der Variable *zugewiesen*.
 - Die Zuweisung *erzeugt* den Wert, falls er noch nicht existiert 
 - Die Zuweisung *erzeugt* den Namen, falls er noch nicht existiert 
 - Die Zuweisung *verbindet* Namen mit Wert
-  - Oder: erzeugt *Referenz* 
+  - Oder: *bindet* Namen an Wert, Name *ist gebunden an* Wert, Name
+    *bezieht sich auf* Wert  
 
 *** Zustandsänderung! 
 
@@ -144,13 +146,20 @@ interpretiert wird.
 
 Bei einer Zeichenkette ist das schon deutlicher. Diese muss erst
 explizit im Speicher erzeugt werden, bevor sie mit einem Namen
-versehen werden kann.  Bei komplexeren Datentypen (siehe folgende
-Kapitel) ist dies ebenso der Fall. Wir kommen darauf noch zurück.
+versehen werden kann.   Ähnlich bei arithmetischen Ausdrücken: Auch
+hier muss zunächst der Wert berechnet werden, bevor der Namen an den
+(berechneten) Wert gebunden werden kann. 
+
+Bei komplexeren Datentypen (siehe folgende
+Kapitel) ist dies ebenso der Fall: der Wert muss in der Regel erst
+erzeugt werden. Wir kommen darauf noch zurück.
+
+
 
 
 ** Zuweisung: Namen sind Schilder an Werten 
 
-Referenz: An den Wert ein Namensschild hängen 
+Binden: An den Wert ein Namensschild hängen 
 
 *** Code 
 
@@ -161,54 +170,86 @@ a = 42
 
 *** Konzept 
 
-#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 400 
-#+header: :cache yes
-#+begin_src latex :exports results :results output raw :file figures/namesLabels.png :fit t
-    \usetikzlibrary{arrows,positioning,decorations.pathmorphing}
-    \begin{tikzpicture}
-    [pyvariable/.style={rectangle,draw=black,thick},
-     pyvalue/.style={rectangle,draw=black,fill=black!10,thick}]
-    \node[pyvariable] (vara)  at (0,0) {a};
-    \node[pyvalue] (val42) at (2,-1) {42};
-    \draw [->,red,decorate,decoration=snake] (vara.east) -- (val42.west)
-    node[right=5cm,above=0.75cm,]{Referenz};
-    \end{tikzpicture}
-#+end_src
-
 #+NAME: value-a-42
-#+CAPTION: Der Name a referenziert den Wert 42
+#+CAPTION: Der Name a  verweist auf  den Wert 42
 #+ATTR_LATEX: :width 0.3\textwidth :float nil
-#+RESULTS[407396d8be44328c2bfbe097ce7510cd887255dc]:
 [[file:figures/namesLabels.png]]
 
 
 
 
+** Und was ist mit Variablen?
+
+- Sonst doch immer: *Variable*?
+  - Statt Wert, Name, Bezeichner?
+- Ja, in anderen Sprachen! (z.B. C, Java, ...)
+  - Dort: Variable ist ein *Name* für eine *Speicherstelle* (eine
+    *Adresse*)
+    - *Nicht* für einen Wert 
+  - (plus Typ, plus Gültigkeitsbereich, plus Lebensdauer) 
+  - Speicherstelle enthält dann  *Wert*
+- Eine *benannte Schuhschachtel*
+
+
 *** Schilder an Werten oder Boxen mit Aufschrift?		  :dropslide:
 
 Wenn Sie schon mit anderen Programmiersprachen wie etwa Java vertraut
-sind, ist die Vorstellung, ein Variablenname ist eine Referenz auf
-oder ein Namensschild für einen Wert, möglicherweise
-befremdlich. Dort ist die typische Vorstellung eher: Eine Variable ist
-eine Schuhschachtel (mit einem Namen), in die ein Wert gelegt wird. 
+sind, ist die Vorstellung, ein Variablenname ist ein Namensschild für
+einen Wert möglicherweise befremdlich. Dort ist die typische
+Vorstellung eher: Eine Variable ist eine Schuhschachtel (mit einem
+Namen), in die ein Wert gelegt wird.
 
-Auf den ersten Blick macht das keinen großen Unterschied. Allerdings
-ist für das Speichermodell von Python die Namensschild-Analogie
+Auf den ersten Blick macht das vielleicht keinen großen
+Unterschied. Tatsächlich ist dies ein relativ fundamentaler
+Unterschied, wie Programmiersprachen funktionieren.  Im Detail ist die
+Vorstellung von Variablen (insbes. eine typisierte Variable) 
+relativ kompliziert. Das Name/Wert ist eigentlich einfacher, aber
+ggf. zunächst kontraintuitiv wenn man schon eng mit der Speicherung
+von Daten in einer typischen Rechnerarchitektur vertraut ist. 
+
+
+Für das Speichermodell von Python ist die Namensschild-Analogie
 passender. Details werden wir im Kapitel zu veränderlichen Datentypen
-besprechen.  
+besprechen (und auch in der folgenden Vorlesung /Grundlagen der
+Programmiersprachen/).
 
 
+
+** Variablen in Python? 
+
+*** KEINE Variablen in Python                                  :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Es gibt in Python keine Variablen 
+
+
+*** ... nur aus Versehen                               :B_alertblock:animate:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+Falls mir doch einmal /Variable/ herausrutscht, ist das *falsch*!
+Protestieren Sie lautstark! 
+
+Gemeint: 
+- wenn Variable *rechts* von ~=~: ein Bezeichner, der an einen Wert gebunden *ist*
+- wenn Variable *links* von ~=~: ein Bezeichner, der an einen Wert gebunden *wird*
+
+
+    
 ** Gültige Namen? 
 
-- ~a~ war ein Beispiel für einen Variablennamen
-- Wie darf ein Variablenname überhaupt aussehen?
+- ~a~ war ein Beispiel für einen Namen
+- Wie darf ein Name überhaupt aussehen?
 
-*** Variablennamen					       :B_definition:
+*** Name                                                       :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
 
-- Ein /Variablenname/ (oder /identifier/) ist eine nichtleere
+- Ein /Bezeichner/ (oder /identifier/) ist eine nichtleere
   Zeichenkette beliebiger Länge, bestehend aus Klein- oder
   Großbuchstaben, Ziffern, oder dem Unterstrich ~_~
 
@@ -223,19 +264,19 @@ besprechen.
 
 - Einige Zeichenketten sind für andere Zwecke /reserviert/
 
-** Gültige und ungültige Namen: Beispiele 
+** Gültige und ungültige Bezeichner: Beispiele 
 
 - Gültig: ~hallo~, ~x1~, ~_a_b~
   - Gültig, aber unterschiedlich: ~a~, ~A~, ~var1~, ~Var1~ 
-- Ungültig: ~1x~, ~x-y~, Sonderzeichen in Variablennamen ($, # , ...) 
+- Ungültig: ~1x~, ~x-y~, Sonderzeichen in Namen ($, # , ...) 
 
 
 
 ** Reservierte Namen 
 
-- Manche Namen haben Sonderrolle 
+- Manche Namen haben Sonderrolle, dürfen nicht als Bezeichner benutzt werden 
 - Beispiel: Literale ~True~, ~False~
-  - ~True~ als Variablenname benutzbar?
+  - ~True~ als Name benutzbar?
     - ~True = False~ ???
     - *Nein!* 
 
@@ -244,10 +285,10 @@ besprechen.
     :BEAMER_env: definition
     :END:
 
-Ein /Schlüsselwort/ (reserviertes Wort, reservierter Name, key word) ist ein Bezeichner,
-der in einer Programmiersprache eine Sonderrolle einnimmt. Ein
-Schlüsselwort darf /nicht/ für andere Zwecke benutzt werden, z.B. als
-Variablenname. 
+Ein /Schlüsselwort/ (reserviertes Wort, reservierter Name, key word)
+ist ein Zeichenfolge, die in einer Programmiersprache eine Sonderrolle
+einnimmt. Ein Schlüsselwort darf /nicht/ für andere Zwecke benutzt
+werden, z.B. als Bezeichner.
 
 Jede Programmiersprache hat eine Liste von Schlüsselworten. 
 
@@ -263,9 +304,9 @@ Jede Programmiersprache hat eine Liste von Schlüsselworten.
 
 ** Sinnvolle Namen? 
 
-Ist ~a~ ein sinnvoller Variablenname? 
+Ist ~a~ ein sinnvoller Name? 
 
-- Für eine Folie mit einer Variable: naja
+- Für eine Folie mit einem Bezeichner: naja
 - Für ein größeres Programm: Nein!
   - Nutzen Sie sog. *sprechende Namen*: Namen, denen man den Zweck,
     Inhalt, Benutzung leicht ansieht
@@ -288,19 +329,19 @@ Eine *Namenskonvention* beschreibt übliche Vorgehensweisen zur Wahl
 von Namen. Sie schränkt die möglichen Namen auf die sinnvollen Namen
 ein, ist aber kein formaler Bestandteil der Sprache. 
 
-*** Namenskonvention für Variablen in Python		  :B_example:animate:
+*** Namenskonvention für Bezeichner in Python             :B_example:animate:
     :PROPERTIES:
     :BEAMER_env: example
     :END:
 
 - Kleinbuchstaben am Anfang
-- Variablennamen aus mehreren Worten werden durch Unterstrich getrennt 
+- Namen aus mehreren Worten werden durch Unterstrich getrennt 
 - Vermeide: kleines l, großes O und großes L -- Verwechselungsgefahr 
 
-** Variable nutzen
+** Bezeichner nutzen
 
 - Wie bekomme ich den referenzierten Wert? 
-- Einfach: Variable als Ausdruck benutzen
+- Einfach: Bezeichner als Ausdruck benutzen
 
 #+BEGIN_SRC python
 a = 5
@@ -308,7 +349,7 @@ a + 17
 #+END_SRC
 
 
-** Weitere Variable 
+** Weitere Bezeichner  
 
 *** Code 
 
@@ -336,13 +377,13 @@ b = 42
 #+end_src
 
 #+NAME: value-a-and-b
-#+CAPTION: Beiden Namen a und b  referenzieren den Wert 42
+#+CAPTION: Beiden Namen a und b sind an  den Wert 42 gebunden 
 #+ATTR_LATEX: :width 0.3\textwidth :float nil
 #+RESULTS[eaae2c4b0d77c7a6883b00efcd02b0a543d9ff83]:
 [[file:figures/TwoNamesLabels.png]]
 
 
-** Weitere Variable -- Beobachtungen 
+** Weitere Bezeichner -- Beobachtungen 
 
 *** Namen und Werte
 
@@ -372,7 +413,7 @@ ist?
 #+BEGIN_SRC python
 a = 42
 b = 42
-# a wird Referenz für einen neuen Wert  
+# a wird an einen neuen Wert gebunden ("rebinding") 
 a = "Hallo"
 #+END_SRC
 
@@ -395,7 +436,7 @@ a = "Hallo"
 #+end_src
 
 #+NAME: value-abHallo
-#+CAPTION: Name a referenziert einen neuen Wert 
+#+CAPTION: Name a wird an  einen neuen Wert gebunden 
 #+ATTR_LATEX: :width 0.3\textwidth  :float nil
 #+RESULTS[8506a1af9f236c7594993875c314053271386e0a]:
 [[file:figures/abHallo.png]]
@@ -407,10 +448,10 @@ a = "Hallo"
 
 
 
-* Arbeiten mit Variablen und Zuweisungen 
+* Arbeiten mit Bezeichnern und Zuweisungen 
 
 
-** Variablen an Variablen zuweisen 
+** Bezeichner  an Bezeichner zuweisen 
 
 Geht das? Wert von b? 
 
@@ -425,8 +466,8 @@ b = a
 - Das ist nur ein Sonderfall!
 - Allgemein:
   - Wert des Ausdrucks auf der rechten Seite bestimmen
-  - Variable wird zu Namen für diesen Wert
-  - Egal, ob der Ausdruck rechts eine Variable ist -- es geht um *den
+  - Bezeichner wird zu Namen für diesen Wert
+  - Egal, ob der Ausdruck rechts ein Bezeichner ist -- es geht um *den
     Wert* 
 
 
@@ -435,7 +476,7 @@ b = a
 - Die vorherige Folie war auch ein Beispiel für Programmanimationen
   - Web-Anwendung: [[http://www.pythontutor.com/][PythonTutor]]
   - Erlaubt Ausführung von Programmen in Einzelschritten und Anzeige
-    der Variablenbelegungen
+    der an Namen gebundenen Werte 
 - Sie können das selbst nutzen
   - direkt auf Webseite von PythonTutor 
   - oder aus den Jupyter-Notebooks heraus: mit ~%%tutor~ in
@@ -445,7 +486,7 @@ b = a
 *** Pythontutor-Links im Skript 				  :dropslide:
 
 Wenn Sie im Skript (PDF-Datei) auf ein Code-Beispiel stoßen, bei dem
-unter dem Quellcode (PT link) steht, so ist dies ein Link auf ein das
+unter dem Quellcode (PT link) steht, so ist dies ein Link auf das
 Beispiel in Pythontutor. Wenn Sie auf diesen Link klicken,
 sollte sich ein Browser-Fenster öffnen, das auf die Webseite von
 Pythontutor zeigt und wo das entsprechende Code-Beispiel bereits
@@ -467,7 +508,7 @@ Danach kommen Sie zu einer zweiten Ansicht, in der Sie durch Forward
 und Backward das Programm in einzelnen Schritten ausführen können
 (Abbildung [[fig:pt-run]]). Links werden die jeweils auszuführenden
 bzw. gerade ausgeführte Anweisung durch rote bzw. grüne Pfeile
-angezeigt. Rechts sieht man die Belegungen von Variablen.
+angezeigt. Rechts sieht man die an Bezeichner gebundenen Werte.
 
 #+CAPTION: PythonTutor: Ausführungs-Ansicht
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -534,7 +575,7 @@ vereinbart. ~b~ wird zu einem weiteren Namen für den Wert, der von ~b~
 referenziert wird. 
 
 
-*** FALSCH: 
+*** FALSCH (*KOMPLETT ABSURD*): 
 
 #+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 400 
 #+header: :cache yes
@@ -562,9 +603,9 @@ referenziert wird.
 [[file:figures/wrongLabels.png]]
 
 
-** Eine Variable verändern 
+** Einen Bezeichner verändern? 
 
-- Genauer: Eine Variable referenziert einen neuen Wert 
+- Genauer: Ein Name referenziert einen neuen Wert 
 - Wert von ~b~? 
 
 #+BEGIN_SRC python
@@ -577,9 +618,9 @@ b
 
 ** Warum hat ~b~ den Wert 5?  
 
-1. ~a = 5~ : Variable ~a~ referenziert den Wert 5
+1. ~a = 5~ : Bezeichner ~a~ referenziert den Wert 5
 2. ~b = a~ : Der Wert des Ausdrucks auf der rechten Seite wird
-   bestimmt. Variable ~b~ wird zu einem Namen für diesen Wert. 
+   bestimmt. Bezeichner ~b~ wird zu einem Namen für diesen Wert. 
 3. ~a = a + 2~ : 
    1. ~a + 2~ ausrechnen, ergibt Wert 7
    2. Der Wert 7 wird im Speicher repräsentiert 
@@ -588,12 +629,13 @@ b
    1. Warum sollte sich hier etwas geändert haben?
 
 
-** Ausdrücke in Variablen 
+** Ausdrücke  mit Bezeichnern 
 
-- In Ausdrücken können Variablennamen wie Werte benutzt werden 
-- Bei Berechnung des Ausdrucks: Variable durch Wert ersetzt
+- In Ausdrücken können Bezeichner wie Werte benutzt werden 
+- Bei Berechnung des Ausdrucks: Bezeichner wird durch gebundenen Wert
+  ersetzt 
   - Wie Beispiel oben: ~b = a~ 
-- Variable wird zu Namen für berechneten Ausdruck 
+- Bezeichner links von ~=~ wird zu Namen für berechneten Wert 
 
 *** Beispiele 
 
@@ -629,9 +671,9 @@ pingo_duration = "60"
 #+END_SRC 
 
 
-** Beispiel: Werte zweier Variablen vertauschen 
+** Beispiel: Gebundene Werte zweier Bezeichner vertauschen 
 
-Wie vertauschen Sie die Werte zweier Variablen? 
+Wie vertauschen Sie die Werte zweier Bezeichner? 
 
 #+BEGIN_SRC python
 a = 17 
@@ -640,18 +682,18 @@ b = 42
 ... 
 #+END_SRC
 
-*** UEBUNG Variable tauschen ohne Hilfsvariable; xor 
+*** UEBUNG Bezeichner-Werte tauschen ohne Hilfsvariable; xor 
 
 Üblicher xor-Trick 
 
 
 ** Gleichzeitig Zuweisungen 
 
-Python: *Gleichzeitige* Zuweisung an mehrere Variablen möglich 
+Python: *Gleichzeitige* Zuweisung an mehrere Bezeichner möglich 
 
 *** Syntax 
 
-- Links von ~=~: Mehrere Variablennamen, durch Komma getrennt 
+- Links von ~=~: Mehrere Bezeichner, durch Komma getrennt 
 - Rechts von ~=~: Mehrere Ausrücke, durch Komma getrennt 
 - Anzahl *muss* übereinstimmen 
 - Beispiel mit drei Ausdrücken: 
@@ -663,7 +705,8 @@ a, b, c = Ausdruck1, Ausdruck2, Ausdruck3
 ** Gleichzeitige Zuweisungen -- Semantik 
 
 1. *Alle* Ausdrücke auf der rechten Seite werden ausgewertet
-   1. Dabei werden noch die *ursprünglichen* Variablenwert benutzt
+   1. Dabei werden noch die *ursprünglichen* Werte benutzt (es gibt ja
+      noch keine anderen)
 2. *Danach* werden alle Zuweisungen zu den neu berechneten Werten
    hergestellt
 3. Erst wenn *alle* Zuweisungen fertig sind, geht es weiter 
@@ -677,7 +720,7 @@ x, y = 17, 42
 x, y = 2*x, y-5 
 #+END_SRC
 
-*** Vertauschen zweier Variablenwerte? 
+*** Vertauschen zweier gebundener Werte? 
 
 #+BEGIN_SRC python
 x, y = 17, 42
@@ -694,26 +737,26 @@ x, y = 17, 42
     :BEAMER_env: definition
     :END:
 
-Bei einer Zuweisung werden ein oder mehrere *Namen* mit einem oder
-mehreren Werten verbunden.  Der Name *referenziert* den entsprechenden
-Wert; der Wert wird der Variable *zugewiesen*. 
+Bei einer Zuweisung werden ein oder mehrere *Bezeichner* mit einem oder
+mehreren Werten verbunden.  Der Bezeichner *bindet an* den entsprechenden
+Wert. 
 
 *** Schreibweise 
 
 - Zuweisung wird durch ein Gleichheitszeichen angegeben
-- Links davon: der oder die *Namen*, durch Komma getrennt
+- Links davon: der oder die *Bezeichner*, durch Komma getrennt
 - Rechts davon: der oder die *Werte*, durch Komma getrennt 
 
 
 
 ** Kurzschreibweisen bei Zuweisungen 
 
-- Häufig: an Variable einfachen arithmetischen Ausdruck aus dieser
-  Variable zuweisen
+- Häufig: an Bezeichner einfachen arithmetischen Ausdruck aus diesem
+  Bezeichner zuweisen
   - ~x = x + 1~, ~y = y / 2~
 - Dafür Kurzschreibweise:
-  - ~Variable Operator= Ausdruck~
-  - Entspricht: ~Variable = Variable Operator Ausdruck~
+  - ~Bezeichner Operator= Ausdruck~
+  - Entspricht: ~Bezeichner = Bezeichner Operator Ausdruck~
 - Beispiele
   - ~x += 1~
   - ~y /= 2~
@@ -723,15 +766,15 @@ Wert; der Wert wird der Variable *zugewiesen*.
 ** Typen? 
 
 - Werte und Ausdrücke haben Typen 
-- Variablen?
-  - Variable ist nur eine Referenz auf einen Wert
-- Typ der Variable : Typ des zugewiesenen Werts
+- Bezeichner?
+  - Bezeichner ist nur Name für Wert, verweist auf  Wert
+- *Typ des Bezeichners*: Typ des zugewiesenen Werts
   - Welcher Typ sollte es auch sonst sein?? 
 
 
-** Variablentyp veränderlich? 
+** Bezeichnertyp veränderlich? 
 
-Heißt das, dass sich der Typ einer Variable verändern kann? 
+Heißt das, dass sich der Typ eines Bezeichners verändern kann? 
 
 - *JA*! 
 
@@ -745,17 +788,18 @@ x = 'Hallo GP1'
 
 ** Wo ist der Typ? 
 
-- Typ-Information liegt *nicht* beim Variablennamen
-  - Für eine Variable *muss kein Typ angegeben werden*
+- Typ-Information liegt *nicht* beim Bezeichner
+  - Für eine Bezeichner *muss kein Typ angegeben werden*
   - Es wäre auch sinnlos, das zu tun
-- Typ-Information liegt beim referenzierten Wert  
-- Ist dort aber explizit bekannt
+- Typ-Information liegt beim gebundenen Wert  
+- Ist dort aber explizit bekannt! 
 
 
 ** Problem? 
 
 - Dem Interpreter ist das egal -- die Typinformation ist ja vorhanden 
-- Ein Programmierer sieht einer Variable nicht an, was darin steckt
+- Ein Programmierer sieht einem Bezeichner (zunächst) nicht an, was
+  darin steckt 
   - Das kann sich ja ändern
   - Das erfordert Disziplin! 
 - Idee: /Solange der Wert weiß, was er ist, ist alles gut/
@@ -783,7 +827,7 @@ Python ist ein Beispiel.
     :END:
 
 Eine Programmiersprache ist */statisch typisiert/* wenn
-Typen-Informationen für */Variablen/* explizit im Programm-Code angegeben werden
+Typen-Informationen für */Bezeichner/* explizit im Programm-Code angegeben werden
 müssen. Aus der Betrachtung des Programm-Codes kann der Typ eines
 Wertes abgeleitet werden, bereits bevor das Programm selbst abläuft. 
 
@@ -791,12 +835,21 @@ Meist (aber nicht unbedingt) wird in einer solchen Sprache auf die
 explizite Repräsentation des Typs eines Wertes /zur Laufzeit/
 verzichtet, da ja alle Informationen bereits vorab bekannt sind. 
 
+
 Java ist ein Beispiel. 
 
 *** Historie							  :dropslide:
 
 Eine nette Zusammenfassung der Geschichte dahinter findet sich in
 [[http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html][diesem Blog]]. 
+
+
+***                                                                :noexport:
+
+Kommentar Pfahler: nicht bei OO - zu "auf Repräsentation zur laufzeit
+verzichtet" XXX
+
+
 
 * Anmerkungen zu Syntax und Stil 
 
@@ -904,11 +957,11 @@ Lösung: PEP 8! (wo sonst...)
 
 ** Zusammenfassung 
 
-- Variablen geben Werten einen /Namen/
+- Zuweisungen geben Werten einen /Namen/, einen /Bezeichner/
 - Damit ändert sich der /Zustand/ eines laufenden Programms 
-- Syntaxregeln für Variablennamen
-- Semantik der Zuweisung
-- Die Repräsentation des Typs (in Wert oder Variable) unterscheidet
+- Regeln, wie Bezeichner aussehen dürfen  
+- Die Repräsentation des Typs im Programmtext/zur Laufzeit
+  unterscheidet 
   dynamisch von statisch typisierten Programmiersprachen 
 
 
@@ -927,7 +980,7 @@ Hätten Sie etwas anders gemacht?
 
 * Notes								   :noexport:
 
-- Variablen
+- Bezeichner 
   - ERzeugung
   - Typ
   - Nutzung 
