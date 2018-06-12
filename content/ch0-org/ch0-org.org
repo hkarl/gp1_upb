@@ -10,7 +10,7 @@
 
 * Vorstellung 
 ** Setup 						  :skipslide:nolatex:
-
+   
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
@@ -54,15 +54,13 @@ def pingo(line):
 
 - an der Universität Paderborn 
 - zum Studium der Informatik, des Computer Engineerings, ...
-- zur Vorlesung Grundlagen der Programmierung I 
+- zur Vorlesung  Programmierung 
 
 ** Wer sind wir? 
 
-- GP1 Team
 - Dozent: Holger Karl
-- Mitarbeiter: M. Feldmann, D. Parruca, A. Setzer 
-- Tutoren: J. Harbig, P. Steffens, T. Kellner, M. Thiele, J. Rossel,
-  P. Börding 
+- Mitarbeiter: ???
+- Tutoren: ???
 
 
 ** Wer sind wir?  -- Dozent					   :subslide:
@@ -76,12 +74,8 @@ def pingo(line):
 
 ** Wer sind wir? -- Mitarbeiter					   :subslide:
 
-- Donald Parruca
-  - donald.parruca@upb.de , O3.167
-- Alexander Setzer
-  - asetzer@mail.uni-paderborn.de, F2.403
-- Michael Feldmann
-  - michael.feldmann@upb.de, F2.403
+- OFFEN
+  - OFFEN 
 
 
 ** Wo sind wir? -- Gebäude O 
@@ -155,36 +149,32 @@ pingo_duration = "120"
 - Sinnvoll? 
 
 
-** Bestandteile GP1
+** Bestandteile Programmierung 
 
 - Vorlesung 
 - Präsenzübungen 
 - Hausübungen 
 - Klausur 
 
-** Vorlesung GP1						   :subslide:
+** Vorlesung Programmierung                                        :subslide:
 - Präsentation: Konzepte, Ansätze, Beispiele 
 - Interaktiv soweit möglich
 - Hoffentlich: Aufzeichnung 
 - Notwendig: Vor- und Nachbereitung durch Sie!
 
-** Vorlesung GP1 -- Termine					   :subslide:
+** Vorlesung Programmierung -- Termine                             :subslide:
 
 *** Regulär 
 
-- Di, 14:15 -- 15:45, Hörsaal L1 
-- Mi, 14:15 -- 15:45, Hörsaal L1 
+- ??? 
 
 *** Ausfall							    :animate:
 
-- 1. November
-- 15. Dezember (und evtl. 14. Dezember) 
+- ??? 
 
-*** Ersatz, jeweils ZWEI Vorlesungen!				    :animate:
+*** TODO Ersatz, jeweils ZWEI Vorlesungen!                          :animate:
 
-- *Samstag*, 22. Oktober,  9:00 - 12:30   (Punkt 9!) 
-- *Samstag*, 19. November,  9:00 - 12:30 (Punkt 9!) 
-
+- *Samstag*, ??? 
 
 
 ** Hausübungen  -- Zweck 
@@ -206,7 +196,7 @@ hinausgehen, was in einer Klausur realistisch ist. Dies ist sinnvoll,
 um Ihnen Gelegenheit zu geben, auch schwierigere Probleme anzugehen
 und sinnvoll zu strukturieren.
 
-** Hausübungen -- Prozess					   :subslide:
+** TODO Hausübungen -- Prozess                                     :subslide:
 
 - Aufgaben werden ausgegeben
 - Sie lösen, gemeinsam in einer Gruppe 
@@ -223,7 +213,7 @@ und sinnvoll zu strukturieren.
 [[./uml/hausblatt.png]]
 
 
-** Hausübungen -- Termine					   :subslide:
+** TODO Hausübungen -- Termine                                     :subslide:
 
 - Ausgabe erstes Blatt: 28.10.2016
 - Abgabe: 6.11.2016, 23:59 
@@ -231,7 +221,7 @@ und sinnvoll zu strukturieren.
   - Dienstag, 13:00 -- 14:00, L1
   - (mit 15 oder 30 Minuten Pause?) 
 
-**  Hausübungen -- Abgabe					   :subslide:
+** TODO Hausübungen -- Abgabe                                      :subslide:
 
 - Nur web-basierte Abgabe der Lösungen 
   - Siehe: https://gp1.cs.uni-paderborn.de:8000
@@ -259,8 +249,8 @@ und sinnvoll zu strukturieren.
 
 ** Hausübungen -- Plagiate					   :subslide:
 
-- Abschreiben: *0 Punkte* auf das gesamte Blatt! 
-- Abschreiben lassen: *0 Punkte* auf das gesamte Blatt! 
+- Abschreiben: *0 Punkte* auf das gesamte Blatt, für die ganze Gruppe! 
+- Abschreiben lassen: *0 Punkte* auf das gesamte Blatt, für die ganze Gruppe! 
 - Durch elektronische Abgabe sehr leicht zu entdecken! 
 
 ** Präsenzübungen 
@@ -294,7 +284,7 @@ programmieren. Sehen Sie also die Präsenzübungen als Gelegenheit zum
 gemeinsamen programmieren an, mit Hilfestellung und Unterstützung
 durch den Tutor. 
 
-** Präsenzübungen -- Termine					   :subslide:
+** TODO Präsenzübungen -- Termine                                  :subslide:
 
 
 
@@ -319,11 +309,11 @@ durch den Tutor.
 *** IMT-Login und PAUL 
 - Anmeldung in PAUL notwendig 
   - http://paul.uni-paderborn.de 
-  - Dazu IMT-Login: http://benutzerverwaltung.upb.de
+  - Dazu IMT-Login: http://serviceportal.upb.de
 
 *** IRB-Login							    :animate:
 - Nutzung der Poolraum-Rechner freischalten
-- Unter http://benutzerverwaltung.upb.de
+- Unter http://serviceportal.upb.de
   - *Betreuung*: Informatik-Rechnerbetrieb (IRB) 
   - *Dezentrale Dienste*: Rechnerzugang im Institut für Informatik
   - Nicht-EIM-Studierende: IRB Support ansprechen (E1.129) 
@@ -372,7 +362,7 @@ Zulassungsvoraussetzungen erfüllen:
 [[./uml/weg-zur-klausur.png]]
 
 
-** Wo finden Sie was? 
+** TODO Wo finden Sie was? 
 
  - PAUL: Anmeldung zu Übungen und Klausur
  - [[https://cs.uni-paderborn.de/index.php?id=59215][Webseite zur Veranstaltung]]
@@ -381,10 +371,12 @@ Zulassungsvoraussetzungen erfüllen:
      - PDFs: Folien und zusätzliche Anmerkungen und Kommentare; als Skript
        gedacht 
    - [[https://gp1.uni-paderborn.de][Übungen]]
-   - Audio-Mitschnitte: Hoffentlich :-) 
+   - Video-Mitschnitte: auf
+     [[https://videos.uni-paderborn.de][Video-Portal der UPB]]
 
 
-** Wo finden Sie was? -- Webseite				    :nolatex:
+
+** TODO Wo finden Sie was? -- Webseite                              :nolatex:
 
 #+CAPTION: Webseite der Vorlesung
 #+ATTR_LaTeX: scale=0.75
@@ -392,7 +384,7 @@ Zulassungsvoraussetzungen erfüllen:
 [[./figures/vorlesung-qr.png]]
 
 
-** Wo finden Sie was? -- Material				    :nolatex:
+** TODO Wo finden Sie was? -- Material                              :nolatex:
 
 
 #+CAPTION: Materialien zur Vorlesung
