@@ -12,7 +12,7 @@
 * Überblick 
 
 
-** Setup 						  :skipslide:nolatex:
+** Setup						  :skipslide:nolatex:
 
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
@@ -148,15 +148,15 @@ Argumentübergabe und Rückgabewert funktionieren ganz normal
           print(x+1)
           return x+2
 
-      y = g(17)
+      y = g(22)
       print(y)
 
   f()
 #+END_SRC 
 
 #+RESULTS:
-: 18
-: 19
+: 23
+: 24
 
 
 ** Verschachtelte Funktionen: Zugriff auf Variablen? 

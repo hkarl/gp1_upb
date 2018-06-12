@@ -320,11 +320,11 @@ def f(a, b, *args, **kwargs):
     else:
         return str(len(args)) * kwargs['z'] 
 
-print(f("hallo", 3, 17, "gp1", **{'y': 17, 'z': 5}))
+print(f("hallo", 3, 17, "gp1", **{'y': 17, 'z': 3}))
 #+END_SRC 
 
 #+RESULTS:
-: 222
+: 22222
 
 *** Pingo!						    :animate:nolatex:
 
