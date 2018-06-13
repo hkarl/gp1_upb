@@ -10,7 +10,7 @@
 #+LATEX_HEADER: \setcounter{chapter}{5}
 
 * Überblick 
-
+  
 ** Setup 						  :skipslide:nolatex:
 
 Main point here is to set up warnings properly for presentation and to
@@ -261,7 +261,95 @@ print(t[5])
 #+END_SRC
 
 
-*** UEBUNG Unpacking von Tuples 
+** Mehrzuweisung von Tuples 
+
+- Mehrfachzuweisung bisher: Anzahl links == Anzahl rechts 
+  - ~x, y = 1, 2~ 
+- Was, wenn rechts ein Tuple steht? Und links mehrere Namen? 
+
+*** Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+x, y = (1, 2) 
+print(x)
+print(y)
+#+END_SRC
+
+#+RESULTS:
+: 1
+: 2
+
+*** Unpacking 
+
+Man spricht von *unpacking* des Tuples in einzelne Variablen 
+
+** Unpacking -- weitere Beispiele 
+
+
+*** Mehrere Namen 
+
+#+BEGIN_SRC python :exports both :results output
+x, y, z = (1, 2, (4, 5, 6)) 
+print(x)
+print(y) 
+print(z) 
+#+END_SRC
+
+#+RESULTS:
+: 1
+: 2
+: (4, 5, 6)
+
+** Unpacking -- weitere Beispiele 
+
+*** Unterschiedliche Anzahl 
+
+
+#+BEGIN_SRC python
+x, y = (1, 2, 3, 4, 5, 6, 7) 
+print(x)
+print(y)
+#+END_SRC
+
+Scheitert -- Aufteilung wäre unklar
+
+*** Unterschiedliche Anzahl mit Hilfe                               :animate:
+
+
+
+#+BEGIN_SRC python :exports both :results output
+t = (1, 2, 3, 4)
+x, *u,  y = (1, 2, 3, 4, 5)
+print(x, u, y)
+#+END_SRC 
+
+#+RESULTS:
+: 1 [2, 3, 4] 5
+
+- Das geht -- Stern ~*~ zeigt die variable Elementanzahl an 
+- Siehe [[https://www.python.org/dev/peps/pep-3132/][PEP 3132]] 
+
+
+** Unpacking -- weitere Beispiele
+
+
+Häufige Muster: Kopf eines Tuples abtrennen
+
+#+BEGIN_SRC python :exports both :results output
+l = (1, 2, 3, 4)
+head, *l = l
+print(head)
+print(l)
+#+END_SRC 
+
+#+RESULTS:
+: 1
+: [2, 3, 4]
+
+
+
+
+** UEBUNG Unpacking von Tuples                                     :noexport:
 
 Unpacking einführen, Fälle durchspielen
 
@@ -273,7 +361,6 @@ u, v, x, y = t
 x, *u,  y = (1, 2, 3, 4, 5)
 #+END_SRC 
 
-Siehe [[https://www.python.org/dev/peps/pep-3132/][PEP 3132]] 
 
 Warum funktionert das nicht, warum ist das nicht sinnvoll? 
  
@@ -1241,7 +1328,7 @@ Objekten/.
 - Sie haben eine feste Reihenfolge
 - Auf Elemente kann durch die Angabe der Position (des Indexes)
   zugegriffen werden.
-- Sie unterstützen das sog. /Slicing/
+- Sie unterstützen das sog. /Slicing/ und /unpacking/
 - Sie unterstützen Verknüpfungen wie Addition, Multiplikation mit
   Skalar und die Funktionen ~len~, ~count~, ~index~ (mit leicht
   unterschiedlicher Notation)
