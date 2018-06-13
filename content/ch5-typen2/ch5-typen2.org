@@ -204,8 +204,8 @@ Zahl 1 bzw. 2. Müssen  diese Zahlen  mehrfach repräsentiert werden?
 Denkweise widersprechen. Die Zahl 1 gibt es nur ein Mal, was wäre der
 Unterschied zwischen zwei verschiedenen Zahlen 1 (sinnvolle
 Sprechweise!).  Wozu sollte also diese Zahl mehrfach repräsentiert
-werden? Das ist ganz analog zur Diskussion in Kapitel 3; auch da waren
-mehrere Variablen Referenzen auf den gleichen Wert. 
+werden? Das ist ganz analog zur Diskussion in Kapitel 3; auch da haben
+mehrere Namen auf den gleichen Wert verwiesen. 
 
 Aber natürlich werden mehrere Referenzen auf die Zahl 1 bzw. die 2 gebraucht!
 Abbildung [[fig:pt-multiple-ones-tuple]] verdeutlich das: Jedes
@@ -1369,11 +1369,11 @@ das Verhalten dieses Beispiels ganz naheliegend sein.
 3. Nach der Zuweisung zu dem zweiten Element (Abbildung
    [[fig:pt-modify-list-3]]) der Liste hat sich dieser Eintrag selbst
    verändert; die Liste an sich ist aber noch die gleiche, und wird
-   natürlich auch nach wie vor durch die beiden Variablen ~l~ und ~ll~
+   natürlich auch nach wie vor durch die beiden Namen ~l~ und ~ll~
    referenziert.
 4. Damit ist nach der Rückkehr aus der Funktion (Abbildung
    [[fig:pt-modify-list-4]]) auch diese Änderung mittels des
-   Variablennamens ~l~ sichtbar. Die Tatsache, dass der zweite Name
+   Namens ~l~ sichtbar. Die Tatsache, dass der zweite Name
    ~ll~ vernichtet wurde als die Funktion fertig war, hat damit nichts
    zu tun. 
 
@@ -1678,7 +1678,7 @@ print(D)
 *** Visualisierung von ~dict~					  :dropslide:
 
 Zur Veranschaulichung hier noch eine Visualisierung eines ~dict~:
-Variable ~D~ referenziert die Datenstruktur des ~dict~ (Abbildung
+Der Name ~D~ referenziert die Datenstruktur des ~dict~ (Abbildung
 [[fig:pt-dict]]). Dieses besteht aus einer Reihe von Paaren von
 Referenzen, jeweils eine Referenz auf den Schlüssel und eine auf den
 zugeordneten Wert.
