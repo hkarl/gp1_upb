@@ -172,7 +172,8 @@ einer Folge von Anweisungen.
 
 - Der Name /referenziert/ diese Anweisungsfolge. 
 - Durch die Schaffung dieses Namens wird der Programmzustand geändert. 
-- Namen für Funktionen folgen den Syntaxregeln der Namen für Variablen. 
+- Namen für Funktionen folgen den Syntaxregeln der Namen für Variablen
+  (gleiche Bezeichner). 
 
 *** Eine Anweisung zur Funktionsdefinition?			  :dropslide:
 
@@ -647,7 +648,7 @@ x
 - Die Anweisung ~return~ erlaubt, einen beliebigen Wert aus einem 
   Funktionsaufruf an den aufrufenden Teil zu transportieren
   - Auf ~return~ darf ein beliebiger Ausdruck folgen
-  - Des Wert wird /zurückgegeben/
+  - Dessen Wert wird /zurückgegeben/
 - ~return~ ist ein Schlüsselwort 
 
 *** Beobachtung							    :animate:
@@ -1085,14 +1086,38 @@ gleiche Objekt.
     :END:
 
 Wenn Sie mit anderen Sprachen (C oder C++) vertraut sind: Dies klingt
-nach call-by-reference, ist aber nicht genau das gleiche. Wir kommen
-darauf noch zurück. 
+vielleicht nach call-by-reference, ist aber nicht genau das gleiche,
+sondern etwas deutlich anderes. Wir kommen darauf noch zurück.
 
 
+** Aufrufsemantik: Pass-by-assignment (2)  
+
+
+*** Normal 
+
+#+BEGIN_SRC python 
+def f(a):
+    pass
+
+f(x)
+#+END_SRC
+
+*** Grob vergleichbar 
+
+
+#+BEGIN_SRC python
+def f(a):
+    a = x    
+    pass
+
+f(x) 
+#+END_SRC
+
+(aber nur *sehr* grob) 
 
 ** Funktion mit mehreren Parametern: Syntax 
 
-- Mehrere Variablen: Aufzählung, durch Komma getrennt
+- Mehrere Parameter: Aufzählung, durch Komma getrennt
   - Ähnlich wie bei Zuweisung 
 - Beispiel: 
 
@@ -1105,7 +1130,6 @@ darauf noch zurück.
   # Aufruf:
   f(1, 2, 3)
 #+END_SRC
-
 
 ** Funktion mit Parametern: Syntax allgemein  
 
@@ -1141,9 +1165,9 @@ Eine Funktion kann eine beliebige Anzahl an Parametern haben:
 
 - Aufruf der Funktion: Programm mit den Anweisungen der Funktion
   fortsetzen
-- Bei der Ausführung einer Funktion wird ein neuer Namensraum für die
-  Variablen der Funktion angelegt
-- Formale Parameter sind Variablen in diesem Namensraum; sie sind Namen für
+- Bei der Ausführung einer Funktion wird ein neuer *Namensraum* für die
+  Namen der Funktion angelegt
+- Formale Parameter sind Namen in diesem Namensraum; sie sind Namen für
   die Werte der beim Aufruf übergebenen Argumente 
 - Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
   durch ihren Rückgabewert
@@ -1212,7 +1236,7 @@ Mit dieser Definition läßt sich eine funktionale Programmiersprache
 einfach charakterisieren: Eine Sprache, in der es keine Seiteneffekte
 gibt. 
 
-Mehr dazu in der Vorlesung Grundlagen der Programmiersprachen. 
+Mehr dazu in der Vorlesung Programmiersprachen. 
 
 
 *** UEBUNG print bei strings mit escape sequenzen 
@@ -1258,7 +1282,7 @@ print("Hallo", "GP", 1)
 
 ** Weitere Aspekte von ~print~: Benannter Parameter 
 
-- Beim /Aufruf/ kann an ~print~ ein Parameter mit einem Namen versehen
+- Beim /Aufruf/ von  ~print~ kann ein Parameter mit einem Namen versehen
   werden
   - (Das geht bei allen Funktionen, siehe späteres Kapitel) 
 
