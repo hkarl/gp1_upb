@@ -86,7 +86,11 @@ sind typische Beispiele: Man gibt ein Programm ein, das aus Formeln
 besteht. Die Berechnungsergebnisse werden sofort angezeigt. 
 
 Fasst man den Begriff noch offener, dann ist auch eine
-Textverarbeitung (wie etwa OpenOffice oder Word) ein Interpreter.
+Textverarbeitung (wie etwa OpenOffice oder Word) ein
+Interpreter. Web-Browser sind ebenfalls typische Interpreter: Sie
+interpretieren die Beschreibung der anzuzeigenden Seite (in HTML
+aufgeschrieben) oder auch kleine, in die Web-Seite integrierte
+Programme (z.B. in Javascript). 
 
 ** Python als Interpreter 
 
@@ -99,7 +103,7 @@ Textverarbeitung (wie etwa OpenOffice oder Word) ein Interpreter.
 #+END_SRC
 
 
-** Read-Evaluate-Print (REP) 
+** Read-Evaluate-Print (REPL) 
 
 Verhalten des Interpreters: 
 
@@ -116,7 +120,10 @@ Verhalten des Interpreters:
 
 
 #+BEGIN_LaTeX
-Abbildung~\ref{fig:repl}  zeigt die Read-Evaluate-Print-Schleife eines Interpreters. Beachten Sie die Analogie zu einem Maschinenmodell: Ein Interpreter ist in gewissem Sinne eine (sehr abstrakte) Form einer Maschine.  
+Abbildung~\ref{fig:repl}  zeigt die Read-Evaluate-Print-Schleife eines
+Interpreters. Beachten Sie die Analogie zu einem Maschinenmodell: Ein
+Interpreter ist in gewissem Sinne eine (sehr abstrakte) Form einer
+Maschine.   
 #+END_LaTeX
 
 
@@ -207,7 +214,7 @@ Erklären Sie den Comic in Abbildung [[fig:base10]]!
 
 ** Arithmetischer Ausdruck  -- Syntax 
 
-- Jede Zahl ist ein arithmetischer Ausdruck 
+- Jede Zahl ist ein *arithmetischer Ausdruck*
 - Verbindet man zwei arithmetische Ausdrücke durch ~+~, ~-~, ~*~ oder
   '/', so entsteht ein arithmetischer Ausdruck
 - Setzt man um einen arithmetischen Ausdruck ein Klammerpaar ~(~
@@ -279,8 +286,8 @@ Bis jetzt: Nur Syntax, aber keine Bedeutung der Ausdrücke
 ** Eindeutigkeit?						   :subslide:
 - Ist $5+2\cdot 3$ ein binärer Ausdruck?
   - Ja, mit zwei möglichen Interpretationen
-    - Einerseits: $a_1=5$
-    - Andererseits: $a_1=5+2$
+    - Einerseits: $a_1=5$, $a_2 = 2\cdot 3$
+    - Andererseits: $a_1=5+2$, $a_2 = 3$
 
 - Problem: tertiäre Ausdrücke $a_1 \circ a_2 \circ a_3$
   - /Vorrangregeln/: Punkt vor Strich
@@ -344,7 +351,7 @@ Hallo
 
 - Warum erlaubt Python die Verwendung von sowohl einfachen wie
   doppelten Anführungszeichen, um Text einzugrenzen?
-  - Hinweis: Was wäre der Fall, wenn Sie ein doppelte
+  - Hinweis: Was wäre der Fall, wenn Sie ein doppeltes
     Anführungszeichen im Text benutzen möchten?
   - Wie könnte es klappen, in einem Text sowohl doppelte als auch
     einfache Anführungszeichen zu benutzen?
@@ -471,7 +478,7 @@ haben)
 ** Literale  für ganze Zahlen					   :subslide:
 
 - Üblicherweise bestehen  Literale für ganze Zahlen aus arabischen
-  Ziffern: 0, 1, 2, ..., 4711, ...  
+  Ziffern: 0, 1, 2, ..., 42, ..., 4711, ...  
 
 - Denkbar wäre auch, römische Zahlen zu benutzen: I, II, III, IV,  ... 
 
@@ -573,12 +580,12 @@ Für längere Strings nütlzich? Aber eigentlich ein unwichtiger Aspekt
 Der Datentyp ~bool~ kennt nur die beiden Werte wahr und falsch,
 notiert als Literale ~True~ bzw. ~False~.
 
-Zwei Werte dieses Types können mit ~and~,
+Zwei Werte dieses Types können mit den Operatoren  ~and~,
 ~or~, ~!=~ verknüpft werden; dies liefert einen Wert vom Typ
 ~bool~. Auf einen Wert ~bool~ kann ~not~ angewendet werden. 
 
 Die Semantik dieser Verknüpfungen ist in den folgenden Tabellen
-definiert. 
+definiert. Siehe auch [[https://docs.python.org/3.5/library/stdtypes.html#][Details]]. 
 
 ** Datentyp: ~bool~ -- Semantik der Verknüpfungen 		   :subslide:
 
@@ -688,6 +695,7 @@ lazy eval bei and und or erkunden, überlegen, ausprobieren
 - Zeichenkette: ~str~
   - Folge von Unicode-Zeichen
   - Siehe [[https://docs.python.org/3.5/library/stdtypes.html#text-sequence-type-str][Details]] 
+- Wahrheitswerte: ~bool~
 - Folgen von Bytes, ...     
 
 *** UEBUNG Bitweise Operationen auf intergers 
@@ -844,7 +852,7 @@ bekannt ist.
   - Möglich
   - Details: später 
 
-** Bemerkung: Starke vs. schwache Typisierung 
+** Bemerkung: Starke vs. schwache Typisierung                      :noexport:
 
 *** Schwach typisierte Programmiersprache		       :B_definition:
     :PROPERTIES:
@@ -861,7 +869,7 @@ können, ohne dass sie explizit konvertiert werden müssen.
 - Aber bedeutet das dann '99' oder 18? 
 - Sprache: Perl, C (alte Versionen) 
 
-** Bemerkung: Starke vs. schwache Typisierung (2)
+** Bemerkung: Starke vs. schwache Typisierung (2)                  :noexport:
 
 *** Stark typisierte Programmiersprache			       :B_definition:
     :PROPERTIES:
@@ -883,10 +891,9 @@ verknüpft werden können, wenn sie explizit konvertiert werden.
 
 - Und was ist mit Zustand? 
   - Vorheriges Kapitel: Lange Diskussion, Ausführungsmodell, ... 
-- *Ausdrücke verändern den Zustand nicht* 
+- *Ausdrücke verändern den Zustand nicht*
+  - Mit einer kleinen Ausnahme (welcher?) 
 
-
-- Und nun? 
 
 * Zusammenfassung 
 ** Zusammenfassung 
@@ -897,4 +904,4 @@ verknüpft werden können, wenn sie explizit konvertiert werden.
   - Ausdrücken erzeugen neue Werte aus vorhandenen Werten 
 - Python ist ein Beispiel für
   - eine Sprache/Umgebung mit einer read-evaluate-print-Schleife 
-  - eine stark typisierte Programmiersprache 
+  - eine dynamisch typisierte Programmiersprache 
