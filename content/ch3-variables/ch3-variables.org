@@ -108,9 +108,7 @@ a = 42
     :BEAMER_env: definition
     :END:
 
-Bei einer *Zuweisung* wird ein *Name* mit einem Wert verbunden; ein
-solcher Name ist ein *Bezeichner*.  Der Bezeichner ist gebunden an den
-Wert.
+Bei einer *Zuweisung* wird ein *Name* mit einem *Wert* verbunden.  
 
 *** Schreibweise 
 
@@ -181,7 +179,7 @@ a = 42
 ** Und was ist mit Variablen?
 
 - Sonst doch immer: *Variable*?
-  - Statt Wert, Name, Bezeichner?
+  - Statt Wert und Name?
 - Ja, in anderen Sprachen! (z.B. C, Java, ...)
   - Dort: Variable ist ein *Name* für eine *Speicherstelle* (eine
     *Adresse*)
@@ -234,17 +232,17 @@ Falls mir doch einmal /Variable/ herausrutscht, ist das *falsch*!
 Protestieren Sie lautstark! 
 
 Gemeint: 
-- wenn Variable *rechts* von ~=~: ein Bezeichner, der an einen Wert gebunden *ist*
-- wenn Variable *links* von ~=~: ein Bezeichner, der an einen Wert gebunden *wird*
+- wenn Variable *rechts* von ~=~: ein Name, der an einen Wert gebunden *ist*
+- wenn Variable *links* von ~=~: ein Name, der an einen Wert gebunden *wird*
 
 
     
-** Gültige Namen? 
+** Gültige Namen -- Bezeichner? 
 
 - ~a~ war ein Beispiel für einen Namen
 - Wie darf ein Name überhaupt aussehen?
 
-*** Name                                                       :B_definition:
+*** Bezeichner                                                 :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
@@ -272,9 +270,9 @@ Gemeint:
 
 
 
-** Reservierte Namen 
+** Reservierte Zeichenketten
 
-- Manche Namen haben Sonderrolle, dürfen nicht als Bezeichner benutzt werden 
+- Manche Zeichenketten haben Sonderrolle, dürfen nicht als Bezeichner benutzt werden 
 - Beispiel: Literale ~True~, ~False~
   - ~True~ als Name benutzbar?
     - ~True = False~ ???
@@ -286,7 +284,7 @@ Gemeint:
     :END:
 
 Ein /Schlüsselwort/ (reserviertes Wort, reservierter Name, key word)
-ist ein Zeichenfolge, die in einer Programmiersprache eine Sonderrolle
+ist ein Zeichenkette, die in einer Programmiersprache eine Sonderrolle
 einnimmt. Ein Schlüsselwort darf /nicht/ für andere Zwecke benutzt
 werden, z.B. als Bezeichner.
 
@@ -306,7 +304,7 @@ Jede Programmiersprache hat eine Liste von Schlüsselworten.
 
 Ist ~a~ ein sinnvoller Name? 
 
-- Für eine Folie mit einem Bezeichner: naja
+- Für eine Folie mit einem Namen: naja
 - Für ein größeres Programm: Nein!
   - Nutzen Sie sog. *sprechende Namen*: Namen, denen man den Zweck,
     Inhalt, Benutzung leicht ansieht
@@ -329,7 +327,7 @@ Eine *Namenskonvention* beschreibt übliche Vorgehensweisen zur Wahl
 von Namen. Sie schränkt die möglichen Namen auf die sinnvollen Namen
 ein, ist aber kein formaler Bestandteil der Sprache. 
 
-*** Namenskonvention für Bezeichner in Python             :B_example:animate:
+*** Pythons Namenskonvention für Werte                    :B_example:animate:
     :PROPERTIES:
     :BEAMER_env: example
     :END:
@@ -337,11 +335,13 @@ ein, ist aber kein formaler Bestandteil der Sprache.
 - Kleinbuchstaben am Anfang
 - Namen aus mehreren Worten werden durch Unterstrich getrennt 
 - Vermeide: kleines l, großes O und großes L -- Verwechselungsgefahr 
+- (Namen für andere Zwecke, andere Konventionen -- siehe später) 
 
-** Bezeichner nutzen
 
-- Wie bekomme ich den referenzierten Wert? 
-- Einfach: Bezeichner als Ausdruck benutzen
+** Namen nutzen
+
+- Wie bekomme ich den mit Namen verbundenen  Wert? 
+- Einfach: Namen  als Ausdruck benutzen
 
 #+BEGIN_SRC python
 a = 5
@@ -349,7 +349,7 @@ a + 17
 #+END_SRC
 
 
-** Weitere Bezeichner  
+** Mehrere Namen   
 
 *** Code 
 
@@ -383,7 +383,7 @@ b = 42
 [[file:figures/TwoNamesLabels.png]]
 
 
-** Weitere Bezeichner -- Beobachtungen 
+** Mehrere Namen  -- Beobachtungen 
 
 *** Namen und Werte
 
@@ -399,7 +399,7 @@ b = 42
 Wie kann man eine Anweisung aufschreiben, die länger als eine Zeile
 ist? 
 
-- Ganz lange Zeile (mit scheinbarem Umbruach)
+- Ganz lange Zeile (mit *scheinbarem* Umbruach)
 - Zwischenergebnisse einführen
 - Syntax erweitern; continuation
   - Explizit durch backslsh
@@ -413,7 +413,8 @@ ist?
 #+BEGIN_SRC python
 a = 42
 b = 42
-# a wird an einen neuen Wert gebunden ("rebinding") 
+# Name a wird an einen neuen Wert gebunden 
+# (sog. "rebinding") 
 a = "Hallo"
 #+END_SRC
 
@@ -448,10 +449,10 @@ a = "Hallo"
 
 
 
-* Arbeiten mit Bezeichnern und Zuweisungen 
+* Arbeiten mit Namen und Zuweisungen 
 
 
-** Bezeichner  an Bezeichner zuweisen 
+** Namen an Namen zuweisen 
 
 Geht das? Wert von b? 
 
@@ -466,9 +467,9 @@ b = a
 - Das ist nur ein Sonderfall!
 - Allgemein:
   - Wert des Ausdrucks auf der rechten Seite bestimmen
-  - Bezeichner wird zu Namen für diesen Wert
-  - Egal, ob der Ausdruck rechts ein Bezeichner ist -- es geht um *den
-    Wert* 
+  - Namen links von ~=~ wird zu Namen für diesen Wert
+  - Egal, ob der Ausdruck rechts ein Namen, Ausdruck, ... ist -- es
+    geht um *den Wert* 
 
 
 ** Animationen von Programmen 
@@ -508,7 +509,7 @@ Danach kommen Sie zu einer zweiten Ansicht, in der Sie durch Forward
 und Backward das Programm in einzelnen Schritten ausführen können
 (Abbildung [[fig:pt-run]]). Links werden die jeweils auszuführenden
 bzw. gerade ausgeführte Anweisung durch rote bzw. grüne Pfeile
-angezeigt. Rechts sieht man die an Bezeichner gebundenen Werte.
+angezeigt. Rechts sieht man die an Namen gebundenen Werte.
 
 #+CAPTION: PythonTutor: Ausführungs-Ansicht
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -603,7 +604,7 @@ referenziert wird.
 [[file:figures/wrongLabels.png]]
 
 
-** Einen Bezeichner verändern? 
+** Einen Namen verändern? 
 
 - Genauer: Ein Name referenziert einen neuen Wert 
 - Wert von ~b~? 
@@ -618,9 +619,9 @@ b
 
 ** Warum hat ~b~ den Wert 5?  
 
-1. ~a = 5~ : Bezeichner ~a~ referenziert den Wert 5
+1. ~a = 5~ : Name ~a~ referenziert den Wert 5
 2. ~b = a~ : Der Wert des Ausdrucks auf der rechten Seite wird
-   bestimmt. Bezeichner ~b~ wird zu einem Namen für diesen Wert. 
+   bestimmt. Name  ~b~ wird zu einem Namen für diesen Wert. 
 3. ~a = a + 2~ : 
    1. ~a + 2~ ausrechnen, ergibt Wert 7
    2. Der Wert 7 wird im Speicher repräsentiert 
@@ -629,13 +630,13 @@ b
    1. Warum sollte sich hier etwas geändert haben?
 
 
-** Ausdrücke  mit Bezeichnern 
+** Ausdrücke  mit Namen  
 
-- In Ausdrücken können Bezeichner wie Werte benutzt werden 
-- Bei Berechnung des Ausdrucks: Bezeichner wird durch gebundenen Wert
-  ersetzt 
+- In Ausdrücken können Namen  wie Werte benutzt werden
+- Genauer: Bei Berechnung des Ausdrucks wird Name durch gebundenen Wert
+  *ersetzt*
   - Wie Beispiel oben: ~b = a~ 
-- Bezeichner links von ~=~ wird zu Namen für berechneten Wert 
+- Name links von ~=~ wird zu Namen für berechneten Wert 
 
 *** Beispiele 
 
@@ -671,9 +672,9 @@ pingo_duration = "60"
 #+END_SRC 
 
 
-** Beispiel: Gebundene Werte zweier Bezeichner vertauschen 
+** Beispiel: Gebundene Werte zweier Namen vertauschen 
 
-Wie vertauschen Sie die Werte zweier Bezeichner? 
+Wie vertauschen Sie die Werte zweier Namen? 
 
 #+BEGIN_SRC python
 a = 17 
@@ -682,20 +683,21 @@ b = 42
 ... 
 #+END_SRC
 
-*** UEBUNG Bezeichner-Werte tauschen ohne Hilfsvariable; xor 
+*** UEBUNG Namens-Werte tauschen ohne Hilfsvariable; xor 
 
 Üblicher xor-Trick 
 
 
 ** Gleichzeitig Zuweisungen 
 
-Python: *Gleichzeitige* Zuweisung an mehrere Bezeichner möglich 
+Python: *Gleichzeitige* Zuweisung an mehrere Namen möglich 
 
 *** Syntax 
 
-- Links von ~=~: Mehrere Bezeichner, durch Komma getrennt 
-- Rechts von ~=~: Mehrere Ausrücke, durch Komma getrennt 
-- Anzahl *muss* übereinstimmen 
+- Links von ~=~: Mehrere Namen, durch Komma getrennt 
+- Rechts von ~=~: Mehrere Ausdrücke, durch Komma getrennt 
+- Anzahl stimmt überein
+  - Siehe später, /unpacking/ 
 - Beispiel mit drei Ausdrücken: 
 
 #+BEGIN_SRC python
@@ -737,26 +739,26 @@ x, y = 17, 42
     :BEAMER_env: definition
     :END:
 
-Bei einer Zuweisung werden ein oder mehrere *Bezeichner* mit einem oder
-mehreren Werten verbunden.  Der Bezeichner *bindet an* den entsprechenden
+Bei einer Zuweisung werden ein oder mehrere *Namen* mit einem oder
+mehreren Werten verbunden.  Der Name *bindet an* den entsprechenden
 Wert. 
 
 *** Schreibweise 
 
 - Zuweisung wird durch ein Gleichheitszeichen angegeben
-- Links davon: der oder die *Bezeichner*, durch Komma getrennt
-- Rechts davon: der oder die *Werte*, durch Komma getrennt 
+- Links davon: der oder die *Namen*, durch Komma getrennt
+- Rechts davon: der oder die *Asudrücke*, durch Komma getrennt 
 
 
 
 ** Kurzschreibweisen bei Zuweisungen 
 
-- Häufig: an Bezeichner einfachen arithmetischen Ausdruck aus diesem
-  Bezeichner zuweisen
+- Häufig: an Namen einfachen arithmetischen Ausdruck aus diesem
+  Namen zuweisen
   - ~x = x + 1~, ~y = y / 2~
 - Dafür Kurzschreibweise:
-  - ~Bezeichner Operator= Ausdruck~
-  - Entspricht: ~Bezeichner = Bezeichner Operator Ausdruck~
+  - ~Name Operator= Ausdruck~
+  - Entspricht: ~Name = Name Operator Ausdruck~
 - Beispiele
   - ~x += 1~
   - ~y /= 2~
@@ -766,15 +768,14 @@ Wert.
 ** Typen? 
 
 - Werte und Ausdrücke haben Typen 
-- Bezeichner?
-  - Bezeichner ist nur Name für Wert, verweist auf  Wert
-- *Typ des Bezeichners*: Typ des zugewiesenen Werts
+- Name? Verweist lediglich  auf  Wert
+- *Typ des Names*: Typ des zugewiesenen Werts
   - Welcher Typ sollte es auch sonst sein?? 
 
 
-** Bezeichnertyp veränderlich? 
+** Typ eines Namens veränderlich? 
 
-Heißt das, dass sich der Typ eines Bezeichners verändern kann? 
+Heißt das, dass sich der Typ eines Namens verändern kann? 
 
 - *JA*! 
 
@@ -788,18 +789,18 @@ x = 'Hallo GP1'
 
 ** Wo ist der Typ? 
 
-- Typ-Information liegt *nicht* beim Bezeichner
-  - Für eine Bezeichner *muss kein Typ angegeben werden*
+- Typ-Information liegt *nicht* beim Namen
+  - Für einen Namen  *muss kein Typ angegeben werden*
   - Es wäre auch sinnlos, das zu tun
 - Typ-Information liegt beim gebundenen Wert  
-- Ist dort aber explizit bekannt! 
+- Ist dort aber *explizit bekannt*! 
 
 
 ** Problem? 
 
 - Dem Interpreter ist das egal -- die Typinformation ist ja vorhanden 
-- Ein Programmierer sieht einem Bezeichner (zunächst) nicht an, was
-  darin steckt 
+- Ein Programmierer sieht einem Namen (zunächst) nicht an, auf was der
+  Name verweist 
   - Das kann sich ja ändern
   - Das erfordert Disziplin! 
 - Idee: /Solange der Wert weiß, was er ist, ist alles gut/
@@ -812,9 +813,9 @@ x = 'Hallo GP1'
     :END:
 
 Eine Programmiersprache ist */dynamisch typisiert/*, wenn
-Typen-Informationen für jeden Wert oder Ausdruck *zur Laufzeit* bekannt
+Typen-Informationen für jeden Namen, Wert oder Ausdruck *zur Laufzeit* bekannt
 sind. Diese Typen-Information ist im Programm-Code nicht explizit
-repräsentiert und nicht  notwendigerweise aus ihm ableitbar. 
+repräsentiert und nicht notwendigerweise aus ihm ableitbar. 
 
 
 Python ist ein Beispiel. 
@@ -827,27 +828,24 @@ Python ist ein Beispiel.
     :END:
 
 Eine Programmiersprache ist */statisch typisiert/* wenn
-Typen-Informationen für */Bezeichner/* explizit im Programm-Code angegeben werden
-müssen. Aus der Betrachtung des Programm-Codes kann der Typ eines
-Wertes abgeleitet werden, bereits bevor das Programm selbst abläuft. 
+Typen-Information für */Namen/* (bzw. Variablen) explizit im
+Programm-Code angegeben werden muß. Aus der Betrachtung des
+Programm-Codes kann der Typ eines Wertes abgeleitet werden, bereits
+bevor das Programm selbst abläuft.
 
-Meist (aber nicht unbedingt) wird in einer solchen Sprache auf die
-explizite Repräsentation des Typs eines Wertes /zur Laufzeit/
-verzichtet, da ja alle Informationen bereits vorab bekannt sind. 
+Gegebenenfalls wird in einer solchen Sprache auf die explizite
+Repräsentation des Typs eines Wertes /zur Laufzeit/ verzichtet, da ja
+alle Informationen bereits vorab bekannt sind. (In OO-Sprachen meist
+doch vorhanden.)
 
 
-Java ist ein Beispiel. 
+Java ist ein Beispiel (aber eigentlich eine Mischform). 
 
 *** Historie							  :dropslide:
 
 Eine nette Zusammenfassung der Geschichte dahinter findet sich in
 [[http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html][diesem Blog]]. 
 
-
-***                                                                :noexport:
-
-Kommentar Pfahler: nicht bei OO - zu "auf Repräsentation zur laufzeit
-verzichtet" XXX
 
 
 
@@ -957,12 +955,11 @@ Lösung: PEP 8! (wo sonst...)
 
 ** Zusammenfassung 
 
-- Zuweisungen geben Werten einen /Namen/, einen /Bezeichner/
+- Zuweisungen geben Werten einen /Namen/, haben die Form eines /Bezeichners/
 - Damit ändert sich der /Zustand/ eines laufenden Programms 
 - Regeln, wie Bezeichner aussehen dürfen  
 - Die Repräsentation des Typs im Programmtext/zur Laufzeit
-  unterscheidet 
-  dynamisch von statisch typisierten Programmiersprachen 
+  unterscheidet dynamisch von statisch typisierten Programmiersprachen 
 
 
 
