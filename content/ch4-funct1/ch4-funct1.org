@@ -172,7 +172,7 @@ einer Folge von Anweisungen.
 
 - Der Name /referenziert/ diese Anweisungsfolge. 
 - Durch die Schaffung dieses Namens wird der Programmzustand geändert. 
-- Namen für Funktionen folgen den Syntaxregeln der Namen für Variablen
+- Namen für Funktionen folgen den Syntaxregeln der Namen 
   (gleiche Bezeichner). 
 
 *** Eine Anweisung zur Funktionsdefinition?			  :dropslide:
@@ -216,8 +216,8 @@ Probieren Sie das in einem Notebook aus!
 
 ** Namenskonvention für Funktionsnamen 
 
-- Syntaxregel für Funktionsnamen: Wie für Variablennamen 
-- Konvention: Wie für Variablennamen
+- Syntaxregel für Funktionsnamen: Wie für sonstige Namen 
+- Konvention: 
   - Kleinbuchstaben am Anfang
   - Mehrere Worte durch ~_~ verbunden 
 
@@ -315,20 +315,20 @@ Abbildung [[fig:zustand-f-g-z]] stellt den Zustand nach der Definition von
 [[./figures/frame-f-g-z.png]]
 
 
-** Starke Analogie: Variablenname, Funktionsname 
+** Starke Analogie: Name, Funktionsname 
 
 - Die Analogie zwischen Zuweisung und Funktionsdefinition ist sehr eng! 
 
-- Funktionsnamen benehmen sich nahezu identisch zu Variablennamen 
+- Funktionsnamen benehmen sich nahezu identisch zu Namen für Werte  
 
 - Aber Notation doch recht unterschiedlich? 
 
-*** Unterschiedliche Notation für Variablen und Funktionen?	  :dropslide:
+*** Unterschiedliche Notation für Namen  und Funktionen?          :dropslide:
 
 Das hat letztlich pragmatische und auch Geschmacksgründe. Tatsächlich
 gibt es Programmiersprachen (etwas Lisp), bei denen diese Analogie noch
 viel enger ist und auch in der Syntax kaum ein Unterschied in der
-Definition einer Variablen  oder eines Funktionsnamens liegt. 
+Definition eines Namens für Werte   oder eines Funktionsnamens liegt. 
 
 ** Sprechweise: Objekt 
 
@@ -418,17 +418,17 @@ brauchen dazu noch ein paar Erweiterungen!
 *** UEBUNG WArum sit das nur eine grobe Entsprechung
 
 Wo sind die Unterschied? Zumindest einer klar: Im Zustand fehlt der
-Eintrag für den Funktionsnamen f . Und die Variablen x und y sind
+Eintrag für den Funktionsnamen f . Und die Namen  x und y sind
 nicht im Scope. 
 
-** Variablen: Lebensdauer 
+** Namen: Lebensdauer 
 
 - Was passiert mit ~x~ und ~y~ aus der Funktion?
 - Verschwinden nach Rückkehr aus der Funktion! 
 
 *** Lebensdauer? 						    :animate:
 
-- Variable, an die innerhalb einer Funktion zugewiesen
+- Name, an den innerhalb einer Funktion zugewiesen
   wird, ist *lokal* zu dieser Funktion
   - Existiert nur, solange Anweisungen dieser Funktion ausgeführt
     werden
@@ -446,7 +446,7 @@ nicht im Scope.
     :END:
 
 Ein /Namensraum/ (oder /namespace/) ist eine Abbildung von Namen zu
-Werten.  Namensräume gruppieren Namen, z.B. Variablennamen. 
+Werten.  Namensräume gruppieren Namen, z.B. Namen für Werte. 
 
 Namen in unterschiedlichen Namensräumen sind von einander isoliert;
 der gleiche Name kann in unterschiedlichen Namensräumen verwendet
@@ -487,8 +487,8 @@ Programms; er entsteht /nicht/ zur Laufzeit.
 Ein Name kann an einer Stelle des Programms nicht sichtbar sein, aber
 durchaus zur Laufzeit existieren. Er heißt dann /out of scope/.
 
-Verkürzend sprechen wir auch von /Scope einer Variable/ und meinen damit den
-Scope des Namensraum, zu dem der Name dieser Variable gehört. 
+Verkürzend sprechen wir auch von /Scope eines Namens/ und meinen damit den
+Scope des Namensraum, zu dem der Name gehört. 
 
 ** Frame 
 
@@ -606,7 +606,7 @@ In den einzelnen Schritten geschieht folgendes:
 
 ** Funktionen haben keinen Effekt? 
 
-- Wenn die Variablen der Funktion nach Ende der Funktion vernichtet
+- Wenn die Namen/Werte der Funktion nach Ende der Funktion vernichtet
   werden -- dann hat eine Funktionsausführung doch gar keinen Effekt?
   - Oder: Verändert den Zustand nicht?
 
@@ -636,7 +636,7 @@ x
 ** Rückgabewert 
 - Benötigt: Mechanismus, um Wert aus Funktion an den aufrufenden
   Programmteil zu transportieren
-  - Geht nicht in normaler Variable 
+  - Geht nicht mit normalem Namen für Wert (wird ja vernichtet) 
 
 
 ** Neue Anweisung: ~return~
@@ -676,7 +676,7 @@ x
   - Vorstellung: Der Aufruf der Funktion wird durch die Anweisungen
     der Funktion ersetzt, und dann wird ausgeführt
 - Bei der Ausführung einer Funktion wird ein neuer Namensraum für die
-  Variablen der Funktion angelegt
+   Funktion angelegt
   - Dieser Namensraum wird nach Ende der Funktion wieder vernichtet 
 - Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
   durch ihren Rückgabewert
@@ -707,23 +707,23 @@ wir drei Schritte:
 [[./figures/pt-pi-1.png]]
    
 2. [@2] Nach dem Aufruf und nach der Ausführung der Anweisung ~return~
-   (Abbildung [[fig:pt-pi-return-value]]) wird im Namensraum von ~pi~ eine
-   /scheinbare/ Variable ~return value~ angelegt. Diese Variable zeigt
+   (Abbildung [[fig:pt-pi-return-value]]) wird im Namensraum von ~pi~ ein
+   /scheinbarer/ Name  ~return value~ angelegt. Dieser Name zeigt
    auf den Wert des Ausdrucks, den ~return~ bearbeitet. Wie jeder
    andere Name im Namensraum einer Funktion wird auch dieser Name
    nach Rückkehr vernichtet. 
-#+CAPTION: Nach Berechnung des Rückgabewerts, Anlegen der scheinbaren Variable ~return value~
+#+CAPTION: Nach Berechnung des Rückgabewerts, Anlegen des scheinbaren Namens ~return value~
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-pi-return-value
 [[./figures/pt-pi-2.png]]
 
-3. [@3] Aber der /*Wert*/ dieser scheinbaren Variable bleibt bei der
+3. [@3] Aber der /*Wert*/ dieses scheinbaren Namens bleibt bei der
    Rückkehr aus der Funktion erhalten! Dieser Wert wird wie ein ganz
    normaler Wert weiterverwendet (es /ist/ ein ganz normaler
    Wert). Dieser Wert /ersetzt/ den Aufruf von ~pi~ in dem Ausdruck,
    in dem der Ausdruck vorkam. 
 
-   Im Beispiel hier ist das die Zuweisung an die Variable ~x~. Als
+   Im Beispiel hier ist das die Zuweisung an den Namen  ~x~. Als
    Effekt stellt sich ein: ~x~ wird zu einem Namen für den Wert, den
    die Funktion ~pi~ mit der Anweisung ~return~ angegeben hat. 
 
@@ -785,7 +785,7 @@ Abbildung~\ref{fig:no-return} visualisiert das: Tatsächlich existiert der Rück
 - Aufruf der Funktion: Programm mit den Anweisungen der Funktion
   fortsetzen
 - Bei der Ausführung einer Funktion wird ein neuer Namensraum für die
-  Variablen der Funktion angelegt
+  Funktion angelegt 
   - Dieser Namensraum wird nach Ende der Funktion wieder vernichtet 
 - Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
   durch ihren Rückgabewert
@@ -836,19 +836,19 @@ z = empty_return()
 
 ** Funktion mit Parameter: Idee 
 
-- Funktionen können ja Variablen benutzen
+- Funktionen können ja Namen benutzen
   - Sind innerhalb des Scopes der Funktion
   - Funktion weist Werte zu 
-- Wie wäre es, wenn Variablen der Funktion /*von außen*/ mit Werten
+- Wie wäre es, wenn Namen der Funktion /*von außen*/ mit Werten
   versorgt werden könnten?
-  - Normale Variable im Scope der Funktion
+  - Normale Namen im Scope der Funktion
   - Aber der Wert wird durch aufrufenden Programmteil festgelegt? 
 
 
 ** Funktion mit Parameter: Syntax der Definition 
 
 - Wir machen Anleihe bei mathematischer Notation
-- Zu belegende Variablennamen werden in Klammern nach Funktionsname
+- Zu belegende Namen werden in Klammern nach Funktionsname
   angegeben
   - Der sog. /formale Parameter/ 
 - Beispiel: 
@@ -856,7 +856,7 @@ z = empty_return()
 #+BEGIN_SRC python
   # Eine Funktion f mit formalem Parameter a 
   def f(a):
-      # In Funktion: a ist ganz normale Variable
+      # In Funktion: a ist ganz normaler Name
       return a+1
 #+END_SRC
 
@@ -888,7 +888,7 @@ In diesem ersten Beispiel übergeben wir einen festen Wert an eine
 Funktion mit einem Parameter. Dazu wird zunächst dieser Wert -- im
 Beispiel die Zahl 2 -- erzeugt. Der formale Parameter wird im Moment
 des Aufrufs zur Referenz für diesen Wert.  (Wie sollte es auch anders
-funktionieren, wenn man Variablen als Namen für Werte auffasst?)
+funktionieren, wenn mit  Namen für Werte arbeitet?)
 Abbildung [[fig:pt-fa-wert]] illustriert das. 
 
 #+CAPTION: Formaler Parameter ist Name für übergebenen Wert
@@ -926,10 +926,11 @@ Abbildung [[fig:pt-fa-ausdruck]].
 [[./figures/pt-fa-ausdruck.png]]
 
 
-** Funktion mit Parameter: Aufruf mit Variable
+** Funktion mit Parameter: Aufruf mit Namen 
 
-- Was, wenn Variable an Funktion übergeben wird? 
-- Wie bisher! Formaler Parameter ist Name des /Wertes/
+- Was, wenn Name an Funktion übergeben wird? 
+- Wie bisher! Formaler Parameter wird zu  Name für den verbunden
+  /Wert/ 
 
 
 #+BEGIN_SRC python
@@ -942,27 +943,27 @@ x = f(y)
 #+END_SRC
 
 
-*** Variable als Argument					  :dropslide:
+*** Name  als Argument                                            :dropslide:
 
 
-Auch wenn eine Variable an eine Funktion übergeben wird, passiert
+Auch wenn ein Name an eine Funktion übergeben wird, passiert
 wieder genau das gleiche: der formale Parameter wird zu einem (hier:
 weiteren) Namen für den übergebenen Wert. Abbildung [[fig:pt-fa-y]] zeigt
-deutlich: ~a~ und ~y~ sind beides Referenzen auf den gleichen Wert. 
+deutlich: ~a~ und ~y~  beziehen sich beide  auf den gleichen Wert. 
 
-#+CAPTION: Formaler Parameter ist Name für Wert einer Variablen 
+#+CAPTION: Formaler Parameter ist Name für Wert  
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-fa-y
 [[./figures/pt-fa-y.png]]
 
-**** Formale Parameter werden NICHT zu Namen für Variablen     :B_alertblock:
+**** Formale Parameter werden NICHT zu Namen für Namen         :B_alertblock:
      :PROPERTIES:
      :BEAMER_env: alertblock
      :END:
 
  Hier gilt ähnliches wie bei der Zuweisung: Der formale Parameter ist
  ein Name für den /Wert/. Ein formaler Parameter kann kein Name für
- einen anderen Namen sein. 
+ einen anderen Namen sein (das gibt es nicht). 
 
 
 *** UEBUNG Und f(y+2) 
@@ -987,8 +988,10 @@ x = f(y)
 
 *** Was immer geschieht!					    :animate:
 
-- Die Variable ~a~ wird zu einem Namen für den neuen Wert 
-- Warum sollte sich dadurch an der Variable im Aufruf  etwas ändern??
+- Der Name ~a~ wird zu einem Namen für den Wert 5
+- Bei Zuweisung an ~a~ wird ~a~ zu einen Namen für einen anderen Wert
+  (6) 
+- Warum sollte sich dadurch an der mit ~y~ verbundene Wert ändern??
 
 
 *** Zuweisung an formale Parameter -- Einzelschritte 		  :dropslide:
@@ -1055,7 +1058,7 @@ gleiche Objekt (die Zahl 17) verweisen (Abbildung
 In Abbildung haben wir ein ähnliches Beispiel: Beim Aufrufer existiert
 ein Name ~x~, der aber mit dem Aufruf der Funktion nichts zu tun
 hat. Entsprechend ist der Wert auch unbeeinflusst. Hier referenzieren
-die Variable ~y~ des Aufrufers und das ~x~ der Funktion auf das
+der Name  ~y~ des Aufrufers und der Name  ~x~ der Funktion auf das
 gleiche Objekt. 
 
 
@@ -1124,7 +1127,7 @@ f(x)
 
 #+BEGIN_SRC python
   def f(a, b, c):
-      # In Funktion: a, b, c sind ganz normale Variablen
+      # In Funktion: a, b, c sind ganz normale Namen 
       return a+b*c
 
   # Aufruf:
