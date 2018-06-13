@@ -15,7 +15,7 @@
 
 - Übersicht: Was beinhaltet /Programmieren/?
 - Was macht eine gute Programmiererin aus? 
-- Was soll in GP1 erreicht werden? 
+- Was soll in dieser VL erreicht werden? 
 - Warum machen wir das so? 
 
 ** Setup 						  :skipslide:nolatex:
@@ -82,7 +82,7 @@ def pingo(line):
 
 
 
-** Vorlesungsinhalt GP1 
+** Vorlesungsinhalt Programmierung 
 
 Von allem ein bisschen, insbesondere: 
 
@@ -106,37 +106,50 @@ Programmiersprachen in Familien. Innerhalb einer Familie kommen
 Beispiel Annahmen über das Ausführungsmodell, über die Reihenfolgen
 von Ausführungen, und ähnliches. Andere Aspekte sind die Organisation
 des Codes in kleinere oder größere Einheiten. Stilfragen zählen
-ebenfalls dazu 
+ebenfalls dazu.  
 
 
 
-** GP1 im Modulhandbuch 
+** VL Programmieren im Modulhandbuch 
 
 
-*** GP1 laut Modulhandbuch					    :B_zitat:
+*** Laut Modulhandbuch					    :B_zitat:
     :PROPERTIES:
     :BEAMER_env: zitat
     :END:
 
-Die Studierenden sollen
-- die Programmentwicklung von Grund auf erlernen;
-- lernen, Sprachkonstrukte sinnvoll und mit Verständnis anzuwenden;
-- grundlegende Konzepte der objektorientierten Programmierung
-  verstehen und anzuwenden lernen; 
-- lernen, Software aus objektorientierten Bibliotheken
-  wiederzuverwenden.
+- Faktenwissen, unter anderem
+  - die wesentlichen Konstrukte einer Programmiersprache (derzeit
+    Python, in geringem Umfang auch Java), 
+  - die Grundkonzepte von Komposition und Abstraktion in der Programmierung zu verstehen
+- methodisches Wissen
+  - die gelernten Sprachkonstrukte sinnvoll und mit Verständnis anzuwenden,
+  - Software zu testen sowie Fehlerursachen zu finden und zu beseitigen,
+  - objektorientierte Grundkonzepte zu verstehen und anzuwenden,
+  - Software aus objektorientierten Bibliotheken wiederzuverwenden
+- Transferkompetenz
+  - praktische Erfahrungen in der Programmentwicklung auf neue Aufgaben zu übertragen
+- normativ-bewertenden Kompetenzen
+  - den Aufwand und die Durchführbarkeit von Programmieraufgaben zu beurteilen
 
 
+** VL Programmiersprachen 
 
-** Modul I.1.1 
+- Partnervorlesung (letztes Drittel dieses Semesters)
 
-- Pflichtmodul im Gebiet „Softwaretechnik und Informationssysteme“
-- Ziel des Moduls „Programmiertechnik“:
-  - Das Modul vermittelt einführende und grundlegende Kenntnisse und Fähigkeiten in der Programmierung
-- Modul I.1.1 besteht aus
-  - Grundlagen der Programmierung 1 (GP1)
-  - Grundlagen der Programmierung 2 (GP2)
-  - Grundlagen der Programmiersprachen (GPS)
+*** Laut Modulhandbuch                                              :B_quote:
+    :PROPERTIES:
+    :BEAMER_env: quote
+    :END:
+
+ Die Studierenden können Grundkonzepte von Programmier- und
+ Anwendungssprachen erläutern. Sie können typische Eigenschaften
+ nicht-imperativer Sprachen erklären. Sie sind in der Lage, einfache
+ Grammatiken, Typenspezifikationen und funktionale Programme zu
+ entwickeln. Sie sind in der Lage, praktische Erfahrungen in der
+ Programmentwicklung auf neue Aufgaben zu übertragen. Sie besitzen die
+ Fähigkeit, neue Programmier- und Anwendungssprachen selbstständig zu
+ erlernen. 
 
 ** Programmieren? 
 
@@ -220,9 +233,9 @@ Beispiele:
   - Siehe VL Modellierung, VL EBKfS 
 - Quantencomputer 
 
-** Maschinenmodell für GP1? 
+** Maschinenmodell für diese VL? 
 
-Wir gehen von normalen Rechnern aus: 
+Wir gehen von /normalen/ Rechnern aus: 
 
 - Speicher 
 - Verarbeitung 
@@ -256,7 +269,7 @@ Speicherstellen des Rechners.
   - Der /Instruktionssatz/
 
 
-** Programm							   :subslide:
+** Programm                                                        :subslide:
 
 - Eine Folge von Anweisungen, das /Programm/
 - Anweisungen entstammen Instruktionssatz 
@@ -290,8 +303,8 @@ Mit Speicher, CPU, Instruktionssatz ergibt sich ein
     :BEAMER_env: definition
     :END:
 
-Ein *Ausführungsmodell* legt fest, wie aus einem Zustand ein
-Folgezustand entsteht. 
+Ein *Ausführungsmodell* legt fest, wie aus einem gegebenen Zustand der
+Folgezustand entsteht. Für jede Anweisung aus dem Instruktionssatz.  
 
 
 
@@ -301,8 +314,15 @@ Folgezustand entsteht.
 - Jede Anweisung überführt einen Zustand in seinen /Folgezustand/
 - Ausführung insgesamt also: /Folge von Zuständen/ 
 
+** Ausführungsmodell 
 
-** Ausführungsmodell (2)					   :subslide:
+#+CAPTION: Einfaches Ausführungsmodell
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:ausfuehrung
+[[./uml/ausfuehrung.png]]
+
+
+** Langweiliges Ausführungsmodell                                  :subslide:
 
 *Immer* die nächste Anweisung? 
 
@@ -312,14 +332,15 @@ Folgezustand entsteht.
 - Die nächste auszuführende Anweisung kann von Vergleichen abhängen 
 - Vorstellung eines /Sprungs/ in der Folge der Anweisungen 
 
-** Ausführungsmodell 
+** Welcher Zustand ändert sich bei Sprung?                         :subslide:
 
-#+CAPTION: Einfaches Ausführungsmodell
-#+ATTR_LaTeX: :width 0.75\linewidth
-#+NAME: fig:ausfuehrung
-[[./uml/ausfuehrung.png]]
-
-
+- Wichtiger Teil des Zustands:
+  - Welche Anweisung wird gerade bearbeitet?
+  - Welche Anweisung wird als nächstes bearbeitet?
+- Normale Ausführung: Als nächstes wird die Anweisung in der folgenden
+  Zeile bearbeitet
+- Sprung: Als nächstes wird die Anweisung in einer anderen 
+  Zeile bearbeitet
 
 
 ** Fertig? 
@@ -423,7 +444,7 @@ auf intuitive Beschreibungen dieses Begriffs.
 
 ** Ausführung?							   :subslide:
 
-- Aber: Programme sind nicht mehr  direkt durch reale Maschinen ausführbar 
+- Aber: Solche Programme sind nicht mehr  direkt durch reale Maschinen ausführbar 
 
 *** Das macht nichts!						    :animate:
 
@@ -497,10 +518,11 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 
 ** Programmierparadigma: Funktional				   :subslide:
 
-- Programm selbst kann zum Gegenstand des Programms werden
-  - Schlagwort: /Functions as first-class citizens/
 - Vermeidung der Vorstellung eines /Zustands/
   - Keine Seiteneffekte
+  - Programm ist eigentlich nur ein große Funktion 
+- Programm selbst kann zum Gegenstand des Programms werden
+  - Schlagwort: /Functions as first-class citizens/
 
 - Beispiele: Lambda-Kalkül, Lisp, Haskell, F# 
 
@@ -513,16 +535,16 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 
 - Beispiele: Prolog  
 
-** Welches Paradigma für GP1?
+** Welches Paradigma für diese VL?
 
 - Anforderungen
   - Leicht erlernbar
   - Praxisrelevant
   - Ausgangspunkt für weitere Ausbildung 
 
-- GP1: 30% imperativ, 60% objektorientiert, 10% funktional
+- Hier: 30% imperativ, 60% objektorientiert, 10% funktional
 
-- Details: VL Grundlagen der Programmiersprachen 
+- Mehr Details, Beispiele: VL  Programmiersprachen 
 
 ** Paradigma und Sprache? 
 
@@ -547,8 +569,13 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 
 - Keine Sprache erfüllt alle Anforderungen :-( 
 
-- Kandidaten: C/C++, Java, Python
+- Kandidaten: C/C++, Java, Python 
   - Alle praxisrelevant, wesentlich im weiteren Studienverlauf 
+- Oder Exoten: Javascript, Kotlin, Go, Rust, Scala, ...?  
+
+
+
+
 
 ** C/C++ ?							   :subslide:
 
@@ -579,7 +606,7 @@ werden konnte.
 
 - Hohe Abstraktion
 - Komplexes Ausführungsmodell
-  - Viel Magie
+  - Viel /Magie/
 - Moderne Sprache, die viele Trends integriert
   - Dadurch auch unübersichtlich
   - Beispiel: Funktional möglich, aber offensichtlich aufgepfropft 
@@ -588,13 +615,14 @@ werden konnte.
 
 ** Python?							   :subslide:
 
-- Moderne Sprache, aber strikt verwaltet
+- Moderne Sprache, strikt verwaltet
 - Weniger komplex als Java
 - Sehr gut lesbar, kompakt
   - Typischerweise: 1/3 -- 1/5 vergleichbaren Java-Codes 
 - Geringer Einarbeitungsaufwand
 - Interpretiert, dadurch einfach zu experimentieren 
 - Vor-/Nachteil: Keine statischen Typen 
+- [[https://stackoverflow.blog/2017/09/06/incredible-growth-python/][Schnell wachsend]] 
 
 ** Vergleich: TIOBE Index 
 
@@ -607,6 +635,18 @@ Ranking:
 2. C, C++
 
 3. Python 
+
+
+** Vergleich: TIOBE Index 
+
+From [[https://www.tiobe.com/tiobe-index/][Tiobe Index 2018]]: 
+
+#+CAPTION: TIOBE Index 2018
+#+ATTR_LaTeX: :width 0.75\linewidth
+#+NAME: fig:tiobe
+[[./figures/tiobe-2018.png]]
+
+
 
 
 ** Ihre Erfahrung?						    :nolatex:
@@ -672,7 +712,7 @@ pingo_duration = "30"
   - Kann Vorschläge machen, Ergänzungen, ...
 
 
-** Editor für GP1?						   :subslide:
+** Editor für diese VL?                                            :subslide:
 
 - Prinzipiell: Nutzen Sie, was Sie wollen!
 - Abgaben durch Browser-basiertes System
@@ -729,8 +769,8 @@ Es gibt eine große Anzahl unterschiedlicher
 Versionsverwaltungswerkzeuge. Aktuell ist ~git~ vermutlich am
 weitesten verbreitet; es ist sehr flexibel und funktionsreich. 
 
-In GP1 werden wir allerdings auf explizite
-Versionsverwaltungswerkzeuge (voraussichtlich) verzichten. 
+In dieser VL  werden wir allerdings auf explizite
+Versionsverwaltungswerkzeuge verzichten. 
 
 ** Integrierte Entwicklungsumgebung 
 
@@ -743,7 +783,7 @@ Versionsverwaltungswerkzeuge (voraussichtlich) verzichten.
 
 *** Empfehlung							    :animate:
 - Tun Sie es nicht
-- Jedenfalls nicht in GP1! 
+- Jedenfalls nicht gleich! 
 
 * Programmierung im Kontext 
 
@@ -813,6 +853,7 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 
 - Spezifisch: Sprache, Entwicklungsumgebung, ...
   - Beispiel C++: [[http://en.cppreference.com/w/][C++ Reference Site]]
+  - StackExchange : Spezifische Seiten, z.B. 
 
 
 ** Gute Programmierer
