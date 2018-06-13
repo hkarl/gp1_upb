@@ -34,7 +34,7 @@ pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '120'
 pingo_type = "single"
 
 
@@ -53,7 +53,7 @@ def pingo(line):
 
 ** Dieses Kapitel 
 
-- Bisher: einfache unveränderliche Datentypen
+- Bisher: einfache, /unveränderliche/ Datentypen
 - Hier:
   - Zusammengesetzte unveränderliche Typen
     - Tuples, Mengen
@@ -69,7 +69,7 @@ def pingo(line):
 - Andere Objekte aufzählen?
   - Zahlen? Funktionen?
 - Und einer solchen Aufzählung einen Namen geben?
-  - Also wie bei ~str~
+  - Also wie bei ~str~?
 
 
 ** Aufzählung: Wunschliste
@@ -86,7 +86,7 @@ Was hätten wir gerne?
 
 - Auch: Aufzählungen von Aufzählungen?
 - Also: Aufzählungen müssten Objekte sein!
-- Ansatz: eine Aufzählung merkt sich Referenzen auf Objekte 
+- Ansatz: eine Aufzählung merkt sich *Referenzen* auf Objekte 
 
 ** Tuple 
 
@@ -131,6 +131,9 @@ t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) )
 print(t) 
 #+END_SRC 
 
+#+RESULTS:
+: ('Hallo', 'GP1', (1, 2, 3, 9, 8, 7))
+
 
 ** Tuples und Objekte: Visualisierung				   :subslide:
 
@@ -147,7 +150,7 @@ Abbildung [[fig:pt-tuple]] illustriert, wie ein Tuple als eine
 Aufzählung auf Objekte strukturiert ist. Die Tatsache, dass es sich um
 Objekte unterschiedlicher Typen handelt, spielt keine Rolle. Auch ist
 egal, dass auf die einzelnen Objekte (~"Hallo"~, 1, 2, usw..) sonst
-keine anderen Namen verweisen, ohne Belang. 
+keine anderen Namen verweisen. 
 
 #+CAPTION: Tupel als Aufzählung von Referenzen auf Objekte
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -307,7 +310,7 @@ s = t[0]
 
 - Aus einem Tuple kann man Teil-Tuple ausschneiden: /Slicing/ 
 - Start- und Endindex angeben, mit Doppelpunkt ~:~ getrennt
-  - Einschließlich Start, ausschließlich Ende!
+  - *Einschließlich* Start, *ausschließlich* Ende!
 - Ergebnis: Tuple
 
 *** Beispiel: Slicing 
@@ -350,8 +353,11 @@ print("t[-2]: ", t[-2])
 
 #+BEGIN_SRC python :exports both :results output
 t = ('a', 'b', 'c', 'd', 'e', 'f')
-print(t[-2:-1])
+print(t[-4:-1])
 #+END_SRC
+
+#+RESULTS:
+: ('c', 'd', 'e')
 
 
 ** Slicing, Sonderfälle						   :subslide:
@@ -366,10 +372,16 @@ t = ('a', 'b', 'c', 'd', 'e', 'f')
 print(t[2:])
 #+END_SRC
 
+#+RESULTS:
+: ('c', 'd', 'e', 'f')
+
 #+BEGIN_SRC python :exports both :results output
 t = ('a', 'b', 'c', 'd', 'e', 'f')  
 print(t[-2:])
 #+END_SRC
+
+#+RESULTS:
+: ('e', 'f')
 
 *** Spezialfall: 						    :animate:
 
@@ -400,10 +412,16 @@ t = ('a', 'b', 'c', 'd', 'e', 'f')
 print(t[:2])
 #+END_SRC
 
+#+RESULTS:
+: ('a', 'b')
+
 #+BEGIN_SRC python :exports both :results output
 t = ('a', 'b', 'c', 'd', 'e', 'f')
 print(t[:-2])
 #+END_SRC
+
+#+RESULTS:
+: ('a', 'b', 'c', 'd')
 
 
 
@@ -428,7 +446,7 @@ pingo_title = "Ausgabe von print(t[t[2][0:1][0]-1:t[2][1]])?"
 pingo_type = "single"
 pingo_questions = ["'Hallo', 'GP1'", "('Hallo', 'GP1')", 
                        "(1, 2, 3)", "('GP1', '1', '2')" ]
-pingo_duration = "60"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -454,6 +472,9 @@ print(t1+t2)
 t1 = (1, 2, 3)
 print(t1 * 4)
 #+END_SRC 
+
+#+RESULTS:
+: (1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3)
 
 ** Randfälle 
 
@@ -788,7 +809,7 @@ print(L.index(2))
 pingo_title = "Was gibt print(L.index(2)) aus?" 
 pingo_type = "single"
 pingo_questions = ["1", "2", "3", "4"]
-pingo_duration = "30"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -919,7 +940,7 @@ L1.???(7)
 pingo_title = "append oder extend?" 
 pingo_type = "single"
 pingo_questions = ["append und extend", "extend und append"]
-pingo_duration = "30"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -1056,7 +1077,7 @@ print(M)
 pingo_title = "Ausgabe nach Kopie einer Liste von Listen" 
 pingo_type = "single"
 pingo_questions = ["[1, [2, 3], 4]", "[17, [2, 3], 4]", "[1, [2, 17], 4]"]
-pingo_duration = "30"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -1285,7 +1306,7 @@ sind.
     :END:
 
 Wenn es wie eine Ente watschelt und wie eine Ente schwimmt und wie eine
-Ente quakt, dann ist es wohl eine Ente. 
+Ente quakt, dann kann man es als Ente akzeptieren. 
 
 ** Duck Typing							   :subslide:
 
@@ -1321,8 +1342,8 @@ auch verändern?
 - Genauer: die Inhalte der Liste 
 
 #+BEGIN_SRC python :exports both :results output
-  def modify_list(l):
-      l[1] = 17
+  def modify_list(ll):
+      ll[1] = 17
 
   l = [1, 2, 3]
   modify_list(l)
@@ -1402,7 +1423,7 @@ Aufrufer zu transportieren?
 #+BEGIN_SRC python :exports both :results output
   def verdopple(l):
       """Verdopple das erste Element der Liste"""
-      l[0] = l[0] + l[0]
+      l[0] = l[0] * 2
 
   l = [3, 4, 5]
   verdopple(l)
@@ -1762,7 +1783,7 @@ D1 = dict(D.items())
 *** Details							  :dropslide:
 
 Abbildung [[fig:pt-dict-copy]] zeigt die sich einstellende Struktur: ~D~
-und ~D1~ sind Kopien, die auf die gleichen Objekte verweisen (aber das
+und ~D1~ sind Dicts, die auf die gleichen Objekte verweisen (aber das
 war natürlich zu erwarten, unveränderliche Objekte wie Zahlen werden
 ja stets nur einmal im Speicher repräsentiert).
 
@@ -1847,7 +1868,7 @@ werden gelegentlich auch diese kompakte Darstellung benutzen.
 
 
 Soll ein Objekt in ein Objekt eines anderen Typs konvertiert werden,
-so ist das Objekt als Parameter des gewünschten Typs angegeben. Die
+so ist das Objekt als Parameter des gewünschten Typs anzugeben. Die
 Syntax sieht aus wie ein Funktionsaufruf mit dem Typ als
 Funktionsname. 
 
