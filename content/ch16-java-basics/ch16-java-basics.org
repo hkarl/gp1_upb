@@ -34,7 +34,7 @@
 ** Objektorientierung und Dateien 
 
 - Java ist sehr viel konsequenter objektorientiert als Python 
-- Eine Auswirkung: Verteilung eins Programms auf Dateien
+- Eine Auswirkung: Verteilung eines Programms auf Dateien
   - Regel: Eine Datei = eine Klasse 
 
 ** Programmstruktur aus mehreren Dateien? 
@@ -91,6 +91,9 @@ class TestClass {
 }
 #+END_SRC 
 
+#+RESULTS:
+: Hello, world!
+
 #+BEGIN_SRC shell :exports code :results output
 javac TestClass.java
 java TestClass
@@ -116,7 +119,7 @@ java TestClass
 
 
 
-** Anmerkung: Java  und Jupyterhub 
+** TODO Anmerkung: Java  und Jupyterhub 
 
 - Jupyterhub ist nur bedingt auf die Ausführung von Java ausgelegt
 - Insbesondere ist der derzeitige Java Standard, Version 8, nicht zu
@@ -131,7 +134,7 @@ java TestClass
 
 
 
-** Anmerkung: Java, Dateien, Editoren, IDE 
+** TODO Anmerkung: Java, Dateien, Editoren, IDE 
 
 - Da Java und Jupyterhub nicht so schön zusammenpassen: Sie brauchen
   Editoren
@@ -139,7 +142,7 @@ java TestClass
   - Jeder ordentliche Editor für Entwickler unterstützt viele Sprachen
 - IDEs: [[https://netbeans.org][NetBeans]],  [[https://eclipse.org/][Eclipse]], [[https://www.jetbrains.com/idea/][IntelliJ IDEA]], [[https://developer.android.com/studio/index.html][Android Studio]], [[http://www.bluej.org][BlueJ]] (zum Lernen
   nicht schlecht, mit REPL), [[http://www.jedit.org][jEdit]] (spezialisierter Editor, praktisch eine IDE)
-  - Aber tun Sie sich das für GP1 nicht an!
+  - Aber tun Sie sich das für diese VL  nicht an!
   - Lernaufwand *sehr* hoch 
   - Später ist eine IDE (nicht notwendig Eclipse) sinnvoll 
 
@@ -196,6 +199,9 @@ class HelloWorld{
     }
 }
 #+END_SRC 
+
+#+RESULTS:
+: Hello, world!
 
 
 ** Schlüsselwörter 
