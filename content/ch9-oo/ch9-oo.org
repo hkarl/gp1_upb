@@ -1822,7 +1822,7 @@ Was passiert hier, warum?
   konnten trotzdem Funktionalität hinzufügen! 
 
 
-*** UEBUNG In einer existierende KLasse mit Nutzungscode eine Variable zu einer property ändern 
+*** UEBUNG In einer existierende KLasse mit Nutzungscode eines Namen zu einer property ändern 
 
 
 ** Schnittstelle  (Interface) 
