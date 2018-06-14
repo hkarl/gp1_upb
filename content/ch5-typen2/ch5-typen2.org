@@ -349,7 +349,7 @@ print(l)
 
 
 
-** UEBUNG Unpacking von Tuples                                     :noexport:
+*** UEBUNG Unpacking von Tuples                                    :noexport:
 
 Unpacking einführen, Fälle durchspielen
 
@@ -379,7 +379,15 @@ Warum funktioniert das hier?
 #+END_SRC 
 
 
+Oder wie bekommt man Kopf, Rumpf und Ende einer Schleie? 
 
+#+BEGIN_SRC python 
+while len(L) > 1: 
+    head, *L, tail = L
+    # do something
+    
+
+#+END_SRC
 
 ** Zugriff und Namen 
 
