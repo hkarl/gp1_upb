@@ -159,13 +159,13 @@ Argumentübergabe und Rückgabewert funktionieren ganz normal
 : 24
 
 
-** Verschachtelte Funktionen: Zugriff auf Variablen? 
+** Verschachtelte Funktionen: Zugriff auf Name? 
 
-- Wie funktioniert der Zugriff auf Variablen außerhalb des eigenen
+- Wie funktioniert der Zugriff auf Namen außerhalb des eigenen
   Namensraum aus einer inneren Funktion heraus?
 - Im wesentlichen: Regeln wie bisher 
 
-** Zugriff auf globale Variablen, lesend
+** Zugriff auf globale Namen, lesend
 
 Ohne besondere Vorkehrungen, wenn nur lesen 
 
@@ -185,7 +185,7 @@ Ohne besondere Vorkehrungen, wenn nur lesen
 
 
 
-** Zugriff auf globale Variablen, schreiben 
+** Zugriff auf globale Namen, schreiben 
 
 Schreibender Zugriff: Erfordert Deklaration mit ~global~
 
@@ -205,9 +205,9 @@ Schreibender Zugriff: Erfordert Deklaration mit ~global~
 : 2
 
 
-** Zugriff auf Variablen der äußeren Funktion? ~global~? 
+** Zugriff auf Namen der äußeren Funktion? ~global~? 
 
-Spannender Punkt: Was ist mit Variable, die nicht global, aber in der
+Spannender Punkt: Was ist mit Namen, die nicht global, aber in der
 äußeren Funktion vereinbart ist? 
 
 
@@ -246,7 +246,7 @@ NameError: name 'x' is not defined
 
 
 
-** Zugriff auf Variablen der äußeren Funktion? Direkt? 
+** Zugriff auf Namen der äußeren Funktion? Direkt? 
 
 #+BEGIN_SRC python :exports code :results output
   def f():
@@ -276,11 +276,11 @@ UnboundLocalError: local variable 'x' referenced before assignment
 
 
 
-** Zugriff auf Variablen der äußeren Funktion -- Reihenfolge? 
+** Zugriff auf Namen der äußeren Funktion -- Reihenfolge? 
 
 
 Liegt es vielleicht an der Reihenfolge? 
-- Im Beispiel eben war bei der /Definition/ von ~g~ die Variable ~x~
+- Im Beispiel eben war bei der /Definition/ von ~g~ der Namen ~x~
   noch gar nicht existent
 - Muss es das ~x~ schon geben, wenn ~g~ definiert wird? Damit ~g~
   darauf zugreifen kann? 
@@ -304,9 +304,10 @@ Offenbar wird auch der Namensraum einer umschließenden Funktion
 durchsucht! 
 
 
-** Modifizierender Zugriff auf Variablen der äußeren Funktion? 
+** Modifizierender Zugriff auf Namen der äußeren Funktion? 
 
-Kann man solche umschließenden Variablen auch verändern? 
+Kann man solche "umschließenden Namen" auch verändern? 
+- Kurz für "Namen aus umschließendem Namensraum" 
 
 #+BEGIN_SRC python :exports code :results output
   def f():
@@ -339,10 +340,10 @@ UnboundLocalError: local variable 'x' referenced before assignment
 
 ** Neues Schlüsselwort: ~nonlocal~ 				   
 
-Analog zu ~global~: Neues Schlüsselwort, um umschließende Variablen zu
+Analog zu ~global~: Neues Schlüsselwort, um umschließende Namen zu
 verändern
 - ~nonlocal~
-- Unterschied zu ~global~: Die Variable muss schon existieren! (durch
+- Unterschied zu ~global~: Der Name muss schon existieren! (durch
   Zuweisung, siehe oben)
 
 #+BEGIN_SRC python :exports both :results output
@@ -419,11 +420,11 @@ zuzugreifen. Dieses ~x~ wird durch das ~x~ von ~g~ verdeckt!
 Es lohnt sich, hier kurz  Abbildung [[fig:pt-nonlocal]]
 zu betrachten. Die Abbildung zeigt den Zustand nach Ausführung der
 Addition in ~h~, Zeile 7. Dabei fällt auf, dass es 
-- einerseits natürlich eine Variable ~x~ im Frame ~f1~ von ~f~ gibt,
+- einerseits natürlich ein Name  ~x~ im Frame ~f1~ von ~f~ gibt,
   die auf den Wert 1 verweist;
-- anderseits auch eine Variable ~x~ im Frame ~f2~ von ~g~ gibt, die
+- anderseits auch ein Name  ~x~ im Frame ~f2~ von ~g~ gibt, die
   auf den Wert 43 (nach der Addition) weist;
-- aber /keine/ Variable ~x~ im Frame von ~h~ gibt; ~nonlocal~ sorgt
+- aber /kein/ Name ~x~ im Frame von ~h~ gibt; ~nonlocal~ sorgt
   dafür, dass der Namespace von ~g~ hier benutzt wird. 
 
 #+CAPTION: Effekt von ~nonlocal~
@@ -492,7 +493,7 @@ Abbildung~\ref{fig:legb} illustriert die Nachschlageregel LEGB: von innen nach a
 - Die Anweisung ~g = f~ lässt den Namen ~g~ auf das gleiche Objekt
   referenzieren
 - Also wird der Aufruf ~g()~ auch die gleiche Funktion aufrufen
-  - Der Name der referenzierenden Variable ist /irrelevant/! 
+  - Der referenzierende Name  ist /irrelevant/! 
 
 
 
@@ -581,7 +582,7 @@ Parameter benutzt?
 Dann hat die Funktion natürlich einen Parameter 
 - Aufruf unter neuem Namen erfordert diesen Parameter 
 
-** Funktion mit Zugriff auf nichtlokale Variablen als Rückgabe 
+** Funktion mit Zugriff auf nichtlokalen Namen als Rückgabe 
 
 Spannender: 
 - Innere Funktion greift auf Parameter der äußeren Funktion zu
@@ -605,8 +606,8 @@ h("Wert für x")
 *** Äußerer Parameter bleibt erhalten!				    :animate:
 
 - Offenbar behält die Funktion, die unter ~h~ im globalen Scope
-  bekannt ist, Zugriff auf die Variable ~n~
-- Erstaunlich! ~n~ im Namensraum von ~f~, aber ~f~ schon beendet!?
+  bekannt ist, Zugriff auf den Namen ~n~
+- *Erstaunlich*! ~n~ im Namensraum von ~f~, aber ~f~ schon beendet!?
 
 
 *** Visualisierung						  :dropslide:
@@ -636,7 +637,7 @@ dass der Frame ~f1~ noch existiert.
 
 
 
-** Nicht-lokale Variable selbst als Parameter 
+** Nicht-lokaler Name selbst als Parameter 
 
 - In obigem Beispiel: ~n~ hatte einen festen Wert
 - Aber wo der Wert für ~n~ herkommt ist egal
@@ -712,7 +713,7 @@ Abbildung [[fig:two-closures]] zeigt die beiden im Beispiel entstandenen
 Closures. Die beiden Funktionsnamen ~doppler~ und ~fuenffacher~
 referenzieren jeweils zwei Funktionsobjekte. Der entscheidende Punkt
 ist nun die Angabe ~parent~ bei diesen Objekten: sie verweisen auf den
-Namensraum, in dem die fehlenden Variablen (hier: ~n~) gesucht werden
+Namensraum, in dem die fehlenden Namen (hier: ~n~) gesucht werden
 sollen. Dies sind die beiden Namensräume, die durch die beiden Aufrufe
 von ~vervielfacher_fabrik~ erzeugt wurden. 
 
@@ -752,7 +753,7 @@ Closures nicht vollständig abbilden.
 
 
 
-*** UEBUNG In closures die gemerkte Variable verändern? 
+*** UEBUNG In closures die gemerkte Namen verändern? 
 
 #+BEGIN_SRC python :exports both :results output
   def vervielfacher_fabrik(n):
@@ -778,7 +779,7 @@ Closures nicht vollständig abbilden.
 
 
 
-*** UEBUNG Closures nutzen, um C static Variablen nachzubauen
+*** UEBUNG Closures nutzen, um C static Namen nachzubauen?
 
 
 *** UEBUNG Weitere Closure-Beispiele? 
@@ -915,13 +916,12 @@ http://stackoverflow.com/questions/6076270/python-lambda-function-in-list-compre
 
 - Python behandelt Funktionen wie ganz normale Objekte, mit allerlei
   Operationen darauf
-  - Funktionen als Parameter, als Rückgabewerte, speichern in
-    Variablen oder Datenstrukturen, ... 
+  - Funktionen als Parameter, als Rückgabewerte, merken mittels Namen
+    oder Datenstrukturen, ...
 - Solche Funktionen sind /first-class citizens/ 
 - Dies erlaubt /funktionale Programmierung/ als Programmierparadigma 
 
 ** Funktionale Programmierung -- Typische Merkmale 
-
 
 - Funktionen sind first-class citizens
   - Impliziert: Funktionen können auf Funktionen angewendet werden
@@ -952,8 +952,9 @@ http://stackoverflow.com/questions/6076270/python-lambda-function-in-list-compre
 - Signatur: ~filter(function, iterable)~
   - Wende die Funktion ~function~ auf jedes Element einer Aufzählung an
   - Resultat: Aufzählung mit den Elementen, bei denen die Funktion
-    wahr ergab 
-- Beispiel: 
+    ~True~ ergab 
+
+*** Beispiel
 
 #+BEGIN_SRC python :exports both :results output
 l = [1, 2, 3, 4, 5]
@@ -972,7 +973,8 @@ print(list(l2))
   - Wende die Funktion ~function~ auf jedes Element eines Objektes an,
     dass zu einer von ~iterable~ abgeleiteten Klasse gehört
   - Resultat: Aufzählung der Funktionsergebnisse
-- Beispiel: 
+
+*** Beispiel 
 
 #+BEGIN_SRC python :exports both :results output
 l = [1, 2, 3, 4, 5]
@@ -1100,7 +1102,7 @@ Syntaktischer Zucker: Generatoren
 - Idee: Ersetze in einer Funktion  ~return~ durch ~yield~ 
   - Liefert Wert an Aufrufer
   - *und* merkt sich Zustand für nächsten Aufruf!
-    - Zustand: Werte lokaler Variablen; Zeilennummer; ... 
+    - Zustand: Werte lokaler Namen; Zeilennummer; ... 
 
 
 ** Generator: Einfaches Beispiel 
@@ -1300,7 +1302,7 @@ for i in (x for x in range(17, 40) if x % 3 == 0):
 
 Wir haben folgende Eigenschaften kennengelernt: 
 - Funktionen sind first-class citizens in Python
-- Funktionsnamen sind eigentlich auch nur Variablen, die  ein
+- Funktionsnamen sind eigentlich auch nur Namen, die  ein
   Funktionsobjekt referenzieren 
 - Solche Referenzen können aus Funktionen zurückgegeben werden 
 - Und Referenzen können  Funktionsnamen zugewiesen werden 
@@ -1435,7 +1437,7 @@ Brauchen wir die ursprüngliche Version von ~f~ noch? Nein?
 
       return einrahmer
 
-  # Wir lassen die Variable f ein neues Funktionsobjekt referenzieren:
+  # Wir lassen den Namen f auf ein neues Funktionsobjekt verweisen:
   f = einrahmer_fabrik(f, "***********") 
   
   f()
