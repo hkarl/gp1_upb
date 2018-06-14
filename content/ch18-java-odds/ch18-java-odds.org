@@ -20,7 +20,7 @@
 ** Dieses Kapitel 
 
 - Fehlende Kleinigkeiten 
-- Betonung einiger Aspekte der aktuellen Java Version 8 
+- Betonung einiger Aspekte der aktuellen Java Version 8, 9 
 
 
 
@@ -165,10 +165,17 @@ for x in  [x for x in [1954, 1974, 1990, 2014] if x > 1980]: print(x)
 
 ** Java 8: Lambda vs. Closures 
 
+*** Closure                                                     :B_quotation:
+    :PROPERTIES:
+    :BEAMER_env: quotation
+    :END:
+
 [[http://www.lambdafaq.org/lambdas-and-closures-whats-the-difference/][Zitat]]: A closure is a lambda expression paired with an environment
 that binds each of its free variables to a value. In Java, lambda
 expressions will be implemented by means of closures, so the two terms
 have come to be used interchangeably in the community. 
+
+*** Ach? 
 
 Aber nur, weil die Java community den Unterschied nicht versteht! 
 
@@ -312,6 +319,19 @@ Aber nur, weil die Java community den Unterschied nicht versteht!
 
 Anmerkung:  /keine Angabe/ entspricht einer Art /package/ --
 - Das gibt es aber nicht als Schlüsselwort 
+
+
+** Modularität (Java 9) 
+
+Nach [[https://blog.idrsolutions.com/2017/05/java-9-modularity-explained-in-5-minutes/][Blog]]: 
+
+- Ein Modul: Eine Sammlung von Klassen, Daten, und explizite
+  Abhängigkeiten von anderen Modulen
+- "Similar to JAR files but better"
+  - Soll Code-Austausch und Zusammenarbeit verbessern
+  - "No one would be able to access code which we don’t want others to
+    see. " 
+- Braucht ein eigenes Buch zur Erklärung 
 
 
 * Standardpakete 
