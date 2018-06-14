@@ -34,7 +34,7 @@ pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '120'
 pingo_type = "single"
 
 
@@ -55,7 +55,7 @@ def pingo(line):
 
 Wir haben: 
 - Ausdrücke und Anweisungen 
-- Variablen als Referenz auf Werte
+- Namen verweisen auf Werte
 - Kontrollstrukturen für Ablauf: ~if~, ~while~, ~for~
 - Funktionen als Zusammenfassung von Anweisungen
   - Definition und Aufruf 
@@ -406,7 +406,7 @@ dann die ergebnisse packen müsste.
   - Stimmt nicht ganz: Unsere Funktion hat auch schon die Funktion
     ~print~ aufgerufen
 - Was passiert genau, wenn eine Funktion eine andere aufruft?
-  - Insbesondere: Welche Variablen sind sichtbar? 
+  - Insbesondere: Welche Namen sind sichtbar? 
 
 ** Ausführungsmodell 
 
@@ -489,15 +489,15 @@ def f():
 
 
 
-** Variablen und Sichtbarkeit? 
+** Namen und Sichtbarkeit? 
 
-Auf welche Variablen kann man in einer Funktion zugreifen? 
+Auf welche Namen kann man in einer Funktion zugreifen? 
 - Natürlich auf die selbst zugewiesenen 
 - Andere? 
 
-** Sichtbarkeit Variablen außerhalb der Funktion? 
+** Sichtbarkeit von Namen außerhalb der Funktion? 
 
-*** Beispiel 1: Variable vor Funktionsdefinition zugewiesen 
+*** Beispiel 1: Name vor Funktionsdefinition zugewiesen 
 
 #+BEGIN_SRC python :exports both :results output
 %%tutor -t
@@ -509,7 +509,7 @@ f()
 #+END_SRC 
 
 
-*** Beispiel 2: Variable *nach* Funktionsdefinition zugewiesen 
+*** Beispiel 2: Name *nach* Funktionsdefinition zugewiesen 
 #+BEGIN_SRC python :exports both :results output
   def f():
       y = x 
@@ -538,10 +538,10 @@ f()
 
 
 Abbildung [[fig:pt-x-in-global]] zeigt die Situation, nachdem die Funktion
-~f~ die Variable ~x~ im aufrufenden Scope gefunden hat und die eigene
-Variable ~y~ den Wert von ~x~ referenziert. 
+~f~ die Name ~x~ im aufrufenden Scope gefunden hat und die eigene
+Name ~y~ den Wert von ~x~ referenziert. 
 
-#+CAPTION: Variable ~x~ wird im globalen Scope gefunden, ~y~ referenziert den Wert von ~x~
+#+CAPTION: Name ~x~ wird im globalen Scope gefunden, ~y~ referenziert den Wert von ~x~
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-x-in-global
 [[./figures/pt-x-in-global.png]]
@@ -568,7 +568,7 @@ x = 7
 pingo_title = "Ergebnis?" 
 pingo_type = "single"
 pingo_questions = ["3", "5", "7", "42"]
-pingo_duration = "30"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -588,30 +588,30 @@ Funktioniert das hier?
 
 ** Scope durch Zuweisung 					 
 
-- *Zuweisung* an Variable bestimmt ihren Scope 
+- *Zuweisung* an Name bestimmt ihren Scope 
 
 *** Warum funktioniert das nicht?				  :dropslide:
 
 Die Fehlermeldung: ~UnboundLocalError: local variable 'x' referenced
 before assignment~ gibt einen ersten Hinweis. Offenbar wird die
-Variable ~x~ hier als eine Variable, die lokal zur Funktion ist,
-aufgefasst. Die Tatsache, dass es eine globale Variable ~x~ gibt,
+Name ~x~ hier als eine Name, die lokal zur Funktion ist,
+aufgefasst. Die Tatsache, dass es einen globalen Name ~x~ gibt,
 spielt jetzt keine Rolle -- anders als im Beispiel oben. 
 
 Offenbar liegt der Unterschied zwischen diesen beiden Beispielen
-daran, dass an die Variable ~x~ im zweiten Beispiel zugewiesen wird;
+daran, dass an die Name ~x~ im zweiten Beispiel zugewiesen wird;
 im vorherigen Beispiel wird ~x~ lediglich gelesen. 
 
 Damit haben wir einen entscheidenen Punkt erarbeitet: Der Ort einer
-*Zuweisung* an eine Variable bestimmt ihren Scope. 
+*Zuweisung* an eine Name bestimmt ihren Scope. 
 
 
 
-*** UEBUNG Ein paar analoge BEispiele bauen: Zuweisung an Variable bestimmt Scope 
+*** UEBUNG Ein paar analoge BEispiele bauen: Zuweisung an Name bestimmt Scope 
 
-** Sichtbarkeit von Variablen *zwischen* zwei Funktionen? 
+** Sichtbarkeit von Namen *zwischen* zwei Funktionen? 
 
-- Aufruf von ~g~ durch ~f~ oben hatte keine Variablen
+- Aufruf von ~g~ durch ~f~ oben hatte keine Namen
 - Was passiert, wenn wir das hinzufügen? 
 
 #+BEGIN_SRC python :exports both :results output
@@ -643,8 +643,8 @@ Offenbar unterschiedliches Verhalten
   - Der /local scope/ der Funktion
   - Local scopes zweier Funktionen haben nichts miteinander zu tun!
     - Genauer: Die Scopes der Namensräume der Funktionen... 
-    - Gleicher Variablenname in unterschiedlichen Scopes:
-      Unterschiedliche Variable!   
+    - (Scheinbar) gleicher Name in unterschiedlichen Scopes:
+      Unterschiedlicher Namer!   
 
 
 ** Disjunkte local scopes -- Beispiel 
@@ -670,14 +670,14 @@ f()
 
 *** Visualisierung						  :dropslide:
 
-Im obigen Progerammbeispiel tauchen drei verschiedene Variablen
-auf, die alle ~x~ heißen. Sie existieren in drei verschiedenen
+Im obigen Progerammbeispiel tauchen drei verschiedene Namen
+auf: alle ~x~ . Sie existieren in drei verschiedenen
 Kontexten und haben daher nichts miteinander zu tun. Abbildung
 [[fig:pt-three-xs]] illustriert die Situation, nachdem in Funktion ~g~ an
 ~x~ zugewiesen wurde. 
 
 
-#+CAPTION: Drei verschiedene Variablen ~x~ in drei verschiedenen Scopes
+#+CAPTION: Drei verschiedene Namen  ~x~ in drei verschiedenen Scopes
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:pt-three-xs
 [[./figures/pt-three-xs.png]]
@@ -710,7 +710,7 @@ f()
 *** Visualisierung						  :dropslide:
 
 In dieser Variante von ~g~ gibt es im lokalen Scope von ~g~ keine
-Variable ~x~. Daher schaut die Funktion ~g~ beim Zugriff auf ~x~ nach,
+Namen ~x~. Daher schaut die Funktion ~g~ beim Zugriff auf ~x~ nach,
 ob im globalen Scope ein ~x~ existiert. Das ist der Fall; also wird
 dieser Wert (hier: 99) benutzt.  Abbildung [[fig:pt-two-xs]] zeigt die
 Situation nach der Ausgabe des (globalen) ~x~ in ~g~.
@@ -722,18 +722,18 @@ Situation nach der Ausgabe des (globalen) ~x~ in ~g~.
 
 
 Beachten Sie, dass in ~f~ das globale ~x~ *verdeckt* ist durch die
-Zuweisung an die lokale Variable ~x~. 
+Zuweisung an den lokalen Namen ~x~. 
 
 
 *** UEBUNG Analoge Beispiele fuer PUE 
 
-** Modifizierende Nutzung globaler Variablen 
+** Modifizierende Nutzung globaler Namen 
 
-- Zuweisung erzeugt eine Variable im lokalen Scope
+- Zuweisung erzeugt einen Namen im lokalen Scope
   - Genauer: Im Namensraum des lokalen Scopes 
-- Was passiert, wenn eine globale Variable verändert wird? 
+- Was passiert, wenn an  einen globale Namen zugewiesen wird? 
 
-*** Zuweisung erzeugt lokale Variable 
+*** Zuweisung erzeugt lokalen Namen  
 
 Wie oben --  das hier funktioniert nicht: 
 
@@ -745,10 +745,12 @@ Wie oben --  das hier funktioniert nicht:
   f()
 #+END_SRC 
 
+#+RESULTS:
 
 
 
-** Modifikation einer globalen Variable 
+
+** Modifikation eines globalen  Namens 
 
 Das hier funktioniert: 
 
@@ -767,7 +769,8 @@ Das hier funktioniert:
 *** Beobachtung 
 
 - An ~L~ wird nicht zugewiesen, also wird das globale ~L~ benutzt
-- Es wird nicht ~L~ verändert, sondern das referenzierte Objekt! 
+- Es wird nicht der Name ~L~ verändert, sondern das referenzierte
+  Objekt, die Liste selbst! 
   
 ** Modifikation einer globalen Variablen 
 
@@ -783,10 +786,10 @@ Das hier funktioniert:
 #+NAME: fig:danger
 [[./figures/DangerWillRobinson.png]]
 
-** Modifikation einer globalen Variablen 
+** Modifikation eines globalen Namens
 
 - Eigenes Schlüsselwort: ~global~
-  - Deklariert einen Variablen als dem globalen Scope zugehörig 
+  - Deklariert einen Namen als dem globalen Scope zugehörig 
 - *Extrem bedenklich*!!
   - Schwer lesbar, schlecht wartbar, unübersichtlich, fehleranfällig,
     ... 
@@ -804,10 +807,10 @@ Das hier funktioniert:
 #+RESULTS:
 : 6
 
-** Die Gefahr globaler Variablen 
+** Die Gefahr globaler Namen 
 
-- Die Modifikation globaler Variablen wird durch die Sprache bewusst
-  erschwert
+- Die Modifikation globaler Namen wird durch den  Sprachentwurf bewusst
+  *erschwert*
 - Kernproblem: Programm ist nicht mehr verständlich, indem man nur den
   jeweiligen Ausschnitt betrachtet
  
@@ -837,13 +840,13 @@ print(X)
 pingo_title = "Welcher Wert wird ausgegeben?" 
 pingo_type = "single"
 pingo_questions = ["77", "88", "99"]
-pingo_duration = "30"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
 
 
-*** UEBUNG Beiepiele, bei denen wir die globale Variable zum zurückgeben von Funktionswerte benuten 
+*** UEBUNG Beiepiele, bei denen wir dne globalen Namen  zum zurückgeben von Funktionswerte benuten 
 
 Das ist etwas anderes, als eine Refernezvariable zu manipulieren!
 Unterschied zur Frage oben (was, wenn keine Tuple zurückgebbar?)
@@ -852,25 +855,25 @@ klarmachen!
 
 
 
-** Zusammenfassung: Scope von Variablen in Funktionen 
+** Zusammenfassung: Scope von Namen  in Funktionen 
 
-*** Scope von Variablen					       :B_definition:
+*** Scope von Namen                                            :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
  
-Der Scope einer Variablen bestimmt sich daraus, wo an diese Variable
+Der Scope eines Namen bestimmt sich daraus, wo an diesen Namen 
 eine *Zuweisung* erfolgt. 
 
-- Variablen, an die innerhalb eines ~def~ zugewiesen wurde, sind im
+- Namen, an die innerhalb eines ~def~ zugewiesen wurde, sind im
   local scope dieser Funktion
-- Variablen, an die außerhalb aller Funktionen zugewiesen wurde, sind
+- Namen, an die außerhalb aller Funktionen zugewiesen wurde, sind
   im global scope
-  - Referenziert eine Variable im global scope ein Objekt, so kann das
+  - Verweist ein Name im global scope auf ein Objekt, so kann das
     Objekt durchaus verändert werden!
-- Auf Variablen im global scope kann von einer Funktion aus nur lesend
+- Auf Namen im global scope kann von einer Funktion aus nur lesend
   zugegriffen werden 
-  - Es sei denn, sie sind vorher durch ~global~ deklariert 
+  - Es sei denn, ein solcher Name ist vorher als  ~global~ deklariert 
 
 
 * Indirekte Rekursion 
@@ -954,10 +957,11 @@ Was tut dieses Programm?
 
 Schauen wir uns die Scopes bzw. Namensräume genauer an: 
 
-- Beide Funktionen ~is_even~ und ~is_odd~ haben Variablen ~x~ und ~y~
-- Diese ~x~ und ~y~ werden sich gegenseitig *verdecken*
+- Beide Funktionen ~is_even~ und ~is_odd~ haben Namen ~x~ und ~y~
+- Diese ~x~ und ~y~ sind in unterschiedlichen Scopes, also kein
+  Problem 
 - Aber was passiert mit einem ~x~ von ~is_even~, wenn ~is_even~ erneut
-  aufgerufen wird? 
+  aufgerufen wird? Gleicher Scope??? 
 - Was würden Sie sinnvollerweise erwarten? 
 
 ** Wechselseitiger Aufruf: Animation 
@@ -992,7 +996,7 @@ Der erste interessante Schritt passiert in diesem Beispiel, wenn
 ~is_odd~ die Funktion ~is_even~ mit dem Parameter 3 aufruft. Abbildung
 [[fig:pt-is_even]] zeigt, dass dann für den erneuten Aufruf von ~is_even~
 ein *neuer Namensraum* angelegt wird, mit separatem ~x~ und ~y~.  Der
-Scope dieser beiden neuen Variablen ~x~ und ~y~ ist aber der gleiche
+Scope dieser beiden neuen Namen ~x~ und ~y~ ist aber der gleiche
 (die gleichen Zeilen im Programmcode!).
 
 #+CAPTION: Beim zweiten Aufruf von ~is_even~ wird ein weiterer Namensraum angelegt, mit neuen ~x~ und ~y~
@@ -1011,7 +1015,7 @@ Namensraum der anderen Funktionen nichts zu tun hat.
 [[./figures/pt-multiple-even-odd.png]]
 
 
-** Zugriff auf Variablen in anderen Namensraum? 
+** Zugriff auf Namen in anderem Namensraum? 
 
 - Im oben Beispiel mit ~f~ und ~g~ gelang es nicht, auf eine Variable
   ~x~ in einem anderen Namensraum zuzugreifen
@@ -1036,7 +1040,7 @@ Weil man ggf. den relativen Stack frame angeben müsste.
     :END:
 
 Jeder rekursive *Funktionsaufruf* hat einen eigenen Namensraum. Die
-Variablennamen in einem Namensraum haben nichts mit Variablennamen in einem
+Namen in einem Namensraum haben nichts mit Namen in einem
 anderen Namensraum zu tun, selbst wenn es sich um den gleichen Scope
 handeln sollte. 
 
@@ -1146,10 +1150,10 @@ fak(-5)
 ** Fakultät: Scope und Namensraum 
 
 Um das nochmals zu betonen: 
-- Der /Namensraum/ der einer der  lokalen Variable  ~n~ in einer Funktion
+- Der /Namensraum/ eines  lokalen Namens  ~n~ in einer Funktion
   ~fak~  ist bei jedem Aufruf von ~fak~ ein neuer; jeder
   Aufruf hat einen eigenen Namensraum 
-- Der /Scope/ der Variable ~n~ ist bei allen Aufrufen von ~fak~ der
+- Der /Scope/ des Namens ~n~ ist bei allen Aufrufen von ~fak~ der
   gleiche: die Zeilen 2--6
 
 ** Beispiel: String umdrehen 
@@ -1441,7 +1445,7 @@ Also:
 - Jeder Aufruf einer Funktion -- sei es normal, durch indirekte oder
   direkte Rekursion -- hat also einen eigenen Namensraum, eigene Version
   des Zustands der Funktion
-  - Zustand: Werte der Parameter, der lokalen Variablen, des Rückgabewertes
+  - Zustand: Werte der Parameter, der lokalen Namen, des Rückgabewertes
 - Konzeptionell schön, aber wie wird das realisiert?
 - Kernidee: Ein /Stapel/ von /Frames/
   - Datenstruktur, auf der andere Daten abgelegt werden können
@@ -1470,10 +1474,10 @@ Also:
 - Unabhängig von Werten um die Funktion herum 
 - /Isolation/ der Funktion erhöht Wiederverwendbarkeit 
 
-*** Globale Variablen nur wenn nicht anders möglich		    :animate:
+*** Globale Namen nur wenn nicht anders möglich                     :animate:
 
-- Globale Variablen erzeugen Abhängigkeiten und Komplexität
-- Nur als letzter Ausweg!
+- Globale Namen erzeugen Abhängigkeiten und Komplexität
+- Nur als letzter Ausweg! In 99.9999% *nicht* nötig 
 
 ** Funktionen und Coupling (2) 
 
@@ -1520,12 +1524,12 @@ Z.B. sortierern
 - Funktionen können beliebige Typen zurückgeben, insbesondere Tuple
   - Nützlich um mehrere unterschiedliche Werte als Resultat zu
     verwenden
-- Jeder Funktionsaufruf hat einen eigenen Namensraum, in dem Variablennamen
+- Jeder *Funktionsaufruf* hat einen eigenen Namensraum, in dem Namen
   lokal existieren
   - Entsteht bei Funktionsaufruf, zerstört bei Funktionsende
-- Der Scope einer Variable ist lexikalisch durch den Ort der Zuweisung
-  an die Variable bestimmt
-  - Bei Nutzung einer Variable wird zunächst der lokale, dann der
+- Der *Scope* eines Namens ist lexikalisch durch den Ort der Zuweisung
+  an den Namen bestimmt
+  - Bei Nutzung eines Namens wird zunächst der lokale, dann der
     globale Scope besucht
 - Funktionen können direkte oder indirekte Rekursion nutzen
   - Jeweils mit eigenem Namensraum 
