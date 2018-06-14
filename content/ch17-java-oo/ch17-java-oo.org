@@ -469,14 +469,14 @@ Wie bei allen Zuweisungen auch!
 
 *** Insgesamt							    :animate:
 
-Im Endeffekt sehr ähnlich zu Python!
+Im Endeffekt sehr ähnlich zu Python! Im Mechanismus anders. 
 
 ** Aufrufsemantik: Rückgabewert 
 
 *** Rückgabetyp ~void~
 
 - Keine Rückgabe 
-- Funktionsaufruf  darf /nicht/ an eine Variable zugewiesen werden 
+- Funktionsaufruf darf /nicht/ an eine Variable zugewiesen werden 
 
 *** Rückgabetyp /primitive type/				    :animate:
 
@@ -571,7 +571,7 @@ zuzugreifen. Das Problem entsteht ja nur, weil bei einem
 Schreibzugriff implizit eine Variable im eigenen Namensraum entsteht. 
 
 
-** Globale Variablen: Beispiel 
+** Klassenattribute: Beispiel 
 
 
 #+BEGIN_SRC java :exports both :results output :classname  GlobalVariablesClass
@@ -579,24 +579,30 @@ Schreibzugriff implizit eine Variable im eigenen Namensraum entsteht.
       // Daten deklarieren: 
       double x, y;
       double achse1, achse2;
-      static int magic = 3;
+      static double magic = 3.0;
     
       double flaeche() {
           return magic * this.achse1 * this.achse2;
       }
   }
 
-  Ellipse e = new Ellipse();; 
+  Ellipse e = new Ellipse(); 
   e.achse1 = 2.3;
   e.achse2 = 4.5;
-  System.out.println(e.flaeche());
+  System.out.println(e.flaeche()); 
+  Ellipse e2 = new Ellipse();
+  e2.magic = 3.14159265;
+  System.out.println(e.flaeche()); 
 #+END_SRC 
 
 #+RESULTS:
-: e ==> Ellipse@59494225
-: $4 ==> 2.3
-: $5 ==> 4.5
+: e ==> Ellipse@cb644e
+: $3 ==> 2.3
+: $4 ==> 4.5
 : 31.049999999999997
+: e2 ==> Ellipse@29ca901e
+: $7 ==> 3.14159265
+: 32.5154839275
 
 
 *** UEBUNG Konstruktor für Klassenvariablen 
@@ -615,7 +621,7 @@ Wenn es Klassenvariablen gibt, dann wohl auch Klassenmethoden?
 ** Statische und objektbezogene Attribute in Java 
 
 #+ATTR_LATEX: :align p{.25\textwidth}|p{.3\textwidth}|p{.3\textwidth}
-|                               | Objektbezogen                                               | Statisch                                     |
+|                               | Objektbezogen                                               | Klassebezogen/statisch                  |
 |-------------------------------+-------------------------------------------------------------+----------------------------------------------|
 | Deklaration                   | ohne ~static~                                               | mit ~static~                                 |
 | Existenz                      | separat in jedem Objekt                                     | 1x pro Klasse                                |
@@ -623,7 +629,7 @@ Wenn es Klassenvariablen gibt, dann wohl auch Klassenmethoden?
 | Attribut wird vernichtet      | wenn Objekt vernichtet wird (keine Referenz mehr existiert) | wenn Klasse entladen (meist: Programmende)   |
 | Konstruktur                   | bei Objekterzeugung (~new~)                                 | bei Laden der Klasse                         |
 | Zugriff auf Datenattribut ~d~ | ~obj.d~ oder ~this.d~                                       | ~Klassenname.d~                              |
-| Aufruf einer Methode ~d~      | ~obj.m()~ oder ~this.m()~                                   | ~Llassenname.m()~                            |
+| Aufruf einer Methode ~d~      | ~obj.m()~ oder ~this.m()~                                   | ~Klassenname.m()~                            |
 
 
 ** Sichtbarkeit 
@@ -806,8 +812,8 @@ int x = intObj.intValue();
 
 ** Konzept 
 
-Klassenhierarchie die nur Einfachvererbung nutzen unterscheiden sich
-kaum 
+Klassenhierarchien, die nur Einfachvererbung nutzen, unterscheiden sich
+kaum (zwischen Python und Java)  
 - Marginale Syntaxunterschiede
 - Unterschiede bzgl. Zugriffsrechten 
 
@@ -915,6 +921,7 @@ kaum
 - Aber man könnte das doch typecasten? 
 - Wir zwingen den Compiler, eine Interpretation der Referenz als
   ~Book~ zu akzeptieren!
+  - Ein sog. *downcast* 
 - (Vergleich Python: Keine Notwendigkeit für Typecasts zwischen
   Klassen) 
 
@@ -978,6 +985,31 @@ Auch das scheitert!
 - Zur Laufzeit wird aber sehr wohl das Vorhandensein von ~ISBN~
   überprüft, nicht gefunden
 - Führt zu Exception (~ClassCastException~) 
+
+
+
+** Typecast wenn falsches Objekt? Dynamisch? 
+
+#+BEGIN_SRC java :exports both :results output :classname XXX
+class Article { /*...*/ }
+
+class Book extends Article { /*...*/ }
+
+class Cover extends Article { /*...*/ }
+
+class X {
+    public static Article erzeuge() {
+	if (heute ist Montag)
+	    return new Book();
+	else
+	    return new Cover();
+    }
+}
+
+/* das klappt je nach Wochentag; statisch nicht entscheidbar */
+Book b = (B) (new Article());
+#+END_SRC 
+
 
 ** Vor einem Typecast nachschauen? Reflektion? 
 
@@ -1242,7 +1274,9 @@ nächsten Kapitel.
 - Nutzen der Konstruktion /hochgradig/ umstritten
   - Siehe [[https://www.ibm.com/developerworks/library/j-jtp1029/][Gründe]] für ~final~ -- lesen Sie das kritisch durch! 
   - (Man braucht das, um Closures nachzubauen, die Java eigentlich
-    nicht hat...) 
+    nicht hat...)
+  - (Und angeblich kann schnellerer Code erzeugt werden -- sehr
+    übertrieben) 
 
 *** ~final~ für Daten						    :animate:
 
