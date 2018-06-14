@@ -184,7 +184,7 @@ Eine Klasse wird in UML als eine Box mit drei Teilen gezeichnet: Im ersten Teil 
 
 Eine /Klasse/ definiert einen Bauplan für gleichartige Objekte. Sie
 beschreibt in einer kompakten, zusammenhängenden Form
-- Datenelemente (auch: Variablen, /Attribute/, Felder, fields) und
+- Datenelemente (auch: /Attribute/, /Felder/, /fields/) und
 - Operationen auf diesen Daten (auch: /Methoden/, /methods/) 
 
 
@@ -206,10 +206,9 @@ beschreibt in einer kompakten, zusammenhängenden Form
 ** Konventionen 
 
 Namenskonventionen:
-  - Klassennamen mit Großbuchstaben
+  - Klassennamen beginnt mit Großbuchstaben
   - Methoden, Attribute klein
-    - wie Funktionen und Variablen sonst
-      auch
+    - wie Funktionsnamen und sonstige Namen auch 
   - Methoden oft ein Verb: etwas tun! 
 
 
@@ -280,7 +279,7 @@ Eine Instanz einer Klasse wird in UML ähnlich notiert wie eine Klasse -- Abbild
   aufschreiben (es *sind* schließlich Funktionen) 
 - Eine solche Methode hat einen Namensraum -- analog bei einem Objekt?
   - Sicherlich evtl. vorhandene Parameter der Methode, evtl. globale
-    Variablen
+    Namen
   - *Zusätzlich*: die Attribute des Objektes selbst! 
 - Idee: Objekte definieren einen Namensraum
   - Ähnlich wie Funktionen 
@@ -555,12 +554,12 @@ Endzustandes (inhaltlich äquivalent zu
 
 
 
-** Beobachtung: ~self~ ist eine Art Namensraum! 
+** Beobachtung: ~self~ ist ein Namensraum! 
 
 - Bei Ausführung des Konstruktors sind zwei Namensräume im Spiel
   - Der übliche Namensraum des Konstruktors als Funktion: ~x~, ~y~, ~a1~,
     ~a2~ und insbesondere ~self~
-  - Der durch ~self~ erreichbare Namensraum des Objekts
+  - Der durch ~self~ *erreichbare Namensraum des Objekts*
 
 *** UEBUNG Was passiert, wenn der erste Parameter nicht ~self~ heißt? 
 
@@ -1278,7 +1277,7 @@ s.f()
 
 - Erinnerung: Nach ~class~ folgt ein Block
 - Block: Liste von Anweisungen
-- Also darf man da z.B. Variablenzuweisungen schreiben?
+- Also darf man da z.B. Zuweisungen schreiben?
 
 *** Ja!								    :animate:
 
@@ -1419,10 +1418,10 @@ Erster Versuch:
 - Fehlermeldung: ~NameError: global name 'x' is not defined~
 - Plausibel!
   - Nach bisherigen Regeln für Scopes von Funktionen (~f~ ist eine
-    Funktion!) ist ~x~ eine lokale Variable von ~f~
+    Funktion!) ist ~x~ einen lokalen Namen von ~f~
     - Und es gibt kein *globales* ~x~
   - Also funktioniert der Zugriff von ~x~ in Zeile 4 nicht
-- Aber wir wissen doch, wo ~x~ existiert! Im Namensraum von ~C~! 
+- Aber *wir* wissen doch, wo ~x~ existiert! Im Namensraum von ~C~! 
 
 ** Daten im Namensraum der Klasse -- Optionen für Zugriff? 
 
@@ -1438,8 +1437,8 @@ Erster Versuch:
 ** Expliziter Namensraum für Zugriff 
 
 
-- Notation: Wir stellen den Namen des Namensraums der Variable voran, mit
-  ~.~ getrennt
+- Notation: Wir stellen den *Namen des Namensraums* dem zu benutzenden
+  Namen voran, mit  ~.~ getrennt
   - Genauso wie bei Zugriff auf Funktion! 
 - Beispiel: 
 
@@ -1515,8 +1514,8 @@ das müssen wir später ggf. nachholen? oder überspringen?
 ** Beispiel: MP3Player 
 
 - Für eine Klasse ~MP3Player~, was sind dynamische, was statische
-  Variablen/Methoden?
-- Variablen: farbe, preis, verkaufteExemplare, songs
+  Attribute/Methoden?
+- Attribute: farbe, preis, verkaufteExemplare, songs
 - Methoden: batterieLaden(), playSong(), lauter(), rueckruf(),
   chooseSong()
 
@@ -1640,15 +1639,15 @@ Also: Referenzen zählen
 
 - Referenz auf Objekt entsteht im Moment der Konstruktion 
   - Oft: einem Namen zugewiesen ~c = C()~
-- Namen kann kopiert werden
-  - Zuweisung an andere Variable: ~c1 = c~
+- Referenz kann kopiert werden
+  - Zuweisung an anderen Namen: ~c1 = c~
   - Aufruf als Funktionsparameter: ~f(c)~
 
 *** Referenzen verlieren					    :animate:
 
-- Referenzen gehen verloren, wenn Namensraum der referenzierenden Variable verschwindet!
-  - Funktion kehrt zurück
-  - Ein anderes Objekt mit Referenz verschwindet
+- Referenzen gehen verloren, wenn Namensraum des referenzierenden Namens verschwindet!
+  - Z.B. Funktion kehrt zurück
+  - Z.B. ein anderes Objekt mit Referenz verschwindet
 
 
 
@@ -1679,7 +1678,7 @@ c = f(c)
 pingo_title = "Wieviele Referenzen?" 
 pingo_type = "single"
 pingo_questions = ["0", "1", "2", "3"]
-pingo_duration = "60"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -1688,7 +1687,7 @@ pingo_duration = "60"
 
 ** Garbage Collection 
 
-- Wenn ein Objekt keine Referenzen mehr hat, vernichten 
+- Wenn ein Objekt nicht mehr referenziert wird, dann vernichten 
   - Das Objekt ist dann Müll (Garbage): Garbage Collection
 - Automatischer Prozess!
   - Einer der /großen/ Vorteile moderner Programmiersprachen bzw. Laufzeitsysteme
