@@ -61,7 +61,7 @@ Ein Skript ist:
   - Konvention: Endet mit ~.py~
 - Besteht aus einer Folge von Anweisungen oder Ausdrücken
   - Definition von Funktionen, Klassen 
-  - Zuweisungen an Variablen
+  - Zuweisungen an Namen
   - Instantiieren von Klassen 
   - Aufruf von Funktionen, Methoden
   - ... 
@@ -245,7 +245,7 @@ ggf. unterschiedlich verhalten?
 
 ** Modul vs. Skript: ~__name__~ 
 
-Einfache Unterscheidung: Die (vordefinierte) Variable ~__name__~ hat
+Einfache Unterscheidung: Der (vordefinierte) Name  ~__name__~ hat
 unterschiedliche Werte: 
 - Als Skript: ~__name__~ referenziert die Zeichenkette ~__main__~
 - Als Modul, bei ~import~:  ~__name__~ referenziert den Dateinamen
@@ -256,7 +256,7 @@ Häufiges Idiom:
 #+BEGIN_SRC python :exports code :results output
   # ... allgemeiner Code für Modul
   # Klassen, Funktionen definiernen,
-  # allgemeine Variablen festlegen 
+  # allgemeine Namen festlegen 
 
   if __name__ = "__main__": 
       # Code für Skript 
@@ -309,7 +309,7 @@ help(sys)
 
 Wo werden die Dateien für Module bei ~import~ gesucht? 
 1. Unter den eingebauten Namen (~builtins~)
-2. Suche in den Verzeichnissen, die in Variable ~sys.path~; defaults
+2. Suche in den Verzeichnissen, die in Aufzählung ~sys.path~ enthalten; defaults
    dafür: 
    1. Verzeichnis, aus dem das gerade laufende  Skript stammt
    2. Verzeichnisse in der Umgebungsvariable ~PYTHONPATH~
@@ -350,7 +350,7 @@ Interaktion mit Betriebssystem
 
 Starten eines Skripts aus Kommandozeile einer Shell
 - Option:  Parameter an das Programm übergeben
-- Durch Modul ~sys~ in Variable ~sys.argv~ verfügbar 
+- Durch Modul ~sys~ via Name ~sys.argv~ verfügbar 
 
 ** Standard-Modul: Reguläre Ausdrücke
 

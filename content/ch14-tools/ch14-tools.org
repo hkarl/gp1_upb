@@ -298,7 +298,7 @@ Sherlock Holmes in /The Sign of the Four/
 ** Vorgehen: Annahmen überprüfen 
 
 Annahmen überprüfen!
-  - Mein Code hat keine Schreibfehler; alle Variablen sind richtig geschrieben
+  - Mein Code hat keine Schreibfehler; alle Namen sind richtig geschrieben
     - Typische Falle in dynamischen Sprachen!
   - Verständnis der Schnittstelle benutzten Codes; insbesondere
     defaults
@@ -378,8 +378,8 @@ Mit geeignetem Debugger:
 - Programmablauf gezielt unterbrechen
   - Programmzeile, Modul, Funktion 
   - Beim Entstehen einer Exception 
-- Was sind Variablenwerte an kritischen Stellen?
-  - Variablen modifizieren?
+- Welche Namen verweisen auf welche Werte  an kritischen Stellen?
+  -  Werte ändern?
 - Programm kontrolliert ausführen?
   - In einzelnen Schritten?
   - Bis zum nächsten Fehler?

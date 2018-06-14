@@ -405,7 +405,7 @@ Abbildung [[fig:same-variable-Bwrites]] zeigt den Zustand des Objektes
 allen bisherigen Regeln in direktem Einklang. 
 
 
-#+CAPTION: Gleiche Variable in mehreren Oberklassen -- Schreiben durch den ersten Konstruktor
+#+CAPTION: Gleiche Attribut in mehreren Oberklassen -- Schreiben durch den ersten Konstruktor
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:same-variable-Bwrites
 [[./figures/pt-same-variable-Bwrites.png]]
@@ -418,7 +418,7 @@ auf in Objekt; in dessen Namensraum soll das Attribut ~x~ verändert
 werden. Das gibt es schon, aber das ist egal; es wird eine ganz
 normale Zuweisung durchgeführt. 
 
-#+CAPTION: Gleiche Variable in mehreren Oberklassen -- Schreiben durch den zweiten Konstruktor
+#+CAPTION: Gleiches Attribut in mehreren Oberklassen -- Schreiben durch den zweiten Konstruktor
 #+ATTR_LaTeX: :width 0.75\linewidth
 #+NAME: fig:same-variable-Awrites
 [[./figures/pt-same-variable-Awrites.png]]
