@@ -58,7 +58,7 @@ def pingo(line):
   - Werte aufschreiben, was Objekte erzeugt 
   - aus Objekten Ausdrücke für neue Objekte bilden
     - mit Aufruf von Funktionen als Beispiel 
-  - mit Namen auf Objekte referenzieren (zuweisen)
+  - mit Namen auf Objekte verweisen 
     - mit der Definition einer Funktion als Sonderfall
 - Also: Folgen von Zuweisungen
   - Die eine nach der anderen ausgeführt werden 
@@ -320,8 +320,7 @@ Beobachtung:
 
 die KLurzform ~a if c else b~ erkären. 
 
-Insebs.: das ist ein AUSDRUCK und keine Anweisung, kann also an eine
-Variable zugewiesen werden. 
+Insebs.: das ist ein AUSDRUCK und keine Anweisung, kann also an einen Namen zugewiesen werden. 
 
 
 ** Geschachtelte ~if/else~: Allgemeiner Fall			   :subslide:
@@ -374,8 +373,8 @@ Nein, nach ~if~ *muss* Anweisung folgen!
 
 ** ~pass~: Beispiel 
 
-Angenommen, Sie wollen Wert der Variable ~laenge~ auf mindestens 100
-aber höchstens 200 eingrenzen: 
+Angenommen, Sie wollen den Wert des Namens ~laenge~ auf mindestens 100
+aber höchstens 200 eingrenzen:
 
 #+BEGIN_SRC python :exports both :results output
   laenge = 252
@@ -646,19 +645,19 @@ while a < b:
 : 0 1 2 3 4 
 
 
-** Beobachtung: Sichtbarkeit von Variablen 
+** Beobachtung: Sichtbarkeit von Namen 
 
-- Vorheriges Beispiel: Auf Variable ~a~ wurde innerhalb der Schleife
+- Vorheriges Beispiel: Auf Namen ~a~ wurde innerhalb der Schleife
   zugegriffen
 - Offenbar unproblematisch 
-- Regel: Schon /vor/ der Schleife bekannte Variablen bleiben innerhalb
+- Regel: Schon /vor/ der Schleife bekannte Namen bleiben innerhalb
   des Blocks /sichtbar/
   - Sie sind im gleichen /Scope/ (und auch im gleichen Namensraum)
 
 
-** Beobachtung: Sichtbarkeit von Variablen (2)			   :subslide:
+** Beobachtung: Sichtbarkeit von Namen (2)                         :subslide:
 
-- Was ist umgekehrt? Variable wird erst in Schleife erzeugt? 
+- Was ist umgekehrt? Namen wird erst in Schleife erzeugt? 
 
 #+BEGIN_SRC python :exports both :results output
   i = 0
@@ -671,10 +670,11 @@ while a < b:
 #+RESULTS:
 : 4
 
-*** Variable nach Schleife sichtbar				    :animate:
+*** Name nach Schleife sichtbar                                     :animate:
 
-- Variable bleibt nach der Schleife erhalten und zeigt auf
-  entsprechenden Wert  
+- Name bleibt nach der Schleife erhalten und zeigt auf
+  entsprechenden Wert
+- Also: Schleife schafft keinen Namensraum (im Gegensatz zu Funktionen)
 
 ** Schleifen: Terminierung 
 
@@ -685,12 +685,12 @@ Gefahr: Schleifenbedingung stets wahr
 ** Einfache Regeln für Terminierung 
 
 Schleife terminiert bestimmt, wenn es
-- eine Variable gibt, die in jedem Schleifendurchlauf /streng monoton/
+- einen Wert gibt, der in jedem Schleifendurchlauf /streng monoton/
   wächst und 
-- die Variable /diskret/ wächst und 
-- die Schleifenbedingung eine obere Schranke darstellt
+- der Wert /diskret/ wächst und 
+- die Schleifenbedingung eine obere Schranke für den Wert darstellt
 
-Analog: Variable schrumpft, untere Schranke 
+Analog: Wert schrumpft, untere Schranke 
 
 *** UEBUNG Warum diskret? 
 
@@ -881,7 +881,7 @@ Wenn also unklar ist, weswegen die Schleife beendet wurde
 - oder Verletzten der Invariante 
 
 Dann muss man ggf. nach der Schleife nachprüfen! 
-- *Häufiges Muster*: Zielbedingung durch Variable explizit darstellen 
+- *Häufiges Muster*: Zielbedingung durch Wert/Namen explizit darstellen 
 - Wie im Beispiel oben: ~gefunden~
 
 
@@ -1044,7 +1044,7 @@ code-Komplexität
 
 ** ~else~ bei Schleifen (2)					   :subslide:
 
-- Vorteil: Keine Test-Variable nötig
+- Vorteil: Keine Namen für Test-Wert nötig
   - Vereinfacht Schleifenbedingung
   - Vereinfacht Anweisungen in der Schleife
   - Wohldefinierte Art, Anweisungen für einen typischen Fall zu
@@ -1136,7 +1136,7 @@ werden als /(Schleifen-)Iteration/ bezeichnet.  Die Veränderungen des
 Zustands durch die Anweisungen des Rumpfs sind (natürlich) wirksam.
 
 Danach wird wie beim Erreichen der ~while~-Anweisung verfahren: Der
-Test wird (mit den neuen Variablen-Werten) ausgewertet und
+Test wird (mit den Namen gebunden an die neuen Werten) ausgewertet und
 ggf. der Rumpf ausgeführt. 
 
 
@@ -1254,7 +1254,7 @@ for l in L:
 
 - Mit jeder Iteration einer ~for~ Schleife wird das jeweils nächste
   Element der gegeben Aufzählung der /Schleifenvariable/ (auch
-  /Laufvariable/) zugewiesen
+  /Laufvariable/, /Laufname/?) zugewiesen
   (im Beispiel: ~element~; Name ist frei wählbar)
 - Nach Bearbeitung des letzten Elements der Aufzählung wird die
   Schleife verlassen
@@ -1288,10 +1288,10 @@ for l in L:
 
 - Tatsächlich kann an die Aufzählung, die für die Schleife verwendet
   wird, gar nicht zugewiesen werden 
-- Zu Beginn der ~for~-Schleife wird eine weitere, verborgene Variable  für die
+- Zu Beginn der ~for~-Schleife wird ein  verborgener Name für die
   Aufzählung angelegt 
-  - Anhand dieser wird iteriert 
-- Weißt man also einer Variable, die im Schleifenkopf benutzt wird,
+  - Anhand diesen Namens wird iteriert! 
+- Weißt man also einem Namen, der im Schleifenkopf benutzt wird,
   einen neuen Wert zu, so beeinflusst das nicht den Schleifenablauf
   - Der ursprüngliche Wert steht ja weiterhin zur Verfügung 
 
@@ -1375,14 +1375,14 @@ Bleibt Schleifenvariable erhalten nach Schleifenende?
 #+BEGIN_SRC python :exports both :results output
   for i in [1, 2, 3]:
       print("in schleife")
-  print("Variable i nach Schleife: ", i)
+  print("Wert von i nach Schleife: ", i)
 #+END_SRC 
 
 #+RESULTS:
 : in schleife
 : in schleife
 : in schleife
-: Variable i nach Schleife:  3
+: Wert von i nach Schleife:  3
 
 *** Ja								    :animate:
 
@@ -1455,7 +1455,7 @@ Beispiel: Liste von Tupeln
 ** ~for~-Schleife mit erweiterter Zuweisung? 
 
 - Eigentlich macht ja eine ~for~-Schleife jeweils eine Zuweisung an
-  die Laufvariable
+  die Schleifenvariable
 - Python kennt erweiterte Zuweisungen und unpacking: ~x, y = (1, 2)~
 - Funktioniert das bei ~for~? 
 
@@ -1496,7 +1496,7 @@ for a, b in L:
 
 Wir bekommen eine Liste von Schlüssel-/Wert-Tuple eines ~dicts~ mit
 Aufruf  von ~items~
-- Mit implizitem unpacking der Tuple in separate Variablen ~k~ (für
+- Mit implizitem unpacking der Tuple in separate Namen ~k~ (für
   /key/)  und   ~v~ (für /value/)
 
 #+BEGIN_SRC python :exports both :results output
@@ -1524,8 +1524,8 @@ Aufruf  von ~items~
 
 
 Zur Illustration (Abbildung [[fig:pt-dict_items]]) hier ein Schnappschuss
-aus dem zweiten Durchlauf der Schleife. Die beiden Schleifenvariablen
-~key~ und ~value~ referenzieren dabei Werte aus dem Dictionary ~D~.
+aus dem zweiten Durchlauf der Schleife. Die beiden Namen ~key~ und
+~value~ der Schleife verweisen dabei auf Werte aus dem Dictionary ~D~.
 
 #+CAPTION: Zwischenstand bei einer Iteration über ein Dict ~D.items()~
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -1555,7 +1555,7 @@ for (a, *b, c) in [(1, 2, 3, 4), (5, 6, 7, 8)]:
 ** ~for~ über Folge von Zahlen: ~range~ 
 
 - Häufig: Liste über eine Folge Zahlen 
-  - Z.B. 1 ... 10, 1 ... n für Variable n, usw 
+  - Z.B. 1 ... 10, 1 ... n für Name n, usw 
 - Mit ~for~ so nicht unmittelbar darstellbar
   - Mit ~while~ schon, aber umständlich 
 
@@ -1647,7 +1647,7 @@ Zaun mit Pfählen im Abstand von 10m?
 pingo_title = "Parameter von range für Zaun?" 
 pingo_type = "single"
 pingo_questions = ["9", "10", "11"]
-pingo_duration = "30"
+pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -1871,7 +1871,7 @@ List comprehension:
 
 *** Schleifenvariable						    :animate:
 
-Natürlich auch andere Variablennamen als ~x~ möglich 
+Natürlich auch andere Namen als ~x~ möglich 
 
 ** List comprehension -- Beispiel 1				   :subslide:
 
@@ -1923,6 +1923,9 @@ Erinnern Sie sich an :
   print(L)
 #+END_SRC 
 
+#+RESULTS:
+: [2, 3, 4, 5, 6]
+
 
 Ist das hier das gleiche: 
 
@@ -1935,8 +1938,8 @@ Ist das hier das gleiche:
 #+RESULTS:
 : [2, 3, 4, 5, 6]
 
-Finden Sie Situationen, wo diese beiden Code-Abschnitte *nicht* den
-gleichen Effekt haben. Hinweis: Was ist, wenn es andere Namen für die
+Finden Sie Situationen, wo diese beiden Code-Abschnitte *nicht* die
+gleiche Ausgabe haben. Hinweis: Was ist, wenn es andere Namen für die
 ursprünliche Liste gibt?
 
 
@@ -1944,7 +1947,7 @@ ursprünliche Liste gibt?
 
 Z.B. Schleife, die über die Vielfachen von drei aufzählt. 
 
-Hier auch wieder fencepost Problem aufbringen 
+Hier auch wieder fencepost Problem aufbringen? 
 
 #+BEGIN_SRC python :exports both :results output
 for i in [3*x for x in range(5)]:
@@ -2032,7 +2035,7 @@ Recoding zu if key in items ; innere Schleife sparen
 Und eigentlich schreibt man das als List comprehension 
 
 #+BEGIN_SRC python :exports both :results output
-result = [item for item in tests if item in tests]
+result = [item for item in items if item in tests]
 #+END_SRC 
 
 
@@ -2071,7 +2074,7 @@ List comprehensions erlauben direkt geschachtelte Schleifen:
 #+BEGIN_SRC python :exports both :results output
   quadrate = [i*j
                # aeußere Schleife: 
-               for i in range(11)
+               for i in range(5)
                # innere Schleife: 
                for j in range(i+1)
                ]
@@ -2079,7 +2082,7 @@ List comprehensions erlauben direkt geschachtelte Schleifen:
 #+END_SRC 
 
 #+RESULTS:
-: [0, 0, 1, 0, 2, 4, 0, 3, 6, 9, 0, 4, 8, 12, 16, 0, 5, 10, 15, 20, 25, 0, 6, 12, 18, 24, 30, 36, 0, 7, 14, 21, 28, 35, 42, 49, 0, 8, 16, 24, 32, 40, 48, 56, 64, 0, 9, 18, 27, 36, 45, 54, 63, 72, 81, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+: [0, 0, 1, 0, 2, 4, 0, 3, 6, 9, 0, 4, 8, 12, 16]
 
 ** Eingebaute Funktion: ~sum~
 
