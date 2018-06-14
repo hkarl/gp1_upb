@@ -244,18 +244,39 @@ Java ist ein Beispiel.
 ** Grundidee 
 
 - /Variablen/ bekommen einen Typ, nicht nur Werte
+  - Wir reden hier also nicht mehr (nur) von /Namen/ 
 - Damit ändert sich Interpretation:
-  - Eine Variable ist nicht mehr ein Namensschild an einem Wert
+  - Nicht mehr nur  Namensschilder an  einem Wert
   - Sondern: Eine Schachtel mit einer bestimmten Form
-- Der Typ des Werts muss mit dem Typ der Variable zusammenpassen
+- Der /Typ des Werts/ muss mit dem /Typ der Variable/ zusammenpassen
   - Sozusagen: Wert muss in Form der Schachtel passen 
+
+
+** Variable 
+
+*** Variable                                                   :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Eine *Variable* besteht aus: 
+- Eine *Name* für eine Speicherstelle 
+- Eine *Adresse*, um die Speicherstelle zu finden
+- Ein *Typ* 
+- Ein *Wert*, der Inhalt der Speicherstelle
+- Ein *Gültigkeitsbereich* (Scope) 
+- Eine *Lebensdauer* 
+
+*** Details 
+
+Siehe Vorlesung *Programmiersprachen* 
 
 ** Zuweisungen an typisierte Variablen 
 
 - Also neu: auf der /linken/ Seite einer Zuweisung steht nun eine
   Variable /mit Typ/
-- Bisher: links steht nur ein Name /ohne/ Typ
-- In beiden Fällen: rechts ein Ausdruck mit Typ
+  - Bisher: links steht nur ein Name /ohne/ Typ
+- In beiden Fällen: rechts ein Ausdruck/Wert mit Typ
 
 *** Zuweisungsregel: Typgerecht					    :animate:
 
@@ -266,7 +287,8 @@ erfolgen
 ** Schachteln mit Form 
 
 Visualisierung von Typen: 
-- Variablen als Typen
+- Typ: Schachteln einer bestimmten Form 
+- Variablen: prägt Speicherstelle eine Form auf 
 - Werte als Boxen, Kreise
 - Werte müssen in Schachtel passen, sonst Zuweisung nicht erlaubt 
 
@@ -316,7 +338,7 @@ Was ist mit ähnlichen Typen, die aber unterschiedlich groß sind?
 - Aber wenn in der Zeichenkette eine Zahl enthalten ist?
   - Wert umbauen in einen semantisch äquivalenten Wert eines anderen
     Typs?
-  - Typumwandlung (/type cast/)!
+  - /Typumwandlung/ (/type cast/)!
   - Also: Aus Zeichenkette ~42~ (Buchstabe 4 und Buchstabe 2)  mache
     die Zahl 42
 
@@ -390,7 +412,7 @@ print(type(5 + 6.5))
 ** Typen und Klassen? 
 
 - Klassen sind Typen! 
-- Für Werte und Variablen 
+- Für Werte und Variablen, je nach Sprache  
 
 
 ** Typen, Klassen und Vererbung? 
