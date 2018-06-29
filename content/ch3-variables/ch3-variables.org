@@ -334,7 +334,7 @@ ein, ist aber kein formaler Bestandteil der Sprache.
 
 - Kleinbuchstaben am Anfang
 - Namen aus mehreren Worten werden durch Unterstrich getrennt 
-- Vermeide: kleines l, großes O und großes L -- Verwechselungsgefahr 
+- Vermeide: kleines l, großes O und großes I -- Verwechselungsgefahr 
 - (Namen für andere Zwecke, andere Konventionen -- siehe später) 
 
 
