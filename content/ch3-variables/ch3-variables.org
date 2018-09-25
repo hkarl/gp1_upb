@@ -36,7 +36,7 @@ pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '120'
 pingo_type = "single"
 
 
@@ -666,7 +666,6 @@ y = 2*x + 17
 pingo_title = "Wert von y?" 
 pingo_type = "single"
 pingo_questions = ["42", "0", "-42", "17"]
-pingo_duration = "60"
 
 %pingo
 #+END_SRC 

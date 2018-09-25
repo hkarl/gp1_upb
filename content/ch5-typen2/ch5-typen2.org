@@ -541,7 +541,7 @@ pingo_title = "Ausgabe von print(t[t[2][0:1][0]-1:t[2][1]])?"
 pingo_type = "single"
 pingo_questions = ["'Hallo', 'GP1'", "('Hallo', 'GP1')", 
                        "(1, 2, 3)", "('GP1', '1', '2')" ]
-pingo_duration = "120"
+pingo_duration = "180"
 
 %pingo
 #+END_SRC 
@@ -1034,8 +1034,8 @@ L1.???(7)
 #+BEGIN_SRC python :exports code
 pingo_title = "append oder extend?" 
 pingo_type = "single"
-pingo_questions = ["append und extend", "extend und append"]
-pingo_duration = "120"
+pingo_questions = ["append, dann extend", "extend, dann append"]
+pingo_duration = "180"
 
 %pingo
 #+END_SRC 
@@ -1172,7 +1172,7 @@ print(M)
 pingo_title = "Ausgabe nach Kopie einer Liste von Listen" 
 pingo_type = "single"
 pingo_questions = ["[1, [2, 3], 4]", "[17, [2, 3], 4]", "[1, [2, 17], 4]"]
-pingo_duration = "120"
+pingo_duration = "180"
 
 %pingo
 #+END_SRC 

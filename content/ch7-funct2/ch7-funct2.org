@@ -324,15 +324,14 @@ print(f("hallo", 3, 17, "gp1", **{'y': 17, 'z': 3}))
 #+END_SRC 
 
 #+RESULTS:
-: 22222
+: 222
 
 *** Pingo!						    :animate:nolatex:
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Was gibt obiger Code aus?" 
-pingo_type = "single"
-pingo_questions = ["222", "hallo gp1", '("gp1", 17)', "1717"]
-pingo_duration = "60"
+pingo_questions = ["hallo gp1", "222",  '("gp1", 17)', "1717"]
+pingo_duration = "180"
 
 %pingo
 #+END_SRC 
@@ -562,13 +561,14 @@ f()
 x = 7
 #+END_SRC 
 
+#+RESULTS:
+: 5
+
 *** Pingo							    :nolatex:
 
 #+BEGIN_SRC python :exports code
-pingo_title = "Ergebnis?" 
-pingo_type = "single"
+pingo_title = "Ausgabe?" 
 pingo_questions = ["3", "5", "7", "42"]
-pingo_duration = "120"
 
 %pingo
 #+END_SRC 
@@ -838,9 +838,7 @@ print(X)
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Welcher Wert wird ausgegeben?" 
-pingo_type = "single"
 pingo_questions = ["77", "88", "99"]
-pingo_duration = "120"
 
 %pingo
 #+END_SRC 

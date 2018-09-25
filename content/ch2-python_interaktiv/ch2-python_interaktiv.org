@@ -38,7 +38,7 @@ pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '120'
 pingo_type = "single"
 
 
@@ -659,7 +659,6 @@ Sinnvoll? Wie? Wozu?
 pingo_title = "Was ist  ((5+3*2) < 17-5) and ((1*1) > -1)" 
 pingo_type = "single"
 pingo_questions = ["Wahr (True)", "Falsch (False)"]
-pingo_duration = "30"
 
 %pingo
 #+END_SRC 

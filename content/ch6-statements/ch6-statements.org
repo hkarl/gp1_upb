@@ -34,7 +34,7 @@ pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '120'
 pingo_type = "single"
 
 
@@ -1329,9 +1329,7 @@ for l in L:
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Ausgabe nach Zuweisung an Schleifenvariable" 
-pingo_type = "single"
 pingo_questions = ["1, 2, 3", "1, 17, 3"]
-pingo_duration = "60"
 
 %pingo
 #+END_SRC 
@@ -1645,9 +1643,7 @@ Zaun mit Pfählen im Abstand von 10m?
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Parameter von range für Zaun?" 
-pingo_type = "single"
 pingo_questions = ["9", "10", "11"]
-pingo_duration = "120"
 
 %pingo
 #+END_SRC 

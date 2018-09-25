@@ -24,6 +24,32 @@ animations.
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+
+import requests
+import webbrowser
+from IPython.core.magic import register_line_magic
+
+pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+
+# Test-Session: 
+pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+# Produktiv-Session: 
+# pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
+
+pingo_duration = '120'
+pingo_type = "single"
+
+
+@register_line_magic
+def pingo(line):
+    params = {'survey_name': pingo_title, 
+              'predef_options': pingo_questions, 
+              'q_type': pingo_type,
+              'duration': pingo_duration, 
+              'auth_token': pingo_token}
+
+    r = requests.post(pingo_url, json=params)
+    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
 #+END_SRC
 
 ** Was bisher geschah 
@@ -1034,9 +1060,7 @@ a.f()
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Funktioniert das?" 
-pingo_type = "single"
 pingo_questions = ["Ja", "Nein"]
-pingo_duration = "30"
 
 %pingo
 #+END_SRC 
@@ -1108,10 +1132,9 @@ Was ist die Ausgabe?
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Was ist die Ausgabe?" 
-pingo_type = "single"
 pingo_questions = ["A, A, B1, A, C, C1, C, C, ", "A, B, B1, B2, C, C1, C2, C2, ", "A, A, B1, B2, C, C1, C1, C3, ",
 ]
-pingo_duration = "120"
+pingo_duration = "180"
 
 %pingo
 #+END_SRC 

@@ -59,8 +59,9 @@ def pingo(line):
 ** Wer sind wir? 
 
 - Dozent: Holger Karl
-- Mitarbeiter: ???
-- Tutoren: ???
+- Mitarbeiter: Alexander Bigerl 
+- Tutoren: Patrick Bollmann, David Buderus,  Nadine Dettelbach,  Nils Horstmann, Tim Ofenbach, Rafael Schellenberg, Julian Schlenker,  Michael Schulz, Ninab Youkanna
+
 
 
 ** Wer sind wir?  -- Dozent					   :subslide:
@@ -74,8 +75,13 @@ def pingo(line):
 
 ** Wer sind wir? -- Mitarbeiter					   :subslide:
 
-- OFFEN
-  - OFFEN 
+- Alexander Bigerl 
+- Fachgebiet
+- Fachbiet Data Science
+- Büro: Pohlweg, O4.216
+- Email: bigerl@mail.upb.de
+- Web: https://dice.cs.uni-paderborn.de/team/profiles/bigerl/
+- Sprechstunde: Nach Vereinbarung 
 
 
 ** Wo sind wir? -- Gebäude O 
@@ -110,7 +116,7 @@ def pingo(line):
 
 Pingo: Plattform für Publikumsinteraktion 
 - Zücken Sie Smartphone oder Laptop 
-- Gehen Sie auf http://pingo.upb.de/204051
+- Gehen Sie auf http://pingo.upb.de/311055 
 
 
 *** QR-Code							    :nolatex:
@@ -166,15 +172,18 @@ pingo_duration = "120"
 
 *** Regulär 
 
-- ??? 
+- Dienstag, 14:00 - 16:00 Uhr, L1
+- Mittwoch, 14:00 - 16:00 Uhr, L1 
+- Freitag, 11:00 - 13:00 Uhr, L1 
+- Letzter Termin: *Voraussichtlich* 14.12.! (dann GPS)  
 
 *** Ausfall							    :animate:
 
+- 12.10, 23.11., 30.11. 
+
+*** TODO Ersatz                                                     :animate:
+
 - ??? 
-
-*** TODO Ersatz, jeweils ZWEI Vorlesungen!                          :animate:
-
-- *Samstag*, ??? 
 
 
 ** Hausübungen  -- Zweck 
@@ -213,11 +222,11 @@ und sinnvoll zu strukturieren.
 [[./uml/hausblatt.png]]
 
 
-** TODO Hausübungen -- Termine                                     :subslide:
+** Hausübungen -- Termine                                          :subslide:
 
-- Ausgabe erstes Blatt: 28.10.2016
-- Abgabe: 6.11.2016, 23:59 
-- Besprechung erstes Blatt: 8.11.2016
+- Ausgabe erstes Blatt: 9.10.2018
+- Abgabe: 16.10.2018, 12:30 (vor der Übung) 
+- Besprechung erstes Blatt: 16.10.2018 
   - Dienstag, 13:00 -- 14:00, L1
   - (mit 15 oder 30 Minuten Pause?) 
 
@@ -225,11 +234,9 @@ und sinnvoll zu strukturieren.
 
 - Nur web-basierte Abgabe der Lösungen 
   - Siehe: https://gp1.cs.uni-paderborn.de:8000
-- Eine Abgabe pro Gruppe
-  - Mit Account gp1...
+  - Das "s" ist wichtig! 
 - Details zum System: später
-  - Einführung: Erste Zentralübung (25.10.2016) und erstes
-    Präsenzblatt 
+  - Einführung: Erstes Präsenzblatt 
 
 *** Hausübungen -- Abgabesystem					      :notes:
 
@@ -243,7 +250,6 @@ und sinnvoll zu strukturieren.
  Verfügung stellen. Nach Anmeldung können Sie diese Notebooks
  ausfüllen. Dabei werden wir sowohl nach Textantworten wie auch nach
  Programmcode fragen. 
-
 
 
 
@@ -282,7 +288,7 @@ Zusätzlich handelt es sich ja um eine Programmiervorlesung -- Sie
 sollen also programmieren lernen. Das lernen Sie am besten durch
 programmieren. Sehen Sie also die Präsenzübungen als Gelegenheit zum
 gemeinsamen programmieren an, mit Hilfestellung und Unterstützung
-durch den Tutor. 
+durch den Tutor.  
 
 ** TODO Präsenzübungen -- Termine                                  :subslide:
 
@@ -290,18 +296,19 @@ durch den Tutor.
 
 | Uhrzeit | Montag   | Dienstag | Mittwoch | Donnerstag | Freitag |
 |---------+----------+----------+----------+------------+---------|
-|    9-11 |          |          |          | PÜ (3x)    | PÜ (2x) |
-|   11-13 |          | PÜ (2x)  | PÜ (2x)  |            |         |
+|    9-11 |          |          |          | PÜ (2x)    | PÜ (2x) |
+|   11-13 |          | PÜ (2x)  | PÜ (2x)  |            | VL      |
 |   13-14 |          | ZÜ       |          |            |         |
 |   14-16 | PÜ  (3x) | VL       |          | PÜ (2x)    |         |
-|   16-18 |          | PÜ (3x)  | PÜ (3x)  |            |         |
+|   16-18 |          | PÜ (3x)  | VL       |            |         |
 
 
 ** Präsenzübungen -- Ort					   :subslide:
 
-- Poolräume! 
+- Poolräume! Erdgeschoss Gebäude E 
 - Mit Arbeitsplatzrechnern ausgestattet
-- Frei zugänglich außerhalb der Übungszeiten 
+- Frei zugänglich außerhalb der Tutorien
+  - Weiterer Pool: Gebäude Fürstenallee, 1. Stock 
 
 
 ** Präsenzübungen -- Anmeldung					   :subslide:
@@ -311,16 +318,27 @@ durch den Tutor.
   - http://paul.uni-paderborn.de 
   - Dazu IMT-Login: http://serviceportal.upb.de
 
+*** Probleme? Notebook-Cafe 
+
+- [[https://imt.uni-paderborn.de/nbc/wo-ihr-uns-findet/][Notebook-Cafe]] hilft bei allgemeinen IT-Problemen
+- In Raum I0.401
+- Auch: gemeinsame Arbeitsräume 
+
 *** IRB-Login							    :animate:
 - Nutzung der Poolraum-Rechner freischalten
 - Unter http://serviceportal.upb.de
   - *Betreuung*: Informatik-Rechnerbetrieb (IRB) 
   - *Dezentrale Dienste*: Rechnerzugang im Institut für Informatik
   - Nicht-EIM-Studierende: IRB Support ansprechen (E1.129) 
-- Siehe auch: 
-  [[https://cs.uni-paderborn.de/rechnerbetrieb-irb/infos-fuer-erstsemester/][IRB
+- Siehe auch:   [[https://cs.uni-paderborn.de/rechnerbetrieb-irb/infos-fuer-erstsemester/][IRB
   Infos für Erstsemester]]
 
+
+*** Probleme? Guru-Räume 
+
+- Bei Problemen mit IRB-Rechnern: Guru-Räume 
+  - Campus (E0.129 & E1.106), meist 9-18
+  - Fürstenallee (F2.510), meist 9-16
 
 
 ** Prüfung: Klausur 
@@ -328,7 +346,7 @@ durch den Tutor.
 - Schriftliche Prüfung
 - *KEINE* Hilfsmittel!
 - Zwei mögliche Termine
-  - Voraussichtlich: Mitte-Ende Februar; Ende März 
+  - Voraussichtlich: (1) Mitte Januar (??); (2) Ende März 
 
 
 ** Klausur -- Zulassungsvoraussetzung 
@@ -336,7 +354,8 @@ durch den Tutor.
 Um an der Klausur teilnehmen zu dürfen, müssen Sie folgende
 Zulassungsvoraussetzungen erfüllen: 
 
-- Auf *mindestens* 3/4 der Übungsblätter *jeweils mindestens* 20% der
+- Auf *mindestens* 7 der 9 (ggf. 10)  Übungsblätter *jeweils
+  mindestens* 20% der 
   erreichbaren Punkte erzielen
   - Es genügt *nicht*,  in der Summe entsprechend viele Punkte zu
     haben 
@@ -362,21 +381,22 @@ Zulassungsvoraussetzungen erfüllen:
 [[./uml/weg-zur-klausur.png]]
 
 
-** TODO Wo finden Sie was? 
+** Wo finden Sie was? 
 
  - PAUL: Anmeldung zu Übungen und Klausur
  - [[https://cs.uni-paderborn.de/index.php?id=59215][Webseite zur Veranstaltung]]
-   - [[http://groups.uni-paderborn.de/fg-karl/lehre/ws1617/gp1/vorlesung/][Vorlesungsmaterial]]
+   - [[http://groups.uni-paderborn.de/fg-karl/lehre/ws1819/gp1/vorlesung/index.html][Vorlesungsmaterial]]
      - Notebooks: Folien der Vorlesung samt Code-Beispielen
      - PDFs: Folien und zusätzliche Anmerkungen und Kommentare; als Skript
        gedacht 
-   - [[https://gp1.uni-paderborn.de][Übungen]]
+   - [[https://gp1.uni-paderborn.de:8000][Übungen]]
    - Video-Mitschnitte: auf
      [[https://videos.uni-paderborn.de][Video-Portal der UPB]]
+     (Channel-Name noch offen) 
 
 
 
-** TODO Wo finden Sie was? -- Webseite                              :nolatex:
+** Wo finden Sie was? -- Webseite                                   :nolatex:
 
 #+CAPTION: Webseite der Vorlesung
 #+ATTR_LaTeX: scale=0.75
@@ -384,7 +404,7 @@ Zulassungsvoraussetzungen erfüllen:
 [[./figures/vorlesung-qr.png]]
 
 
-** TODO Wo finden Sie was? -- Material                              :nolatex:
+** Wo finden Sie was? -- Material                                   :nolatex:
 
 
 #+CAPTION: Materialien zur Vorlesung
@@ -393,11 +413,20 @@ Zulassungsvoraussetzungen erfüllen:
 [[./figures/groups-qr.png]]
 
 
-** TODO Lernzentrum Informatik  (LZI)
+** Lernzentrum Informatik  (LZI) 
 
-- Für weitere Unterstützung: LZI
-- ... ? 
+- Für weitere Unterstützung: [[https://cs.uni-paderborn.de/studium/beratung-und-unterstuetzung/lernzentrum/][LZI]]
+  - Lernräume mit Betreuung durch Tutoren: fachlich, methodisch,
+    Arbeitsorganisation, ...
+  - Seminare, Workshops zur Studiengestaltung 
 
+** Lernzentrum Informatik  (LZI)				    :nolatex:
+
+
+#+CAPTION: Lernzentrum Informatik 
+#+ATTR_LaTeX: scale=0.75
+#+LABEL: fig:lzi-qr
+[[./figures/lzi-qr.png]]
 
 
 ** Erwartungshaltung: Sie an uns 

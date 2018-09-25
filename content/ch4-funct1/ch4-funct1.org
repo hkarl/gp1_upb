@@ -44,7 +44,7 @@ pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '120'
 pingo_type = "single"
 
 
@@ -282,7 +282,6 @@ z = 42
 pingo_title = "Wieviele Anweisungen hier ausgeführt?" 
 pingo_type = "single"
 pingo_questions = ["1", "2", "3", "7"]
-pingo_duration = "30"
 
 %pingo
 #+END_SRC 

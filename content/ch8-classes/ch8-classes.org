@@ -22,6 +22,32 @@ animations.
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+
+import requests
+import webbrowser
+from IPython.core.magic import register_line_magic
+
+pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+
+# Test-Session: 
+pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+# Produktiv-Session: 
+# pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
+
+pingo_duration = '120'
+pingo_type = "single"
+
+
+@register_line_magic
+def pingo(line):
+    params = {'survey_name': pingo_title, 
+              'predef_options': pingo_questions, 
+              'q_type': pingo_type,
+              'duration': pingo_duration, 
+              'auth_token': pingo_token}
+
+    r = requests.post(pingo_url, json=params)
+    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
 #+END_SRC
 
 
@@ -1060,9 +1086,7 @@ print(c1a is c1b)
 
 #+BEGIN_SRC python :exports code
 pingo_title = "c1a is c1b? " 
-pingo_type = "single"
-pingo_questions = ["Wahr", "Falsch"]
-pingo_duration = "30"
+pingo_questions = ["Wahr", "Falsch", "True", "False"]
 
 %pingo
 #+END_SRC 
@@ -1676,9 +1700,7 @@ c = f(c)
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Wieviele Referenzen?" 
-pingo_type = "single"
 pingo_questions = ["0", "1", "2", "3"]
-pingo_duration = "120"
 
 %pingo
 #+END_SRC 
