@@ -345,8 +345,17 @@ durch den Tutor.
 
 - Schriftliche Prüfung
 - *KEINE* Hilfsmittel!
-- Zwei mögliche Termine
-  - Voraussichtlich: (1) Mitte Januar (??); (2) Ende März 
+- Zwei Stunden
+- Fragen zu Konzepten, Beispielprogramme schreiben, Fehler finden, ... 
+
+** Klausurtermine 
+
+- Zwei Termine in diesem Semester 
+- Termin 1:
+  - Option 1: Mitte Januar, z.B. Samstag 12. Januar
+  - Option 2: Mitte Februar, mit Klausuren Modellierung, Analysis +/-
+    3 Tage drumherum
+- Termin 2: Mitte März 
 
 
 ** Klausur -- Zulassungsvoraussetzung 
