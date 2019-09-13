@@ -12,19 +12,19 @@
 
 * Überblick 
 ** Dieses Kapitel 
-
+ 
 - Übersicht: Was beinhaltet /Programmieren/?
 - Was macht eine gute Programmiererin aus? 
 - Was soll in dieser VL erreicht werden? 
 - Warum machen wir das so? 
 
 ** Setup 						  :skipslide:nolatex:
-
+   
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+BEGIN_SRC  Python 
+#+BEGIN_SRC  python 
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
@@ -33,16 +33,19 @@ import requests
 import webbrowser
 from IPython.core.magic import register_line_magic
 
+
+pingo_host = "https://pingo.coactum.de/"
 pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+pingo_session = "538312"
+
 
 # Test-Session: 
-pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+pingo_url = pingo_host + "events/" + pingo_session + "/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '60'
 pingo_type = "single"
-
 
 @register_line_magic
 def pingo(line):
@@ -53,7 +56,31 @@ def pingo(line):
               'auth_token': pingo_token}
 
     r = requests.post(pingo_url, json=params)
-    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
+
+
+    # session id not found
+    if r.status_code == 404: 
+        print ("404 error: session id not found")
+
+    # wrong auth token
+    elif r.status_code == 401:
+        print (r.content)
+
+    # e.g. not access to this session
+    elif r.status_code == 200:
+        print (r.content)
+
+    # ok
+    elif r.status_code == 201:
+        webbrowser.open_new_tab(pingo_host + r.headers['Location'])
+
+    # e.g. wrong parameters
+    elif r.status_code == 500:
+        print ("500 error: e.g. wrong parameters")
+
+    # some other problem
+    else:
+        print (r.status_code)
 #+END_SRC
 
 
@@ -61,7 +88,20 @@ def pingo(line):
 
 
 
-* GP1 im Studienverlauf 
+* Programmierung 
+
+** Was ist Programmierung? 
+
+Freitext-Pingo! Bitte nur ein Schlagwort eingeben! 
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Ein Schlagwort: Was ist Programmierung?" 
+pingo_duration = "120"
+pingo_type = "text"
+
+%pingo
+#+END_SRC 
+
 
 **  Was ist Programmierung? 
 
@@ -89,7 +129,7 @@ Von allem ein bisschen, insbesondere:
 - Grundlegende Programmierparadigmen
   - Imperativ
   - Objektorientiert 
-  - Dynamisch vs. statisch typisiert 
+  - (Dynamisch vs. statisch typisiert)
 - Coding
   - Entwicklung
   - Wiederbenutzung 
@@ -119,7 +159,7 @@ ebenfalls dazu.
     :END:
 
 - Faktenwissen, unter anderem
-  - die wesentlichen Konstrukte einer Programmiersprache (derzeit
+  - die wesentlichen Konstrukte einer Programmiersprache (derzeit: 
     Python, in geringem Umfang auch Java), 
   - die Grundkonzepte von Komposition und Abstraktion in der Programmierung zu verstehen
 - methodisches Wissen
@@ -213,9 +253,9 @@ Formalisiert:
     :END:
 
 
-Eine *Datenstruktur* legt fest, wie Daten in einem Rechner
-repräsentiert werden und wie sie verarbeitet oder manipuliert werden
-können. 
+Eine *Datenstruktur* legt fest, 
+- wie Daten in einem Rechner repräsentiert werden 
+- und wie sie verarbeitet oder manipuliert werden können. 
 
 
 
@@ -246,6 +286,8 @@ Wir gehen von /normalen/ Rechnern aus:
 
 - Enthält Daten
   - Unterteilt in kleinere Einheiten, /Speicherstellen/
+  - Eine Speicherstelle kann nur endliche viele Werte unterscheiden (0
+    oder 1, 0 bis 255, o.ä.) 
   - Einfachster Fall: Speicherstellen durchnummeriert 
 - Inhalte der Speicherstellen zu einem Zeitpunkt: /Zustand/
   - *Zentraler Begriff*! 
@@ -256,36 +298,47 @@ Wir gehen von /normalen/ Rechnern aus:
     :END:
 
 Der *Zustand* eines Rechners ist ein Element einer diskreten Menge. Er
-wird gebildet durch den Inhalt aller (veränderlichen)
+wird bestimmt durch den Inhalt aller (veränderlichen)
 Speicherstellen des Rechners. 
 
 ** Verarbeitungseinheit						   :subslide:
 
 - /Central Processing Unit/ (CPU) 
 - Manipuliert Daten im Speicher
-  - Manipuliert /Zustand/ 
-- Hält sich dabei an Anweisungen
+  - Manipuliert /Zustand/, /überführt/ Zustand in Folgezustand  
+- Hält sich dabei an /Anweisungen/
 - Es gibt nur endlich viele, wenige Anweisungen
   - Der /Instruktionssatz/
 
+** Anweisung 
 
-** Programm                                                        :subslide:
+- Eine /Anweisung/ legt
+  - für einen  /gegebenen/ Zustand fest,
+  - welcher /folgende/ Zustand entsteht
+- Vorstellung von /vorher, nachher/: /Ausführung/ einer Anweisung 
 
-- Eine Folge von Anweisungen, das /Programm/
-- Anweisungen entstammen Instruktionssatz 
+** Beispiele für Anweisungen 
 
-
-** Instruktionssatz: Beispiele 
-
-Beispiele für Anweisungen: 
+- Tue nichts 
 - Übertrage Daten von beliebiger Stelle des  Speichers in CPU
+  - CPU: Teil des Zustands! 
 - Übertrage Daten von CPU in beliebige Stelle des  Speichers 
-- Addiere zwei Daten
-- Vergleiche zwei Daten 
+- Lege in einer Speicherstelle die Summe des Inhalts zweier anderer
+  Speicherstelle ab 
+- Vergleiche zwei Daten und lege Vergleichsresultate als Teil des
+  Zustands ab  
+
+
+** Programm                                
+
+- Eine /endliche/, /bekannte/, /lineare/ Folge von Anweisungen:  das /Programm/
+  - Linear: Anweisungen sind durchnummeriert
+  - Einfache Vorstellung: Zeilenweise, eine Anweisung pro Zeile 
+- Anweisungen entstammen Instruktionssatz 
 
 ** Ausführungsmodell 
 
-Mit Speicher, CPU, Instruktionssatz ergibt sich ein
+Mit Speicher, CPU, Instruktionssatz ergibt sich ein einfaches
 /Ausführungsmodell/:
 
 - CPU bearbeitet, zu jedem Zeitpunkt, eine /aktuelle Anweisung/ aus
@@ -339,7 +392,7 @@ Folgezustand entsteht. Für jede Anweisung aus dem Instruktionssatz.
   - Welche Anweisung wird als nächstes bearbeitet?
 - Normale Ausführung: Als nächstes wird die Anweisung in der folgenden
   Zeile bearbeitet
-- Sprung: Als nächstes wird die Anweisung in einer anderen 
+- *Sprung*: Als nächstes wird die Anweisung in einer anderen 
   Zeile bearbeitet
 
 
@@ -350,20 +403,28 @@ Folgezustand entsteht. Für jede Anweisung aus dem Instruktionssatz.
   - Details Ausführungsmodell genau beschreiben 
 - Praktikabel? Nein!
   - Zu feingranular
-  - Für Menschen schlecht verständliche Darstellung 
-- Wie programmieren?
+  - Für Menschen schlecht verständliche Darstellung:
+    Zustandsänderungen sehr kleinteilig
+- Aber im Prinzip richtig! 
 
 ** Programmieren 
+
+- Für ein gegebenes Problem ein Programm finden
+- Also: eine Folge von Anweisungen, die das Problem /lösen/
+  - Wie kommt man von beliebigem Zustand am Anfang (/Eingabe/) in
+    einen gewünschten Zustand am Ende der Ausführung (/Ausgabe/)?  
+
+** Programmieren - wie?  
 
 - /Basteln/ bis es tut??
 - Gutes Programmieren
   - *Systematisches* Nachdenken, Entwurf, Planung, Verständnis
-  - Auch: Ästhetik 
+  - Auch: Lesbarkeit, Nachvollziehbarkeit, Ästhetik 
 - Systematik? -- Im Laufe der Vorlesung 
 
 ** Programmiersprachen 
 
-- Heben das Abstraktionsniveau
+- Heben das Abstraktionsniveau der Zustandsänderungen 
   - Mächtigere Anweisungen
   - Einfacher für Menschen
 - Also: Definiere neuen Instruktionssatz, neue Vorstellung von
@@ -433,13 +494,13 @@ korrektem Programm/. Die VL Modellierung (und im weiteren
 Studienverlauf die VL Formale Sprachen) stellt unterschiedliche
 formale Techniken vor, solche Syntaxregeln zu formulieren.
 
-Die /Semantik/  beschreibt, wie ein syntaktisch korrektes Programm
+Die /Semantik/ beschreibt, wie ein syntaktisch korrektes Programm
 Eingaben auf Ausgaben abbildet. Insbesondere auch, wie die Semantik
 eines Programms aus der Semantik von Teilen des Programms -- bis zu
-einzelnen Anweisungen --  erklärt werden kann. Die mathematisch
-präzise Definition einer Sprachsemantik ist dabei anspruchsvoll und
-wird in GP1 nicht weiter formal behandelt. Wir beschränken uns hier
-auf intuitive Beschreibungen dieses Begriffs. 
+einzelnen Anweisungen -- erklärt werden kann. Die mathematisch präzise
+Definition einer Sprachsemantik ist dabei anspruchsvoll und wird in
+dieser Vorlesung nicht weiter formal behandelt. Wir beschränken uns
+hier auf intuitive Beschreibungen dieses Begriffs.
 
 
 ** Ausführung?							   :subslide:
@@ -471,11 +532,11 @@ auf intuitive Beschreibungen dieses Begriffs.
 
 ** Programmierparadigma 
 
-Sprachen eines Paradigmas gleichen sich in: 
+Sprachen eines Paradigmas gleichen sich in Aspekten wie: 
 
-- Was sind statische Aspekte der Sprache?
+- Was sind statische Aspekte eines Programms?
   - Konstanten? Daten? Typen? Code? Variablen? ...? 
-- Was sind dynamische Aspekte der Sprache?
+- Was sind dynamische Aspekte eines Programms?
   - Variableninhalte? Variablen? Folge von Anweisungen?
   - Woher stammt Dynamik?
     - Eingaben? Zeitablauf? Ereignisse? Zufall? ...? 
@@ -520,7 +581,7 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 
 - Vermeidung der Vorstellung eines /Zustands/
   - Keine Seiteneffekte
-  - Programm ist eigentlich nur ein große Funktion 
+  - Programm ist eigentlich nur eine große Funktion 
 - Programm selbst kann zum Gegenstand des Programms werden
   - Schlagwort: /Functions as first-class citizens/
 
@@ -580,7 +641,7 @@ Abbildung~\ref{fig:paradigmen-beispiele} zeigt Beispiele für Programmierparadig
 ** C/C++ ?							   :subslide:
 
 - Nahe am Maschinenmodell
-  - Es passiert nichts überraschendes 
+  - Es passiert nichts überraschendes (in C...)
 - Wenig Abstraktion
 - Wenig fehlerverzeihend
 - Alte Sprache: viel historischer Ballast
@@ -622,7 +683,7 @@ werden konnte.
 - Geringer Einarbeitungsaufwand
 - Interpretiert, dadurch einfach zu experimentieren 
 - Vor-/Nachteil: Keine statischen Typen 
-- [[https://stackoverflow.blog/2017/09/06/incredible-growth-python/][Schnell wachsend]] 
+- [[https://stackoverflow.blog/2017/09/06/incredible-growth-python/][Schnell wachsend]] , [[https://spectrum.ieee.org/computing/software/the-top-programming-languages-2019][IEEE Language Ranking ]]
 
 ** Vergleich: TIOBE Index 
 
@@ -661,7 +722,7 @@ pingo_duration = "30"
 #+END_SRC 
 
 
-** Konsequenz? 
+** Konsequenz?						       :COMMENT:skip:
 
 - Beginn:  Python -- ca. 3/4 der Vorlesung
   - Grundlegende imperative, objektorientierte, funktionale Aspekte 
@@ -673,6 +734,18 @@ pingo_duration = "30"
 *** Vorteil?							    :animate:
 - Einfacher Einstieg & breiter Horizont
 - Zwei Sprachen sind kein Hexenwerk! 
+
+
+** Konsequenz? 
+
+- Hier:  Python als Einstieg 
+  - Grundlegende imperative, objektorientierte, funktionale Aspekte 
+- In GPS, ggf. Eigeninitiative: Java 
+  - Einführung statischer Typisierung
+  - Wird für spätere Veranstaltungen gebraucht! 
+- Im vierten Semester: C 
+
+
 
 
 ** Alle Sprachen? 
@@ -703,7 +776,7 @@ pingo_duration = "30"
 
 - Programmtext eintippen... 
 - Einfacher Editor
-  - Komfortabel
+  - Vertraut 
   - Aber *keine* spezifische Unterstützung für gewählte
     Programmiersprache
 - Programmier-Editor
@@ -766,7 +839,7 @@ pingo_duration = "30"
 *** Versionsverwaltung -- aktueller Stand			      :notes:
 
 Es gibt eine große Anzahl unterschiedlicher
-Versionsverwaltungswerkzeuge. Aktuell ist ~git~ vermutlich am
+Versionsverwaltungswerkzeuge. Aktuell ist ~git~ sicherlich am
 weitesten verbreitet; es ist sehr flexibel und funktionsreich. 
 
 In dieser VL  werden wir allerdings auf explizite
@@ -853,7 +926,7 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 
 - Spezifisch: Sprache, Entwicklungsumgebung, ...
   - Beispiel C++: [[http://en.cppreference.com/w/][C++ Reference Site]]
-  - StackExchange : Spezifische Seiten, z.B. 
+
 
 
 ** Gute Programmierer
@@ -907,7 +980,7 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
   - Kommerziell: [[https://www.jetbrains.com/pycharm/][PyCharm]]
   - Open Source: Eclipse, insbes. [[http://www.pydev.org][PyDev]] 
 
-** Java 
+** Java								       :skip:
 
 - Bücher
   - Hanspeter Mössenböck, Sprechen Sie Java? dpunkt Verlag
@@ -915,7 +988,7 @@ Wo finden Sie Hilfe? Bei allgemeinen Fragen?
 - [[http://download.oracle.com/javase/tutorial/][Java Tutorial]]
 
 
-** Java, Umgebungen 
+** Java, Umgebungen						       :skip:
 
 
 - IDEs
