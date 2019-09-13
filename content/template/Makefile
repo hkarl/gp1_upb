@@ -31,6 +31,8 @@ $(objects): %.ipynb: %.org ../template/header.org
 	../../build/tangle.sh $< >> ../../build/log
 	# This is a dirty hack; tangle.sh ignores org-latex-classes
 	sed -i bak -e '1,/article/s/article/memoir/' *.tex
+	# And one more dirty hack: un-center img directives
+	sed -i ibak -e 's!<center>\(.*\)</center>!\1!' *.ipynb 
 	# This is another dirty hack: change to java notebooks if magic file exists
 	-[ -f javakernel ] && make java 
 	cp $@ ${OUTPUTDIR}
