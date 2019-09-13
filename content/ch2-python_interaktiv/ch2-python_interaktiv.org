@@ -17,12 +17,12 @@
 - Fehler 
 
 ** Setup 						  :skipslide:nolatex:
-
+   
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+BEGIN_SRC  Python 
+#+BEGIN_SRC  python 
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
@@ -31,16 +31,19 @@ import requests
 import webbrowser
 from IPython.core.magic import register_line_magic
 
+
+pingo_host = "https://pingo.coactum.de/"
 pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+pingo_session = "538312"
+
 
 # Test-Session: 
-pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+pingo_url = pingo_host + "events/" + pingo_session + "/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '120'
+pingo_duration = '60'
 pingo_type = "single"
-
 
 @register_line_magic
 def pingo(line):
@@ -51,8 +54,33 @@ def pingo(line):
               'auth_token': pingo_token}
 
     r = requests.post(pingo_url, json=params)
-    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
+
+
+    # session id not found
+    if r.status_code == 404: 
+        print ("404 error: session id not found")
+
+    # wrong auth token
+    elif r.status_code == 401:
+        print (r.content)
+
+    # e.g. not access to this session
+    elif r.status_code == 200:
+        print (r.content)
+
+    # ok
+    elif r.status_code == 201:
+        webbrowser.open_new_tab(pingo_host + r.headers['Location'])
+
+    # e.g. wrong parameters
+    elif r.status_code == 500:
+        print ("500 error: e.g. wrong parameters")
+
+    # some other problem
+    else:
+        print (r.status_code)
 #+END_SRC
+
 
 
 
@@ -65,7 +93,7 @@ def pingo(line):
 - Interaktive Software: Eingabe während der Ausführung entgegennehmen
   und verarbeiten 
 - Interaktive Programmierung?
-  - Die /Sprache/ wird ausgeführt?
+  - Die /Sprache/ wird ausgeführt? -- Sinnlos 
   - Genauer: Ein Interpreter
 
 
@@ -216,7 +244,7 @@ Erklären Sie den Comic in Abbildung [[fig:base10]]!
 
 - Jede Zahl ist ein *arithmetischer Ausdruck*
 - Verbindet man zwei arithmetische Ausdrücke durch ~+~, ~-~, ~*~ oder
-  '/', so entsteht ein arithmetischer Ausdruck
+  '/', so entsteht ein /binärer/ arithmetischer Ausdruck
 - Setzt man um einen arithmetischen Ausdruck ein Klammerpaar ~(~
   ... ~)~, so entsteht ein arithmetischer Ausdruck 
 
@@ -289,7 +317,7 @@ Bis jetzt: Nur Syntax, aber keine Bedeutung der Ausdrücke
     - Einerseits: $a_1=5$, $a_2 = 2\cdot 3$
     - Andererseits: $a_1=5+2$, $a_2 = 3$
 
-- Problem: tertiäre Ausdrücke $a_1 \circ a_2 \circ a_3$
+- Problem: /tertiäre/ Ausdrücke $a_1 \circ a_2 \circ a_3$
   - /Vorrangregeln/: Punkt vor Strich
     - Also: $5+ (2\cdot 3)$
 
@@ -415,13 +443,23 @@ entsteht, indem an $t_1$ unmittelbar $t_2$ angehängt wird.
 
 
 *** Nein, nur Addition!						    :animate:
-- Keine sinnvolle Semantik, also Fehler 
+
+- Als /Syntax/ würde das funktionieren 
+- Aber keine sinnvolle /Semantik/, also Fehler 
 
 
 *** UEBUNG Unterschied zwischen str und byte
 
 str code points, byte. utf8. ascii. decode/encode? Aber das geht erst
 mit Funktionen? 
+
+** Ausdruck, Anweisung? 
+
+- Vorheriges Kapitel: Die Ausführung einer Anweisung verändert den
+  Zustand 
+- Sind Ausdrücke Anweisungen?
+  - *Nein*! Es wird hier kein Zustand verändert!
+  - (Bis auf ... - siehe später) 
 
 * Typen
 
@@ -434,7 +472,7 @@ Bei den sinnlosen Kombinationen gab es die Fehlermeldung:
 
 *** Type?							    :animate:
 
-- Was könnte ein /Typ/ bedeuten? 
+- Was könnte /Type/ bedeuten? 
 - Die Fehlermeldung bei Multiplikation klingt interessant 
 
 
@@ -442,7 +480,8 @@ Bei den sinnlosen Kombinationen gab es die Fehlermeldung:
 
 - Offenbar sind Zahlen und Zeichenketten ja etwas unterschiedliches
   - Unterschiedliche Werte, unterschiedliche Verknüpfungen erlaubt,
-    unterschiedliche Interpretation (~+~ bei Zahlen vs. bei Zeichenketten) 
+    unterschiedliche Semantik von Verknüpfungen (~+~ bei Zahlen
+    vs. bei Zeichenketten)  
 - Beobachtung formalisiert in der Vorstellung eines /Datentyps/ 
 
 *** Datentyp 						       :B_definition:
@@ -451,8 +490,9 @@ Bei den sinnlosen Kombinationen gab es die Fehlermeldung:
     :END:
 
 
-Ein /Datentyp/ oder kurz /Typ/ legt eine Menge möglicher Werte
-fest. /Literale/ sind die konkreten Notationen möglicher Werte. 
+Ein /Datentyp/ oder kurz /Typ/ (engl. /Type/) legt eine Menge
+möglicher Werte fest. /Literale/ sind die konkreten Notationen
+möglicher Werte.
 
 Zusätzlich legt ein Datentyp erlaubte Verknüpfungen fest. Er erklärt
 sowohl die Syntax als auch die Semantik dieser Verknüpfungen.
@@ -809,7 +849,8 @@ Sprachen.
 
 - Literale haben stets einen eindeutigen Typ
 - Verknüpfungen zwischen zwei Werten produzieren Wert mit Typ
-  - Eindeutig durch Typ der Werte und Verknüpfung bestimmt 
+  - Eindeutig durch Typ der Werte und Verknüpfung bestimmt
+- Damit hat jeder Ausdruck (genauer: Wert des Ausdrucks) einen Typ
 - Folge: Man kann nichts ohne Typ hinschreiben... 
 - Typ eines Werts wird im Interpreter explizit repräsentiert 
   - Man muss den Typ aber nicht explizit hinschreiben 
