@@ -15,7 +15,7 @@ Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+BEGIN_SRC  Python 
+#+BEGIN_SRC  python 
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
@@ -24,14 +24,18 @@ import requests
 import webbrowser
 from IPython.core.magic import register_line_magic
 
+
+pingo_host = "https://pingo.coactum.de/"
 pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+pingo_session = "538312"
+
 
 # Test-Session: 
-pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+pingo_url = pingo_host + "events/" + pingo_session + "/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '30'
+pingo_duration = '60'
 pingo_type = "single"
 
 @register_line_magic
@@ -43,7 +47,31 @@ def pingo(line):
               'auth_token': pingo_token}
 
     r = requests.post(pingo_url, json=params)
-    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
+
+
+    # session id not found
+    if r.status_code == 404: 
+        print ("404 error: session id not found")
+
+    # wrong auth token
+    elif r.status_code == 401:
+        print (r.content)
+
+    # e.g. not access to this session
+    elif r.status_code == 200:
+        print (r.content)
+
+    # ok
+    elif r.status_code == 201:
+        webbrowser.open_new_tab(pingo_host + r.headers['Location'])
+
+    # e.g. wrong parameters
+    elif r.status_code == 500:
+        print ("500 error: e.g. wrong parameters")
+
+    # some other problem
+    else:
+        print (r.status_code)
 #+END_SRC
 
 
@@ -59,29 +87,39 @@ def pingo(line):
 ** Wer sind wir? 
 
 - Dozent: Holger Karl
-- Mitarbeiter: Alexander Bigerl 
-- Tutoren: Patrick Bollmann, David Buderus,  Nadine Dettelbach,  Nils Horstmann, Tim Ofenbach, Rafael Schellenberg, Julian Schlenker,  Michael Schulz, Ninab Youkanna
+- Mitarbeiter/Übungen: Alexander Bigerl, Mohamed Sherif 
+- Tutoren: ??? 
 
 
 
 ** Wer sind wir?  -- Dozent					   :subslide:
 
 - Holger Karl 
-- Fachgebiet Rechnernetze 
-- Büro: Pohlweg, O3.158
-- Email: holger.karl@upb.de
-- Web: http://www.upb.de/cs/cn
-- Sprechstunde: Montag, 13:00 - 14:00 Uhr 
+  - Fachgebiet Rechnernetze 
+  - Büro: O3.158  
+  - Email: holger.karl@upb.de
+  - Web: http://www.upb.de/cs/cn
+  - Sprechstunde: Montag, 13:00 - 14:00 Uhr 
 
 ** Wer sind wir? -- Mitarbeiter					   :subslide:
 
 - Alexander Bigerl 
-- Fachgebiet
-- Fachbiet Data Science
-- Büro: Pohlweg, O4.216
-- Email: bigerl@mail.upb.de
-- Web: https://dice.cs.uni-paderborn.de/team/profiles/bigerl/
-- Sprechstunde: Nach Vereinbarung 
+  - Fachgebiet Data Science
+  - Büro: Technologiepark, TP6.3.108
+  - Email: bigerl@mail.upb.de
+  - Web: https://www.uni-paderborn.de/person/72857/
+  - Sprechstunde: Mo 14:00-16:00 Uhr 
+
+
+** Wer sind wir? -- Mitarbeiter					   :subslide:
+
+- Mohamed Sherif 
+  - Fachgebiet Data Science
+  - Büro: Technologiepark, TP 6.3.306
+  - Email: mohamed.sherif@upb.de 
+  - Web: https://dice-research.org/team/profiles/sherif/
+  - Sprechstunde: Nach Vereinbarung 
+
 
 
 ** Wo sind wir? -- Gebäude O 
@@ -91,6 +129,8 @@ def pingo(line):
 #+ATTR_LATEX: :width 0.3\textwidth 
 #+NAME: lageplan-O
 [[./figures/gebauedeO.png]]
+
+
 
 
 ** Wer sind Sie? 
@@ -116,10 +156,10 @@ def pingo(line):
 
 Pingo: Plattform für Publikumsinteraktion 
 - Zücken Sie Smartphone oder Laptop 
-- Gehen Sie auf http://pingo.upb.de/311055 
+- Gehen Sie auf http://pingo.upb.de/538312
 
 
-*** QR-Code							    :nolatex:
+*** QR-Code                                                    :nolatex:
 
 #+CAPTION: QR-Code für GP1 in Pingo
 #+ATTR_LaTeX: :width 0.75\linewidth
@@ -165,7 +205,7 @@ pingo_duration = "120"
 ** Vorlesung Programmierung                                        :subslide:
 - Präsentation: Konzepte, Ansätze, Beispiele 
 - Interaktiv soweit möglich
-- Hoffentlich: Aufzeichnung 
+- Voraussichtlich: Video-Aufzeichnung (aber keine Garantie!) 
 - Notwendig: Vor- und Nachbereitung durch Sie!
 
 ** Vorlesung Programmierung -- Termine                             :subslide:
@@ -175,15 +215,15 @@ pingo_duration = "120"
 - Dienstag, 14:00 - 16:00 Uhr, L1
 - Mittwoch, 14:00 - 16:00 Uhr, L1 
 - Freitag, 11:00 - 13:00 Uhr, L1 
-- Letzter Termin: *Voraussichtlich* 14.12.! (dann GPS)  
+- Letzter Termin: *Voraussichtlich* 13.12.! (dann VL GPS)  
 
 *** Ausfall							    :animate:
 
-- 12.10, 23.11., 30.11. 
+- 1. 11.
 
-*** TODO Ersatz                                                     :animate:
+*** Ersatz                                                     :animate:
 
-- ??? 
+- ??? (plus Reservetermin) 
 
 
 ** Hausübungen  -- Zweck 
@@ -205,7 +245,7 @@ hinausgehen, was in einer Klausur realistisch ist. Dies ist sinnvoll,
 um Ihnen Gelegenheit zu geben, auch schwierigere Probleme anzugehen
 und sinnvoll zu strukturieren.
 
-** TODO Hausübungen -- Prozess                                     :subslide:
+** Hausübungen -- Prozess					   :subslide:
 
 - Aufgaben werden ausgegeben
 - Sie lösen, gemeinsam in einer Gruppe 
@@ -226,17 +266,18 @@ und sinnvoll zu strukturieren.
 
 - Ausgabe erstes Blatt: 9.10.2018
 - Abgabe: 16.10.2018, 12:30 (vor der Übung) 
-- Besprechung erstes Blatt: 16.10.2018 
-  - Dienstag, 13:00 -- 14:00, L1
-  - (mit 15 oder 30 Minuten Pause?) 
+- Besprechung erstes Blatt: Zentralübung 16.10.2018 
 
-** TODO Hausübungen -- Abgabe                                      :subslide:
 
-- Nur web-basierte Abgabe der Lösungen 
+** Hausübungen -- Abgabe					   :subslide:
+
+- Nur *web-basierte* Abgabe der Lösungen 
   - Siehe: https://gp1.cs.uni-paderborn.de:8000
   - Das "s" ist wichtig! 
 - Details zum System: später
-  - Einführung: Erstes Präsenzblatt 
+  - Einführung: Erstes Präsenzblatt
+- *WICHTIG*: /Rechnernutzung Informatik/ in Service-Profile eingetragen!
+  - Siehe: https://sp.uni-paderborn.de 
 
 *** Hausübungen -- Abgabesystem					      :notes:
 
@@ -255,8 +296,9 @@ und sinnvoll zu strukturieren.
 
 ** Hausübungen -- Plagiate					   :subslide:
 
-- Abschreiben: *0 Punkte* auf das gesamte Blatt, für die ganze Gruppe! 
-- Abschreiben lassen: *0 Punkte* auf das gesamte Blatt, für die ganze Gruppe! 
+- Abschreiben oder abschreiben lassen:
+  - *KEINE* Klausurteilnahme! Sie verlieren ein Jahr! 
+  - Meldung an Prüfungsausschuss 
 - Durch elektronische Abgabe sehr leicht zu entdecken! 
 
 ** Präsenzübungen 
@@ -290,17 +332,18 @@ programmieren. Sehen Sie also die Präsenzübungen als Gelegenheit zum
 gemeinsamen programmieren an, mit Hilfestellung und Unterstützung
 durch den Tutor.  
 
-** TODO Präsenzübungen -- Termine                                  :subslide:
+** Präsenzübungen -- Termine					   :subslide:
 
 
 
 | Uhrzeit | Montag   | Dienstag | Mittwoch | Donnerstag | Freitag |
 |---------+----------+----------+----------+------------+---------|
-|    9-11 |          |          |          | PÜ (2x)    | PÜ (2x) |
-|   11-13 |          | PÜ (2x)  | PÜ (2x)  |            | VL      |
+|    9-11 |          | PÜ (2x)  | PÜ (2x)  | PÜ (2x)    | PÜ (2x) |
+|   11-13 |          |          | PÜ       |            | VL      |
 |   13-14 |          | ZÜ       |          |            |         |
-|   14-16 | PÜ  (3x) | VL       |          | PÜ (2x)    |         |
-|   16-18 |          | PÜ (3x)  | VL       |            |         |
+|   14-16 | PÜ       | VL       | VL       | PÜ (2x)    | PÜ (2x) |
+|   16-18 | PÜ  (2x) | PÜ (2x)  | PÜ (!)   |            |         |
+|   18-20 | VL (!)   | PÜ (!)   |          |            |         |
 
 
 ** Präsenzübungen -- Ort					   :subslide:
@@ -352,7 +395,7 @@ durch den Tutor.
 
 - Zwei Termine in diesem Semester 
 - Termin 1:
-  - Option 1: Mitte Januar, z.B. Samstag 12. Januar
+  - Option 1: Mitte Januar, z.B. Samstag 11. Januar ? 
   - Option 2: Mitte Februar, mit Klausuren Modellierung, Analysis +/-
     3 Tage drumherum
 - Termin 2: Mitte März 
@@ -361,7 +404,7 @@ durch den Tutor.
 ** Klausur -- Zulassungsvoraussetzung 
 
 Um an der Klausur teilnehmen zu dürfen, müssen Sie folgende
-Zulassungsvoraussetzungen erfüllen: 
+Zulassungsvoraussetzungen erfüllen ("Studienleistung"): 
 
 - Auf *mindestens* 7 der 9 (ggf. 10)  Übungsblätter *jeweils
   mindestens* 20% der 
@@ -390,7 +433,7 @@ Zulassungsvoraussetzungen erfüllen:
 [[./uml/weg-zur-klausur.png]]
 
 
-** Wo finden Sie was? 
+** TODO Wo finden Sie was? 
 
  - PAUL: Anmeldung zu Übungen und Klausur
  - [[https://cs.uni-paderborn.de/index.php?id=59215][Webseite zur Veranstaltung]]
