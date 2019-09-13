@@ -7,12 +7,12 @@
 RSYNC := /usr/local/bin/rsync 
 
 # Webserverdir: this depends on where you mount the group directory 
-WEBSERVERDIR := /Volumes/groups/fg-karl/public/http/lehre/ws1819/gp1
+WEBSERVERDIR := /Volumes/groups/fg-karl/public/http/lehre/ws1819/gp1/vorlesung
 # NOTE: resulting URL is: http://groups.uni-paderborn.de/fg-karl/lehre/ws1617/gp1/index.html
 
 # rsync into this directory; this will serve as reference version, with a symbolic link
 # GP1SERVERDIR := jupyterhub@gp1test.cs.upb.de:output
-GP1SERVERDIR := jupyterhub@gp1.cs.upb.de:output
+GP1SERVERDIR := jhubrunner@gp1.cs.upb.de:/srv/lecture
 
 # use this to ssh in a root
 ACCOUNTDIRBASE := root@gp1test.cs.upb.de:/home
@@ -42,24 +42,29 @@ copyall: makefiles
 
 depingo:
 	# depingo: remove the pingo headers from the generated ipynb
-	ipynbs=`find ../output/vorlesung -name "*ipynb"`; for d in $$ipynbs ; do echo $$d ; python depingo.py $$d > pingotmp ; mv pingotmp $$d  ; done 
+	# 	ipynbs=`find ../output/vorlesung -name "*ipynb"`; for d in $$ipynbs ; do echo $$d ; python3 depingo.py $$d > pingotmp ; mv pingotmp $$d  ; done 
+	ipynbs=`find ../output/vorlesung -name "*ipynb"`; for d in $$ipynbs ; do echo $$d ; python3 depingo.py $$d | sponge $$d  ; done 
 
 webserver:
 	# rsync into the webserver
-	rsync -vah ../output/ ${WEBSERVERDIR}
+	rsync -vah ../output/vorlesung/ ${WEBSERVERDIR}
+
+jupyterlecture:
+	# rsync into gp1 server jupyerhub account; referenced by symbolic links 
+	rsync -vazh ../output/vorlesung/ ${GP1SERVERDIR}
 
 
-distribute: depingo
+distribute: 
 
 	# generate the file list ; maybe that has to be constructed from indiviaul parts?
 	# sourcing: we need a few modules :-( ; note that this has be done in ONE shell invocation!
 	# source ~/.venvs/ansible/bin/activate; \
 	# python ../build/createWebpage.py --org . --released ./released.yaml --html ../output/vorlesung/index.html
 
+	make depingo
 	make webserver
+	make jupyterlecture
 
-	# rsync into gp1 server jupyerhub account; referenced by symbolic links 
-	rsync -vazh ../output/ ${GP1SERVERDIR}
 
 	# sync into the invidual directories; make sure to set permissions correclty
 	# ssh root@gp1.cs.upb.de "python3.4 /home/jupyterhub/bin/copy-file-to-user.py -a -s /home/jupyterhub/output/vorlesung/ -t vorlesung -c ch -x .ipynb -x .tgz -x .pdf -d figures -d uml"
