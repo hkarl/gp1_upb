@@ -120,16 +120,19 @@ def pingo(line):
 - Die möglicherweise immer noch zu groß sind
   - Dann diese weiter unterteilen
   - Bis handhabbar 
-- Schließlich: Setze die Lösung aus den Einzelteilen zusammen 
+- Schließlich: Setze die Lösung aus den Einzelteilen zusammen
+  - Einzelteile in verschiedenen Kontexten nutzbar
 
-Sog. */prozedurale Dekomposition/*
+Sog. */prozedurale/ funktionale Dekomposition/*
 
 ** Funktionen 
 
 - Teillösungen sind /*Funktionen*/
 - Wir müssen uns überlegen:
   - Wie erstellen wir eine neue Funktion?
-  - Wie benutzen wir eine vorhandene Funktion? 
+  - Wie benutzen wir eine vorhandene Funktion?
+  - Wie finden wir eine /gute/ Zerteilung eines Problems in
+    Teilprobleme? 
 
 * Funktionen definieren 
 
@@ -214,6 +217,23 @@ Probieren Sie das in einem Notebook aus!
 
 
 
+** Was wird hier ausgeführt? 
+
+In Beispiel: 
+
+#+BEGIN_SRC python
+  def meine_funktion():
+      x = 42
+      y = x/2
+      # usw... weitere Anweisungen
+#+END_SRC
+
+- Es wird *eine* Anweisung ausgeführt: Die Definition der Funktion und
+  das Binden an den Namen  ~meine_funktion~
+  - Das ist die einzige Zustandsänderung! 
+- Die Anweisungen ~x = 42~ und ~y = x/2~ werden *zunächst nicht* ausgeführt!
+
+
 ** Namenskonvention für Funktionsnamen 
 
 - Syntaxregel für Funktionsnamen: Wie für sonstige Namen 
@@ -280,7 +300,6 @@ z = 42
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Wieviele Anweisungen hier ausgeführt?" 
-pingo_type = "single"
 pingo_questions = ["1", "2", "3", "7"]
 
 %pingo
@@ -375,12 +394,13 @@ Definition eines Namens für Werte   oder eines Funktionsnamens liegt.
 
 #+BEGIN_SRC python
 %%tutor -t 
+# hier wird f definiert: 
 def f():
     x = 42
     y = 17
 
-# hier wird aufgerufen
 z = "vorher"
+# hier wird f aufgerufen: 
 f()
 z = "nachher"
 #+END_SRC
@@ -397,10 +417,12 @@ Wir erweitern das Ausführungsmodell:
 
 - Aufruf der Funktion: Programm mit den Anweisungen der Funktion
   fortsetzen
-  - Vorstellung: Der Aufruf der Funktion wird durch die Anweisungen
-    der Funktion ersetzt und wird dann ausgeführt 
+  - Vorstellung: Der /Aufruf/ der Funktion wird durch die /Anweisungen/
+    der Funktion ersetzt
+  - Diese Anweisungen werden  dann ausgeführt 
 - Nach Ausführung der letzten Anweisung der Funktion: Mit der
-  Anweisung nach dem Aufruf weitermachen 
+  Anweisung nach dem Aufruf weitermachen
+  - Der Funktionsaufruf /ist beendet/ oder /kehrt zurück/
 
 ** Aufruf einer Funktion: Semantik  
 
@@ -413,6 +435,34 @@ Die Definition hier ist unvollständig und nicht ganz korrekt. Wir
 brauchen dazu noch ein paar Erweiterungen! 
 
 
+** Aufruf einer Funktion: Ersetzung 
+
+*** Eigentlicher Code 
+
+#+BEGIN_SRC python
+def f():
+    x = 42
+    y = 17
+
+f()
+#+END_SRC
+
+*** Aufruf ersetzt (ACHTUNG! Nicht korrekt!) 
+
+#+BEGIN_SRC python
+def f():
+    x = 42
+    y = 17
+
+# Ersetzung: 
+x = 42
+y = 17 
+#+END_SRC
+
+** Unterschied? 
+
+Die Namen ~x~ und ~y~ verhalten sich in diesen beiden Varianten
+unterschiedlich! 
 
 *** UEBUNG WArum sit das nur eine grobe Entsprechung
 
@@ -424,8 +474,21 @@ nicht im Scope.
 
 - Was passiert mit ~x~ und ~y~ aus der Funktion?
 - Verschwinden nach Rückkehr aus der Funktion! 
+- Also stimmt obige Definition noch nicht ganz! 
+- Beispiel: 
 
-*** Lebensdauer? 						    :animate:
+#+BEGIN_SRC python
+def f():
+    x = 42
+    y = 17
+
+f()
+x
+#+END_SRC
+
+
+
+** Lebensdauer?                                                    
 
 - Name, an den innerhalb einer Funktion zugewiesen
   wird, ist *lokal* zu dieser Funktion
@@ -445,7 +508,10 @@ nicht im Scope.
     :END:
 
 Ein /Namensraum/ (oder /namespace/) ist eine Abbildung von Namen zu
-Werten.  Namensräume gruppieren Namen, z.B. Namen für Werte. 
+Werten.  Namensräume gruppieren Namen.
+
+Während des Ablaufs eines Programs existieren in der Regel mehrere
+Namensräume. Sie werden erzeugt und vernichtet. 
 
 Namen in unterschiedlichen Namensräumen sind von einander isoliert;
 der gleiche Name kann in unterschiedlichen Namensräumen verwendet
@@ -467,6 +533,78 @@ werden und auf unterschiedliche Objekte verweisen.
 - Namensräume können sich während der Laufzeit verändern (und tun das
   typischerweise auch). 
 - Siehe [[https://docs.python.org/3/tutorial/classes.html][Abschnitt 9.2]] für Details. 
+
+
+** Namensraum: Namen hinzufügen? 
+
+- Ausgangspunkt: Aufruf einer Funktion als Ersetzung des Aufrufs durch
+  Funktionsanweisungen zu erklären ist so falsch nicht
+- Problem dabei: Die Namen innerhalb der Funktion
+- Idee: Ergänze die von der Funktion benutzen Namen um den Namensraum
+  - Hier vereinfacht: Hier setzen Namen der Funktion und den Namen des
+    durch den Aufruf der Funktion erzeugten Namensraums gleich :-) 
+
+** Aufruf einer Funktion: Ersetzung mit Namensraum? 
+
+*** Eigentlicher Code 
+
+#+BEGIN_SRC python
+def f():
+    x = 42
+    y = 17
+
+f()
+#+END_SRC
+
+*** Aufruf ersetzt (ACHTUNG! Immer noch nicht korrekt!) 
+
+#+BEGIN_SRC python
+def f():
+    x = 42
+    y = 17
+
+# Ersetzung von f() mit Pseudonamen:  
+f_x = 42
+f_y = 17 
+#+END_SRC
+
+
+** Problem: Pseudonamen 
+
+- Diese Namen ~f_x~, ~f_y~ gibt es ja nicht wirklich 
+- Wir müssten sie also nach der Ausführung des ersetzen Codes wieder
+  vernichten 
+
+** Aufruf einer Funktion: Ersetzung mit Namensraum? 
+
+*** Eigentlicher Code 
+
+#+BEGIN_SRC python
+def f():
+    x = 42
+    y = 17
+
+f()
+#+END_SRC
+
+*** Aufruf ersetzt (fast richtig) 
+
+#+BEGIN_SRC python
+def f():
+    x = 42
+    y = 17
+
+# Ersetzung von f(): 
+f_x = 42
+f_y = 17 
+# Vernichte f_x, f_y! 
+#+END_SRC
+
+** Frage: Zugriff? 
+
+- Damit aber offene Frage: *Wo* kann denn eigentlich auf solche Namen
+  eines Namensraum zugegriffen werden? 
+
 
 ** Scope 
 
@@ -500,7 +638,9 @@ Der /Frame/ einer Funktion beschreibt /zur Laufzeit/ ihren Zustand. Er
 enthält u.a. 
 - den Namensraum der Funktion
 - Information, wo das Programm nach Ende der Funktion fortgesetzt
-  wird. 
+  wird.
+  - Das kann nicht statisch bekannt sein; die Funktion könnte ja von
+    verschiedenen Stellen aus benutzt werden
 
 
 
@@ -617,7 +757,7 @@ In den einzelnen Schritten geschieht folgendes:
 
 ** Funktionen ohne Effekt: Beispiel 
 
-Was ist der Wert von ~x~ am Ende? 
+
 
 #+BEGIN_SRC python
 %%tutor
@@ -630,10 +770,20 @@ f()
 x
 #+END_SRC
 
+*** Pingo 
+#+BEGIN_SRC python :exports code
+pingo_title = "Was ist der Wert von x am Ende? " 
+pingo_questions = ["0", "nicht definiert", "42"]
+
+%pingo
+#+END_SRC 
+
+
+
 
 * Rückgabewert 
 ** Rückgabewert 
-- Benötigt: Mechanismus, um Wert aus Funktion an den aufrufenden
+- Benötigt: Mechanismus, um Wert aus Funktionsaufruf an den aufrufenden
   Programmteil zu transportieren
   - Geht nicht mit normalem Namen für Wert (wird ja vernichtet) 
 
@@ -736,6 +886,37 @@ Anmerkung: Die tatsächliche technische Realisierung innerhalb eines
 Python-Interpreters funktioniert so ähnlich, allerdings mit ein paar
 Abweichungen im Detail. 
 
+
+** Funktion mit ~return~: Beispiel mit Code-Ersetzung 
+
+#+BEGIN_SRC python
+def pi():
+    return 3.14159296
+
+# Ersetze den Aufruf durch den Rückgabewert
+x = 3.14159296
+#+END_SRC
+
+
+** Funktion mit ~return~: Beispiel 2 
+
+#+BEGIN_SRC python
+def pi2():
+    nicht_pi = 2.14159296
+    return 1 + nicht_pi 
+
+# Ersetze den Aufruf durch die Anweisungen der Funktion
+# Mit Namensraum vorangestellt:  
+pi2_nicht_pi = 2.14159296
+pi2_return_value = 1 + pi2_nicht_pi 
+# Setze pi2_return_value für den Aufruf ein: 
+x = pi2_return_value 
+# Vernichte die Pseudonamen: pi2_nicht_pi ; pi2_return_value 
+#+END_SRC
+
+
+
+
 ** Funktion ohne ~return~? 
 
 Was passiert, wenn eine Funktion keine ~return~ Anweisung hat? 
@@ -785,12 +966,16 @@ Abbildung~\ref{fig:no-return} visualisiert das: Tatsächlich existiert der Rück
   fortsetzen
 - Bei der Ausführung einer Funktion wird ein neuer Namensraum für die
   Funktion angelegt 
-  - Dieser Namensraum wird nach Ende der Funktion wieder vernichtet 
+  - Dieser Namensraum wird nach Ende der Funktion wieder vernichtet
+  - Namen, an die innerhalb der Funktion zugewiesen wird, existieren
+    in diesem Namensraum 
 - Ersetze in der aufrufenden Anweisung den Aufruf der Funktion
   durch ihren Rückgabewert
   - Rückgabewert ist der Ausdruck nach ~return~
   - Fehlt ein expliziter Rückgabewert, so nimm ~None~ als besonderen
     Wert an
+  - Wird der Wert der Funktion nicht benutzt, so ist der Rückgabewert
+    egal 
 
 ** Funktion mit leerem ~return~
 
@@ -837,11 +1022,11 @@ z = empty_return()
 
 - Funktionen können ja Namen benutzen
   - Sind innerhalb des Scopes der Funktion
-  - Funktion weist Werte zu 
-- Wie wäre es, wenn Namen der Funktion /*von außen*/ mit Werten
-  versorgt werden könnten?
-  - Normale Namen im Scope der Funktion
-  - Aber der Wert wird durch aufrufenden Programmteil festgelegt? 
+  - Anweisungen der Funktion weisen Werte zu 
+- Wie wäre es, wenn innerhalb der  Funktion benutzte Namen /*von außen*/ mit Werten
+  versorgt werden könnten? 
+  - An sich normale Namen im Scope der Funktion
+  - Aber der (anfängliche) Wert wird durch aufrufenden Programmteil festgelegt? 
 
 
 ** Funktion mit Parameter: Syntax der Definition 
@@ -860,7 +1045,7 @@ z = empty_return()
 #+END_SRC
 
 
-** Funktion mit Parameter: Aufruf 
+** Funktion mit Parameter: Aufrufsyntax 
 
 - Wie ruft man eine solche Funktion auf? 
   - Wie legt man den Wert für den formalen Parameter fest? 
@@ -895,6 +1080,43 @@ Abbildung [[fig:pt-fa-wert]] illustriert das.
 #+NAME: fig:pt-fa-wert
 [[./figures/pt-fa.png]]
 
+
+** Funktion mit Parameter: Beispiel mit Code-Ersetzung 
+
+*** Eigentlicher Code 
+
+#+BEGIN_SRC python
+def f(a):
+    return a+1
+
+x = f(2)
+#+END_SRC
+
+*** Aufruf ersetzt, Namen mit Namensraum notiert: 
+
+#+BEGIN_SRC python
+def f(a):
+    return a+1
+
+# Aufruf ersetzt durch folgende Code-Folge 
+# Parameter der Funktion an Wert binden: 
+f_a = 2 
+f_return_value = f_a + 1 
+x = f_return_value 
+# Vernichte f_a, f_return_value 
+#+END_SRC
+
+
+** Zur Betonung: Code-Ersetzung NICHT hinschreiben! 
+
+- Um es nochmals zu betonen: Sie schreiben die Code-Ersetzung
+  natürlich *nicht* selbst auf!
+  - Das macht der Interpreter
+- Sonst wäre die Einführung von Funktionen völlig zwecklos
+  - Sie müssten das an *jeder* Stelle machen, an der Sie eine Funktion
+    aufrufen würden - *zwecklos* 
+- Das ist nur zur Illustration des (ungefähren) Effekts gedacht
+  - Details der Implementation in einem Interpreter sind anders 
 
 ** Funktion mit Parameter: Aufruf mit Ausdruck 
 
@@ -1068,14 +1290,6 @@ gleiche Objekt.
 
 
 
-
-
-
-
-
-
-
-
 ** Aufrufsemantik: Pass-by-assignment  
 
 - Formal ist die Aufrufsemantik von Python ein
@@ -1088,7 +1302,7 @@ gleiche Objekt.
     :END:
 
 Wenn Sie mit anderen Sprachen (C oder C++) vertraut sind: Dies klingt
-vielleicht nach call-by-reference, ist aber nicht genau das gleiche,
+vielleicht nach call-by-reference, ist aber nicht das gleiche,
 sondern etwas deutlich anderes. Wir kommen darauf noch zurück.
 
 
@@ -1325,6 +1539,44 @@ print("GP1")
 : Hallo GP1
 
 
+** ~print~ vs. ~return~? 
+
+Zur Klarstellung: 
+- ~print~ ist eine Funktion wie viele andere, mit einem bestimmten
+  Seiteneffekt: Wert wird ausgegeben (auf Bildschirm o.ä.)
+- ~return~ ist ein Schlüsselwort; es sorgt dafür, dass *nach* dem
+  Aufruf einer Funktion ein in der Funktion berechneter Wert noch
+  zugewiesen werden kann
+- Das hat nichts mit einander zu tun, wird trotzdem manchmal
+  verwechselt (häufiger Klausurfehler) 
+
+
+** ~print~ vs. ~return~: Beispiel 
+
+#+BEGIN_SRC python :exports both :results output
+a = 1 
+b = 2 
+def f(x):
+    return (x+1)
+
+def g(y):
+    print (y+1)
+
+a = f(5)
+b = g(10)
+#+END_SRC 
+
+*** Pingo 
+
+
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Werte von a und b?" 
+pingo_questions = ["6 und 11", "6 und 2", "6 und None", "5 und 2", "5 und 11",]
+pingo_duration = "180"
+
+%pingo
+#+END_SRC 
 
 
 ** Weiteres Beispiel für Funktionen 
@@ -1354,9 +1606,8 @@ Was wird hier ausgegeben?
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Resultat?" 
-pingo_type = "single"
 pingo_questions = ["1 und 11", "0 und 100", "10 und 1000", "111 und 1111", "11 und 111"]
-pingo_duration = "120"
+pingo_duration = "180"
 
 %pingo
 #+END_SRC 
@@ -1472,6 +1723,25 @@ def complex(real, imag):
 *** UEBUNG Beispoiele für docstrings schreiben lassen 
 
 Funktionen vorgeben... 
+
+
+** Type hints: Kommentare zu den vorgesehenen Typen 
+
+Zusätzlich oft nützlich: 
+- Kommentare, welche Typen für Parameter erwartet werden
+- Welchen Typ eine Funktion als Ergebnis liefert 
+- Sog. ~type hints~
+  ([[https://www.python.org/dev/peps/pep-0483][PEP 483]],
+  [[https://www.python.org/dev/peps/pep-0484][PEP 484]],
+  [[https://www.python.org/dev/peps/pep-0526/][PEP 526]])
+
+Beispiel: ~greeting~ erwartet String und liefert String 
+
+#+BEGIN_SRC python
+def greeting(name: str) -> str:
+    return 'Hello ' + name
+#+END_SRC
+
 
 
 ** Kommentare sind Kommunikation 
