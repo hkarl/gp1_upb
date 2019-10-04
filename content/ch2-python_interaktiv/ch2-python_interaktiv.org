@@ -104,7 +104,7 @@ def pingo(line):
 
 Ein Interpreter ist ein Programm, das Programme (oder
 Programmfragmente)  entgegennimmt und ausführt. Die Ergebnisse der
-Ausführung werden unmittelbar ausgegeben. 
+Ausführung werden unmittelbar dargestellt. 
 
 *** Beispiele für Interpreter					      :notes:
 
@@ -153,6 +153,18 @@ Interpreters. Beachten Sie die Analogie zu einem Maschinenmodell: Ein
 Interpreter ist in gewissem Sinne eine (sehr abstrakte) Form einer
 Maschine.   
 #+END_LaTeX
+
+
+** Read-Evaluate-Print (REPL)  - Start? 
+
+Genauer: 
+- Wir können den Inhalt einer Box beliebig lange editieren 
+- /read/ startet erst, wenn *Run* gedrückt (oder Tastenkombination)
+- Dann wird *gesamter* Inhalt der Box an Interpreter übergeben;
+  /evaluate/ startet
+  - Editieren des Box-Inhaltes während /evaluate/ beeinflusst
+    Ausführung nicht! 
+- Nach Ende von /evaluate/ erneut *Run* möglich 
 
 
 * Zahlen 
@@ -403,7 +415,7 @@ geht aber erst, wenn wir print haben :-(
 Zahlen kann man addieren - was ist mit Zeichenketten?  Erwartung? 
 
 #+BEGIN_SRC python 
-"Hallo" + " GP1" 
+"Hallo" + " Programmmierung" 
 #+END_SRC
 
 
@@ -422,7 +434,7 @@ entsteht, indem an $t_1$ unmittelbar $t_2$ angehängt wird.
 *** Subtraktion? 
 
 #+BEGIN_SRC python :exports both 
-"Hallo" - " GP1" 
+"Hallo" - " Programmmierung" 
 #+END_SRC
 
 
@@ -431,14 +443,14 @@ entsteht, indem an $t_1$ unmittelbar $t_2$ angehängt wird.
 *** Multiplikation? 
 
 #+BEGIN_SRC python 
-"Hallo" * " GP1" 
+"Hallo" * " Programmmierung" 
 #+END_SRC
 
 
 *** Division? 
 
 #+BEGIN_SRC python
-"Hallo" / " GP1" 
+"Hallo" / " Programmierung" 
 #+END_SRC
 
 
@@ -756,7 +768,7 @@ ausprobieren, vorhersagen lassen was passiert, ...
 *** Beispiel: Zeichenkette und Zahl 
 
 #+BEGIN_SRC python
-"Hallo GP1" + 5
+"Hallo Programmmierung" + 5
 #+END_SRC
 
 ** Sinnvolle Verknüpfungen?					   :subslide:
@@ -775,13 +787,13 @@ Was wären denn Verknüpfungen mit sinnvoller /Semantik/?
 *** ~str~ und ~int~ 
 
 #+BEGIN_SRC python 
-"Hallo GP1!" * 5
+"Hallo Programmmierung!" * 5
 #+END_SRC
 
 *** ~str~ und ~float~ 
 
 #+BEGIN_SRC python 
-"Hallo GP1!" * 3.1415
+"Hallo Programmmierung!" * 3.1415
 #+END_SRC
 
 *** Semantik?							    :animate:

@@ -1,4 +1,4 @@
-#+TITLE: Kapitel 1: Zweck der Vorlesung GP1 
+#+TITLE: Kapitel 1: Zweck der Vorlesung Programmierung 
 #+INCLUDE: "../template/header.org" :minlevel 2
 
 #+STARTUP: showeverything
@@ -739,13 +739,17 @@ pingo_duration = "30"
 ** Konsequenz? 
 
 - Hier:  Python als Einstieg 
-  - Grundlegende imperative, objektorientierte, funktionale Aspekte 
+  - Grundlegende imperative, objektorientierte, funktionale Aspekte
+  - Plus *ein wenig* Java am Ende 
 - In GPS, ggf. Eigeninitiative: Java 
   - Einführung statischer Typisierung
   - Wird für spätere Veranstaltungen gebraucht! 
 - Im vierten Semester: C 
 
+** Klausur? 
 
+- Nur der Python-Teil ist klausurrelevant 
+- Daher: Nur Übungsaufgaben für Python! 
 
 
 ** Alle Sprachen? 
