@@ -10,13 +10,13 @@ with open(f, 'r') as fp:
 inpingo = False
 
 for l in t:
-    if "pingo_token" in l:
+    if "pingo_host" in l:
         inpingo = True
 
     if not inpingo:
         print(l, end="")
         
-    if inpingo and "open_new_tab" in l:
+    if inpingo and "print (r.status_code)" in l:
         inpingo = False
         print(r'"\n"')
 
