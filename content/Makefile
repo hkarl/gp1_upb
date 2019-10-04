@@ -7,12 +7,12 @@
 RSYNC := /usr/local/bin/rsync 
 
 # Webserverdir: this depends on where you mount the group directory 
-WEBSERVERDIR := /Volumes/groups/fg-karl/public/http/lehre/ws1819/gp1/vorlesung
+WEBSERVERDIR := hkarl@sshgate.upb.de:/upb/groups/fg-karl/public/http/lehre/ws1920/prog/vorlesung
 # NOTE: resulting URL is: http://groups.uni-paderborn.de/fg-karl/lehre/ws1617/gp1/index.html
 
 # rsync into this directory; this will serve as reference version, with a symbolic link
 # GP1SERVERDIR := jupyterhub@gp1test.cs.upb.de:output
-GP1SERVERDIR := jhubrunner@gp1.cs.upb.de:/srv/lecture
+GP1SERVERDIR := hkarl@prog.cs.upb.de:/srv/lecture/Vorlesung
 
 # use this to ssh in a root
 ACCOUNTDIRBASE := root@gp1test.cs.upb.de:/home
