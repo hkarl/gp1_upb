@@ -309,6 +309,11 @@ und sinnvoll zu strukturieren.
  Programmcode fragen. 
 
 
+** Hausübungen -- Einführung Abgabesystem 
+
+- Erste Hausübung, 15.10.: Einführung in *Jupyter*,  das Abgabesystem für die Hausübungsblätter
+- Teilnahme *dringend* empfohlen! 
+
 
 ** Hausübungen -- Plagiate					   :subslide:
 
@@ -446,7 +451,7 @@ Zulassungsvoraussetzungen erfüllen ("Studienleistung"):
 
 ** Klausur -- Bonuspunkte 
 
-- 50% der Punkte aller Hausblätter: 1 Notenschritt 
+- 60% der Punkte aller Hausblätter: 1 Notenschritt 
 - 80% der Punkte aller Hausblätter: 2 Notenschritt 
 - Voraussetzung: Klausur bestanden 
 
