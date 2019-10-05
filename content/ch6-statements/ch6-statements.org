@@ -12,7 +12,7 @@
 * Überblick 
 
 
-** Setup 						  :skipslide:nolatex:
+** Setup                                                  :skipslide:nolatex:
    
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
@@ -1432,7 +1432,7 @@ Bleibt Schleifenvariable erhalten nach Schleifenende?
 
 
 #+BEGIN_SRC python :exports both :results output
-  s = "Hallo GP1"
+  s = "Hallo Prog"
   for ss in s:
       print(ss, end=" ")
 #+END_SRC 
@@ -1454,6 +1454,7 @@ for tt in t:
 
 - Überraschend? Nein!
   - Principle of least surprise 
+  - Semantik einer Menge 
 
 
 
@@ -1466,8 +1467,6 @@ for ss in s:
 #+RESULTS:
 : 1 2 3 4 
 
-- Überraschend? Nein!
-  - Semantik einer Menge 
 
 
 ** ~for~-Schleife über verschachtelte Datentypen 
@@ -1620,23 +1619,23 @@ range-Variante doof (aber in primitiven Sprachen geht es halt manchmal
 nicht anders): 
 
 #+BEGIN_SRC python :exports both :results output
-  s = "Hallo GP1"
+  s = "Hallo Prog"
   for i in range(len(s)):
       print(s[i], end="")
 #+END_SRC 
 
 #+RESULTS:
-: Hallo GP1
+: Hallo Prog
 
 
 
 #+BEGIN_SRC python :exports both :results output
-  for c in "Hallo GP1":
+  for c in "Hallo Prog":
       print(c, end="")
 #+END_SRC 
 
 #+RESULTS:
-: Hallo GP1
+: Hallo Prog
 
 
 Und das ganze evtl .mit Zeitmessung verbinden? Siehe magic %timeit 
@@ -2012,16 +2011,18 @@ for i in [3*x for x in range(5)]:
   print(any(ergebnis))
 #+END_SRC 
 
-- Anmerkung: Mit ~short-circuit~ Auswertung 
+
 
 ** Damit: Suchschleife ganz pythonisch 
 
+(Mit einer noch fehlenden Modifikation, siehe später)
+
 #+BEGIN_SRC python :exports both :results output
 def ungerade_in_liste(L):
-    return any([x % 2 == 1 or x in L])
+    return any([x % 2 == 1 for x in L])
 #+END_SRC 
 
-(Mit einer noch fehlenden Modifikation, siehe später)
+
 
 * Geschachtelte Schleifen 
 
