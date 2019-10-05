@@ -49,6 +49,7 @@ $(pdfs): %.pdf: %.tex
 	../../build/tangle.sh $< >> ../../build/log
 
 $(tgz): %.tgz: %.ipynb
+	touch uml/none.png
 	-tar cfz ${OUTPUTDIR}/$*.tgz $< figures uml/*.png
 
 java:
