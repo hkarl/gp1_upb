@@ -13,12 +13,12 @@
 
 
 ** Setup 						  :skipslide:nolatex:
-
+   
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+BEGIN_SRC  Python 
+#+BEGIN_SRC  python 
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
@@ -27,16 +27,19 @@ import requests
 import webbrowser
 from IPython.core.magic import register_line_magic
 
+
+pingo_host = "https://pingo.coactum.de/"
 pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+pingo_session = "538312"
+
 
 # Test-Session: 
-pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+pingo_url = pingo_host + "events/" + pingo_session + "/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '120'
+pingo_duration = '60'
 pingo_type = "single"
-
 
 @register_line_magic
 def pingo(line):
@@ -47,8 +50,35 @@ def pingo(line):
               'auth_token': pingo_token}
 
     r = requests.post(pingo_url, json=params)
-    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
+
+
+    # session id not found
+    if r.status_code == 404: 
+        print ("404 error: session id not found")
+
+    # wrong auth token
+    elif r.status_code == 401:
+        print (r.content)
+
+    # e.g. not access to this session
+    elif r.status_code == 200:
+        print (r.content)
+
+    # ok
+    elif r.status_code == 201:
+        webbrowser.open_new_tab(pingo_host + r.headers['Location'])
+
+    # e.g. wrong parameters
+    elif r.status_code == 500:
+        print ("500 error: e.g. wrong parameters")
+
+    # some other problem
+    else:
+        print (r.status_code)
 #+END_SRC
+
+
+
 
 
 
@@ -82,7 +112,7 @@ Aber: /Kein Einfluss auf Reihenfolge der Ausführung!/
 
 ** Ein Programm 
 
-- Ein Programm ist eine Folge von Anweisungen
+- Ein Programm ist eine Folge von Anweisungen (oder Ausdrücken)
   - Ausgeführt entsprechend des /Ausführungsmodells/
   - Bis jetzt: Sequentiell, Funktionsaufruf 
 - Um die Reihenfolge der Anweisungen zu beeinflussen, müssen wir das
@@ -126,6 +156,22 @@ Idee:
 - Semantik: die angegebene Folge von Anweisungen nur ausführen, wenn
   der Ausdruck /zum Zeitpunkt der Ausführung/ den Wert wahr hat
   - Auswertung des Ausdrucks einmal /vor/ Ausführung des Blocks
+
+
+** Definition: Block 
+
+*** Block					       :B_definition:animate:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+Ein Block ist eine Folge beliebiger Anweisungen (mindestens eine
+Anweisung).  Die Zustandsänderung, die ein Block bewirkt, ist die
+Zustandsänderung, die sich durch die sequentielle Ausführung der
+Anweisungen des Blocks ergibt. Sequentiell bezieht sich hier auf die
+Reihenfolge der Anweisung im Programmcode. 
+
+
 
 ** ~if~: Syntax 
 
@@ -348,7 +394,7 @@ Insebs.: das ist ein AUSDRUCK und keine Anweisung, kann also an einen Namen zuge
 
 ** Geschachtelte ~if/else~: Einfachere Fälle			   :subslide:
 
-- Die ganzen Teilblöcke dürfen auch leer sein 
+- Braucht man alle Teilböcke? 
 - Leerer Teilblock nach ~else~?
   - Dann kann man das ~else~ auch weglassen und nur das ~if~ schreiben
 
@@ -563,19 +609,6 @@ folgende ~elif~ Ausdrücke). Dem ~if~ kann optional ein oder mehrere
 
 Die Blöcke werden durch Einrückung den jeweiligen Bedingungen bzw. dem
 ~else~ zugeordnet. 
-
-*** Definition: Block 
-
-*** Block					       :B_definition:animate:
-    :PROPERTIES:
-    :BEAMER_env: definition
-    :END:
-
-Ein Block ist eine Folge beliebiger Anweisungen (mindestens eine
-Anweisung).  Die Zustandsänderung, die ein Block bewirkt, ist die
-Zustandsänderung, die sich durch die sequentielle Ausführung der
-Anweisungen des Blocks ergibt. Sequentiell bezieht sich hier auf die
-Reihenfolge der Anweisung im Programmcode. 
 
 
 * Schleifen: while 
@@ -1952,6 +1985,43 @@ for i in [3*x for x in range(5)]:
 
 
 
+
+** List comprehsion mit Wahrheitswerten 
+
+- Man kann natürlich ~True~, ~False~ als Ausdruck berechnen 
+
+#+BEGIN_SRC python :exports both :results output
+  ergebnis = [x % 2 == 0 
+              for x in [1, 2, 3, 17, 42, 99]
+             ]
+  print(ergebnis)
+#+END_SRC 
+
+** List comprehsion mit Wahrheitswerten: Reduzieren? 
+
+- Schön wäre: Und bzw. Oder-Verknüpfung für solche Listen mit
+  Wahrheitswerten 
+- Eingebaute Funktionen: ~any~, ~all~
+  - ~any~: ~True~ wenn mindestens ein Element ~True~ ist 
+  - ~all~: ~True~ wenn alle Elemente ~True~ sind 
+
+#+BEGIN_SRC python :exports both :results output
+  ergebnis = [x % 2 == 0 
+              for x in [1, 2, 3, 17, 42, 99]
+             ]
+  print(any(ergebnis))
+#+END_SRC 
+
+- Anmerkung: Mit ~short-circuit~ Auswertung 
+
+** Damit: Suchschleife ganz pythonisch 
+
+#+BEGIN_SRC python :exports both :results output
+def ungerade_in_liste(L):
+    return any([x % 2 == 1 or x in L])
+#+END_SRC 
+
+(Mit einer noch fehlenden Modifikation, siehe später)
 
 * Geschachtelte Schleifen 
 
