@@ -437,7 +437,7 @@ durch den Tutor.
 Um an der Klausur teilnehmen zu dürfen, müssen Sie folgende
 Zulassungsvoraussetzungen erfüllen ("Studienleistung"): 
 
-- Auf *mindestens* 7 der 9 (ggf. 10)  Übungsblätter *jeweils
+- Auf *mindestens* 7 der 9 Hausübungsblätter *jeweils
   mindestens* 20% der 
   erreichbaren Punkte erzielen
   - Es genügt *nicht*,  in der Summe entsprechend viele Punkte zu
@@ -464,6 +464,33 @@ Zulassungsvoraussetzungen erfüllen ("Studienleistung"):
 [[./uml/weg-zur-klausur.png]]
 
 
+** PAUL: Anmeldungen 
+
+*VIER* Anmeldungen in PAUL erforderlich! 
+
+- Anmeldung zum Modul 
+- Anmeldung zur Lehrveranstaltung selbst / zur Übungsgruppe
+- Anmeldung zur Studienleistung (!!!)
+- Anmeldung zur Prüfung
+
+*JEDE* Anmeldung braucht *zwei* Klicks 
+- *Anmelden* und *Abschicken* 
+
+*Daumenregel*: Wenn Sie sich in einer LV für etwas anmelden können, dann tun Sie das 
+
+
+** PAUL: Fristen 
+
+- Revisionsphase: Endet 25.10.2019. An- und Abmelden von Lehrveranstaltungen 
+- Studienleistung:
+  - Anmelden von 21.10.2019 bis 21.11.2019
+  - Abmelden regulär bis 17.1.2019 (aber das funktioniert für diese VL nicht!)
+- Prüfung
+  - Anmelden erster Termin: 21.10. bis 21.11.
+  - Anmelden zweiter Termin: 2.3. bis 6.3.
+    - Auch möglich, wenn nicht zum ersten Termin angemeldet 
+  - Abmelden: bis eine Woche vor Prüfungstermin
+
 ** Wo finden Sie was? 
 
  - PAUL: Anmeldung zu Übungen und Klausur
@@ -476,7 +503,10 @@ Zulassungsvoraussetzungen erfüllen ("Studienleistung"):
    - Video-Mitschnitte: auf
      [[https://videos.uni-paderborn.de][Video-Portal der UPB]]
      (Channel-Name noch offen)
-     - Bei Problemen mit Videos: Mail an imt@upb.de! 
+     - Bei Problemen mit Videos: Mail an imt@upb.de!
+ - 
+    [[https://cs.uni-paderborn.de/studium/beratung-und-unterstuetzung/fachberatung/][Fachberatung Informatik]] - für formale Prozesse, Probleme, ...
+   - [[https://cs.uni-paderborn.de/fileadmin/informatik/Studium/Beratung_und_Unterstuetzung/Fachberatung/Regeln_zu_Anmeldungen_und_Pruefungen_Winter_2019_de.pdf][Hinweise zum Wintersemester 19/20]]
 
 
 
