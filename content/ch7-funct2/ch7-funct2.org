@@ -13,12 +13,12 @@
 
 
 ** Setup 						  :skipslide:nolatex:
-
+   
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+BEGIN_SRC  Python 
+#+BEGIN_SRC  python 
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
@@ -27,16 +27,19 @@ import requests
 import webbrowser
 from IPython.core.magic import register_line_magic
 
+
+pingo_host = "https://pingo.coactum.de/"
 pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+pingo_session = "538312"
+
 
 # Test-Session: 
-pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+pingo_url = pingo_host + "events/" + pingo_session + "/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '120'
+pingo_duration = '60'
 pingo_type = "single"
-
 
 @register_line_magic
 def pingo(line):
@@ -47,8 +50,36 @@ def pingo(line):
               'auth_token': pingo_token}
 
     r = requests.post(pingo_url, json=params)
-    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
+
+
+    # session id not found
+    if r.status_code == 404: 
+        print ("404 error: session id not found")
+
+    # wrong auth token
+    elif r.status_code == 401:
+        print (r.content)
+
+    # e.g. not access to this session
+    elif r.status_code == 200:
+        print (r.content)
+
+    # ok
+    elif r.status_code == 201:
+        webbrowser.open_new_tab(pingo_host + r.headers['Location'])
+
+    # e.g. wrong parameters
+    elif r.status_code == 500:
+        print ("500 error: e.g. wrong parameters")
+
+    # some other problem
+    else:
+        print (r.status_code)
 #+END_SRC
+
+
+
+
 
 
 ** Was bisher geschah 
@@ -433,6 +464,51 @@ f()
 #+END_SRC 
 
 
+** Illustration -- Code ersetzt (Schritt 1) 
+
+#+BEGIN_SRC python :exports both :results output
+
+def f():
+    print("in f, vor g")
+    x = g()
+    print("in f, nach g", "x: ", x)
+
+def g():
+    y = 42
+    return y
+
+# wir ersetzen den Aufruf von f mit dem Code von f
+# und benennen x um: 
+print("in f, vor g")
+f_x = g()
+print("in f, nach g", "x: ", f_x)
+#+END_SRC 
+
+** Illustration -- Code ersetzt (Schritt 2) 
+
+#+BEGIN_SRC python :exports both :results output
+
+def f():
+    print("in f, vor g")
+    x = g()
+    print("in f, nach g", "x: ", x)
+
+def g():
+    y = 42
+    return y
+
+# wir ersetzen den Aufruf von f mit dem Code von f
+# und benennen x um. 
+# wir ersetzen ZUSÄTZLICH den Aufruf von g und benennen y um: 
+print("in f, vor g")
+# hier g ersetzen: 
+g_y = 42 
+g_return_value = g_y
+f_x = g_return_value 
+# vernichte g_y, g_return_value 
+print("in f, nach g", "x: ", f_x)
+#+END_SRC 
+
 ** Beispiel: Matrix ausgeben  
 
 Beispiel: Zwei Funktionen, um eine Matix auszugeben 
@@ -477,12 +553,12 @@ Beispiel: Zwei Funktionen, um eine Matix auszugeben
 ** Beobachtung: Reihenfolge Definition und Aufruf 
 
 Funktionsname vor Aufruf definiert -- das hier scheitert: 
-- Fehlermeldung: ~NameError: name 'f' is not defined~
+- Fehlermeldung: ~NameError: name 'ff' is not defined~
 
 #+BEGIN_SRC python :exports code :results output
-f()
+ff()
 
-def f():
+def ff():
     print("Hallo")
 #+END_SRC 
 
@@ -644,7 +720,82 @@ Offenbar unterschiedliches Verhalten
   - Local scopes zweier Funktionen haben nichts miteinander zu tun!
     - Genauer: Die Scopes der Namensräume der Funktionen... 
     - (Scheinbar) gleicher Name in unterschiedlichen Scopes:
-      Unterschiedlicher Namer!   
+      Unterschiedlicher Name!   
+
+
+** Illustration durch Code-Ersetzung (Schritt 1) 
+
+Schreiben wir diese Beispiel wieder durch Code-Ersetzung gedanklich
+um: 
+#+BEGIN_SRC python :exports both :results output
+def f():
+    x = 17
+    g()
+
+def g():
+    z = a
+    z += x
+    print(z)
+
+a = 42
+# Aufruf f ersetzen, x umbenennen:
+f_x = 17
+g()
+#+END_SRC 
+
+
+
+** Illustration durch Code-Ersetzung (Schritt 2) 
+
+Ersetzen wir den Aufruf von ~g~ -- welche Namen umschreiben?? 
+
+
+#+BEGIN_SRC python :exports both :results output
+def f():
+    x = 17
+    g()
+
+def g():
+    z = a
+    z += x
+    print(z)
+
+a = 42
+# Aufruf f ersetzen, x umbenennen:
+f_x = 17
+# Aufruf g ersetzen
+# Jetzt Frage: z, a, x mit g_... umschreiben? 
+# Welche sind im Scope von g? 
+
+#+END_SRC 
+
+
+** Illustration durch Code-Ersetzung (Schritt 3) 
+
+Regel: *Zuweisung* an Namen bestimmt Scope! 
+- Also: in ~g~ wird nur ~z~ zugewiesen, nur ~z~ ist im Scope.
+- Nur ~z~ wird zu ~g_z~ umgeschrieben! 
+
+#+BEGIN_SRC python :exports both :results output
+def f():
+    x = 17
+    g()
+
+def g():
+    z = a
+    z += x
+    print(z)
+
+a = 42
+# Aufruf f ersetzen, x umbenennen:
+f_x = 17
+# Aufruf g ersetzen, nur z zu g_z umschreiben! 
+g_z = a 
+g_z += x   # !!! 
+print(g_z) 
+
+#+END_SRC 
+
 
 
 ** Disjunkte local scopes -- Beispiel 
@@ -914,6 +1065,52 @@ Endlos, terminiert nicht!
     (z.B. 0) 
 
 
+** Wechselseitiger Aufruf: Code Ersetzung? 
+
+Kommen wir bei diesem Beispiel mit Code-Ersetzung für die
+Funktionsaufrufe weiter? 
+- Problem: Welches ~x~? 
+
+#+BEGIN_SRC python :exports code :results output
+def f():
+    x = 1
+    g()
+
+def g()
+    x = 2
+    f()
+
+f()
+#+END_SRC 
+
+
+
+** Wechselseitiger Aufruf: Code Ersetzung? 
+
+Kommen wir bei diesem Beispiel mit Code-Ersetzung für die
+Funktionsaufrufe weiter? 
+- Problem: Welches ~x~?
+- Zeigt das hier das korrekte Verhalten???
+
+#+BEGIN_SRC python :exports code :results output
+def f():
+    x = 1
+    g()
+
+def g()
+    x = 2
+    f()
+
+# Aufruf f ersetzen: 
+f_x = 1 
+# Aufruf g ersetzen: 
+g_x = 2 
+# Aufruf f ersetzen: 
+f_x = 1 # ?!?!?!?
+#+END_SRC 
+
+
+
 ** Wechselseitiger Aufruf: Beispiel 
 
 Was tut dieses Programm? 
@@ -1041,6 +1238,36 @@ Jeder rekursive *Funktionsaufruf* hat einen eigenen Namensraum. Die
 Namen in einem Namensraum haben nichts mit Namen in einem
 anderen Namensraum zu tun, selbst wenn es sich um den gleichen Scope
 handeln sollte. 
+
+
+** Wechselseitiger Aufruf: Code Ersetzung richtig! 
+
+Das Beispiel von oben mit *separaten* Namenspräfixen für jeden Aufruf: 
+
+#+BEGIN_SRC python :exports code :results output
+def f():
+    x = 1
+    g()
+
+def g()
+    x = 2
+    f()
+
+# Aufruf f ersetzen: 
+f_1_x = 1 
+# Aufruf g ersetzen: 
+g_1_x = 2 
+# Aufruf f ersetzen: 
+f_2_x = 1 # !! zweiter Aufruf von f; neuer Namenspräfix! 
+# Aufruf g ersetzen: 
+g_2_x = 2 # entsprechend für g 
+# Usw: 
+f_3_x = 1 
+g_3_x = 2 
+# ... 
+#+END_SRC 
+
+
 
 
 *** UEBUNG Beispielprogramme für indirekte Rekursion 
@@ -1462,6 +1689,20 @@ Also:
   - Regel für die Nutzung von Funktionen? 
 - Hier: einige erste Faustregeln
   - Später: VL Software-Entwurf 
+
+** Domänen-Wissen 
+
+- Einsicht: Man kann eine Lösung nicht programmieren wenn man das
+  Problem nicht versteht
+  - Wissen über die Domäne des Problems
+- Dann: Problem in einzelne Schritte zerlegen
+  - Diese Schritte weiter zerlegen
+- Dabei: Gute Zerlegungen haben geringe Abhängigkeiten zwischen
+  Einzelschritten
+- Vergleich: Alltagsbeispiele
+  - Kuchen backen; morgens anziehen; ...
+- Denken Sie nicht zu schnell in Code! Denken Sie innerhalb des
+  Problems! 
 
 ** Funktionen und Coupling 
 
