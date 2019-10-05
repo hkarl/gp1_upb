@@ -1,4 +1,4 @@
-#+SUBTITLE: Grundlagen der Programmierung 1 
+#+SUBTITLE: Vorlesung Programmierung 
 #+OPTIONS: tags:nil
 
 #+LATEX_CLASS: memoir 
