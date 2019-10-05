@@ -12,31 +12,33 @@
 * Überblick 
   
 ** Setup 						  :skipslide:nolatex:
-
+   
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+BEGIN_SRC  Python 
+#+BEGIN_SRC  python 
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
-
 
 import requests
 import webbrowser
 from IPython.core.magic import register_line_magic
 
+
+pingo_host = "https://pingo.coactum.de/"
 pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+pingo_session = "538312"
+
 
 # Test-Session: 
-pingo_url = "https://pingo.upb.de/events/311055/quick_start.json"
+pingo_url = pingo_host + "events/" + pingo_session + "/quick_start.json"
 # Produktiv-Session: 
 # pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
 
-pingo_duration = '120'
+pingo_duration = '60'
 pingo_type = "single"
-
 
 @register_line_magic
 def pingo(line):
@@ -47,9 +49,36 @@ def pingo(line):
               'auth_token': pingo_token}
 
     r = requests.post(pingo_url, json=params)
-    webbrowser.open_new_tab("https://pingo.upb.de" + r.headers['Location'])
 
+
+    # session id not found
+    if r.status_code == 404: 
+        print ("404 error: session id not found")
+
+    # wrong auth token
+    elif r.status_code == 401:
+        print (r.content)
+
+    # e.g. not access to this session
+    elif r.status_code == 200:
+        print (r.content)
+
+    # ok
+    elif r.status_code == 201:
+        webbrowser.open_new_tab(pingo_host + r.headers['Location'])
+
+    # e.g. wrong parameters
+    elif r.status_code == 500:
+        print ("500 error: e.g. wrong parameters")
+
+    # some other problem
+    else:
+        print (r.status_code)
 #+END_SRC
+
+
+
+
 
 ** Dieses Kapitel 
 
@@ -107,32 +136,32 @@ print(t)
 *** Eine Aufzählung von Zeichenketten:				    :animate:
 
 #+BEGIN_SRC python :exports both :results output 
-t = ("Hallo", "GP1", "!")
+t = ("Hallo", "Prog", "!")
 print(t) 
 #+END_SRC 
 
 #+RESULTS:
-: ('Hallo', 'GP1', '!')
+: ('Hallo', 'Prog', '!')
 
 *** Eine gemischte Aufzählung					    :animate:
 
 #+BEGIN_SRC python :exports both :results output 
-t = ("Hallo", "GP1", 16, 17) 
+t = ("Hallo", "Prog", 16, 17) 
 print(t) 
 #+END_SRC 
 
 #+RESULTS:
-: ('Hallo', 'GP1', 16, 17)
+: ('Hallo', 'Prog', 16, 17)
 
 *** Eine Aufzählung von Aufzählung				    :animate:
 
 #+BEGIN_SRC python :exports both :results output 
-t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+t = ("Hallo", "Prog", (1, 2, 3, 9, 8, 7) ) 
 print(t) 
 #+END_SRC 
 
 #+RESULTS:
-: ('Hallo', 'GP1', (1, 2, 3, 9, 8, 7))
+: ('Hallo', 'Prog', (1, 2, 3, 9, 8, 7))
 
 
 ** Tuples und Objekte: Visualisierung				   :subslide:
@@ -141,7 +170,7 @@ Tuple: Aufzählung von Referenzen auf Objekte
 
 #+BEGIN_SRC python 
 %%tutor 
-t = ("Hallo", "GP1", 1, 2, 3)
+t = ("Hallo", "Prog", 1, 2, 3)
 #+END_SRC 
 
 *** Visualisierung 						  :dropslide:
@@ -164,14 +193,14 @@ Tuple von Tuple: Aufzählung von Referenzen auf Referenzen auf Objekte
 
 #+BEGIN_SRC python 
 %%tutor -t
-t = (("Hallo", "GP1"),  (1, 2, 3))
+t = (("Hallo", "Prog"),  (1, 2, 3))
 #+END_SRC 
 
 
 *** Visualisierung						  :dropslide:
 
 Auch wenn ein Tuple aus Tuples besteht, passiert nichts
-überraschendes. Im Beispiel sind die beiden Tuple ~("Hallo", "GP1")~
+überraschendes. Im Beispiel sind die beiden Tuple ~("Hallo", "Prog")~
 und  ~(1, 2, 3)~ Aufzählungen von Referenzen auf die jeweiligen
 Objekte. Diese beiden Tuple haben zwar keinen Namen, aber das macht
 nichts; eine Referenz darauf gibt es trotzdem -- nämlich aus dem
@@ -233,19 +262,19 @@ das existiert.
 *** Beispiel
 
 #+BEGIN_SRC python :exports both :results output 
-t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+t = ("Hallo", "Prog", (1, 2, 3, 9, 8, 7) ) 
 print("t[1]: ", t[1])
 print("t[2]: ", t[2]) 
 #+END_SRC 
 
 #+RESULTS:
-: GP1
+: Prog
 : (1, 2, 3, 9, 8, 7)
 
 *** Beispiel: Verkettete Subskripts				    :animate:
 
 #+BEGIN_SRC python :exports both :results output
-t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+t = ("Hallo", "Prog", (1, 2, 3, 9, 8, 7) ) 
 print(t[2][3])
 #+END_SRC 
 
@@ -256,7 +285,7 @@ print(t[2][3])
 *** Beispiel: Fehler						    :animate:
 
 #+BEGIN_SRC python :exports both :results output 
-t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+t = ("Hallo", "Prog", (1, 2, 3, 9, 8, 7) ) 
 print(t[5])
 #+END_SRC
 
@@ -395,7 +424,7 @@ Bei Zugriff: Namen an entsprechendes Objekt binden
 
 #+BEGIN_SRC python :exports both :results output
 %%tutor
-t = ("Hallo", "GP1")
+t = ("Hallo", "Prog")
 s = t[0]
 #+END_SRC 
 
@@ -460,7 +489,7 @@ print(t[-4:-1])
 
 *** Slicing mit einem Wert: [n:]
 
-Von gegebenem Wert bis zum Ende 
+Von gegebenem Index bis zum Ende 
 
 #+BEGIN_SRC python :exports both :results output
 t = ('a', 'b', 'c', 'd', 'e', 'f')
@@ -498,9 +527,9 @@ print(t[-2:])
 : ('d', 'e', 'f')
 
 
-*** Slicing mit einem Wert: [:n]				    :animate:
+*** Slicing mit einem Wert: [:n] 				    :animate:
 
-Vom Anfang bis zu gegebenem Wert
+Vom Anfang bis zu gegebenem Index
 
 #+BEGIN_SRC python :exports both :results output
 t = ('a', 'b', 'c', 'd', 'e', 'f')
@@ -527,20 +556,19 @@ print(t[:-2])
 Was gibt das aus? 
 
 #+BEGIN_SRC python :exports both :results output 
-t = ("Hallo", "GP1", (1, 2, 3, 9, 8, 7) ) 
+t = ("Hallo", "Prog", (1, 2, 3, 9, 8, 7) ) 
 print(t[t[2][0:1][0]-1:t[2][1]])
 #+END_SRC 
 
 #+RESULTS:
-: ('Hallo', 'GP1')
+: ('Hallo', 'Prog')
 
 
 *** Pingo							    :nolatex:
 #+BEGIN_SRC python :exports code
 pingo_title = "Ausgabe von print(t[t[2][0:1][0]-1:t[2][1]])?" 
-pingo_type = "single"
-pingo_questions = ["'Hallo', 'GP1'", "('Hallo', 'GP1')", 
-                       "(1, 2, 3)", "('GP1', '1', '2')" ]
+pingo_questions = ["'Hallo', 'Prog'", "('Hallo', 'Prog')", 
+                       "(1, 2, 3)", "('Prog', '1', '2')" ]
 pingo_duration = "180"
 
 %pingo
@@ -689,7 +717,7 @@ t[2] = 17
 - Beispiel: 
 
 #+BEGIN_SRC python :exports both :results output
-s = "Hallo GP1"
+s = "Hallo Prog"
 print(s[6:-1])
 #+END_SRC 
 
@@ -834,9 +862,9 @@ L = [1, 2, 42, 17]
 # die leere Liste: 
 L = []
 # eine heterogene Liste: 
-L = [1, 2, "Hallo", "GP1"]
+L = [1, 2, "Hallo", "Prog"]
 # eine geschachtelte Liste: 
-L = [1, 2, ["Hallo", "GP1"], (42, 17)]
+L = [1, 2, ["Hallo", "Prog"], (42, 17)]
 #+END_SRC 
 
 ** Zugriff							   :subslide:
@@ -846,7 +874,7 @@ Zugriff wie bei Tuple
 
 #+BEGIN_SRC python :exports both :results output
 %%tutor -t
-L = [1, 2, ["Hallo", "GP1"], (42, 17)]
+L = [1, 2, ["Hallo", "Prog"], (42, 17)]
 print("L: ", L)
 print("L[1]: ", L[1]) 
 print("L[2][0]: ", L[2][0]) 
@@ -866,7 +894,7 @@ Elementen:
 - und dann ein Tuple aus zwei Zahlen 
 
 #+BEGIN_SRC python :exports code
-L = [1, 2, ["Hallo", "GP1"], (42, 17)]
+L = [1, 2, ["Hallo", "Prog"], (42, 17)]
 #+END_SRC
 
 #+CAPTION: Struktur geschachtelter Liste
@@ -902,7 +930,6 @@ print(L.index(2))
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Was gibt print(L.index(2)) aus?" 
-pingo_type = "single"
 pingo_questions = ["1", "2", "3", "4"]
 pingo_duration = "120"
 
@@ -1021,7 +1048,7 @@ print(L)
 
 Weil wir ja schon ein append haben... aber noch kein prepend 
 
-** Pingo: ~append~ oder ~extend~? 
+** Pingo: ~append~ oder ~extend~?				    :nolatex:
 
 #+BEGIN_SRC python :exports both :results output
 L1 = [1, 2, 3]
@@ -1033,7 +1060,6 @@ L1.???(7)
 
 #+BEGIN_SRC python :exports code
 pingo_title = "append oder extend?" 
-pingo_type = "single"
 pingo_questions = ["append, dann extend", "extend, dann append"]
 pingo_duration = "180"
 
@@ -1154,7 +1180,7 @@ das bedeuten?
 [[./figures/pt-copy-list-of-list.png]]
 
 
-** Pingo: Kopie einer Liste von Listen 
+** Pingo: Kopie einer Liste von Listen				    :nolatex:
 
 Was wird hier ausgegeben? 
 
@@ -1170,7 +1196,6 @@ print(M)
 
 #+BEGIN_SRC python :exports code
 pingo_title = "Ausgabe nach Kopie einer Liste von Listen" 
-pingo_type = "single"
 pingo_questions = ["[1, [2, 3], 4]", "[17, [2, 3], 4]", "[1, [2, 17], 4]"]
 pingo_duration = "180"
 
@@ -1716,11 +1741,11 @@ print(D)
 %%tutor -t
 D = {}
 D["name"] = "Holger"
-D["berufung"] = "GP1-Vorleser" 
+D["berufung"] = "Prog-Vorleser" 
 D["telefon"] = 605375
 D[1] = 17 
-D[42] = "GP1" 
-D["Vorlesungen"] = ["GP1", "KMS", "Rechnernetze"]
+D[42] = "Prog" 
+D["Vorlesungen"] = ["Prog", "KMS", "Rechnernetze"]
 print(D)
 print(D[42])
 #+END_SRC 
@@ -1970,7 +1995,50 @@ Funktionsname.
 Je nach neuem Typ und gewünschtem Objekt kann die Konvertierung
 gelingen oder scheitern (was zu einer Fehlermeldung führt).
 
+**  Typen dokumentieren?  
 
+- Vorheriges Kapitel: Hinweise, welche Typen eine Funktion erwartet
+  oder liefert
+- Wäre das bei komplizierten Typen nicht auch nützlich?
+  - Beispiel: Liste über Paare komplexer Zahlen -- wie
+    aufschreiben?
+- Zur strukturierten Dokumentation, zur Überprüfung des Codes vor der
+  Laufzeit
+  - Sog. /static type checking/
+
+** Hinweise auf Typen - Type Hints
+ 
+- Type Hint Mechanismus leistet das
+  - Abstrakte Beschreibung von Datentypen
+  - Hinweis, welchen Type eine Funktion erwartet, ein Name
+    referenzieren sollte
+- Beispiel: 
+
+#+BEGIN_SRC python 
+from typing import Tuple, List
+
+Vector = List[Tuple[complex, complex]]
+
+def inner_vector_product(v: Vector) -> complex: 
+    return sum(x*y for x,y in v)
+
+vec = [(1,1), (2,2)] # type: Vector
+vec2 = [(1,1), (2,2)]
+vec3 = ["a", "b", "c"]
+
+inner_vector_product(vec)
+inner_vector_product(vec2)
+inner_vector_product(vec3)
+inner_vector_product(17)
+#+END_SRC
+
+
+** Type hints überprüfen 
+
+- Manche IDEs machen das automatisch (z.B. PyCharm) 
+- Sonst: Kommandozeile mit Kommando ~mypy~ 
+  - Gibt Hinweise auf Typ-Probleme  
+- Weitere Info: PEP 484, [[http://mypy-lang.org/index.html][mypy Website]]
 
 * Zusammenfassung 
 
