@@ -35,7 +35,7 @@
 
 - Java ist sehr viel konsequenter objektorientiert als Python 
 - Eine Auswirkung: Verteilung eines Programms auf Dateien
-  - Regel: Eine Datei = eine Klasse 
+  - Regel: Eine Datei = eine (öffentliche) Klasse 
 
 ** Programmstruktur aus mehreren Dateien? 
 
@@ -69,10 +69,11 @@ Klassen instanziieren und dort Methoden aufrufen.
 
 - Java unterscheidet die Übersetzung und die Ausführung eines
   Programms 
-- Eine ~*.java~ ist nicht direkt ausführbar
+- Eine ~*.java~ Datei ist nicht direkt ausführbar
 - Compiler: ~javac~
   - Übersetzt von ~*.java~ nach ~*.class~
-  - ~*.class~ Binärdatei mit Zwischencode; nicht direkt für Menschen lesbar
+  - ~*.class~ Binärdatei mit Zwischencode; nicht direkt für Menschen
+    lesbar; nicht direktausführbar 
 - Ausführung: ~java~
   - Argument: der Name der Klasse, die die ~main~-Methode enthält
     - /Nicht/ die ~.class~-Datei
@@ -119,7 +120,7 @@ java TestClass
 
 
 
-** TODO Anmerkung: Java  und Jupyterhub 
+** Anmerkung: Java  und Jupyterhub 
 
 - Jupyterhub ist nur bedingt auf die Ausführung von Java ausgelegt
 - Insbesondere ist der derzeitige Java Standard, Version 8, nicht zu
@@ -134,7 +135,7 @@ java TestClass
 
 
 
-** TODO Anmerkung: Java, Dateien, Editoren, IDE 
+** Anmerkung: Java, Dateien, Editoren, IDE 
 
 - Da Java und Jupyterhub nicht so schön zusammenpassen: Sie brauchen
   Editoren
@@ -253,6 +254,12 @@ In dieser Zeile geht der Kommentar weiter */
 
 * Datentypen 
 
+** Variablen! 
+
+- Java benutzt Variablen!
+  - Ein Name für eine Speicherstelle
+  - Die mit Werten eines bestimmten Typs gefüllt werden kann
+
 ** Einfache Datentypen 
 
 Java unterschiedet verschiedene Arten von Datentypen 
@@ -360,7 +367,7 @@ Zuweisung ein Fehler auf, so produziert dies hier im Skript
 
 ** Klassen als Datentypen 
 
-- Klassen definierten Typen
+- Klassen definieren Typen
 - Haben eigene, komplexe Syntax zur Definition
 - Siehe nächstes Kapitel 
 
@@ -592,7 +599,7 @@ x = x + (int) 0.00001;
   die Werte gelegt werden können 
 - Zuweisung?
   - Bei einer Zuweisung wird der Wert von einer Schachtel in die
-    andere kopiert 
+    andere /kopiert/ 
 
 #+BEGIN_SRC java :exports code :results output :classname XXX
 %%tutor -l java 
@@ -727,7 +734,7 @@ wird. Abbildung [[fig:jt-assign-arrays]] illustriert dies.
 ** Zeiger (Referenzen) 
 
 - Variablen eines komplexen Typs /speichern nicht den Wert selbst/
-- Vielmehr speichern sie einen Zeiger (eine /Referenz/) auf den Wert
+- Vielmehr speichern sie einen Zeiger (eine /Referenz/) auf die Speicherstelle
 - Das ist ähnlich zur /Schild/-Vorstellung bei Python
   - Allerdings nicht konsequent
   - Z.B. gibt es keine Referenzen auf Funktionen/Methoden
