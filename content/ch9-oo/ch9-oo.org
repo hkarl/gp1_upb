@@ -2036,7 +2036,7 @@ Nächstes Kapitel: Exceptions!
 - Vererben: Hinzufügen von *neuen* Attribute, Methoden 
 - Instantiieren: Eine Objekt einer Klasse erschaffen und die
   abstrakten Attribute mit konkreten Werten füllen
-  - Sandförmchen vs. Sandkuchen
+  - Sandförmchen vs. Sandkuchen; Muster vs. Beispiel 
 - (Leider) manchmal Klausurfehler: Statt eine Klasse zu einem Objekt
   zu instantiieren und die Werte zu setzen wird für jedes Objekt eine
   neue Unterklasse erzeugt
