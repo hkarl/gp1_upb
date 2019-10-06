@@ -14,16 +14,73 @@
 
 
 ** Setup 						  :skipslide:nolatex:
-
+   
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+BEGIN_SRC  Python 
+#+BEGIN_SRC  python 
 %load_ext tutormagic
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+
+import requests
+import webbrowser
+from IPython.core.magic import register_line_magic
+
+
+pingo_host = "https://pingo.coactum.de/"
+pingo_token = "BRx9QJP7rjdUGBq3x4hP"
+pingo_session = "538312"
+
+
+# Test-Session: 
+pingo_url = pingo_host + "events/" + pingo_session + "/quick_start.json"
+# Produktiv-Session: 
+# pingo_url = "https://pingo.upb.de/events/204051/quick_start.json"
+
+pingo_duration = '60'
+pingo_type = "single"
+
+@register_line_magic
+def pingo(line):
+    params = {'survey_name': pingo_title, 
+              'predef_options': pingo_questions, 
+              'q_type': pingo_type,
+              'duration': pingo_duration, 
+              'auth_token': pingo_token}
+
+    r = requests.post(pingo_url, json=params)
+
+
+    # session id not found
+    if r.status_code == 404: 
+        print ("404 error: session id not found")
+
+    # wrong auth token
+    elif r.status_code == 401:
+        print (r.content)
+
+    # e.g. not access to this session
+    elif r.status_code == 200:
+        print (r.content)
+
+    # ok
+    elif r.status_code == 201:
+        webbrowser.open_new_tab(pingo_host + r.headers['Location'])
+
+    # e.g. wrong parameters
+    elif r.status_code == 500:
+        print ("500 error: e.g. wrong parameters")
+
+    # some other problem
+    else:
+        print (r.status_code)
 #+END_SRC
+
+
+
+
 
 
 ** Was bisher geschah
