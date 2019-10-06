@@ -188,7 +188,7 @@ AttributeError: 'C' object has no attribute 'f'
 ** Vermeidbar?
 
 - Wären diese Fehler nicht vermeidbar gewesen?
-  - Mit einer besseren GP1-Vorlesung: Vielleicht!
+  - Mit einer besseren Prog-Vorlesung: Vielleicht!
 - Oder zumindest entdeckbar?
   - Man muss ja nur den Programmcode anschauen um zu sehen, dass das
     nicht funktionieren kann
@@ -569,6 +569,7 @@ Siehe [[http://tratt.net/laurie/research/pubs/html/tratt__dynamically_typed_lang
 - Einer dynamisch typisierten Sprache etwas mehr statische
   Typinformation beibringen?
   - [[https://www.python.org/dev/peps/pep-0484/][Ansätze dazu für Python]]
+  - Python Type Hints erreichen viele der hier erhofften Vorteile
 - Eine statisch typisierte Sprache dynamischer machen?
   - Schwierig
   - In gewissem Sinne: Reflection 
@@ -586,6 +587,8 @@ Siehe [[http://tratt.net/laurie/research/pubs/html/tratt__dynamically_typed_lang
   Semantik
 - Dafür unter Umständen bessere Garantien, Verlässlichkeit der
   Programme 
+
+
 
 
 ** Und nun? 
