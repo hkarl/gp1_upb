@@ -87,16 +87,16 @@ def pingo(line):
 - Wir hatten in Funktionen, Klassen mit Sonderfällen zu tun
   - Fehlende oder sinnlose Eingaben
   - Unmögliche Ausführung
-- Wir haben versucht, Probleme durch Rückgabewerte dem Aufrufer
+- Wir hatten versucht, Probleme durch Rückgabewerte dem Aufrufer
   mitzuteilen
 - Das funktioniert bestenfalls kläglich 
 
 ** Dieses Kapitel 
 
-- Ein konsistentes Vorgehen, um mit Fehler und Ausnahmen umzugehen
-  - Fehler zu signalisieren
+- Ein konsistentes Vorgehen, um mit Fehlern und Ausnahmen umzugehen
+  - Fehler zu signalisieren (z.B. zwischen Funktion und Aufrufer)
   - Fehler zu behandeln, weiter zu reichen oder zu ignorieren
-- Objektorientiert, also Fehler sind ebenfalls Objekte 
+- Objektorientiert: Fehler sind ebenfalls Objekte 
 
 * Fehlerbehandlung durch Rückgabewerte 
 
@@ -160,7 +160,7 @@ h()
 ** Probleme bei Fehlercodes -- Analyse
 
 
-- Man erkennt nicht mehr die Struktur
+- Man erkennt nicht mehr die Struktur des Programs, des Algorithmus
 - Das Programm ist nicht wartbar
 - Z.B. Fehlerbehandlung von ~g~ an verschiedenen Stellen
 - Mit dem gleichen Fehler aus verschiedenen Aufrufen kann man
@@ -224,10 +224,10 @@ Also naheliegend:
 Eine Ausnahme ist eine Repräsentation eines Fehlerzustands in einem
 Objekt einer geeigneten Klasse. 
 
-Eine eintretende Ausnahme /verändert das Ausführungsmodell/: Es wird
+Zur Behandlung von Ausnahmen /verändern wir das Ausführungsmodell/: Es wird
 nicht die nächste Anweisung ausgeführt, sondern die Folge der
-Anweisungen abgebrochen und der zugehörige Ausnahmebehandler (exception
-handler) zur Ausführung gebracht. 
+Anweisungen abgebrochen und der zugehörige Ausnahmebehandler 
+(/exception handler/) zur Ausführung gebracht. 
 
 
 
@@ -239,7 +239,9 @@ handler) zur Ausführung gebracht.
 - Ausnahmen werden in Python durch Objekte der Klasse ~BaseException~ oder
   abgeleiteter Klassen dargestellt
 - Siehe [[https://docs.python.org/3/library/exceptions.html#exception-hierarchy][Klassenhierarchie der Ausnahmen]] 
-- Einige Beispiele:
+
+***  Beispiele                                                      :animate:
+
   - ~ArithmeticError~
     - ~ZeroDivisionError~
   - ~LookupError~
@@ -1331,5 +1333,15 @@ Also Muster:
   - Insbes. bei geschachtelten Funktionsaufrufen 
 - Exceptions werden häufig in bestimmten Mustern benutzt (Lesbarkeit!)
 
+
+** Fehlermeldungen 
+
+Aber was immer Sie tun, schreiben Sie sinnvolle Fehlermeldungen
+https://xkcd.com/2200/ 
+
+#+CAPTION: Sinnvolle Fehlermeldungen 
+#+ATTR_LaTeX: :width 0.25\linewidth
+#+NAME: fig:tired_error
+[[./figures/unreachable_state.png]]
 
 
