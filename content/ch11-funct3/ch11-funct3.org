@@ -101,7 +101,52 @@ def pingo(line):
 - Darauf aufbauend erarbeiten wir typische Programmiertechniken zur
   /funktionalen Programmierung/ 
 
+** Beispiel: Quadratzahlen aufsummieren 
 
+Ziel: Funktion, die die Quadrate der ganzen Zahl von 1 bis $n$
+aufsummiert 
+
+#+BEGIN_SRC python 
+def qudratsumme (n):
+    return sum(((i*i for in range(1,n+1)))
+#+END_SRC
+
+
+** Beispiel: Kubikzahlen aufsummieren 
+
+Ziel: Funktion, die die dritten Potenzen der ganzen Zahl von 1 bis $n$
+aufsummiert 
+
+#+BEGIN_SRC python 
+def kubiksumme (n):
+    return sum((i*i*i for in range(1, n+1)))
+#+END_SRC
+
+** Beispiel: Approximation von $\pi$ 
+
+Es gilt: $ \pi/8 = \frac{1}{1\cdot3}+ \frac{1}{5\cdot7}+ \frac{1}{9\cdot11}+ \cdot$
+
+Ziel: Funktion, die das approximiert 
+
+#+BEGIN_SRC python 
+def pi_achtel (n):
+    return sum((1/( (2*i-1) + (2*i+1) )) for in range(1, n+1))
+#+END_SRC
+
+** Struktur? 
+
+- Offenbar ähnliche Struktur 
+- Warum immer den gleichen /Rahmencode/ neu schreiben?
+  - Veränderliche Teile identifizieren? Und nur die neu schreiben? 
+
+*** Andere Beispiele 
+
+- Nullstellen unterschiedlicher Funktionen berechnen (z.B. mit
+  Newton-Verfahren, ...)
+- Daten anhand unterschiedlicher Kriterien sortieren
+- Daten aus unterschiedlichen Datenquellen auslesen, mit
+  unterschiedlichen Zugriffsfunktionen 
+- ... 
 
 * Verschachtelte Funktionen 
 
@@ -463,6 +508,16 @@ def f():
 f()
 #+END_SRC 
 
+*** Pingo                                                           :animate:
+
+#+BEGIN_SRC python :exports code
+pingo_title = "Was wird wird ausgegeben?" 
+pingo_questions = ["h: None, g: 42, f: 1", "h: 43, g: 42, f: 1", "h: 2, g: 42, f: 2", "h: 43, g: 43, f: 1", "h:43, g:43, f:43"]
+pingo_duration = "180"
+
+%pingo
+#+END_SRC 
+
 
 *** Anmerkung: ~x~ aus ~f~?					    :animate:
 
@@ -755,13 +810,27 @@ print(fuenffacher("Mehrfach ausgeben! "))
 - Closure merken sich den relevanten Zustand -- ein /state retention/
   Ansatz 
 
-*** Closure					       :B_definition:animate:
+** Closure 
+*** Closure                                                    :B_definition:
     :PROPERTIES:
     :BEAMER_env: definition
     :END:
 
 Ein Closure ist eine Funktion, deren nicht-lokale Namen an Objekte
 gebunden wurden. 
+
+
+*** Nicht-lokale Namen 
+
+- Lokale Namen:
+  - Parameter der Funktion
+  - Namen, an die in der Funktion zugewiesen wurde
+- Nicht-lokale Namen:
+  - Namen aus enclosing scopes - egal ob mit nonlocal Schreibzugriff
+    erlaubt oder nicht  
+- Globals bleiben globals! 
+
+
 
 *** Visualisierung						  :dropslide:
 
@@ -888,7 +957,7 @@ Beispiel oben: Name ~vervielfacher~ eigentlich nicht sehr nützlich
 
 - /Ausdruck/, der eine /anonyme Funktion/ vereinbart
   - Keine Anweisung! 
-  - Präziser: der ein Funktionsobjekt erzeugt und eine Referenz auf
+  - Präziser: Ausdruck, der ein Funktionsobjekt erzeugt und eine Referenz auf
     dieses Objekt zurückgibt
 - Eigenschaften
   - Anonyme Funktion darf beliebig viele Parameter haben
@@ -963,6 +1032,66 @@ http://stackoverflow.com/questions/6076270/python-lambda-function-in-list-compre
 
 [(lambda x: x*x) for x in range(10)]
 
+
+** Lambda in Closures - Vorsicht! 
+
+Lambda-Funktionen binden freie Variablen zu einem späteren Zeitpunkt
+als /normale/ Funktionen 
+
+*** Closure mit normaler Funktion 
+
+Erwartete Ausgabe? 
+
+#+BEGIN_SRC python
+def wrap(n):
+    def f():
+        print(n)
+    return f
+ 
+numbers = 'one', 'two', 'three'
+funcs = []
+for n in numbers:
+    funcs.append(wrap(n))
+ 
+for f in funcs:
+    f()
+#+END_SRC
+
+
+
+
+
+** Lambda in Closures - Vorsicht! 
+
+Lambda-Funktionen binden freie Variablen zu einem späteren Zeitpunkt
+als /normale/ Funktionen 
+
+*** Closure mit Lambda 
+
+Erwartete Ausgabe? 
+
+#+BEGIN_SRC python
+numbers = 'one', 'two', 'three'
+funcs = []
+for n in numbers:
+    funcs.append(lambda: print(n))
+
+for f in funcs:
+    f()
+#+END_SRC
+
+
+** Mögliche Abhilfe: Lambda-Parameter explizit binden
+
+#+BEGIN_SRC python
+numbers = 'one', 'two', 'three'
+funcs = []
+for n in numbers:
+    funcs.append(lambda nn=n: print(nn))
+
+for f in funcs:
+    f()
+#+END_SRC
 
 
 * Funktionaler Programmierstil 
@@ -1055,8 +1184,59 @@ Konvertierung in Liste nur nötig für ~print~
 Reichlich Beispiele, siehe Übungen: 
 - zip
 - reduce 
-
 *** UEBUNG Ganz viele Beispiele hier denkbar
+
+
+** \lambda als key-Funktion 
+
+- Viele Funktionen, die Daten vergleichen, haben einen Parameter ~key~
+- An ~key~ kann ein \lambda-Ausdruck übergeben werden, die aus einem
+  Datum den für den Vergleich relevanten Teil extrahiert 
+
+*** Beispiel 
+
+- Alphanumerische Daten unterschiedlich sortieren 
+- von https://realpython.com/python-lambda/
+
+#+BEGIN_SRC python
+ids = ['id1', 'id2', 'id30', 'id3', 'id22', 'id100']
+print(sorted(ids)) # Lexicographic sort
+
+sorted_ids = sorted(ids, key=lambda x: int(x[2:])) # Integer sort
+print(sorted_ids)
+#+END_SRC
+
+
+** \lambda in GUI Programmierung 
+
+- Szenario: Sie erzeugen eine Gruppe von Buttons für eine grafische
+  Benutzerschnittstelle
+- Wenn ein Knopf gedrückt wird, soll eine Funktion mit einem Parameter
+  aufgerufen werden 
+- Beispiel hier: [[https://docs.python.org/3/library/tk.html][Tk]] (von
+  https://stackoverflow.com/questions/890128/why-are-python-lambdas-useful)
+  - Alternative: Für jeden Button eine eigene Funktion
+    definieren.... Unübersichtlich!  
+
+#+BEGIN_SRC python 
+def my_callback(arg): pass 
+
+for value in ["one", "two", "three"]:
+    b = tk.Button(label=value, command=lambda arg=value: my_callback(arg))
+    b.pack()
+#+END_SRC
+
+** \lambda in Web-Anwendungen 
+
+(Typischerweise: Javascript Code!) 
+
+- Szenario:
+  - Anwendung in Web-Browser schickt, in Schleife, mehrere
+    Anfragen an Server
+  - Sobald Antwort von Server eintrifft, soll jeweils eine andere
+    Funktion aufgerufen werden, mit Parametern vom Server
+
+
 
 ** \lambda-Ausdrücke und flexible Argumente 
 
@@ -1536,11 +1716,21 @@ Funktion oder den nutzenden Code zu verändern.
         Scrollbars hat 
   - Webframework (Beispiel: Django)
     - Die Handhabung von URLs wird durch Dekoratoren angepasst
+    - Beispiel: ~@login_required~ für Methoden, die URL-Requests verarbeiten
+- Ein Cache für aufwändige Funktionsaufrufe 
 
 ** Decorators für Methoden 
 
 - Methoden einer Klasse sind Funktion 
-- Also können sie dekoriert werden 
+- Also können sie dekoriert werden
+- Beispiele wie oben 
+
+** Decorators für Klassen 
+
+- Klassen können dekoriert werden 
+- Beispiel: ~functools.total_ordering~
+  - Stellt Klasse *eine* Vergleichsmethode (z.B. ~__lt__~) bereit,
+    ergänzt der Dekorator die fehlenden Methoden
 
 ** Decorators: Syntaktischer Zucker 
 
