@@ -49,7 +49,7 @@ Objektorientierung in Java
 ** Klassen: Deklaration eines Typs 
 
 - Deklaration einer Klasse: ~class~
-  - Erschafft einen neuen Datentyp
+  - Erschafft eines neuen Datentyp
 - Wesentlicher Punkt: Die Daten der Klassen werden deklariert, nicht
   nur die Methoden 
 
@@ -86,7 +86,7 @@ Zwei Aspekte: Deklaration und Erzeugung
 
 *** Deklaration 
 
-Wir /deklarieren/ eine Variable vom Typ Ellipse
+Wir /deklarieren/ eine /Variable/ vom Typ Ellipse
   - Analogie: eine leere Schachtel anlegen
   - Syntax entspricht Deklaration von ~int~, ~String~, etc. --
     Ellipse /ist/ ein neuer Typ 
@@ -105,7 +105,7 @@ Zwei Aspekte: Deklaration und Erzeugung
 
 *** Erzeugung  
 
-- Wir /erzeugen/ ein Objekt vom Typ Ellipse
+- Wir /erzeugen/ ein /Objekt/ vom Typ Ellipse
   - Schlüsselwort: ~new~
     - Mit Aufruf des Konstruktors (ggf. samt Parameter)
   - Analogie: Wir erzeugen  Inhalt 
@@ -131,7 +131,8 @@ e = new Ellipse();
 
 Dieser zweischrittige Prozess kommt Ihnen -- aus der Python-Perspektive --
 sicherlich seltsam vor. Dort werden Variablen nicht deklariert
-(in einer dynamisch typisierten Sprache nicht notwendig); sie werden
+(in einer dynamisch typisierten Sprache nicht notwendig, eigentlich
+gibt es ja auch keine Variablen in Python); sie werden
 bei Bedarf im Moment der Zuweisung erschaffen. 
 
 ** Zugriff auf Daten 
@@ -874,7 +875,7 @@ kaum (zwischen Python und Java)
 
 ** Zugriff auf Felder nach Zuweisung zu Variable eines Oberklassentyps 
 
-- Kann man nach Zuweisung zu einer Oberklassentypisierten Variable
+- Kann man nach Zuweisung zu einer oberklassentypisierten Variable
   noch auf die Daten (oder Methoden) der Unterklasse zugreifen?
   - Die sind in dem Objekt ja noch vorhanden
   - Es wurde ja nur der Typ der /Referenz/ geändert; am Objekt selbst
