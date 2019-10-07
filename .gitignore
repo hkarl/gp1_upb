@@ -27,6 +27,7 @@ content/tmp
 *.loe
 *.lof
 content/*/uml/*png
+content/*/*.ipynbibak
 
 content/ch11-funct3/figures/pt-closure-h.png
 content/ch11-funct3/figures/pt-closure2-1.png
