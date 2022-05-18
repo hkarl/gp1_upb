@@ -923,7 +923,7 @@ Das hier funktioniert:
 - Es wird nicht der Name ~L~ verändert, sondern das referenzierte
   Objekt, die Liste selbst! 
   
-** Modifikation einer globalen Variablen 
+** Modifikation des Wertes eines globalen Namens  
 
 - Eigentlich geht das nicht!
   - Funktionen kommunizieren Ergebnisse durch
@@ -937,7 +937,7 @@ Das hier funktioniert:
 #+NAME: fig:danger
 [[./figures/DangerWillRobinson.png]]
 
-** Modifikation eines globalen Namens
+** Modifikation des Wertes eines globalen Namens
 
 - Eigenes Schlüsselwort: ~global~
   - Deklariert einen Namen als dem globalen Scope zugehörig 

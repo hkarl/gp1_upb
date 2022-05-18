@@ -108,7 +108,7 @@ Was hätten wir gerne?
 - Beliebige Objekte aufzählen, nicht nur Zeichen
 - Reihenfolge!
 - Zugriff auf einzelne Elemente
-  - Zugriff auf der 1., 2., 3. Element
+  - Zugriff auf das 1., 2., 3. Element
 
 
 ** Aufzählungen von Aufzählungen? 
@@ -333,6 +333,7 @@ print(z)
 
 *** Unterschiedliche Anzahl 
 
+Das scheitert -- Aufteilung wäre unklar: 
 
 #+BEGIN_SRC python
 x, y = (1, 2, 3, 4, 5, 6, 7) 
@@ -340,9 +341,11 @@ print(x)
 print(y)
 #+END_SRC
 
-Scheitert -- Aufteilung wäre unklar
 
 *** Unterschiedliche Anzahl mit Hilfe                               :animate:
+
+- Das geht -- Stern ~*~ zeigt die variable Elementanzahl an 
+- Siehe [[https://www.python.org/dev/peps/pep-3132/][PEP 3132]] 
 
 
 
@@ -355,14 +358,12 @@ print(x, u, y)
 #+RESULTS:
 : 1 [2, 3, 4] 5
 
-- Das geht -- Stern ~*~ zeigt die variable Elementanzahl an 
-- Siehe [[https://www.python.org/dev/peps/pep-3132/][PEP 3132]] 
 
 
 ** Unpacking -- weitere Beispiele
 
 
-Häufige Muster: Kopf eines Tuples abtrennen
+Häufiges Muster: Kopf eines Tuples abtrennen
 
 #+BEGIN_SRC python :exports both :results output
 l = (1, 2, 3, 4)

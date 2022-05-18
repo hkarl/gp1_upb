@@ -108,7 +108,7 @@ aufsummiert
 
 #+BEGIN_SRC python 
 def qudratsumme (n):
-    return sum(((i*i for in range(1,n+1)))
+    return sum( [ i*i for i in range(1,n+1) ] )
 #+END_SRC
 
 
@@ -119,7 +119,7 @@ aufsummiert
 
 #+BEGIN_SRC python 
 def kubiksumme (n):
-    return sum((i*i*i for in range(1, n+1)))
+    return sum( [ i*i*i for i in range(1, n+1) ])
 #+END_SRC
 
 ** Beispiel: Approximation von $\pi$ 
@@ -130,7 +130,7 @@ Ziel: Funktion, die das approximiert
 
 #+BEGIN_SRC python 
 def pi_achtel (n):
-    return sum((1/( (2*i-1) + (2*i+1) )) for in range(1, n+1))
+    return sum([ 1/( (2*i-1) + (2*i+1) ) for i in range(1, n+1) ])
 #+END_SRC
 
 ** Struktur? 
@@ -345,9 +345,25 @@ NameError: name 'x' is not defined
 
 
 
+** Lesender Zugriff auf Namen der äußeren Funktion? Direkt? 
 
 
-** Zugriff auf Namen der äußeren Funktion? Direkt? 
+#+BEGIN_SRC python :exports code :results output
+  def f():
+      def g():
+          print(x)
+      x = 1
+      g()
+
+  f()
+#+END_SRC 
+
+*** Ok								    :animate:
+
+- Offenbar wird im Namensraum der  *umgebenden*  von ~g~ gesucht! 
+- Und dort ein ~x~ gefunden 
+
+** Schreibender Zugriff auf Namen der äußeren Funktion? Direkt? 
 
 #+BEGIN_SRC python :exports code :results output
   def f():
@@ -360,10 +376,16 @@ NameError: name 'x' is not defined
   f()
 #+END_SRC 
 
+*** Scheitert!							    :animate:
+
+- ~x~ in Zeile 3 ist lokal zu ~g~! 
+- Analog zu ~global~: Einfach /fremden/ Namen verändern ist schlechte
+  Praxis
 
 *** Fehlermeldung						  :dropslide:
 
-Scheitern ist plausibel: Nach bisherigen Regeln wird im *lokalen*
+Scheitern ist plausibel: Nach bisherigen Regeln wird an ~x~
+zugewiesen, also ist ~x~ im *lokalen*
 Namensraum von ~g~ gesucht; dort gibt es kein ~x~. Also Fehler.
 
 #+BEGIN_SRC python :exports both :results output
@@ -377,66 +399,32 @@ UnboundLocalError: local variable 'x' referenced before assignment
 
 
 
-** Zugriff auf Namen der äußeren Funktion -- Reihenfolge? 
+** Schreibender Zugriff auf Namen der äußeren Funktion? Reihenfolge? 
 
-
-Liegt es vielleicht an der Reihenfolge? 
-- Im Beispiel eben war bei der /Definition/ von ~g~ der Namen ~x~
-  noch gar nicht existent
-- Muss es das ~x~ schon geben, wenn ~g~ definiert wird? Damit ~g~
-  darauf zugreifen kann? 
-
-#+BEGIN_SRC python :exports both :results output
-  def f():
-      x = 1 
-      def g():
-          print(x)
-      g()
-
-  f()
-#+END_SRC 
-
-#+RESULTS:
-: 1
-
-*** Ja!								    :animate:
-
-Offenbar wird auch der Namensraum einer umschließenden Funktion
-durchsucht! 
-
-
-** Modifizierender Zugriff auf Namen der äußeren Funktion? 
-
-Kann man solche "umschließenden Namen" auch verändern? 
-- Kurz für "Namen aus umschließendem Namensraum" 
+Liegt es vielleicht an der Reihenfolge? ~x~ in ~f~ zuweisen, bevor in
+~g~ benutzt? 
 
 #+BEGIN_SRC python :exports code :results output
   def f():
       x = 1 
       def g():
-          x += 1
+          x = x + 1 
           print(x)
       g()
 
   f()
 #+END_SRC 
 
-#+RESULTS:
+*** Scheitert!							    :animate:
 
-*** Offenbar nein						    :animate:
+- Scheitert ebenfalls, nach gleicher Logik! 
 
-Das ist analog zur Situation bei ~global~
+** Modifizierender Zugriff auf Namen der äußeren Funktion? 
 
-*** Fehlermeldung						  :dropslide:
-
-#+BEGIN_SRC python :exports both :results output
-Traceback (most recent call last):
-  File "<stdin>", line 8, in <module>
-  File "<stdin>", line 6, in f
-  File "<stdin>", line 4, in g
-UnboundLocalError: local variable 'x' referenced before assignment
-#+END_SRC 
-
+- Kann man solche "umschließenden Namen" auch verändern? 
+  - Kurz für "Namen aus umschließendem Namensraum" 
+- Analog zu ~global~ für globale Namen? 
+- (Und ja, das ist nicht unbedingt gute Praxis...) 
 
 
 ** Neues Schlüsselwort: ~nonlocal~ 				   

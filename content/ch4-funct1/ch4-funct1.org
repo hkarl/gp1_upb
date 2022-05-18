@@ -254,6 +254,8 @@ In Beispiel:
       # usw... weitere Anweisungen
 #+END_SRC
 
+*** Was passiert? 
+
 - Es wird *eine* Anweisung ausgeführt: Die Definition der Funktion und
   das Binden an den Namen  ~meine_funktion~
   - Das ist die einzige Zustandsänderung! 
@@ -443,8 +445,8 @@ Wir erweitern das Ausführungsmodell:
 
 - Aufruf der Funktion: Programm mit den Anweisungen der Funktion
   fortsetzen
-  - Vorstellung: Der /Aufruf/ der Funktion wird durch die /Anweisungen/
-    der Funktion ersetzt
+  - Vorstellung: Der /Aufruf/ der Funktion wird durch die
+    /Anweisungen/ der Funktion ersetzt
   - Diese Anweisungen werden  dann ausgeführt 
 - Nach Ausführung der letzten Anweisung der Funktion: Mit der
   Anweisung nach dem Aufruf weitermachen
@@ -551,7 +553,7 @@ werden und auf unterschiedliche Objekte verweisen.
     :END:
 
 - Ein Funktionsaufruf erzeugt einen Namensraum für
-  diese Funktion. Dieser Namensraum verschwindet wenn die Funktion
+  diese Funktion. Dieser Namensraum verschwindet, wenn die Funktion
   zurückkehrt. 
 - Alle vordefinierten Funktionen existieren in einem eigenen Namensraum
   (mit Namen ~builtins~). 
@@ -1426,7 +1428,7 @@ Eine Funktion kann eine beliebige Anzahl an Parametern haben:
 Aufruf einer /vordefinierten/ Funktion: 
 
 #+BEGIN_SRC python
-print("Hallo GP1")
+print("Hallo Programmierung")
 x = 42
 print(x)
 #+END_SRC
@@ -1546,23 +1548,23 @@ Vergleiche die beiden Code-Blöcke:
 
 #+BEGIN_SRC python :exports both :results output
 print("Hallo")
-print("GP1")
+print("Programmierung")
 #+END_SRC 
 
 #+RESULTS:
 : Hallo
-: GP1
+: Programmierung
 
 *** Version 2 
 
 
 #+BEGIN_SRC python :exports both :results output
 print("Hallo", end=" ")
-print("GP1")
+print("Programmierung")
 #+END_SRC 
 
 #+RESULTS:
-: Hallo GP1
+: Hallo Programmierung
 
 
 ** ~print~ vs. ~return~? 
@@ -1658,7 +1660,7 @@ Wo gibt es Funktionen?
 #+BEGIN_SRC python
   type(42)
   type(0.01)
-  type("Hallo GP1")
+  type("Hallo Programmierung")
 #+END_SRC
 
 
